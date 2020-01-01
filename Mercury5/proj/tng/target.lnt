@@ -1,0 +1,76 @@
+-i"c:\lint\lnt"
+-i"C:\ARM\RVCT\Data\2.2\349\include\windows"
+-u
+-si4 -sp4
+-sw2 //The size of wchar_t is set to the indicated value.
+-w2 // warning level
+-hF1 // output format
+-width(0,0) // output format width
+-d__VER_INFO_CUS__="MSTAR.Test"
+-d__VER_INFO__="MSTAR.Test"
+-d__CUST_ID__="MST"
+-d__ARMCC_VERSION=220616
+-d__attribute__()=   // ignore this keyword and following parenthetical
+-d__restrict__=   // ignore this keyword
+-e537 // remove repeated include header warning.
+-e534 // Ignoring return value of function
+-e830
+-e831
+-e46 //Field type should be int
+-e641 // Converting enum to int
+-e64 // (temp remove)Error 64 : Type mismatch
+-e613 // (temp remove)Warning 613: Possible use of null pointer 'XXX' in left argument to operator '->'
+-e539 // (temp remove)Warning 539 : Did not expect positive indentation from line 551
+-e725 // (temp remove)Warning 725: Expected positive indentation from Location
+-e525 // (temp remove)Warning 525: Negative indentation from Location
+-e413 // (temp remove)Warning 413 : mmi use many macro to access global variable, it cause warning. Likely use of null pointer 'unknown-name' in right argument to operator 'ptr-ptr'
+-e408 // (temp remove)Warning 408 : Type mismatch with switch expression   For example, an enumerated type is matched against an int.
+-e656 // (temp remove)Warning 656 : Arithmetic operation uses (compatible) enum's .The type of the result is considered to be the enumeration.  This is considered a very minor deviation from the strict model and you may elect to suppress this warning.
+-e616 // (temp remove)Warning 616 : control flows into case/default
+-e506 //(temp remove)Warning 506 : Constant value Boolean
+-e651 //(temp remove)Warning 651 : Potentially confusing initializer
+-e123 // Error 123 : Macro 'Scenario' defined with arguments at
+-e655 //  Warning 655 : bit-wise operation uses (compatible) enum's   This is considered a very minor deviation
+-e87  //  Error 87 : expression too complicated for #ifdef or #ifndef
+-emacro((???),va_arg)   // the va_arg() macro can yield 415, 416, 661, 662	// 796 and 797 (out-of-bounds errors).
+-fbo // disable boolean type
++fem //fem Early Modifiers flag
+//+fwc enable wchar_t type.
+co.lnt
+-function(free, mem_free)
+-function(malloc, mem_malloc)
+-function(free, ven_os_mem_free)
+-function(malloc, ven_os_mem_malloc)
+-function(free, MsReleaseMemory)
+-function(malloc, MsAllocateMem)
+-function(free, MAE_FreeObject)
+-function(malloc, MAE_AllocObjectEx)
+-function(malloc, MAE_AllocObject)
+-function(free, MAE_Free)
+-function(malloc, MAE_Malloc)
++ffn //Full (file) Name flag
++fhd //strong-Hierarchy-Down flag
++fhs //Hierarchy-of-Strong-types flag
++fan
++fas
++fce //fce (continue on #error)
++macros //double string buffer
++macros //double string buffer
++macros //double string buffer
+-format=%(%f(%l,%c)\s:\s%)%t\s%n\s:\s%m
+
++rw( __declspec )
++rw( __pure )
++rw( __value_in_regs )
++rw(__packed)
++rw(__inline)
++rw(__weak)
++rw(__nothrow)
++rw(__softfp)
++linebuf
+-rw_asgn(__align,_to_brackets)
+-rw_asgn( __swi, _to_brackets )
+-ident($)
+-d__asm=asm
++rw(__asm)
++linebuf

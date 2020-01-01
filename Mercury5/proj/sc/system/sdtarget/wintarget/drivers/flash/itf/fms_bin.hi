@@ -1,0 +1,236 @@
+/****************************************************************************/
+/*  $Workfile::   fms_bin.hi                                              $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services - Bin related utilities                */
+/*             Public interface                                             */
+/*  Contents:                                                               */
+/*             type fms_BinType_e                                           */
+/*             fms_BinGetOrigin                                             */
+/*             fms_BinGetSize                                               */
+/*             fms_BinGetChecksum                                           */
+/*             fms_BinDestroy                                               */
+/*             fms_BinEraseSector (for downloaders only)                    */
+/*             fms_BinValidate                                              */
+/*                                                                          */
+/****************************************************************************/
+
+
+
+#ifndef __FMS_BIN_HI__
+#define __FMS_BIN_HI__
+
+/****************************************************************************/
+/* SPECIFIC TYPES                                                           */
+/****************************************************************************/
+
+typedef enum
+{
+   FMS_BIN_GSMSTACK,
+   FMS_BIN_OPENAT,
+   FMS_BIN_XMODEM
+} fms_BinType_e;
+
+
+typedef struct
+{
+   u32            u32_Origin;
+   u32            u32_HighWater;
+   u32            u32_EraseHighWater; // Multi-Bin
+   fms_BinType_e  e_Type;
+} fms_BinHandle_t;
+
+
+/****************************************************************************/
+/* SOME CONSTANTS ABOUT OPENAT BINARIES...                                  */
+/****************************************************************************/
+
+#define BINARY2_PATTERN_SIZE 4
+#define BINARY2_TYPE_SIZE 4
+#define BINARY2_VERSION_SIZE 8
+#define BINARY2_HEADER_SIZE  (BINARY2_PATTERN_SIZE + BINARY2_TYPE_SIZE + BINARY2_VERSION_SIZE)
+
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function:  fms_BinGetOrigin                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns the origin address in flash memory of the            */
+/*             selected code.                                               */
+/*                                                                          */
+/*  Return    : (s32) Address or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinGetOrigin(fms_BinType_e i__e_Type);
+
+
+/****************************************************************************/
+/*  Function:  fms_BinGetSize                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns the size of the selected binary                      */
+/*                                                                          */
+/*  Return    : (s32) Address or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinGetSize(fms_BinType_e i__e_Type);
+
+
+// HIDE
+/****************************************************************************/
+/*  Function: fms_BinGetChecksum                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Fills the array given as parameter with the checksum          */
+/*            of the selected binary                                        */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*  o__pu8_Target     |   | X |   |  Target buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinGetChecksum(fms_BinType_e i__e_Type, u8 *o__pu8_Target);
+
+// UNHIDE
+
+/****************************************************************************/
+/*  Function: fms_BinDestroy                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Destroy the selected binary                                   */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinDestroy(fms_BinType_e i__e_Type);
+
+// HIDE
+#ifdef __DOWNLOADER__
+
+
+/****************************************************************************/
+/*  Function: fms_BinEraseSector                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Erases the specified sector if it belongs to a set of services*/
+/*            or according to the return value of a given function          */
+/*                                                                          */
+/*  Return    : (s32) Error code                                            */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address    | X |   |   |  Sector address                         */
+/*  i__u32_ServiceMask| X |   |   |  Mask of the services to wipe           */
+/*  i__pf_TestFunc    | X |   |   |  User-supplied function                 */
+/*  i__pf_CallBack    | X |   |   |  User-supplied function to call instead */
+/*                    |   |   |   |  of fms_Erase when address matches      */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinEraseSector(u32 i__u32_Address, u32 i__u32_ServiceMask, s32(*i__pf_TestFunc)(u32), s32(*i__pf_CallBack)(u32)); //noexport
+
+/****************************************************************************/
+/*  Function: fms_BinValidate                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Appends a checksum to the binary whose address and size are   */
+/*            given, and registers it with the selected type.               */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*  i__u32_Origin     | X |   |   |  Base address of the binary             */
+/*  i__u32_Size       | X |   |   |  Size of the binary                     */
+/*  o__pu32_Chksum    |   | X |   |  Calculated checksum or NULL            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinValidate(fms_BinType_e i__e_Type, u32 i__u32_Origin, u32 i__u32_Size, u32 *o__pu32_Chksum); //noexport
+
+/****************************************************************************/
+/*  Function: fms_BinCreate                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Creates a binary and initialises the supplied handle          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Handle     | X | X |   |  Handle to use                          */
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*  i__u32_Origin     | X |   |   |  Address of the binary                  */
+/*  i__u32_Size       | X |   |   |  Size of the binary                     */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinCreate(fms_BinHandle_t *io__ps_Handle, fms_BinType_e i__e_Type, u32 i__u32_Origin, u32 i__u32_Size); //noexport
+
+/****************************************************************************/
+/*  Function: fms_BinWrite                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Writes a binary through a fms_BinHandle_t structure.          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to use                          */
+/*  i__u32_Size       | X |   |   |  Number of bytes to write               */
+/*  i__p_Source       | X |   |   |  Source buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinWrite(void *i__ps_Handle, void *i__p_Handle, u32 i__u32_Size); //noexport
+
+/****************************************************************************/
+/*  Function: fms_BinFinalize                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Finalizes the creation of a binary                            */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to use                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_BinFinalize(fms_BinHandle_t *i__ps_Handle); //noexport
+
+s32 fms_EraseBackTrace(void) ;
+u32 xor_checksum(u32 init_value, u32 *ptr, u32 size);
+
+#endif /* __DOWNLOADER__ defined */
+// UNHIDE
+
+#endif /* ! __FMS_BIN_HI__   */

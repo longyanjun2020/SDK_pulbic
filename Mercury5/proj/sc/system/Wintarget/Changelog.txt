@@ -1,0 +1,32 @@
+Version 1.17
+============
+2010/04/30 Changelist: 207617
+* New feature: Keep state after download
+
+Version 1.16
+============
+2010/04/22 Changelist: 206415
+* New feature: Sync phone RTC with PC local time
+* Fix a bug of verifying CUS always error
+* Limit the reserved RAI size to 512KB
+* Refine debug messages
+
+Version 1.15
+============
+Changelist: 200592
+* Download sequence check is modified
+  1. Different types of CUS can not be downloaded interleaved
+  2. Language pack should be downloaded after LCM and sensor table.
+
+Version 1.14
+============
+Changelist: 196698
+* Fix bug of DSP patch is not included in CUS length)
+
+Version 1.13
+============
+Changelist: 190215
+* Patch download protocol
+* Support listen mode
+* Minor bug fix
+

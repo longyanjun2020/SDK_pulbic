@@ -1,0 +1,22 @@
+#ifndef __MMI_SENDVIAAPP_ID_H__
+#define __MMI_SENDVIAAPP_ID_H__
+
+typedef enum
+{
+    SENDVIA_WND_MENU = WND_ID_APP_BASE,
+}SendviaWndId_e;
+
+typedef enum
+{
+	MNU_SENDVIA_SEND_VIA = 0,
+	MNU_SENDVIA_SEND_VIA_SMS,
+	MNU_SENDVIA_SEND_VIA_BLUETOOTH,
+	MNU_SENDVIA_SEND_VIA_MMS,
+#ifdef __MMI_KMX_TT__
+	MNU_SENDVIA_SEND_VIA_WEIBO,
+#endif
+	MNU_SENDVIA_SEND_VIA_EMAIL,
+}SendviaMenuId_e;
+
+#endif //__MMI_SENDVIAAPP_ID_H__
+

@@ -1,0 +1,68 @@
+
+; C0 Controls and Basic Latin
+; U+0000 - U+007F
+
+    U+0020 - U+007E
+
+; C1 Controls and Latin-1 Supplement
+; U+0080 - U+00FF
+
+   U+00A0 - U+00FF
+
+; Latin Extended-A
+; U+0100 - U+017F
+
+    U+0100 - U+017F
+
+; Latin Extended-B
+; U+0180 - U+024F
+
+    U+0180 - U+024F
+
+; Greek and Coptic
+; U+0370 - U+03FF
+
+    U+0374 - U+0375
+    U+037A - U+037E
+    U+0384 - U+038A
+    U+038C
+    U+038E - U+03A1
+    U+03A3 - U+03CE
+    U+03D0 - U+03FF
+
+; Cyrillic
+; U+0400 - U+04FF
+
+    U+0400 - U+0486
+    U+0488 - U+04FF
+
+; Latin Extended Additional
+; U+1E00 - U+1EFF
+
+    U+1E00 - U+1E9B
+    U+1EA0 - U+1EF9
+
+; Others
+
+    U+2018 - U+201F   ; QUOTATION MARKS
+
+    U+2020  ; DAGGER
+    U+2021  ; DPUBLE DAGGER
+    U+2022  ; BULLET
+    U+2026  ; HORIZONTAL ELLIPSIS
+    U+2030  ; PER MILLE SIGN
+    U+2039  ; SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+    U+203A  ; SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+
+    U+20A2  ; CRUZEIRO SIGN
+    U+20A3  ; FRENCH FRANC SIGN
+    U+20A7  ; PESETA SIGN
+    U+20AB  ; DONG SIGN
+    U+20AC  ; EURO SIGN
+
+    U+2103  ; DEGREE CELSIUS
+    U+2109  ; DEGREE FAHRENHEIT
+    U+2116  ; NUMERO SIGN
+    U+2122  ; TRADE MARK SIGN
+
+    U+2423  ; OPEN BOX

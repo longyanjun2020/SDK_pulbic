@@ -1,0 +1,96 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="IDLE_WND_DESKTOP" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="BgImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="94781" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="FadeoutWdg" ClsID="CLSID_FADEOUTWIDGET" SizeHeight="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_HEIGHT" SizeWidth="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_POS_Y" />
+				<Property Id="PROP_FADEOUT_WDG_FO_LEVEL" Value="0" />
+				<InternProp Id="GUID" Value="0460e" />
+			</Widget>
+			<Widget Id="MediaNameTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_HEIGHT" SizeWidth="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_LAYOUT_MEDIANAMEWIDGET_POS_Y" />
+				<InternProp Id="GUID" Value="43582" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NetworkTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_HEIGHT" SizeWidth="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_POS_Y" />
+				<InternProp Id="GUID" Value="b47b4" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NIL_N_NETWORK_SEARCHING" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NetworkSlaveTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_SLAVE_HEIGHT" SizeWidth="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_SLAVE_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_SLAVE_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_V2_LAYOUT_NETWORKWIDGET_SLAVE_POS_Y" />
+				<InternProp Id="GUID" Value="d6f73" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NIL_N_NETWORK_SEARCHING" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="StkTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="IDLEAPP_LAYOUT_STKWIDGET_HEIGHT" SizeWidth="IDLEAPP_LAYOUT_STKWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_LAYOUT_STKWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_LAYOUT_STKWIDGET_POS_Y" />
+				<InternProp Id="GUID" Value="130bc" />
+			</Widget>
+			<Widget Id="StkSlaveTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="IDLEAPP_LAYOUT_STKWIDGET_SLAVE_HEIGHT" SizeWidth="IDLEAPP_LAYOUT_STKWIDGET_SLAVE_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_LAYOUT_STKWIDGET_SLAVE_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_LAYOUT_STKWIDGET_SLAVE_POS_Y" />
+				<InternProp Id="GUID" Value="ef9e3" />
+			</Widget>
+			<Widget Id="ShortcutBarOffButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="IDLEAPP_LAYOUT_SHORTCUTBUTTON_HEIGHT" SizeWidth="IDLEAPP_LAYOUT_SHORTCUTBUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_LAYOUT_SHORTCUTBUTTON_OFF_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_LAYOUT_SHORTCUTBUTTON_POS_Y" />
+				<InternProp Id="GUID" Value="99346" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="SHORTCUTS_LIST_SWITCH_ON" />
+						<Image Id="SHORTCUTS_LIST_SWITCH_ON_PRESS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ShortcutBarOnButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="IDLEAPP_LAYOUT_SHORTCUTBUTTON_HEIGHT" SizeWidth="IDLEAPP_LAYOUT_SHORTCUTBUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="IDLEAPP_LAYOUT_SHORTCUTBUTTON_ON_POS_X" />
+				<Position Type="Y_POSITION" Value="IDLEAPP_LAYOUT_SHORTCUTBUTTON_POS_Y" />
+				<InternProp Id="GUID" Value="6290f" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="SHORTCUTS_LIST_SWITCH_OFF" />
+						<Image Id="SHORTCUTS_LIST_SWITCH_OFF_PRESS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="7377d" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_IDLEAPP" />
+</UiRoot>

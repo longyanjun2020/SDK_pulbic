@@ -1,0 +1,66 @@
+/****************************************************************************/
+/*  Message :       JAVA_RUNAPP_REQ                                         */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Java                                                 */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : java_runAppRequest_t                                        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+
+#ifndef __JAVA_ARC_STMSG_HI__
+#define __JAVA_ARC_STMSG_HI__
+
+#ifdef __JAVA_DELTA__
+#include "nemomp.h"
+
+typedef struct
+{
+    int suiteId;
+    int midletId;
+} ijava_runAppRequest_t;
+
+typedef struct
+{
+    int suiteId;
+    int midletId;
+#ifdef __JAVA_JTWI__	
+    int cause;
+#endif
+    char jadPath[128];
+    char jarPath[128];
+} ijPxy_runAppRequest_t;
+
+
+typedef struct
+{
+    u16 *jadPath;
+    u16 *jarPath;
+    int keepRMS;
+} ijPxy_installRequest_t;
+
+
+typedef struct
+{
+  u16 *httpUrl;
+  u16 *stroePath;
+} ijPxy_httpDLRequest_t;// gibson added 20081215
+
+
+typedef struct
+{
+   int source;
+   int type;
+   unsigned char action[200];  
+   int target;
+}  java_actionCommand_t;
+
+
+#endif /*	#ifdef __JAVA_DELTA__  */
+
+#endif

@@ -1,0 +1,147 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="ONAPP_WND_LOGO" ClsID="CLSID_VTMIMG" LayoutType="VT_NORMAL" InheritID="CLSID_VTMIMG">
+		<Widget Id="AbsContainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="imagewidget4" ClsID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LOGO" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="e240f" />
+			</Widget>
+			<InternProp Id="GUID" Value="05fba" />
+		</Widget>
+		<InternProp Id="VtmId" Value="tLogo" />
+		<InternProp Id="GUID" Value="00597" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ONAPP_WND_POWER_ON_ANIMATION" ClsID="CLSID_VTMIMG" LayoutType="VT_NORMAL" InheritID="CLSID_VTMIMG">
+		<Widget Id="AbsContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="imagewidget3" ClsID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="COMMON_IMG_POWERON_ANIM01" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="9a001" />
+			</Widget>
+			<InternProp Id="GUID" Value="c9b9f" />
+		</Widget>
+		<InternProp Id="VtmId" Value="tAnimation" />
+		<InternProp Id="GUID" Value="ece6f" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ONAPP_WND_STANDBY" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU">
+		<Widget Id="AbsContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="menuwidget1" ClsID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ONAPP_ITEM_STANDBY_DUAL_MODE" />
+						<Struct>
+							<String Id="TXT_LIL_N_DUAL_MODE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ONAPP_ITEM_STANDBY_MASTER_MODE" />
+						<Struct>
+							<String Id="TXT_LIL_N_MASTER_MODE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ONAPP_ITEM_STANDBY_SLAVE_MODE" />
+						<Struct>
+							<String Id="TXT_LIL_N_SLAVE_MODE" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<InternProp Id="GUID" Value="fe64a" />
+			</Widget>
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="69c6f" />
+			</Widget>
+			<InternProp Id="GUID" Value="4564a" />
+		</Widget>
+		<InternProp Id="VtmId" Value="tStandby" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_STANDBY_MODE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="0b536" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ONAPP_WND_SEARCH_NETWORK" ClsID="CLSID_VTMIMG" LayoutType="VT_NORMAL" InheritID="CLSID_VTMIMG">
+		<Widget Id="AbsContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="imagewidget2" ClsID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="COMMON_IMG_NETWORK_SEARCH_ANIM" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="fd82c" />
+			</Widget>
+			<InternProp Id="GUID" Value="5e75f" />
+		</Widget>
+		<InternProp Id="VtmId" Value="tSearchNetwork" />
+		<InternProp Id="GUID" Value="21bd3" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="ONAPP_WND_CHARGING" ClsID="CLSID_VTMIMG" LayoutType="VT_NORMAL" InheritID="CLSID_VTMIMG">
+		<Widget Id="AbsContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="imagewidget1" ClsID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="COMMON_IMG_POWEROFF_CHARGING_ANIM" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="496d1" />
+			</Widget>
+			<InternProp Id="GUID" Value="312ea" />
+		</Widget>
+		<InternProp Id="VtmId" Value="tCharging" />
+		<InternProp Id="GUID" Value="a1b47" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="ONAPP_WND_CHARGER_FULL" ClsID="CLSID_VTMIMG" LayoutType="VT_NORMAL" InheritID="CLSID_VTMIMG">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="imagewidget" ClsID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="COMMON_IMG_POWEROFF_CHARGE_FULL" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="8e3c0" />
+			</Widget>
+			<InternProp Id="GUID" Value="d89f0" />
+		</Widget>
+		<InternProp Id="VtmId" Value="tChargerFull" />
+		<InternProp Id="GUID" Value="c5639" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_ONAPP" />
+</UiRoot>

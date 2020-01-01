@@ -1,0 +1,893 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="ATV_WND_MAINMENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU">
+		<Widget Id="AbsContainer7" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="menuwidget6" ClsID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NUMERIC" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="CHECK_RADIO_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_MY_TV" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_MY_TV" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_CHANNEL_LIST" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_CHANNEL_LIST" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_SEARCH_CHANNEL" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_SEARCH_CHANNEL" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_TV_PICTURES" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_TV_PICTURES" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_AREA_SETTINGS" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_AREA_SETTINGS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_RATIO_SETTINGS" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_RATIO_SETTINGS" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<InternProp Id="GUID" Value="ccc15" />
+			</Widget>
+			<InternProp Id="GUID" Value="87a03" />
+		</Widget>
+		<InternProp Id="VtmId" Value="MainMenuMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_ATV&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="fc090" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+	</Layout>
+	<Layout Id="ATV_WND_WATCH" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer6" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="OsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_WIDTH" SizeWidth="MAIN_LCD_HEIGHT">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="d3026" />
+			</Widget>
+			<Widget Id="SignalImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="ATV_SIGNAL_IMAGE_HEIGH" SizeWidth="ATV_SIGNAL_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_SIGNAL_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_SIGNAL_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="ATV_IMG_SIGNAL_NO_SERVICE" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="5a523" />
+			</Widget>
+			<Widget Id="ChannelNameTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="ATV_CHANNEL_NAME_TEXT_HEIGH" SizeWidth="ATV_CHANNEL_NAME_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_CHANNEL_NAME_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_CHANNEL_NAME_POS_Y" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="ATV_COLOR_CHANNEL_NAME_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_H_START|ALIGN_V_TOP)" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_EXPAND1" />
+				<InternProp Id="GUID" Value="ff67f" />
+			</Widget>
+			<Widget Id="BatteryImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="ATV_BATTERY_IMAGE_HEIGH" SizeWidth="ATV_BATTERY_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BATTERY_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BATTERY_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="d2b47" />
+			</Widget>
+			<Widget Id="VolumeAbsCntr" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+				<InternProp Id="GUID" Value="c32ed" />
+			</Widget>
+			<Widget Id="AdjustBGVolumeImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="ATV_VOLUME_ADJUST_BG_IMAGE_HEIGH" SizeWidth="ATV_VOLUME_ADJUST_BG_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_VOLUME_ADJUST_BG_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_VOLUME_ADJUST_BG_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="ATV_IMG_VOLUME_ADJUST_BG" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="1e0f9" />
+			</Widget>
+			<Widget Id="AdjustLevelVolumeImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="ATV_VOLUME_ADJUST_LEVEL_IMAGE_HEIGH" SizeWidth="ATV_VOLUME_ADJUST_LEVEL_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_VOLUME_ADJUST_LEVEL_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_VOLUME_ADJUST_LEVEL_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="de039" />
+			</Widget>
+			<Widget Id="ControlAbsCntr" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+				<InternProp Id="GUID" Value="5a2c2" />
+			</Widget>
+			<Widget Id="AbsBGBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_CONTROL_BAR_BG_IMAGE_HEIGH" SizeWidth="ATV_CONTROL_BAR_BG_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_CONTROL_BAR_BG_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_CONTROL_BAR_BG_POS_Y" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="ATV_IMG_CONTROL_BAR_BG" />
+						<Image Id="ATV_IMG_CONTROL_BAR_BG" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="1f34b" />
+			</Widget>
+			<Widget Id="PowerOffBGBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_BUTTON_IMAGE_HEIGH" SizeWidth="ATV_BUTTON_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BUTTON_POWER_OFF_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BUTTON_POWER_OFF_POS_Y" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="ATV_IMG_POWER_OFF_UNPRESSED" />
+						<Image Id="ATV_IMG_POWER_OFF_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="8429d" />
+			</Widget>
+			<Widget Id="VolumeIncBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_BUTTON_IMAGE_HEIGH" SizeWidth="ATV_BUTTON_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BUTTON_VOLUME_INCREASE_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BUTTON_VOLUME_INCREASE_POS_Y" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="ATV_IMG_VOLUME_INCREASE_UNPRESSED" />
+						<Image Id="ATV_IMG_VOLUME_INCREASE_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="34faa" />
+			</Widget>
+			<Widget Id="VolumeDecBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_BUTTON_IMAGE_HEIGH" SizeWidth="ATV_BUTTON_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BUTTON_VOLUME_DECREASE_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BUTTON_VOLUME_DECREASE_POS_Y" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="ATV_IMG_VOLUME_DECREASE_UNPRESSED" />
+						<Image Id="ATV_IMG_VOLUME_DECREASE_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="31f42" />
+			</Widget>
+			<Widget Id="CaptureBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_BUTTON_IMAGE_HEIGH" SizeWidth="ATV_BUTTON_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BUTTON_CAPUTRE_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BUTTON_CAPUTRE_POS_Y" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="ATV_IMG_CAPUTRE_UNPRESSED" />
+						<Image Id="ATV_IMG_CAPUTRE_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="704f9" />
+			</Widget>
+			<Widget Id="ChannelPreBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_BUTTON_IMAGE_HEIGH" SizeWidth="ATV_BUTTON_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BUTTON_CHANNEL_PREVIOUS_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BUTTON_CHANNEL_PREVIOUS_POS_Y" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="ATV_IMG_CHANNEL_PREVIOUS_UNPRESSED" />
+						<Image Id="ATV_IMG_CHANNEL_PREVIOUS_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="58dc5" />
+			</Widget>
+			<Widget Id="ChannelNextBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_BUTTON_IMAGE_HEIGH" SizeWidth="ATV_BUTTON_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BUTTON_CHANNEL_NEXT_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BUTTON_CHANNEL_NEXT_POS_Y" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="ATV_IMG_CHANNEL_NEXT_UNPRESSED" />
+						<Image Id="ATV_IMG_CHANNEL_NEXT_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="640fe" />
+			</Widget>
+			<Widget Id="ScreenRatioBtnWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="ATV_BUTTON_IMAGE_HEIGH" SizeWidth="ATV_BUTTON_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_BUTTON_SCREEN_RATIO_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_BUTTON_SCREEN_RATIO_POS_Y" />
+				<InternProp Id="GUID" Value="049a6" />
+			</Widget>
+			<InternProp Id="GUID" Value="f6cca" />
+		</Widget>
+		<InternProp Id="GUID" Value="6e6a0" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+	</Layout>
+	<Layout Id="ATV_WND_CAPTURE" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="CapturePicImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_WIDTH" SizeWidth="MAIN_LCD_HEIGHT">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="a4dfb" />
+			</Widget>
+			<Widget Id="PreviewIconImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="ATV_CAPTURE_IMAGE_HEIGH" SizeWidth="ATV_CAPTURE_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="ATV_CAPTURE_POS_X" />
+				<Position Type="Y_POSITION" Value="ATV_CAPTURE_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="ATV_IMG_PREVIEW" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="e611e" />
+			</Widget>
+			<InternProp Id="GUID" Value="236f1" />
+		</Widget>
+		<InternProp Id="GUID" Value="9334a" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ATV_WND_CHANNELLIST" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU">
+		<Widget Id="AbsContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="menuwidget4" ClsID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="40a0c" />
+			</Widget>
+			<InternProp Id="GUID" Value="799af" />
+		</Widget>
+		<InternProp Id="VtmId" Value="ChannelListMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_CHANNEL_LIST&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="788fc" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ATV_WND_CHANNELLIST_EDIT" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT">
+		<Widget Id="AbsContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="inputwidget" ClsID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="MMI_ATVAPP_CHANNEL_NAME_MAX" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="FALSE" />
+				<InternProp Id="GUID" Value="e6e72" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+			</Widget>
+			<InternProp Id="GUID" Value="f1547" />
+		</Widget>
+		<InternProp Id="VtmId" Value="ChannelListEdit" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_CHANNEL_NAME&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="e7c7f" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ATV_WND_AREA" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU">
+		<Widget Id="AbsContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="menuwidget3" ClsID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_CHINA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_CHINA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_SHENZHEN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_SHENZHEN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_AFGHANISTAN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_AFGHANISTAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_ARGENTINA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_ARGENTINA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_AUSTRALIA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_AUSTRALIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_BOLIVIA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_BOLIVIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_BURMA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_BURMA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_BRAZIL" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_BRAZIL" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_CAMBODIA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_CAMBODIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_CANADA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_CANADA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_CHILE" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_CHILE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_COLUMBIA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_COLUMBIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_COSTARICA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_COSTARICA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_ECUADOR" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_ECUADOR" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_GERMAN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_GERMAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_HONDURAS" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_HONDURAS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_HONGKONG" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_HONGKONG" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_INDIA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_INDIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_ITALY" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_ITALY" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_INDONESIA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_INDONESIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_JAMAICA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_JAMAICA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_JAPAN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_JAPAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_KOREA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_KOREA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_LAOS" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_LAOS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_MALAYSIA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_MALAYSIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_MEXICO" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_MEXICO" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_NEWZEALAND" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_NEWZEALAND" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_PAKISTAN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_PAKISTAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_PERU" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_PERU" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_PHILIPPINES" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_PHILIPPINES" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_PORTUGAL" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_PORTUGAL" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_SINGAPORE" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_SINGAPORE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_SOUTHAFRICA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_SOUTHAFRICA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_SPAIN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_SPAIN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_SUDAN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_SUDAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_SURINAME" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_SURINAME" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_SWEDEN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_SWEDEN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_TAIWAN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_TAIWAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_THAILAND" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_THAILAND" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_TURKEY" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_TURKEY" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_UAE" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_UAE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_UK" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_UK" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_USA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_USA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_VENEZUELA" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_VENEZUELA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_VIETNAM" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_VIETNAM" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_WESTERNEUROPE" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_WESTERNEUROPE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_REGION_YEMEN" />
+						<Struct>
+							<String Id="TXT_PML_N_REGION_YEMEN" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<InternProp Id="GUID" Value="14482" />
+			</Widget>
+			<InternProp Id="GUID" Value="b874b" />
+		</Widget>
+		<InternProp Id="VtmId" Value="AreaMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_AREA_SETTINGS&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="4b4c3" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="ATV_WND_RATIO" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU">
+		<Widget Id="AbsContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_RATIO_4_3" />
+						<Struct>
+							<String Id="TXT_PML_N_RATIO_4_3" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_ATV_RATIO_16_9" />
+						<Struct>
+							<String Id="TXT_PML_N_RATIO_16_9" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<InternProp Id="GUID" Value="24b77" />
+			</Widget>
+			<InternProp Id="GUID" Value="73915" />
+		</Widget>
+		<InternProp Id="VtmId" Value="RatioMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_RATIO_SETTINGS&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="c8963" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="ATV_WND_CHANNELLIST_OPTION" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_ATV_CHANNEL_PLAY" />
+						<String Id="TXT_OIL1_N_PLAY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_ATV_CHANNEL_RENAME" />
+						<String Id="TXT_OIL1_N_RENAME" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_ATV_CHANNEL_SEARCH" />
+						<String Id="TXT_OIL1_N_SEARCH" />
+					</MenuItem>
+				</Model>
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="f31ba" />
+			</Widget>
+			<InternProp Id="GUID" Value="dc4cd" />
+		</Widget>
+		<InternProp Id="VtmId" Value="ChannelListOptionWdg" />
+		<InternProp Id="GUID" Value="d35ed" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_ATVAPP" />
+</UiRoot>

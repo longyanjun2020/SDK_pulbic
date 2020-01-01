@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+MIDlet-Vendor: 天天动听
+MIDlet-Version: 1.60
+MIDlet-Permissions-Opt: javax.microedition.io.Connector.http,javax.microedition.io.PushRegistry,javax.microedition.io.Connector.sms,javax.wireless.messaging.sms.send
+MIDlet-Name: 天天动听
+MIDlet-Info-URL: www.ttpod.com
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-1: 天天动听,/img/icon.png,TTPod
+Nokia-UI-Enhancement: MusicKeysSupported
+MIDlet-Icon: /img/icon.png
+MIDlet-Description: 天天动听音乐播放器
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Permissions: javax.microedition.io.Connector.file.write,javax.microedition.io.Connector.file.read
+MIDlet-Jar-Size: 537711
+MIDlet-Jar-URL: TTPod_j2me_v1.60.jar

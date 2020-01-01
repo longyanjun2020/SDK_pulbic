@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiRoot xmlns="http://www.mstarsemi.com/XMMI/ui/" >
+  <Layout Id="STARCRASHGAME_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+    <Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+      <Position Type="X_POSITION" Value="0" />
+      <Position Type="Y_POSITION" Value="0" />
+    </Widget>
+    <InternProp Id="GUID" Value="00000" />
+    <Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+  </Layout>
+</UiRoot>

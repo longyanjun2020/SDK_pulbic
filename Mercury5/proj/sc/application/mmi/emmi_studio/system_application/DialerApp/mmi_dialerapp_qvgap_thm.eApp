@@ -1,0 +1,358 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="DIALER_WND_DIALING" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="TouchShortcutWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_SHORTCUT_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_SHORTCUT_WIDTH">
+				<Position Type="X_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_SHORTCUT_POS_X" />
+				<Position Type="Y_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_SHORTCUT_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="(FontCategory_t)FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(WdgAlignment_e)(ALIGN_H_LEFT|ALIGN_V_TOP)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="(RGBColor_t)DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_COLOR" />
+				<InternProp Id="GUID" Value="e86e2" />
+			</Widget>
+			<Widget Id="ShortcutWidget" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_DEFVIEW_WIDTH" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="(FontCategory_t)FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(WdgAlignment_e)(ALIGN_H_LEFT|ALIGN_V_TOP)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="(RGBColor_t)DIALERAPP_LAYOUT_DIALING_INPUT_COLOR" />
+				<InternProp Id="GUID" Value="48853" />
+			</Widget>
+			<Widget Id="GridWdg1" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_WIDTH">
+				<Position Type="X_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_POS_X" />
+				<Position Type="Y_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_POS_Y" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_BUTTON" />
+				<InternProp Id="GUID" Value="5970b" />
+				<Model ClsID="CLSID_GRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 0" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_01" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 1" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_02" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 2" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_03" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 3" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_04" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 4" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_05" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 5" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_06" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 6" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_07" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 7" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_08" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 8" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_09" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 9" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_10" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 10" />
+						<Struct>
+							<String Id=" TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_11" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 11" />
+						<Struct>
+							<String Id=" TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_12)WdgMenuSetItemWidthRC(DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_ITEM_WIDTH" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<Property Id="PROP_ITEM_HEIGHT" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_ITEM_HEIGHT" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_POS_ROW_GAP" />
+				<Property Id="PROP_WDG_COL_GAP" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_POS_COL_GAP" />
+				<Property Id="PROP_FIXED_NUM" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_ITEM_COLNUM" />
+			</Widget>
+			<Widget Id="GridWdg2" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_WIDTH">
+				<Position Type="X_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_POS_X" />
+				<Position Type="Y_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_POS_Y" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_BUTTON" />
+				<InternProp Id="GUID" Value="6fa9e" />
+				<Model ClsID="CLSID_GRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 0" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_CALL_SIM1" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 1" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_MESSAGE  " />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 2" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_ADD      " />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 3" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" IMG_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_CLEAR    " />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value=" DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value=" DEFAULT_SK" />
+						<Binary Value=" 4" />
+						<Struct>
+							<String Id="  TXT_NULL_ID" />
+							<Image Id=" TXT_NULL_ID" />
+							<Image Id=" CALL_IMG_INPUT_NUMBER_CALL_SIM2 )WdgMenuSetItemWidthRC(DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_ITEM_WIDTH" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<Property Id="PROP_ITEM_HEIGHT" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_ITEM_HEIGHT" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_POS_ROW_GAP" />
+				<Property Id="PROP_WDG_COL_GAP" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_POS_COL_GAP" />
+				<Property Id="PROP_FIXED_NUM" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_ITEM_COLNUM" />
+			</Widget>
+			<Widget Id="TouchInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_WIDTH">
+				<Position Type="X_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_POS_X" />
+				<Position Type="Y_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_POS_Y-DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_POS_Y" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_DISABLE" />
+				<Property Id="PROP_INPUT_WDG_MULTILINE" Value="(boolean)TRUE" />
+				<Property Id="PROP_INPUT_WDG_TEXT_COLOR" Value="(RGBColor_t)DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_CURSOR_COLOR" Value="(RGBColor_t)DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_FONT_SIZE" Value="(FontCategory_t)FONT_CAT_NUM_LARGE" />
+				<Property Id="PROP_INPUT_WDG_LINEGAP" Value="(u32)(DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_LINEGAP)" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="(u32)MAE_INPUTMODE_DIALING" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="CCSRV_MAX_CALL_NUMBER_RS&lt;&lt;1" />
+				<Property Id="PROP_INPUT_WDG_HANDWRITING_ENABLE" Value="FALSE" />
+				<InternProp Id="GUID" Value="099fb" />
+			</Widget>
+			<Widget Id="InputWidget" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_DEFVIEW_WIDTH" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_DISABLE" />
+				<Property Id="PROP_INPUT_WDG_MULTILINE" Value="(boolean)TRUE" />
+				<Property Id="PROP_INPUT_WDG_TEXT_COLOR" Value="(RGBColor_t)DIALERAPP_LAYOUT_DIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_CURSOR_COLOR" Value="(RGBColor_t)DIALERAPP_LAYOUT_DIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_FONT_SIZE" Value="(FontCategory_t)FONT_CAT_NUM_LARGE" />
+				<Property Id="PROP_INPUT_WDG_LINEGAP" Value="(u32)(DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_LINEGAP)" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="(u32)MAE_INPUTMODE_DIALING" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="CCSRV_MAX_CALL_NUMBER_RS&lt;&lt;1" />
+				<InternProp Id="GUID" Value="6120d" />
+			</Widget>
+			<InternProp Id="GUID" Value="8d395" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<Property Id="PROP_TITLE_WDG_VISIBLE" Value="FALSE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="(boolean)VIEWSB_VISIABLE" />
+		<Property Id="PROP_WDG_BG_POSITION" Value="WDG_BG_POS_WHOLE" />
+		<Property Id="PROP_WDG_BG_COLOR" Value="(RGBColor_t)RGBCOLOR_BLACK" />
+		<InternProp Id="GUID" Value="24bd5" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="DIALER_WND_OPTION" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="b35d0" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_DIALERAPP_OPTION_CALL" />
+						<String Id="TXT_OIL1_N_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_DIALERAPP_OPTION_IPCALL" />
+						<String Id="TXT_OIL1_N_IP_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_DIALERAPP_OPTION_SAVE" />
+						<String Id="TXT_OIL1_N_SAVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_DIALERAPP_OPTION_SMS" />
+						<String Id="TXT_OIL1_N_SEND" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="09fe4" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="248" />
+		<InternProp Id="LAYOUT_POS_Y" Value="4" />
+		<InternProp Id="VtmId" Value="DialerOpt" />
+		<InternProp Id="GUID" Value="b1f2f" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="DIALER_WND_SEND" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="CLSID_MENUWIDGET" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET">
+				<InternProp Id="GUID" Value="0e1f1" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="5562a" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="VtmId" Value="DialerMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_SEND_VIA&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="482f6" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_DIALERAPP" />
+</UiRoot>

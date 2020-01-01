@@ -1,0 +1,10 @@
+#ifndef __SYS_SYS_VM_MSG_DEF_H__
+#define __SYS_SYS_VM_MSG_DEF_H__
+
+VM_MSG_DEF(VM_SYS_INTR_DETECT = VM_SYS_BASE, void DUMMY) ///< External Interrupt messages
+VM_MSG_DEF(VM_SYS_FIND_HIGH_SPEED, void DUMMY)
+VM_MSG_DEF(VM_SYS_PRIM_MAX_BASE, void DUMMY) ///< last message index for system messages
+
+
+#endif
+

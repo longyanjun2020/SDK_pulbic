@@ -1,0 +1,16 @@
+/******************************************************************/
+/*  File    : rtkdata.hv                                          */
+/*-------------------------------------------------------------   */
+/*  Scope   :   Declaration/definition of internal RTK global     */
+/*              variables.                                        */
+/*                                                                */
+/*                                                                */
+/******************************************************************/
+
+#ifndef __RTKDATA_HV
+#define __RTKDATA_HV
+
+#include "sys_rtk_hv.h"
+
+#endif   /* __RTKDATA_HV */
+

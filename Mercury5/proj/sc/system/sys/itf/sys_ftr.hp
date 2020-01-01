@@ -1,0 +1,30 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 1994, 1995, 1996
+*/
+
+/****************************************************************************/
+/*  File    : SYS_FTR.HP                                                    */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 29.09.99 |  ADA   | - Creation.                                          */
+/*          |        | - Add cus_ftr.ho                                     */
+/*----------+--------+------------------------------------------------------*/
+/* 23.03.01 |  FRK   | - Add ir_ftr.ho                                      */
+/****************************************************************************/
+
+#ifndef __SYS_FTR_HP__
+#define __SYS_FTR_HP__
+
+#include "sys_sys_ftr.h"
+
+#endif

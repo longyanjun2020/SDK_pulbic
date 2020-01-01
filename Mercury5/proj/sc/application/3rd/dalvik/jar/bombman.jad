@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+MIDlet-Data-Size: 2000
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-Name: 超级炸弹人豪华版
+Ant-Version: Apache Ant 1.6.5
+MIDlet-Icon: i.png
+Created-By: Living Mobile + dx 1.3
+MIDlet-Vendor: DDJ
+MIDlet-1: Bomberman Deluxe, i.png, BX
+Dex-Location: classes.dex
+MIDlet-Version: 1.28.2
+MicroEdition-Profile: MIDP-1.0
+MIDlet-Jar-Size: 175129
+MIDlet-Jar-URL: bombman.jar

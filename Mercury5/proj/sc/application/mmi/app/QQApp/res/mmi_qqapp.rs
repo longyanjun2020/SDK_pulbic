@@ -1,0 +1,369 @@
+ApBegin(ThemID,CLSID_QQAPP)
+    WndBegin(QQ_WND_LOADING)
+        WdgBegin(CLSID_IMAGEWIDGET,QQLoadingImageWidget)
+            WdgImageCreateForWndRC({{0,0},{MAIN_LCD_WIDTH,MAIN_LCD_HEIGHT},IMAGE_STYLE_COMMON,{0,0}})
+            WdgImageSetDataByIDRC(QQ_LOADING_IMAGE)
+        WdgEnd(CLSID_IMAGEWIDGET,QQLoadingImageWidget)
+        WndSetAllSoftkeyRC({SK_SELECT,SK_NONE,SK_BACK})
+    WndEnd(QQ_WND_LOADING)
+
+    WndBegin(QQ_WND_LOGIN)
+        WndSetTitleRC({0,TXT_LIL_N_QQAPP_LOGIN})
+        WndSetAllSoftkeyRC({SK_OPTION,SK_OK,SK_BACK})
+
+        /*QQ Account Widget*/
+        WdgBegin(CLSID_TEXTWIDGET,QQIDTxtWdg)
+            WdgTextCreateForWndRC({
+            {QQAPP_LOGIN_ID_TXT_WDG_POS_X,QQAPP_LOGIN_ID_TXT_WDG_POS_Y},
+            {QQAPP_LOGIN_NORMAL_TXT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_QQAPP_QQ_ACCOUNT)
+            WdgCommonSetAlignmentRC(ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_TEXTWIDGET,QQIDTxtWdg)
+
+        WdgBegin(CLSID_INPUTWIDGET,QQIDInputWdg)
+            WdgInputCreateForWndRC({
+            {QQAPP_LOGIN_ID_INPUT_WDG_POS_X,QQAPP_LOGIN_ID_INPUT_WDG_POS_Y},
+            {QQAPP_LOGIN_NORMAL_INPUT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            {TRUE,0}})
+            WdgInputSetChineseInputOffRC(FALSE)
+            WdgInputSetCurrentInputModeRC(MAE_INPUTMODE_NUMERIC)
+            WdgInputSetSoftKeyBoardEnableRC(TRUE)
+            WdgInputSetDisableSwitchInputModeRC(TRUE)
+            WdgInputSetSmartInputOffRC(TRUE)
+        WdgEnd(CLSID_INPUTWIDGET,QQIDInputWdg)
+
+        WdgBegin(CLSID_IMAGEWIDGET,QQIDHistory)
+            WdgImageCreateForWndRC({
+            {QQAPP_LOGIN_ID_HISTORY_BUTTON_WDG_POS_X,QQAPP_LOGIN_ID_HISTORY_BUTTON_WDG_POS_Y},
+            {QQAPP_LOGIN_ID_HISTORY_BUTTON_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            IMAGE_STYLE_COMMON,
+            {FALSE,QQ_GROUP_ARROW_DOWN}})
+        WdgEnd(CLSID_IMAGEWIDGET,QQIDHistory)
+
+        /*QQ Password Widget*/
+        WdgBegin(CLSID_TEXTWIDGET,QQPswTxtWdg)
+            WdgTextCreateForWndRC({
+            {QQAPP_LOGIN_PSW_TXT_WDG_POS_X,QQAPP_LOGIN_PSW_TXT_WDG_POS_Y},
+            {QQAPP_LOGIN_NORMAL_TXT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_QQAPP_QQ_PSW)
+            WdgCommonSetAlignmentRC(ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_TEXTWIDGET,QQPswTxtWdg)
+
+        WdgBegin(CLSID_INPUTWIDGET,QQPswInputWdg)
+            WdgInputCreateForWndRC({
+            {QQAPP_LOGIN_PSW_INPUT_WDG_POS_X,QQAPP_LOGIN_PSW_INPUT_WDG_POS_Y},
+            {QQAPP_LOGIN_NORMAL_INPUT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            {TRUE,0}})
+            WdgInputSetChineseInputOffRC(FALSE)
+            WdgInputSetSoftKeyBoardEnableRC(TRUE)
+            WdgInputSetCurrentInputLanguageRC(MAE_LANG_ENGLISH)
+            WdgInputSetDisableSwitchInputModeRC(FALSE)
+            WdgInputSetPasswordStyleRC(TRUE)
+            WdgInputSetSmartInputOffRC(TRUE)
+        WdgEnd(CLSID_INPUTWIDGET,QQPswInputWdg)
+
+        /* Remember Password Widget*/
+        WdgBegin(CLSID_SWITCHICONWIDGET,SwitchIconRemPswWidget)
+            WdgSwitchIconCreateForWndRC({
+            {QQAPP_SWITCH_ICON_WDG_POS_X,QQAPP_LOGIN_REM_PSW_SWITCH_ICON_POS_Y},
+            {QQAPP_SWITCH_ICON_WDG_WIDTH,QQAPP_SWITCH_ICON_WDG_HEIGHT},
+            {0,COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE}})
+            WdgSwitchIconSetDataByIDRC(COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE)
+        WdgEnd(CLSID_SWITCHICONWIDGET,SwitchIconRemPswWidget)
+
+        WdgBegin(CLSID_TEXTWIDGET,QQRemPswTxtWdg)
+            WdgTextCreateForWndRC({
+            {QQAPP_LOGIN_REM_PSW_TXT_WDG_POS_X,QQAPP_LOGIN_REM_PSW_TXT_WDG_POS_Y},
+            {QQAPP_LOGIN_SMALL_TXT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_QQAPP_REM_PSW)
+            WdgCommonSetAlignmentRC(ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_TEXTWIDGET,QQRemPswTxtWdg)
+
+        /* Receive Group Message Widget*/
+        WdgBegin(CLSID_SWITCHICONWIDGET,SwitchIconRecvGroupMsgWdg)
+            WdgSwitchIconCreateForWndRC({
+            {QQAPP_SWITCH_ICON_WDG_POS_X,QQAPP_LOGIN_RECV_GROUP_MSG_SWITCH_ICON_POS_Y},
+            {QQAPP_SWITCH_ICON_WDG_WIDTH,QQAPP_SWITCH_ICON_WDG_HEIGHT},
+            {0,COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE}})
+            WdgSwitchIconSetDataByIDRC(COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE)
+        WdgEnd(CLSID_SWITCHICONWIDGET,SwitchIconRecvGroupMsgWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,QQRecvGroupMsgTxtWdg)
+            WdgTextCreateForWndRC({
+            {QQAPP_LOGIN_RECV_GROUP_MSG_TXT_WDG_POS_X,QQAPP_LOGIN_RECV_GROUP_MSG_TXT_WDG_POS_Y},
+            {QQAPP_LOGIN_SMALL_TXT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_QQAPP_RECV_GROUP_MSG)
+            WdgCommonSetAlignmentRC(ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_TEXTWIDGET,QQRecvGroupMsgTxtWdg)
+
+        /*Hide Login*/
+        WdgBegin(CLSID_SWITCHICONWIDGET,SwitchIconHideLoginWdg)
+            WdgSwitchIconCreateForWndRC({
+            {QQAPP_SWITCH_ICON_WDG_POS_X,QQAPP_LOGIN_HIDE_LOGIN_SWITCH_ICON_POS_Y},
+            {QQAPP_SWITCH_ICON_WDG_WIDTH,QQAPP_SWITCH_ICON_WDG_HEIGHT},
+            {0,COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE}})
+            WdgSwitchIconSetDataByIDRC(COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE)
+        WdgEnd(CLSID_SWITCHICONWIDGET,SwitchIconHideLoginWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,QQHideLoginTxtWdg)
+            WdgTextCreateForWndRC({
+            {QQAPP_LOGIN_HIDE_LOGIN_TXT_WDG_POS_X,QQAPP_LOGIN_HIDE_LOGIN_TXT_WDG_POS_Y},
+            {QQAPP_LOGIN_SMALL_TXT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_QQAPP_HIDE_LOGIN)
+            WdgCommonSetAlignmentRC(ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_TEXTWIDGET,QQHideLoginTxtWdg)
+
+        /*Virbrate On*/
+        WdgBegin(CLSID_SWITCHICONWIDGET,SwitchIconVibrateOnWdg)
+            WdgSwitchIconCreateForWndRC({
+            {QQAPP_SWITCH_ICON_WDG_POS_X,QQAPP_LOGIN_VIBRATE_ON_SWITCH_ICON_POS_Y},
+            {QQAPP_SWITCH_ICON_WDG_WIDTH,QQAPP_SWITCH_ICON_WDG_HEIGHT},
+            {0,COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE}})
+            WdgSwitchIconSetDataByIDRC(COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE)
+        WdgEnd(CLSID_SWITCHICONWIDGET,SwitchIconVibrateOnWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,QQVibrateOnTxtWdg)
+            WdgTextCreateForWndRC({
+            {QQAPP_LOGIN_VIBRATE_ON_TXT_WDG_POS_X,QQAPP_LOGIN_VIBRATE_ON_TXT_WDG_POS_Y},
+            {QQAPP_LOGIN_VIBRATE_ON_TXT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_QQAPP_VIBRATE_ON)
+            WdgCommonSetAlignmentRC(ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_TEXTWIDGET,QQVibrateOnTxtWdg)
+
+        /*Mute Login*/
+        WdgBegin(CLSID_SWITCHICONWIDGET,SwitchIconSoundOnWdg)
+            WdgSwitchIconCreateForWndRC({
+            {QQAPP_LOGIN_SOUND_ON_SWITCH_ICON_POS_X,QQAPP_LOGIN_SOUND_ON_SWITCH_ICON_POS_Y},
+            {QQAPP_SWITCH_ICON_WDG_WIDTH,QQAPP_SWITCH_ICON_WDG_HEIGHT},
+            {0,COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE}})
+            WdgSwitchIconSetDataByIDRC(COMMON_IMG_MARK_TRUE,COMMON_IMG_MARK_FALSE)
+        WdgEnd(CLSID_SWITCHICONWIDGET,SwitchIconSoundOnWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,QQSoundOnTxtWdg)
+            WdgTextCreateForWndRC({
+            {QQAPP_LOGIN_SOUND_ON_TXT_WDG_POS_X,QQAPP_LOGIN_SOUND_ON_TXT_WDG_POS_Y},
+            {QQAPP_LOGIN_SOUND_ON_TXT_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},
+            TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_QQAPP_SOUND_ON)
+            WdgCommonSetAlignmentRC(ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_TEXTWIDGET,QQSoundOnTxtWdg)
+    WndEnd(QQ_WND_LOGIN)
+
+    WndBegin(QQ_WND_LOGIN_OPTIONMENU)
+        WndSetAllSoftkeyRC({SK_SELECT,SK_OK,SK_CANCEL})
+
+        WdgBegin(CLSID_VTMOPTIONMENU,vtm_QQ_WND_LOGIN_OPTIONMENU)
+            VtmCreateOptionMenuRC({WDG_MENU_ITEM_TYPE_TEXT,4})
+             VtmCreateOptionMenuDataRC(4,\
+                {{{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_CANCEL},MENU_QQAPP_OPT_LOGIN},TXT_OIL1_N_QQAPP_LOGIN},    \
+                 {{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_CANCEL},MENU_QQAPP_OPT_HELP},TXT_OIL1_N_HELP},        \
+                 {{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_CANCEL},MENU_QQAPP_OPT_CLEAN_LOGIN_INFO},TXT_OIL2_N_QQAPP_CLEAN_LOGIN_INFO},        \
+                 {{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_CANCEL},MENU_QQAPP_OPT_EXIT},TXT_OIL1_N_QQAPP_EXIT}})
+            VTMWdgBegin(CLSID_OPTIONMENUWIDGET,OPTION_MENU_MENU_WDG,QQLoginOptionMenuWidget)
+                WdgStaticMenuInitRC(WDG_MENU_ITEM_TYPE_TEXT)
+            VTMWdgEnd(CLSID_OPTIONMENUWIDGET,OPTION_MENU_MENU_WDG,QQLoginOptionMenuWidget)
+        WdgEnd(CLSID_VTMOPTIONMENU,vtm_QQ_WND_LOGIN_OPTIONMENU)
+
+    WndEnd(QQ_WND_LOGIN_OPTIONMENU)
+
+    WndBegin(QQ_WND_OPERATE_CMD)
+        WndSetTitleRC({0,TXT_LIL_N_QQAPP_OPERATE})
+
+        WdgBegin(CLSID_INPUTWIDGET,QQOperateInstructInputTextWidget)
+            WdgInputCreateForWndRC({{MAINVIEW_X,MAIN_TITLE_HEIGHT},{MAINVIEW_WIDTH,MAINVIEW_HEIGHT},{TRUE,0}})
+            WdgCommonEnableScrollBarRC(SCROLL_STYLE_V_RIGHT)
+            WdgInputSetMultilineRC(TRUE)
+        WdgEnd(CLSID_INPUTWIDGET,QQOperateInstructInputTextWidget)
+
+    WndEnd(QQ_WND_OPERATE_CMD)
+
+    WndBegin(QQ_WND_VERIFY)
+        WndSetTitleRC({0,TXT_LIL_N_QQAPP_ENTER_CODES})
+        WndSetAllSoftkeyRC({SK_SEND,SK_NONE,SK_CANCEL})
+
+        WdgBegin(CLSID_TEXTWIDGET,ShowInfoTextWidget)
+            WdgTextCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_VERIFY_SHOW_INFOMATION_POS_Y},{QQAPP_NORMAL_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT * 4},TEXT_STYLE_COMMON})
+        WdgEnd(CLSID_TEXTWIDGET,ShowInfoTextWidget)
+
+        WdgBegin(CLSID_IMAGEWIDGET,QQCodesImageWidget)
+            WdgImageCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_VERIFY_CODES_IMAGE_POS_Y},{QQAPP_VERIFY_CODES_IMAGE_WIDTH,QQAPP_NORMAL_WDG_HEIGHT * 2},0,{0,0}})
+        WdgEnd(CLSID_IMAGEWIDGET,QQCodesImageWidget)
+
+        WdgBegin(CLSID_INPUTWIDGET,CodesInputWidget)
+            WdgInputCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_VERIFY_CODES_INPUT_POS_Y},{QQAPP_VERIFY_CODES_INPUT_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},{TRUE,0}})
+        WdgEnd(CLSID_INPUTWIDGET,CodesInputWidget)
+
+    WndEnd(QQ_WND_VERIFY)
+
+    WndBegin(QQ_WND_LOGINING)
+        WndSetTitleRC({0,TXT_LIL_N_QQAPP_LOGGING})
+        WndSetAllSoftkeyRC({SK_NONE,SK_NONE,SK_CANCEL})
+
+    WndEnd(QQ_WND_LOGINING)
+
+#ifdef __MULTIPLE_QQ__
+    WndBegin(QQ_WND_SHOWLIST)
+        WndSetTitleRC({0,TXT_NULL_ID})
+        WndSetAllSoftkeyRC({SK_OPTION,SK_NONE,SK_EXIT})
+
+        WdgBegin(CLSID_VTMTABMENU,vtm_QQ_WND_SHOWLIST)
+            VtmCreateTabMenuRC({0,0,3})
+            VtmCreateTabMenuDataRC(3,{{QQ_FRIEND_ENABLE,TXT_NULL_ID,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_IMAGE_TEXT,0,0,0,0},{QQ_GROUP_DISABLE,TXT_NULL_ID,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_IMAGE_TEXT,0,0,0,0},{QQ_SWITCH_DISABLE,TXT_NULL_ID,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_IMAGE_TEXT,0,0,0,0}})
+        WdgEnd(CLSID_VTMTABMENU,vtm_QQ_WND_SHOWLIST)
+    WndEnd(QQ_WND_SHOWLIST)
+#else
+    WndBegin(QQ_WND_SHOWLIST)
+        WndSetTitleRC({0,TXT_NULL_ID})
+        WndSetAllSoftkeyRC({SK_OPTION,SK_NONE,SK_EXIT})
+
+        WdgBegin(CLSID_VTMTABMENU,vtm_QQ_WND_SHOWLIST)
+            VtmCreateTabMenuRC({0,0,2})
+            VtmCreateTabMenuDataRC(2,{{QQ_FRIEND_ENABLE,TXT_NULL_ID,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_IMAGE_TEXT,0,0,0,0},{QQ_GROUP_DISABLE,TXT_NULL_ID,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_IMAGE_TEXT,0,0,0,0}})
+        WdgEnd(CLSID_VTMTABMENU,vtm_QQ_WND_SHOWLIST)
+    WndEnd(QQ_WND_SHOWLIST)
+#endif
+    WndBegin(QQ_WND_READMESSAGE)
+        WdgBegin(CLSID_INPUTWIDGET,QQShowReceivedMessageInputWidget)
+            WdgInputCreateForWndRC({{MAINVIEW_X,MAIN_TITLE_HEIGHT},{MAINVIEW_WIDTH,MAINVIEW_HEIGHT},{TRUE,0}})
+            WdgCommonEnableScrollBarRC(SCROLL_STYLE_V_RIGHT)
+            WdgInputSetMultilineRC(TRUE)
+        WdgEnd(CLSID_INPUTWIDGET,QQShowReceivedMessageInputWidget)
+
+    WndEnd(QQ_WND_READMESSAGE)
+
+    WndBegin(QQ_WND_MAINMENU)
+        WndSetAllSoftkeyRC({SK_SELECT,SK_OK,SK_BACK})
+    WndEnd(QQ_WND_MAINMENU)
+
+    WndBegin(QQ_WND_SENDMESSAGE)
+        WndSetTitleRC({0,TXT_OIL1_N_QQAPP_SEND_MESSAGE})
+        WndSetAllSoftkeyRC({SK_OPTION,SK_OK,SK_CANCEL})
+
+
+        WdgBegin(CLSID_INPUTWIDGET,QQSendMessageInputWidget)
+                WdgInputCreateForWndRC({{MAINVIEW_X,MAIN_TITLE_HEIGHT},{MAINVIEW_WIDTH,MAINVIEW_HEIGHT},{TRUE,0}})
+                WdgCommonEnableScrollBarRC(SCROLL_STYLE_V_RIGHT)
+                WdgInputSetCurrentInputLanguageRC(MAE_LANG_CHINESE_S)
+                WdgInputSetMultilineRC(TRUE)
+        WdgEnd(CLSID_TEXTWIDGET,QQSendMessageInputWidget)
+    WndEnd(QQ_WND_SENDMESSAGE)
+
+    WndBegin(QQ_WND_USER_INFO)
+        WndSetTitleRC({0,TXT_OIL1_N_QQAPP_PROFILE})
+        WndSetAllSoftkeyRC({SK_NONE,SK_NONE,SK_BACK})
+
+        WdgBegin(CLSID_INPUTWIDGET,QQShowUserInfoInputWidget)
+            WdgInputCreateForWndRC({{MAINVIEW_X,MAIN_TITLE_HEIGHT},{MAINVIEW_WIDTH,MAINVIEW_HEIGHT},{TRUE,0}})
+            WdgCommonEnableScrollBarRC(SCROLL_STYLE_V_RIGHT)
+            WdgInputSetMultilineRC(TRUE)
+        WdgEnd(CLSID_INPUTWIDGET,QQShowUserInfoInputWidget)
+    WndEnd(QQ_WND_USER_INFO)
+
+    WndBegin(QQ_WND_MESSAGE_HISTORY)
+        WndSetTitleRC({0,TXT_OIL1_N_QQAPP_MESSAGE_HISTORY})
+
+        WdgBegin(CLSID_INPUTWIDGET,QQMessageHistoryInputWidget)
+            WdgInputCreateForWndRC({{MAINVIEW_X,MAIN_TITLE_HEIGHT},{MAINVIEW_WIDTH,MAINVIEW_HEIGHT},{TRUE,0}})
+            WdgCommonEnableScrollBarRC(SCROLL_STYLE_V_RIGHT)
+            WdgInputSetMultilineRC(TRUE)
+        WdgEnd(CLSID_INPUTWIDGET,QQMessageHistoryInputWidget)
+
+    WndEnd(QQ_WND_MESSAGE_HISTORY)
+
+    WndBegin(QQ_WND_MESSAGE_HISTORY_OPTIONMENU)
+
+        WdgBegin(CLSID_VTMOPTIONMENU,vtm_QQ_WND_MESSAGE_HISTORY_OPTIONMENU)
+            VtmCreateOptionMenuRC({WDG_MENU_ITEM_TYPE_TEXT,4})
+            VtmCreateOptionMenuDataRC(4,\
+                {{{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_BACK},MENU_QQAPP_OPT_MESSAGE_HISTORY_FIRST_PAGE},TXT_LIL_N_HOMEPAGE},    \
+                 {{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_BACK},MENU_QQAPP_OPT_MESSAGE_HISTORY_LAST_PAGE},TXT_OIL1_N_QQAPP_LAST_PAGE},  \
+                 {{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_BACK},MENU_QQAPP_OPT_MESSAGE_HISTORY_NEXT_PAGE},TXT_OIL1_N_QQAPP_NEXT_PAGE},    \
+                 {{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_BACK},MENU_QQAPP_OPT_MESSAGE_HISTORY_FRONT_PAGE},TXT_OIL1_N_QQAPP_FRONT_PAGE}})
+            VTMWdgBegin(CLSID_OPTIONMENUWIDGET,OPTION_MENU_MENU_WDG,QQMessageHistoryOptionMenuWidget)
+                WdgStaticMenuInitRC(WDG_MENU_ITEM_TYPE_TEXT)
+            VTMWdgEnd(CLSID_OPTIONMENUWIDGET,OPTION_MENU_MENU_WDG,QQMessageHistoryOptionMenuWidget)
+        WdgEnd(CLSID_VTMOPTIONMENU,vtm_QQ_WND_MESSAGE_HISTORY_OPTIONMENU)
+
+    WndEnd(QQ_WND_MESSAGE_HISTORY_OPTIONMENU)
+
+    WndBegin(QQ_WND_SENDMESSAGE_OPTIONMENU)
+        WndSetAllSoftkeyRC({SK_SELECT,SK_OK,SK_CANCEL})
+
+        WdgBegin(CLSID_VTMOPTIONMENU,vtm_QQ_WND_SEND_MESSGAE_OPTIONMENU)
+            VtmCreateOptionMenuRC({WDG_MENU_ITEM_TYPE_TEXT,3})
+            VtmCreateOptionMenuDataRC(3,\
+                {{{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_CANCEL},SENDMESSAGE_MENU_QQAPP_OPT_SEND},TXT_OIL1_N_QQAPP_SEND_MESSAGE},    \
+                {{MENUMODEL_ITEM_VISABLE | MENUMODEL_ITEM_HAS_CHILD,{SK_SELECT,SK_OK,SK_CANCEL},MNU_COMMON_TEXT_INPUT_MENU},{TXT_OIL1_N_INPUT_MENU}},    \
+                {{MENUMODEL_ITEM_VISABLE,{SK_SELECT,SK_OK,SK_CANCEL},SENDMESSAGE_MENU_QQAPP_OPT_INSERT_PRESET_MESSAGE},TXT_OIL1_N_QQAPP_INSERT_PRESET_MESSAGE}})
+        WdgEnd(CLSID_VTMOPTIONMENU,vtm_QQ_WND_SEND_MESSGAE_OPTIONMENU)
+    WndEnd(QQ_WND_SENDMESSAGE_OPTIONMENU)
+
+    WndBegin(QQ_WND_PRESET_MESSAGE)
+        WndSetTitleRC({0,TXT_LIL_N_QQAPP_PRESET_MESSAGE})
+        WndSetAllSoftkeyRC({SK_SELECT,SK_OK,SK_BACK})
+
+        WdgBegin(CLSID_VTMMENU,vtm_QQ_WND_PRESET_MESSAGE)
+            VtmCreateMenuRC({0,TXT_LIL_N_QQAPP_PRESET_MESSAGE,0,WDG_MENU_ITEM_TYPE_TEXT,0,0,0,0})
+            VTMWdgBegin(CLSID_MENUWIDGET,VTM_CREATE_MENU_MENU_WDG,QQWordsCommonUseWdg)
+                WdgStaticMenuInitRC(WDG_MENU_ITEM_TYPE_TEXT)
+            VTMWdgEnd(CLSID_MENUWIDGET,VTM_CREATE_MENU_MENU_WDG,QQWordsCommonUseWdg)
+        WdgEnd(CLSID_VTMMENU,vtm_QQ_WND_PRESET_MESSAGE)
+
+    WndEnd(QQ_WND_PRESET_MESSAGE)
+
+    WndBegin(QQ_WND_ADD_BUDDY)
+        WndSetTitleRC({0,TXT_OIL2_N_QQAPP_ADD_BUDDY})
+
+        WdgBegin(CLSID_TEXTWIDGET,AddBuddyWndQQIDTxtWidget)
+            WdgTextCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_SEARCH_BY_ID_TEXT_WIDGET_POS_Y},{QQAPP_NORMAL_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},TEXT_STYLE_COMMON})
+        WdgEnd(CLSID_TEXTWIDGET,AddBuddyWndQQIDTxtWidget)
+
+        WdgBegin(CLSID_INPUTWIDGET,AddBuddyWndQQIDInputWidget)
+            WdgInputCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_SEARCH_BY_ID_INPUT_WIDGET_POS_Y},{QQAPP_SEARCH_BY_ID_INPUT_WIDGET_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},{TRUE,0}})
+        WdgEnd(CLSID_INPUTWIDGET,AddBuddyWndQQIDInputWidget)
+
+    WndEnd(QQ_WND_ADD_BUDDY)
+
+    WndBegin(QQ_WND_POPUPSELECT)
+        WndSetAllSoftkeyRC({SK_SELECT,SK_OK,SK_CANCEL})
+        WndSetSoftkeyVisibleRC(VIEWSK_VISIABLE)
+    WndEnd(QQ_WND_POPUPSELECT)
+
+    WndBegin(QQ_WND_SETTING)
+        WndSetAllSoftkeyRC({SK_SELECT,SK_OK,SK_BACK})
+        WdgBegin(CLSID_VTMMENU, vtm_QQ_WND_BASIC_SETTING)
+            VtmCreateMenuRC({0,TXT_OIL1_N_QQAPP_SETTING,0,WDG_MENU_ITEM_TYPE_TEXT,0,0,0,0})
+            VTMWdgBegin(CLSID_MENUWIDGET, VTM_CREATE_MENU_MENU_WDG, QQBasicSettingMenuWdg)
+                WdgStaticMenuInitRC(WDG_MENU_ITEM_TYPE_TEXT)
+            VTMWdgEnd(CLSID_MENUWIDGET, VTM_CREATE_MENU_MENU_WDG, QQBasicSettingMenuWdg)
+        WdgEnd(CLSID_VTMMENU, vtm_QQ_WND_BASIC_SETTING)
+    WndEnd(QQ_WND_SETTING)
+
+    WndBegin(QQ_WND_DUALSIM)
+        WdgBegin(CLSID_VTMSIMSELECTION,DualSim)
+            VtmCreateSimSelectionRC({0,TXT_LIL_N_CDW_SIM_SELECTED})
+        WdgEnd(CLSID_VTMSIMSELECTION,DualSim)
+    WndEnd(QQ_WND_DUALSIM)
+
+    WndBegin(QQ_WND_ANSWER_QUESTION)
+        WndSetTitleRC({0, TXT_OIL2_N_QQAPP_ADD_BUDDY})
+        WndSetAllSoftkeyRC({SK_OK_TEXT,SK_NONE,SK_CANCEL})
+        WdgBegin(CLSID_TEXTWIDGET,NumberTextWdg)
+            WdgTextCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_ANSWER_QUESION_NUMBER_POS_Y},{QQAPP_NORMAL_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},TEXT_STYLE_COMMON})
+        WdgEnd(CLSID_TEXTWIDGET,NumberTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,QuestionTextWdg)
+            WdgTextCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_ANSWER_QUESION_QUESTION_POS_Y},{QQAPP_NORMAL_WDG_WIDTH,QQAPP_NORMAL_WDG_HEIGHT * 4},TEXT_STYLE_COMMON})
+        WdgEnd(CLSID_TEXTWIDGET, QuestionTextWdg)
+
+        WdgBegin(CLSID_INPUTWIDGET,AnswerInputWidget)
+            WdgInputCreateForWndRC({{QQAPP_NORMAL_WDG_POS_X,QQAPP_ANSWER_QUESION_ANSWER_POS_Y},{QQAPP_ANSWER_QUESION_ANSWER_INPUT_WIDTH,QQAPP_NORMAL_WDG_HEIGHT},{TRUE,0}})
+        WdgEnd(CLSID_INPUTWIDGET,AnswerInputWidget)
+    WndEnd(QQ_WND_ANSWER_QUESTION)
+ApEnd(ThemID,CLSID_QQAPP)

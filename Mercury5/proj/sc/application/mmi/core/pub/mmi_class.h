@@ -1,0 +1,183 @@
+/**
+ * @file mmi_class.h
+ * @version $Id: mmi_class.h 35475 2009-07-09 09:08:43Z steve.lee $
+ *
+ * This file defines the class ids and interface ids for Applets and Services
+ *
+ *
+ */
+
+#ifndef __MMI_CLASS_H__
+#define __MMI_CLASS_H__
+
+//
+// include "mmi_mae_class.h" for the enums of interface ids
+// include "mmi_clstbl.h" for the enums of class ids
+//
+#include "mmi_mae_class.h"
+#include "mmi_clstbl.h"
+
+//
+// enums of predefined MMI interface ids
+//
+// ** Note: do NOT modify this table **
+enum
+{
+	/* Widget */
+	IID_CONTROLLER = IID_MAE_PREDEFINED_END,
+	IID_DISPCANVAS,
+	IID_WIDGET,
+	IID_CONTAINER,
+	IID_ABSCONTAINER,
+	IID_GLCONTAINER,
+	IID_ROOTCONTAINER,
+	IID_PROPCONTAINER,
+	IID_PROPCIRCLECONTAINER,
+	IID_MFLCONTAINER,
+	IID_SHEETCONTAINER,
+	IID_VIEWERCONTAINER,
+	IID_DECORATOR,
+	IID_SOFTKEYWIDGET,
+	IID_ANIMATION,
+	/* View */
+	IID_VIEW,
+	IID_VIEWMGR,
+	/* Ext Model */
+	IID_TEXTMODEL,
+	IID_MENUMODEL,
+	IID_SOFTKEYMODEL,
+	IID_IMEASSISTMODEL,
+
+	IID_MMI_PREDEFINED_END
+};
+
+//
+// enums of user defined interface ids
+//
+// ** Add new IID in this table **
+enum
+{
+	/* cust widgets */
+
+	/* cust models*/
+
+	/* Service */
+	IID_DEMO_CORESRV = IID_MMI_PREDEFINED_END,
+#ifdef __CALENDAR_SUPPORT_VCS_MMI__
+	IID_VPARAM,
+	IID_VPROPERTY,
+	IID_VEVENT,
+#ifdef __APP_MMI_TODOLIST_VTODO__
+	IID_VTODO,
+#endif
+	IID_VCALPARSER,
+	IID_VCALENDAR,
+#endif
+	IID_CFGSRV,
+	IID_CCSRV,
+#ifdef __VT_3G324M__
+	IID_VTCCSRV,
+	IID_VTMSRV,
+#endif
+	IID_PLAYLISTSRV,
+	IID_STATUSBARSRV,
+	IID_AUDIOPLAYERSRV,
+	IID_VCALSTORESRV,
+	IID_PROFILESRV,
+	IID_ACCESSORYSRV,
+	IID_PHBSRV,
+	IID_USBSRV,
+	IID_NETWORKSRV,
+	IID_SIMSRV,
+	IID_ALARMSRV,
+	IID_MMSRV,
+	IID_SSSRV,
+	IID_PREVIEWLINE2SRV,
+	IID_OBJPROCESSINGSRV,
+	IID_STKSRV,
+	IID_BTSRV,
+	IID_CALLLOGSRV,
+	IID_ENCODINGSRV,
+	IID_EVTCENTERSRV,
+	IID_CPHSSRV,
+	IID_CLIPBOARDSRV,
+	IID_FMRADIOSRV,
+	IID_SHORTCUTSSRV,
+	IID_TOUCHSHORTCUTSRV,
+	IID_FDNSRV,
+	IID_CORESRV,
+	IID_DIALOGSRV,
+	IID_HASHMAPSRV,
+//#ifdef __BLUETOOTH_OBEX_MMI__
+	IID_BTOBEXSRV,
+//#endif
+	IID_ALIVEWDGSRV,
+	IID_VENDORSRV,
+    IID_ATSYNCSRV,
+#ifdef __JAVA_MMI__
+	IID_JAVASRV,
+#endif
+	IID_CONTENTSRV,
+
+#ifdef  __NATIVE_GAME_MMI_PEDOMETER__
+    IID_PEDOMETERSRV,
+#endif
+
+//#ifdef __WLAN_MMI__
+    IID_WLANSRV,
+//#endif
+	IID_VIDEOPLAYERSRV,
+
+#ifdef __EMAIL_MMI__
+    IID_EMAILSRV,
+#endif
+#ifdef __NCCQQ_MMI__
+    IID_QQSRV,
+#endif
+	IID_MCI,
+	IID_MOI,
+	IID_SMI,
+	IID_TXI,
+	IID_SMS,
+	IID_MMS,
+	IID_MMSTRANSSRV,
+	IID_CBS,
+	IID_CAMERASRV,
+	IID_TVSRV,
+	IID_AUDIORECSRV,
+	IID_AUDIOSRV,
+	IID_AUDIOENVSRV,
+	IID_CODECSRV,
+	IID_VOICECALLSRV,
+#ifdef __CALLER_LOCATION__
+	IID_CLSRV,
+#endif //__CALLER_LOCATION__
+	IID_SOCKETSRV,
+	IID_TTSSRV,
+	IID_COUNTDOWNTIMERSRV,
+	IID_GPSSRV,
+    IID_SCHEDULERSRV,
+#ifdef __APP_MMI_PRIVATEPROTECT__
+	IID_PRIVATEPROTECTSRV,
+#endif //__APP_MMI_PRIVATEPROTECT__
+#ifdef __MMI_OMA_DRM_V1__
+    IID_DRMAGENTSRV,
+#endif
+	/* Application */
+// no need to add interface ID for application
+/*
+	IID_IDLEAPP,
+	IID_QQAP,
+	IID_ALARM,
+	IID_SEA,
+	IID_SVA,
+	IID_MSA,
+	IID_DNESAPP
+*/
+#ifdef __MMI_SCRIPT_EASY_EDITOR__
+	IID_KMX_TEXTMODEL,
+#endif //__MMI_SCRIPT_EASY_EDITOR__
+};
+
+#endif //__MMI_CLASS_H__
+// end of file

@@ -1,0 +1,53 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CALIBRATION_WND_SPLASH" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="TextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT-MAIN_SK_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(WdgAlignment_e)(ALIGN_V_MIDDLE|ALIGN_H_CENTER)" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="(u32)LAYOUT_MULTILINE" />
+				<InternProp Id="GUID" Value="8074a" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_PML_N_CALIBRATION_START" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="03ccc" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_CALIBRATION&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CALIBRATION_WND_INPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="BitmapWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="36dd0" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="ddfd7" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="(boolean)VIEWSB_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="(boolean)VIEWSK_INVISIABLE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CALIBRATIONAPP" />
+</UiRoot>

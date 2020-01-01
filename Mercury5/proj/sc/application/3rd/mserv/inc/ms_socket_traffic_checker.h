@@ -1,0 +1,24 @@
+#ifndef __MS_SOCKET_TRAFFIC_CHECKER_H__
+#define __MS_SOCKET_TRAFFIC_CHECKER_H__
+
+#include "vm_types.ht"
+#include "ms_socket_cmn.h"
+
+typedef void* Mserv_DataTrafficCheckerHdl_t;
+
+/// Factory
+Mserv_DataTrafficCheckerHdl_t Mserv_DataTrafficCheckerFactory_Create(void);
+void Mserv_DataTrafficCheckerFactory_Destroy(Mserv_DataTrafficCheckerHdl_t);
+
+/// Utility
+bool Mserv_DataTrafficChecker_IsTrafficStatusChange(Mserv_DataTrafficCheckerHdl_t hDataTrafficChecker);
+void Mserv_DataTrafficChecker_UpdateAsCurrentStatus(Mserv_DataTrafficCheckerHdl_t hDataTrafficChecker);
+
+void Mserv_DataTrafficChecker_SetTxActive(Mserv_DataTrafficCheckerHdl_t hDataTrafficChecker);
+void Mserv_DataTrafficChecker_SetRxActive(Mserv_DataTrafficCheckerHdl_t hDataTrafficChecker);
+
+MservSocketTrafficStatus_t Mserv_DataTrafficChecker_GetCurrentTrafficStatus(Mserv_DataTrafficCheckerHdl_t hDataTrafficChecker);
+bool Mserv_DataTrafficChecker_HasTxTraffic(MservSocketTrafficStatus_t pTrafficStatus);
+bool Mserv_DataTrafficChecker_HasRxTraffic(MservSocketTrafficStatus_t pTrafficStatus);
+
+#endif/* __MS_SOCKET_TRAFFIC_CHECKER_H__ */

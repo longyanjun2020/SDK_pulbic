@@ -1,0 +1,26 @@
+/***************************************************************************/
+/*  File    : FCM.HV                                                   */
+/*-------------------------------------------------------------------------*/
+/*  Scope   :Flow Control Manager                                          */
+/*                                                                         */
+/*  Contents:  Variables definitions                                       */
+/*-------------------------------------------------------------------------*/
+/*   Date   | Author |         Modification                                */
+/*----------+--------+-----------------------------------------------------*/
+/* 13.01.04 | FGA    | Creation                                            */
+/***************************************************************************/
+
+#ifndef _FCM_HV_
+#define _FCM_HV_
+
+#if defined(__FCM_MAIN_C__)
+#define DefExtern 
+#else
+#define DefExtern  extern 
+#endif
+
+/* Translation table Mbox -> index in FCM count table */
+
+
+
+#endif

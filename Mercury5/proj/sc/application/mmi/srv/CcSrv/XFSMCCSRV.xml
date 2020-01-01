@@ -1,0 +1,1006 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>ccsrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_CC</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="CCSRV" id="13971" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Init" id="15545" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Initial necessary data</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="IDLE" id="28107" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Entry</EntryComment>
+          <ExitComment>Exit</ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Active" id="9572" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="MakeCall">
+          <EntryComment>Entry</EntryComment>
+          <ExitComment>Exit</ExitComment>
+          <ModeComment></ModeComment>
+              <node name="MakeCall" id="28383" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Entry</EntryComment>
+              <ExitComment>Exit</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="CheckBlacklist" id="206" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Query blacklist to Phonebook</EntryComment>
+              <ExitComment>Exit</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="IncomingCall" id="26504" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Entry</EntryComment>
+              <ExitComment>Exit</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="InCallSession" id="10019" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="OneActiveCall">
+              <EntryComment>Entry</EntryComment>
+              <ExitComment>Exit</ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="OneActiveCall" id="13124" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active_InCallSession" DefaultChild="Active">
+                  <EntryComment></EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                      <node name="Active" id="14236" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession_OneActiveCall" DefaultChild="">
+                      <EntryComment>Entry</EntryComment>
+                      <ExitComment>Exit</ExitComment>
+                      <ModeComment></ModeComment>
+                      </node>
+                      <node name="WaitingCall" id="30292" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession_OneActiveCall" DefaultChild="">
+                      <EntryComment>Entry</EntryComment>
+                      <ExitComment>Exit</ExitComment>
+                      <ModeComment></ModeComment>
+                      </node>
+                  </node>
+                  <node name="OneHoldCall" id="1040" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession" DefaultChild="Hold">
+                  <EntryComment>Entry</EntryComment>
+                  <ExitComment>Exit</ExitComment>
+                  <ModeComment></ModeComment>
+                      <node name="Hold" id="26776" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession_OneHoldCall" DefaultChild="">
+                      <EntryComment>Entry</EntryComment>
+                      <ExitComment>Exit</ExitComment>
+                      <ModeComment></ModeComment>
+                      </node>
+                      <node name="WaitingCall" id="18535" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession_OneHoldCall" DefaultChild="">
+                      <EntryComment>Entry</EntryComment>
+                      <ExitComment>Exit</ExitComment>
+                      <ModeComment></ModeComment>
+                      </node>
+                      <node name="Make2ndCall" id="31328" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession_OneHoldCall" DefaultChild="">
+                      <EntryComment>Entry</EntryComment>
+                      <ExitComment>Exit</ExitComment>
+                      <ModeComment></ModeComment>
+                      </node>
+                  </node>
+                  <node name="OneActiveOneHoldCall" id="8030" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession" DefaultChild="ActiveHold">
+                  <EntryComment>Entry</EntryComment>
+                  <ExitComment>Exit</ExitComment>
+                  <ModeComment></ModeComment>
+                      <node name="ActiveHold" id="26552" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession_OneActiveOneHoldCall" DefaultChild="">
+                      <EntryComment>Entry</EntryComment>
+                      <ExitComment>Exit</ExitComment>
+                      <ModeComment></ModeComment>
+                      </node>
+                      <node name="WaitingCall" id="4066" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession_OneActiveOneHoldCall" DefaultChild="">
+                      <EntryComment>Entry</EntryComment>
+                      <ExitComment>Exit</ExitComment>
+                      <ModeComment></ModeComment>
+                      </node>
+                  </node>
+                  <node name="CheckBlacklist" id="7458" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_InCallSession" DefaultChild="">
+                  <EntryComment>Query blacklist to Phonebook</EntryComment>
+                  <ExitComment>Exit</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="6338"	from="_CCSRV"  to="_CCSRV"  type="Internal"	hasCondition="1" hasAction="1">
+				<event>SIMSRV_EVT_SIMReadyInd</event>
+				<event>SIMSRV_EVT_NoSIMInd</event>
+				<condition>if not in Init mode</condition>
+				<action>get the ECC data</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18280"	from="_Init"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_InitialSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18894"	from="_IDLE"  to="_Active_MakeCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_MakeCallReq</event>
+				<condition></condition>
+				<action>Handle dialing data and make call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21976"	from="_Active"  to="_Active"  type="Internal"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_CC_HANG_UP_CNF</event>
+				<condition>CheckBlacklist mode is not active</condition>
+				<action>if hangup call success&#13;&#10;        1. Clean call table&#13;&#10;        2. Trigger HangupCallSuccess&#13;&#10;        3. PostEvent HangUpCallCnf to CC_APP&#13;&#10;else&#13;&#10;    Error handle&#13;&#10;    PostEvent HangUpCallCnf to CC_APP with fail result</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19038"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CALL_SETUP_NOTIFY_IND</event>
+				<condition></condition>
+				<action>PostEvent CallSetupNotifyInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24134"	from="_Active"  to="_Active"  type="Internal"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_CC_INCALL_NOTIFY_IND</event>
+				<condition>CheckBlacklist mode is inactive</condition>
+				<action>PostEvent InCallNotifyInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="418"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_AUDIO_CHANNEL_IND</event>
+				<condition></condition>
+				<action>PostEvent AudioChannelInd to CCAPP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="22556"	from="_Active"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_HangUpCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11573"	from="_IDLE"  to="_IDLE"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_RING_IND</event>
+				<condition></condition>
+				<action>Update call table&#13;&#10;if BlackList disable&#13;&#10;    1. Trigger blacklistdisable event&#13;&#10;else&#13;&#10;    1. Update call table    &#13;&#10;    2. Trigger blacklistenable event&#13;&#10;    //Query blacklist to Phonebook in CheckBlacklist entry mode</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25557"	from="_IDLE"  to="_IDLE"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_HANG_UP_CNF</event>
+				<condition></condition>
+				<action>In Active call, if receive Release_Ind from network and Hangup Req from CCAPP, CCSRV have to response Hangup confirm to CCAPP&#13;&#10;1. PostEvent HangUpCallCnf to CC_APP&#13;&#10;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29005"	from="_IDLE"  to="_Active_IncomingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_BlackListDisable</event>
+				<condition></condition>
+				<action>Create CCMTA for Incoming call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21521"	from="_IDLE"  to="_Active_CheckBlacklist"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_BlackListEnable</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28553"	from="_Active_CheckBlacklist"  to="_Active_CheckBlacklist"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_HANG_UP_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;   1. Clean call table&#13;&#10;   2. Trigger HangupCallsuccess event&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26381"	from="_Active_CheckBlacklist"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_HangUpCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11216"	from="_Active_CheckBlacklist"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>Clean call table</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28597"	from="_Active_CheckBlacklist"  to="_Active_IncomingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_IncomingCallNotInBlacklist</event>
+				<condition></condition>
+				<action>Create CCMTA for Incoming call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11679"	from="_Active_MakeCall"  to="_Active_MakeCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CALLREF_IND</event>
+				<condition></condition>
+				<action>Update Call ID to call table</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="23753"	from="_Active_MakeCall"  to="_Active_MakeCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_ALERT_IND</event>
+				<condition></condition>
+				<action>1. Update status to call table&#13;&#10;2. PostEvent AlertInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2946"	from="_Active_MakeCall"  to="_Active_MakeCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_DIALING_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;    1. Update status to call table&#13;&#10;    2.PostEvent MakeCallCnf to CC_APP&#13;&#10;   3. Trigger MakeCallSuccess event&#13;&#10;else&#13;&#10;   1. Clean call table&#13;&#10;   2. PostEvent MakeCallCnf to CC_APP with error code&#13;&#10;  3. Trigger MakeCallFail event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5793"	from="_Active_MakeCall"  to="_Active_MakeCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CONNECTED_IND</event>
+				<condition></condition>
+				<action> For STK&#13;&#10;   1. Update status to call table&#13;&#10;    2.PostEvent MakeCallCnf to CC_APP&#13;&#10;   3. Trigger MakeCallSuccess event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26399"	from="_Active_MakeCall"  to="_Active_MakeCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if flag = CCSRV_REL_SPECIFIC_CALL&#13;&#10;    Sync call table&#13;&#10;    if no call existed&#13;&#10;        Trigger evtHangupCallSuccess&#13;&#10;    PostEvent ReleaseSpecificCallCnf&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11059"	from="_Active_MakeCall"  to="_Active_InCallSession_OneActiveCall_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_DialingCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27323"	from="_Active_MakeCall"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_DialingCallFail</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14225"	from="_Active_MakeCall"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>1. Clean call table&#13;&#10;2. PostEvent ReleaseOutgoingCall to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27841"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CALLREF_IND</event>
+				<condition></condition>
+				<action>Update Call ID to call table</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10864"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_ALERT_IND</event>
+				<condition></condition>
+				<action>1. Update status to call table&#13;&#10;2. PostEvent AlertInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25452"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_DIALING_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;    1. Update status to call table&#13;&#10;    2.PostEvent MakeCallCnf to CC_APP&#13;&#10;   3. Trigger MakeCallSuccess event&#13;&#10;else&#13;&#10;   1. Clean call table&#13;&#10;   2. PostEvent MakeCallCnf to CC_APP with error code&#13;&#10;  3. Trigger MakeCallFail event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16402"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CONNECTED_IND</event>
+				<condition></condition>
+				<action> For STK call&#13;&#10;    1. Update status to call table&#13;&#10;    2.PostEvent MakeCallCnf to CC_APP&#13;&#10;   3. Trigger MakeCallSuccess event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19279"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_DialingCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9787"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_DialingCallFail</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21458"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_HANG_UP_OUTGOINGCALL_CNF</event>
+				<condition></condition>
+				<action>if hangup call success&#13;&#10;        1. Clean call table&#13;&#10;        2. Trigger HangupOutgoingCallSuccess&#13;&#10;        3. PostEvent HangUpCallCnf to CC_APP&#13;&#10;else&#13;&#10;    Error handle&#13;&#10;    PostEvent HangUpCallCnf to CC_APP with fail result</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20533"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_HangUpOutgoingCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="23434"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>(Distinguish the released call is held or outgoing call)&#13;&#10;if released call is outgoingcall&#13;&#10;  Update call table&#13;&#10;  Trigger evtReleaseOutgoinCall (internal event)&#13;&#10;  PostEvent ReleaseOutgoingCallInd to CC_APP&#13;&#10;else&#13;&#10;  Sync call table&#13;&#10;  if no held call existed&#13;&#10;      Trigger evtReleaseAllHeldCalls&#13;&#10;  PostEvent ReleaseInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26551"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if flag = CCSRV_REL_SPECIFIC_CALL&#13;&#10;  if released call is outgoingcall&#13;&#10;     Update call table&#13;&#10;     Trigger evtReleaseOutgoinCall (internal event)&#13;&#10;  else&#13;&#10;    Sync call table&#13;&#10;    if no held call existed&#13;&#10;      Trigger evtReleaseAllHeldCalls&#13;&#10;    PostEvent ReleaseSpecificCallCnf&#13;&#10;else if flag = CCSRV_TRANSFER_CALLS&#13;&#10;    update call table&#13;&#10;    Trigger evtReleaseAllCalls&#13;&#10;    PostEvent TransferCallCnf to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="23361"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseOutgoinCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9705"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_MakeCall"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseAllHoldCalls</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1587"	from="_Active_IncomingCall"  to="_Active_IncomingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_ACCEPT_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;    (Accept incomingcall case)&#13;&#10;    1. Update call table&#13;&#10;    2. PostEvent AcceptCallCnf to CC_APP&#13;&#10;   3. Trigger success event&#13;&#10;else&#13;&#10;    (Error handle)&#13;&#10;    1. PostEvent AcceptCallCnf to CC_APP with error code&#13;&#10;    2. Trigger fail event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29978"	from="_Active_IncomingCall"  to="_Active_InCallSession_OneActiveCall_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_AcceptCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4650"	from="_Active_IncomingCall"  to="_Active_IncomingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if flag = CCSRV_REL_SPECIFIC_CALLS&#13;&#10;        // reject incoming call if CCMTA can&apos;t be creaqted&#13;&#10;        update call table&#13;&#10;        Trigger evtHangupCallSuccess&#13;&#10;        PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9990"	from="_Active_IncomingCall"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>(Release incoming call case)&#13;&#10;1. Clean call table&#13;&#10;2. PostEvent ReleaseIncomingInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="13895"	from="_Active_InCallSession"  to="_IDLE"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseAllCalls</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28011"	from="_Active_InCallSession"  to="_Active_InCallSession"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_DTMF_CNF</event>
+				<condition></condition>
+				<action>PostEvent DTMFCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7332"	from="_Active_InCallSession"  to="_Active_InCallSession"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_ABORT_DTMF_CNF</event>
+				<condition></condition>
+				<action>PostEvent AbortDTMFCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15824"	from="_Active_InCallSession_OneActiveCall_Active"  to="_Active_InCallSession_OneActiveCall_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_RING_IND</event>
+				<condition></condition>
+				<action>Update call table&#13;&#10;if blackList disable&#13;&#10;    1. Trigger blacklistdisable event&#13;&#10;else&#13;&#10;    1. set return flag = 1A&#13;&#10;    2. Trigger blacklistenable event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18613"	from="_Active_InCallSession_OneActiveCall_Active"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_BlackListDisable</event>
+				<condition></condition>
+				<action>Create CCMTA for waiting call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21877"	from="_Active_InCallSession_OneActiveCall_Active"  to="_Active_InCallSession_CheckBlacklist"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_BlackListEnable</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10225"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_CheckBlacklist"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;    Update call table&#13;&#10;    if return flag = 1A&#13;&#10;        Trigger evtBlockto1A&#13;&#10;    else if return flag = 1H&#13;&#10;        Trigger evtBlockto1H&#13;&#10;    else&#13;&#10;        Trigger evtBlockto1A1H&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6281"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_CheckBlacklist"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>Update call table&#13;&#10;if return flag = 1A&#13;&#10;    Trigger evtBlockto1A&#13;&#10;else if return flag = 1H&#13;&#10;    Trigger evtBlockto1H&#13;&#10;else&#13;&#10;    Trigger evtBlockto1A1H</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18532"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_NotBlockto1AW</event>
+				<condition></condition>
+				<action>Create CCMTA for waiting call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21780"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_OneActiveCall_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_Blockto1A</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31219"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_OneHoldCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_NotBlockto1HW</event>
+				<condition></condition>
+				<action>Create CCMTA for waiting call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6015"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_Blockto1H</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25332"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_NotBlockto1A1HW</event>
+				<condition></condition>
+				<action>Create CCMTA for waiting call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15808"	from="_Active_InCallSession_CheckBlacklist"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_Blockto1A1H</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15216"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_ACCEPT_CNF</event>
+				<event>MAE_EVT_CC_CONNECTED_IND</event>
+				<condition></condition>
+				<action>if success&#13;&#10;     (Accept waiting call in 1A case)&#13;&#10;     1. Update call table&#13;&#10;      if flag = WaitAcceptForReplaceHeldInWaiting&#13;&#10;        // From 1A1HW, Replace held calls by waiting case&#13;&#10;        //  1A1H1W -&gt; 1A1W(wait answer confirm) -&gt; 1A1H&#13;&#10;        PostEvent ReplaceHeldInWaitingCnf to CC_APP&#13;&#10;        reset flag&#13;&#10;     else&#13;&#10;        // Normail case&#13;&#10;       PostEvent AcceptCallCnf to CC_APP&#13;&#10;      Trigger success event&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14205"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_AcceptCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="12493"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;    if chld flag = CCSRV_REJECT_WAITING_CALL&#13;&#10;        // reject waiting by MMI&#13;&#10;        Update call table&#13;&#10;        Trigger evtReleaseWaitingCall&#13;&#10;        PostEvent RejectWaitingCallCnf to CC_APP&#13;&#10;    else if flag = CCSRV_REL_SPECIFIC_CALLS&#13;&#10;        // reject waiting by Public MMI&#13;&#10;            if release call is waiting call &#13;&#10;                  // Need extra flag&#13;&#10;                  update call table&#13;&#10;                  Trigger evtReleaseWaitingCall (share same event)&#13;&#10;                  PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;            else&#13;&#10;                  // release active all&#13;&#10;                  Sync call table&#13;&#10;                  if( no active call existed )&#13;&#10;                       Trigger evtReleaseAllActiveInWaiting&#13;&#10;                  else&#13;&#10;                       // do nothing (Active call still existed, stay in 1AW)&#13;&#10;                  PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;    else if chld flag = CCSRV_REL_ACT_CALLS_ANSWER_CALL&#13;&#10;        // replace active call by waiting call (PMMI)&#13;&#10;        Update call table&#13;&#10;        Trigger evtReplacebyWaitingCall&#13;&#10;        PostEvent ReplaceActiveInWaitingCnf&#13;&#10;    else if flag = CCSRV_TRANSFER_CALLS&#13;&#10;        update call table&#13;&#10;        Trigger evtReleaseAllCalls&#13;&#10;        PostEvent TransferCallCnf to CC_APP&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31328"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>if release call is waiting call&#13;&#10;  Update call table&#13;&#10;  Trigger evtReleaseWaitingCall  (share same event)&#13;&#10;  PostEvent ReleaseWaitingCallInd&#13;&#10;else // release active call&#13;&#10;   Sync call table&#13;&#10;        if( no active call existed )&#13;&#10;           Trigger evtReleaseAllActiveInWaiting&#13;&#10;        else&#13;&#10;            // do nothing (Active call still existed, stay in 1AW)&#13;&#10;  PostEvent ReleaseInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24620"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseWaitingCall</event>
+				<event>CCSRV_IEVT_ReplaceByWaitingCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4029"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_IncomingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_ReleaseAllActiveInWaiting</event>
+				<condition></condition>
+				<action>(Waiting call become incoming call)</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10588"	from="_Active_InCallSession_OneHoldCall_Hold"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_RING_IND</event>
+				<condition></condition>
+				<action>Update call table&#13;&#10;if blackList disable&#13;&#10;    1. Trigger blacklistdisable event&#13;&#10;else&#13;&#10;    1. set return flag = 1H&#13;&#10;    2. Trigger blacklistenable event&#13;&#10;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1533"	from="_Active_InCallSession_OneHoldCall_Hold"  to="_Active_InCallSession_OneHoldCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_BlackListDisable</event>
+				<condition></condition>
+				<action>Create CC APP&#13;&#10;PostEvent WaitingInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10413"	from="_Active_InCallSession_OneHoldCall_Hold"  to="_Active_InCallSession_CheckBlacklist"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_BlackListEnable</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="32653"	from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_WaitingCall"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_ACCEPT_CNF</event>
+				<event>MAE_EVT_CC_CONNECTED_IND</event>
+				<condition></condition>
+				<action>if success&#13;&#10;    (Accept waiting call in 1H case)&#13;&#10;    1. Update call table&#13;&#10;    2. PostEvent AcceptCallCnf to CC_APP&#13;&#10;    3. Trigger success event&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8418"	from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_AcceptCallSuccess</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1877"	from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_WaitingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;if chld flag = CCSRV_REJECT_WAITING_CALL&#13;&#10;    // reject waiting by MMI&#13;&#10;    update call table&#13;&#10;    Trigger evtReleaseWaitingCall&#13;&#10;    PostEvent RejectWaitingCallCnf to CC_APP&#13;&#10;else if  chld flag = CCSRV_REL_SPECIFIC_CALLS &#13;&#10;    // reject waiting by Public MMI &#13;&#10;        if release call is waiting call &#13;&#10;              // Need extra flag&#13;&#10;              update call table&#13;&#10;              Trigger evtReleaseWaitingCall (share same event)&#13;&#10;              PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;        else&#13;&#10;              // release held all&#13;&#10;              Sync call table&#13;&#10;              if( no held call existed )&#13;&#10;                   Trigger evtReleaseAllHoldInWaiting&#13;&#10;              else&#13;&#10;                   // do nothing (Held call still existed, stay in 1HW)&#13;&#10;              PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;else if flag = CCSRV_TRANSFER_CALLS&#13;&#10;    update call table&#13;&#10;    Trigger evtReleaseAllCalls&#13;&#10;    PostEvent TransferCallCnf to CC_APP&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="30562"	from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_WaitingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>if release call is waiting call&#13;&#10;  Update call table&#13;&#10;  Trigger evtReleaseWaitingCall  (share same event)&#13;&#10;  PostEvent ReleaseWaitingCallInd&#13;&#10;else // release held call&#13;&#10;   Sync call table&#13;&#10;        if( no held call existed )&#13;&#10;           Trigger evtReleaseAllHoldInWaiting&#13;&#10;        else&#13;&#10;            // do nothing (Held call still existed, stay in 1HW)&#13;&#10;  PostEvent ReleaseInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7932"	from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseWaitingCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29952"	from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_IncomingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_ReleaseAllHoldInWaiting</event>
+				<condition></condition>
+				<action>(Waiting call become incoming call)</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="22127"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_RING_IND</event>
+				<condition></condition>
+				<action>Update call table&#13;&#10;if blackList disable&#13;&#10;    1. Trigger blacklistdisable event&#13;&#10;else&#13;&#10;    1. set return flag = 1A1H&#13;&#10;    2. Trigger blacklistenable event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5547"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_BlackListDisable</event>
+				<condition></condition>
+				<action>Create CC APP&#13;&#10;PostEvent WaitingInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31806"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_CheckBlacklist"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_BlackListEnable</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24471"	from="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;    if chld flag = CCSRV_REL_ACT_CALLS_ANSWER_CALL&#13;&#10;        // Replace all active calls by waiting call&#13;&#10;        update call table&#13;&#10;        Trigger evtReplacebyWaitingCall&#13;&#10;        PostEvent ReplaceActiveInWaitingCnf&#13;&#10;    else if flag = CCSRV_REPLACE_HELD_CALL&#13;&#10;        // Replace all held calls by waiting call&#13;&#10;        // Following body could be contain in ReplaceHeldInWaitingReq()&#13;&#10;        Sync call table&#13;&#10;        if no held call existed&#13;&#10;              // Jump to 1AW to wait AcceptRsp&#13;&#10;             Trigger evtWaitAcceptRspIn1AW&#13;&#10;             // Send VM_MRL_CC_ACCEPT_REQ to RIL at  evtWaitAcceptRspIn1AW action&#13;&#10;       else&#13;&#10;             Send VM_MRL_CC_CHLD_REQ to RIL to release existed held call&#13;&#10;    else if chld flag = CCSRV_REJECT_WAITING_CALL&#13;&#10;       // reject waiting by MMI&#13;&#10;       update call table&#13;&#10;       Trigger evtReleaseWaitingCall&#13;&#10;       PostEvent RejectWaitingCallCnf to CC_APP&#13;&#10;    else //  chld flag = CCSRV_REL_SPECIFIC_CALLS&#13;&#10;        // reject waiting by Public MMI &#13;&#10;        if release call is waiting call  // Need extra flag&#13;&#10;             Sync call table&#13;&#10;              Trigger evtReleaseWaitingCall (share same event)&#13;&#10;              PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;        else if release call is active call&#13;&#10;              Sync call table&#13;&#10;              if( no active call existed)&#13;&#10;                  Trigger evtReleaseAllActiveInWaiting&#13;&#10;              else&#13;&#10;                   // do nothing (Active call still existed, stay in 1AHW)&#13;&#10;              PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;        else&#13;&#10;              // release held all&#13;&#10;              Sync call table&#13;&#10;              if( no held call existed )&#13;&#10;                   Trigger evtReleaseAllHoldInWaiting&#13;&#10;              else&#13;&#10;                   // do nothing (Held call still existed, stay in 1AHW)&#13;&#10;              PostEvent ReleaseSpecificCallCnf to CC_APP&#13;&#10;  else&#13;&#10;      // Error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3653"	from="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReplaceByWaitingCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="12452"	from="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_WaitAcceptRspIn1AW</event>
+				<condition></condition>
+				<action>set flag to WaitAcceptForReplaceHeldInWaiting&#13;&#10;Send VM_MRL_CC_ACCEPT_REQ to RIL</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="193"	from="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>if release call is waiting call&#13;&#10;  Update call table&#13;&#10;  Trigger evtReleaseWaitingCall  (share same event)&#13;&#10;  PostEvent ReleaseWaitingCallInd to CC_APP&#13;&#10;else if release call is active call&#13;&#10;   Sync call table&#13;&#10;   if( no active call existed )&#13;&#10;      Trigger evtReleaseAllActiveInWaiting&#13;&#10;   else&#13;&#10;       // do nothing (Active call still existed, stay in 1AHW) &#13;&#10;   PostEvent ReleaseInd to CC_APP&#13;&#10;else // release held call&#13;&#10;   Sync call table&#13;&#10;   if( no held call existed )&#13;&#10;      Trigger evtReleaseAllHoldInWaiting&#13;&#10;   else&#13;&#10;       // do nothing (Held call still existed, stay in 1AHW)&#13;&#10;   PostEvent ReleaseInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25249"	from="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseWaitingCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29922"	from="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseAllHoldInWaiting</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31584"	from="_Active_InCallSession_OneActiveOneHoldCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_WaitingCall"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseAllActiveInWaiting</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28024"	from="_Active_InCallSession_OneActiveCall_Active"  to="_Active_InCallSession_OneActiveCall_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;if CHLD flag = CCSRV_HOLD_CALLS&#13;&#10;    update call table&#13;&#10;    Trigger evtHoldCall&#13;&#10;    PostEvent HoldCallCnf to CC_APP&#13;&#10;else flag = CCSRV_SPLIT_CALL&#13;&#10;    update call table&#13;&#10;    Trigger evtSplitCall&#13;&#10;    PostEvent SplitCallCnf to CC_APP&#13;&#10;else flag = CCSRV_REL_SPECIFIC_CALL&#13;&#10;    Sync call table&#13;&#10;    if no call existed&#13;&#10;        Trigger evtReleaseAllCalls&#13;&#10;    PostEvent ReleaseSpecificCallCnf&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="13082"	from="_Active_InCallSession_OneActiveCall_Active"  to="_Active_InCallSession_OneActiveCall_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>Sync call table&#13;&#10;if no call existed&#13;&#10;    Trigger evtReleaseAllCalls&#13;&#10;PostEvent ReleaseInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9937"	from="_Active_InCallSession_OneActiveCall_Active"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_HoldCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5540"	from="_Active_InCallSession_OneActiveCall_Active"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_SplitCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14882"	from="_Active_InCallSession_OneHoldCall_Hold"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;if CHLD flag = CCSRV_RETRIEVE_CALLS&#13;&#10;    update call table&#13;&#10;    Trigger evtRetrieveCall&#13;&#10;    PostEvent RetrieveCallCnf to CC_APP&#13;&#10;else flag = CCSRV_REL_SPECIFIC_CALL&#13;&#10;    Sync call table&#13;&#10;    if no call existed&#13;&#10;        Trigger evtReleaseAllCalls&#13;&#10;    PostEvent ReleaseSpecificCallCnf&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31003"	from="_Active_InCallSession_OneHoldCall_Hold"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>Sync call table&#13;&#10;if no call existed&#13;&#10;    Trigger evtReleaseAllCalls&#13;&#10;PostEvent ReleaseInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="30425"	from="_Active_InCallSession_OneHoldCall_Hold"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_MakeCallReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2468"	from="_Active_InCallSession_OneHoldCall_Hold"  to="_Active_InCallSession_OneActiveCall_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_RetrieveCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15184"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_CHLD_CNF</event>
+				<condition></condition>
+				<action>if success&#13;&#10;if CHLD flag = CCSRV_JOIN_MPTY_CALLS&#13;&#10;    update call table&#13;&#10;    Trigger evtJoinMPTY&#13;&#10;    PostEvent JoinMPTYCallCnf CC_APP&#13;&#10;else if flag = CCSRV_SWAP_CALLS&#13;&#10;    update call table&#13;&#10;    // Stay in 1A1H&#13;&#10;    PostEvent SwapCallCnf to CC_APP&#13;&#10;else if flag = CCSRV_REL_SPECIFIC_CALLS&#13;&#10;    Sync call table&#13;&#10;    if release call is active call&#13;&#10;       if( no active call existed )&#13;&#10;          Trigger evtReleaseAllActiveCalls&#13;&#10;       else&#13;&#10;          // do nothing (Active call still existed, stay in 1A1H)&#13;&#10;    else // release held call&#13;&#10;       if( no held call existed )&#13;&#10;          Trigger evtReleaseAllHoldCalls&#13;&#10;       else&#13;&#10;           // do nothing (Held call still existed, stay in 1A1H)&#13;&#10;    PostEvent  ReleaseSpecificCallCnf to CC_APP&#13;&#10;else if flag = CCSRV_REL_ACT_CALLS_RETRIEVE_CALLS&#13;&#10;    // 1A1H, Under End Active, System will retrieve hold call automatically&#13;&#10;    update call table&#13;&#10;    Trigger evtReplaceByHoldCalls&#13;&#10;    PostEvent ReplaceActiveCallCnf to CC_APP&#13;&#10;else if flag = CCSRV_REL_HELD_CALLS_ONLY&#13;&#10;       // 1A1H, Under End Held call&#13;&#10;       if flag = CCSRV_REJECT_WAITING_CALL&#13;&#10;        // User in 1A1W, press "Answer" first then "End" key case&#13;&#10;        //   1. System will accept call first (From 1A1W to  1A1H) &#13;&#10;        //   2. Then in 1A1H, system will receive Reject Waiting Call confirm&#13;&#10;        //   3. MMI will send MRL_CHLD_REL_HELD_OR_UDUB to RIL, so MMI have to release Held call for it &#13;&#10;    update call table&#13;&#10;    Trigger evtReleaseAllHoldCalls&#13;&#10;    PostEvent ReleaseHoldCallCnf to CC_APP&#13;&#10;else if flag = CCSRV_TRANSFER_CALLS&#13;&#10;    update call table&#13;&#10;    Trigger evtReleaseAllCalls&#13;&#10;    PostEvent TransferCallCnf to CC_APP&#13;&#10;else&#13;&#10;    error handle</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="702"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_REL_IND</event>
+				<condition></condition>
+				<action>Sync call table&#13;&#10;if release call is active call&#13;&#10;   if( no active call existed )&#13;&#10;      Trigger evtReleaseAllActiveCalls&#13;&#10;   else&#13;&#10;       // do nothing (Active call still existed, stay in 1A1H) &#13;&#10;else // release held call&#13;&#10;   if( no held call existed )&#13;&#10;      Trigger evtReleaseAllHoldCalls&#13;&#10;   else&#13;&#10;       // do nothing (Held call still existed, stay in 1A1H)&#13;&#10; PostEvent ReleaseInd to CC_APP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="30574"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_OneActiveCall_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseAllHoldCalls</event>
+				<event>CCSRV_IEVT_ReplaceByHoldCalls</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19929"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_OneHoldCall_Hold"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_ReleaseAllActiveCalls</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16363"	from="_Active_InCallSession_OneActiveOneHoldCall_ActiveHold"  to="_Active_InCallSession_OneActiveCall_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_JoinMPTY</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10327"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_WaitingCall"  type="default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_HoldCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10507"	from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_RetrieveCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15755"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_WaitingCall"  type="internal"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_CC_CLCC_CNF</event>
+				<condition>If send Call List request  after call release indication.</condition>
+				<action>sync call table by CLCC (Avoid waiting call released and user accept call, the active call could become hold call)</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16183"	from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_Hold"  type="default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_GotoHoldCall</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="143"	from="_Active"  to="_Active"  type="internal"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_CC_CLCC_CNF</event>
+				<condition>If send Call List request  after hangup confirm</condition>
+				<action>Check current call status.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14842"	from="_Active"  to="_Active_IncomingCall"  type="default"	hasCondition="0" hasAction="1">
+				<event>CCSRV_IEVT_AllCallsReleasedButIncoming</event>
+				<condition></condition>
+				<action>Waiting call become incoming call</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27251"	from="_Active_MakeCall"  to="_Active_MakeCall"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_PROGRESS_IND</event>
+				<condition></condition>
+				<action>PostEvent ProgressInd to CC_APP</action>
+				<comment>Update in-band tone status.</comment>
+			</transition>
+			<transition enable="1" id="27555"	from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_PROGRESS_IND</event>
+				<condition></condition>
+				<action>PostEvent ProgressInd to CC_APP</action>
+				<comment>Update in-band tone status.</comment>
+			</transition>
+			<transition enable="1" id="23006"  from="_Active_InCallSession_OneHoldCall_Make2ndCall"  to="_Active_InCallSession_OneHoldCall_Make2ndCall"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CC_RING_IND</event>
+				<condition></condition>
+				<action>Check current call status and reject waiting call.</action>
+				<comment></comment>
+			</transition>			
+			<transition enable="1" id="30827"  from="_Active_InCallSession_OneActiveCall_WaitingCall"  to="_Active_InCallSession_OneActiveCall_Active"  type="default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_AcceptCallFail</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="30983"  from="_Active_InCallSession_OneHoldCall_WaitingCall"  to="_Active_InCallSession_OneHoldCall_Hold"  type="default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_AcceptCallFail</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31385"  from="_Active_IncomingCall"  to="_IDLE"  type="default"	hasCondition="0" hasAction="0">
+				<event>CCSRV_IEVT_AcceptCallFail</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="ReleaseOutgoinCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReleaseAllHoldCalls" type="internal">
+				<comment></comment>
+			</event>
+			<event name="IncomingCallNotInBlacklist" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReleaseWaitingCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReplaceByWaitingCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReleaseAllActiveInWaiting" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReleaseAllHoldInWaiting" type="internal">
+				<comment></comment>
+			</event>
+			<event name="NotBlockto1AW" type="internal">
+				<comment></comment>
+			</event>
+			<event name="NotBlockto1HW" type="internal">
+				<comment></comment>
+			</event>
+			<event name="NotBlockto1A1HW" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Blockto1A" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Blockto1H" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Blockto1A1H" type="internal">
+				<comment></comment>
+			</event>
+			<event name="WaitAcceptRspIn1AW" type="internal">
+				<comment></comment>
+			</event>
+			<event name="HoldCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="RetrieveCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="JoinMPTY" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SplitCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SwapCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReleaseAllCalls" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReleaseAllActiveCalls" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReplaceByHoldCalls" type="internal">
+				<comment></comment>
+			</event>
+			<event name="InitialSuccess" type="internal">
+				<comment></comment>
+			</event>
+			<event name="DialingCallSuccess" type="internal">
+				<comment></comment>
+			</event>
+			<event name="DialingCallFail" type="internal">
+				<comment></comment>
+			</event>
+			<event name="HangUpCallSuccess" type="internal">
+				<comment></comment>
+			</event>
+			<event name="HangUpCallFail" type="internal">
+				<comment></comment>
+			</event>
+			<event name="AcceptCallSuccess" type="internal">
+				<comment></comment>
+			</event>
+			<event name="AcceptCallFail" type="internal">
+				<comment></comment>
+			</event>
+			<event name="BlackListEnable" type="internal">
+				<comment></comment>
+			</event>
+			<event name="BlackListDisable" type="internal">
+				<comment></comment>
+			</event>
+			<event name="HangUpOutgoingCallSuccess" type="internal">
+				<comment></comment>
+			</event>
+			<event name="HangupOutgoingCallFail" type="internal">
+				<comment></comment>
+			</event>
+			<event name="MakeCallReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="MakeCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="AcceptCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="RingInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AlertInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="HangUpCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="HangUpOutgoingCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseHoldCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseSpecificCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="RejectWaitingCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReplaceActiveCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReplaceActiveInWaitingCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReplaceHoldInWaitingCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseIncomingCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseOutgoingCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseActiveCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseHoldCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseWaitingCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="WaitingCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="HoldCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrieveCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="JoinMPTYCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SplitCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SwapCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="TransferCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="FuncMakeCallReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="DTMFCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="NoCallExistedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="CallSetupNotifyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="InCallNotifyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioChannelInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReleaseActiveCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="InCallSessionTimer" type="external">
+				<comment></comment>
+			</event>
+			<event name="AbortDTMFCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="GotoHoldCall" type="internal">
+				<comment></comment>
+			</event>
+			<event name="AllCallReleasedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AllCallsReleasedButIncoming" type="internal">
+				<comment></comment>
+			</event>
+			<event name="WaitingToIncomingCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ProgressInd" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="MakeCallReq" id="29631" RetType="CCSRV_MO_ERROR_CODE"	Param1="MmiMakeCallReq_t* pMakeCallData" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_MakeCallReq&#13;&#10;@brief  The interface is use to MO call&#13;&#10;  &#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;@param[in]  pMakeCallData     MO call data (Number is necessary)&#13;&#10;@param[in]  DualMode             MO call by Master or Slave SIM card&#13;&#10; &#13;&#10;@return CCSRV_MO_NO_ERROR                      If successful.&#13;&#10;@return CCSRV_MO_FAILED                             If an error happen. &#13;&#10;@return CCSRV_MO_CALL_NO_SIM_CARD    Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_MakeCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Make2ndCallReq" id="20999" RetType="MAE_Ret"	Param1="MmiMakeCallReq_t* pMakeCallData" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_Make2ndCallReq&#13;&#10;@brief  The interface is use to MO call&#13;&#10;  &#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;@param[in]  pMakeCallData     MO call data (Number is necessary)&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_MakeCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="HangUpCallReq" id="27302" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_HangUpCallReq&#13;&#10;@brief  The interface is use to release call,  include active, held or waiting call&#13;&#10;  &#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_HangUpCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="HangUpOutgoingCallReq" id="28382" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_HangUpOutgoingCallReq&#13;&#10;@brief  The interface is use to release outgoing call. It&apos;s very useful to release outgoing call without affecting the active or held call  &#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_HangUpOutgoingCallCnf&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AcceptCallReq" id="16219" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_AcceptCallReq&#13;&#10;@brief  The interface is provided to accept incoming call or accept waiting call. The active call will be held automatically if accept a waiting call.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_AcceptCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReleaseHoldCallReq" id="24349" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_ReleaseHoldCallReq&#13;&#10;@brief  The interface is provided to release held calls.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_ReleaseHoldCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReleaseActiveCallReq" id="21742" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_ReleaseActiveCallReq&#13;&#10;@brief The interface is provided to release active calls&#13;&#10;@paramp[in] pICCSRV &#13;&#10;Pointer to the pICCSRV interface&#13;&#10;@return MAE_RET_SUCCESS ,if success&#13;&#10;@return MAE_RET_FAILED, if an error happens&#13;&#10;@return MAE_RET_BUSY, can&apos;t handle this request&#13;&#10;Corresponding feedback confirmation is CCSRV_EVT_ReleaseActiveCallCnf&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReleaseSpecificCallReq" id="23426" RetType="MAE_Ret"	Param1="u8 u8CallID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_ReleaseSpecificCallReq&#13;&#10;@brief  The interface is provided to release any specific call. Caller have to provide the Call ID he want to release.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;@param[in] u8CallID                Release Call ID&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_ReleaseSpecificCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="RejectWaitingCallReq" id="22498" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_RejectWaitingCallReq&#13;&#10;@brief  The interface is provided to reject a waiting call.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_RejectWaitingCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReplaceActiveCallReq" id="23116" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_ReplaceActiveCallReq&#13;&#10;@brief   The interface is to release active call and retrieve held call. However, it can&apos;t be used with waiting call existed.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_ReplaceActiveCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReplaceActiveInWaitingReq" id="29805" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_ReplaceActiveInWaitingReq&#13;&#10;@brief   The interface is use to replace active call by waiting call. All the active calls will be released first.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_ReplaceActiveInWaitingCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReplaceHoldInWaitingReq" id="10648" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_ReplaceHoldInWaitingReq&#13;&#10;@brief   The interface is to replace held call by waiting call. All the held calls will be released first.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_ReplaceHoldInWaitingCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="HoldCallReq" id="18430" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_HoldCallReq&#13;&#10;@brief   The interface is provided to hold an active call.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_HoldCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="RetrieveCallReq" id="23700" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_RetrieveCallReq&#13;&#10;@brief   The interface is provided to retrieve a held call .&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_RetrieveCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="JoinMPTYCalllReq" id="22079" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_JoinMPTYCallReq&#13;&#10;@brief   The interface is provided to host a conference call.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10; &#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_JoinMPTYCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SplitCalllReq" id="10915" RetType="MAE_Ret"	Param1="u8 u8CallID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_SplitCallReq&#13;&#10;@brief   The interface is provided to split a member from the conference call.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;@param[in]  u8CallID               Split Call ID&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_SplitCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SwapCalllReq" id="12866" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_SwapCallReq&#13;&#10;@brief   The interface is provided to change the status between active and held call.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_SwapCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="TransferCalllReq" id="13843" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_TransferCallReq&#13;&#10;@brief   The interface is used to transfer the calls and leave the in-call session.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_TransferCallCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SendDTMFReq" id="25133" RetType="MAE_Ret"	Param1="u8 u8KeyCode" Param2="MMI_CCSRV_DTMF_OP_e DTMFOper"	Param3="u8 u8Duration" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_SendDTMFReq&#13;&#10;@brief   The interface is used to send DTMF to protocol stack.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;@param[in]  u8KeyCode           The key user pressd&#13;&#10;@param[in]  DTMFOper            Start to send or Stop to send the DTMF&#13;&#10;@param[in]  u8duration            1~254*100ms if DTMFOper is Start&#13;&#10;                                                  255 is infinite DTMF playing&#13;&#10;                                                  Don&apos;t care if DTMFOper is Stop&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_DTMFCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetActiveMode" id="7806" RetType="CCSRV_Mode_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_GetActiveMode&#13;&#10;@brief  The interface is provided to APP to query the mode status of CC Service.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;&#13;&#10;@return CCSRV_IDLE                       No call&#13;&#10;@return CCSRV_1A                           Active call(s)&#13;&#10;@return CCSRV_1H                           Held call(s)&#13;&#10;@return CCSRV_1A1H                      Active call + Held call(s) or Active call(s) + Held call&#13;&#10;@return CCSRV_1AW                       Active call(s) with 1 Waiting call&#13;&#10;@return CCSRV_1HW                       Held call(s) with 1 Waiting call&#13;&#10;@return CCSRV_1AHW                    Active call + Held call(s)+ Waiting call or Active call(s) + Held call + Waiting call&#13;&#10;@return CCSRV_MAKE2NDCALL   Held call(s) + 1 Outgoing call&#13;&#10;@return CCSRV_OUTGOING           1 Outgoing call&#13;&#10;@return CCSRV_INCOMING            1 Incoming call&#13;&#10;@return CCSRV_Unknown                Unknow&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="RegisterListener" id="28533" RetType="MAE_Ret"	Param1="void* instance" Param2="u32 mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_RegisterNotify&#13;&#10;@brief   The interface is provided APPs to listen CCSRV events that he interested.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;@param[in]  instance                 Object pointer to the APP&#13;&#10;@param[in]  mask                     Event mask&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS           If successful.&#13;&#10;@return MAE_RET_FAILED              If an error happen. &#13;&#10;@return MAE_RET_BAD_PARAM    If an error happen.&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeregisterListener" id="4987" RetType="MAE_Ret"	Param1="void* instance" Param2="u32 mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_DeregisterNotify&#13;&#10;@brief   The interface is provided APPs to stop listen events that he interested.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;@param[in]  instance                 Object pointer to the APP&#13;&#10;@param[in]  mask                     Event mask&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS           If successful.&#13;&#10;@return MAE_RET_FAILED              If an error happen. &#13;&#10;@return MAE_RET_BAD_PARAM    If an error happen.&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetCallTableDataModel" id="27098" RetType="boolean"	Param1="IDataModel** ppData" Param2="IBase* pOwner"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_GetCallTableDataModel&#13;&#10;@brief   The interface is provided APPs to get the Call table data model.&#13;&#10;&#13;&#10;@param[in]  pICCSRV             Pointer to the pICCSRV interface&#13;&#10;@param[out] ppData                 Call table data model will be placed at ppData&#13;&#10;@param[in]  pOwner                Instance of the caller&#13;&#10;&#13;&#10;@return TRUE           If successful.&#13;&#10;@return FALSE         If an error happen. &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsEmergencyCall" id="2220" RetType="boolean"	Param1="u8* number" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_IsEmgegencyCall&#13;&#10;@brief   The interface is use to check Emergency number&#13;&#10;&#13;&#10;@param[in]  pICCSRV             Pointer to the pICCSRV interface&#13;&#10;@param[in] number                 Phone number to be checked&#13;&#10;&#13;&#10;@return TRUE           Emergency call.&#13;&#10;@return FALSE         Not a Emergency call. &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetDuoCallStatus" id="3526" RetType="CCSRV_DUO_STATUS_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_GetDuoCallStatus&#13;&#10;@brief   The interface is use to get the duo status of current call&#13;&#10;&#13;&#10;@param[in]  pICCSRV             Pointer to the pICCSRV interface&#13;&#10;&#13;&#10;@return CCSRV_MASTER_CALL_EXISTED      Current call session belong to Master mode&#13;&#10;@return CCSRV_SLAVE_CALL_EXISTED         Current call session belong to Slave mode &#13;&#10;@return CCSRV_NO_CALL                                 No call existed &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsMissCallExisted" id="1141" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_IsMissCallExisted&#13;&#10;@brief   The interface is use to check Miss Call existed when CCSRV is active&#13;&#10;&#13;&#10;@param[in]  pICCSRV             Pointer to the pICCSRV interface&#13;&#10;&#13;&#10;@return TRUE           Miss call existed&#13;&#10;@return FALSE         No miss call&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ResetMissCallStatus" id="5739" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_ResetMissCallStatus&#13;&#10;@brief   The interface is use to reset Miss Call flag for CCSRV&#13;&#10;&#13;&#10;@param[in]  pICCSRV             Pointer to the pICCSRV interface&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS           If successful.&#13;&#10;@return MAE_RET_FAILED              If an error happen. &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetInCallDuration" id="26158" RetType="u32"	Param1="CCSRV_DURATION_Type_e eDurationType" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_GetInCallDuration&#13;&#10;@brief   The interface is use to get the InCallDuration&#13;&#10;&#13;&#10;@param[in]  pICCSRV             Pointer to the pICCSRV interface&#13;&#10;@param[in]  eDurationType    Duration type&#13;&#10;@return x seconds&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AbortDTMFReq" id="11295" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_AbortDTMFReq&#13;&#10;@brief   The interface is used to force abort DTMF during in-call session.&#13;&#10;&#13;&#10;@param[in]  pICCSRV              Pointer to the pICCSRV interface&#13;&#10;&#13;&#10;@return MAE_RET_SUCCESS        If successful.&#13;&#10;@return MAE_RET_FAILED           If an error happen. &#13;&#10;@return MAE_RET_BUSY              Can&apos;t handle this request. &#13;&#10;&#13;&#10;Corresponding feedback confirm is CCSRV_EVT_AbortDTMFCnf&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetAutoRedialStatus" id="12198" RetType="void"	Param1="boolean bStatus" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_SetAutoRedialStatus&#13;&#10;@brief   The interface is use to set Auto Redial status&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsAtoRedialActive" id="12312" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_IsAtoRedialActive&#13;&#10;@brief   The interface is use to check Auto Redial status&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetPreMOCallStatus" id="2871" RetType="void"	Param1="boolean bStatus" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_SetPreMOCallStatus&#13;&#10;@brief   The interface is use to set Pre-MO call status(For Check dual or IP call)</function>
+			<function name="IsPreMOCallActive" id="24982" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_IsPreMOCallActive&#13;&#10;@brief   The interface is use to check Pre MO call status</function>
+			<function name="IsTryToReleaseAllCall" id="9573" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">mmi_CCSRV_IsTryToReleaseAllCall&#13;&#10;@brief   The interface is use to check release all call status</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

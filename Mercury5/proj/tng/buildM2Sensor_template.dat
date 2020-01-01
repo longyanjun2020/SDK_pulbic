@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sync
+echo building M2 sensor driver
+
+cd tng/Mst_Sensor
+./updateSenDrv.bat ../../build/$product_name/out/$product_name.bin ../../build/$product_name/out/link.info ../../sc/customer/$product_name/sensor/%SensorDriver%
+cd -
+
+echo finish

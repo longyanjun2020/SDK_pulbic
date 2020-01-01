@@ -1,0 +1,90 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+/****************************************************************************/
+/*  File    : dev_fat.ht                                               		*/
+/*--------------------------------------------------------------------------*/
+/*  Scope   : FAT16/FAT12 file-system types definition           			*/
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 23.12.02 |   NRO  |      |  Creation                                     */
+/*----------+--------+------+-----------------------------------------------*/ 
+/****************************************************************************/
+#ifndef __VFS_FAT_HT__
+#define __VFS_FAT_HT__
+
+/*_____ I N C L U D E S ____________________________________________________*/
+#include "vm_types.ht" 
+#include "vfs_fat.hc"                            /* fat file-system definition */
+#include "vfs_fat.ho" 
+
+#ifdef __SDK_SIMULATION__
+/*******************************************************************************
+* PURPOSE: 
+* FAT cluster chain structure (each index is a fragment of the file)
+*******************************************************************************/
+typedef struct CLUSTER_CHAIN
+{
+  	u16 	cluster[MAX_FILE_FRAGMENT_NUMBER]; /* starting cluster of fragment */
+  	u8   	number[MAX_FILE_FRAGMENT_NUMBER];  /* number of subsequent clusters in fragment */
+	u8 		nb_fragments;
+} Cluster_Chain_t;
+
+
+/*******************************************************************************
+* PURPOSE: 
+* FAT fat cache system
+*******************************************************************************/
+typedef struct FILE_REFERENCE
+{
+	u16  	start_cluster;                    /* Starting cluster number        */
+	u16  	parent_start_cluster;             /* Parent starting cluster number        */
+
+	u32 	byte_counter; 						/* byte counter, mainly use for the eof check */
+	u16 	sector_counter; 					/* sector counter, in a cluster */
+    u32 	first_entry_sector;		/* absolute first entry sector  */
+    u32 	last_entry_sector;		/* absolute last entry sector */
+    u16 	first_entry;		/* number of the first entry of this file in the entry_sector */
+    u16 	last_entry;			/* number of the last entry of this file in the entry_sector */
+              
+	u8    	fragment_index;      /* the number of the fragment of the file, in fact */
+                                            /* the index of the table in the cluster chain */
+	u8    	fragment_cluster;    /* the offset of the cluster from the first cluster */ 
+                                            /* of the fragment */
+
+	u8 		open_mode;
+	u8 		nb_entries;			// number of entries in the directory chain
+	Cluster_Chain_t *fragments;       /* cluster chain for the current file */
+
+	VFS_File_Info_t 	file_info;
+	Volume_t		*volume;
+} File_Reference_t;
+  
+typedef struct DIRECTORY_TYPE {
+	u16  last_file;                /* number of file stored in the directory */
+	u32  directory_base;           /* starting sector for directory */
+	u32  current_sector;           /* current sector where the current */
+	                                            /* file/dir info (cache.info) is situated */
+	u16  current_byte_counter;     /* the byte counter offset in the current */
+	                                            /* sector where is the current file/dir entry */
+	bool     dir_is_root;          /* TRUE: point the root directory  */
+	/* directory cluster chain management */
+	u8				fragment_index;
+	u16				cluster_in_fragment;
+	Cluster_Chain_t fragments;   /* cluster chain for the current directory */
+	File_Reference_t *file_references;
+	Volume_t		*volume;
+} Directory_t;
+#endif /* __SDK_SIMULATION__ */
+
+#endif  /* __VFS_FAT_HT__ */

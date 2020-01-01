@@ -1,0 +1,198 @@
+/****************************************************************************/
+/*  File    : e2p_stck.ho                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : EEPROM structure acces defintion for  stack parameters        */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __E2P_STCK_HO__
+#define __E2P_STCK_HO__
+
+#include "stdcomp.h"
+#include "sim_glob.h"       /* Imsi, and Imei types */
+#include "traces.ho"        /* LAST SUBPROCESS def  */
+
+#include "vm_e2p_stack.ho"
+
+
+#ifndef __GPRS__
+#define GPRS_LAST_SUBPROCESS 0x0a  //défini normalement dans gtraces.ho
+#endif
+
+
+typedef struct
+{
+   u8 u8_Java;             /* Size of the java volume / 0x10000 */
+   u8 u8_Dota;             /* Size of the volume used for download over the air operations / 0x10000 */
+   u8 u8_Sound;            /* Size of the volume used to store melodies, voice memos, ... / 0x10000 */
+   u8 u8_JavaExec;         /* Size of the volume used to store the executed applet / 0x10000 */
+   u16 u16_CusSize;        /* size of CUS file / 0x1000 */
+   u8 u8_CustoBase;        /* Origin of the customisation files volume / 0x10000 */
+   u8 u8_Control;          /* Control sum */
+} AdVolumes_t;
+
+
+#define E2P_DIM_IMEI      	VM_E2P_DIM_IMEI
+#define E2P_DIM_VERSION   	VM_E2P_DIM_VERSION
+#define E2P_DIM_SIGNATURE   VM_E2P_DIM_SIGNATURE
+#define E2P_DIM_DATA_PARAM  VM_E2P_DIM_DATA_PARAM
+#define E2P_DIM_GENPARAM    VM_E2P_DIM_GENPARAM
+
+#define E2P_DIM_PRODDATA              49
+
+#define  Version_t vm_Version_t
+#define  KeySignature_t          vm_KeySignature_t
+
+#define E2P_DIM_GREETING              49
+typedef ascii Greet_t           [E2P_DIM_GREETING    ];
+
+typedef struct
+{
+   KeySignature_t SignaturePck;
+   KeySignature_t SignatureNck;
+   KeySignature_t SignatureNsck;
+   KeySignature_t SignatureSpck;
+   KeySignature_t SignatureCck;
+   KeySignature_t SignatureParam;
+   u8             MeLockData[E2P_DIM_GENPARAM+1];  /* Data of ME Lock */
+
+   u8             E2pChkSumWritten;        /* State of the special parameters protection   */
+   u8             E2pChkSum;               /* Checksum of the special protected parameters */
+   u8             E2pMirror;               /* Must be set to 2 to trigger a mirror setup at next startup */
+   u8             u8_CustoBase_1;               /* pad 1 */
+   u16            E2pTstPattern;           /* E2prom test pattern, must be equal to 0xABCD */
+
+   Imei_t         Imei;                    /* Inter Mobile Equip Ident   */
+
+   u8             ObjNumberOf32k;     /* Number of sectors used for E2P's Object Management or FMS' Random Access Items */
+   u8             ObjFormatChkSum;        /* 255 - ObjNumberOfSectors */
+   u8             RaiEntriesNumber;                   /* User defined number of entries for Random Access Items divided by 256 */
+
+   u8             FlashJournalCtx[5];                 /* Private flash operations context */
+
+   // Don't use AdVolumes_t. There's alignment issue.
+   struct AdVolumes_s
+   {
+      u8    JavaVolumeSize;                     /* Size of the java volume / 0x10000 */
+      u8    DotaVolumeSize;                     /* Size of the volume used for download over the air operations / 0x10000 */
+      u8    SoundVolumeSize;                    /* Size of the volume used to store melodies, voice memos, ... / 0x10000 */
+      u8    JavaExecVolumeSize;                 /* Size of the volume used to execute java applets / 0x10000 */
+      u8    AdReserved[3];
+      u8    AdControlSum;                       /* Sum of the "non-reserved" fields */
+   } AdVolumes;         /* FMS "Applications&Data" volumes definition */
+
+   u8             SysFeature;              /* features for Sys EL     */
+   s8             AntennaGain;
+
+   u8             TrcNumberOf32k;       /* Number of sectors used for E2P's BackTrace */
+   u8             TrcFormatChkSum;          /* 100 - TrcNumberOfSectors */
+
+   u8             u8_CustoBase_2;               /* pad 14 */
+   KeySignature_t SignatureForCustomerFeatures;
+   u32            CustomerFeatures;
+
+   Version_t      VersHard;                /* number of hard version */
+   //Version_t      VersSoft;                /* number of soft version */
+   u16             RaiSizeIn32k;     /* Size in 32K used for FMS' Random Access Items */
+   u16             RaiFormatChkSum;        /* 65535 - RaiSizeIn32k */
+
+   u32            L1cNbWakeFrame;
+   u32            L1cNbSleepFrame;
+   u32            L1cNbTxFrame;
+   u8             rr_ScanMode;             /* Toggle between rr & rrs    */
+   u8             ExhaustivePlmnSearch;    /* Fast and exhaustive emergency mode   */
+   u8             ImeiSV;                  /* SV part of the IMEISV     */
+   u8             NbRoughDacValue;
+   u32            RoughDacSum;              /* For aging drift purpose.   */
+   s8             RoughDacOffset;          /* Rough dac aging offset.    */
+   u8             ScratchMemStatus; /* Status of the Scratch Memory in Flash */
+   u8             v24_NominalMode;         /* 0 => V24 starts in HAPC mode */
+   u8             v24_Framing;             /* Framing (parity, stop ...) */
+   u8             v24_SignalForUsb;
+   u8             v24_UsbFraming;          /* Usb framing (parity, stop ...) */
+   u8             v24_UsbSpeed;            /* V.24 usb handler speed         */
+   u8             v24_UsbOptions;          /* V.24 usb handler Options       */
+   u8             v24_UsbExtOptions;       /* V24 usb user profile           */
+   u8             v24_Speed;               /* V.24 handler speed         */
+   u8             v24_Options;             /* V.24 Handler Options       */
+   u8             v24_SerialOn;            /* serial link activation     */
+   u8             v24_Uart2Framing;        /* Uart2 framing (parity, stop ...) */
+   u8             v24_Uart2Speed;          /* V.24 uart2 handler speed         */
+   u8             v24_Uart2Options;        /* V.24 uart2 handler Options       */
+   u8             v24_Uart2ExtOptions;     /* V24 uart2 user profile           */
+   u32            v24_ExtOptions;          /* V24 user profile           */
+   u16            RoughDacValue;    /* To load in radio DAC.      */
+   Greet_t        ProdData1;               /* Greeting message   size 49            */
+   u8             AecType;
+   u32            RtkMbxState[2];          /* Remote mailboxes for rtk    */
+   u32            RtkTaskState;            /* Remote tasks for RTK        */
+   u32            DiagState [LAST_SUBPROCESS + 1]; /* Trace levels.       */
+   u8             RxSPErrorTres;           /* TCH BFI threshold.         */
+   u8             FchTres;               /* Facch threshold.           */
+   u16            RaiEntriesNumberExt;     /* User defined number of entries for Random Access Items divided by 256 (Extention)*/
+
+} E2pStck_t   ;
+
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE LOGICAL NAMES FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+
+#define VM_E2P_STACK_AREA    0x00000000
+
+
+#define E2P_RECORD(_X_,_Y_)  offsetof(E2pStck_t, _X_), _Y_
+#define E2P_RECORD_OFFSET(_X_,_I_,_Y_)  (offsetof(E2pStck_t, _X_)+_Y_*_I_), _Y_
+
+#define E2P_SIGNATURE_PCK      E2P_RECORD( SignaturePck[0] , sizeof(KeySignature_t))
+#define E2P_SIGNATURE_NCK      E2P_RECORD( SignatureNck[0] , sizeof(KeySignature_t))
+#define E2P_SIGNATURE_NSCK     E2P_RECORD( SignatureNsck[0], sizeof(KeySignature_t))
+#define E2P_SIGNATURE_SPCK     E2P_RECORD( SignatureSpck[0] , sizeof(KeySignature_t))
+#define E2P_SIGNATURE_CCK      E2P_RECORD( SignatureCck[0]  , sizeof(KeySignature_t))
+#define E2P_SIGNATURE_PARAM    E2P_RECORD( SignatureParam[0], sizeof(KeySignature_t))
+#define E2P_ME_LOCK_DATA       E2P_RECORD( MeLockData[0], sizeof(u8)*(E2P_DIM_GENPARAM+1) )
+
+#define E2P_E2PCHKSUMWRITTEN   E2P_RECORD( E2pChkSumWritten, sizeof(u8) )
+
+#define E2P_E2PMIRROR          E2P_RECORD( E2pMirror, sizeof(u8))
+
+#define E2P_E2PCHKSUM          E2P_RECORD( E2pChkSum, sizeof(u8))
+#define E2P_E2PTSTPATTERN      E2P_RECORD( E2pTstPattern, sizeof(u16))
+
+#define E2P_OBJNUMBEROF32KB    E2P_RECORD( ObjNumberOf32k, sizeof(u8))
+#define E2P_OBJFORMATCHKSUM    E2P_RECORD( ObjFormatChkSum, sizeof(u8))
+#define E2P_RAINUMBEROFENTRIES E2P_RECORD( RaiEntriesNumber, sizeof(u8) )
+
+#define E2P_ADVOLUMESDEFINITION  E2P_RECORD( AdVolumes, sizeof(AdVolumes_t))
+
+#define E2P_FMS_JOURNALCTX       E2P_RECORD( FlashJournalCtx[0], 5*sizeof(u8) )
+#define E2P_FMS_JOURNALCTX_STATE E2P_RECORD( FlashJournalCtx[4],   sizeof(u8) )
+
+#define E2P_TRCNUMBEROF32KB    E2P_RECORD( TrcNumberOf32k, sizeof(u8))
+#define E2P_TRCFORMATCHKSUM    E2P_RECORD( TrcFormatChkSum, sizeof(u8))
+#define E2P_RAISIZEIN32KB      E2P_RECORD( RaiSizeIn32k, sizeof(u16))
+#define E2P_RAIFORMATCHKSUM    E2P_RECORD( RaiFormatChkSum, sizeof(u16))
+
+#define E2P_CUSTOBASE_1    E2P_RECORD( u8_CustoBase_1, sizeof(u8))
+#define E2P_CUSTOBASE_2    E2P_RECORD( u8_CustoBase_2, sizeof(u8))
+
+#define E2P_RAINUMBEROFENTRIESEXT E2P_RECORD( RaiEntriesNumberExt, sizeof(u16) )
+
+typedef struct
+{
+ u16           Pos;
+ u16           Size;
+} e2p_Field_t;
+
+
+extern const u16   e2p_UsefullSize;
+extern const void *e2p_RemotePtr;
+extern const u16   e2p_NbErrorStoredOffset;
+extern const u16   e2p_FirstErrorStoredOffset;
+extern const e2p_Field_t e2p_ParamForChkSum [];
+extern const u8    e2p_NbParamForChkSum;
+
+#endif  /* __E2P_STCK_HO__  */

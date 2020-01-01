@@ -1,0 +1,333 @@
+================================
+== EMMI RESOURCE GENERATOR    ==
+================================
+== XRG2 TOOL : Version History =
+================================
+Version: 2.0.0.1 (Feb. 10th, 2011)
+New features:
+		- First release
+Bug fix:
+		N/A
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.1 (Feb. 18th, 2011)
+New features:
+		- Support multi-theme (XRG.ini[FEATURE-->MULTI_THEME=1/0])
+Bug fix:
+		N/A
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.2 (Feb. 22th, 2011)
+New features:
+		N/A
+Bug fix:
+		1. fix flag control issue
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.3 (Mar. 17th, 2011)
+New features:
+		- First release to mainline
+Bug fix:
+		N/A
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.4 (Mar. 23th, 2011)
+New features:
+		- Add theme pack build feature
+Bug fix:
+		N/A
+PR:
+		N/A				
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.5 (Apr. 7th, 2011)
+New features:
+		1. [XRG2][Common][Lib] move [BUILD] NULL_RES/[FEATURE] MULTI_THEME to BuildConfig
+		2. [XRG2][Common][Lib] move all load XRG.ini information into XRGCommander (get_build_config)
+		3. [XRG2][Image/Melody][Lib] revise sort function
+Bug fix:
+		1. [XRG2][ResGroup/Image/Melody][Lib] fix customize resource get compiler option methed (base & customize)
+		2. [XRG2][ResGroup][Lib] if no cus for link customize default theme, use base(default) theme instead
+		3. [XRG2][Project][Lib] link default category if no category in customize (image/melody/string/rs)
+PR:
+		N/A				
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.6 (Apr. 15th, 2011)
+New features:
+		1. [XRG2][UnitTest]
+Bug fix:
+		1. [XRG2][ResGroup][Lib] fix CL#105448 bug, if active theme is default , no cus for link customize default theme is OK.
+		2. [XRG2][Project][Lib] fix CL#106174 bug, if active theme is default , no link default category 
+		3. [XRG2][Image/Melody][Lib] for customize theme build requir flow fix
+		4. [XRG2][Solution/ResGroup][Lib] return true after build success
+PR:
+		N/A			
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.7 (Apr. 21th, 2011)
+New features:
+		1. [XRG2][Build][RS] Add RS macrod expanding function in RS building process Step1: use gcc to output preprocessing file Step2: use rspp.exe to parse and output useful information 
+		2. [XRG2] For this version, the system will move LangPack.ini to "\build" file and rename to "TP_DefaultLangPackXXX.readme".
+		3. [XRG2] For this version, the system will move XRGConsoleXXXXX.log to "\build".
+		4. [XRG2][Lang][Lib] merge CL#101930 ([XRG][Font/Lang][Lib] compress font/lang category to reduce CUS size (XRG.ini control [use compiler option to check]))
+		5. [XRG2][IME] For ime smart filter, this version will produce _Y and _B bin file for one language.
+		6. [XRG2][Common][Lib] read XRG2.ini instead of XRG.ini
+Bug fix:
+		1. [XRG2][Build] Fix divide by zero exception that casued by zero alignment value 
+		2. [XRG][Image/Melody][Lib] fix predefine image/melody no text id issue		
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.8 (Apr. 26th, 2011)
+New features:
+		1. [XRG2][IME] For IME smart filter function, fix smart build function in XRGBuilder.
+		2. [XRG2][Crash Dump] Implement the crash dump function in the XRG2. At the moment, developer have to change the project to release mode in order to open the crash dump function.
+Bug fix:
+		1. [XRG2][Image] Fix a bug of compiler option which cann't identify logical operator.
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.9 (Apr. 28th, 2011)
+New features:
+		1. [XRG2][Common][Lib] remove "_" from output cus file
+Bug fix:
+		N/A
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.10 (Apr. 28th, 2011)
+New features:
+		1. [XRG2][Image/Melody] always gen header file to prevent DZ fail
+Bug fix:
+		N/A
+PR:
+		N/A			
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.11 (May. 5th, 2011)
+New features:
+		1. [XRG2][Font] Integrate the font compression function to XRG2.
+		2. [XRG2][RS][Lib] load RS cate compiler option for build
+		3. [XRG2][ResGroup][Lib] build resource group based on theme pack setting
+		4. [XRG2][Common][Lib] check null object for add dispatch job
+		5. [XRG2] Append data fix.It includes that XRG_UI and XRGConsole.
+Bug fix:
+		N/A
+PR:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.12 (May. 6th, 2011)
+New features:
+		N/A
+Bug fix:
+		1. [XRG2][Font] For build font function, change the build_item funtion. Tag the function of transform().
+		2. [XRG2][Font][Lib] fix ovrflow issue
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.1.0.13 (May. 11th, 2011)
+New features:
+		1. [XRG2][Log][Lib] apply log level: error level (1), debug level (2)
+		2. [XRG2][IME][Lib] if bin exists, no build
+		3. [XRG2][Handwriting][Lib] if bin exists, no build
+Bug fix:
+		N/A
+PR:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.2.0.1 (Jun. 9th, 2011)
+New features:
+		1. [XRG2][Lang/Theme pack][Lib] check 0 lang/theme pack & return error
+		2. [XRG2][Image/Melody][Lib] modify header file gen content
+		3. [XRG2][Image/Melody/Font/Project][Lib] memset to 0x00 to build same cus content
+		4. [XRG2][RS][Lib] add MAX_BUILD into XRG.ini to control RS build max number
+		5. [XRG2][Lang][Lib] Return false while getting duplicate id & add more log information.
+		6. [XRG2][Boot][Lib] support png format (no RD flag) [chih-hao.chang]
+Bug fix:
+		1. [XRG2][Image][Lib] load rd_flag from XML
+PR:
+		1. [XRG][Lang][Lib] 0162524: [XRG] import 翻譯不完全
+		2. [XRG2][Melody][Lib] fix PR0166945: [Bug][VT][A]【MB303GM】設置鬧鈴、來電鈴聲、信息、日曆鈴聲入系統文件選擇所有的鈴聲名稱一樣
+		3. [XRG2][IME][Lib] 0162538: [XRG]移除多餘的IME_N.bin 檔
+		4. [XRG2][RS][Lib] 0158636: [XRG] 支援by Theme 設 compile option
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.2.0.2 (Jun. 13th, 2011)
+New features:
+		N/A
+Bug fix:
+		1. [XRG2][Project][Lib] fix NIC address + timestamp+'\0' ( 6+4+1 ) issue
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 2.3.0.1 (Jul. 28th, 2011)
+New features:
+		1. New Feature: ID577 Multi RS record 
+		2. Image group for dymanic load
+		3. [XRG2][Common][Lib] modify error log content
+		4. [XRG2][Common][Lib] generate product readme file including all output cus files
+		5. [XRG2][Common][Lib] add XRG2 console build version information into log
+Bug fix:
+		1. [XRG2][Common][Lib] solve invalid build lang pack hang issue
+		2. [XRG2][RS][Lib] build empty data set for no record RS item including default & customization theme
+CR:
+		1. 0174180: [CR] AP Resource support sub group
+		2. 0179527: [XRG] IME/HW/PLMN 支援壓縮
+		3. 0182267: [XRG] XRG 支援手寫DB 檔存放在T-Card中
+PR:		
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.3.0.2
+Version: 2.3.0.2 (Sep. 5th, 2011)
+New features:
+		1. [XRG2]: 支援不能移除 default_L 的防呆功能。
+		2. [XRG2] 0188757: Melody supports AAC format. (image/melody support format @ ini file)
+		3. [XRG2][Handwriting][Lib] 0189364: [CR][XRG2] H/W feature 的compiler option將會於XRG2.ini中設定,不包在各個的XML中
+		4. [XRG2][RS][Lib] enhance log information (rs_gen.exe file build information)
+		5. [XRG2][All][Lib] 0191529: [Tool Improvement] XRG partial build an AP (e.x. -ap Common AlarmApp)
+		6. [XRG2][RS][Lib] 0191836: [XRG] theme_list.xml 內容有誤時, 讓build process fail
+		7. [XRG2][Image/Melody/Lang/RS][Lib] 0184570: [XRG] [BUG] image 沒包與AP level 相同的compiler option, 會造成build fail 
+
+Bug fix:
+		1. [XRG2][FontConvert] Fix the bug when bmp file name is too long, the system will show error.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.0.1
+Version: 2.4.0.1 (Oct. 6th, 2011)
+New features:
+		1. [XRG2][Lang][Lib] 0197462: [XRG] language compress to reduce heap size usage
+		2. [XRG2][UI/Lib][PLMN ]0197059: [XRG] PLMN allows empty for long/short name 
+
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.0.2
+Version: 2.4.0.2 (Oct. 14th, 2011)
+New features:
+		N/A
+		
+Bug fix:
+		1. 0201214: [Bug][VT][A][mb601_mcd_s]The dialog  message are all □ when press End key in Idle
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.0.3
+Version: 2.4.0.3 (Dec. 6th, 2011)
+New features:
+		1. [XRG2][IME][Lib] 4 bytes alignment for displayname
+		2. [XRG2][IME/KMXFont][Lib] 4 bytes alignment for data build
+		3. [XRG2][KMX][Lib] set "kmx" as default KMX folder instead of "kmxfont"
+		4. [XRG2][Image/Melody][Lib] disable all compiler options in header file
+		5. [XRG2][Image/Melody][Lib] rebuild category while ADD_LANGUAGE_CO is true
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.1.1
+Version: 2.4.1.1 (Dec. 13th, 2011)
+New features:
+		1. [XRG2][Lang][Lib] merge String_Table_00 content if current is empty or WC_EMPTY_STRING (with MERGE_CO on/off)
+		2. [XRG2][Image/Melody][Lib] add item to build while ADD_LANGUAGE_CO is 1
+		3. [XRG2][Image/Melody][Lib] if ADD_LANGUAGE_CO is 1, rebuild aplist only
+Bug fix:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.1.2
+Version: 2.4.1.2 (Jan. 11th, 2012)
+New features:
+		1. [XRG2][Sol][Lib] compress final solution cus and then add DwlWin & WCUS Header to head with compressed data size
+		2. [XRG2][Image/Melody][Lib] if ADD_LANGUAGE_CO is 1, rebuild aplist only
+Bug fix:
+		1. [XRG2][3rd][Lib] gen 3rd cate header file
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.1.3
+Version: 2.4.1.3 (Jan. 13th, 2012)
+New features:
+		1. [XRG2][ResGroup][Lib] system global ap enum value (AP_ID_GLOBAL) set to 4095
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.2.1
+Version: 2.4.2.1 (Feb. 10th, 2012)
+New features:
+		1. [build time improvement][XRG2][Font][Lib] change font item output file extension name to .fnt 
+		2. [build time improvement][XRG2][KMXFont][Lib] change kmxfont item output file extension name to .kft
+		3. [build time improvement][XRG2][Font][Lib] font item NO compressed name > *_NC.fnt
+Bug fix:
+		1. [XRG2][Font][Lib] category compress flag sync with item
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.2.2
+Version: 2.4.2.2 (Mar. 13th, 2012)
+New features:
+		1. Merge //Tools/SDKTool/Branches/XRG2_v2.1.0.13/
+			CL#181830
+			[XRG2][Font][Lib] support multi vector font with different language
+			CL#183895
+			[XRG2][Font][Lib] no language data and then build failed 
+			CL#196060
+			[XRG2][Font][Lib] modify error message content
+			CL#199202
+			[XRG2][Font][Lib] support vector & bitmap font mix condition
+			CL#199437
+			[XRG2][Font][Lib] support vector & bitmap font mix condition (vector Font ID list only includes vector font)
+		2. Merge //Tools/SDKTool/XRG2/ CL#187388
+			[XRG2][Font][Lib] compress full FONT.cus for 32/32 task
+		3. Merge //Tools/SDKTool/XRG2/ CL#198288
+			[XRG2][Sol][Lib] add SOLUTION_CONSOLE_ARGS in XRG2.ini 
+			[XRG2][Font][Lib] change FONT_CONSOLE to FONT_ITEM_CONSOLE in XRG2.ini
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.2.3
+Version: 2.4.2.3 (Mar. 19th, 2012)
+New features:
+		1. [XRG2][Lang][Lib] if MERGE_CO is on, use default language item content to fill out empty slot.
+		2. [XRG2][PLMN][Lib] fix link compressed PLMN cate cus issue.
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.2.4
+Version: 2.4.2.4 (Mar. 20th, 2012)
+New features:
+		N/A
+Bug fix:
+		1. [XRG2][PLMN][Lib] fix PLMN link cate cus issue (no _NC needed)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.3.1
+Version: 2.4.3.1 (Mar. 21th, 2012)
+New features:
+		1. [KMXFont Compress][XRG2][KMXFont][Lib] use FONT_CO to on/off KMXFont compresson feature
+		2. [KMXFont Compress][XRG2][KMXFont][Lib] category link correct *NC.kft or *.kft file
+		3. [KMXFont Compress][XRG2][KMXFont][Lib] use BDF file as input data file
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.4.1
+Version: 2.4.4.1 (Mar. 30th, 2012)
+New features:
+		1. Merge //Tools/SDKTool/Branches/XRG2_v2.5.1.5/
+				[parallel build][XRG2][all][Lib] add -header argument to generate header files only (CL#202575)
+				[parallel build][XRG2][all][Lib] (CL#202932)
+					1. add BUILD_TYPE
+					2. add -cus argument to generate cus files only
+				[parallel build][XRG2][all][Lib] (CL#203258)
+					1. change prebuild condition
+					2. change postbuild timing
+		2. [XRG2][Sol][Lib] setup error message & action template
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.4.2
+Version: 2.4.4.2 (May. 14th, 2012)
+New features:
+		1. [XRG2][3rd][Lib] support language compiler option ([FEATURE] ADD_LANGUAGE_CO) & rebuild ap list
+		2. [XRG2][3rd][Lib] link 3rd cate cus & renew 3rd item build flow
+		3. [XRG2][3rd][Lib] no smart build for 3rd item
+		4. [XRG2][3rd][Lib] 3rd item new format
+		5. [XRG2][3rd][Lib] build fail if no physical file
+Bug fix:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG2] Release v2.4.4.3
+Version: 2.4.4.3 (Jun. 19th, 2012)
+New features:
+		1. [XRG2][Font][Lib] add no compressed font item total size info for CusVerifier report use
+		2. [XRG2][KMXFont][Lib] add no compressed kmxfont item total size info for CusVerifier report use
+Bug fix:
+		N/A				

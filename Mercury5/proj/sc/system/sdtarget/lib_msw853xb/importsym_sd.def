@@ -1,0 +1,7 @@
+#<SYMDEFS># ARM Linker
+0x00002e73 D sym_MDrvStorageR_B5_U01
+0x00002e73 D sym_MDrvStorageR_B5_U02
+0x00002e73 D sym_MDrvStorageR_B5_U03
+0x00002eeb D sym_MDrvStorageR_B5_U04
+0x00002e5b D sym_MDrvStorageR_B9_U01
+0x00006f01 D sym_MDrvStorageR_B9_U02

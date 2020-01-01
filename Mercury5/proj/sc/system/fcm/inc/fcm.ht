@@ -1,0 +1,96 @@
+/***************************************************************************/
+/*  File    : FCM.HT                                                   */
+/*-------------------------------------------------------------------------*/
+/*  Scope   :Flow Control Manager                                          */
+/*                                                                         */
+/*  Contents:  Types definitions                                           */
+/*-------------------------------------------------------------------------*/
+/*   Date   | Author |         Modification                                */
+/*----------+--------+-----------------------------------------------------*/
+/* 13.01.04 | FGA    | Creation                                            */
+/***************************************************************************/
+
+#ifndef _FCM_HT_
+#define _FCM_HT_
+
+/*
+** Offset:
+** When two layers exchange data with RTK message, a "data length" field is included into RTK message.
+** To trace this information in FCM, FCM should know offset of this field
+*/
+#define FCM_OFFSET_DATA_BLOCK (sizeof(Header_t) + offsetof(fcm_DataBlock_t, DataLength))
+#define FCM_OFFSET_PROTO      sizeof(Header_t)
+
+#define FCM_NO_FLAG  0
+#define FCM_FLAG_OPEN (1 << 0)
+#define FCM_FLAG_SUBMIT_RUNNING (1 << 1)
+#define FCM_FLAG_RELEASE_WHILE_SUBMIT (1 << 2)
+/*
+** Flag:
+** FCM_RECEIVER_CAN_INTERRUPT_TRANSMITTER: put this flag in next two cases :
+**  - if the receiver task is with higher priority than the transmitter task
+**  - if the receiver calls fcm_ReleaseData() in interruption
+** FCM_RECEIVER_CAN_NOT_INTERRUPT_TRANSMITTER: put this other flag in all other cases
+** 
+** These both flags are used only for trace management: in fact trace optimisation
+** can be used in case of FCM_RECEIVER_CAN_NOT_INTERRUPT_TRANSMITTER,
+** when fcm_Submit() can not be interrupted by fcm_ReleaseData().
+*/
+
+#define FCM_RECEIVER_CAN_NOT_INTERRUPT_TRANSMITTER FCM_NO_FLAG
+#define FCM_RECEIVER_CAN_INTERRUPT_TRANSMITTER     (1 << 3)
+
+typedef struct {
+  u16 TraceLevel;
+  u8  Offset;
+  u8  PreemptFlag;
+} fcm_TraceConfig_t;
+
+
+/* the following enum is index to the following table */
+typedef enum {
+  FCM_TR_DN_DAT_NOIT,
+  FCM_TR_DN_PROT_NOIT,
+  FCM_TR_UP_DAT_IT,
+  FCM_TR_UP_PROT_IT,
+  FCM_TR_V24_DAT_IT,
+  FCM_TR_V24_DAT_NOIT
+} fcm_TraceCfgType_e ;
+
+/* Trace Infos */
+typedef struct {  
+  u16     *GSCounterPtr; // Ptr to (General Service) Counter
+  u16      GSServiceId;  // Service Id = (ServiceType*2 + Direction)
+  char     TxName1;
+  char     TxName2;
+  char     RxName1;
+  char     RxName2;
+  u16      TraceLevel;
+  u16      Offset;
+} fcm_TrInfo_t;
+
+/* Fcm uses counter for each flow */
+typedef struct 
+{
+  u32  ChanId;
+  u16  Counter;
+  u16  FloorHit; /* a flag set when the floor level has been reached */
+  u16  MaxUnits;
+  u16  Threshold; /* single threshold */
+  u16  TxMbox;
+  u8   Flag;
+  u8   Pad;
+  fcm_TrInfo_t TrInfo;
+} fcm_Count_t;
+
+/*! \struct Flow_Base
+ * for each task (Mbox) we will have a table of all open
+ * flows in a flowinfo struct.
+ */
+typedef struct {
+  int N; /* How many flows are open for this mailbox */
+  fcm_Count_t *CountTab; /* a table of structs, one for each opened flow */
+} fcm_FlowInfo_t;
+
+
+#endif

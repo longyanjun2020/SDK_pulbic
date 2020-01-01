@@ -1,0 +1,35 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>StopwatchApp</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{27a78e95-246f-495f-9f88-fdfd20a47b04}</ProjectGuid>
+    <AssemblyName>mmi_stopwatchapp</AssemblyName>
+    <RootNamespace>mmi_stopwatchapp</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\StopwatchApp</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\StopwatchApp</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="mmi_stopwatchapp_qvgap_thm.eApp">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it. 
+		
+	<Target Name="BeforeClean"></Target>
+	<Target Name="AfterClean"></Target>
+	<Target Name="BeforeRebuild"></Target>
+	<Target Name="AfterRebuild"></Target>
+	<Target Name="BeforeDeploy"></Target>
+	<Target Name="AfterDeploy"></Target>
+	-->
+</Project>

@@ -1,0 +1,79 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*****************************************************************************/
+/* Copyright (C)                    WAVECOM                                  */
+/*****************************************************************************
+===================== Source Header ==========================================
+                      %PCMS_HEADER_SUBSTITUTION_START%
+    Filename: %PM%
+    Revision: %PR%
+   Item Spec: %PID%
+  Originator: %PO%
+Last Changed: %PRT%
+------------------------------------------------------------------------------
+Related Change Documents:
+   %PIRC%
+------------------------------------------------------------------------------
+Related Baselines:
+   %PIRB%
+------------------------------------------------------------------------------
+Item History:
+   %PL%
+
+===================== End of Source Header ==================================*/
+//                    %PCMS_HEADER_SUBSTITUTION_END%
+
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/*  File    : v24_ctrl.hv                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Variables used in the V.24 signals controller                 */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 07/10/04 |  PMR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_ctrl.hv-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  26.04.06 | aph    |                | Resolution for 33913: v24 optimiza
+ *           |        |                | tion for ITCM and DTCM
+ * ----------+--------+----------------+------------------------------------- 
+*/
+#ifndef __SYS_V24_CTRL_HV__
+#define __SYS_V24_CTRL_HV__
+
+#include "sys_v24_ctrl.hc"
+#include "sys_v24_ctrl.ht"
+
+#ifndef __V24_CTRL_VAR__
+#define DefExtern extern
+#else
+#define DefExtern
+#endif
+
+DefExtern v24_MsrState_t  v24_PhyMsrTab[V24_PHY_CHANNEL_MAX];
+DefExtern v24_LsrState_t  v24_PhyLsrTab[V24_PHY_CHANNEL_MAX];
+
+DefExtern v24_LogiSigState_t    v24_LogiSigTab[V24_MAX_PORT_CONNECTED];
+DefExtern v24_DcdDtrDsrMode_t   v24_DcdDtrDsrModeTab[V24_MAX_PORT_CONNECTED];
+
+extern const v24_CtrlServices_t v24_CtrlServiceTab[V24_LAYER_MAX];
+
+#undef DefExtern
+
+#endif  // __SYS_V24_CTRL_HV__
+

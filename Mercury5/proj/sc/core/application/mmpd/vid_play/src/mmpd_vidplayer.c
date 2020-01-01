@@ -1,0 +1,1144 @@
+/// @ait_only
+/** @file mmpd_vidplayer.c
+@brief The video player
+@author Truman Yang
+ 
+@version 1.1
+*/
+
+/** @addtogroup MMPD_VIDPLAYER
+ *  @{
+ */
+
+//==============================================================================
+//
+//                              INCLUDE FILE
+//
+//==============================================================================
+
+#include "lib_retina.h"
+//#include "mmp_lib.h"
+//#include "mmph_hif.h"
+#include "mmpd_vidplayer.h"
+//#include "ait_utility.h"
+#include "mmpd_mp4vdec.h"
+#include "mmpd_system.h"
+//#include "mmpd_3gpparser.h"
+
+//==============================================================================
+//
+//                              GLOBALA VARIABLE
+//
+//==============================================================================
+
+static MMP_UBYTE m_ubVPPClkCtl;
+static MMP_UBYTE m_ubIsAVC = 0;
+static MMP_UBYTE m_ubConfigMem = 0;
+
+//==============================================================================
+//
+//                              FUNCTIONS
+//
+//==============================================================================
+
+#if 0
+void _____Property_Interface_____(){}
+#endif
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetVideoFormat
+//  Description :
+//------------------------------------------------------------------------------
+/** @name Set Properties
+@{
+These functions set the properties.
+*/
+MMP_ERR MMPD_VIDPLAYER_SetVideoFormat(MMP_UBYTE ubAVC)
+{
+    m_ubIsAVC = ubAVC;
+    return MMP_ERR_NONE;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetVideoFormat
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Check the video format is H.264 or not.
+
+Check the video format is H.264 or not
+
+@param[out] ubAVC Is H.264 or not
+
+@return MMP_ERR_NONE
+*/
+MMP_ERR MMPD_VIDPLAYER_GetVideoFormat(MMP_UBYTE *ubAVC)
+{
+    *ubAVC = m_ubIsAVC;
+    return MMP_ERR_NONE;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetVPPModuleClk
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Set the VPP module clock enable/disable flag.
+
+Set the module clock enable/disable flag.
+
+@param[in] module  : which module
+@param[in] bEnable : enable/disable
+
+@return MMP_ERR_NONE
+*/
+MMP_ERR MMPD_VIDPLAYER_SetVPPModuleClk(MMPD_3GPPLAY_VPP_MODULE module, MMP_BOOL bEnable)
+{
+    if(bEnable){
+        m_ubVPPClkCtl |= module;
+    } 
+    else {
+        m_ubVPPClkCtl &= ~module;
+    }
+    return MMP_ERR_NONE;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetVPPModuleClk
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the VPP module clock enable/disable flag.
+
+Get the module clock enable/disable flag.
+
+@param[out] ubClkCtl  : module clock enable/disable flag
+
+@return MMP_ERR_NONE
+*/
+MMP_ERR MMPD_VIDPLAYER_GetVPPModuleClk(MMP_UBYTE *ubClkCtl)
+{
+    *ubClkCtl = m_ubVPPClkCtl;
+    return MMP_ERR_NONE;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetSupportedFormat
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the supported format of current video player.
+
+The video player might not support all the format at the same time and
+might required to change the firmware.
+
+@param[out] supported_audio_format The supported audio format of the player.
+@param[out] supported_video_format The supported video format of the player.
+
+@return The status from the firmware.
+*/
+MMP_ERR MMPD_VIDPLAYER_GetSupportedFormat(MMPD_3GP_AUDIOTYPE *supported_audio_format,
+                                          MMPD_3GP_VIDEOTYPE *supported_video_format)
+{
+    MMP_ERR mmpstatus;
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_INFO | VIDPLAY_GET_PARAMETER | VIDPARAM_SUPPORTED_FORMAT);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+    
+    if (mmpstatus == MMP_ERR_NONE) {
+	    *supported_audio_format = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+    	*supported_video_format = MMPH_HIF_GetParameterL(GRP_IDX_VID, 8);
+    }
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetDeblockMode
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the last code address for OSD starting address.
+
+This address is automatically generated by the compiler.
+It would align with 4KB for cache.
+
+@param[out] pAddress The address of the last code of the player.
+@return The status from the firmware.
+*/
+/** @brief Get the deblock type of the video post processor
+
+@param[out] deblocktype the deblock type
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_GetDeblockMode(MMPD_3GPPLAY_DEBLOCK_TYPE *deblocktype)
+{
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_POST_PROCESSOR | VIDPLAY_GET_PARAMETER | VIDPARAM_DEBLOCKTYPE);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+    }
+    if (mmpstatus == MMP_ERR_NONE) {
+	    *deblocktype = (MMPD_3GPPLAY_DEBLOCK_TYPE) MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+	}	    
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetDeblockMode
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Set the deblock type of the video post processor
+
+@param[in] deblocktype the deblock type
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_SetDeblockMode(const MMPD_3GPPLAY_DEBLOCK_TYPE deblocktype)
+{
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, deblocktype);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_POST_PROCESSOR | VIDPLAY_SET_PARAMETER | VIDPARAM_DEBLOCKTYPE);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetPlaySpeed
+//  Description :
+//------------------------------------------------------------------------------
+/** @name Set Properties
+@{
+These functions set the properties.
+*/
+
+/** @brief Set the speed of the media clock
+
+@param[in] sSpeed currently support 3 types only.\n
+    Speed of the player measured in 10 times of speed.\n
+    e.g. 10 for Normal play speed. 5 for 0.5x speed. 0 for stop/pause. -20 for backward 2.0x\n
+    The regular play with sould should be 1 ~ 20. (0.1x ~ 2.0x). Currently it's not supported.\n
+    The speed >= 100 and <= -100 presents that 100 times of the fast forward or backward index per time.
+    e.g. 100 for fast forward 1 index frame per time.\n
+         300 for fast forward 3 index frames per time.\n
+         -200 for fast backward 2 index frames per time.
+@a 100 Fast forward in 1 key frame speed
+@a 10 Normal play speed
+@a -100 Fast backward in 1 key frame speed
+@return The status from the firmware.
+@retval MMP_M_ERR_INCORRECT_STATE_OPERATION Attempting a command that is not allowed during the present state.
+@retval MMP_M_ERR_BAD_PARAMETER This video does not support the FF or FW.
+*/
+MMP_ERR MMPD_VIDPLAYER_SetPlaySpeed(MMPD_3GPPLAY_PLAYSPEED_MODE mode, MMP_BOOL bCardMode, MMP_SHORT sSpeed)
+{
+    MMP_ERR     mmpstatus;
+
+    if (bCardMode) {
+    
+        MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, MMPD_VIDPLAY_PARAMETER_SPEED);
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 8, mode);
+        
+        if((mode != MMPD_3GPPLAY_PLAYSPEED_FAST_FORWARD) && (mode != MMPD_3GPPLAY_PLAYSPEED_FAST_BACKWARD))
+            MMPH_HIF_SetParameterL(GRP_IDX_VID, 12, sSpeed);
+        else if(mode == MMPD_3GPPLAY_PLAYSPEED_FAST_FORWARD)
+            MMPH_HIF_SetParameterL(GRP_IDX_VID, 12, sSpeed);
+        else
+            MMPH_HIF_SetParameterL(GRP_IDX_VID, 12, (sSpeed*(-1)));
+
+        mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_SET_PARAMETER);
+
+		if (mmpstatus == MMP_ERR_NONE) {
+			mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+		}
+		MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    }
+
+	return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetSearchSpeed
+//  Description :
+//------------------------------------------------------------------------------
+MMP_ERR MMPD_VIDPLAYER_SetSearchSpeed(MMPD_3GPPLAY_PLAYSPEED_MODE mode, MMP_BOOL bCardMode, MMP_SHORT sSpeed)
+{
+    MMP_ERR     mmpstatus = MMP_ERR_NONE;
+            
+    if (bCardMode) {
+        MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+        
+        if((mode != MMPD_3GPPLAY_PLAYSPEED_FAST_FORWARD) && (mode != MMPD_3GPPLAY_PLAYSPEED_FAST_BACKWARD))
+            return MMP_3GPPLAY_ERR_INCORRECT_STATE_OPERATION;
+        else if(mode == MMPD_3GPPLAY_PLAYSPEED_FAST_FORWARD)
+            MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, sSpeed);
+        else
+            MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, (sSpeed*(-1)));
+
+        mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, VIDPLAY_SET_SEARCH_SPEED | HIF_VID_CMD_PARSER);
+
+		if (mmpstatus == MMP_ERR_NONE) {
+			mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+		}
+        MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+		return mmpstatus;
+    }
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetVideoDecodeEnable
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Enable/Disable video decode
+
+@param[in] bEnable Enable/Disable
+@retval MMP_ERR_NONE
+*/
+MMP_ERR MMPD_VIDPLAYER_SetVideoDecodeEnable(MMP_BOOL bEnable)
+{
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, bEnable);
+
+    MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPARAM_VIDEO_DECODE_ENABLE);
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    return MMP_ERR_NONE;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetVideoRefreshEnable
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Enable/disable to refresh video frames
+
+@param[in] bEnable Enable/Disable
+@retval MMP_ERR_NONE
+*/
+MMP_ERR MMPD_VIDPLAYER_SetVideoRefreshEnable(MMP_BOOL bEnable)
+{
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, bEnable);
+
+    MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPARAM_VIDEO_REFRESH_ENABLE);
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    return MMP_ERR_NONE;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetActivePanel
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Set the panel type
+
+@param[in] PanelType
+@param[in] WinID
+@return The status of from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_SetActivePanel(MMP_DISPLAY_DEV_TYPE PanelType, MMP_DISPLAY_WIN_ID WinID)
+{
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, PanelType);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 8, WinID);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_RENDERER | VIDPLAY_SET_PARAMETER | VIDPARAM_ACTIVE_PANEL);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetState
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the current time of the player
+
+@pre The file is parsed
+@param[out] pulTime The pointer to the current time in millisecond
+@return The status of the function call from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_GetState(MMP_M_STATE *pState)
+{
+    MMP_ERR mmpstatus = MMP_ERR_NONE;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+
+    #if 1 //Enhance system performance since this function is called by multi-tasks
+    *pState = MMPF_Player_GetState();
+    #else
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_INFO | VIDPLAY_GET_PARAMETER | VIDPARAM_CURRENT_STATE);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+   	if (mmpstatus == MMP_ERR_NONE) {
+	    *pState = (MMP_M_STATE)MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+	}
+    #endif
+    
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);   
+    return mmpstatus;
+}
+
+#if 0
+void _____Operations_____(){}
+#endif
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Init
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Init the video player
+
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_Init(void)
+{
+    MMP_ERR mmpstatus;
+    
+    m_ubConfigMem = MMP_FALSE;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_INIT);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetHDMIInterface
+//  Description :
+//------------------------------------------------------------------------------
+MMP_ERR MMPD_VIDPLAYER_SetHDMIInterface(MMP_BOOL bInterlace, MMP_ULONG ulFreq)
+{
+    MMP_ERR mmpstatus = MMP_ERR_NONE;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, bInterlace);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 8, ulFreq);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_SET_HDMI_INTERFACE);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+	
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetSearchFPS
+//  Description :
+//------------------------------------------------------------------------------
+MMP_ERR MMPD_VIDPLAYER_SetSearchFPS(MMP_ULONG ulDuration)
+{
+    MMP_ERR mmpstatus = MMP_ERR_NONE;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, ulDuration);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_SET_VIDEO_SEARCH_FPS);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_RedrawLastRefresh
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Redraw the video frame.
+
+Redraw the video frame, which might include video rotation.
+@return The status from the function call
+*/
+MMP_ERR MMPD_VIDPLAYER_RedrawLastRefresh(void)
+{
+    MMP_ERR mmpstatus;
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_REDRAW_LAST_REFRESH);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Redraw
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Redraw the video frame.
+
+Redraw the video frame, which might include video rotation.
+@return The status from the function call
+*/
+MMP_ERR MMPD_VIDPLAYER_Redraw(void)
+{
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_REDRAW);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetCurrentFrame
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the YUV address and recorded them into MMP_DISPLAY_WIN_ATTR structure
+
+Get the addresses from the PIP window registers.
+If the registers was not in a reasonable area, this function would assign them with reference addresses.
+@param[out] ulFrame The current frame number.
+@param[out] ulY The The Y address of the frame.
+@param[out] ulU The The U address of the frame.
+@param[out] ulV The The V address of the frame.
+@return the result of the function call
+@retval MMP_3GPPLAY_ERR_INVALID_STATE The PIP window is not used and the address would be assigned with 
+        reference addresses, which might be refreshed as a garbage frame.
+@retval MMP_3GPPLAY_ERR_INSUFFICIENT_RESOURCES The assigned size is not big enough.
+@retval MMP_3GPPLAY_ERR_PARAMETER The output pointer is NULL.
+@retval MMP_ERR_NONE Success.
+*/
+MMP_ERR MMPD_VIDPLAYER_GetCurrentFrame(MMP_ULONG *ulFrame,
+                       					MMP_ULONG *ulY, MMP_ULONG *ulU, MMP_ULONG *ulV)
+{
+    MMP_ERR mmpstatus;
+    
+    if ((ulY == NULL) || (ulU == NULL) || (ulV == NULL)) {
+        return MMP_3GPPLAY_ERR_PARAMETER;
+    }
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_RENDERER | VIDPLAY_GET_PARAMETER | VIDPARAM_CURRENT_FRAME);
+    
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);		
+	}
+   	if (mmpstatus == MMP_ERR_NONE) {
+	    *ulFrame    = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+    	*ulY        = MMPH_HIF_GetParameterL(GRP_IDX_VID, 8);
+	    *ulU        = MMPH_HIF_GetParameterL(GRP_IDX_VID, 12);
+    	*ulV        = MMPH_HIF_GetParameterL(GRP_IDX_VID, 16);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+	return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetGetFrameMode
+//  Description :
+//------------------------------------------------------------------------------
+MMP_ERR MMPD_VIDPLAYER_SetGetFrameMode(MMP_BOOL bIsGetFrame)
+{
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, bIsGetFrame);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_RENDERER | VIDPLAY_GET_PARAMETER | VIDPARAM_SET_GETFRAMEMODE);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+	
+	return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetEmptyFrame
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the empty frame buffer address
+
+Get the empty frame buffer address
+
+@param[out] ulY The The Y address of the frame.
+@param[out] ulU The The U address of the frame.
+@param[out] ulV The The V address of the frame.
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_GetEmptyFrame(MMP_ULONG *ulYAddr, MMP_ULONG *ulUAddr, MMP_ULONG *ulVAddr)
+{   
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_RENDERER | VIDPLAY_GET_PARAMETER | VIDPARAM_EMPTY_FRAME);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+
+   	if (mmpstatus == MMP_ERR_NONE) {
+    	*ulYAddr = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+	    *ulUAddr = MMPH_HIF_GetParameterL(GRP_IDX_VID, 8);
+	    *ulVAddr = MMPH_HIF_GetParameterL(GRP_IDX_VID, 12);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);		    
+    
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_ConfigMemDone
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Notify the FW that the memory configurate in host is finished. 
+The FW can start to connect video codec and bitstream buffer, allocate memory for itself...etc.
+
+
+Notify the FW that the memory configurate in host is finished. 
+The FW can start to connect video codec and bitstream buffer, allocate memory for itself...etc.
+
+@param[in] ulMemEndAddr The memory end address
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_ConfigMemDone(MMP_ULONG *ulMemEndAddr)
+{
+    MMP_ERR mmpstatus = 0;
+    MMP_ULONG ultmpMemAddr = 0;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, *ulMemEndAddr);
+    
+    MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_CONFIG_MEM_DONE);
+     
+    ultmpMemAddr = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    
+    if(ultmpMemAddr != 0){
+        *ulMemEndAddr = ultmpMemAddr;
+    }
+
+    m_ubConfigMem = MMP_TRUE;
+    
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Start
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Playback control: Start
+@pre The firmware is loaded and free to response
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_Start(void *VidPlayerCallBack, void *Context)
+{	
+	MMP_ERR	mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, (MMP_ULONG)VidPlayerCallBack);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 8, (MMP_ULONG)Context);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_START);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);		
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Pause
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Playback control: Pause
+
+@pre The firmware is loaded and free to response
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_Pause(void)
+{
+	MMP_ERR	mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_PAUSE);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);		
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Resume
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Playback control: Resume
+
+@pre The firmware is loaded and free to response
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_Resume(void)
+{
+	MMP_ERR	mmpstatus = 0;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_RESUME);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);		
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Stop
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Playback control: Stop
+
+@pre The firmware is loaded and free to response
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_Stop(MMP_ULONG *KeyFrameNum)
+{
+    MMP_ERR	mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_STOP);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+   	if (mmpstatus == MMP_ERR_NONE) {
+	    *KeyFrameNum = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+	}
+	
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+	
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_CloseCodec
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Playback control: Close
+
+@pre The firmware is loaded and free to response
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_CloseCodec(void)
+{
+    MMP_ERR mmpstatus;
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDEO_DECODER | CLOSE_CODEC);
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    
+    m_ubConfigMem = MMP_FALSE;
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Close
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Playback control: Close
+
+@pre The firmware is loaded and free to response
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_Close(void)
+{   
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_CLOSE);
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Step
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Playback control: Step
+
+@pre The firmware is loaded and free to response
+@return The status from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_Step(void)
+{   
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_STEP);
+    
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_Flush
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Clean all the pipeline and remainding process
+
+@pre The media clock is off.
+@param[in] bFlushVideo Flush video or not
+@param[in] bFlushAudio Flush audio and refill its buffer or not
+@retval MMP_M_ERR_INCORRECT_STATE_OPERATION The audio is not available while flushing audio
+@retval MMP_ERR_NONE Success
+*/
+MMP_ERR MMPD_VIDPLAYER_Flush(const MMP_BOOL bFlushVideo, const MMP_BOOL bFlushAudio)
+{
+   	MMP_ERR	mmpstatus;
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, bFlushVideo);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 8, bFlushAudio);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_FLUSH);
+	
+	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);		
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetCurrentTime
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Set the current time of the player
+
+@param[in] ulCurTime Current media time in ms
+*/
+void MMPD_VIDPLAYER_SetCurrentTime(const MMP_ULONG ulCurTime)
+{
+    MMPD_VIDPSR_SetParameter(MMPD_VIDPLAY_PARAMETER_CURRENT_TIME, ulCurTime);
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetSBCTime
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Set the current time of the player for SBC
+
+@param[in] ulCurTime Current media time in ms
+*/
+void MMPD_VIDPLAYER_SetSBCTime(const MMP_ULONG ulCurTime)
+{
+    MMPD_VIDPSR_SetParameter(MMPD_VIDPLAY_PARAMETER_SBCTIME, ulCurTime);
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_InitVideoDec
+//  Description :
+//------------------------------------------------------------------------------
+/* @brief Parse the MP4V video header
+
+This is mainly used when parsing the 3GP file.
+
+@param[in]  dest_addr       The starting address of bitsream buffer
+@param[in]  pStartAddress   The starting address of current frame
+@param[in]  usSize          The size of the bitstream
+@param[out] pWidth The video width. It maybe not a multiple of 16
+@param[out] pHeight The video height. It maybe not a multiple of 16
+@param[out] pLeft The cropping width of the left side in pixels
+@param[out] pTop The cropping height of the top side in pixels
+@param[out] pRight          The cropping width of the right side in pixels
+@param[out] pBottom         The cropping height of the bottom side in pixels
+@param[in]  ulCodecFormat   Codec format
+@return The parsing status
+@retval MMP_M_ERR_STREAM_CORRUPT Could not find the header for a certain times.
+*/
+MMP_ERR MMPD_VIDPLAYER_InitVideoDec(MMP_ULONG dest_addr,MMP_UBYTE* const pStartAddress, 
+									const MMP_USHORT usSize, MMP_USHORT *pWidth,
+                               		MMP_USHORT *pHeight, MMP_USHORT *pLeft, MMP_USHORT *pTop,
+                               		MMP_USHORT *pRight, MMP_USHORT *pBottom,MMP_ULONG ulCodecFormat)
+{
+    MMP_ERR	mmpstatus;
+    
+    MMPH_HIF_MemCopyHostToDev(dest_addr, pStartAddress, usSize);
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    
+    if ((*pWidth != 0) && (*pHeight != 0)) {
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 8 , *pWidth);
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 12, *pHeight);
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 16, ulCodecFormat);
+    }
+    else {
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 4,  dest_addr);
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 8 , 0);
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 12, 0);
+        MMPH_HIF_SetParameterL(GRP_IDX_VID, 16, ulCodecFormat);
+    }
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDEO_DECODER | DECODE_VO_HEADER);
+    
+   	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}		
+        
+    if (mmpstatus == MMP_ERR_NONE) {    
+	    *pWidth     = MMPH_HIF_GetParameterW(GRP_IDX_VID, 4);
+    	*pHeight    = MMPH_HIF_GetParameterW(GRP_IDX_VID, 6);
+	    *pLeft      = MMPH_HIF_GetParameterW(GRP_IDX_VID, 8);
+    	*pTop       = MMPH_HIF_GetParameterW(GRP_IDX_VID, 10);
+	    *pRight     = MMPH_HIF_GetParameterW(GRP_IDX_VID, 12);
+    	*pBottom    = MMPH_HIF_GetParameterW(GRP_IDX_VID, 14);
+	} 
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);   	
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetCurrentTime
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the current time of the player
+
+@pre The file is parsed
+@param[out] pulTime The pointer to the current time in millisecond
+@return The status of the function call from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_GetCurrentTime(MMP_ULONG *pulTime)
+{
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_INFO | VIDPLAY_GET_PARAMETER | VIDPARAM_CURRENT_TIME);
+
+   	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}		
+
+   	if (mmpstatus == MMP_ERR_NONE) {
+	    *pulTime = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+	
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_DecodeData
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Decode one video frame
+
+This function also maintain the vld buffer index
+Currently it's used in timer, precode, and FF
+@param[in] h The video codec instance
+@return The error status of the function call
+*/
+MMP_ERR MMPD_VIDPLAYER_DecodeData(MMP_ULONG *pTime)
+{
+	MMP_ERR mmpstatus;
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDEO_DECODER | DECODE_DATA);
+
+   	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}		
+
+   	if (mmpstatus == MMP_ERR_NONE) {
+	    *pTime = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+	}
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);	    
+    
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_DecodeVideoFrame
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief decode one video frame, currently is used in get first video frame
+
+This function decode one video frame, currently is used in get first video frame
+
+@param[int]   ulDestAddr    bitstream buffer address in FW side
+@param[int]   ulSrcAddr     bitstream buffer address in HOST side
+@param[int]   ulFrameSize   the size of frame data
+@param[int]   ulTime        video time
+
+@return The error status of the function call
+*/
+MMP_ERR MMPD_VIDPLAYER_DecodeVideoFrame(MMP_ULONG ulDestAddr,  MMP_ULONG ulSrcAddr, 
+									    MMP_ULONG ulFrameSize, MMP_ULONG ulTime)
+{
+    MMP_ERR mmpstatus;
+
+    MMPH_HIF_MemCopyHostToDev(ulDestAddr, (MMP_UBYTE*)ulSrcAddr, ulFrameSize);
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 4 , ulDestAddr);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 8 , ulFrameSize);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 12, ulTime);
+        
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDEO_DECODER | DECODE_VIDEO_FRAME);
+
+   	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+	
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_EnableGraphicsScaler
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Decode one video frame
+
+This function also maintain the vld buffer index
+Currently it's used in timer, precode, and FF
+@param[in] h The video codec instance
+@return The error status of the function call
+*/
+MMP_ERR MMPD_VIDPLAYER_EnableGraphicsScaler(MMP_BOOL bEnable)
+{
+	MMP_ERR mmpstatus;
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 0 , bEnable);
+    
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_SET_GRAPHICS_SCAL_ENABLE);
+	MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_AllowAVIListAtom
+//  Description :
+//------------------------------------------------------------------------------
+/**
+ @brief EN/DIS Allow LIST Atom for AVI format.
+
+ @retval MMP_ERR_NONE Success.
+*/
+MMP_ERR MMPD_VIDPLAYER_AllowAVIListModifyAtom(MMP_BOOL bEnable, MMP_BYTE *pStr)
+{
+	MMP_ULONG  ultmp;
+	
+	ultmp = (MMP_ULONG)*pStr | ((MMP_ULONG)*(pStr+1) << 8) | ((MMP_ULONG)*(pStr+2) << 16) 
+			| ((MMP_ULONG)*(pStr+3) << 24);
+
+	MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+	MMPH_HIF_SetParameterL(GRP_IDX_VID, 0, bEnable);
+	MMPH_HIF_SetParameterL(GRP_IDX_VID, 4, ultmp);
+    
+    MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPLAY_ALLOW_AVILIST_MODIFY_ATOM);  
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+
+    return MMP_ERR_NONE;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_SetColorFmt
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Set Color format
+
+@param[in] ulFmt Color format
+@retval MMP_ERR_NONE
+*/
+MMP_ERR MMPD_VIDPLAYER_SetColorFmt(MMP_ULONG ulFmt)
+{
+	MMP_ERR mmpstatus;
+
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    MMPH_HIF_SetParameterL(GRP_IDX_VID, 0, ulFmt);
+
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPARAM_SET_VIDEO_TRANS2FMT);    
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);
+    
+    return mmpstatus;
+}
+
+//------------------------------------------------------------------------------
+//  Function    : MMPD_VIDPLAYER_GetColorFmt
+//  Description :
+//------------------------------------------------------------------------------
+/** @brief Get the current color format of the player
+
+@return The status of the function call from the firmware
+*/
+MMP_ERR MMPD_VIDPLAYER_GetColorFmt(MMP_ULONG *pCFmt)
+{
+    MMP_ERR mmpstatus;
+    
+    MMPH_HIF_WaitSem(GRP_IDX_VID, 0);
+    mmpstatus = MMPH_HIF_SendCmd(GRP_IDX_VID, HIF_VID_CMD_VIDPLAY_OTHER | VIDPARAM_GET_VIDEO_TRANS2FMT);
+
+   	if (mmpstatus == MMP_ERR_NONE) {
+		mmpstatus = MMPH_HIF_GetParameterL(GRP_IDX_VID, 0);
+	}
+
+	if (mmpstatus == MMP_ERR_NONE) {
+		*pCFmt = MMPH_HIF_GetParameterL(GRP_IDX_VID, 4);
+	}
+    MMPH_HIF_ReleaseSem(GRP_IDX_VID);   
+    return mmpstatus;
+}
+
+/// @end_ait_only
+
+/** @} */ // end of MMPD_3GPPLAY

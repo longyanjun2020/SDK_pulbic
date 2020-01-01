@@ -1,0 +1,577 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CDWAP_WND_EDIT_BOOKMARK" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="TextInputNameWdg" ClsID="CLSID_TEXT_INPUT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="(boolean)TRUE" />
+				<Property Id="PROP_INPUT_WDG_HANDWRITING_ENABLE" Value="(boolean)FALSE" />
+				<InternProp Id="GUID" Value="948c4" />
+				<Model ClsID="CLSID_TEXT_INPUT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_CDW_NAME" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextInputURLWdg" ClsID="CLSID_TEXT_INPUT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="(boolean)TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="(u32)MAE_INPUTMODE_MT_abc" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="(boolean)TRUE" />
+				<Property Id="PROP_INPUT_WDG_SMARTINPUT_OFF" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_LANGUAGE" Value="MAE_LANG_ENGLISH" />
+				<Property Id="PROP_INPUT_WDG_HANDWRITING_ENABLE" Value="FALSE" />
+				<InternProp Id="GUID" Value="a79c7" />
+				<Model ClsID="CLSID_TEXT_INPUT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_CDW_ADDRESS" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="a2412" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1665" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_CDW_ADD_BOOKMARK&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SAVE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+	</Layout>
+	<Layout Id="CDWAP_WND_INPUT_URL" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="InputUrlEdit" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_LCD_ONELINE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH-32">
+				<Position Type="X_POSITION" Value="16" />
+				<Position Type="Y_POSITION" Value="2" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="(boolean)TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="(u32)MAE_INPUTMODE_MT_abc" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="(boolean)TRUE" />
+				<InternProp Id="GUID" Value="f22ec" />
+			</Widget>
+			<Widget Id="InputUrdMenu" ClsID="CLSID_MENUWIDGET" SizeHeight="CDWAPAPP_EDIT_H-2-MAIN_LCD_ONELINE_HEIGHT" SizeWidth="CDWAPAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="36" />
+				<Property Id="PROP_INPUT_WDG_SMARTINPUT_OFF" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_LANGUAGE" Value="MAE_LANG_ENGLISH" />
+				<InternProp Id="GUID" Value="ee20a" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="ba89f" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1665" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_GOTO_URL&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_SETTINGS" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="DoubleTextWdg" ClsID="CLSID_DOUBLE_TEXT_WIDGET" SizeHeight="2*MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="7b9d3" />
+				<Model ClsID="CLSID_DOUBLE_TEXT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_CDW_LOAD_IMAGE" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DoubleStorageTypeTextWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="2*MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="2*MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="6e75a" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_OIL1_N_STORAGE" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="3570b" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1333" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_CDW_EXPLORER_SET&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+	</Layout>
+	<Layout Id="CDWAP_WND_EXPLORER" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<InternProp Id="GUID" Value="23d9f" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1333" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_VISIABLE" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;TOOLS_BLUETOOTH_IMG_SEARCH_ANIM&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_MAINPAGELIST" ClsID="CLSID_VTMTABMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMTABMENU" FileLocation="CLSID_VTMTABMENU">
+		<Widget Id="abscontainer10" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="tabmenu_widget" ClsID="CLSID_TABMENU_WIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_TABMENU_WIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="b7f8d" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="CDWAP_IMG_BOOKMARK_PRESSED" />
+						<String Id="TXT_LIL_N_BOOKMARKS" />
+						<Binary Value="WDG_MENU_TYPE_NORMAL" />
+						<Binary Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+						<Binary Value="WDG_MENU_CHECK_STYLE_NONE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+					<ModelItem>
+						<Image Id="CDWAP_IMG_LOCALPAGE_UNPRESS" />
+						<String Id="TXT_LIL_N_CDW_LOCAL_PAGE" />
+						<Binary Value="WDG_MENU_TYPE_NORMAL" />
+						<Binary Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+						<Binary Value="WDG_MENU_CHECK_STYLE_NONE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="506d5" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1333" />
+		<InternProp Id="VtmId" Value="MainMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;0&quot; /&gt;&lt;String Id=&quot;0&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_FILE_MANAGE" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer9" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget12" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="a9f58" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget12" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="9a62d" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1001" />
+		<InternProp Id="VtmId" Value="FileMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_SEND_VIA&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_EDIT_FOLDER" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="abscontainer8" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="VtmFolderInput" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<InternProp Id="GUID" Value="485be" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="FALSE" />
+				<InternProp Id="VtmWidgetName" Value="VtmFolderInput" />
+				<Property Id="PROP_INPUT_WDG_CHINESEINPUT_OFF" Value="FALSE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="e9642" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1001" />
+		<InternProp Id="VtmId" Value="FolderInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;0&quot; /&gt;&lt;String Id=&quot;0&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_VIEW_PAGE_IMAGE" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="abscontainer7" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="inputwidget2" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<InternProp Id="GUID" Value="20527" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="FALSE" />
+				<InternProp Id="VtmWidgetName" Value="inputwidget2" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="922b0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1001" />
+		<InternProp Id="VtmId" Value="PageInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;0&quot; /&gt;&lt;String Id=&quot;0&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_SAVE_BOOKMARK_OR_PAGE" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="abscontainer6" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="inputwidget1" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<InternProp Id="GUID" Value="9ac6c" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="FALSE" />
+				<InternProp Id="VtmWidgetName" Value="inputwidget1" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="cb3f8" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+		<InternProp Id="VtmId" Value="BookMarkInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;0&quot; /&gt;&lt;String Id=&quot;0&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_DUALSIM" ClsID="CLSID_VTMSIMSELECTION" LayoutType="VT_NORMAL" InheritID="CLSID_VTMSIMSELECTION" FileLocation="CLSID_VTMSIMSELECTION">
+		<Widget Id="abscontainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget11" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="11980" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget11" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="c8ef4" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+		<InternProp Id="VtmId" Value="DualSim" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;0&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_CDW_SIM_SELECTED&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_OPTION_MENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="b2222" />
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_OPEN" />
+						<String Id="TXT_OIL1_N_CDW_OPEN" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_HISTORY" />
+						<String Id="TXT_LIL_N_HISTORY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_GUIDANCE" />
+						<String Id="TXT_OIL1_N_CDW_GUIDE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_MANAGE_BOOKMARK" />
+						<String Id="TXT_OIL1_N_CDW_BOOKMARK_MANAGE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_LOCAL_PAGE" />
+						<String Id="TXT_LIL_N_CDW_LOCAL_PAGE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_FOLDER" />
+						<String Id="TXT_PML_N_CAPITAL_FOLDER" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_REFRESH" />
+						<String Id="TXT_OIL1_N_CDW_REFRESH" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_TOOLS" />
+						<String Id="TXT_OIL1_N_CDW_TOOLS" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_MARK" />
+						<String Id="TXT_OIL1_N_MARK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_CLEAN" />
+						<String Id="TXT_OIL1_N_CDW_CLEAN" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_SETTING" />
+						<String Id="TXT_LIL_N_SETTINGS" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_DOWNLOAD_DIRECTORY" />
+						<String Id="TXT_OIL1_N_CDW_LOAD_DIR" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_EXIT" />
+						<String Id="TXT_OIL1_N_EXIT" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_EXIT_EXPLOR" />
+						<String Id="TXT_OIL1_N_CDW_EXIT_EXPLOR" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="8d1cd" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="VtmId" Value="OptMenu" />
+	</Layout>
+	<Layout Id="CDWAP_WND_POPUP_MENU" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget2" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="e9dc0" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget2" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_GOTOURL" />
+						<Struct>
+							<String Id="TXT_LIL_N_GOTO_URL" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_HOMEPAGE" />
+						<Struct>
+							<String Id="TXT_LIL_N_HOMEPAGE" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="bee72" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="PopUpSelect" />
+	</Layout>
+	<Layout Id="CDWAP_WND_MARK_MODE" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget1" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="5b072" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget1" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="fac69" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="MarkMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_MOVE_FILES" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="bb123" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="4ec64" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="MoveMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_EDIT_CONTENT" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="inputwidget" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<InternProp Id="GUID" Value="c0949" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="FALSE" />
+				<InternProp Id="VtmWidgetName" Value="inputwidget" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="a2570" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SAVE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="VtmId" Value="EditInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_OIL1_N_EDIT&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CDWAP_WND_MARK_OPTION_MENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="OptionMenuWidgetControl" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="84981" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="VtmWidgetName" Value="OptionMenuWidgetControl" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_MO_MARK" />
+						<String Id="TXT_OIL1_N_MARK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_MO_UNMARK" />
+						<String Id="TXT_OIL1_N_UNMARK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_MO_MARK_ALL" />
+						<String Id="TXT_OIL1_N_MARK_ALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_MO_UNMARK_ALL" />
+						<String Id="TXT_OIL1_N_UNMARK_ALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CDWAPAPP_MO_DELETE" />
+						<String Id="TXT_OIL1_N_DELETE" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="8d513" />
+		</Widget>
+		<InternProp Id="GUID" Value="7584c" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="tCdWapMarkOptionMenuL1Table" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+	</Layout>
+	<Layout Id="CDWAP_WND_EDIT_OPTION_MENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="AbsContainerControl2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="OptionMenuWidgetControl2" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="9d248" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="VtmWidgetName" Value="OptionMenuWidgetControl2" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_COMMON_TEXT_SAVE" />
+						<String Id="TXT_OIL1_N_SAVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_COMMON_TEXT_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="3ef85" />
+		</Widget>
+		<InternProp Id="GUID" Value="cea63" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="VtmId" Value="tCdWapEditOptionMenuL1Table" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CDWAPAPP" />
+</UiRoot>

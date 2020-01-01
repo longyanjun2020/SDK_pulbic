@@ -1,0 +1,133 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CCMTA_WND_INCOMINGCALL" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="CallScreenBGWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCMTA_DEFAULT_VIEW_HEIGHT" SizeWidth="CCMTA_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="bca73" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_DIALING_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="IncomingCallImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCMTA_INCOMING_IMAGE_HEIGHT" SizeWidth="CCMTA_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="3fe6e" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_INCOMINGCALL_ANIM" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="CallInfoTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCMTA_CALLINFO_ITEM_HEIGHT" SizeWidth="CCMTA_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CCMTA_INCOMING_CALLINFO_POS_X" />
+				<Position Type="Y_POSITION" Value="CCMTA_INCOMING_CALLINFO_POS_Y" />
+				<InternProp Id="GUID" Value="b2a76" />
+			</Widget>
+			<Widget Id="CallStateTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCMTA_CALLINFO_ITEM_HEIGHT" SizeWidth="CCMTA_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CCMTA_INCOMING_CALLSTATE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCMTA_INCOMING_CALLSTATE_POS_Y" />
+				<InternProp Id="GUID" Value="142b8" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_CCL_N_INCOMING_CALLING" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DuoStateTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCMTA_CALLINFO_ITEM_HEIGHT" SizeWidth="CCMTA_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CCMTA_INCOMING_CALLDUO_POS_X" />
+				<Position Type="Y_POSITION" Value="CCMTA_INCOMING_CALLDUO_POS_Y" />
+				<InternProp Id="GUID" Value="3e730" />
+			</Widget>
+			<InternProp Id="GUID" Value="72212" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_ANSWER" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_NONE" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_VISIABLE" />
+	</Layout>
+	<Layout Id="CCMTA_WND_WAITINGCALL" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="WaitingBgImg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCMTA_PET_DIALOG_LAYOUT_BG_HEIGHT" SizeWidth="CCMTA_PET_DIALOG_LAYOUT_BG_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="e6544612-06ff-45c3-a029-5b123477cfd0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="PET_IMG_EVENT_DIALOG_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WaitingIncoming" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCMTA_INCOMING_PET_PHOTO_IMAGE_HEIGHT" SizeWidth="CCMTA_INCOMING_PET_PHOTO_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="CCMTA_INCOMING_PET_PHOTO_IMAGE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCMTA_INCOMING_PET_PHOTO_IMAGE_POS_Y" />
+				<InternProp Id="GUID" Value="3861e0e8-bffb-41b2-9f3f-0b03c4ddc944" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="PET_IMG_INCOMING_CALL_PHOTO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DuoStateImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCMTA_INCOMING_PET_DUOSTATE_IMAGE_HEIGHT" SizeWidth="CCMTA_INCOMING_PET_DUOSTATE_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="CCMTA_INCOMING_PET_DUOSTATE_IMAGE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCMTA_INCOMING_PET_DUOSTATE_IMAGE_POS_Y" />
+				<InternProp Id="GUID" Value="cc892a35-3582-4a37-86d0-0942cd514f2a" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WaitingCallInfo" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCMTA_CALLINFO_ITEM_HEIGHT" SizeWidth="CCMTA_PET_DIALOG_LAYOUT_BG_WIDTH">
+				<Position Type="X_POSITION" Value="CCMTA_INCOMING_PET_CALLINFO_POS_X" />
+				<Position Type="Y_POSITION" Value="CCMTA_INCOMING_PET_CALLINFO_POS_Y" />
+				<InternProp Id="GUID" Value="a8673472-dc16-467e-81d9-a2d6ef743337" />
+			</Widget>
+			<Widget Id="WaitingCallState" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCMTA_CALLINFO_ITEM_HEIGHT" SizeWidth="CCMTA_PET_DIALOG_LAYOUT_BG_WIDTH">
+				<Position Type="X_POSITION" Value="CCMTA_INCOMING_PET_CALLSTATE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCMTA_INCOMING_PET_CALLSTATE_POS_Y" />
+				<InternProp Id="GUID" Value="b9152a9b-ff1a-468d-8709-6f928d1b361d" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_CCL_N_INCOMING_CALLING" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="df4d0dd2-4286-4f5c-84d2-20c6c5083d48" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_ANSWER" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_NONE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CCMTA" />
+</UiRoot>

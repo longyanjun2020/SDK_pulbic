@@ -1,0 +1,1182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<XMMIComboXML>
+  <widget_option CLSID="CLSID_SHARE">
+    <prop_option propid="DEFAULT_BOOLEAN">
+      <option>TRUE</option>
+      <option>FALSE</option>
+    </prop_option>
+    <prop_option propid="Softkey_Type">
+      <option>LEFT_SK</option>
+      <option>MIDDLE_SK</option>
+      <option>RIGHT_SK</option>
+      <option>NUM_SK</option>
+    </prop_option>
+    <prop_option propid="PROP_FontCategory">
+      <option>FONT_CAT_NORMAL</option>
+      <option>FONT_CAT_LARGE</option>
+      <option>FONT_CAT_SUPERSMALL</option>
+      <option>FONT_CAT_DATE_SMALL</option>
+      <option>FONT_CAT_NUM_SUPERLARGE</option>
+      <option>FONT_CAT_NUM_LARGE</option>
+      <option>FONT_CAT_NUM_NORMAL</option>
+      <option>FONT_CAT_NUM_SMALL</option>
+      <option>FONT_CAT_NUM_TIMESMALL</option>
+      <option>FONT_CAT_NUM_EXTRASMALL</option>
+      <option>FONT_CAT_NUM_TIME</option>
+      <option>FONT_CAT_IME_NORMAL</option>
+      <option>FONT_CAT_IME_SUPERSMALL</option>
+    </prop_option>
+    <prop_option propid="PROP_Color">
+      <option>COLOR_BLACK</option>
+      <option>COLOR_GREY_1</option>
+      <option>COLOR_GREY_2</option>
+      <option>COLOR_GREY_3</option>
+      <option>COLOR_GREY_4</option>
+      <option>COLOR_GREY_5</option>
+      <option>COLOR_WHITE</option>
+      <option>COLOR_BLUE_1</option>
+      <option>COLOR_BLUE_2</option>
+      <option>COLOR_BLUE_3</option>
+      <option>COLOR_BLUE_4</option>
+      <option>COLOR_BLUE_5</option>
+      <option>COLOR_BLUE_6</option>
+      <option>COLOR_BLUE_7</option>
+      <option>COLOR_GREEN_1</option>
+      <option>COLOR_GREEN_2</option>
+      <option>COLOR_GREEN_3</option>
+      <option>COLOR_GREEN_4</option>
+      <option>COLOR_GREEN_5</option>
+      <option>COLOR_GREEN_6</option>
+      <option>COLOR_GREEN_7</option>
+      <option>COLOR_ORANGE_1</option>
+      <option>COLOR_ORANGE_2</option>
+      <option>COLOR_ORANGE_3</option>
+      <option>COLOR_ORANGE_4</option>
+      <option>COLOR_ORANGE_5</option>
+      <option>COLOR_ORANGE_6</option>
+      <option>COLOR_ORANGE_7</option>
+      <option>COLOR_BROWN_1</option>
+      <option>COLOR_BROWN_2</option>
+      <option>COLOR_BROWN_3</option>
+      <option>COLOR_BROWN_4</option>
+      <option>COLOR_BROWN_5</option>
+      <option>COLOR_BROWN_6</option>
+      <option>COLOR_BROWN_7</option>
+      <option>COLOR_RED_1</option>
+      <option>COLOR_RED_2</option>
+      <option>COLOR_RED_3</option>
+      <option>COLOR_RED_4</option>
+      <option>COLOR_RED_5</option>
+      <option>COLOR_RED_6</option>
+      <option>COLOR_RED_7</option>
+      <option>COLOR_PURPLE_1</option>
+      <option>COLOR_PURPLE_2</option>
+      <option>COLOR_PURPLE_3</option>
+      <option>COLOR_PURPLE_4</option>
+      <option>COLOR_PURPLE_5</option>
+      <option>COLOR_PURPLE_6</option>
+      <option>COLOR_PURPLE_7</option>
+      <option>COLOR_TRANSPARENCY</option>
+    </prop_option>
+    <prop_option propid="WDG_FONT_TYPE">
+      <option>FONT_TYPE_NORMAL</option>
+      <option>FONT_TYPE_OUTLINE</option>
+      <option>FONT_TYPE_UNDERLINE</option>
+      <option>FONT_TYPE_EXPAND1</option>
+    </prop_option>
+    <prop_option propid="PROP_KEY">
+      <option>MAE_KEY_OK</option>
+      <option>MAE_KEY_MEN</option>
+      <option>MAE_KEY_LEFT</option>
+      <option>MAE_KEY_PHB</option>
+      <option>MAE_KEY_RIGHT</option>
+      <option>MAE_KEY_ONOFF</option>
+      <option>MAE_KEY_CLR</option>
+      <option>MAE_KEY_PLUS</option>
+      <option>MAE_KEY_SEND</option>
+      <option>MAE_KEY_SEND1</option>
+      <option>MAE_KEY_SEND2</option>
+      <option>MAE_KEY_END</option>
+      <option>MAE_KEY_MINUS</option>
+      <option>MAE_KEY_1</option>
+      <option>MAE_KEY_2</option>
+      <option>MAE_KEY_3</option>
+      <option>MAE_KEY_4</option>
+      <option>MAE_KEY_5</option>
+      <option>MAE_KEY_6</option>
+      <option>MAE_KEY_7</option>
+      <option>MAE_KEY_8</option>
+      <option>MAE_KEY_9</option>
+      <option>MAE_KEY_STAR</option>
+      <option>MAE_KEY_0</option>
+      <option>MAE_KEY_HASH</option>
+      <option>MAE_KEY_MSG</option>
+      <option>MAE_KEY_MAIL</option>
+      <option>MAE_KEY_FSTDL1</option>
+      <option>MAE_KEY_FSTDL2</option>
+      <option>MAE_KEY_FSTDL3</option>
+      <option>MAE_KEY_FSTDL4</option>
+      <option>MAE_KEY_REDIAL</option>
+      <option>MAE_KEY_HOOK</option>
+      <option>MAE_KEY_UP</option>
+      <option>MAE_KEY_DOWN</option>
+      <option>MAE_KEY_FLAPON</option>
+      <option>MAE_KEY_FLAPOFF</option>
+      <option>MAE_KEY_SIDE_UP</option>
+      <option>MAE_KEY_SIDE_DN</option>
+      <option>MAE_KEY_SKLEFT</option>
+      <option>MAE_KEY_SKRIGHT</option>
+      <option>MAE_KEY_HEADSET</option>
+      <option>MAE_KEY_CLEAR</option>
+      <option>MAE_KEY_ACTION</option>
+      <option>MAE_KEY_CAMERA</option>
+      <option>MAE_KEY_MP3</option>
+      <option>MAE_KEY_POWERMODE</option>
+    </prop_option>
+    <prop_option propid="Language">
+      <option>MAE_LANG_AFAR</option>
+      <option>MAE_LANG_ABKHAZIAN</option>
+      <option>MAE_LANG_AVESTAN</option>
+      <option>MAE_LANG_AFRIKAANS</option>
+      <option>MAE_LANG_AKAN</option>
+      <option>MAE_LANG_AMHARIC</option>
+      <option>MAE_LANG_ARAGONESE</option>
+      <option>MAE_LANG_ARABIC</option>
+      <option>MAE_LANG_ASSAMESE</option>
+      <option>MAE_LANG_AVARIC</option>
+      <option>MAE_LANG_AYMARA</option>
+      <option>MAE_LANG_AZERBAIJANI</option>
+      <option>MAE_LANG_BASHKIR</option>
+      <option>MAE_LANG_BELARUSIAN</option>
+      <option>MAE_LANG_BULGARIAN</option>
+      <option>MAE_LANG_BIHARI</option>
+      <option>MAE_LANG_BISLAMA</option>
+      <option>MAE_LANG_BAMBARA</option>
+      <option>MAE_LANG_BENGALI</option>
+      <option>MAE_LANG_TIBETAN</option>
+      <option>MAE_LANG_BRETON</option>
+      <option>MAE_LANG_BOSNIAN</option>
+      <option>MAE_LANG_CATALAN</option>
+      <option>MAE_LANG_CHECHEN</option>
+      <option>MAE_LANG_CHAMORRO</option>
+      <option>MAE_LANG_CORSICAN</option>
+      <option>MAE_LANG_CREE</option>
+      <option>MAE_LANG_CZECH</option>
+      <option>MAE_LANG_CHURCH_SLAVIC</option>
+      <option>MAE_LANG_CHUVASH</option>
+      <option>MAE_LANG_WELSH</option>
+      <option>MAE_LANG_DANISH</option>
+      <option>MAE_LANG_GERMAN</option>
+      <option>MAE_LANG_DIVEHI</option>
+      <option>MAE_LANG_DZONGKHA</option>
+      <option>MAE_LANG_EWE</option>
+      <option>MAE_LANG_GREEK</option>
+      <option>MAE_LANG_ENGLISH</option>
+      <option>MAE_LANG_ESPERANTO</option>
+      <option>MAE_LANG_SPANISH</option>
+      <option>MAE_LANG_ESTONIAN</option>
+      <option>MAE_LANG_BASQUE</option>
+      <option>MAE_LANG_PERSIAN</option>
+      <option>MAE_LANG_FULAH</option>
+      <option>MAE_LANG_FINNISH</option>
+      <option>MAE_LANG_FIJIAN</option>
+      <option>MAE_LANG_FAROESE</option>
+      <option>MAE_LANG_FRENCH</option>
+      <option>MAE_LANG_WESTERN_FRISIAN</option>
+      <option>MAE_LANG_IRISH</option>
+      <option>MAE_LANG_SCOTTISH_GAELIC</option>
+      <option>MAE_LANG_GALICIAN</option>
+      <option>MAE_LANG_GUARANI</option>
+      <option>MAE_LANG_GUJARATI</option>
+      <option>MAE_LANG_MANX</option>
+      <option>MAE_LANG_HAUSA</option>
+      <option>MAE_LANG_HEBREW</option>
+      <option>MAE_LANG_HINDI</option>
+      <option>MAE_LANG_HIRI_MOTU</option>
+      <option>MAE_LANG_CROATIAN</option>
+      <option>MAE_LANG_HAITIAN</option>
+      <option>MAE_LANG_HUNGARIAN</option>
+      <option>MAE_LANG_ARMENIAN</option>
+      <option>MAE_LANG_HERERO</option>
+      <option>MAE_LANG_INTERLINGUA</option>
+      <option>MAE_LANG_INDONESIAN</option>
+      <option>MAE_LANG_INTERLINGUE</option>
+      <option>MAE_LANG_IGBO</option>
+      <option>MAE_LANG_SICHUAN_YI</option>
+      <option>MAE_LANG_INUPIAQ</option>
+      <option>MAE_LANG_IDO</option>
+      <option>MAE_LANG_ICELANDIC</option>
+      <option>MAE_LANG_ITALIAN</option>
+      <option>MAE_LANG_INUKTITUT</option>
+      <option>MAE_LANG_JAPANESE</option>
+      <option>MAE_LANG_JAVANESE</option>
+      <option>MAE_LANG_GEORGIAN</option>
+      <option>MAE_LANG_KONGO</option>
+      <option>MAE_LANG_KIKUYU</option>
+      <option>MAE_LANG_KWANYAMA</option>
+      <option>MAE_LANG_KAZAKH</option>
+      <option>MAE_LANG_KALAALLISUT</option>
+      <option>MAE_LANG_KHMER</option>
+      <option>MAE_LANG_KANNADA</option>
+      <option>MAE_LANG_KOREAN</option>
+      <option>MAE_LANG_KANURI</option>
+      <option>MAE_LANG_KASHMIRI</option>
+      <option>MAE_LANG_KURDISH</option>
+      <option>MAE_LANG_KOMI</option>
+      <option>MAE_LANG_CORNISH</option>
+      <option>MAE_LANG_KIRGHIZ</option>
+      <option>MAE_LANG_LATIN</option>
+      <option>MAE_LANG_LUXEMBOURGISH</option>
+      <option>MAE_LANG_GANDA</option>
+      <option>MAE_LANG_LIMBURGISH</option>
+      <option>MAE_LANG_LINGALA</option>
+      <option>MAE_LANG_LAO</option>
+      <option>MAE_LANG_LITHUANIAN</option>
+      <option>MAE_LANG_LUBA_KATANGA</option>
+      <option>MAE_LANG_LATVIAN</option>
+      <option>MAE_LANG_MALAGASY</option>
+      <option>MAE_LANG_MARSHALLESE</option>
+      <option>MAE_LANG_MAORI</option>
+      <option>MAE_LANG_MACEDONIAN</option>
+      <option>MAE_LANG_MALAYALAM</option>
+      <option>MAE_LANG_MONGOLIAN</option>
+      <option>MAE_LANG_MOLDAVIAN</option>
+      <option>MAE_LANG_MARATHI</option>
+      <option>MAE_LANG_MALAY</option>
+      <option>MAE_LANG_MALTESE</option>
+      <option>MAE_LANG_BURMESE</option>
+      <option>MAE_LANG_NAURU</option>
+      <option>MAE_LANG_NORWEGIAN_BOKMAL</option>
+      <option>MAE_LANG_NORTH_NDEBELE</option>
+      <option>MAE_LANG_NEPALI</option>
+      <option>MAE_LANG_NDONGA</option>
+      <option>MAE_LANG_DUTCH</option>
+      <option>MAE_LANG_NORWEGIAN_NYNORSK</option>
+      <option>MAE_LANG_NORWEGIAN</option>
+      <option>MAE_LANG_SOUTH_NDEBELE</option>
+      <option>MAE_LANG_NAVAJO</option>
+      <option>MAE_LANG_CHICHEWA</option>
+      <option>MAE_LANG_OCCITAN</option>
+      <option>MAE_LANG_OJIBWA</option>
+      <option>MAE_LANG_OROMO</option>
+      <option>MAE_LANG_ORIYA</option>
+      <option>MAE_LANG_OSSETIAN</option>
+      <option>MAE_LANG_PANJABI</option>
+      <option>MAE_LANG_PALI</option>
+      <option>MAE_LANG_POLISH</option>
+      <option>MAE_LANG_PASHTO</option>
+      <option>MAE_LANG_PORTUGUESE</option>
+      <option>MAE_LANG_QUECHUA</option>
+      <option>MAE_LANG_RAETO_ROMANCE</option>
+      <option>MAE_LANG_KIRUNDI</option>
+      <option>MAE_LANG_ROMANIAN</option>
+      <option>MAE_LANG_RUSSIAN</option>
+      <option>MAE_LANG_KINYARWANDA</option>
+      <option>MAE_LANG_RUSYN</option>
+      <option>MAE_LANG_SANSKRIT</option>
+      <option>MAE_LANG_SARDINIAN</option>
+      <option>MAE_LANG_SINDHI</option>
+      <option>MAE_LANG_NORTHERN_SAMI</option>
+      <option>MAE_LANG_SANGO</option>
+      <option>MAE_LANG_SERBO_CROATIAN</option>
+      <option>MAE_LANG_SINHALESE</option>
+      <option>MAE_LANG_SLOVAK</option>
+      <option>MAE_LANG_SLOVENIAN</option>
+      <option>MAE_LANG_SAMOAN</option>
+      <option>MAE_LANG_SHONA</option>
+      <option>MAE_LANG_SOMALI</option>
+      <option>MAE_LANG_ALBANIAN</option>
+      <option>MAE_LANG_SERBIAN</option>
+      <option>MAE_LANG_SWATI</option>
+      <option>MAE_LANG_SOTHO</option>
+      <option>MAE_LANG_SUNDANESE</option>
+      <option>MAE_LANG_SWEDISH</option>
+      <option>MAE_LANG_SWAHILI</option>
+      <option>MAE_LANG_TAMIL</option>
+      <option>MAE_LANG_TELUGU</option>
+      <option>MAE_LANG_TAJIK</option>
+      <option>MAE_LANG_THAI</option>
+      <option>MAE_LANG_TIGRINYA</option>
+      <option>MAE_LANG_TURKMEN</option>
+      <option>MAE_LANG_TAGALOG</option>
+      <option>MAE_LANG_TSWANA</option>
+      <option>MAE_LANG_TONGA</option>
+      <option>MAE_LANG_TURKISH</option>
+      <option>MAE_LANG_TSONGA</option>
+      <option>MAE_LANG_TATAR</option>
+      <option>MAE_LANG_TWI</option>
+      <option>MAE_LANG_TAHITIAN</option>
+      <option>MAE_LANG_UIGHUR</option>
+      <option>MAE_LANG_UKRAINIAN</option>
+      <option>MAE_LANG_URDU</option>
+      <option>MAE_LANG_UZBEK</option>
+      <option>MAE_LANG_VENDA</option>
+      <option>MAE_LANG_VIETNAMESE</option>
+      <option>MAE_LANG_VOLAPUK</option>
+      <option>MAE_LANG_WALLOON</option>
+      <option>MAE_LANG_WOLOF</option>
+      <option>MAE_LANG_XHOSA</option>
+      <option>MAE_LANG_YIDDISH</option>
+      <option>MAE_LANG_YORUBA</option>
+      <option>MAE_LANG_ZHUANG</option>
+      <option>MAE_LANG_CHINESE_T</option>
+      <option>MAE_LANG_CHINESE_S</option>
+      <option>MAE_LANG_ZULU</option>
+    </prop_option>
+    <prop_option propid="WdgLookCtrlType_t">
+      <option>WDG_LOOKCTRL_TYPE_THEME</option>
+      <option>WDG_LOOKCTRL_TYPE_MANUAL</option>
+    </prop_option>
+    <prop_option propid="WdgBackgroundPos_t">
+      <option>WDG_BG_POS_INNER</option>
+      <option>WDG_BG_POS_WHOLE</option>
+    </prop_option>
+    <prop_option propid="Alignment_e">
+      <option>ALIGN_H_LEFT</option>
+      <option>ALIGN_H_RIGHT</option>
+      <option>ALIGN_H_CENTER</option>
+      <option>ALIGN_H_START</option>
+      <option>ALIGN_H_END</option>
+      <option>ALIGN_H_TOTAL</option>
+      <option>ALIGN_H_MASK</option>
+      <option>ALIGN_V_TOP</option>
+      <option>ALIGN_V_BOTTOM</option>
+      <option>ALIGN_V_MIDDLE</option>
+      <option>ALIGN_V_TOTAL</option>
+      <option>ALIGN_V_MASK</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_WDG_SOFTKEY">
+      <option>DEFAULT_SK</option>
+      <option>SK_TEXTSOFTKEY_BASE</option>
+      <option>SK_NONE</option>
+      <option>SK_CANCEL</option>
+      <option>SK_SELECT</option>
+      <option>SK_BACK</option>
+      <option>SK_CHANGE</option>
+      <option>SK_OK_TEXT</option>
+      <option>SK_YES</option>
+      <option>SK_NO</option>
+      <option>SK_SOS</option>
+      <option>SK_SNOOZE</option>
+      <option>SK_OPTION</option>
+      <option>SK_SEND</option>
+      <option>SK_SAVE</option>
+      <option>SK_EXIT</option>
+      <option>SK_ADD</option>
+      <option>SK_CLOSE</option>
+      <option>SK_NEXT</option>
+      <option>SK_SPELL</option>
+      <option>SK_ANSWER</option>
+      <option>SK_QUIET</option>
+      <option>SK_BUSY</option>
+      <option>SK_REDIAL</option>
+      <option>SK_SET</option>
+      <option>SK_SETTINGS</option>
+      <option>SK_UNLOCK</option>
+      <option>SK_CALL</option>
+      <option>SK_QUIT</option>
+      <option>SK_ZOOM_IN</option>
+      <option>SK_ZOOM_OUT</option>
+      <option>SK_STOP_TEXT</option>
+      <option>SK_CONT_SEL</option>
+      <option>SK_SPLIT</option>
+      <option>SK_RESET</option>
+      <option>SK_MOVE</option>
+      <option>SK_VIEW</option>
+      <option>SK_MSG</option>
+      <option>SK_EDIT</option>
+      <option>SK_POWER_OFF</option>
+      <option>SK_REPLY</option>
+      <option>SK_BIG</option>
+      <option>SK_SMALL</option>
+      <option>SK_REPLACE</option>
+      <option>SK_EXPORT</option>
+      <option>SK_MASTER</option>
+      <option>SK_SLAVE</option>
+      <option>SK_CLEAR</option>
+      <option>SK_SEARCH</option>
+      <option>SK_PLUSMINUS</option>
+      <option>SK_NEW</option>
+      <option>SK_GAME_PAUSE</option>
+      <option>SK_GAME_RESUME</option>
+      <option>SK_MUTE</option>
+      <option>SK_UNMUTE</option>
+      <option>SK_END_CALL</option>
+      <option>SK_CHECK</option>
+      <option>SK_LIST</option>
+      <option>SK_EM_PASS</option>
+      <option>SK_EM_FAIL</option>
+      <option>SK_DELETE</option>
+      <option>SK_HELP</option>
+      <option>SK_COPY</option>
+      <option>SK_PASTE</option>
+      <option>SK_SUMMARY</option>
+      <option>SK_RATE</option>
+      <option>SK_USER_DEFINED_TEXT</option>
+      <option>SK_TEXTSOFTKEY_END</option>
+      <option>SK_IMAGESOFTKEY_BASE</option>
+      <option>SK_OK</option>      
+      <option>SK_STARTPOS</option>
+      <option>SK_USER_DEFINED_IMAGE</option>
+      <option>SK_IMAGESOFTKEY_END</option>
+      <option>SK_SOFTKEY_NUM</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_WDG_MIDDLE_SOFTKEY">
+    	<option>SK_OK</option>
+    	<option>SK_PLAY</option>
+    	<option>SK_PAUSE</option>
+    	<option>SK_STOP</option>
+      <option>SK_SPEAKER_ON</option>
+      <option>SK_SPEAKER_OFF</option>
+      <option>SK_AM</option>
+      <option>SK_PM</option>
+			<option>SK_SW_START</option>
+      <option>SK_SW_PAUSE</option>
+      <option>SK_SW_RESUME</option>
+      <option>SK_RECORD</option>
+      <option>SK_INPUT_NUMBER</option>
+      <option>SK_SWITCH_UP</option>
+      <option>SK_SWITCH_DOWN</option>
+      <option>SK_ENDPOS</option>
+      <option>SK_CUT</option>
+      <option>SK_VOLUME</option>
+      <option>SK_GAME_PLAY</option>
+      <option>SK_ADD_CONTACT</option>
+      <option>SK_ADD_EVENT</option>
+      <option>SK_BT_HEADSET</option>
+    </prop_option>    
+    <prop_option propid="WdgLayoutStyle_e">
+      <option>LAYOUT_STYLE_NONE</option>
+      <option>LAYOUT_STYLE_VERTICAL</option>
+      <option>LAYOUT_STYLE_HORIZONTAL</option>
+      <option>LAYOUT_STYLE_BOTH</option>
+    </prop_option>
+    <prop_option propid="Propotional_options">
+      <option>KEEP_WIDGET_SIZE</option>
+    </prop_option>
+    <prop_option propid="e_ImageTextImage_Layout">
+      <option>Layout_ImageTextImage_ShowAll</option>
+      <option>Layout_ImageTextImage_PreImageHide</option>
+      <option>Layout_ImageTextImage_PreImageShow</option>
+      <option>Layout_ImageTextImage_PreImageMask</option>
+      <option>Layout_ImageTextImage_TextHide</option>
+      <option>Layout_ImageTextImage_TextShow</option>
+      <option>Layout_ImageTextImage_TextMask</option>
+      <option>Layout_ImageTextImage_PostImageHide</option>
+      <option>Layout_ImageTextImage_PostImageShow</option>
+      <option>Layout_ImageTextImage_PostImageMask</option>
+      <option>Layout_ImageTextImage_Total</option>
+    </prop_option>
+    <prop_option propid="ItemWidgetList">
+      <option>CLSID_BASICBITMAPWIDGET</option>
+      <option>CLSID_BITMAPWIDGET</option>
+      <option>CLSID_BUTTONWIDGET</option>
+      <option>CLSID_CLOCKICONWIDGET</option>
+      <option>CLSID_COUNTDOWNTIME_WIDGET</option>
+      <option>CLSID_FCDATE_WIDGET</option>
+      <option>CLSID_FCTIME_WIDGET</option>
+      <option>CLSID_DATEICONWIDGET</option>
+      <option>CLSID_DATEWIDGET</option>
+      <option>CLSID_DOUBLE_TEXT_WIDGET</option>
+      <option>CLSID_FADEOUTWIDGET</option>
+      <option>CLSID_HORZ_MENUWIDGET</option>
+      <option>CLSID_IMAGE_DOUBLE_TEXT_WIDGET</option>
+      <option>CLSID_IMAGE_TITEXT_WIDGET</option>
+      <option>CLSID_IMAGE_TITI_WIDGET</option>
+      <option>CLSID_IMAGETEXTIMAGEWIDGET</option>
+      <option>CLSID_IMAGETEXTPICK_IMAGETEXTWIDGET</option>
+      <option>CLSID_IMAGETEXTWIDGET</option>
+      <option>CLSID_IMAGEWIDGET</option>
+      <option>CLSID_IMGGRID_MENUWIDGET</option>
+      <option>CLSID_INDICATORWIDGET</option>
+      <option>CLSID_INPUTWIDGET</option>
+      <option>CLSID_IPWIDGET</option>
+      <option>CLSID_IT_SINPUT_WIDGET</option>
+      <option>CLSID_IT_SIT_WIDGET</option>
+      <option>CLSID_IT_STEXT_WIDGET</option>
+      <option>CLSID_IT_STI_WIDGET</option>
+      <option>CLSID_LINE2INFOPICK_TEXTWIDGET</option>
+      <option>CLSID_NUMERIC_MENUWIDGET</option>
+      <option>CLSID_OPTIONMENUWIDGET</option>
+      <option>CLSID_PULLDOWNWIDGET</option>
+      <option>CLSID_TEXT_DATE_WIDGET</option>
+      <option>CLSID_TEXT_INPUT_WIDGET</option>
+      <option>CLSID_TEXT_IP_WIDGET</option>
+      <option>CLSID_TEXT_LINE2INFO_WIDGET</option>
+      <option>CLSID_TEXT_TIME_WIDGET</option>
+      <option>CLSID_TEXTIMAGEWIDGET</option>
+      <option>CLSID_TEXTLABELWIDGET</option>
+      <option>CLSID_TEXTPICK_IMAGETEXTWIDGET</option>
+      <option>CLSID_TEXTPICK_TEXTWIDGET</option>
+      <option>CLSID_TEXTWIDGET</option>
+      <option>CLSID_THM_IMAGEWIDGET</option>
+      <option>CLSID_THM_TEXTLABELWIDGET</option>
+      <option>CLSID_THM_TEXTWIDGET</option>
+      <option>CLSID_TIMEICONWIDGET</option>
+      <option>CLSID_TIMEWIDGET</option>
+      <option>CLSID_TIMERFORMAT_WIDGET</option>
+    </prop_option>
+    <prop_option propid="ALL_WIDGET_LIST">
+      <option>CLSID_ABSCONTAINER</option>
+      <option>CLSID_MFLCONTAINER</option>
+      <option>CLSID_PROPCONTAINER</option>
+      <option>CLSID_SHEETCONTAINER</option>
+      <option>CLSID_VIEWERCONTAINER</option>
+      <option>CLSID_BASICBITMAPWIDGET</option>
+      <option>CLSID_BITMAPWIDGET</option>
+      <option>CLSID_BUTTONWIDGET</option>
+      <option>CLSID_CLOCKICONWIDGET</option>
+      <option>CLSID_COUNTDOWNTIME_WIDGET</option>
+      <option>CLSID_FCDATE_WIDGET</option>
+      <option>CLSID_FCTIME_WIDGET</option>
+      <option>CLSID_DATEICONWIDGET</option>
+      <option>CLSID_DATEWIDGET</option>
+      <option>CLSID_DOUBLE_TEXT_WIDGET</option>
+      <option>CLSID_FADEOUTWIDGET</option>
+      <option>CLSID_GRIDWIDGET</option>
+      <option>CLSID_HORZ_LISTWIDGET</option>
+      <option>CLSID_HORZ_MENUWIDGET</option>
+      <option>CLSID_IMAGE_DOUBLE_TEXT_WIDGET</option>
+      <option>CLSID_IMAGE_TITEXT_WIDGET</option>
+      <option>CLSID_IMAGE_TITI_WIDGET</option>
+      <option>CLSID_IMAGETEXTIMAGEWIDGET</option>
+      <option>CLSID_IMAGETEXTPICK_IMAGETEXTWIDGET</option>
+      <option>CLSID_IMAGETEXTWIDGET</option>
+      <option>CLSID_IMAGEWIDGET</option>
+      <option>CLSID_IMGGRID_MENUWIDGET</option>
+      <option>CLSID_INDICATORWIDGET</option>
+      <option>CLSID_INPUTWIDGET</option>
+      <option>CLSID_IPWIDGET</option>
+      <option>CLSID_IT_SINPUT_WIDGET</option>
+      <option>CLSID_IT_SIT_WIDGET</option>
+      <option>CLSID_IT_STEXT_WIDGET</option>
+      <option>CLSID_IT_STI_WIDGET</option>
+      <option>CLSID_LINE2INFOPICK_TEXTWIDGET</option>
+      <option>CLSID_MENUWIDGET</option>
+      <option>CLSID_NUMERIC_MENUWIDGET</option>
+      <option>CLSID_OPTIONMENUWIDGET</option>
+      <option>CLSID_OSDWIDGET</option>
+      <option>CLSID_PICK_WIDGET</option>
+      <option>CLSID_PROGRESSWIDGET</option>
+      <option>CLSID_PULLDOWNWIDGET</option>
+      <option>CLSID_RINGLIST_WIDGET</option>
+      <option>CLSID_SCROLLBARWIDGET</option>
+      <option>CLSID_SCROLLINDICATORWIDGET</option>
+      <option>CLSID_SLIDESWITCHWIDGET</option>
+      <option>CLSID_STATISTICS_WIDGET</option>
+      <option>CLSID_SWITCHICONITEMWIDGET</option>
+      <option>CLSID_SWITCHICONWIDGET</option>
+      <option>CLSID_TAB_WIDGET</option>
+      <option>CLSID_TEXT_DATE_WIDGET</option>
+      <option>CLSID_TEXT_INPUT_WIDGET</option>
+      <option>CLSID_TEXT_IP_WIDGET</option>
+      <option>CLSID_TEXT_LINE2INFO_WIDGET</option>
+      <option>CLSID_TEXT_TIME_WIDGET</option>
+      <option>CLSID_TEXTIMAGEWIDGET</option>
+      <option>CLSID_TEXTLABELWIDGET</option>
+      <option>CLSID_TEXTPICK_IMAGETEXTWIDGET</option>
+      <option>CLSID_TEXTPICK_TEXTWIDGET</option>
+      <option>CLSID_TEXTWIDGET</option>
+      <option>CLSID_THM_IMAGEWIDGET</option>
+      <option>CLSID_THM_TEXTLABELWIDGET</option>
+      <option>CLSID_THM_TEXTWIDGET</option>
+      <option>CLSID_TIMEICONWIDGET</option>
+      <option>CLSID_TIMEWIDGET</option>
+      <option>CLSID_TIMERFORMAT_WIDGET</option>
+      <option>CLSID_TITLEWIDGET</option>
+      <option>CLSID_TRANSITION_WIDGET</option>
+      <option>CLSID_TXTGRID_MENUWIDGET</option>
+      <option>CLSID_VERT_LISTWIDGET</option>
+      <option>CLSID_VIEWPORTWIDGET</option>
+    </prop_option>
+    <prop_option propid="GRID_RELATE_WIDGET_LIST">
+      <option>CLSID_TEXTWIDGET</option>
+      <option>CLSID_TEXTLABELWIDGET</option>
+      <option>CLSID_THM_TEXTLABELWIDGET</option>
+      <option>CLSID_THM_TEXTWIDGET</option>
+      <option>CLSID_BUTTONWIDGET</option>
+      <option>CLSID_IMAGEWIDGET</option>
+      <option>CLSID_BITMAPWIDGET</option>
+      <option>CLSID_TEXTPICK_TEXTWIDGET</option>
+      <option>CLSID_TEXTPICK_IMAGETEXTWIDGET</option>
+      <option>CLSID_LINE2INFOPICK_TEXTWIDGET</option>
+      <option>CLSID_DOUBLE_TEXT_WIDGET</option>
+      <option>CLSID_TEXT_INPUT_WIDGET</option>
+      <option>CLSID_TEXT_DATE_WIDGET</option>
+      <option>CLSID_TEXT_TIME_WIDGET</option>
+      <option>CLSID_TEXT_IP_WIDGET</option>
+      <option>CLSID_IT_STEXT_WIDGET</option>
+      <option>CLSID_IT_SIT_WIDGET</option>
+      <option>CLSID_IT_STI_WIDGET</option>
+      <option>CLSID_IT_SINPUT_WIDGET</option>
+      <option>CLSID_TEXT_LINE2INFO_WIDGET</option>
+      <option>CLSID_IMAGETEXTIMAGEWIDGET</option>
+      <option>CLSID_IMAGETEXTWIDGET</option>
+      <option>CLSID_TEXTIMAGEWIDGET</option>
+      <option>CLSID_IMAGE_DOUBLE_TEXT_WIDGET</option>
+      <option>CLSID_IMAGE_TITEXT_WIDGET</option>
+      <option>CLSID_IMAGE_TITI_WIDGET</option>
+      <option>CLSID_SWITCHICONITEMWIDGET</option>
+    </prop_option>
+    <prop_option propid="ScrollBarStyle_e">
+      <option>SCROLL_STYLE_V_NONE</option>
+      <option>SCROLL_STYLE_H_NONE</option>
+      <option>SCROLL_STYLE_V_RIGHT</option>
+      <option>SCROLL_STYLE_V_LEFT</option>
+      <option>SCROLL_STYLE_V_TOTAL</option>
+      <option>SCROLL_STYLE_V_MASK</option>
+      <option>SCROLL_STYLE_H_BOTTOM</option>
+      <option>SCROLL_STYLE_H_TOP</option>
+      <option>SCROLL_STYLE_H_TOTAL</option>
+      <option>SCROLL_STYLE_H_MASK</option>
+    </prop_option>
+    <prop_option propid="ImageStyle">
+      <option>IMAGE_STYLE_COMMON</option>
+      <option>IMAGE_STYLE_THEME</option>
+    </prop_option>
+    <prop_option propid="FcTimeStyle">
+      <option>FCTIME_STYLE_FCTIME</option>
+      <option>FCTIME_STYLE_COUNTDOWNTIME</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_VIEW">
+	  <prop_option propid="TEMPLATE">
+	  	<option></option>
+	    <option>TEMPLATE1</option>
+	    <option>TEMPLATE2</option>
+	  </prop_option> 
+	  <prop_option propid="PROP_VIEW_SB_VISIBLE">
+	    <option>VIEWSB_VISIABLE</option>
+	    <option>VIEWSB_INVISIABLE</option>
+	  </prop_option>
+	  <prop_option propid="PROP_VIEW_SK_VISIBLE">
+	    <option>VIEWSK_VISIABLE</option>
+	    <option>VIEWSK_INVISIABLE</option>
+	  </prop_option>
+	  <prop_option propid="PROP_VIEWTYPE">
+	    <option>VT_FULL_SCRN</option>
+	    <option>VT_OPT_MENU</option>
+	    <option>VT_NORMAL</option>
+	    <option>VT_POPUP</option>
+	    <option>VT_DIALOG</option>
+	  </prop_option>
+	  <prop_option propid="PROP_VIEWDISPMODE">
+	  </prop_option>  
+	  <prop_option propid="PROP_VIEW_SB_TRANSP">
+	    <option>VIEW_TRANSPTYPE_NOTRANSP</option>
+	    <option>VIEW_TRANSPTYPE_TRANSP</option>
+	  </prop_option>
+	  <prop_option propid="PROP_VIEW_SK_TRANSP">
+	    <option>VIEW_TRANSPTYPE_NOTRANSP</option>
+	    <option>VIEW_TRANSPTYPE_TRANSP</option>
+	  </prop_option>
+	  <prop_option propid="PROP_VIEW_DISP_FROMTOP"></prop_option>
+	  <prop_option propid="PROP_VIEWTITLE_WDGID"></prop_option>
+	  <prop_option propid="PROP_VIEW_ENTRY_TRANSITION_ID">
+	    <option>MMI_VIEWTRANSITION_FULLSCR_LEFT</option>
+	    <option>MMI_VIEWTRANSITION_FULLSCR_RIGHT</option>
+	    <option>MMI_VIEWTRANSITION_FULLSCR_UP</option>
+	    <option>MMI_VIEWTRANSITION_FULLSCR_DOWN</option>
+	    <option>MMI_VIEWTRANSITION_FULLSCR_ZOOM_IN</option>
+	    <option>MMI_VIEWTRANSITION_FULLSCR_ZOOM_OUT</option>
+	    <option>MMI_VIEWTRANSITION_MPLAYER_FLIPOVER_LEFT</option>
+	    <option>MMI_VIEWTRANSITION_MPLAYER_FLIPOVER_RIGHT</option>
+	  </prop_option>
+	  <prop_option propid="PROP_VIEW_SCENE_LEVEL">
+	    <option>MMI_VIEWSCENELEVEL_NONE</option>
+	    <option>MMI_VIEWSCENELEVEL_1</option>
+	    <option>MMI_VIEWSCENELEVEL_2</option>
+	    <option>MMI_VIEWSCENELEVEL_3</option>
+	    <option>MMI_VIEWSCENELEVEL_4</option>
+	    <option>MMI_VIEWSCENELEVEL_5</option>
+	  </prop_option>
+</widget_option>
+	  <widget_option CLSID="CLSID_VIEWPORTWIDGET">
+	  <prop_option propid="DECORATORLIST">
+	    <option>CLSID_ABSCONTAINER</option>
+	    <option>CLSID_BITMAPWIDGET</option>
+	    <option>CLSID_IMAGEWIDGET</option>
+	  </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_LISTWIDGET">
+  <prop_option propid="PROP_GRID_WDG_TOUCH_MODE">
+    <option>GRID_TOUCH_MODE_SELECTOR</option>
+    <option>GRID_TOUCH_MODE_CONTAINER</option>
+  </prop_option>
+  <prop_option propid="DECORATORLIST">
+    <option>CLSID_TEXTWIDGET</option>
+    <option>CLSID_TEXTLABELWIDGET</option>
+    <option>CLSID_THM_TEXTLABELWIDGET</option>
+    <option>CLSID_THM_TEXTWIDGET</option>
+    <option>CLSID_BUTTONWIDGET</option>
+    <option>CLSID_IMAGEWIDGET</option>
+    <option>CLSID_BITMAPWIDGET</option>
+    <option>CLSID_TEXTPICK_TEXTWIDGET</option>
+    <option>CLSID_TEXTPICK_IMAGETEXTWIDGET</option>
+    <option>CLSID_LINE2INFOPICK_TEXTWIDGET</option>
+    <option>CLSID_DOUBLE_TEXT_WIDGET</option>
+    <option>CLSID_TEXT_INPUT_WIDGET</option>
+    <option>CLSID_TEXT_DATE_WIDGET</option>
+    <option>CLSID_TEXT_TIME_WIDGET</option>
+    <option>CLSID_TEXT_IP_WIDGET</option>
+    <option>CLSID_IT_STEXT_WIDGET</option>
+    <option>CLSID_IT_SIT_WIDGET</option>
+    <option>CLSID_IT_STI_WIDGET</option>
+    <option>CLSID_IT_SINPUT_WIDGET</option>
+    <option>CLSID_TEXT_LINE2INFO_WIDGET</option>
+    <option>CLSID_IMAGETEXTIMAGEWIDGET</option>
+    <option>CLSID_IMAGETEXTWIDGET</option>
+    <option>CLSID_TEXTIMAGEWIDGET</option>
+    <option>CLSID_IMAGE_DOUBLE_TEXT_WIDGET</option>
+    <option>CLSID_IMAGE_TITEXT_WIDGET</option>
+    <option>CLSID_IMAGE_TITI_WIDGET</option>
+    <option>CLSID_SWITCHICONITEMWIDGET</option>
+  </prop_option>
+  <prop_option propid="PROP_GRID_WDG_TOUCH_AS_STYLE">
+    <option>GRID_TOUCH_AS_STYLE_NONE</option>
+    <option>GRID_TOUCH_AS_STYLE_PULL_AND_HOLD</option>
+    <option>GRID_TOUCH_AS_STYLE_FINGERCMD</option>
+  </prop_option>
+  <prop_option propid="PROP_GRID_WDG_TOUCH_AS_SPEEDUP">
+    <option>GRID_TOUCH_AS_SPEEDUP_NONE</option>
+    <option>GRID_TOUCH_AS_SPEEDUP_DISTANCE</option>
+    <option>GRID_TOUCH_AS_SPEEDUP_TIME</option>
+  </prop_option>
+  <prop_option propid="PROP_GRID_WDG_TOUCH_AS_THRESHOLD">
+    <option>GRID_TOUCH_AS_MOVING_ONE_ITEM</option>
+    <option>GRID_TOUCH_AS_MOVING_HALF_ITEM</option>
+  </prop_option>
+  <prop_option propid="PROP_GRID_WDG_TOUCH_AS_MOVING">
+    <option>GRID_TOUCH_AS_MOVING_ONE_ITEM</option>
+    <option>GRID_TOUCH_AS_MOVING_HALF_ITEM</option>
+  </prop_option>
+
+  <prop_option propid="PROP_GRID_WDG_TOUCH_MOVE_STYLE">
+    <option>GRID_TOUCH_MOVE_STYLE_HOLD_SELECTION</option>
+    <option>GRID_TOUCH_MOVE_STYLE_CHANGE_SELECTION</option>
+    <option>GRID_TOUCH_MOVE_STYLE_MOVE_LOCATION</option>
+  </prop_option></widget_option>
+  <widget_option CLSID="CLSID_PULLDOWNWIDGET">
+    <prop_option propid="PROP_PULLDOWN_WDG_LAYOUT_MODE">
+      <option>PULLDOWN_WDG_MODE_TEXT_ONLY</option>
+      <option>PULLDOWN_WDG_MODE_IMAGE_ONLY</option>
+      <option>PULLDOWN_WDG_MODE_IMAGE_TEXT</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_GRIDWIDGET">
+    <prop_option propid="PROP_FIXED_DIRECTION">
+      <option>FIXED_COLUMN</option>
+      <option>FIXED_ROW</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_TESTWIDGET">
+    <prop_option propid="TESTSTRINGSELECTOR">
+      <option>option1</option>
+      <option>option2</option>
+      <option>option3</option>
+    </prop_option>
+    <prop_option propid="TESTORSELECTOR">
+      <option>AAA</option>
+      <option>BBB</option>
+      <option>CCC</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_TEXTWIDGET">
+    <prop_option propid="WdgBackgroundPos_t">
+      <option>WDG_BG_POS_INNER</option>
+      <option>WDG_BG_POS_WHOLE</option>
+    </prop_option>
+    <prop_option propid="Alignment_e">
+      <option>ALIGN_H_LEFT</option>
+      <option>ALIGN_H_RIGHT</option>
+      <option>ALIGN_H_CENTER</option>
+      <option>ALIGN_H_ALWAYS_LEFT</option>
+      <option>ALIGN_H_TOTAL</option>
+      <option>ALIGN_V_TOP</option>
+      <option>ALIGN_V_BOTTOM</option>
+      <option>ALIGN_V_MIDDLE</option>
+      <option>ALIGN_V_TOTAL</option>
+    </prop_option>
+    <prop_option propid="e_Text_Layout">
+      <option>LAYOUT_NONE</option>
+      <option>LAYOUT_MULTILINE</option>
+      <option>LAYOUT_BREAKONWORD</option>
+      <option>LAYOUT_ELLIPSIS</option>
+      <option>LAYOUT_E_TOTAL</option>
+    </prop_option>
+    <prop_option propid="e_Slide_Direction">
+      <option>SLIDE_HORIZONTAL_START</option>
+      <option>SLIDE_TO_LEFT</option>
+      <option>SLIDE_TO_RIGHT</option>
+      <option>SLIDE_HORIZONTAL_END</option>
+      <option>SLIDE_VERTICAL_START</option>
+      <option>SLIDE_TO_UP</option>
+      <option>SLIDE_TO_DOWN</option>
+      <option>SLIDE_VERTICAL_END</option>
+      <option>SLIDE_DIRECTION_E_TOTAL</option>
+    </prop_option>
+    <prop_option propid="e_Slide_Style">
+      <option>SLIDE_STYLE_NO_SLIDE_IN</option>
+      <option>SLIDE_STYLE_SLIDE_IN</option>
+      <option>SLIDE_STYLE_NO_SLIDE_OUT</option>
+      <option>SLIDE_STYLE_SLIDE_OUT</option>
+      <option>SLIDE_STYLE_IN_MASK</option>
+      <option>SLIDE_STYLE_OUT_MASK</option>
+    </prop_option>
+    <prop_option propid="e_Lang_Dir">
+      <option>LANG_DIR_L_TO_R</option>
+      <option>LANG_DIR_R_TO_L</option>
+      <option>LANG_DIR_TOTAL</option>
+    </prop_option>
+    <prop_option propid="propid79">
+      <option>option235</option>
+      <option>option236</option>
+      <option>option237</option>
+    </prop_option>
+    <prop_option propid="propid80">
+      <option>option238</option>
+      <option>option239</option>
+      <option>option240</option>
+    </prop_option>
+    <prop_option propid="propid81">
+      <option>option241</option>
+      <option>option242</option>
+      <option>option243</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_TIMERFORMAT_WIDGET">
+    <prop_option propid="PROP_TIMERFORMAT_WDG_FORMAT_LAYOUT">
+      <option>FORMAT_LAYOUT_HHMMSS</option>
+      <option>FORMAT_LAYOUT_MMSS</option>
+      <option>FORMAT_LAYOUT_HHMM</option>
+      <option>FORMAT_LAYOUT_HHMMSS_EXT</option>
+    </prop_option>
+    <prop_option propid="PROP_WDG_ALIGNMENT">
+      <option>ALIGN_H_LEFT</option>
+      <option>ALIGN_H_RIGHT</option>
+      <option>ALIGN_H_CENTER</option>
+      <option>ALIGN_V_TOP</option>
+      <option>ALIGN_V_BOTTOM</option>
+      <option>ALIGN_V_MIDDLE</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_PROGRESSWIDGET">
+    <prop_option propid="PROP_WDG_RECFLAG">
+      <option>DRAW_RECT_BORDER</option>
+      <option>DRAW_RECT_FILL</option>
+      <option>DRAW_RECT_FILL_BORDER</option>
+      <option>DRAW_RECT_INVERT</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_INPUTWIDGET">
+    <prop_option propid="PROP_INPUT_WDG_SMART_SHIFT_MODE">
+      <option>SmartShiftMode_Paragraph</option>
+      <option>SmartShiftMode_Name</option>
+    </prop_option>
+    <prop_option propid="PROP_INPUT_WDG_CURRENT_SHIFTMODE">
+      <option>IME_SHIFTMODE_Abc</option>
+      <option>IME_SHIFTMODE_abc</option>
+      <option>IME_SHIFTMODE_ABC</option>
+      <option>IME_SHIFTMODE_PHONEBOOK</option>
+    </prop_option>
+    <prop_option propid="PROP_INPUTMODE">
+      <option>MAE_INPUTMODE_NUMERIC</option>
+      <option>MAE_INPUTMODE_DIALING</option>
+      <option>MAE_INPUTMODE_RATE</option>
+      <option>MAE_INPUTMODE_MT_Abc</option>
+			<option>MAE_INPUTMODE_MT_abc</option>
+			<option>MAE_INPUTMODE_MT_ABC</option>
+			<option>MAE_INPUTMODE_SMART_Abc</option>
+			<option>MAE_INPUTMODE_SMART_abc</option>
+			<option>MAE_INPUTMODE_SMART_ABC</option>
+			<option>MAE_INPUTMODE_STROKE</option>
+			<option>MAE_INPUTMODE_PINYIN</option>
+			<option>MAE_INPUTMODE_BPMF</option>
+			<option>MAE_INPUTMODE_VIEWONLY</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_INDICATORWIDGET">
+    <prop_option propid="PROP_WDG_LAYOUT_STYLE">
+      <option>LAYOUT_STYLE_HORIZONTAL</option>
+      <option>LAYOUT_STYLE_VERTICAL</option>
+      <option>LAYOUT_STYLE_BOTH</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_SWITCHICONWIDGET">
+    <prop_option propid="PROP_SWITCH_WDG_ICON_STYLE">
+      <option>SWITCH_ICON_STYLE_CHECK</option>
+      <option>SWITCH_ICON_STYLE_MARK</option>
+      <option>SWITCH_ICON_STYLE_ACTIVATE</option>
+      <option>SWITCH_ICON_STYLE_RADIO</option>
+      <option>SWITCH_ICON_STYLE_CAMERA_MARK</option>
+      <option>SWITCH_ICON_STYLE_HIDE_ICON</option>
+      <option>SWITCH_ICON_STYLE_GRIDMARK</option>
+      <option>SWITCH_ICON_STYLE_TOTAL</option>
+      <option>SWITCH_ICON_STYLE_MASK</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_SWITCHICONITEMWIDGET">
+    <prop_option propid="Icon_Pos_et">
+      <option>SWITCH_ICON_POS_OUTER</option>
+      <option>SWITCH_ICON_POS_INNER_H_LEFT</option>
+      <option>SWITCH_ICON_POS_INNER_H_CENTER</option>
+      <option>SWITCH_ICON_POS_INNER_H_RIGHT</option>
+      <option>SWITCH_ICON_POS_INNER_V_TOP</option>
+      <option>SWITCH_ICON_POS_INNER_V_MIDDLE</option>
+      <option>SWITCH_ICON_POS_INNER_V_BOTTOM</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_RINGLIST_WIDGET">
+    <prop_option propid="PROP_WDG_LAYOUT_STYLE">
+      <option>LAYOUT_STYLE_HORIZONTAL</option>
+      <option>LAYOUT_STYLE_VERTICAL</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_BASICBITMAPWIDGET">
+    <prop_option propid="PROP_BASICBMP_WDG_BRUSH">
+      <option>WDG_BASIC_BITMAP_BRUSH_NORMAL</option>
+      <option>WDG_BASIC_BITMAP_BRUSH_MEDIUM</option>
+      <option>WDG_BASIC_BITMAP_BRUSH_LARGE</option>
+    </prop_option>
+    <prop_option propid="PROP_BASICBMP_WDG_ROTATE">
+      <option>WDG_BASIC_BITMAP_ROTATE_0</option>
+      <option>WDG_BASIC_BITMAP_ROTATE_90</option>
+      <option>WDG_BASIC_BITMAP_ROTATE_180</option>
+      <option>WDG_BASIC_BITMAP_ROTATE_270</option>
+    </prop_option>
+    <prop_option propid="PROP_BASICBMP_WDG_GRAPHIC_TYPE">
+      <option>WDG_BASIC_BITMAP_VLINE</option>
+      <option>WDG_BASIC_BITMAP_HLINE</option>
+      <option>WDG_BASIC_BITMAP_SLINE</option>
+      <option>WDG_BASIC_BITMAP_RSLINE</option>
+      <option>WDG_BASIC_BITMAP_RECTANGLE</option>
+      <option>WDG_BASIC_BITMAP_CIRCLE</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_CLSID_IMAGEWIDGET">
+    <prop_option propid="ImgWdgAutoFit_t">
+      <option>IMGWDG_DISABLE_AUTO_FIT</option>
+      <option>IMGWDG_AUTO_FIT_WIDTH</option>
+      <option>IMGWDG_AUTO_FIT_HEIGHT</option>
+      <option>IMGWDG_AUTO_FIT_WDGSIZE</option>
+      <option>IMGWDG_AUTO_FIT_WDGSIZE_CROP</option>
+      <option>IMGWDG_AUTO_FIT_WDGSIZE_STRETCH</option>
+    </prop_option>
+    <prop_option propid="ImgScaleRotate_t">
+      <option>Width</option>
+      <option>Height</option>
+      <option>Angle</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_TESTDECORATOR">
+    <prop_option propid="DECORATORLIST">
+      <option>CLSID_TESTWIDGET</option>
+      <option>CLSID_TEXTWIDGET</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_MENU_WIDGET">
+    <prop_option propid="PROP_MENU_WDG_TITLE_2_STATUS">
+      <option>TITLE2_STATUS_OFF</option>
+      <option>TITLE2_STATUS_ON_WITH_TITLE1_BG</option>
+      <option>TITLE2_STATUS_ON_WITH_INFO_BG</option>
+      <option>TITLE2_STATUS_ON_WITH_CAMERA_SETTING_BG</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_WDG_AUTO_UPDATE_TITLE">
+      <option>AUTO_UPDATE_NONE</option>
+      <option>AUTO_UPDATE_ON_TITLE_1</option>
+      <option>AUTO_UPDATE_ON_TITLE_2</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_WDG_OPTIONMENU_STYLE">
+      <option>OPTIONMENU_STYLE_NONE</option>
+      <option>OPTIONMENU_STYLE_LEVEL_1</option>
+      <option>OPTIONMENU_STYLE_LEVEL_2</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_WDG_SCROLL_STYLE">
+      <option>MENU_SCROLL_STYLE_BAR</option>
+      <option>MENU_SCROLL_STYLE_INDICATOR</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_WDG_ITEM_STYLE">
+      <option>WDG_MENU_CHECK_STYLE_NONE</option>
+      <option>WDG_MENU_CHECK_STYLE_CHECK</option>
+      <option>WDG_MENU_CHECK_STYLE_MARK</option>
+      <option>WDG_MENU_CHECK_STYLE_ACTIVATE</option>
+      <option>WDG_MENU_CHECK_STYLE_RADIO</option>
+      <option>WDG_MENU_CHECK_STYLE_CAMERA_MARK</option>
+      <option>WDG_MENU_CHECK_STYLE_HIDE_RADIO</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_ITEM">
+    	<option>WDG_MENU_ITEM_TYPE_BUTTON</option>
+      <option>WDG_MENU_ITEM_TYPE_IMAGE</option>
+      <option>WDG_MENU_ITEM_TYPE_IMAGE_TEXT</option>
+      <option>WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT</option>
+      <option>WDG_MENU_ITEM_TYPE_TEXT</option>      
+      <option>WDG_MENU_ITEM_TYPE_TEXT_IMAGE</option>
+      <option>WDG_MENU_ITEM_TYPE_TEXT_TEXT</option>
+    </prop_option>
+    <prop_option propid="PROP_MENU_WDG_EMPTY_TEXT_COLOR">
+      <option>THM_IMG_FIRST_ELEMENT</option>
+      <option>THM_STATUSBAR_IMG_BG</option>
+      <option>THM_COMMON_IMG_SYSTEM_BG</option>
+      <option>THM_COMMON_IMG_LIST_TITLE_BG</option>
+      <option>THM_COMMON_IMG_LIST_TITLE_TWO_LINES_BG</option>
+      <option>THM_COMMON_IMG_SOFTKEY_BG</option>
+      <option>THM_COMMON_IMG_SOFTKEY_LR_PRESSED</option>
+      <option>THM_COMMON_IMG_SOFTKEY_C_PRESSED</option>
+      <option>THM_COMMON_IMG_LIST_INFO_BG</option>
+      <option>THM_COMMON_IMG_LIST_INFO_TWO_LINES_BG</option>
+      <option>THM_COMMON_IMG_LIST_SEL_1</option>
+      <option>THM_COMMON_IMG_LIST_SEL_2</option>
+      <option>THM_NOTICE_IMG_BG</option>
+      <option>THM_NOTICE_IMG_PROGRESS_BG</option>
+      <option>THM_NOTICE_IMG_PROGRESS</option>
+      <option>THM_COMMON_IMG_OPTION_BG</option>
+      <option>THM_COMMON_IMG_OPTION_SUB_BG</option>
+      <option>THM_COMMON_IMG_SCROLL_BG_UP</option>
+      <option>THM_COMMON_IMG_SCROLL_BG_CENTER</option>
+      <option>THM_COMMON_IMG_SCROLL_BG_DOWN</option>
+      <option>THM_COMMON_IMG_SCROLL_UP</option>
+      <option>THM_COMMON_IMG_SCROLL_CENTER_BG</option>
+      <option>THM_COMMON_IMG_SCROLL_DOWN</option>
+      <option>THM_COMMON_IMG_SCROLL_CENTER</option>
+      <option>THM_COMMON_IMG_SCROLL_UP_UNPRESSED</option>
+      <option>THM_COMMON_IMG_SCROLL_UP_PRESSED</option>
+      <option>THM_COMMON_IMG_SCROLL_DOWN_UNPRESSED</option>
+      <option>THM_COMMON_IMG_SCROLL_DOWN_PRESSED</option>
+      <option>THM_COMMON_IMG_TAB_BG</option>
+      <option>THM_COMMON_IMG_TAB_BG_INACT</option>
+      <option>THM_COMMON_IMG_TAB_BG_ACT</option>
+      <option>THM_MAINMENU_IMG_BG</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_01</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_02</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_03</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_04</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_05</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_06</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_07</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_08</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_09</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_10</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_11</option>
+      <option>THM_MAINMENU_IMG_GRID_FOCUS_12</option>
+      <option>THM_IDLE_IMG_BG</option>
+      <option>THM_IMG_PREVIEW_1</option>
+      <option>THM_IMG_PREVIEW_2</option>
+    </prop_option>
+    <prop_option propid="PROP_FLAG">
+      <option>WDG_MENU_ROLL_NONE</option>
+      <option>WDG_MENU_ROLL_WRAP</option>
+      <option>WDG_MENU_ROLL_GRID_COL_WRAP</option>
+      <option>WDG_MENU_ROLL_GRID_ROW_WRAP</option>
+      <option>WDG_MENU_ROLL_GRID_BOTH_WRAP</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_PICKWIDGET">
+    <prop_option propid="DECORATORLIST">
+      <option>CLSID_TEXTWIDGET</option>
+      <option>CLSID_IMAGEWIDGET</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_SCROLLINDICATORWIDGET">
+    <prop_option propid="DECORATORLIST">
+      <option>CLSID_HORZ_LISTWIDGET</option>
+      <option>CLSID_VERT_LISTWIDGET</option>
+      <option>CLSID_VIEWPORTWIDGET</option>
+    </prop_option>
+    <prop_option propid="PROP_LAYOUT_STYLE">
+      <option>LAYOUT_STYLE_VERTICAL</option>
+      <option>LAYOUT_STYLE_HORIZONTAL</option>
+      <option>LAYOUT_STYLE_BOTH</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_SCROLLBARWIDGET">
+    <prop_option propid="DECORATORLIST">
+      <option>CLSID_HORZ_LISTWIDGET</option>
+      <option>CLSID_VERT_LISTWIDGET</option>
+      <option>CLSID_GRIDWIDGET</option>
+      <option>CLSID_INPUTWIDGET</option>
+      <option>CLSID_VIEWPORTWIDGET</option>
+      <option>CLSID_MFLCONTAINER</option>
+    </prop_option>
+    <prop_option propid="PROP_SCROLLBAR_WDG_SCROLL_STYLE">
+      <option>SCROLL_V_NONE</option>
+      <option>SCROLL_V_RIGHT</option>
+      <option>SCROLL_V_LEFT</option>
+      <option>SCROLL_H_NONE</option>
+      <option>SCROLL_H_BOTTOM</option>
+      <option>SCROLL_H_TOP</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_TITLEWIDGET">
+    <prop_option propid="Title_layout">
+      <option>TITLEWDG_ELMNT_ID_TITLE_ICON</option>
+      <option>TITLEWDG_ELMNT_ID_TITLE_TEXT</option>
+      <option>TITLEWDG_MDL_ELMNT_ID_SUM</option>
+      <option>TITLEWDG_ELMNT_ID_SMS_TEXT</option>
+      <option>TITLEWDG_ELMNT_ID_TOOL_ICON</option>
+      <option>TITLEWDG_ELMNT_ID_INPUT_ICON</option>
+      <option>TITLEWDG_ELMNT_ID_TOTAL</option>
+    </prop_option>
+    <prop_option propid="DECORATORLIST">
+      <option>CLSID_MENUWIDGET</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_TIMEWIDGET">
+    <prop_option propid="TimePeriod_e">
+      <option>AM</option>
+      <option>PM</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_SHARE_IMAGE_DOUBLE_ITEM">
+    <prop_option propid="CHILD_LIST">
+      <option>MGDOUBLEITEMWIDGET_POST_UPPER_WIDGET</option>
+      <option>IMGDOUBLEITEMWIDGET_POST_DOWN_WIDGET</option>
+      <option>IMGDOUBLEITEMWIDGET_PRE_IMG_WIDGET</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_TABWIDGET">
+    <prop_option propid="PROP_TABWDG_MODE">
+      <option>TAB_WDG_MODE_TOP_IMAGETEXT</option>
+      <option>TAB_WDG_MODE_TOP_IMAGE_ONLY</option>
+      <option>TAB_WDG_MODE_TOP_TEXT_ONLY</option>
+      <option>TAB_WDG_MODE_BOTTOM_IMAGE_RING</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_FADEOUTWIDGET">
+    <prop_option propid="FadeoutLevel_t">
+      <option>FADEOUT_LEVEL_0</option>
+      <option>FADEOUT_LEVEL_1</option>
+      <option>FADEOUT_LEVEL_2</option>
+      <option>FADEOUT_LEVEL_3</option>
+      <option>FADEOUT_LEVEL_4</option>
+      <option>FADEOUT_LEVEL_5</option>
+      <option>FADEOUT_LEVEL_6</option>
+      <option>FADEOUT_LEVEL_7</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_DATEICONWIDGET">
+    <prop_option propid="MAE_TimeFormat_e">
+      <option>MAE_TIMEFORMAT_12FORMAT</option>
+      <option>MAE_TIMEFORMAT_24FORMAT</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_FCDATE_WIDGET">
+    <prop_option propid="_FCDIndType_e">
+      <option>FCD_IND_FIRST</option>
+      <option>FCD_IND_YEAR4</option>
+      <option>FCD_IND_YEAR3</option>
+      <option>FCD_IND_YEAR2</option>
+      <option>FCD_IND_YEAR1</option>
+      <option>FCD_IND_MONTH</option>
+      <option>FCD_IND_DAY2</option>
+      <option>FCD_IND_DAY1</option>
+      <option>FCD_IND_LAST</option>
+    </prop_option>
+  </widget_option>
+  <widget_option CLSID="CLSID_STATISTICS_WIDGET">
+    <prop_option propid="StatChart_AveLineStyle_t">
+      <option>STATCHART_AVG_NONE</option>
+      <option>STATCHART_AVG_NORMAL</option>
+      <option>STATCHART_AVG_CENTER</option>
+    </prop_option>
+  </widget_option>
+</XMMIComboXML>

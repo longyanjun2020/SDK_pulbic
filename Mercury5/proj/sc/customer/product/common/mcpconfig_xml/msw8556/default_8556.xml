@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<emi_mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8533B> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xec2402</nDeviceFullId>
+		<nFlashName>SAMSUNG_K5L2833ATA</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0x00000000</nDeviceSecondID>
+		<nSecondIDMask>0x00000000</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x100</nDeviceSize>
+		<nPad>0</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x10</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xd</nShiftedSize>
+			<nNumber>0x8</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x10</nBankNumber>
+		<nBankAddresses>0xff</nBankAddresses>
+		<nBankAddresses>0x1ff</nBankAddresses>
+		<nBankAddresses>0x2ff</nBankAddresses>
+		<nBankAddresses>0x3ff</nBankAddresses>
+		<nBankAddresses>0x4ff</nBankAddresses>
+		<nBankAddresses>0x5ff</nBankAddresses>
+		<nBankAddresses>0x6ff</nBankAddresses>
+		<nBankAddresses>0x7ff</nBankAddresses>
+		<nBankAddresses>0x8ff</nBankAddresses>
+		<nBankAddresses>0x9ff</nBankAddresses>
+		<nBankAddresses>0xaff</nBankAddresses>
+		<nBankAddresses>0xbff</nBankAddresses>
+		<nBankAddresses>0xcff</nBankAddresses>
+		<nBankAddresses>0xdff</nBankAddresses>
+		<nBankAddresses>0xeff</nBankAddresses>
+		<nBankAddresses>0xffff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0x64</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SamsungB> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<Psram_SWCmd>
+		<swcmd>
+			<addrh>0x1ff</addrh>		<!--- (ADDR_H=0x1ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>NOUSE</wrdata>		<!--- (WRDATA=NOUSE) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x1ff</addrh>		<!--- (ADDR_H=0x1ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>NOUSE</wrdata>		<!--- (WRDATA=NOUSE) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x5ff</addrh>		<!--- (ADDR_H=0x5ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>0x1</wrdata>		<!--- (WRDATA=0x1) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x5ff</addrh>		<!--- (ADDR_H=0x5ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>CRVALUE</wrdata>		<!--- (WRDATA=CRVALUE) -->
+		</swcmd>
+		<!--- (NULL) -->
+	</Psram_SWCmd>
+
+	<Nor_SWCmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x555</addrl>		<!--- (ADDR_L=0x555) -->
+			<wrdata>0xaa</wrdata>		<!--- (WRDATA=0xaa) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x2aa</addrl>		<!--- (ADDR_L=0x2aa) -->
+			<wrdata>0x55</wrdata>		<!--- (WRDATA=0x55) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x415</addrh>		<!--- (ADDR_H=0x415) -->
+			<addrl>0x555</addrl>		<!--- (ADDR_L=0x555) -->
+			<wrdata>0xc0</wrdata>		<!--- (WRDATA=0xc0) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x555</addrl>		<!--- (ADDR_L=0x555) -->
+			<wrdata>0xaa</wrdata>		<!--- (WRDATA=0xaa) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x2aa</addrl>		<!--- (ADDR_L=0x2aa) -->
+			<wrdata>0x55</wrdata>		<!--- (WRDATA=0x55) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x1555</addrl>		<!--- (ADDR_L=0x1555) -->
+			<wrdata>0xc5</wrdata>		<!--- (WRDATA=0xc5) -->
+		</swcmd>
+		<!--- (NULL) -->
+	</Nor_SWCmd>
+
+	<emi_params>
+		<emi_AdvancedConfig_t>
+			<FineInBound>0</FineInBound>		<!--- u32 FineInBound;      // value:0~7, unit: 0.4 ns <FINE_IN_BOUND=0> -->
+			<FineOutBound>0</FineOutBound>		<!--- u32 FineOutBound;     // value:0~7, unit: 0.4 ns <FINE_OUT_BOUND=0> -->
+			<smcCLK>EMI_CLK_52MHZ</smcCLK>		<!--- u32 smcCLK;           // 0: 26M, 1:52M, 2:78M, 3:104M, 4:130M, 5:156M		<NOR_CLK=52> -->
+			<CoarseInBound>0</CoarseInBound>		<!--- u32 CoarseInBound;    // value:0~3, unit: 3.2 ns <COARSE_IN_BOUND=0> -->
+			<CoarseOutBound>0</CoarseOutBound>		<!--- u32 CoarseOutBound;   // value:0~3, unit: 3.2 ns <COARSE_OUT_BOUND=0> -->
+			<dmcCLK>EMI_CLK_52MHZ</dmcCLK>		<!--- u32 dmcCLK;           // 0: 26M, 1:52M, 2:78M, 3:104M, 4:130M, 5:156M		<PSRAM_CLK=52> -->
+			<OM>0</OM>		<!--- u32 OM;               //A15        Operating Mode		<PSRAM_OM=0> <NOR_OM=0> -->
+			<IL>1</IL>		<!--- u32 IL;               //A14        fixed/variable latency		<PSRAM_IL=1> <NOR_IL=1> <PSRAM_OM_WITH_NOUSE=0> -->
+			<LC>4</LC>		<!--- u32 LC;               //A13-A11    Latency Count: clocks		<PSRAM_LC=4> <NOR_LC=3> -->
+			<WaitPol>0</WaitPol>		<!--- u32 WaitPol;          //A10        Active High/Low		<PSRAM_WAITPOL=0> <NOR_WAITPOL=1> -->
+			<WaitConfig>1</WaitConfig>		<!--- u32 WaitConfig;       //A8         Asserted during/1 clock prior to valid data		<PSRAM_WAITCONFIG=1> <NOR_WAITCONFIG=1> -->
+			<DrivStrength>1</DrivStrength>		<!--- u32 DrivStrength;     //A5-A4		<PSRAM_DRIVSTRENGTH=1> <NOR_DRIVSTRENGTH=1> -->
+			<BurstWrap>1</BurstWrap>		<!--- u32 BurstWrap;        //A3         Wrap/No Wrap		<PSRAM_BURSTWRAP=1> <NOR_BURSTWRAP=1> -->
+			<BLength>7</BLength>		<!--- u32 BLength;          //A2-A0		<PSRAM_BLENGTH=7> <NOR_BLENGTH=3> -->
+			<PageMode>0</PageMode>		<!--- u32 PageMode;         //A7		<PSRAM_PAGEMODE=0> <NOR_PAGEMODE=0> -->
+			<DeepPWD>1</DeepPWD>		<!--- u32 DeepPWD;          //A4		<PSRAM_DEEPPWD=1> <NOR_DEEPPWD=1> -->
+			<PartialRefresh>0</PartialRefresh>		<!--- u32 PartialRefresh    //A2-A0		<PSRAM_PARTIALREFRESH=0> <NOR_PARTIALREFRESH=0> -->
+		</emi_AdvancedConfig_t>
+		<PsramBasicParams>
+			<nOenToEnd>0</nOenToEnd>		<!--- u32 nOenToEnd;        // OEN to End		<PSRAM_NOENTOEND_VAL=0> -->
+			<nSetupWr>0</nSetupWr>		<!--- u32 nSetupWr;         // WEN after CEN		<PSRAM_NSETUPWR_VAL=0> -->
+			<nTurnAround>0</nTurnAround>		<!--- u32 nTurnAround;      // Turn arround cycle		<PSRAM_NTURNAROUND_VAL=0> -->
+			<nPageAddAcct>2</nPageAddAcct>		<!--- u32 nPageAddAcct;     // Page address access		<PSRAM_NPAGEADDACCT_VAL=20> -->
+			<nWenCycle>4</nWenCycle>		<!--- u32 nWenCycle;        // WEN cycle		<PSRAM_NWENCYCLE_VAL=60> -->
+			<nSetupRd>2</nSetupRd>		<!--- u32 nSetupRd;         // OEN after CEN		<PSRAM_NSETUPRD_VAL=20> -->
+			<nWrCs>4</nWrCs>		<!--- u32 nWrCs;            // CEN cycle for write		<PSRAM_NWRCS_VAL=60> -->
+			<nRdCs>4</nRdCs>		<!--- u32 nRdCs;            // CEN cycle for read		<PSRAM_NRDCS_VAL=60> -->
+			<nOpMode>EMI_BURST_RW</nOpMode>		<!--- u32 nOpMode;          // operation mode, 0x0:single mode, 0x01:page mode, 0x02:burst write, 0x04:burst read	<PSRAM_NOPMODE=EMI_BURST_RW> -->
+			<nType>EMI_UtRAM</nType>		<!--- u32 nType;            // 0x00:Nor, 0x01:Cellular RAM, 0x02:COSMORAM, 0x03:UtRAM, 0x04: SRAM		<PSRAM_NTYPE=EMI_UtRAM> -->
+			<BurstReadWait>(4+1)</BurstReadWait>		<!--- u32 BurstReadWait;    // 0 = variable latency, #n: fix length latency, -->
+			<BurstWriteWait>(4+1)</BurstWriteWait>		<!--- u32 BurstWriteWait;   // 0 = variable latency, #n: fix length latency, -->
+			<nPageSize>EMI_PAGE_4WORDS</nPageSize>	<!--- u32 nPageSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<PSRAM_NPAGESIZE=EMI_PAGE_4WORDS> -->
+			<BurstSize>EMI_BURST_128WORDS</BurstSize>	<!--- u32 nBurstSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<PSRAM_BURSTSIZE=EMI_BURST_128WORDS> -->
+			<nDriving>0x00000000</nDriving>	<!--- u32 nDriving; <P_DRV=0x00000000>-->
+		</PsramBasicParams>
+		<emi_NorBasicConfig_t>
+			<nOenToEnd>0</nOenToEnd>		<!--- u32 nOenToEnd;        // OEN to End		<NOR_NOENTOEND_VAL=0> -->
+			<nSetupWr>0</nSetupWr>		<!--- u32 nSetupWr;         // WEN after CEN		<NOR_NSETUPWR_VAL=0> -->
+			<nTurnAround>0</nTurnAround>		<!--- u32 nTurnAround;      // Turn arround cycle		<NOR_NTURNAROUND_VAL=0> -->
+			<nPageAddAcct>2</nPageAddAcct>		<!--- u32 nPageAddAcct;     // Page address access		<NOR_NPAGEADDACCT_VAL=20> -->
+			<nWenCycle>3</nWenCycle>		<!--- u32 nWenCycle;        // WEN cycle		<NOR_NWENCYCLE_VAL=45> -->
+			<nSetupRd>1</nSetupRd>		<!--- u32 nSetupRd;         // OEN after CEN		<NOR_NSETUPRD_VAL=1> -->
+			<nWrCs>4</nWrCs>		<!--- u32 nWrCs;            // CEN cycle for write		<NOR_NWRCS_VAL=60> -->
+			<nRdCs>4</nRdCs>		<!--- u32 nRdCs;            // CEN cycle for read		<NOR_NRDCS_VAL=60> -->
+			<nOpMode>EMI_BURST_READ</nOpMode>		<!--- u32 nOpMode;          // operation mode, 0x0:single mode, 0x01:page mode, 0x02:burst write, 0x04:burst read	<NOR_NOPMODE=EMI_BURST_READ> -->
+			<nType>EMI_NOR</nType>		<!--- u32 nType;            // 0x00:Nor, 0x01:Cellular RAM, 0x02:COSMORAM, 0x03:UtRAM, 0x04: SRAM		<NOR_NTYPE=EMI_NOR> -->
+			<BurstReadWait>(3+1)</BurstReadWait>		<!--- u32 BurstReadWait;    // 0 = variable latency, #n: fix length latency, -->
+			<BurstWriteWait>(3+1)</BurstWriteWait>		<!--- u32 BurstWriteWait;   // 0 = variable latency, #n: fix length latency, -->
+			<nPageSize>EMI_PAGE_4WORDS</nPageSize>	<!--- u32 nPageSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<NOR_NPAGESIZE=EMI_PAGE_4WORDS> -->
+			<BurstSize>EMI_BURST_16WORDS</BurstSize>	<!--- u32 BurstSize;        // 0: no boundary, 1:4 words, 2:8words, 3:16words,  4:32words, 5:64words		<NOR_BURSTSIZE=EMI_BURST_16WORDS> -->
+			<nDriving>0x00000000</nDriving>	<!--- u32 nDriving; <N_DRV=0x00000000>-->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8533B> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0x208832</nDeviceFullId>
+		<nFlashName>NUMONYX_M58PR256JN</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0x0</nDeviceSecondID>
+		<nSecondIDMask>0x0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x200</nDeviceSize>
+		<nPad>0</nPad>
+		<nRegionNumber>0x1</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x12</nShiftedSize>
+			<nNumber>0x80</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x8</nBankNumber>
+		<nBankAddresses>0x3ff</nBankAddresses>
+		<nBankAddresses>0x7ff</nBankAddresses>
+		<nBankAddresses>0xbff</nBankAddresses>
+		<nBankAddresses>0xfff</nBankAddresses>
+		<nBankAddresses>0x13ff</nBankAddresses>
+		<nBankAddresses>0x17ff</nBankAddresses>
+		<nBankAddresses>0x1bff</nBankAddresses>
+		<nBankAddresses>0xffff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0x25</nCommandSetsIndex>	<!--- <CMD_SET_IDX=NumonyxM18_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<Psram_SWCmd>
+		<swcmd>
+			<addrh>0x1ff</addrh>		<!--- (ADDR_H=0x1ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>NOUSE</wrdata>		<!--- (WRDATA=NOUSE) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x1ff</addrh>		<!--- (ADDR_H=0x1ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>NOUSE</wrdata>		<!--- (WRDATA=NOUSE) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x5ff</addrh>		<!--- (ADDR_H=0x5ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>0x1</wrdata>		<!--- (WRDATA=0x1) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x5ff</addrh>		<!--- (ADDR_H=0x5ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>CRVALUE</wrdata>		<!--- (WRDATA=CRVALUE) -->
+		</swcmd>
+		<!--- (NULL) -->
+	</Psram_SWCmd>
+
+	<Nor_SWCmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x2dcb</addrl>		<!--- (ADDR_L=0x2dcb) -->
+			<wrdata>0x60</wrdata>		<!--- (WRDATA=0x60) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x2dcb</addrl>		<!--- (ADDR_L=0x2dcb) -->
+			<wrdata>0x3</wrdata>		<!--- (WRDATA=0x3) -->
+		</swcmd>
+		<!--- (NULL) -->
+	</Nor_SWCmd>
+
+	<emi_params>
+		<emi_AdvancedConfig_t>
+			<FineInBound>0</FineInBound>		<!--- u32 FineInBound;      // value:0~7, unit: 0.4 ns <FINE_IN_BOUND=0> -->
+			<FineOutBound>0</FineOutBound>		<!--- u32 FineOutBound;     // value:0~7, unit: 0.4 ns <FINE_OUT_BOUND=0> -->
+			<smcCLK>EMI_CLK_52MHZ</smcCLK>		<!--- u32 smcCLK;           // 0: 26M, 1:52M, 2:78M, 3:104M, 4:130M, 5:156M		<NOR_CLK=52> -->
+			<CoarseInBound>0</CoarseInBound>		<!--- u32 CoarseInBound;    // value:0~3, unit: 3.2 ns <COARSE_IN_BOUND=0> -->
+			<CoarseOutBound>0</CoarseOutBound>		<!--- u32 CoarseOutBound;   // value:0~3, unit: 3.2 ns <COARSE_OUT_BOUND=0> -->
+			<dmcCLK>EMI_CLK_78MHZ</dmcCLK>		<!--- u32 dmcCLK;           // 0: 26M, 1:52M, 2:78M, 3:104M, 4:130M, 5:156M		<PSRAM_CLK=78> -->
+			<OM>0</OM>		<!--- u32 OM;               //A15        Operating Mode		<PSRAM_OM=0> <NOR_OM=0> -->
+			<IL>1</IL>		<!--- u32 IL;               //A14        fixed/variable latency		<PSRAM_IL=1> <NOR_IL=1> <PSRAM_OM_WITH_NOUSE=0> -->
+			<LC>4</LC>		<!--- u32 LC;               //A13-A11    Latency Count: clocks		<PSRAM_LC=4> <NOR_LC=5> -->
+			<WaitPol>0</WaitPol>		<!--- u32 WaitPol;          //A10        Active High/Low		<PSRAM_WAITPOL=0> <NOR_WAITPOL=1> -->
+			<WaitConfig>1</WaitConfig>		<!--- u32 WaitConfig;       //A8         Asserted during/1 clock prior to valid data		<PSRAM_WAITCONFIG=1> <NOR_WAITCONFIG=1> -->
+			<DrivStrength>1</DrivStrength>		<!--- u32 DrivStrength;     //A5-A4		<PSRAM_DRIVSTRENGTH=1> <NOR_DRIVSTRENGTH=1> -->
+			<BurstWrap>1</BurstWrap>		<!--- u32 BurstWrap;        //A3         Wrap/No Wrap		<PSRAM_BURSTWRAP=1> <NOR_BURSTWRAP=1> -->
+			<BLength>7</BLength>		<!--- u32 BLength;          //A2-A0		<PSRAM_BLENGTH=7> <NOR_BLENGTH=3> -->
+			<PageMode>0</PageMode>		<!--- u32 PageMode;         //A7		<PSRAM_PAGEMODE=0> <NOR_PAGEMODE=0> -->
+			<DeepPWD>0</DeepPWD>		<!--- u32 DeepPWD;          //A4		<PSRAM_DEEPPWD=0> <NOR_DEEPPWD=0> -->
+			<PartialRefresh>0</PartialRefresh>		<!--- u32 PartialRefresh    //A2-A0		<PSRAM_PARTIALREFRESH=0> <NOR_PARTIALREFRESH=0> -->
+		</emi_AdvancedConfig_t>
+		<PsramBasicParams>
+			<nOenToEnd>0</nOenToEnd>		<!--- u32 nOenToEnd;        // OEN to End		<PSRAM_NOENTOEND_VAL=0> -->
+			<nSetupWr>0</nSetupWr>		<!--- u32 nSetupWr;         // WEN after CEN		<PSRAM_NSETUPWR_VAL=0> -->
+			<nTurnAround>0</nTurnAround>		<!--- u32 nTurnAround;      // Turn arround cycle		<PSRAM_NTURNAROUND_VAL=0> -->
+			<nPageAddAcct>3</nPageAddAcct>		<!--- u32 nPageAddAcct;     // Page address access		<PSRAM_NPAGEADDACCT_VAL=30> -->
+			<nWenCycle>4</nWenCycle>		<!--- u32 nWenCycle;        // WEN cycle		<PSRAM_NWENCYCLE_VAL=50> -->
+			<nSetupRd>2</nSetupRd>		<!--- u32 nSetupRd;         // OEN after CEN		<PSRAM_NSETUPRD_VAL=20> -->
+			<nWrCs>6</nWrCs>		<!--- u32 nWrCs;            // CEN cycle for write		<PSRAM_NWRCS_VAL=70> -->
+			<nRdCs>6</nRdCs>		<!--- u32 nRdCs;            // CEN cycle for read		<PSRAM_NRDCS_VAL=70> -->
+			<nOpMode>EMI_BURST_RW</nOpMode>		<!--- u32 nOpMode;          // operation mode, 0x0:single mode, 0x01:page mode, 0x02:burst write, 0x04:burst read	<PSRAM_NOPMODE=EMI_BURST_RW> -->
+			<nType>EMI_UtRAM</nType>		<!--- u32 nType;            // 0x00:Nor, 0x01:Cellular RAM, 0x02:COSMORAM, 0x03:UtRAM, 0x04: SRAM		<PSRAM_NTYPE=EMI_UtRAM> -->
+			<BurstReadWait>(4+1)</BurstReadWait>		<!--- u32 BurstReadWait;    // 0 = variable latency, #n: fix length latency, -->
+			<BurstWriteWait>(4+1)</BurstWriteWait>		<!--- u32 BurstWriteWait;   // 0 = variable latency, #n: fix length latency, -->
+			<nPageSize>EMI_PAGE_4WORDS</nPageSize>	<!--- u32 nPageSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<PSRAM_NPAGESIZE=EMI_PAGE_4WORDS> -->
+			<BurstSize>EMI_BURST_128WORDS</BurstSize>	<!--- u32 nBurstSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<PSRAM_BURSTSIZE=EMI_BURST_128WORDS> -->
+			<nDriving>0x00000000</nDriving>	<!--- u32 nDriving; <P_DRV=0x00000000>-->
+		</PsramBasicParams>
+		<emi_NorBasicConfig_t>
+			<nOenToEnd>0</nOenToEnd>		<!--- u32 nOenToEnd;        // OEN to End		<NOR_NOENTOEND_VAL=0> -->
+			<nSetupWr>0</nSetupWr>		<!--- u32 nSetupWr;         // WEN after CEN		<NOR_NSETUPWR_VAL=0> -->
+			<nTurnAround>0</nTurnAround>		<!--- u32 nTurnAround;      // Turn arround cycle		<NOR_NTURNAROUND_VAL=0> -->
+			<nPageAddAcct>2</nPageAddAcct>		<!--- u32 nPageAddAcct;     // Page address access		<NOR_NPAGEADDACCT_VAL=20> -->
+			<nWenCycle>5</nWenCycle>		<!--- u32 nWenCycle;        // WEN cycle		<NOR_NWENCYCLE_VAL=80> -->
+			<nSetupRd>1</nSetupRd>		<!--- u32 nSetupRd;         // OEN after CEN		<NOR_NSETUPRD_VAL=10> -->
+			<nWrCs>6</nWrCs>		<!--- u32 nWrCs;            // CEN cycle for write		<NOR_NWRCS_VAL=100> -->
+			<nRdCs>6</nRdCs>		<!--- u32 nRdCs;            // CEN cycle for read		<NOR_NRDCS_VAL=100> -->
+			<nOpMode>EMI_BURST_READ</nOpMode>		<!--- u32 nOpMode;          // operation mode, 0x0:single mode, 0x01:page mode, 0x02:burst write, 0x04:burst read	<NOR_NOPMODE=EMI_BURST_READ> -->
+			<nType>EMI_NOR</nType>		<!--- u32 nType;            // 0x00:Nor, 0x01:Cellular RAM, 0x02:COSMORAM, 0x03:UtRAM, 0x04: SRAM		<NOR_NTYPE=EMI_NOR> -->
+			<BurstReadWait>(5+1)</BurstReadWait>		<!--- u32 BurstReadWait;    // 0 = variable latency, #n: fix length latency, -->
+			<BurstWriteWait>(5+1)</BurstWriteWait>		<!--- u32 BurstWriteWait;   // 0 = variable latency, #n: fix length latency, -->
+			<nPageSize>EMI_PAGE_8WORDS</nPageSize>	<!--- u32 nPageSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<NOR_NPAGESIZE=EMI_PAGE_8WORDS> -->
+			<BurstSize>EMI_BURST_16WORDS</BurstSize>	<!--- u32 BurstSize;        // 0: no boundary, 1:4 words, 2:8words, 3:16words,  4:32words, 5:64words		<NOR_BURSTSIZE=EMI_BURST_16WORDS> -->
+			<nDriving>0x00000000</nDriving>	<!--- u32 nDriving; <N_DRV=0x00000000>-->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8533B> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0x14200</nDeviceFullId>
+		<nFlashName>SPANSION_S71WS256PC0</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0x00000000</nDeviceSecondID>
+		<nSecondIDMask>0x00000000</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x200</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x3</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0x4</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0x11</nShiftedSize>
+			<nNumber>0xfe</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0x4</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x10</nBankNumber>
+		<nBankAddresses>0x1ff</nBankAddresses>
+		<nBankAddresses>0x3ff</nBankAddresses>
+		<nBankAddresses>0x5ff</nBankAddresses>
+		<nBankAddresses>0x7ff</nBankAddresses>
+		<nBankAddresses>0x9ff</nBankAddresses>
+		<nBankAddresses>0xbff</nBankAddresses>
+		<nBankAddresses>0xdff</nBankAddresses>
+		<nBankAddresses>0xfff</nBankAddresses>
+		<nBankAddresses>0x11ff</nBankAddresses>
+		<nBankAddresses>0x13ff</nBankAddresses>
+		<nBankAddresses>0x15ff</nBankAddresses>
+		<nBankAddresses>0x17ff</nBankAddresses>
+		<nBankAddresses>0x19ff</nBankAddresses>
+		<nBankAddresses>0x1bff</nBankAddresses>
+		<nBankAddresses>0x1dff</nBankAddresses>
+		<nBankAddresses>0xffff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0x51</nCommandSetsIndex>	<!--- <CMD_SET_IDX=Spansion_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<Psram_SWCmd>
+		<swcmd>
+			<addrh>0x1ff</addrh>		<!--- (ADDR_H=0x1ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>NOUSE</wrdata>		<!--- (WRDATA=NOUSE) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x1ff</addrh>		<!--- (ADDR_H=0x1ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>NOUSE</wrdata>		<!--- (WRDATA=NOUSE) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x5ff</addrh>		<!--- (ADDR_H=0x5ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>0x1</wrdata>		<!--- (WRDATA=0x1) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x5ff</addrh>		<!--- (ADDR_H=0x5ff) -->
+			<addrl>0xffff</addrl>		<!--- (ADDR_L=0xffff) -->
+			<wrdata>CRVALUE</wrdata>		<!--- (WRDATA=CRVALUE) -->
+		</swcmd>
+		<!--- (NULL) -->
+	</Psram_SWCmd>
+
+	<Nor_SWCmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x555</addrl>		<!--- (ADDR_L=0x555) -->
+			<wrdata>0xaa</wrdata>		<!--- (WRDATA=0xaa) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x2aa</addrl>		<!--- (ADDR_L=0x2aa) -->
+			<wrdata>0x55</wrdata>		<!--- (WRDATA=0x55) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x555</addrl>		<!--- (ADDR_L=0x555) -->
+			<wrdata>0xd0</wrdata>		<!--- (WRDATA=0xd0) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x0</addrl>		<!--- (ADDR_L=0x0) -->
+			<wrdata>0x6ec0</wrdata>		<!--- (WRDATA=0x6ec0) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x1</addrl>		<!--- (ADDR_L=0x1) -->
+			<wrdata>0xffee</wrdata>		<!--- (WRDATA=0xffee) -->
+		</swcmd>
+		<swcmd>
+			<addrh>0x400</addrh>		<!--- (ADDR_H=0x400) -->
+			<addrl>0x0</addrl>		<!--- (ADDR_L=0x0) -->
+			<wrdata>0xf0</wrdata>		<!--- (WRDATA=0xf0) -->
+		</swcmd>
+		<!--- (NULL) -->
+	</Nor_SWCmd>
+
+	<emi_params>
+		<emi_AdvancedConfig_t>
+			<FineInBound>0</FineInBound>		<!--- u32 FineInBound;      // value:0~7, unit: 0.4 ns <FINE_IN_BOUND=0> -->
+			<FineOutBound>0</FineOutBound>		<!--- u32 FineOutBound;     // value:0~7, unit: 0.4 ns <FINE_OUT_BOUND=0> -->
+			<smcCLK>EMI_CLK_52MHZ</smcCLK>		<!--- u32 smcCLK;           // 0: 26M, 1:52M, 2:78M, 3:104M, 4:130M, 5:156M		<NOR_CLK=52> -->
+			<CoarseInBound>0</CoarseInBound>		<!--- u32 CoarseInBound;    // value:0~3, unit: 3.2 ns <COARSE_IN_BOUND=0> -->
+			<CoarseOutBound>0</CoarseOutBound>		<!--- u32 CoarseOutBound;   // value:0~3, unit: 3.2 ns <COARSE_OUT_BOUND=0> -->
+			<dmcCLK>EMI_CLK_104MHZ</dmcCLK>		<!--- u32 dmcCLK;           // 0: 26M, 1:52M, 2:78M, 3:104M, 4:130M, 5:156M		<PSRAM_CLK=104> -->
+			<OM>0</OM>		<!--- u32 OM;               //A15        Operating Mode		<PSRAM_OM=0> <NOR_OM=0> -->
+			<IL>1</IL>		<!--- u32 IL;               //A14        fixed/variable latency		<PSRAM_IL=1> <NOR_IL=1> <PSRAM_OM_WITH_NOUSE=0> -->
+			<LC>5</LC>		<!--- u32 LC;               //A13-A11    Latency Count: clocks		<PSRAM_LC=5> <NOR_LC=6> -->
+			<WaitPol>0</WaitPol>		<!--- u32 WaitPol;          //A10        Active High/Low		<PSRAM_WAITPOL=0> <NOR_WAITPOL=0> -->
+			<WaitConfig>1</WaitConfig>		<!--- u32 WaitConfig;       //A8         Asserted during/1 clock prior to valid data		<PSRAM_WAITCONFIG=1> <NOR_WAITCONFIG=1> -->
+			<DrivStrength>1</DrivStrength>		<!--- u32 DrivStrength;     //A5-A4		<PSRAM_DRIVSTRENGTH=1> <NOR_DRIVSTRENGTH=1> -->
+			<BurstWrap>1</BurstWrap>		<!--- u32 BurstWrap;        //A3         Wrap/No Wrap		<PSRAM_BURSTWRAP=1> <NOR_BURSTWRAP=1> -->
+			<BLength>7</BLength>		<!--- u32 BLength;          //A2-A0		<PSRAM_BLENGTH=7> <NOR_BLENGTH=7> -->
+			<PageMode>0</PageMode>		<!--- u32 PageMode;         //A7		<PSRAM_PAGEMODE=0> <NOR_PAGEMODE=0> -->
+			<DeepPWD>1</DeepPWD>		<!--- u32 DeepPWD;          //A4		<PSRAM_DEEPPWD=1> <NOR_DEEPPWD=1> -->
+			<PartialRefresh>0</PartialRefresh>		<!--- u32 PartialRefresh    //A2-A0		<PSRAM_PARTIALREFRESH=0> <NOR_PARTIALREFRESH=0> -->
+		</emi_AdvancedConfig_t>
+		<PsramBasicParams>
+			<nOenToEnd>0</nOenToEnd>		<!--- u32 nOenToEnd;        // OEN to End		<PSRAM_NOENTOEND_VAL=0> -->
+			<nSetupWr>1</nSetupWr>		<!--- u32 nSetupWr;         // WEN after CEN		<PSRAM_NSETUPWR_VAL=1> -->
+			<nTurnAround>0</nTurnAround>		<!--- u32 nTurnAround;      // Turn arround cycle		<PSRAM_NTURNAROUND_VAL=0> -->
+			<nPageAddAcct>2</nPageAddAcct>		<!--- u32 nPageAddAcct;     // Page address access		<PSRAM_NPAGEADDACCT_VAL=10> -->
+			<nWenCycle>4</nWenCycle>		<!--- u32 nWenCycle;        // WEN cycle		<PSRAM_NWENCYCLE_VAL=35> -->
+			<nSetupRd>2</nSetupRd>		<!--- u32 nSetupRd;         // OEN after CEN		<PSRAM_NSETUPRD_VAL=10> -->
+			<nWrCs>4</nWrCs>		<!--- u32 nWrCs;            // CEN cycle for write		<PSRAM_NWRCS_VAL=35> -->
+			<nRdCs>4</nRdCs>		<!--- u32 nRdCs;            // CEN cycle for read		<PSRAM_NRDCS_VAL=35> -->
+			<nOpMode>EMI_BURST_RW</nOpMode>		<!--- u32 nOpMode;          // operation mode, 0x0:single mode, 0x01:page mode, 0x02:burst write, 0x04:burst read	<PSRAM_NOPMODE=EMI_BURST_RW> -->
+			<nType>EMI_UtRAM</nType>		<!--- u32 nType;            // 0x00:Nor, 0x01:Cellular RAM, 0x02:COSMORAM, 0x03:UtRAM, 0x04: SRAM		<PSRAM_NTYPE=EMI_UtRAM> -->
+			<BurstReadWait>(5+1)</BurstReadWait>		<!--- u32 BurstReadWait;    // 0 = variable latency, #n: fix length latency, -->
+			<BurstWriteWait>(5+1)</BurstWriteWait>		<!--- u32 BurstWriteWait;   // 0 = variable latency, #n: fix length latency, -->
+			<nPageSize>EMI_PAGE_4WORDS</nPageSize>	<!--- u32 nPageSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<PSRAM_NPAGESIZE=EMI_PAGE_4WORDS> -->
+			<BurstSize>EMI_BURST_128WORDS</BurstSize>	<!--- u32 nBurstSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<PSRAM_BURSTSIZE=EMI_BURST_128WORDS> -->
+			<nDriving>0</nDriving>	<!--- u32 nDriving; <P_DRV=0>-->
+		</PsramBasicParams>
+		<emi_NorBasicConfig_t>
+			<nOenToEnd>0</nOenToEnd>		<!--- u32 nOenToEnd;        // OEN to End		<NOR_NOENTOEND_VAL=0> -->
+			<nSetupWr>1</nSetupWr>		<!--- u32 nSetupWr;         // WEN after CEN		<NOR_NSETUPWR_VAL=1> -->
+			<nTurnAround>0</nTurnAround>		<!--- u32 nTurnAround;      // Turn arround cycle		<NOR_NTURNAROUND_VAL=0> -->
+			<nPageAddAcct>2</nPageAddAcct>		<!--- u32 nPageAddAcct;     // Page address access		<NOR_NPAGEADDACCT_VAL=20> -->
+			<nWenCycle>7</nWenCycle>		<!--- u32 nWenCycle;        // WEN cycle		<NOR_NWENCYCLE_VAL=120> -->
+			<nSetupRd>2</nSetupRd>		<!--- u32 nSetupRd;         // OEN after CEN		<NOR_NSETUPRD_VAL=20> -->
+			<nWrCs>7</nWrCs>		<!--- u32 nWrCs;            // CEN cycle for write		<NOR_NWRCS_VAL=120> -->
+			<nRdCs>7</nRdCs>		<!--- u32 nRdCs;            // CEN cycle for read		<NOR_NRDCS_VAL=120> -->
+			<nOpMode>EMI_BURST_READ</nOpMode>		<!--- u32 nOpMode;          // operation mode, 0x0:single mode, 0x01:page mode, 0x02:burst write, 0x04:burst read	<NOR_NOPMODE=EMI_BURST_READ> -->
+			<nType>EMI_NOR</nType>		<!--- u32 nType;            // 0x00:Nor, 0x01:Cellular RAM, 0x02:COSMORAM, 0x03:UtRAM, 0x04: SRAM		<NOR_NTYPE=EMI_NOR> -->
+			<BurstReadWait>(6+1)</BurstReadWait>		<!--- u32 BurstReadWait;    // 0 = variable latency, #n: fix length latency, -->
+			<BurstWriteWait>(6+1)</BurstWriteWait>		<!--- u32 BurstWriteWait;   // 0 = variable latency, #n: fix length latency, -->
+			<nPageSize>EMI_PAGE_8WORDS</nPageSize>	<!--- u32 nPageSize;        // 2^n words, 0:1word, 1,:2words, 2:4words, 3:8words, 4: 16words		<NOR_NPAGESIZE=EMI_PAGE_8WORDS> -->
+			<BurstSize>EMI_BURST_8WORDS</BurstSize>	<!--- u32 BurstSize;        // 0: no boundary, 1:4 words, 2:8words, 3:16words,  4:32words, 5:64words		<NOR_BURSTSIZE=EMI_BURST_8WORDS> -->
+			<nDriving>0</nDriving>	<!--- u32 nDriving; <N_DRV=0>-->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+</emi_mcpConfig_t>
+

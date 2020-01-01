@@ -1,0 +1,590 @@
+/**
+ * \file vm_types.ht
+ * Description: STANDARD TYPES DEFINITIONS,
+ * contains the types definitions
+*/
+/****************************************************************************/
+#ifndef __VM_TYPES_HT__
+#define __VM_TYPES_HT__
+
+
+/**
+ * \brief =========================================================================
+ * Portable types
+ * =========================================================================
+*/
+#if defined(__cplusplus) && defined(__GNUC__) && (__GNUC__>=4) && (__GNUC_MINOR__>=6)
+#define opaque_enum(e) enum e : int
+#else
+#define opaque_enum(e) enum e
+#endif
+#define typedef_opaque_enum(e1, e2) \
+    opaque_enum(e1); \
+    typedef enum e1 e2
+
+#if defined(__arm) || defined(__aeon__) || defined(__mips__) || defined(__i686__) || defined(__GNUC__)
+typedef unsigned int    Primitive;
+#ifndef __cplusplus
+#ifndef __bool_defined
+#define  __bool_defined
+typedef unsigned char   bool;
+#endif
+#endif
+
+typedef unsigned char   u8;
+typedef unsigned char   U8;
+typedef signed   char   s8;
+typedef signed   char   S8;
+typedef signed   char   I8; //Mercury5
+typedef          char   ascii;
+typedef unsigned short  u16;
+typedef unsigned short  U16;
+typedef          short  s16;
+typedef          short  S16;
+typedef signed   short  I16; //Mercury5
+typedef unsigned int    u32;
+typedef unsigned int    U32;
+typedef          int    s32;
+typedef          int    S32;
+typedef          int    I32;
+typedef unsigned long long u64;
+typedef unsigned long long U64;
+typedef          long long s64;
+typedef          long long S64;
+typedef signed   long long I64; //Mercury5
+
+typedef long long       *PS64;
+typedef int             *PS32;
+typedef short           *PS16;
+typedef char            *PS8;
+typedef unsigned long long *PU64;
+typedef unsigned int    *PU32;
+typedef unsigned short  *PU16;
+typedef unsigned char   *PU8;
+
+typedef u16             u16Char;
+typedef u8              u8Char;
+
+#if defined(__aeon__) || defined(__mips__)
+typedef long long   __int64;
+#endif
+/**
+ * \brief Jlo & Fch : Is defined below
+ * #define far
+ * #define near
+ */
+#define huge
+
+#elif (defined __SDK_SIMULATION__)
+
+#if defined(_MSC_VER) && defined(_WIN32)
+typedef unsigned long int       Primitive; /* 32 bits */
+typedef unsigned _int8          u8;
+typedef unsigned _int8          U8;
+typedef unsigned _int16         u16;
+typedef unsigned _int16         U16;
+typedef unsigned _int32         u32;
+typedef unsigned _int32         U32;
+typedef unsigned _int64         u64;
+typedef unsigned _int64         U64;
+typedef          char           ascii;
+typedef _int8                   s8;
+typedef _int8                   S8;
+typedef _int16                  s16;
+typedef _int16                  S16;
+typedef _int32                  s32;
+typedef _int32                  S32;
+typedef _int32                  I32;
+typedef _int64                  s64;
+typedef _int64                  S64;
+typedef u16                     u16Char;
+typedef u8                      u8Char;
+
+typedef _int64                  *PS64;
+typedef _int32                  *PS32;
+typedef _int16                  *PS16;
+typedef _int8                   *PS8;
+typedef unsigned _int64         *PU64;
+typedef unsigned _int32         *PU32;
+typedef unsigned _int16         *PU16;
+typedef unsigned _int8          *PU8;
+
+#endif
+
+#define huge
+
+#ifndef __cplusplus
+typedef unsigned char   bool;
+#endif //__cplusplus
+
+#else
+
+/* ERROR */
+
+#endif
+
+/**
+ * \brief =========================================================================
+ * Memory alignment tools
+ * =========================================================================
+*/
+
+typedef struct __alg { char c; void * p; } __alg_t;
+#define ALIGNMENT               (offsetof(__alg_t, p) - 1)
+#define ALIGN(P)                ( (u32) ((char *)((long)(P)) + ALIGNMENT) & ~ALIGNMENT)
+
+/**
+ * \brief =========================================================================
+ * ARM Specific Tools
+ * =========================================================================
+*/
+/**
+ * \brief JLO !defined(__STDC__) => defined(__DIALECT_PCC)
+ * Fch __DIALECT_PCC is for Kernigham & Ritchie C
+*/
+
+/* Define dual stack module ID.
+   Defined without compiler option because L1C also needs these definitions. */
+#if defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__)
+
+#if defined(__EXTRA_MDL_TASK__)
+
+#define MS_DUAL_MODULE_1        0
+#define MS_DUAL_MODULE_2        1
+#define MS_DUAL_MODULE_EXT      2
+#define MS_NUM_OF_MODULES       3
+
+#else
+
+#define MS_DUAL_MODULE_1        0
+#define MS_DUAL_MODULE_2        1
+#define MS_NUM_OF_MODULES       2
+
+#endif  /* __EXTRA_MDL_TASK__ */
+
+#endif /* __MSTAR_DUAL_SIM__ */
+
+
+#if defined(__DIALECT_PCC) && !defined(__SDK_SIMULATION__)
+
+    #define GLOB_DATA_TOP(_Mod_)            typedef struct _Mod_/**/_/**/_Data {
+    #define GLOB_DATA(_Typ_,_Nam_)          _Typ_  _/**/_Nam_
+    #if defined(__arm) || defined(__aeon__) || defined(__mips__) || defined(__i686__)
+        #ifdef __GLOBAL_REG__
+        #define ACCESS_TO(_Mod_,_Nam_)      _Mod_/**/_r6->_/**/_Nam_
+        #define GLOB_DATA_END(_Mod_)        } _Mod_/**/_Global_t; \
+                                            EXT _Mod_/**/_Global_t _Mod_/**/_Global;\
+                                            _Mod_/**/_Global_t __global_reg(3) *_Mod_/**/_r6
+        #else  // __GLOBAL_REG__
+        #define ACCESS_TO(_Mod_,_Nam_)      _Mod_/**/_Global._/**/_Nam_
+        #define GLOB_DATA_END(_Mod_)        } _Mod_/**/_Global_t; \
+                                            EXT _Mod_/**/_Global_t _Mod_/**/_Global;\
+                                            EXT _Mod_/**/_Global_t * _Mod_/**/_r6
+        #endif // __GLOBAL_REG__
+    #else  // __arm
+        #define ACCESS_TO(_Mod_,_Nam_)      _Mod_/**/_Global._/**/_Nam_
+        #define GLOB_DATA_END(_Mod_)        } _Mod_/**/_Global_t; \
+                                            EXT _Mod_/**/_Global_t _Mod_/**/_Global;\
+                                            EXT _Mod_/**/_Global_t * _Mod_/**/_r6
+    #endif // __arm
+
+#else    /* __STDC__ || __SDK_SIMULATION__ */
+
+    #define GLOB_DATA_TOP(_Mod_)            typedef struct _Mod_##_##_Data {
+    #define GLOB_DATA(_Typ_,_Nam_)          _Typ_  _##_Nam_
+
+    #if defined(__arm) || defined(__aeon__) || defined(__mips__) || defined(__i686__)
+
+        #ifdef __GLOBAL_REG__
+
+            #define ACCESS_TO(_Mod_,_Nam_)      ((_Mod_##_Global_t *) _Mod_##_r6)->_##_Nam_
+            #define GLOB_DATA_END(_Mod_)        } _Mod_##_Global_t; \
+                                                EXT _Mod_##_Global_t _Mod_##_Global;\
+                                                EXT _Mod_##_Global_t * _Mod_##_r6
+#else  // __GLOBAL_REG__
+
+            #if defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__)
+            #if defined(__MSTAR_DUAL_SIM_DUP_GLOB__)
+
+                /* Rtk_CurrentTask is actually declared volatile by RTK.
+                   The value should be maintained properly by the OS, before context switch.
+                   Therefore we intend to treat the variable as non-volatile so that the compiler can optimize the code.
+                   (About 280KB code size is saved with this tricky treatment.)
+                   It is wrapped carefully by special compiler options which are only defined in the .mak file of the related libs.
+                   For other libs and RTK itself, we insist on the volatile type in its original design. */
+
+                extern u8 Rtk_CurrentTask;
+
+                /* No OS layer assistance. Only current task ID is known.
+                   Task ID should be arranged with interleaving module ID so that we can derive the module ID from least significant bit of current task. */
+
+            #if defined(__EXTRA_MDL_TASK__)
+                #include "osdefs.hc"
+                #define Rtk_CurrentModule               (Rtk_CurrentTask & 0x3)
+            #else
+                #define Rtk_CurrentModule               (Rtk_CurrentTask & 0x1)
+            #endif
+
+            #endif /* defined(__MSTAR_DUAL_SIM_DUP_GLOB__) */
+            #endif /* defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__) */
+
+            #if defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__) && defined(__MSTAR_DUAL_SIM_DUP_GLOB__)
+
+                /* Declare global data, grouped in a structure, with multiple instances.
+                   Dual tasks will run with the same code but seperate data. */
+
+                #define ACCESS_TO(_Mod_,_Nam_)              _Mod_##_Global[Rtk_CurrentModule]._##_Nam_
+                #define GLOB_DATA_END(_Mod_)                } _Mod_##_Global_t; \
+                                                            EXT _Mod_##_Global_t _Mod_##_Global[MS_NUM_OF_MODULES];\
+                                                            EXT _Mod_##_Global_t * _Mod_##_r6[MS_NUM_OF_MODULES]
+                #define ACCESS_TO_MID(_Mod_,_Nam_,_Mid_)    _Mod_##_Global[_Mid_]._##_Nam_
+
+                /* Declare global data, stand-alone, with multiple instances.
+                   All global data not grouped in a structure macro should also be wrapped by this macro. */
+
+                #define MS_GLOB_DATA(_Nam_)             MsPsGb_##_Nam_[MS_NUM_OF_MODULES]
+                #define MS_ACCESS_TO(_Nam_)             MsPsGb_##_Nam_[Rtk_CurrentModule]
+                #define MS_GLOB_INIT(_Val_)             ={(_Val_),(_Val_)}
+                #define MS_GLOB_INIT_P2(_Val1_,_Val2_)  ={{(_Val1_),(_Val2_)},{(_Val1_),(_Val2_)}}
+                #define MS_ACCESS_TO_MID(_Nam_,_Mid_)   MsPsGb_##_Nam_[_Mid_]
+
+            #else
+
+                #define ACCESS_TO(_Mod_,_Nam_)          _Mod_##_Global._##_Nam_
+                #define GLOB_DATA_END(_Mod_)            } _Mod_##_Global_t; \
+                                                        EXT _Mod_##_Global_t _Mod_##_Global;\
+                                                        EXT _Mod_##_Global_t * _Mod_##_r6
+
+                #define MS_GLOB_DATA(_Nam_)             _Nam_
+                #define MS_ACCESS_TO(_Nam_)             _Nam_
+                #define MS_GLOB_INIT(_Val_)             =_Val_
+                #define MS_GLOB_INIT_P2(_Val1_,_Val2_)  ={_Val1_,_Val2_}
+
+            #endif //__MSTAR_DUAL_SIM__ && __MSTAR_DUAL_SIM_REDUCE_CODE__ && __MSTAR_DUAL_SIM_DUP_GLOB__
+
+        #endif // __GLOBAL_REG__
+
+    #else // __arm
+
+            #if defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__)
+            #if defined(__MSTAR_DUAL_SIM_DUP_GLOB__)
+
+                #if defined(__SDK_SIMULATION__)
+
+                    /* For simulator, we don't care about the code size. */
+                    u32 vm_rtkCurrentTask(void);
+                    #define Rtk_CurrentModule           ((vm_rtkCurrentTask()) & 0x1)   /* MDL1 task ID is 2 and MDL2 task ID is 3 */
+
+
+                #else
+
+                    /* Rtk_CurrentTask is actually declared volatile by RTK.
+                       The value should be maintained properly by the OS, before context switch.
+                       Therefore we intend to treat the variable as non-volatile so that the compiler can optimize the code.
+                       (About 280KB code size is saved with this tricky treatment.)
+                       It is wrapped carefully by special compiler options which are only defined in the .mak file of the related libs.
+                       For other libs and RTK itself, we insist on the volatile type in its original design. */
+
+                    extern u8 Rtk_CurrentTask;
+
+                    /* No OS layer assistance. Only current task ID is known.
+                       Task ID should be arranged with interleaving module ID so that we can derive the module ID from least significant bit of current task. */
+
+                    #if defined(__EXTRA_MDL_TASK__)
+                        #include "osdefs.hc"
+                        #define Rtk_CurrentModule               (Rtk_CurrentTask & 0x3)
+                    #else
+                    #define Rtk_CurrentModule           (Rtk_CurrentTask & 0x1)
+                    #endif
+
+                #endif /* WIN32 */
+
+            #endif /* defined(__MSTAR_DUAL_SIM_DUP_GLOB__) */
+            #endif /* defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__) */
+
+            #if defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__) && defined(__MSTAR_DUAL_SIM_DUP_GLOB__)
+
+                /* Declare global data, grouped in a structure, with multiple instances.
+                   Dual tasks will run with the same code but seperate data. */
+
+                #define ACCESS_TO(_Mod_,_Nam_)              _Mod_##_r6[Rtk_CurrentModule]->_##_Nam_
+                #define GLOB_DATA_END(_Mod_)                } _Mod_##_Global_t; \
+                                                            EXT _Mod_##_Global_t _Mod_##_Global[MS_NUM_OF_MODULES];\
+                                                            EXT _Mod_##_Global_t * _Mod_##_r6[MS_NUM_OF_MODULES]
+                #define ACCESS_TO_MID(_Mod_,_Nam_,_Mid_)    _Mod_##_r6[_Mid_]->_##_Nam_
+
+                /* Declare global data, stand-alone, with multiple instances.
+                   All global data not grouped in a structure macro should also be wrapped by this macro. */
+
+                #define MS_GLOB_DATA(_Nam_)             MsPsGb_##_Nam_[MS_NUM_OF_MODULES]
+                #define MS_ACCESS_TO(_Nam_)             MsPsGb_##_Nam_[Rtk_CurrentModule]
+                #define MS_GLOB_INIT(_Val_)             ={(_Val_),(_Val_)}
+                #define MS_GLOB_INIT_P2(_Val1_,_Val2_)  ={{(_Val1_),(_Val2_)},{(_Val1_),(_Val2_)}}
+                #define MS_ACCESS_TO_MID(_Nam_,_Mid_)   MsPsGb_##_Nam_[_Mid_]
+
+            #else
+
+                #define ACCESS_TO(_Mod_,_Nam_)          _Mod_##_r6->_##_Nam_
+                #define GLOB_DATA_END(_Mod_)            } _Mod_##_Global_t; \
+                                                        EXT _Mod_##_Global_t _Mod_##_Global;\
+                                                        EXT _Mod_##_Global_t  * _Mod_##_r6
+
+                #define MS_GLOB_DATA(_Nam_)             _Nam_
+                #define MS_ACCESS_TO(_Nam_)             _Nam_
+                #define MS_GLOB_INIT(_Val_)             =_Val_
+                #define MS_GLOB_INIT_P2(_Val1_,_Val2_)  ={_Val1_,_Val2_}
+
+            #endif //__MSTAR_DUAL_SIM__ && __MSTAR_DUAL_SIM_REDUCE_CODE__ && __MSTAR_DUAL_SIM_DUP_GLOB__
+
+#endif // __arm
+
+#endif    /* __STDC__ || __SDK_SIMULATION__ */
+
+
+#if defined(__MSTAR_DUAL_SIM_REDUCE_CODE__)
+
+#define ACCESS_TO_L1C_TASK(_Mod_,_Nam_)                 _Mod_##_Global[Rtk_CurrentModule]._##_Nam_
+#define ACCESS_TO_L1C_MASTER(_Mod_,_Nam_)               _Mod_##_Global[MS_DUAL_MODULE_1]._##_Nam_
+#define ACCESS_TO_L1C_SLAVE(_Mod_,_Nam_)                _Mod_##_Global[MS_DUAL_MODULE_2]._##_Nam_
+
+#define GLOB_DATA_END_L1C(_Mod_)                        } _Mod_##_Global_t; \
+                                    			        EXT _Mod_##_Global_t _Mod_##_Global[MS_NUM_OF_MODULES];\
+                                    			        EXT _Mod_##_Global_t * _Mod_##_r6[MS_NUM_OF_MODULES]
+
+#define MS_GLOB_DATA_L1C(_Nam_)                         MsPsGb_##_Nam_[MS_NUM_OF_MODULES]
+#define MS_ACCESS_TO_L1C(_Nam_)                         MsPsGb_##_Nam_[Rtk_CurrentModule]
+#define MS_ACCESS_TO_L1C_MASTER(_Nam_)                  MsPsGb_##_Nam_[MS_DUAL_MODULE_1]
+#define MS_ACCESS_TO_L1C_SLAVE(_Nam_)                   MsPsGb_##_Nam_[MS_DUAL_MODULE_2]
+#define MS_GLOB_INIT_L1C(_Val_)                         ={(_Val_),(_Val_)}
+
+#else //defined(__MSTAR_DUAL_SIM_REDUCE_CODE__)
+
+#define ACCESS_TO_L1C_TASK(_Mod_,_Nam_)                 _Mod_##_Global._##_Nam_
+#define ACCESS_TO_L1C_MASTER(_Mod_,_Nam_)               _Mod_##_Global._##_Nam_
+#define ACCESS_TO_L1C_SLAVE(_Mod_,_Nam_)                _Mod_##_Global._##_Nam_
+
+#define GLOB_DATA_END_L1C(_Mod_)                        } _Mod_##_Global_t; \
+                                    			        EXT _Mod_##_Global_t _Mod_##_Global;\
+                                    			        EXT _Mod_##_Global_t * _Mod_##_r6
+
+#define MS_GLOB_DATA_L1C(_Nam_)                         _Nam_
+#define MS_ACCESS_TO_L1C(_Nam_)                         _Nam_
+#define MS_ACCESS_TO_L1C_MASTER(_Nam_)                  _Nam_
+#define MS_ACCESS_TO_L1C_SLAVE(_Nam_)                   _Nam_
+#define MS_GLOB_INIT_L1C(_Val_)                         =_Val_
+
+#endif //defined(__MSTAR_DUAL_SIM_REDUCE_CODE__)
+
+/**
+ * \brief =========================================================================
+ * Basic goodies
+ * =========================================================================
+*/
+
+#ifndef FALSE
+#define FALSE 0
+#endif
+#ifndef TRUE
+#define TRUE  1
+#endif
+
+#define OK 0
+
+#ifndef __SDK_SIMULATION__
+#define ERROR -1
+#else //__SDK_SIMULATION__
+#ifndef __cplusplus
+#ifdef ERROR
+#undef ERROR
+#endif
+#define ERROR -1
+#endif // __cplusplus
+#endif // __SDK_SIMULATION__
+
+/**
+ * \brief =========================================================================
+ * ANSI / NON ANSI compatibility
+ * =========================================================================
+*/
+
+#ifdef __arm
+#if defined (__STDC__)
+#define CAT(X,Y)                X##Y
+#else
+#define CAT(X,Y)                X/**/Y
+#endif
+#else
+#define CAT(X,Y)                X##Y
+#endif
+
+#if defined(__STDC__) || defined(__arm) || defined (__SDK_SIMULATION__)
+
+#ifdef	LINUX
+#ifdef	offsetof
+#undef	offsetof
+#endif  // offsetof
+#endif  // LINUX
+
+#ifndef __cplusplus
+#ifndef offsetof
+#define offsetof(S,F)           (u32) (((u8*)&(((S *) 0)->F))-((u8*)0))
+#endif
+#ifndef NULL
+#define NULL                    0 // yfa should be ((void *) 0) !!!
+#endif  // NULL
+#define VOLATILE                volatile
+#define CONST                   const
+#define VOID                    void
+#endif  // __cplusplus
+
+#define USE_PROTOTYPES
+#define _PROTO(X)               X
+//#define TOKEN                   CAT(CAT(y,f),__LINE__)
+#define TOKEN                   CAT(yf,__LINE__)
+
+#ifdef INLINING
+#define MEMCPY(Dst,Src,Len)     ( *((struct TOKEN {char xx[Len];} *) Dst) =\
+				  *((struct TOKEN *) Src), Dst )
+#endif  // INLINING
+
+#else /* not ANSI */
+
+#ifndef NULL
+#define NULL                     0
+#endif  // NULL
+#define signed
+#define VOLATILE
+#define volatile
+#define CONST
+#define const
+#define VOID
+#define _PROTO(X)               ( )
+#define offsetof(S,F)           (u32) (((u8*)&(((S *) 0)->F))-((u8*)0))
+
+#endif  // __STDC__ || __arm || __SDK_SIMULATION__
+
+/**
+ * \brief =========================================================================
+ * IBM-PC extended keywords (with Microsoft C compiler V4.0 or above)
+ * =========================================================================
+*/
+
+#ifdef __MSDOS__
+
+#define FAR  _far
+#define NEAR _near
+#define HUGE huge
+
+#else
+
+#ifdef __SDK_SIMULATION__
+#undef FAR
+#undef NEAR
+#endif //__SDK_SIMULATION__
+#define FAR
+#define far
+#define NEAR
+#define near
+#ifdef  LINUX
+#ifdef  HUGE
+#undef  HUGE
+#endif
+#endif
+#define HUGE
+
+
+#endif /*__MSDOS__*/
+
+
+/**
+ * \brief =========================================================================
+ * Various defines
+ * =========================================================================
+*/
+
+#define PNUL     ((void *)0)            /* NULL pointer                     */
+#define PFNUL    ((void far *)0)        /* NULL far pointer                 */
+#define PNIL     ((void *)-1)           /* Negative pointer                 */
+#define PFNIL    ((void far *)-1)       /* Negative far pointer             */
+#define PFCNUL   ((void (*)())0)        /* NULL function pointer            */
+#define PFCNIL   ((void (*)())-1)       /* Negative function pointer        */
+#define PFCFNUL  ((void (far *)())0)    /* NULL far function pointer        */
+#define PFCFNIL  ((void (far *)())-1)   /* Negative far function pointer    */
+
+/**
+ * \brief =========================================================================
+ * RTK unix only
+ * =========================================================================
+*/
+
+#ifdef unix
+
+#define REVERSE_BIT_FIELDS
+#define __GO     static int _ini_=0;\
+	       if (!_ini_) _ini_++; else goto NEXT
+#define __END    if (_ini_) return
+
+#else
+
+#define __GO
+#define __END
+
+#endif  /* unix */
+
+/**
+ * \brief message opaque type
+ * \see vm_msgt.ht
+ */
+typedef struct vm_msg vm_msg_t;
+
+/**
+ * \brief =========================================================================
+ * compiler variance
+ * =========================================================================
+*/
+
+/*
+  * packed structure
+  */
+#if defined (__SDK_SIMULATION__)
+#define __packed
+#elif defined (__GNUC__) && !defined(__packed)
+#define __packed __attribute__((packed))
+#endif
+
+/*
+  * alignment
+  */
+#if defined(__GNUC__)
+	#define __align(_n_)                __attribute__ ((aligned (_n_)))
+#elif defined(__ARMCC_VERSION)
+    /* __align(_n_) is already supported in RVCT */
+#else
+	#define __align(_n_)
+#endif
+
+/*
+  * return address
+  */
+#if defined (__SDK_SIMULATION__)
+
+#define __return_address()              0xFFFFFFFF
+
+//#elif defined (__ARMCC_VERSION)         /* RVCT */
+
+//#if __ARMCC_VERSION <= 220000
+//#error __ARMCC_VERSION <= 220000 is not supported
+//#endif
+
+#elif defined(__GNUC__)                 /* GCC */
+
+#define __return_address()              __builtin_return_address(0)
+
+#endif
+/* section */
+#if defined(__GNUC__)
+	#define __section__(section_name) __attribute__((section (#section_name)))
+#else
+	#define __section__(section_name)
+#endif
+#endif /* __VM_TYPES_HT__ */

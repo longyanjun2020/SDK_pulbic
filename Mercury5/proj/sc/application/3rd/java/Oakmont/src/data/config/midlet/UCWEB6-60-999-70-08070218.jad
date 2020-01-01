@@ -1,0 +1,12 @@
+MIDlet-Name: UCWEB6
+MIDlet-Version: 6.1.0
+MIDlet-Vendor: UCWEB
+MIDlet-Jar-URL: http://wap.ucweb.com/dl_platform_files/files/998/70/417/UCWEB6-60-999-70-08070218.jar
+MIDlet-Jar-Size: 214272
+MIDlet-Description: UCWEB
+MIDlet-Icon: /l.png
+MicroEdition-Profile: MIDP-2.0
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-1: UCWEB6,/l.png,WebClient
+MIDlet-Permissions-Opt: javax.microedition.io.Connector.http,javax.microedition.io.Connector.https,javax.microedition.io.Connector.file.read,javax.microedition.io.Connector.file.write,javax.microedition.io.Connector.socket,javax.microedition.io.PushRegistry,javax.microedition.io.sms,javax.microedition.io.Connector.sms,javax.wireless.messaging.sms.send,javax.wireless.messaging.sms.receive
+Background: True

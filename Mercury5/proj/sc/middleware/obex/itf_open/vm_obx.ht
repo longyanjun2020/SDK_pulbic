@@ -1,0 +1,132 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+
+
+
+/***************************************************************************/
+/*  File       : vm_obx.ht							         					      */
+/*-------------------------------------------------------------------------*/
+/*  Object     : Obex structures used by customer in th case of a Open     */
+/*               interface                                                 */
+/*  Change     :                                                           */
+/*                                                                         */
+/*-------------------------------------------------------------------------*/
+/*   Date   | Author    | Modification                                     */
+/*----------+-----------+--------------------------------------------------*/
+/* 10/04/03 |   MSE     | Creation                                         */
+/***************************************************************************/
+
+/*
+ *$LogWavecom: G:\projet\gsm\pvcsarch\archives\ir\itf_open\vm_ir.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 13.10.03 | mse    | 1.6            | .  Resolution for 16102: Modificati
+ *          |        |                | ons for SYNCML over V24 or USB     
+ *----------+--------+----------------+-------------------------------------
+ * 15.09.03 | mse    | 1.5            | For OSS .  Resolution for 15250: OB
+ *          |        |                | EX: Added and changed comments for 
+ *          |        |                | OSS                                
+ *----------+--------+----------------+-------------------------------------
+ * 10.07.03 | mse    | 1.4            | remove Obex_Status structure  Resol
+ *          |        |                | ution for 12092: OBEX as a task    
+ *----------+--------+----------------+-------------------------------------
+ * 06.05.03 | mse    | 1.1            | corrected Bug in Connect corrected 
+ *          |        |                | Bug in Disconnect one way Get Added
+ *----------+--------+----------------+-------------------------------------
+ * 05.05.03 | mse    | 1.0            | Initial revision.                  
+ *----------+--------+----------------+-------------------------------------
+ * 23.08.02 | mpr    | 1.0            | Initial revision.                  
+ *----------+--------+----------------+-------------------------------------
+*/
+#ifndef __VM_OBX_HT__
+#define __VM_OBX_HT__
+
+#include "vm_types.ht"
+
+			/***********************/
+			/*** CONNECT PROCESS ***/
+			/***********************/
+
+typedef struct 
+{
+   u32 Size;
+   u8 Response;
+	u8 Flags;
+   u8 ConnectionId[5];
+   u8 Pad;
+   u8 Target[1];
+}
+vm_ObexFrame_t;
+
+			/******************************/
+			/*** DATA TRANSFERT PROCESS ***/
+			/******************************/
+  
+typedef struct
+{
+	u8	Response;
+} 
+vm_Obex_Acknowledge_t;
+  
+typedef struct
+{
+	u32 WholeLength;	/* Length of the whole object			*/
+	u16 SegmentLength;
+	u8  LastBlock;  	/* Tx: Do not care, Rx: last block of the object*/
+   u8  Response;
+   u8  Data[1];
+} 
+vm_Obex_Obj_t;
+
+typedef struct
+{
+ u8 ConnectionId[5];
+ u8 Pad[3];
+ u8 Attributes[1];
+}
+vm_Obex_Get_t;
+
+/**************************/
+/*** DISCONNECT PROCESS ***/
+/**************************/
+
+typedef struct
+{
+ u8 Reason;
+ u8 ConnectionId[5];
+}
+vm_Obex_Disconnect_t;
+
+ 
+typedef struct
+{
+ u8 Response;
+ u8 ConnectionId[5];
+}
+vm_Obex_Disconnect_Rsp_t;
+
+
+
+/***************************/
+/********* MEDIA ***********/
+/***************************/
+typedef struct
+{
+ u8 Media;
+}
+vm_Obex_Media_t;
+
+#define VM_OBEX_APPLI_MEDIA_IRDA      0x00
+#define VM_OBEX_APPLI_MEDIA_BLUETOOTH 0x01
+#define VM_OBEX_APPLI_MEDIA_V24       0x02
+#define VM_OBEX_APPLI_MEDIA_USB       0x03
+#define VM_OBEX_APPLI_MEDIA_AIR       0x04
+
+#endif

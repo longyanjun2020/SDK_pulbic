@@ -1,0 +1,236 @@
+/**
+ * \page AD (Applications and Data storage) Public Interface
+ * 
+ * \section intro_sec Introduction
+ *
+ * This document describes the AD (Applications and Data storage) Public Interface. This service can be used by the 
+ * Application or the Middleware for the storage of applets, applications, and non-updatable data, like customization,
+ * in the NOR flash.
+ *
+ *  <hr>
+ * \section SectionMMI2EEPROM 1. Application/Middleware to AD
+ *
+ * \li \ref vm_adAllocate    
+ * \li \ref vm_adWrite    
+ * \li \ref vm_adResume    
+ * \li \ref vm_adFinalise    
+ * \li \ref vm_adRetrieve    
+ * \li \ref vm_adFindInit    
+ * \li \ref vm_adFindNext    
+ * \li \ref vm_adInfo    
+ * \li \ref vm_adStats    
+ * \li \ref vm_adDelete    
+ * \li \ref vm_adFormat    
+ * \li \ref vm_adRecompactInit    
+ * \li \ref vm_adRecompact    
+ * \li \ref vm_adVolumeState    
+ *
+ *  <hr>
+ * \section Usage 2. Usage
+ *
+ * \subsection WriteDate 2.1. Write data in an AD volume cell
+ * 
+ *  At first, the client should call \ref vm_adAllocate to allocate a cell of the desired size in the
+ *  given volume. He will get a handle that can be used to write data in the created cell, with 
+ *  \ref vm_adWrite, as many times as needed. Then, he can finalize the volume by calling \ref vm_adFinalise.\n
+ *  If the writting is interrupted without having been finalized, it can be resumed with \ref vm_adResume. To use
+ *  this function, the client should at first search for the desired cell ID with \ref vm_adFindInit and
+ *  \ref vm_adFindNext. When the search success, the handle get from \ref vm_adFindNext can be used 
+ *  as input handle of \ref vm_adResume.
+ * 
+ * \subsection Search 2.2. Search cells within a volume
+ * 
+ *  If the client wants to list the cells of a given volume, he should call \ref vm_adFindInit and
+ *  \ref vm_adFindNext.\n
+ *  If he just wants to retrieve a given cell in a given volume, he should call \ref vm_adRetrieve.
+ *  To get information about a found cell, he should call \ref vm_adInfo with the handle set 
+ *  by \ref vm_adFindNext or \ref vm_adRetrieve as input argument.
+ * 
+ * \subsection Recompaction 2.3. Recompaction
+ * 
+ *  If the volume is too much fragmented, space is lost. So recompaction can be necessary. \n
+ *  To do so, the client should at first call \ref vm_adRecompactInit, then with the return handle, 
+ *  call \ref vm_adRecompact until it returns 100.
+ * 
+ * \subsection Misc 2.4. Miscellaneous
+ * 
+ *  The client can delete a cell in a given volume. The handle of the cell should have been retrieved with 
+ *  \ref vm_adFindNext or \ref vm_adRetrieve. \n
+ *  He can also delete the whole volume with \ref vm_adFormat. \n
+ *  The client can get information on a given volume with \ref vm_adStats. \n
+ *  The client can get the state of a given volume with \ref vm_adVolumeState. \n
+ * 
+ *  <hr>
+ *  \section Notes 3. Notes
+ *
+ * 
+ *   
+ */
+
+
+/*!
+ * \file  vm_ad.hi
+ * \brief Application/Middleware to AD (Applications and Data storage) Public Interface
+ *
+ *  This file defines the AD public interface that is offered to the Application and to the Middleware.
+ *
+ *  The interface allows to :
+ *   \li read/write Java applets, applications or other non updatable objects in the NOR flash
+ *   \li retrieve these binaries in the NOR Flash.
+ *
+ */
+
+
+#ifndef _79af2e73421b2df58050f3b0db71d5af_INCLUDED_VM_AD_HI
+#define _79af2e73421b2df58050f3b0db71d5af_INCLUDED_VM_AD_HI
+
+/****************************************************************************/
+/* ERROR CODES                                                              */
+/****************************************************************************/
+
+#ifndef VM_FMS_OK
+
+   #define VM_FMS_OK             0           ///< No error
+   #define VM_FMS_UNDEFINED      0xFFFFFFFF  ///< Undefined error
+   #define VM_FMS_BAD_ARGS       0xFFFFFFFE  ///< Bad arguments (null pointer, etc...) 
+   #define VM_FMS_BAD_FUNCTION   0xFFFFFFFD  ///< Invalid function call 
+   #define VM_FMS_FORBIDDEN      0xFFFFFFFC  ///< Access denied or illegal operation attempt 
+   #define VM_FMS_OVERFLOW       0xFFFFFFF9  ///< Overflow (memory exhausted,...) 
+   #define VM_FMS_REACHED_END    0xFFFFFFF6  ///< No more elements to enumerate 
+   #define VM_FMS_NOT_AVAILABLE  0xFFFFFFF5  ///< Function not available (no initialisation done or operation not supported) 
+   #define VM_FMS_CLEANING_REQD  0xFFFFFFF3  ///< A cleaning operation is required to perform the requested command 
+
+   /* All other codes are internal or hardware related */
+
+#endif /* VM_FMS_OK not defined */
+
+/****************************************************************************/
+/* TYPE DEFINITIONS                                                         */
+/****************************************************************************/
+
+/**
+  * \brief Opaque handle 
+  */
+typedef struct 
+{
+   u32 opaque[4];
+} vm_adHandle_t;
+
+/**
+  * \brief Opaque iterator 
+  */
+typedef struct
+{
+   u32 opaque[4];
+} vm_adIterator_t;
+
+/**
+  * \brief Information structure 
+  */
+typedef struct
+{
+   u32   identifier;       ///< identifier 
+   u32   size;             ///< entry size 
+   void  *data;            ///< pointer to stored data 
+   u32   remaining;        ///< remaining writable space unless finalised 
+   bool  finalised;        ///< TRUE if entry is finalised 
+} vm_adInfo_t;
+
+/**
+  * \brief Volume state 
+  */
+typedef struct
+{
+   u32 freemem;         ///< avalilable space in bytes
+   u32 deletedmem;      ///< deleted space
+   u32 totalmem;        ///< total space of the volume
+   u16 numobjects;      ///< number of cells
+   u16 numdeleted;      ///< number of deleted cells
+   bool need_recovery;  ///< if TRUE, the volume recompaction is not finished  
+} vm_adStats_t;
+
+/**
+  * \brief Volume state 
+  */
+typedef enum
+{
+   VM_FMS_AD_ERROR,     ///< Error, volume does not exist 
+   VM_FMS_AD_READY,     ///< Volume is usable 
+   VM_FMS_AD_NOTAVAIL,  ///< Volume not available 
+   VM_FMS_AD_REPAIR,    ///< Volume under compaction or needing compaction recovery 
+   VM_FMS_AD_TO_FORMAT, ///< Volume needs to be formatted to be operational
+   VM_FMS_AD_FORMATTED  ///< Volume undergoing a format operation
+} vm_adState_e;
+
+/** 
+ * \brief Operation modes for wm_adFormat2 function
+ */
+typedef enum
+{
+   VM_FMS_AD_FORMAT_INIT,        ///< To initialise the format process
+   VM_FMS_AD_FORMAT_CONTINUE,    ///< To actually run the format process
+   VM_FMS_AD_FORMAT_ABORT        ///< To abort the format process
+} vm_adFormatMode_e;
+
+/** 
+ * \brief list of available volumes
+ */
+typedef enum
+{
+   VM_FMS_CUSTO_VOLUME,
+   VM_FMS_JAVASTORE_VOLUME,
+   VM_FMS_JAVAEXEC_VOLUME,
+   VM_FMS_DOTA_VOLUME,
+   VM_FMS_SOUND_VOLUME
+} vm_adToken_e;
+
+
+/** 
+ * \brief volume IOCTL control codes (to use with \ref vm_adVolumeIoControl)
+ */
+typedef enum
+{
+   VM_FMS_AD_DELETE_ALL_UNCOMPLETE,
+   VM_FMS_AD_GET_FIRSTCELL_CONTENTSPTR
+} vm_adVolumeCtrlCode_e;  
+
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+
+s32 vm_adAllocate(vm_adToken_e i__e_Token, u32 i__u32_Ident, u32 i__u32_Size, vm_adHandle_t *o__ps_Handle);
+s32 vm_adWrite(vm_adHandle_t *i__ps_Handle, u32 i__u32_Size, void *i__p_Buffer);
+s32 vm_adResume(vm_adHandle_t *io__ps_Handle);
+s32 vm_adFinalise(vm_adHandle_t *i__ps_Handle);
+s32 vm_adRetrieve(vm_adToken_e i__e_Token, u32 i__u32_Ident, vm_adHandle_t *o__ps_Handle);
+s32 vm_adFindInit(vm_adToken_e i__e_Token, u32 i__u32_Min, u32 i__u32_Max, vm_adIterator_t *o__ps_Browse);
+s32 vm_adFindNext(vm_adHandle_t *o__ps_Handle, vm_adIterator_t *io__ps_Browse);
+s32 vm_adInfo(vm_adHandle_t *i__ps_Handle, vm_adInfo_t *o__ps_Info);
+s32 vm_adStats(vm_adToken_e i__e_Token, vm_adStats_t *o__ps_Stats);
+s32 vm_adDelete(vm_adHandle_t *i__ps_Handle);
+s32 vm_adFormat(vm_adToken_e i__e_Token);
+s32 vm_adRecompactInit(vm_adToken_e i__e_Token);
+s32 vm_adRecompact(vm_adToken_e i__e_Token);
+vm_adState_e vm_adVolumeState(vm_adToken_e i__e_Token);
+
+
+/****************************************************************************/
+/* ADDITIONAL SPECIAL COMMANDS                                              */
+/****************************************************************************/
+
+
+
+
+s32 vm_adVolumeIoControl( vm_adToken_e i__e_Token, 
+                           vm_adVolumeCtrlCode_e i__e_ControlCode,
+                           void *io__p_Buffer,
+                           u32 i__u32_BufferSize);
+
+s32 vm_adFormat2( vm_adToken_e        i__e_Token,
+                  vm_adFormatMode_e   i__e_Mode, 
+                  u32                *io__pu32_Handle,
+                  u32                *o__pu32_Progress);
+
+#endif /* ! _79af2e73421b2df58050f3b0db71d5af_INCLUDED_VM_AD_HI   */

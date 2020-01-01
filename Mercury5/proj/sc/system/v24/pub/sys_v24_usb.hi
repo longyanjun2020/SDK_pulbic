@@ -1,0 +1,97 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_usb.hi                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : USB V.24 Interface header                                     */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 17/04/02 |  ARG   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+
+#ifndef __SYS_V24_USB_HI__
+#define __SYS_V24_USB_HI__
+
+#ifdef __USB_CDC_TOTO__
+
+#include "usb_ser.hi"
+
+
+#define V24_USB_POWER_UP_USB()          USB_POWER_UP_USB()
+#define V24_USB_POWER_DOWN_USB()        USB_POWER_DOWN_USB()
+
+#define V24_USB_READ_LCR()              (usb_V24DataType - WORD_LENGTH_DATA_OFFSET) | /* bit 0 et 1 */ \
+									                      ((usb_V24NbStopBit >> 1) << 2)              | /* bit 2 */      \
+                                        ((usb_V24ParityType != V24_NO_PARITY) << 3) | /* bit 3 */      \
+                                        (((usb_V24ParityType != V24_NO_PARITY) &                       \
+                                        ~(usb_V24ParityType & 0x01)) << 4)          | /* bit 4 */      \
+                                        ((usb_V24ParityType > 2) << 5)                /* bit 5 */      
+
+#define V24_USB_WRITE_LCR(a)            usb_V24DataType   = a + WORD_LENGTH_DATA_OFFSET;               \
+                                        usb_V24NbStopBit  = ((a & 0x0004) >> 2);                       \
+                                        usb_V24ParityType = (((a & (0x0003 << 4)) >> 1 + (a & 0x0008)) >> 3);
+
+#define V24_USB_READ_MSR()              ( (usb_bV24SignalCts << 4) | /* bit 4 <-> CTS */ \
+	                                        (usb_bV24SignalDsr << 5) ) /* bit 5 <-> DSR */
+
+#define V24_USB_WRITE_LSB_RATE(a)       (usb_V24Rate = a)
+#define V24_USB_WRITE_MSB_RATE(a)       (usb_V24Rate |= (a) << 8)
+
+#define V24_USB_WRITE_CHAR(a)           USB_WRITE_CHAR_ENDPOINT( NUM_ENDPOINT_IN, a)
+
+#define V24_USB_SET_DCD_ON()            { usb_bV24RxCarrier  = TRUE;  cdc_SerialState(); }
+#define V24_USB_SET_DCD_OFF()           { usb_bV24RxCarrier  = FALSE; cdc_SerialState(); }          
+#define V24_USB_SET_RI_ON()             { usb_bV24RingSignal = TRUE;  cdc_SerialState(); }         
+#define V24_USB_SET_RI_OFF()            { usb_bV24RingSignal = FALSE; cdc_SerialState(); }
+#define V24_USB_SET_DTR_ON()            { usb_bV24TxCarrier  = TRUE;  cdc_SerialState(); }
+#define V24_USB_SET_DTR_OFF()           { usb_bV24TxCarrier  = FALSE; cdc_SerialState(); }
+
+#define V24_USB_ENDPOINT_RX_NOT_EMPTY() USB_IS_RECEIVED_DATA_EP(NUM_ENDPOINT_OUT)
+#define V24_USB_ENDPOINT_RX_EMPTY()     ~USB_IS_RECEIVED_DATA_EP(NUM_ENDPOINT_OUT)
+#define V24_USB_ENDPOINT_TX_EMPTY()     (USB_IS_TXPKTREADY_EP(NUM_ENDPOINT_IN) == 0)
+
+#else //!__USB_CDC__
+
+#define V24_USB_POWER_UP_USB()
+#define V24_USB_POWER_DOWN_USB()
+
+#define V24_USB_READ_LCR()              (TRUE)  // just for compilation
+#define V24_USB_WRITE_LCR(a) 
+#define V24_USB_READ_MSR()              (TRUE)  // just for compilation
+
+#define V24_USB_WRITE_LSB_RATE(a) 
+#define V24_USB_WRITE_MSB_RATE(a) 
+
+#define V24_USB_WRITE_CHAR(a) 
+  
+#define V24_USB_SET_DCD_ON() 
+#define V24_USB_SET_DCD_OFF()
+#define V24_USB_SET_RI_ON() 
+#define V24_USB_SET_RI_OFF() 
+#define V24_USB_SET_DTR_ON()
+#define V24_USB_SET_DTR_OFF()
+
+#define V24_USB_ENDPOINT_RX_NOT_EMPTY() (TRUE)  // just for compilation
+#define V24_USB_ENDPOINT_RX_EMPTY()     (TRUE)  // just for compilation
+#define V24_USB_ENDPOINT_TX_EMPTY()     (TRUE)  // just for compilation
+ 
+#endif
+
+#endif // __SYS_V24_USB_HI__

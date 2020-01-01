@@ -1,0 +1,98 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_wbt.hi                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : interface stuff between V24 and BT.                           */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 02/03/05 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\itf\v24_wbt.hi-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.1            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.0            | Initial revision.                  
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_WBT_HI__
+#define __SYS_V24_WBT_HI__
+
+/*
+** Body of
+** V24_WBT_PORT_READY
+*/
+
+typedef struct
+{
+  u32 PortId;
+  void *wbt_Ctx;//is sent each time v24 has something to ask to WBT
+  void *v24_CreatedCtx;
+  u8  MaxCFC;
+  bool Status;
+}
+v24_wbt_v24PortReady_t;
+
+/*
+** Body of
+** WBT_V24_HCI_PACKET_READY
+*/
+typedef struct
+{
+  u8  HciPacketType;   // Contain the packet type
+  u32 HciPacketLength; // Contain the length of the buffer point by HciPacketBuffer
+  u8 *HciPacketBuffer; // Contain the data of the HCI packet
+} 
+wbt_HciPacketReady_t;
+
+/*
+** Body of
+** V24_WBT_DATA_REQ
+*/
+typedef struct
+{
+  void *wbt_Ctx;//is sent each time v24 has something to ask to WBT
+  u32 PortId;//not really needed...
+  u8* DataPtr;
+  u16 DataLen;
+}
+v24_wbt_DriversData2Send_t;
+
+
+/*
+** Body of
+** V24_WBT_SET_SIG
+*/
+typedef struct
+{
+  void*   wbt_Ctx;  //is sent each time v24 has something to ask to WBT
+  u32     Arg;
+  u8      ModemEvtType;
+}
+v24_wbt_ModemEvt2Send_t;
+
+#endif //__SYS_V24_WBT_HI__
+
+
+

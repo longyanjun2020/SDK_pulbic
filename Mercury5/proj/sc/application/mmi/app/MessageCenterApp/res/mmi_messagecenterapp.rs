@@ -1,0 +1,295 @@
+ApBegin(RS,CLSID_MCA)
+    WndBegin(MCA_WND_MAINMENU)
+        WdgBegin(CLSID_VTMMENU,vtmMainMenuWdg)
+            VtmCreateMenuRC({IMG_NULL_ID,TXT_LIL_N_MESSAGES,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT, WDG_MENU_CHECK_STYLE_NONE,0,0,0})
+        WdgEnd(CLSID_VTMMENU,vtmMainMenuWdg)
+    WndEnd(MCA_WND_MAINMENU)
+    
+#ifdef __SMS_MMI_SIM_MESSAGE_BOX_SUPPORT__    
+    WndBegin(MCA_WND_MAINBOXMENU)
+        WdgBegin(CLSID_VTMMENU,vtmMainBoxMenuWdg)
+            VtmCreateMenuRC({IMG_NULL_ID,TXT_NULL_ID,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT, WDG_MENU_CHECK_STYLE_NONE,0,0,0})
+        WdgEnd(CLSID_VTMMENU,vtmMainBoxMenuWdg)
+    WndEnd(MCA_WND_MAINBOXMENU)
+#endif
+
+	WndBegin(MCA_WND_NEWMSGMENU)
+        WdgBegin(CLSID_VTMMENU,vtmNewMsgMenuWdg)
+#ifdef __MMS_MMI_CDMMS__                            
+            VtmCreateMenuRC({IMG_NULL_ID,TXT_LIL_N_CREATE_NEW,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT, WDG_MENU_CHECK_STYLE_NONE,2,0,0})
+            VtmCreateMenuDataRC(2, { {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_SMS}, {IMG_NULL_ID, TXT_LIL_N_SMS} },
+                                            {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_MMS}, {IMG_NULL_ID, TXT_LIL_N_MMS} } })
+#else
+            VtmCreateMenuRC({IMG_NULL_ID,TXT_LIL_N_CREATE_NEW,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT, WDG_MENU_CHECK_STYLE_NONE,1,0,0})
+            VtmCreateMenuDataRC(1, { {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_SMS}, {IMG_NULL_ID, TXT_LIL_N_SMS} } })
+#endif
+        WdgEnd(CLSID_VTMMENU,vtmNewMsgMenuWdg)
+    WndEnd(MCA_WND_NEWMSGMENU)
+    
+#ifdef __SMS_MMI_SIM_MESSAGE_BOX_SUPPORT__
+    WndBegin(MCA_WND_SIMMSGBOXMENU)
+        WdgBegin(CLSID_VTMMENU,vtmSimMsgBoxMenuWdg)
+            VtmCreateMenuRC({IMG_NULL_ID,TXT_LIL_N_SMS,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT, WDG_MENU_CHECK_STYLE_NONE,2,0,0})
+            VtmCreateMenuDataRC(2, { {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_MASTER_SIM}, {IMG_NULL_ID, TXT_LIL_N_MASTER_SIM} },
+                                            {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_SLAVE_SIM}, {IMG_NULL_ID, TXT_LIL_N_SLAVE_SIM} } })
+        WdgEnd(CLSID_VTMMENU,vtmSimMsgBoxMenuWdg)
+    WndEnd(MCA_WND_SIMMSGBOXMENU)
+    
+    WndBegin(MCA_WND_NEW_MSG_BOX_SELECT_MENU)
+        WdgBegin(CLSID_VTMMENU,vtmNewMsgBoxSelectMenuWdg)
+            VtmCreateMenuRC({IMG_NULL_ID,TXT_MEL_N_NEW_MESSAGE,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT, WDG_MENU_CHECK_STYLE_NONE,0,0,0})
+        WdgEnd(CLSID_VTMMENU,vtmNewMsgBoxSelectMenuWdg)
+    WndEnd(MCA_WND_NEW_MSG_BOX_SELECT_MENU)
+#endif
+
+    WndBegin(MCA_WND_LISTMENU_BOX_TAB_VIEW)
+        WdgBegin(CLSID_VTMTABMENU,vtmBoxTabMenuWdg)
+            VtmCreateTabMenuRC( {IMG_NULL_ID, TXT_LTL_N_INBOX, 4} )
+            VtmCreateTabMenuDataRC( 4, {
+                  {SMS_IMG_TAB_INBOX, TXT_NULL_ID, WDG_MENU_TYPE_NORMAL,  WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, WDG_MENU_CHECK_STYLE_NONE, 0, 0, 0},
+                  {SMS_IMG_TAB_DRAFT_DISABLE, TXT_NULL_ID, WDG_MENU_TYPE_NORMAL,  WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, WDG_MENU_CHECK_STYLE_NONE, 0, 0, 0},
+                  {SMS_IMG_TAB_OUTBOX_DISABLE, TXT_NULL_ID, WDG_MENU_TYPE_NORMAL,  WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, WDG_MENU_CHECK_STYLE_NONE, 0, 0, 0},
+                  {SMS_IMG_TAB_SENTBOX_DISABLE, TXT_NULL_ID, WDG_MENU_TYPE_NORMAL,  WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, WDG_MENU_CHECK_STYLE_NONE, 0, 0, 0} } )
+        WdgEnd(CLSID_VTMTABMENU,vtmBoxTabMenuWdg)
+    WndEnd(MCA_WND_LISTMENU_BOX_TAB_VIEW)
+
+	WndBegin(MCA_WND_LISTMENU_NORMAL_VIEW)
+        WdgBegin(CLSID_VTMMENU,vtmBoxNormalMenuWdg)
+            VtmCreateMenuRC({ IMG_NULL_ID,TXT_LIL_N_CELL_BROADCAST,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT,WDG_MENU_CHECK_STYLE_NONE,0,0,0})
+        WdgEnd(CLSID_VTMMENU,vtmBoxNormalMenuWdg)
+    WndEnd(MCA_WND_LISTMENU_NORMAL_VIEW)
+
+	WndBegin(MCA_WND_LISTMENU_DUALSIM_TAB_VIEW)
+        WdgBegin(CLSID_VTMTABMENU,vtmDualSimTabWdg)
+            VtmCreateTabMenuRC( {IMG_NULL_ID, TXT_LTL_N_SIM_MESSAGE, 2} )
+            VtmCreateTabMenuDataRC( 2, {
+                  {SMS_IMG_TAB_INBOX, TXT_NULL_ID, WDG_MENU_TYPE_NORMAL,  WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, WDG_MENU_CHECK_STYLE_NONE, 0, 0, 0},
+                  {SMS_IMG_TAB_DRAFT_DISABLE, TXT_NULL_ID, WDG_MENU_TYPE_NORMAL,  WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, WDG_MENU_CHECK_STYLE_NONE, 0, 0, 0} } )
+        WdgEnd(CLSID_VTMTABMENU,vtmDualSimTabWdg)
+    WndEnd(MCA_WND_LISTMENU_DUALSIM_TAB_VIEW)
+
+	WndBegin(MCA_WND_LISTMENU_ONESIM_TAB_VIEW)
+        WdgBegin(CLSID_VTMTABMENU,vtmOneSimTabWdg)
+            VtmCreateTabMenuRC( {IMG_NULL_ID, TXT_LTL_N_SIM_MESSAGE, 1} )
+            VtmCreateTabMenuDataRC( 1, { {SMS_IMG_TAB_INBOX, TXT_NULL_ID, WDG_MENU_TYPE_NORMAL,  WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, WDG_MENU_CHECK_STYLE_NONE, 0, 0, 0} })
+        WdgEnd(CLSID_VTMTABMENU,vtmOneSimTabWdg)
+    WndEnd(MCA_WND_LISTMENU_ONESIM_TAB_VIEW)
+
+	WndBegin(MCA_WND_SETTINGMENU)
+        WdgBegin(CLSID_VTMMENU, vtmSettingMenuWdg)
+#ifdef __MMS_MMI_CDMMS__                            
+            VtmCreateMenuRC( {IMG_NULL_ID,TXT_LIL_N_SETTINGS,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_TEXT_THEMETEXT, WDG_MENU_CHECK_STYLE_NONE,4,0,0} )
+            VtmCreateMenuDataRC(4, {
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_SET_SMS}, {TXT_LIL_N_SMS, TXT_NULL_ID} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_SET_MMS}, {TXT_LIL_N_MMS, TXT_NULL_ID} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_SET_CELL_BROADCAST}, {TXT_LIL_N_CELL_BROADCAST, TXT_NULL_ID} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_SET_VOICE_MAIL}, {TXT_LIL_N_VOICE_MAIL, TXT_NULL_ID} } })
+#else
+            VtmCreateMenuRC( {IMG_NULL_ID,TXT_LIL_N_SETTINGS,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_TEXT_THEMETEXT, WDG_MENU_CHECK_STYLE_NONE,3,0,0} )
+            VtmCreateMenuDataRC(3, {
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_SET_SMS}, {TXT_LIL_N_SMS, TXT_NULL_ID} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_SET_CELL_BROADCAST}, {TXT_LIL_N_CELL_BROADCAST, TXT_NULL_ID} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_SET_VOICE_MAIL}, {TXT_LIL_N_VOICE_MAIL, TXT_NULL_ID} } })
+#endif
+        WdgEnd(CLSID_VTMMENU,vtmSettingMenuWdg)
+   WndEnd(MCA_WND_SETTINGMENU)
+
+   WndBegin(MCA_WND_MEMSTATUS)
+        WndSetTitleRC(IMG_NULL_ID,TXT_LIL_N_MEMORY_STATUS)
+        WndSetAllSoftkeyRC({SK_NONE, SK_NONE, SK_CLOSE})
+
+        WdgBegin(CLSID_VIEWPORTWIDGET,MemViewportWdg)
+            WdgViewportCreateForWndRC({{0,MAIN_TITLE_HEIGHT},{MAIN_LCD_WIDTH,MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT},10,ALIGN_H_START|ALIGN_V_MIDDLE})
+        WdgEnd(CLSID_VIEWPORTWIDGET,MemViewportWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,PhoneMsgSmsTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_SMS_PHONE)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,PhoneMsgSmsTextWdg)
+        
+#ifdef __SMS_MMI_SIM_MESSAGE_BOX_SUPPORT__
+        WdgBegin(CLSID_TEXTWIDGET,PhoneHiddenMsgSmsTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_HIDDEN_MESSAGE)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,PhoneHiddenMsgSmsTextWdg)
+#endif
+#ifdef __MMS_MMI_CDMMS__   
+        WdgBegin(CLSID_TEXTWIDGET,PhoneMsgMmsTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_MMS)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,PhoneMsgMmsTextWdg)
+#endif
+        WdgBegin(CLSID_TEXTWIDGET,PhoneMsgCBTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LTL_N_CB)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,PhoneMsgCBTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,PhoneMsgWAPTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_WAP_PUSH_PHONE)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,PhoneMsgWAPTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,SimMsgTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_SIM_MESSAGE_MEMORY)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,SimMsgTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,SimMsgSingleTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LTL_N_SMS)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,SimMsgSingleTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,SimMsgMasterTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_SMS_MASTER_SIM)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,SimMsgMasterTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,SimMsgSlaveTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_SMS_SLAVE_SIM)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,SimMsgSlaveTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MobileMemTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_MESSAGE_RAI_STORAGE)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MobileMemTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MobileUsedTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_USED)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MobileUsedTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MobileAvailableTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_AVAILABLE)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MobileAvailableTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MobileTotalTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_TOTAL)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MobileTotalTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MMSMemTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_MMS_STORAGE)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MMSMemTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MMSUsedTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_USED)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MMSUsedTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MMSAvailableTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_AVAILABLE)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MMSAvailableTextWdg)
+
+        WdgBegin(CLSID_TEXTWIDGET,MMSTotalTextWdg)
+            WdgTextCreateForWndRC({{0,0},{0,0},TEXT_STYLE_COMMON})
+            WdgTextSetDataByIDRC(TXT_LIL_N_TOTAL)
+            WdgTextSetFontHeightRC(MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT)
+        WdgEnd(CLSID_TEXTWIDGET,MMSTotalTextWdg)
+    WndEnd(MCA_WND_MEMSTATUS)
+
+	WndBegin(MCA_WND_DUALSIMMENU)
+        WdgBegin(CLSID_VTMSIMSELECTION, vtmLoadDualSimMenu)
+            VtmCreateSimSelectionRC({IMG_NULL_ID,TXT_LTL_N_SEND})
+        WdgEnd(CLSID_VTMSIMSELECTION,vtmLoadDualSimMenu)
+    WndEnd(MCA_WND_DUALSIMMENU)
+    
+    WndBegin(MCA_WND_CHATLISTMENU)
+        WdgBegin(CLSID_VTMMENU, vtmChatListMenuWdg)            
+              VtmCreateMenuRC({IMG_NULL_ID,TXT_LIL_N_SMS_CHAT,
+              WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT, 
+              WDG_MENU_CHECK_STYLE_NONE,0,0,0})
+        WdgEnd(CLSID_VTMMENU, vtmChatListMenuWdg)
+    WndEnd(MCA_WND_CHATLISTMENU)
+
+    #ifdef __MMI_SMS_CHAT__
+    WndBegin(MCA_WND_CHATITEMMENU)
+		WndSetAllSoftkeyRC({SK_OPTION, SK_SEND_MSG, SK_CANCEL})
+		WndSetTitleRC( {IMG_NULL_ID,TXT_LIL_N_SMS } )
+		WdgBegin(CLSID_INPUTWIDGET,ChatItemInputWdg)
+            WdgInputCreateForWndRC({ {SMS_CHAT_INPUT_X,SMS_CHAT_INPUT_Y},{SMS_CHAT_INPUT_WIDTH,SMS_CHAT_INPUT_HEIGHT},{TRUE,SKBOARD_ENABLE} })
+            WdgInputSetModeMaskRC(MAE_MODEMASK_PHB_SEARCH)
+            WdgInputSetCurrentInputModeRC(MAE_INPUTMODE_MT_abc_EN)
+            WdgInputSetShowBorderWhenLoseFocusRC(TRUE)
+            WdgInputSetMaxByteLengthRC(SMS_CHAT_INPUT_WIDTH)        
+        WdgEnd(CLSID_INPUTWIDGET,ChatItemInputWdg)
+        
+        WdgBegin(CLSID_VIEWPORTWIDGET,ChatItemViewportWdg)
+            WdgViewportCreateForWndRC({{0,0},{MAIN_LCD_WIDTH,MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT-SMS_CHAT_INPUT_BG_IMAGE_HEIGHT},10,ALIGN_H_START|ALIGN_V_TOP})
+        WdgEnd(CLSID_VIEWPORTWIDGET,ChatItemViewportWdg)
+        
+        WdgBegin(CLSID_IMAGEWIDGET,ChatItemBGImageWidget)
+        	WdgImageCreateForWndRC({ {0,0},{MAIN_DEFVIEW_WIDTH,MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT-SMS_CHAT_INPUT_BG_IMAGE_HEIGHT},IMAGE_STYLE_COMMON,{FALSE,SMS_BG} })
+            WdgImageSetDataByIDRC(SMS_BG)
+            WdgCommonSetAlignmentRC(ALIGN_H_CENTER|ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_IMAGEWIDGET,ChatItemBGImageWidget)
+        
+        WdgBegin(CLSID_IMAGEWIDGET,ChatItemInputBGImageWidget)
+        	WdgImageCreateForWndRC({ {0,0},{MAIN_DEFVIEW_WIDTH,SMS_CHAT_INPUT_BG_IMAGE_HEIGHT},IMAGE_STYLE_COMMON,{FALSE,SMS_INPUT_BG} })
+            WdgImageSetDataByIDRC(SMS_INPUT_BG)
+            WdgCommonSetAlignmentRC(ALIGN_H_CENTER|ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_IMAGEWIDGET,ChatItemInputBGImageWidget)
+    WndEnd(MCA_WND_CHATITEMMENU)
+    #endif
+    
+	WndBegin(MCA_WND_SEARCHBOXMENU)
+        WdgBegin(CLSID_VTMMENU, vtmSearchBoxMenuWdg)
+            VtmCreateMenuRC( {IMG_NULL_ID,TXT_LIL_N_SEARCH_SMS,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT, WDG_MENU_CHECK_STYLE_NONE,4,0,0} )
+            VtmCreateMenuDataRC(4, {
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_INBOX}, {IMG_NULL_ID, TXT_LTL_N_INBOX} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_DRAFT_BOX}, {IMG_NULL_ID, TXT_LTL_N_DRAFT_BOX} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_OUTBOX}, {IMG_NULL_ID, TXT_LTL_N_OUTBOX} }, \
+              {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, MNU_MSG_MCA_SENT_BOX}, {IMG_NULL_ID, TXT_LTL_N_SENT_BOX} } })
+        WdgEnd(CLSID_VTMMENU,vtmSearchBoxMenuWdg)
+    WndEnd(MCA_WND_SEARCHBOXMENU)    
+
+    WndBegin(MCA_WND_SEARCHLISTVIEW)
+        WndSetTitleRC( {IMG_NULL_ID,TXT_LIL_N_SEARCH_SMS } )
+        WndSetAllSoftkeyRC({SK_ADD, SK_OK, SK_CANCEL})
+
+        WdgBegin(CLSID_MENUWIDGET,ListMenuWidget)
+            WdgMenuCreateForWndRC( { {0,MAIN_TITLE_HEIGHT},{MAIN_DEFVIEW_WIDTH,MAIN_DEFVIEW_HEIGHT- MAIN_TITLE_HEIGHT- MAIN_LCD_ONELINE_HEIGHT}, WDG_MENU_TYPE_NORMAL })
+        WdgEnd(CLSID_MENUWIDGET,ListMenuWidget)
+
+        WdgBegin(CLSID_IMAGEWIDGET,SearchBGImageWidget)
+        	WdgImageCreateForWndRC({ {0,0},{MAIN_DEFVIEW_WIDTH,PHBAP_INPUT_SEARCH_HEIGHT},IMAGE_STYLE_COMMON,{FALSE,PHONEBOOK_IMG_SEARCH_BG} })
+            WdgImageSetDataByIDRC(PHONEBOOK_IMG_SEARCH_BG)
+            WdgCommonSetAlignmentRC(ALIGN_H_CENTER|ALIGN_V_MIDDLE)
+        WdgEnd(CLSID_IMAGEWIDGET,SearchBGImageWidget)
+
+        WdgBegin(CLSID_IMAGEWIDGET,SearchButtonWdg)
+            WdgImageCreateForWndRC({ {PHBAP_INPUT_SEARCH_IMG_X,PHBAP_INPUT_SEARCH_IMG_Y},{PHBAP_INPUT_SEARCH_IMG_WIDTH,PHBAP_INPUT_SEARCH_IMG_HEIGHT},IMAGE_STYLE_COMMON,{FALSE,PHONEBOOK_IMG_SEARCH} })
+            WdgImageSetDataByIDRC(PHONEBOOK_IMG_SEARCH)
+        WdgEnd(CLSID_IMAGEWIDGET,SearchButtonWdg)
+
+        WdgBegin(CLSID_INPUTWIDGET,SearchInputWdg)
+            WdgInputCreateForWndRC({ {PHBAP_INPUT_SEARCH_INPUT_X,PHBAP_INPUT_SEARCH_INPUT_Y},{PHBAP_INPUT_SEARCH_INPUT_WIDTH,PHBAP_INPUT_SEARCH_INPUT_HEIGHT},{TRUE,SKBOARD_ENABLE} })
+            WdgInputSetModeMaskRC(MAE_MODEMASK_PHB_SEARCH)
+            WdgInputSetCurrentInputModeRC(MAE_INPUTMODE_MT_abc_EN)
+            WdgInputSetShowBorderWhenLoseFocusRC(TRUE)
+            WdgInputSetMaxByteLengthRC(PHBAP_INPUT_SEARCH_INPUT_WIDTH)        
+        WdgEnd(CLSID_INPUTWIDGET,SearchInputWdg)
+    WndEnd(MCA_WND_SEARCHLISTVIEW)
+       
+ApEnd(RS,CLSID_MCA)
+
+

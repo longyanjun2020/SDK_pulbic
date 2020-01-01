@@ -1,0 +1,103 @@
+/******************************************************************/
+/*  File    : obx_obex.hp                                         */
+/*-------------------------------------------------------------   */
+/*  Scope   : Prototypes of all the functions in OBEX             */
+/*                                                                */
+/*  Content :	                                                   */
+/*                                                                */
+/*--------------------------------------------------------------  */
+/*   Date       | Author |      Err  |        Modification        */
+/*--------------+--------+-----------+--------------------------  */
+/*  20/06/2001  |  MPR   |           |        Creation            */
+/*--------------+--------+-----------+--------------------------- */
+/******************************************************************/
+/* $LogWavecom: G:\projet\gsm\pvcsarch\archives\obex\inc\obx_obex.hp-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
++ * ----------+--------+----------------+-------------------------------------
+ *  17.10.03 | mse    | 1.5.1.9        | .  Resolution for 16227: OBEX conte
+ *           |        |                | xt released too soon (before receiv
+ *           |        |                | ing the media OFF message)  Resolut
+ *           |        |                | ion for 16228: OBEX optimization (i
+ *           |        |                | ncrease the max OBEX packet size)  
+ * ----------+--------+----------------+-------------------------------------
+ *  13.10.03 | mse    | 1.5.1.8        | .  Resolution for 16102: Modificati
+ *           |        |                | ons for SYNCML over V24 or USB     
+ * ----------+--------+----------------+-------------------------------------
+ *  15.09.03 | mse    | 1.5.1.7        | For OSS .  Resolution for 15250: OB
+ *           |        |                | EX: Added and changed comments for 
+ *           |        |                | OSS                                
+ * ----------+--------+----------------+-------------------------------------
+ *  11.08.03 | mse    | 1.5.1.6        | . Resolution for 13764: obex proble
+ *           |        |                | m in fragmentation  Resolution for 
+ *           |        |                | 13977: Obex problem in Get request 
+ * ----------+--------+----------------+-------------------------------------
+ *  27.06.03 | mse    | 1.5.1.5        | obex as a task  Resolution for 1209
+ *           |        |                | 2: OBEX as a task                  
+ * ----------+--------+----------------+-------------------------------------
+ *  06.05.03 | mse    | 1.5.1.1        | corrected Bug in Connect corrected 
+ *           |        |                | Bug in Disconnect one way Get Added
+ * ----------+--------+----------------+-------------------------------------
+ *  05.05.03 | mse    | 1.5.1.0        | OBEX with a modified interface with
+ *           |        |                |  MMT and a new interface with SyncM
+ *           |        |                | L                                  
+ * ----------+--------+----------------+-------------------------------------
+ *  21.08.02 | mpr    | 1.5            | Add Log modification to avoid pbs i
+ *           |        |                | n the end of files.                
+ * ----------+--------+----------------+-------------------------------------
+*/
+#ifndef __OBX_OBEX_HP__
+#define __OBX_OBEX_HP__
+
+
+void Obex_ConnectReq(void);
+void Obex_ConnectInd(u8 *UserDataPtr, u8 Length);
+void Obex_ConnectRsp(void);
+void Obex_DisconnectReq(void);
+void Obex_DisconnectInd(void);
+void Obex_DisconnectRsp(void);
+void Obex_DataInd(void);
+void Obex_Obex_PutGetRsp(u8 Response);
+void Obex_PutReq(void);
+void Obex_PutInd(u8 * DataPtr, u8 Command);
+void Obex_PutRsp(void);
+void Obex_FinalPutReq(void);
+void Obex_GetInd(u8 * DataPtr);
+void Obex_GetReq(void);
+void Obex_GetRsp(void);
+void Obex_Obex_ConnectRsp(u8 Response);
+void Obex_Appli_GetRsp(u8 *DataPtr);
+void Obex_Irda_DisconnectInd(void);
+void Obex_AbortInd(void);
+void Obex_AbortRsp(void);
+void Obex_MediaOffReq(void);
+void Obex_MediaOnReq(void);
+void Obex_InitVar(void);
+
+
+/************************************/
+/*   obx_util.c                     */
+/************************************/
+
+u8 * Obex_GetMemory( u16 Length );
+bool _Obex_ReleaseMemory( void ** Ptr );
+u8   Obex_Decode(u8 *DataPtr, u16 Tab[5][2]);
+u8   Obex_FindTarget(u8 *UserDataPtr, u16 *size);
+void Obex_InitCtx(void);
+
+/************************************/
+/*   obx_send.c                     */
+/************************************/
+bool obx_ResBuffer ( u16 Length);
+void obx_SendBuffer( void );
+void Obex_DataReqSnd(u8* DataPtr, u16 size, u16 offset);
+void Obex_IrdaConnectRspSnd(u8 Response);
+void Obex_IrdaDisconnectRspSnd(u8 Param);
+void Obex_Appli_ConnectIndSnd(u8 *UserDataPtr, u16 size);
+void Obex_Appli_ConnectRspSnd(u8 *UserDataPtr, u16 Length );
+void Obex_IrdaMediaReqSnd(void);
+void Obex_Appli_DisconnectRspSnd(u8 response);
+void Obex_Appli_PutRspSnd(u8 Response);
+void Obex_Appli_MediaOnRspSnd(u8 Response);
+
+#endif /* __OBX_OBEX_HP__ */

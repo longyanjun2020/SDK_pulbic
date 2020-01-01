@@ -1,0 +1,207 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// ("MStar Confidential Information") by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+#ifndef    __WAP_DEFINE_HI__ //to prevent from re-including
+#define    __WAP_DEFINE_HI__
+#ifdef     __WAP_MMI_CDWAP__
+
+#if defined (__ONBOARD_USER_STORAGE_MMI__)
+#define		CDW_DOWNLOAD_FOLDER_PHONE	     L"fs:/PHON/Download/"
+#ifdef __NAND_MMI__
+#define		CDW_DOWNLOAD_UCS2FOLDER_PHONE    L"/NAND/Download"
+#define		CDW_DOWNLOAD_UTF8FOLDER_PHONE	 "/NAND/Download"
+#else
+#define		CDW_DOWNLOAD_UCS2FOLDER_PHONE    L"/NOR0/Download"
+#define		CDW_DOWNLOAD_UTF8FOLDER_PHONE	 "/NOR0/Download"
+#endif  // __NAND_MMI__
+#endif
+#define		CDW_DOWNLOAD_UCS2FOLDER		     L"/CARD/Download"
+#define		CDW_DOWNLOAD_UTF8FOLDER		     "/CARD/Download"
+
+#define		CDW_DOWNLOAD_UCS2FOLDER2	     L"/SD_2/Download"
+#define		CDW_DOWNLOAD_UTF8FOLDER2	     "/SD_2/Download"
+
+#ifdef DB_USING_OMA_DOWNLOAD
+#ifdef __NAND_MMI__
+#define		CDW_DRM_DOWNLOAD_UCS2FOLDER_PHONE    L"/NAND/.Temp"
+#define		CDW_DRM_DOWNLOAD_UTF8FOLDER_PHONE	 "/NAND/.Temp"
+#else
+#define		CDW_DRM_DOWNLOAD_UCS2FOLDER_PHONE    L"/NOR0/.Temp"
+#define		CDW_DRM_DOWNLOAD_UTF8FOLDER_PHONE	 "/NOR0/.Temp"
+#endif  // __NAND_MMI__
+
+#define 	CDW_DRM_DOWNLOAD_UCS2FOLDER		 	 L"/CARD/.Temp"
+#define		CDW_DRM_DOWNLOAD_UTF8FOLDER		     "/CARD/.Temp"
+
+#define		CDW_DRM_DOWNLOAD_UCS2FOLDER2	     L"/SD_2/.Temp"
+#define		CDW_DRM_DOWNLOAD_UTF8FOLDER2	     "/SD_2/.Temp"
+
+#define		CDW_BUFFER_FACTOR_DRM 				 2				// drm need real space x 2 to download and decrypt
+#endif// DB_USING_OMA_DOWNLOAD
+
+#define		CDW_BUFFER_FACTOR_NORMAL			 1				// normal file need real space x 1 to download
+
+#define WAP_CACHE_SIZE_TCARD                1024 * 1024
+#define WAP_BROWSER_PATH_TCARD     	    "/CARD/.system/WapExplorer/Browser/"
+
+#ifdef __NAND_MMI__  //__ONBOARD_USER_STORAGE_MMI__
+#define WAP_BROWSER_PATH        "/NAND/.system/WapExplorer/Browser/"
+#define WAP_CACHE_SIZE          100 * 1024
+#else
+#define WAP_BROWSER_PATH        "/NOR0/.system/WapExplorer/Browser/"	// NOR path
+#define WAP_CACHE_SIZE          30 * 1024								// NOR cache size
+#endif  //__NAND_MMI__
+
+#define BROWSER_MAX_PAGE_INDEX   400              /**< maxium index per screen page */
+#define INQUIRY_MEM_SIZE         900*1024        /**< the first block memory size to  be allocated */
+#define INQUIRY_MEM_STEP         50*1024
+#define INQUIRY_MEM_TIMES        5
+#define WAP_MSG_CONTROL_FACTOR   0.6 /* When MMI Mailbox reaches 60%, we will pause WAP Task for 0.1 sec */
+#define WAP_MSG_CONTROL_FACTOR_HIGH   0.8 /* When MMI Mailbox reaches 80%, we will pause WAP Task for 1 sec */
+
+//#define __WAP_TIME_ANALYSIS__ //For debug and performance testing only
+#define __WAP_TASK_MAILBOX_FLOW_CONTROL__ //Only 1.02h0(and above) platform software can turn this compile option on
+#define __HTML__
+
+#ifdef __WAP_WRITE_TIME_ANALYSIS__
+#include "mmi_util_rtc.h"
+#endif
+
+#ifndef MAX
+    #define  MAX( x, y ) ( ((x) > (y)) ? (x) : (y) )
+#endif
+
+typedef struct
+{
+    u32  semID;
+	s8* pOutUserAgent;
+	u32 nMaxLen;
+    u32 *pRetCode;
+} WapCurrentUAInfo_t;
+
+typedef struct
+{
+    u32  semID;
+	s8** ppOutUserAgent;
+	u32 *pLen;
+    u32 *pRetCode;
+} WapCurrentUAInfoEx_t;
+
+typedef struct
+{
+    u32     type;                           /* Event type          */
+    u32     x;                              /* Event x             */
+    u32     y;                              /* Event y             */
+    u32     DataLen;                        /* Event Data lenght   */
+    void*   pData;                          /* Event Data pointer  */
+} WapEvent_t;
+
+#define WAPEVENTBASE 0x00880000
+
+//PLEASE don't change these values
+#define WAP_EVT_MISC_FILTER           0x0000
+#define WAP_EVT_CONFIG_FILTER         0x0100                        /**< event filter */
+#define WAP_EVT_DISPLAY_FILTER        0x0200
+#define WAP_EVT_ACTION_FILTER         0x0400
+#define WAP_EVT_CACHE_FILTER          0x0800
+
+#define WAP_EVT_MISC_BASE             (WAPEVENTBASE + WAP_EVT_MISC_FILTER   )
+#define WAP_EVT_CONFIG_BASE           (WAPEVENTBASE + WAP_EVT_CONFIG_FILTER )        /**< config service layer event base number */
+#define WAP_EVT_DISPLAY_BASE          (WAPEVENTBASE + WAP_EVT_DISPLAY_FILTER)        /**< dispaly service event base number */
+#define WAP_EVT_ACTION_BASE           (WAPEVENTBASE + WAP_EVT_ACTION_FILTER )        /**< action response event base number */
+#define WAP_EVT_CACHE_BASE            (WAPEVENTBASE + WAP_EVT_CACHE_FILTER  )        /**< cache service layer event base number */
+
+enum
+{
+    CDW_STORAGE_CARD,
+    CDW_STORAGE_PHONE,
+    CDW_STORAGE_CARD2
+};
+typedef u8 CDW_STORAGE_e;
+
+#ifdef __WLAN_MMI__
+enum
+{
+    CDW_WIFI_ONLY=0,
+    CDW_GPRS_ONLY=1,
+    CDW_WIFI_PREFERRED=2,
+    CDW_GPRS_PREFERRED=3
+};
+typedef u8 CDW_CONNECTSET_e;
+// refer to ConSetting_ConnectSet_e
+#endif
+
+typedef enum
+{
+    WAP_ERROR_SUCCESS,                             /**< Operation success */
+    WAP_ERROR_UNKNOWN,
+    WAP_ERROR_INVALIDURL,                          /**< Invalid url */
+    WAP_ERROR_TIMER,                               /**< Can't startup timer */
+    WAP_ERROR_TOPMOST,                             /**< Current page position is already topmost */
+    WAP_ERROR_BOTTOMMOST,                          /**< Current page position is already  bottommost */
+    WAP_ERROR_FIRST,                               /**< No forward page */
+    WAP_ERROR_LAST,                                /**< No back page */
+    WAP_ERROR_NOTACTIVED,                          /**< Browser current page is not existed */
+    WAP_ERROR_NOTINPAGE,                           /**< The first visible nod index is not in current page */
+    WAP_ERROR_NOMEMORY,                            /**< No memory to use */
+    WAP_ERROR_NOSPACE,                             /**< No space to save file */
+    WAP_ERROR_FILETOOLARGE,                        /**< Downloading file is too large to download */
+    WAP_ERROR_TYPE,                                /**< Display element type error */
+    WAP_ERROR_DATA,                                /**< Invalid data*/
+    WAP_ERROR_CONVERT,                             /**< Converting string error */
+    WAP_ERROR_FILE,                                /**< File operation failure */
+    WAP_ERROR_RETRY,
+    WAP_ERROR_PARAMETER,                           /**< Parameter is invalid */
+    WAP_ERROR_SETTING,                             /**< Some error related to setting(such as netsetting..) */
+    WAP_ERROR_NETWORK,                             /**< Some error related to network */
+    WAP_ERROR_CONFIG,                               /**< Configure error, maybe save failed etc. */
+    WAP_ERROR_NO_MIME,                               /**< download error, cant' get extern name */
+    WAP_ERROR_NO_TCARD
+}WapErrCode_e;
+
+typedef enum
+{
+	WTAI_ERROR_SUCCESS        = 0,
+
+	// WTAI define
+	WTAI_ERROR_UNSPECIFIED    = -1,     /**< unspecified error */
+	WTAI_ERROR_NAME_TO_LONG   = -100,   /**< name parameter is unacceptable or too long */
+	WTAI_ERROR_NUMBER_TO_LONG = -102,   /**< number parameter is too long */
+	WTAI_ERROR_PHB_WRITE      = -103,   /**< phonebook entry could not be written */
+	WTAI_ERROR_PHB_FULL       = -104,   /**< phonebook is full */
+	WTAI_ERROR_CALL_BUSY      = -105,   /**< called party is busy */
+	WTAI_ERROR_NETWORK        = -106,   /**< network is not available */
+	WTAI_ERROR_NO_ANSWER      = -107,   /**< called party did not answer */
+	WTAI_ERROR_NO_ACTIVE_CALL = -108,   /**< could not send DTMF because no active voice connection */
+	WTAI_ERROR_INVOCATION     = -200,   /**< invocation error */
+
+	// Mstar define
+	WTAI_ERROR_BAD_PARAM      = -2,   /**< invalid WTAI parameters */
+	WTAI_ERROR_OUT_OF_MEMORY  = -3,   /**< memory is not enough to complete the operation */
+	WTAI_ERROR_NOT_SUPPORTED  = -4    /**< the request is not supported */
+} WtaiErrCode_e;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef void (*WAPEVTHANDLER)(WapEvent_t* we);
+
+#ifdef  __cplusplus
+}
+#endif //  extern "C"
+#endif //__WAP_MMI_CDWAP__
+#endif //__WAP_DEFINE_HI__

@@ -1,0 +1,290 @@
+#ifndef __UNFD_B5_RTK_H__
+#define __UNFD_B5_RTK_H__
+
+
+#define UNFD_ST_PLAT             0x80000000
+#define IF_IP_VERIFY             0 // [CAUTION]: to verify IP and HAL code, defaut 0
+#define FTL_FIRST_BLOCK          10
+
+#include <stdio.h>
+#include <string.h>
+#ifdef __I_SW__
+#include "sys_sys_isw_uart.h"
+#else
+#include "sys_traces.ho"
+#include "sys_sys_tools.h"
+#endif
+#include "datatype.h"
+#include "hwreg.h"
+#include "kernel.h"
+#include "drv_clkgen_cmu.h"
+
+#define NC_SEL_FCIE3             1
+#if NC_SEL_FCIE3
+#include "drvNAND_reg_v3.h"
+#else
+#error "Error! no FCIE registers selected."
+#endif
+
+#include "drvNAND_bkgnd_task.h"
+
+#if IF_IP_VERIFY
+// select a default NAND chip for IP_VERIFY or NAND_PROGRAMMER
+//#define K9F4G08X0A            1
+//#define K9F1G08X0B             1
+//#define K9F1G08X0C            1
+//#define H27UAS08561   1
+//#define H27UAG8T2M         1
+//#define H27UF081G2A            0
+//#define PIUXGA30AT 1
+//#define K511F12ACA			 0
+//#define TY8A0A111162KC40       0
+//#define K522H1GACE             0
+//#define TY890A111229KC40       0
+//#define H8ACU0CE0DAR           0
+//#define H9LA25G25HAMBR           0
+//#define NAND256W3A 1
+//#define NAND512W3A2C     1
+//#define NAND_IF_WORD_MODE        0
+#define TY9A0A111443KA   1
+#include "drvNAND_device.h"
+#endif
+
+#define IF_FCIE_SHARE_PINS       1 // 1: need to nand_pads_switch at HAL's functions.
+#define IF_FCIE_SHARE_CLK        1 // 1: need to nand_clock_setting at HAL's functions.
+#define IF_FCIE_SHARE_IP         1
+
+#if defined(__CORE_SOFTWARE__)
+#define ENABLE_NAND_INTERRUPT_MODE    0
+#else
+#define ENABLE_NAND_INTERRUPT_MODE     1
+#endif
+
+// define for MIU_LAST_DONE
+#define NC_REG_MIU_LAST_DONE_ST  NC_MIE_EVENT
+#define NC_CLR_MIU_LAST_DONE()      REG_W1C_BITS_UINT16(NC_REG_MIU_LAST_DONE_ST, BIT_MIU_LAST_DONE)
+#define NC_MASK_INT_MIU_LAST_DONE() REG_CLR_BITS_UINT16(NC_MIE_INT_EN, BIT_MIU_LAST_DONE)
+
+#define REG50_ECC_CTRL_INIT_VALUE   (BIT_NC_SHARE_PAD_EN)
+#define REG30_TEST_MODE_INIT_VALUE  0x5800
+
+#define ECC_ALLOWED_MAX_BITS_CNT     3
+#define DEBUG_ASSERT_PARTITION_TYPE  UNFD_PART_CUS
+
+//#define NC_ECO_FIX                  NC_REG_57h
+
+#define NC_MMA_PRI_REG_SET_W()        REG_CLR_BITS_UINT16(NC_MMA_PRI_REG, BIT_NC_MIU_CLK_EN_SW | BIT_NC_MIU_CLK_EN_HW | BIT_NC_MIU_CTRL_SW); REG_SET_BITS_UINT16(NC_MMA_PRI_REG, BIT_NC_DMA_DIR_W|BIT_NC_MIU_BURST_8|BIT_NC_MIU_CTRL_SW|BIT_NC_MIU_CLK_EN_SW);
+#define NC_MMA_PRI_REG_SET_R()        REG_CLR_BITS_UINT16(NC_MMA_PRI_REG, BIT_NC_DMA_DIR_W | BIT_NC_MIU_CLK_EN_SW | BIT_NC_MIU_CLK_EN_HW | BIT_NC_MIU_CTRL_SW); REG_SET_BITS_UINT16(NC_MMA_PRI_REG,BIT_NC_MIU_BURST_8|BIT_NC_MIU_CTRL_SW|BIT_NC_MIU_CLK_EN_SW); 
+
+
+#define NC_HAL_POST_HANDLER()        {REG_CLR_BITS_UINT16(NC_MMA_PRI_REG, BIT_NC_MIU_CLK_EN_SW);}
+
+#define NAND_DRIVER_ROM_VERSION     0 // to save code size
+#define AUTO_FORMAT_FTL             0
+
+#define ENABLE_CUS_READ_ENHANCEMENT   1
+
+#define __VER_UNFD_FTL__            1 
+
+//=====================================================
+// Nand Driver configs
+//=====================================================
+//#define NAND_BUF_USE_STACK       0
+#define NAND_ENV_FPGA            1
+#define NAND_ENV_ASIC            2
+
+#ifdef __FPGA_MODE__
+#define NAND_DRIVER_ENV          NAND_ENV_FPGA
+#else
+#define NAND_DRIVER_ENV          NAND_ENV_ASIC
+#endif
+
+#define UNFD_CACHE_LINE   0x20
+//=====================================================
+// tool-chain attributes
+//=====================================================
+#define UNFD_PACK0        __packed 
+#define UNFD_PACK1        
+#define UNFD_ALIGN0       __align(UNFD_CACHE_LINE)
+#define UNFD_ALIGN1       
+
+
+
+//=====================================================
+// debug option
+//=====================================================
+#define NAND_TEST_IN_DESIGN      1             /* [CAUTION] */
+
+#ifndef NAND_DEBUG_MSG
+#define NAND_DEBUG_MSG           1
+#endif
+
+/* Define trace levels. */
+#define UNFD_DEBUG_LEVEL_ERROR			(1)    /* Error condition debug messages. */
+#define UNFD_DEBUG_LEVEL_WARNING		(2)    /* Warning condition debug messages. */
+#define UNFD_DEBUG_LEVEL_HIGH		    (3)    /* Debug messages (high debugging). */
+#define UNFD_DEBUG_LEVEL_MEDIUM	        (4)    /* Debug messages. */
+#define UNFD_DEBUG_LEVEL_LOW		    (5)    /* Debug messages (low debugging). */
+
+/* Higer debug level means more verbose */
+#ifndef UNFD_DEBUG_LEVEL
+#define UNFD_DEBUG_LEVEL         UNFD_DEBUG_LEVEL_WARNING
+#endif
+
+#if defined(NAND_DEBUG_MSG) && NAND_DEBUG_MSG
+#ifdef __I_SW__
+#define nand_printf	UartSendTrace
+#define nand_debug(dbg_lv, tag, str, ...)				\
+	do {												\
+		if (dbg_lv > UNFD_DEBUG_LEVEL)				\
+			break;									\
+		else {										\
+			if (tag)									\
+				nand_printf((const char *)"[ %30s() ] ", __func__);	\
+													\
+			nand_printf((const char *)str, ##__VA_ARGS__);			\
+		}											\
+	} while(0)
+#else
+extern unsigned char IsRtkReady (void);
+extern u32 backtrace_entry_counter_check(void);
+extern void sys_UartPrintf(const char *fmt, ...);
+#define nand_printf sys_UartPrintf
+extern void KER_ERROR_DIAGNOSE (u32 id, char *fmt, ...);
+#define nand_debug(dbg_lv, tag, str, ...) \
+	do { \
+		if (dbg_lv > UNFD_DEBUG_LEVEL) \
+			break; \
+		else { \
+			{ \
+				if (tag)									\
+					nand_printf((const char *)"[ %30s() ] ", __func__);	\
+														\
+				nand_printf((const char *)str, ##__VA_ARGS__);			\
+			} \
+			if (tag)									\
+				KER_ERROR_DIAGNOSE (_CUS12|LEVEL_12, (char*)__func__); \
+			KER_ERROR_DIAGNOSE (_CUS12|LEVEL_12, (char*)str, ##__VA_ARGS__); \
+		} \
+	} while(0)
+#endif
+
+
+#else /* NAND_DEBUG_MSG */
+#define nand_printf(...)
+#define nand_debug(enable, tag, str, ...)      {}
+#endif /* NAND_DEBUG_MSG */
+
+static __inline void nand_assert(int condition)
+{
+	if (!condition) {
+#ifdef __I_SW__
+		while(1)
+			;
+#else
+		_ERROR((_CUS2|LEVEL_5|FATAL, "UNFD Assert"));
+#endif
+	}
+}
+
+extern void nand_save_dbg_info(void);
+#define nand_die() \
+	do { \
+		nand_printf(__func__); \
+		nand_printf("\nUNFD Assert(%d)", __LINE__); \
+		nand_save_dbg_info(); \
+		nand_assert(0); \
+	} while(0);
+
+#define nand_stop()
+//=====================================================
+// HW Timer for Delay
+//=====================================================
+#define HW_TIMER_DELAY_1us	    1
+#define HW_TIMER_DELAY_10us     10
+#define HW_TIMER_DELAY_100us	100
+#define HW_TIMER_DELAY_1ms	    (1000 * HW_TIMER_DELAY_1us)
+#define HW_TIMER_DELAY_5ms	    (5    * HW_TIMER_DELAY_1ms)
+#define HW_TIMER_DELAY_10ms	    (10   * HW_TIMER_DELAY_1ms)
+#define HW_TIMER_DELAY_100ms	(100  * HW_TIMER_DELAY_1ms)
+#define HW_TIMER_DELAY_500ms	(500  * HW_TIMER_DELAY_1ms)
+#define HW_TIMER_DELAY_1s	    (1000 * HW_TIMER_DELAY_1ms)
+
+extern void delay_us( unsigned us );
+extern U32  nand_hw_timer_delay(U32 u32usTick);
+
+//=====================================================
+// Pads Switch
+//=====================================================
+//#define PADCRTL_ADDR   (0x74000000+(0x1980<<2))
+//#define PADCRTL        GET_REG_ADDR(PADCRTL_ADDR, 0x0B)
+extern U32 nand_pads_switch(U32 u32EnableFCIE);
+
+
+//=====================================================
+// set FCIE clock
+//=====================================================
+#define NFIE_CLK_187_5K		187500
+#define NFIE_CLK_750K		750000
+#define NFIE_CLK_6M			6000000
+#define NFIE_CLK_10_4M		10400000
+#define NFIE_CLK_13M		13000000
+#define NFIE_CLK_19_5M		19500000
+#define NFIE_CLK_22_286M	22286000
+#define NFIE_CLK_26M		26000000
+#define NFIE_CLK_31_2M		31200000
+#define NFIE_CLK_34_6M		34600000
+#define NFIE_CLK_39M		39000000
+#define NFIE_CLK_44_57M		44570000
+#define NFIE_CLK_52M		52000000
+#define NFIE_CLK_62_4M		62400000
+#define NFIE_CLK_69_3M		69300000
+
+#define FCIE3_SW_DEFAULT_CLK  NFIE_CLK_26M//NFIE_CLK_34_67M
+#define NAND_SEQ_ACC_TIME_TOL 10 //in unit of ns
+
+#define MPLL_CLK_REG_BASE_ADDR   (0x74000000+(0x1F00<<2))
+#define reg_mclk_fcie             GET_REG_ADDR(MPLL_CLK_REG_BASE_ADDR, 0x53)
+
+
+extern U32  nand_clock_setting(U32 u32ClkParam);
+
+#define reg_mdcg_live             GET_REG_ADDR(MPLL_CLK_REG_BASE_ADDR, 0x48)
+#define reg_mdcg_dyn              GET_REG_ADDR(MPLL_CLK_REG_BASE_ADDR, 0x49)
+
+
+//=====================================================
+// transfer DMA Address
+//=====================================================
+#define MIU_BUS_WIDTH_BITS       3 // 8 bytes aligned
+/*
+ * Important:
+ * The following buffers should be large enough for a whole NAND block
+ */
+// FIXME, this is only for verifing IP
+/* Here we assume that the block size is not larger than 512KB */
+#define DMA_MEM_BASE     0x0C000000
+
+#define DMA_W_ADDR       (DMA_MEM_BASE + 0x00500000)
+#define DMA_R_ADDR       (DMA_MEM_BASE + 0x00550000)
+#define DMA_W_SPARE_ADDR (DMA_MEM_BASE + 0x00600000)
+#define DMA_R_SPARE_ADDR (DMA_MEM_BASE + 0x00650000)
+#define DMA_BAD_BLK_BUF  (DMA_MEM_BASE + 0x00700000)
+
+//=====================================================
+// misc
+//=====================================================
+//#define BIG_ENDIAN
+#define LITTLE_ENDIAN
+
+typedef struct NAND_DRIVER_PLATFORM_DEPENDENT
+{
+	U8 		*pu8_PageSpareBuf;
+	U8		*pu8_PageDataBuf;
+	U32		u32_DMAAddrOffset;
+	U32		u32_RAMBufferOffset;
+	U32		u32_RAMBufferLen;
+
+}NAND_DRIVER_PLAT_CTX, *P_NAND_DRIVER_PLAT;
+
+#endif /* __UNFD_B5_RTK_H__ */

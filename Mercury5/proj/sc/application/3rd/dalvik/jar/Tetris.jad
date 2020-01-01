@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+MIDlet-Data-Size: 2048
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Name: Tetris
+MIDlet-Icon: icon.png
+Created-By: Projgen
+MIDlet-Vendor: Electronic Arts, Inc.
+MIDlet-1: Tetris, icon.png, Tetris
+MIDlet-Version: 4.13.21
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Description: Tetris by Electronic Arts, Inc.
+MIDlet-Touch-Support: True
+UseNativeTextButtons: false
+ReverseSoftkeys: true
+UseNativeCommands: false
+LGE-MIDlet-TargetLCD-Height: 300
+LGE-MIDlet-TargetLCD-Width: 240
+MIDlet-Jar-Size: 304390
+MIDlet-Jar-URL: Tetris.jar

@@ -1,0 +1,136 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="VOICEMEMO_WND_RECORDER_INIT_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="VoiceMemoRecorderStatusTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="VOICEMEMOAPP_RECORDER_STATUS_TEXTWIDGET_HEIGHT" SizeWidth="VOICEMEMOAPP_RECORDER_STATUS_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="VOICEMEMOAPP_RECORDER_STATUS_TEXTWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="VOICEMEMOAPP_RECORDER_STATUS_TEXTWIDGET_Y_POSITION" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_FHL_N_START_RECORDING" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE" />
+				<InternProp Id="GUID" Value="a2236" />
+			</Widget>
+			<Widget Id="VoiceMemoRecorderTimeTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_HEIGHT" SizeWidth="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_Y_POSITION" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NUM_SMALL" />
+				<InternProp Id="GUID" Value="4d1eb" />
+			</Widget>
+			<Widget Id="VoiceMemoRecorderProgressWdg" ClsID="CLSID_PROGRESSWIDGET" SizeHeight="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_HEIGHT" SizeWidth="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_Y_POSITION" />
+				<Property Id="PROP_PROGRESS_WDG_PROGRESS_REPEAT" Value="TRUE" />
+				<Property Id="PROP_PROGRESS_WDG_AUTO_PROGRESS_ON_OFF" Value="TRUE" />
+				<Property Id="PROP_PROGRESS_WDG_TOTAL" Value="0" />
+				<Property Id="PROP_PROGRESS_WDG_PREFER_CELL_WIDTH" Value="0" />
+				<Property Id="PROP_PROGRESS_WDG_PREFER_CELL_TOTAL_NUM" Value="0" />
+				<Property Id="PROP_PROGRESS_WDG_PREFER_CELL_REPEAT_NUM" Value="1" />
+				<InternProp Id="GUID" Value="83e37" />
+			</Widget>
+			<InternProp Id="GUID" Value="7cccf" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<Property Id="PROP_LEFT_SK" Value="SK_RECORED_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value=" SK_RECORD" />
+		<Property Id="PROP_RIGHT_SK" Value=" SK_QUIT" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_VOICE_MEMO&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="VOICEMEMO_WND_RECORDER_PLAYER_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="VoiceMemoPlayerInfoTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="VOICEMEMOAPP_PLAYER_INFO_TEXTWIDGET_HEIGHT" SizeWidth="VOICEMEMOAPP_RECORDER_STATUS_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="VOICEMEMOAPP_RECORDER_STATUS_TEXTWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="VOICEMEMOAPP_RECORDER_STATUS_TEXTWIDGET_Y_POSITION" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_FHL_N_RECORDING" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<InternProp Id="GUID" Value="913e4" />
+			</Widget>
+			<Widget Id="VoiceMemoPlayerElapsedTimeTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_HEIGHT" SizeWidth="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="VOICEMEMOAPP_PLAYER_ELAPSEDTIME_TEXTWIDGET_Y_POSITION" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_RED_5" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NUM_SMALL" />
+				<InternProp Id="GUID" Value="8cd7d" />
+			</Widget>
+			<Widget Id="VoiceMemoPlayerTotalTimeTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_HEIGHT" SizeWidth="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="VOICEMEMOAPP_RECORDER_TIME_TEXTWIDGET_Y_POSITION" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NUM_SMALL" />
+				<InternProp Id="GUID" Value="83b83" />
+			</Widget>
+			<Widget Id="VoiceMemoPlayerProgressWdg" ClsID="CLSID_PROGRESSWIDGET" SizeHeight="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_HEIGHT" SizeWidth="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="VOICEMEMOAPP_RECORDER_PROGRESS_PROGRESSWIDGET_Y_POSITION" />
+				<Property Id="PROP_PROGRESS_WDG_PROGRESS_REPEAT" Value="FALSE" />
+				<Property Id="PROP_PROGRESS_WDG_AUTO_PROGRESS_ON_OFF" Value="FALSE" />
+				<Property Id="PROP_PROGRESS_WDG_TOTAL" Value="0" />
+				<Property Id="PROP_PROGRESS_WDG_PREFER_CELL_WIDTH" Value="0" />
+				<Property Id="PROP_PROGRESS_WDG_PREFER_CELL_TOTAL_NUM" Value="0" />
+				<Property Id="PROP_PROGRESS_WDG_PREFER_CELL_REPEAT_NUM" Value="1" />
+				<InternProp Id="GUID" Value="359f4" />
+			</Widget>
+			<InternProp Id="GUID" Value="e0e16" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_VOICE_MEMO&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value=" SK_PLAY" />
+		<Property Id="PROP_RIGHT_SK" Value=" SK_QUIT" />
+	</Layout>
+	<Layout Id="VOICEMEMO_WND_RECORDER_PLAYER_OPTION_VIEW" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_VOICEMEMO_RECORDER_PLAY" />
+						<String Id="TXT_OIL1_N_PLAY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_VOICEMEMO_RECORDER_NEW" />
+						<String Id="TXT_OIL1_N_NEW" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_VOICEMEMO_RECORDER_DELETE" />
+						<String Id="TXT_OIL1_N_DELETE" />
+					</MenuItem>
+				</Model>
+				<InternProp Id="GUID" Value="161c4" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="d3ef6" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="VtmId" Value="VtmOptionMenu" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_VOICEMEMOAPP" />
+</UiRoot>

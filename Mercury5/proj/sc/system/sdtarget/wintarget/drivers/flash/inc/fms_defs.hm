@@ -1,0 +1,191 @@
+/****************************************************************************/
+/*  $Workfile::   fms_defs.hm                                             $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Flash Memory Services                                         */
+/*            Target and platform related macro definitions                 */
+/*  Contents:                                                               */
+/****************************************************************************/
+
+#ifndef __FMS_DEFS_HM__
+#define __FMS_DEFS_HM__
+
+#include "fms.hi"
+/****************************************************************************/
+/* Extraneous warnings sanitization                                         */
+/****************************************************************************/
+#ifdef _WIN32
+#pragma warning (disable : 4127) // conditional expression is constant
+#pragma warning (disable : 4214) // nonstandard extension used : bit field types other than int
+#pragma warning (disable : 4068) // unknown pragma
+#pragma warning (disable : 4053) // one void operand for '?:'
+#endif // _WIN32
+/****************************************************************************/
+/* Assertions and other panic stuffs                                        */
+/****************************************************************************/
+#ifdef FMS_DEBUG
+#define PANIC(s)  { printf ("["__FILE__ ":%d] PANIC @ " s "\n", __LINE__); exit (-1); }
+#define ASSERT(e) if (!(e)){ PANIC ("assertion "#e" failed !!!") }
+#ifdef __TARGET__
+#define FMS_FAILEDINIT   fms_FatalException
+#else
+#define FMS_FAILEDINIT printf ("["__FILE__ ":%d] INIT FAILURE\n", __LINE__); 1 ? exit(-1), (void)0 : fms_FatalException
+#endif
+#else
+#define ASSERT(e)
+#if (defined(__TARGET__) && !defined(__DOWNLOADER__))
+#define PANIC(s) fms_Panic(s);
+#define FMS_FAILEDINIT fms_FatalException
+#else
+#include "dwl.hi"
+
+#define PANIC(s) { DWL_DEBUG(s); exit (-1); };
+#define FMS_FAILEDINIT fms_FatalException
+#endif
+#endif // FMS_DEBUG
+
+/*
+ * this macro shall not be used in nominal code, only in test-specific modules
+ */
+#define HARD_ASSERT(e) if (!(e)){ PANIC ("assertion "#e" failed !!!"); }
+
+#ifdef __EXPORT_ALL__
+#define FMS_STATIC
+#else
+#define FMS_STATIC static
+#endif // __EXPORT_ALL__
+
+
+/****************************************************************************/
+/* COMPILERS STUFF                                                          */
+/****************************************************************************/
+
+#ifdef __GNUC__ /* Gnu C compiler */
+#define FMS_ZERO_SIZE_ARRAY 0
+
+#define FMS_INLINE static inline
+#define FMS_PACKED
+#define FMS_PURE
+#define FMS_WEAK
+
+
+#elif defined(_MSC_VER) /* Visual C++, ...etc */
+
+#define FMS_ZERO_SIZE_ARRAY 1
+#define FMS_INLINE __inline
+#define FMS_PACKED
+#define FMS_PURE
+#define FMS_WEAK
+
+
+#ifndef FMS_DEBUG
+extern int shut_your_stinkin_trap(char * fmt, ...);
+#define printf 1?(void)0:shut_your_stinkin_trap
+#endif // FMS_DEBUG
+
+#elif defined(__ARMCC_VERSION)  /* ARMCC */
+
+/* Specific function or data attributes */
+#define FMS_INLINE __inline
+#define FMS_PACKED __packed
+#define FMS_PURE   __pure
+#define FMS_WEAK   __weak
+
+/* Any version lower than 1.2 is rejected */
+#if __ARMCC_VERSION < 120000
+#error This version of ARM C Compiler is too old!
+#endif
+
+#define FMS_ZERO_SIZE_ARRAY
+
+#elif defined(S_SPLINT_S)
+
+/* Secure programming lint */
+
+#define FMS_ZERO_SIZE_ARRAY 1
+#define FMS_INLINE
+#define FMS_PACKED
+#define FMS_PURE
+#define FMS_WEAK
+
+#else
+
+#error Unknown compiler
+#endif /* Compilers */
+
+extern u32 fms_flash_base_addr;
+/****************************************************************************/
+/* TARGET RELATED STUFF                                                     */
+/****************************************************************************/
+#define FMS_FLASH_BASE_ADDR fms_flash_base_addr // the constant was replaced by a global variable
+#define FMS_FLASH_MAGICNUM 0x11223344
+#define FMS_FLASH_WINTARGET_VERSION_ADDR (fms_flash_base_addr + 0x1090)
+#define FMS_FLASH_WINTARGET_VERSION_ADDR1 (fms_flash_base_addr + 0x1084) //for E2P Cus bank removed
+#define FMS_FLASH_WINTARGET_VERSION_ADDR_TRC (fms_flash_base_addr + 0x1084) //for backtrace 8k size check
+#define FMS_FLASH_WINTARGET_NEWLAYOUT_VER 0x03050500
+#define FMS_FLASH_WINTARGET_NEWLAYOUT_VER1 0x00000001 //for E2P Cus bank removed
+#define FMS_FLASH_WINTARGET_NEWLAYOUT_VER_TRC 0x02 //for backtrace 8k size check
+#define FMS_FLASH_WINTARGET_NEWLAYOUT_VER_RAIENTRYEXT 0x03 //for RAI entry extension
+
+#ifdef __DUAL_SPI_FLASH__
+#define FMS_FLASH_EMBED_SPI_FLASH_SIZE 0x400000
+#endif //__DUAL_SPI_FLASH__
+
+//#define FMS_ADDR_KEEPHIGH(_X_)    ((_X_) & ~0xFFFFFFUL)
+//#define FMS_ADDR_KEEPHIGH(_X_)    ((_X_) & ~0x1FFFFFFUL) // max 32m
+#define FMS_ADDR_KEEPHIGH(_X_)  ((_X_) & ~0x3FFFFFFUL) // max 64m
+
+//#define FMS_UNEXPAND_BASE(_X_) (FMS_ADDR_KEEPHIGH(_X_)>>25) // max 32m
+//#define FMS_EXPAND_BASE(_X_) ((_X_)<<25)  // max 32m
+
+#define FMS_UNEXPAND_BASE(_X_) (FMS_ADDR_KEEPHIGH(_X_)>>26) // max 64m
+#define FMS_EXPAND_BASE(_X_) ((_X_)<<26) // max 64m
+
+//#define FMS_ADDR_KEEPLOW(_X_) (((unsigned int)(_X_)) & 0xFFFFFFUL)
+//#define FMS_ADDR_KEEPLOW(_X_) (((unsigned int)(_X_)) & 0x1FFFFFFUL) // max 32m
+#define FMS_ADDR_KEEPLOW(_X_)   (((unsigned int)(_X_)) & 0x3FFFFFFUL) // max 64m
+/****************************************************************************/
+/* COMMON CONSTANTS                                                         */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/* COMMON MACRO FUNCTIONS                                                   */
+/****************************************************************************/
+
+#define FMS_MIN(_X_,_Y_) ( (_X_) < (_Y_) ? (_X_) : (_Y_) )
+#define FMS_MAX(_X_,_Y_) ( (_X_) > (_Y_) ? (_X_) : (_Y_) )
+#define FMS_INTERSECT(_X_, _X_SIZE_, _Y_, _Y_SIZE_) \
+    (((_X_) < ((_Y_) + (_Y_SIZE_))) && ((_Y_) < ((_X_) + (_X_SIZE_))))
+
+#ifdef __TARGET__
+#define FMS_MALLOC RtkGetHeapMemory
+#define FMS_FREE RtkReleaseHeapMemory
+#define FMS_POOL_MALLOC RtkGetMemory
+#define FMS_POOL_FREE RtkReleaseMemory
+#define FMS_LOCK(X)  RtkSemRtkReadyConsume(X)
+#define FMS_UNLOCK(X)   RtkSemRtkReadyProduce(X)
+#else
+#  include <stdlib.h>
+#  define FMS_MALLOC      malloc
+#  define FMS_FREE        free
+#  define FMS_POOL_MALLOC malloc
+#  define FMS_POOL_FREE   free
+#  define FMS_LOCK(X)
+#  define FMS_UNLOCK(X)
+#endif // __TARGET__
+
+/****************************************************************************/
+/* TRACE LEVELS                                                             */
+/****************************************************************************/
+
+/* The LEVEL_X macros are defined in traces.ho */
+
+#define LVL_MAP      LEVEL_0
+#define LVL_CORE     LEVEL_1
+#define LVL_E2P      LEVEL_2
+#define LVL_RAI      LEVEL_3
+#define LVL_TRACE    LEVEL_4
+#define LVL_AD       LEVEL_5
+
+
+#endif /*  __FMS_DEFS_HM__ not defined  */

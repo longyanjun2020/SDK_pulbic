@@ -1,0 +1,6 @@
+replace ./../mak/options_%product_name%.mak QQ_SOLUTION off
+replace ./../mak/options_8533c_yk701.mak TOUCH_SCREEN_SUPPORT off
+replace ./../mak/options_8533c_yk701d.mak TOUCH_SCREEN_SUPPORT off
+replace ./../mak/options_%product_name%.mak VIDEO_RTSP_STREAMING_SUPPORT off
+replace ./../mak/options_%product_name%.mak VIDEO_RTSP_STREAMING_SUPPORT off
+replace ./../mak/options_%product_name%.mak WLAN_SUPPORT off

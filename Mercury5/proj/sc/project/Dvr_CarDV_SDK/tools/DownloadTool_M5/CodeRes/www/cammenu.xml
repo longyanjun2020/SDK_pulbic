@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<camera xmlns="urn:schemas-ait-dvr:device-1-0">
+	<version>0.1</version>
+	<menu title="VIDEO RESOLUTION" id="Videores">
+		<item id="1080P60">FHD 60fps</item>
+		<item id="1080P30">FHD 30fps</item>
+		<item id="720P60">HD 60fps</item>
+		<item id="720P30">HD 30fps</item>
+	</menu>
+	<menu title="CAPTURE RESOLUTION" id="Imageres">
+		<item id="3MP">3M Pixels</item>
+		<item id="2MP">2M Pixels</item>
+		<item id="1.2MP">1.2M Pixels</item>
+		<item id="VGA">0.3M Pixels</item>
+	</menu>
+	<menu title="LOOPING VIDEO" id="LoopingVideo">
+		<item id="OFF">Off</item>
+		<item id="1MIN">1 min</item>
+		<item id="2MIN">2 min</item>
+		<item id="3MIN">3 min</item>
+		<item id="5MIN">5 min</item>
+		<item id="10MIN">10 min</item>
+		<item id="25MIN">25 min</item>
+	</menu>
+	<menu title="WHITE BALANCE" id="AWB">
+		<item id="AUTO">Auto</item>
+	</menu>
+	<menu title="UPSIDEDOWN" id="UpsideDown">
+		<item id="Normal">Off</item>
+		<item id="Upsidedown">On</item>
+	</menu>
+	<menu title="SPOT METER" id="SpotMeter">
+		<item id="OFF">Off</item>
+	</menu>
+	<menu title="Q-SHOT" id="Q-SHOT">
+		<item id="OFF">Off</item>
+	</menu>
+	<menu title="SOUND INDICATOR" id="SoundIndicator">
+		<item id="OFF">Off</item>
+	</menu>
+	<menu title="POWSER SAVING" id="PowerSaving">
+		<item id="OFF">Off</item>
+		<item id="1MIN">1 min</item>
+		<item id="2MIN">2 min</item>
+		<item id="5MIN">5 min</item>
+	</menu>
+	<menu title="TV" id="TVSystem">
+		<item id="NTSC">NTSC</item>
+		<item id="PAL">PAL</item>
+	</menu>
+	<menu title="UI Mode" id="UIMode">
+		<item id="VIDEO">Video Mode</item>
+	</menu>
+	<menu title="BootUp Mode" id="DefMode">
+		<item id="VIDEO">Video Mode</item>
+	</menu>
+	<menu title="SYNC TIME" id="SyncTime">
+	</menu>
+</camera>

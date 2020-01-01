@@ -1,0 +1,72 @@
+/****************************************************************************/
+/*  $Workfile::   fms_cus.hi                                              $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services                                        */
+/*             EEPROM simulation - Public header file                       */
+/*  Contents:                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   0.4  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   kod    $         |     $Date::   24 Nov 2004 15:53:00 $     */
+/****************************************************************************
+ *   $Log:   U:/projet/gsm/pvcsarch/archives/fms/itf/fms_cus.hi-arc  $
+ *
+ *   Rev 0.4   24 Nov 2004 15:53:00   kod
+ *Resolution for 26275: Two allocations with undefined size are allowed
+ *Resolution for 26611: [FMS] Xmodem downloader needs some FMS modifications
+ *Version v1a18
+ *
+ *   Rev 0.3   Mar 02 2004 16:21:42   kod
+ *Fixed fms_E2pBuildCusMirror function name.
+ *Resolution for 19477: [FMS] Security and maintenance update
+ *
+ *   Rev 0.2   25 Feb 2003 11:59:58   kod
+ *Initial release for integration
+ ****************************************************************************/
+
+#ifndef __FMS_CUS_HI__
+#define __FMS_CUS_HI__
+
+#include "vm_types.ht"
+
+/****************************************************************************/
+/* MACRO FOR MIRROR UPDATE                                                  */
+/****************************************************************************/
+
+/**
+ *  @brief The enum defines the CUS type
+ */
+typedef enum {
+  FMS_CUS_LAN,     /**< Language pack CUS data */
+  FMS_CUS_SENSOR,  /**< Sensor Table CUS data */
+  FMS_CUS_RAI,     /**< RAI data */
+  FMS_CUS_DYNAMIC, /**< Dynamic CUS data */
+} fms_CusType_e;
+
+/**
+ *  @brief The sturcture defines the CUS data structure for application layer (MMI).
+ */
+typedef struct {
+  fms_CusType_e     cusType; /**< Type of CUS data */
+  u32               offset;  /**< Offset of CUS data */
+  u8               *pBuf;    /**< CUS data buffer */
+  u32               len;     /**< CUS data length */
+} fms_ReadCus_t;
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+/**
+ * @brief To read CUS data.
+ *
+ * @param ptReadCus   : CUS data information.
+ *
+ * @return FMS_OK            : Read success.
+ * @return FMS_FAIL          : Read fail.
+ */
+s32 fms_ReadCus(fms_ReadCus_t *ptReadCus);
+
+#endif /* __FMS_CUS_HI__ not defined  */
+

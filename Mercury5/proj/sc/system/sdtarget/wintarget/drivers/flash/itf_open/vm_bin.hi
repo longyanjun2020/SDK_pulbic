@@ -1,0 +1,140 @@
+
+/*  DO NOT EDIT!
+ *  THIS FILE HAS BEEN AUTOMATICALLY GENERATED FROM fms_bin.hi
+ */
+ 
+/****************************************************************************/
+/*  $Workfile::   vm_bin.hi                                               $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : OMMI interface                                                */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   1.2  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   kod    $         |     $Date::   Jun 07 2004 10:19:02 $     */
+/****************************************************************************
+ *   $LogWavecom: U:\projet\gsm\pvcsarch\archives\fms\itf_open\vm_bin.hi-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 30.07.03 | kod    | 1.1            | Some functions are now prevented fr
+ *          |        |                | om being exported.   Resolution for
+ *          |        |                |  12859: [FMS] Open the binary manag
+ *          |        |                | ement functions                    
+ *----------+--------+----------------+-------------------------------------
+ ****************************************************************************/
+
+
+#ifndef _3a7567ee7f8ccbf4e5def671530fd145_INCLUDED_VM_BIN_HI
+#define _3a7567ee7f8ccbf4e5def671530fd145_INCLUDED_VM_BIN_HI
+
+/****************************************************************************/
+/* SPECIFIC TYPES                                                           */
+/****************************************************************************/
+
+typedef enum
+{
+   VM_FMS_BIN_GSMSTACK,
+   VM_FMS_BIN_OPENAT,
+   VM_FMS_BIN_XMODEM
+} vm_binType_e;
+
+
+typedef struct
+{
+   u32            u32_Origin;
+   u32            u32_HighWater;
+   vm_binType_e  e_Type;
+} vm_binHandle_t;
+
+
+/****************************************************************************/
+/* SOME CONSTANTS ABOUT OPENAT BINARIES...                                  */
+/****************************************************************************/
+
+#define BINARY2_PATTERN_SIZE 4
+#define BINARY2_TYPE_SIZE 4
+#define BINARY2_VERSION_SIZE 8
+#define BINARY2_HEADER_SIZE  (BINARY2_PATTERN_SIZE + BINARY2_TYPE_SIZE + BINARY2_VERSION_SIZE)
+
+/****************************************************************************/
+/* ERROR CODES                                                              */
+/****************************************************************************/
+
+#ifndef VM_FMS_OK
+
+   #define VM_FMS_OK             0         
+   #define VM_FMS_UNDEFINED      0xFFFFFFFF
+   #define VM_FMS_BAD_ARGS       0xFFFFFFFE  /* Bad arguments (null pointer, etc...) */
+   #define VM_FMS_BAD_FUNCTION   0xFFFFFFFD  /* Invalid function call */
+   #define VM_FMS_FORBIDDEN      0xFFFFFFFC  /* Access denied or illegal operation attempt */
+   #define VM_FMS_OVERFLOW       0xFFFFFFF9  /* Overflow (memory exhausted,...) */
+   #define VM_FMS_REACHED_END    0xFFFFFFF6  /* No more elements to enumerate */
+   #define VM_FMS_NOT_AVAILABLE  0xFFFFFFF5  /* Function not available (no initialisation done or operation not supported) */
+
+   /* All other codes are internal or hardware related */
+
+#endif /* VM_FMS_OK not defined */
+
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function:  vm_binGetOrigin                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns the origin address in flash memory of the            */
+/*             selected code.                                               */
+/*                                                                          */
+/*  Return    : (s32) Address or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binGetOrigin(vm_binType_e i__e_Type);
+
+
+/****************************************************************************/
+/*  Function:  vm_binGetSize                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns the size of the selected binary                      */
+/*                                                                          */
+/*  Return    : (s32) Address or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binGetSize(vm_binType_e i__e_Type);
+
+
+
+/****************************************************************************/
+/*  Function: vm_binDestroy                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Destroy the selected binary                                   */
+/*                                                                          */
+/*  Return    : (s32) VM_FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binDestroy(vm_binType_e i__e_Type);
+
+
+
+#endif /* ! _3a7567ee7f8ccbf4e5def671530fd145_INCLUDED_VM_BIN_HI   */

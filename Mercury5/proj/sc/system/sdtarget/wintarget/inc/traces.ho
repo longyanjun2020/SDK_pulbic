@@ -1,0 +1,476 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 1994, 1995, 1996
+*/
+
+/****************************************************************************/
+/*  File    : traces.ho                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Trace and error stuff                                         */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 10.12.94 |  YFE   |      | Creation                                      */
+/*----------+--------+------+-----------------------------------------------*/
+/* 18.09.95 |  PGU   |      | - Common version for MMK and L1C              */
+/*          |        |      | - Change ALLOC_TRACE to __TRACE_VAR__         */
+/*          |        |      | - Add ERR_S and ERR_E to _ERROR macro         */
+/*          |        |      | - Change DIAGNOSE to __DIAGNOSE__             */
+/*----------+--------+------+-----------------------------------------------*/
+/* 29.05.96 |  PGU   |      | - ERR_S and ERR_E new values for KER_ERROR    */
+/*----------+--------+------+-----------------------------------------------*/
+/* 14.06.96 |  RDO   |      | - Replace HTM identifier by DATA identifier   */
+/*----------+--------+------+-----------------------------------------------*/
+/* 17.09.96 |  ADA   |      | - Add define for user trace level.            */
+/*          |        |      | - Datation prototype.                         */
+/*----------+--------+------+-----------------------------------------------*/
+/* 21.11.96 |  PGU   |      | - No more __SMALL_TRACES__                    */
+/*          |        |      | - No more __PRINTF_ON_TARGET__                */
+/*          |        |      | - Pre-processing tool for tiny traces         */
+/*----------+--------+------+-----------------------------------------------*/
+/* 14.04.97 |  PGU   |      | - Differents _ERROR (diagnose or not)         */
+/*----------+--------+------+-----------------------------------------------*/
+/* 15.05.97 |  YFE   |      | - Unix compatibility                          */
+/*----------+--------+------+-----------------------------------------------*/
+/* 15.09.97 |  PGU   |      | - No more __DUMP3__                           */
+/*----------+--------+------+-----------------------------------------------*/
+/* 05.10.99 |  PBA   |      | - modify _ERROR in case of __DOWNLOADER__     */
+/*----------+--------+------+-----------------------------------------------*/
+/* 03.01.00 |  NHI   |      | - replace KID, KIT, KAC by MMT, MMK, ATI      */
+/*----------+--------+------+-----------------------------------------------*/
+/* 24.01.00 |  FRK   |      | - suppress while(1) in ERROR for downloader   */
+/*----------+--------+------+-----------------------------------------------*/
+/* 03/05/00 |  FRK   |      | - update for TOOLS team                       */
+/*----------+--------+------+-----------------------------------------------*/
+/* 29/05/00 |  RDO   |      | - Added hooks for GPRS traces                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 10/08/00 |  PBA   |      | - Added identifiers for customer and control  */
+/*----------+--------+------+-----------------------------------------------*/
+/* 10/08/00 |  PBA   |      | - Added identifiers depending on task number  */
+/*----------+--------+------+-----------------------------------------------*/
+/* 04/10/00 |  MDZ   |      | - Added #define for Remote trace on PC        */
+/*----------+--------+------+-----------------------------------------------*/
+/* 12/12/00 |  LHO   |      | - suppress customer CUS and control trace CON */
+/*----------+--------+------+-----------------------------------------------*/
+/* 13/12/00 |  FDE   |      | - suppress useless _KID / _KAC / _KID         */
+/*----------+--------+------+-----------------------------------------------*/
+/* 19/01/01 |  FRK   |      | - suppress useless IR declaration             */
+/*----------+--------+------+-----------------------------------------------*/
+/* 06/02/01 |  LHO   |      | - add 8 new elements of trace                 */
+/*          |        |      | - define EXTENDED_LAST_SUBPROCESS,            */
+/*          |        |      | GSM_LAST_SUBPROCESS, GLOBAL_LAST_SUBPROCESS   */
+/*----------+--------+------+-----------------------------------------------*/
+/* 19/03/01 |  LHO   |      | - add trc_CustDiagnose, trc_CustLastSubprocess*/
+/*----------+--------+------+-----------------------------------------------*/
+/* 18/05/01 |  DLA   |      | - Add old _KID / _KAC / _KID for compatibility*/
+/****************************************************************************/
+
+#ifndef __TRACES_HO__
+#define __TRACES_HO__
+
+#ifndef __TARGET__
+#include <stdio.h>
+#include <stdarg.h>
+#endif
+
+#ifndef __STDCOMP_H__
+#include "stdcomp.h"
+#endif
+
+#ifndef __GEMASK_HC__
+#include "genmask.hc"
+#endif
+
+#ifdef __TRACES_VAR__
+#define DefExtern
+#else
+#define DefExtern extern
+#endif
+
+/*========================== general constants ===============================*/
+
+/*
+** =========================================================================
+**     ERROR / TRACE OFFSET DEFINITIONS
+**
+** for TRACE
+**
+**     +---------------------------------------------+
+**     | 1 |  4  |    7    |   6   |   6   |    8    |
+**     +---------------------------------------------+
+**       ^    ^       ^         ^       ^        ^
+**       |    |       |         |       |        +---- Trace id
+**       |    |       |         |       +------------- Trace level
+**       |    |       |         +--------------------- X coord on screen
+**       |    |       +------------------------------- Y coord on screen
+**       |    +--------------------------------------- Number of parameter
+**       +-------------------------------------------- Compressed format
+**
+**
+** for ERROR
+**
+**     +---+-----+-----+-+-+-+--------------------+
+**     | 1 |  4  |  3  |1 1 1|    8     |    8    |
+**     +---+-----+-----+-+-+-+--------------------+
+**       ^    ^     ^   ^ ^ ^     ^         ^
+**       |    |     |   | | |     |          +---- Error id
+**       |    |     |   | | |     +--------------- Error code
+**       |    |     |   | | +--------------------- Fatal / Warning
+**       |    |     |   | +----------------------- Eprom save
+**       |    |     |   +------------------------- Copy bit
+**       |    |     +----------------------------- Spare
+**       |    +----------------------------------- Number of parameter
+**       +---------------------------------------- Compressed format
+**
+** =========================================================================
+*/
+
+/*--------------------------- info macro --------------------------------*/
+#define SET_TRACE_INFO(X)   X
+
+/* well, well ... thanks to grouping = last parameter ... */
+#define GET_TRACE_INFO(X)   (GETMSK(X, 0, MASKL8))
+
+/*------------------------------ masks ----------------------------------*/
+
+#define GET_CODE(X)       GETMSK(X, 8, MASKL8)
+#define GET_LEVEL(X)      GETMSK(X, 8, MASKL5)
+#define SET_LEVEL(X)      ((u32) ((X & MASKL5) << 8))
+#define SET_CODE(X)       ((u32) ((X & MASKL8) << 8))
+#define GET_IDENT(X)      GETMSK(X, 0, MASKL8)
+#define SET_IDENT(X)      SET_TRACE_INFO(((u32) (X & MASKL8)))
+#define SET_COORD(X,Y)    (((u32) Y << 20) | ((u32) X << 14))
+#define GET_COORD(X)      ((X >> 14) & 0x3fff)
+#define GET_X(X)          ((u8) (X >> 14) & MASKL6)
+#define GET_Y(X)          ((u8) (X >> 20) & MASKL7)
+#define GET_COMPRESSED(X) GETMSK(X, 31, MASKL1)
+#define GET_SIZE(X)       GETMSK(X, 27, MASKL4)
+
+
+/*--------------------------- trace levels--------------------------------*/
+
+#define LEVEL_0  ((u32) (0x00 << 8))
+#define LEVEL_1  ((u32) (0x01 << 8))
+#define LEVEL_2  ((u32) (0x02 << 8))
+#define LEVEL_3  ((u32) (0x03 << 8))
+#define LEVEL_4  ((u32) (0x04 << 8))
+#define LEVEL_5  ((u32) (0x05 << 8))
+#define LEVEL_6  ((u32) (0x06 << 8))
+#define LEVEL_7  ((u32) (0x07 << 8))
+#define LEVEL_8  ((u32) (0x08 << 8))
+#define LEVEL_9  ((u32) (0x09 << 8))
+#define LEVEL_10 ((u32) (0x0A << 8))
+#define LEVEL_11 ((u32) (0x0B << 8))
+#define LEVEL_12 ((u32) (0x0C << 8))
+#define LEVEL_13 ((u32) (0x0D << 8))
+#define LEVEL_14 ((u32) (0x0E << 8))
+#define LEVEL_15 ((u32) (0x0F << 8))
+#define LEVEL_16 ((u32) (0x10 << 8))
+#define LEVEL_17 ((u32) (0x11 << 8))
+#define LEVEL_18 ((u32) (0x12 << 8))
+#define LEVEL_19 ((u32) (0x13 << 8))
+#define LEVEL_20 ((u32) (0x14 << 8))
+#define LEVEL_21 ((u32) (0x15 << 8))
+#define LEVEL_22 ((u32) (0x16 << 8))
+#define LEVEL_23 ((u32) (0x17 << 8))
+#define LEVEL_24 ((u32) (0x18 << 8))
+#define LEVEL_25 ((u32) (0x19 << 8))
+#define LEVEL_26 ((u32) (0x1A << 8))
+#define LEVEL_27 ((u32) (0x1B << 8))
+#define LEVEL_28 ((u32) (0x1C << 8))
+#define LEVEL_29 ((u32) (0x1D << 8))
+#define LEVEL_30 ((u32) (0x1E << 8))
+#define LEVEL_31 ((u32) (0x1F << 8))
+
+
+#define USER_LEV_0  (1 << 0)
+#define USER_LEV_1  (1 << 1)
+#define USER_LEV_2  (1 << 2)
+#define USER_LEV_3  (1 << 3)
+#define USER_LEV_4  (1 << 4)
+#define USER_LEV_5  (1 << 5)
+#define USER_LEV_6  (1 << 6)
+#define USER_LEV_7  (1 << 7)
+#define USER_LEV_8  (1 << 8)
+#define USER_LEV_9  (1 << 9)
+#define USER_LEV_10 (1 << 10)
+#define USER_LEV_11 (1 << 11)
+#define USER_LEV_12 (1 << 12)
+#define USER_LEV_13 (1 << 13)
+#define USER_LEV_14 (1 << 14)
+#define USER_LEV_15 (1 << 15)
+#define USER_LEV_16 (1 << 16)
+#define USER_LEV_17 (1 << 17)
+#define USER_LEV_18 (1 << 18)
+#define USER_LEV_19 (1 << 19)
+#define USER_LEV_20 (1 << 20)
+#define USER_LEV_21 (1 << 21)
+#define USER_LEV_22 (1 << 22)
+#define USER_LEV_23 (1 << 23)
+#define USER_LEV_24 (1 << 24)
+#define USER_LEV_25 (1 << 25)
+#define USER_LEV_26 (1 << 26)
+#define USER_LEV_27 (1 << 27)
+#define USER_LEV_28 (1 << 28)
+#define USER_LEV_29 (1 << 29)
+#define USER_LEV_30 (1 << 30)
+#define USER_LEV_31 (1 << 31)
+
+#define NTGT    (u32) 0x2000        /* trace level to specify NOT target */
+
+/*--------------------------- type of errors ----------------------------*/
+
+#define WARN    (u32) 0x00000000  /* just warning                  */
+#define FATAL   (u32) 0x00010000  /* fatal error, normally reset */
+#define STORE   (u32) 0x00020000  /* to be stored in eeprom      */
+#define COPY    (u32) 0x00040000  /* to be copied                  */
+
+/*--------------------------- Remote trace on PC ----------------------------*/
+
+#define TRACE_DEPORT_PC (u32) 0x4000	/* the string of the trace is on the PC and the target only send an ID */
+
+/*--------------------- source of trace and errors ---------------------*/
+
+/* diagstate of e2p stack */
+#define _L3RR SET_IDENT(0x00)
+#define _L3MM SET_IDENT(0x01)
+#define _L3CC SET_IDENT(0x02)
+#define _L3SS SET_IDENT(0x03)
+#define _L3SM SET_IDENT(0x04)
+#define _L3UT SET_IDENT(0x05)
+#define _LAPD SET_IDENT(0x06)
+#define _WTCH SET_IDENT(0x07)
+#define _SCEN SET_IDENT(0x07)   /* SCEN tese task          */
+#define _FMS  SET_IDENT(0x08)
+#define _E2P  _FMS
+#define _SIM  SET_IDENT(0x09)
+#define _HAP  SET_IDENT(0x0A)   /* HAPC                    */
+#define _DMP  SET_IDENT(0x0A)   /* same as HAPC            */
+
+#define _MMK  SET_IDENT(0x0B)   /* MMK layer (KID/KAC/KIT) */
+#define _MMT  SET_IDENT(0x0C)   /* MMT common APIs         */
+#define _MMI  SET_IDENT(0x0D)   /* MMI                     */
+#define _ATI  SET_IDENT(0x0E)   /* ATI & R&S Traces        */
+
+#define _SPV  SET_IDENT(0x0F)   /* supervisor              */
+#define _MSR  SET_IDENT(0x10)   /* measure task            */
+#define _DATA SET_IDENT(0x11)   /* DATA task               */
+#define _HAC  SET_IDENT(0x12)   /* entry /exit functions   */
+#define _UTC  SET_IDENT(0x13)   /* utilities               */
+#define _SEQ  SET_IDENT(0x14)   /* sequencer               */
+#define _L1C  SET_IDENT(0x15)   /* l1c global              */
+#define _HWL  SET_IDENT(0x16)   /* hardware layer          */
+#define _RTK  SET_IDENT(0x17)   /* RTK                     */
+#define LAST_SUBPROCESS   0x17           /* Size of the array DiagState (in stack e2p), minus one !!!*/
+                                         /* Do not change */
+
+/* extended diagstate of e2p stack */
+#define _OPEN  SET_IDENT(0x18)  /* open-mmi wavecom element */
+#define _CUS  SET_IDENT(0x19)   /* open-mmi customer element  */
+#define _EXT SET_IDENT(0x1A)   /* spare element number 0 of extended diagstate */
+#define _EXT1 SET_IDENT(0x1B)   /* spare element number 1 of extended diagstate */
+#define _EXT2 SET_IDENT(0x1C)   /* spare element number 2 of extended diagstate */
+#define _EXT3 SET_IDENT(0x1D)   /* spare element number 3 of extended diagstate */
+#define _EXT4 SET_IDENT(0x1E)   /* spare element number 4 of extended diagstate */
+#define _EXT5 SET_IDENT(0x1F)   /* spare element number 5 of extended diagstate */
+#define EXTENDED2_LAST_SUBPROCESS 0x0B /* number of trace items, change if required */
+
+#define EXTENDED_LAST_SUBPROCESS   0x8  /* Size of the array Extended_DiagState (in stack e2p) */
+                                         /* Do not change */
+#define GSM_LAST_SUBPROCESS  (LAST_SUBPROCESS + 1 + EXTENDED_LAST_SUBPROCESS)
+                                /* number of el of trace not dedicated for specific gprs purpose */
+
+#define _TASK SET_IDENT(0x20)   /* Task Number     */
+
+#ifdef __GPRS__
+#include "gtraces.ho"
+#define GLOBAL_LAST_SUBPROCESS (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS) /* all trace elements */
+#else
+#define GLOBAL_LAST_SUBPROCESS GSM_LAST_SUBPROCESS                          /* all trace elements */
+#endif
+
+/*---------------------------- variables --------------------------------*/
+
+/* variables for the trace level. Those variables are a bit map of allwed */
+/* levels (32 bits).                                                      */
+/* the special variable diagnose is to allow a general trace level. It    */
+/* is coded as described earlier, but if it is set, the trace is allowed  */
+/* for any requester (at le level specified) whatever the value of the    */
+/* requester variable is.                                                 */
+
+typedef struct
+{
+ char *Name;
+ u32  Level;
+} Diagnose_t;
+
+extern const u32 trc_CustDiagnose[]; /* listing of el available for open-AT customer */
+extern const u8 trc_CustLastSubprocess; /* number of elements of traces available for open-at customer */
+#if 0
+#ifndef __TRACES_VAR__
+extern Diagnose_t Diagnose[];
+extern u32 GenDiagnose;
+#ifdef REMOTETASKS
+extern u8 diagnoseSize;
+#endif
+#else
+u32 GenDiagnose = 0;
+Diagnose_t Diagnose[] = {
+        {"L3RR", 0},
+        {"L3MM", 0},
+        {"L3CC", 0},
+        {"L3SS", 0},
+        {"L3SM", 0},
+        {"L3UT", 0},
+        {"LAPD", 0},
+#ifdef unix
+        {"SCEN", 0},
+#else
+        {"WTCH", 0},
+#endif
+        {"E2P", 0},
+        {"SIM", 0},
+        {"HAP", 0},
+        {"MMK", 0},
+        {"MMT", 0},
+        {"MMI", 0},
+        {"ATI", 0},
+        {"SPV", 0},
+        {"MSR", 0},
+        {"DATA", 0},
+        {"HAC", 0},
+        {"UTC", 0},
+        {"SEQ", 0},
+        {"L1C", 0},
+        {"HWL", 0},
+        {"RTK", 0},
+        {"OPEN", 0},
+        {"CUS", 0},
+        {"EXT", 0},
+        {"EXT1", 0},
+        {"EXT2", 0},
+        {"EXT3", 0},
+        {"EXT4", 0},
+        {"EXT5", 0},
+#ifdef __GPRS__
+        GPRS_DIAGNOSE,
+#endif
+};
+
+#ifdef REMOTETASKS
+u8 diagnoseSize = sizeof(Diagnose)/sizeof(Diagnose_t);
+#endif
+#endif /* __TRACES_VAR__ */
+
+#endif
+/*=========================== diagnose mode ================================*/
+
+#ifdef __DIAGNOSE__
+
+/* variables for dump */
+#ifdef __TRACES_VAR__
+const char *_empty_ = "";
+#ifndef __BORLANDC__
+const char *_dump_  = "%1$d %2$m";
+const char *_dump3_ = "%1$d %3$m";
+const char *_dump4_ = "%1$d %4$m";
+const char *_dump5_ = "%1$d %5$m";
+#else
+const char *_dump_  = "%1$ld %2$m";
+const char *_dump3_ = "%1$ld %3$m";
+const char *_dump4_ = "%1$ld %4$m";
+const char *_dump5_ = "%1$d %5$m";
+#endif
+#else
+extern const char * _empty_;
+extern const char *_dump_;
+extern const char *_dump3_;
+extern const char *_dump4_;
+extern const char *_dump5_;
+#endif
+
+/* prototype definitions of trace an error */
+void KER_TRACE(u32, char *, ... );
+#ifndef unix
+void KER_ERROR_DIAGNOSE _PROTO((u32, char *, ... ));
+#else
+void KER_ERROR          _PROTO((u32, char *, ... ));
+#endif
+
+/* Datation prototype. */
+DefExtern u8 TraceFlag;
+void 	     TraceDatation (void);
+
+#define _TRACE(...)
+#define _ERROR(...)
+
+/* macro definition to map on trace and error */
+#ifdef __TARGET__
+
+#define _HTRACE(X)
+#else /* !__TARGET__ */
+#ifdef __TRACES_VAR__
+bool (*UserTrace)(FILE *, char *, va_list) = NULL;
+#else
+extern bool (*UserTrace)(FILE *, char *, va_list);
+#endif
+void OpenTraces(void);
+void CloseTraces(void);
+#define _HTRACE(X)              KER_TRACE X
+
+#endif /* __TARGET__ */
+
+#define DUMP4(_Id_,_Chan_,_Adr_,_Len_) (ascii *) _dump4_, (s32) _Len_, _Adr_, (s32)_Id_, (s32)_Chan_
+#define DUMP2(_Adr_,_Len_)  (ascii *) _dump_, (s32) _Len_, _Adr_
+#define DUMP(_Msg_)         (ascii *) _dump_, (int)(((Header_t *)_Msg_)->Length + sizeof(Header_t)), _Msg_
+
+/* macro to add file name and line number to trace or error */
+#if defined __FILE__ && defined __LINE__
+#define FULL(X)      __FILE__ "[%d]: " X, __LINE__
+#else
+#define FULL(X)      X
+#endif
+
+/* to get just one parameter in error macro */
+#define ERR_S
+#define ERR_E
+
+#else /* !__DIAGNOSE__ */
+
+/*========================== not diagnose mode ===============================*/
+
+void KER_ERROR_NO_DIAGNOSE _PROTO((u32, u32));
+
+#define DUMP2(_Adr_,_Len_)  "dump %d",_Len_
+
+/* no _TRACE or _FULL macro and _ERROR has just one parameter */
+#define _HTRACE(X)
+#define _TRACE(...)
+#define _ERROR(...)
+#define FULL(X)                 _empty_
+
+/* to remove the string and the variadic part of _ERROR */
+#define ERR_S (u32) (
+#define ERR_E )
+
+#endif /* __DIAGNOSE__ */
+
+/* ================== customer provided functions ======================== */
+
+void trc_CustomErrorProcDiag (u32 id);
+void trc_CustomErrorProcNoDiag (u32 id);
+
+#undef DefExtern
+#endif  /* __TRACES_HO__ */
+

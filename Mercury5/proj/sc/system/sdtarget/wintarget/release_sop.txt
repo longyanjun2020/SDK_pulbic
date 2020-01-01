@@ -1,0 +1,34 @@
+Change the Wintarget Version
+=========================
+* Change sw_version[] in inc\dwl_version.h
+* Change `WINTARGET' makefile variable in version.mak
+
+Mail SCM to Build the Latest Wintarget
+======================================
+* Also mail PL/PM to know where the latest Wintarget should be submitted into.
+
+Update the Changelog
+====================
+* Update the contents of ChangeLog.txt. Record the modifications of the new Wintarget
+
+Submit the Binary
+=================
+* A Mantis CR should be created by the PM. Create one yourself if it is not created.
+* Submit the wintarget binary, ChangeLog.txt and MCP excel file if necessary according to
+  the reply of PL/PM. Record this in the CR.
+
+DwlWin Version Change
+=====================
+	If there's a must to use latest DwlWin with the updated Wintarget, e.g. the protocol is changed. The DwlWin
+version number in the file header should be modified. For Wintarget, the version of DwlWin in the header is
+determinated by the `DWLWIN_VER' makefile variable in version.mak. Note that the version must be the same as the
+target code.  If the DwlWin version of wintarget is changed, version in target code must be changed too.
+	The version of DwlWin in the header in target code is determinated by two files: XRG.INI and config.mak
+For CUS file, the version is configurated by tools/XRG/XRG.INI. You can find two lines like:
+		CUS_ARGS=-g 1 -dv 3.5.6.13 -wv 3.03
+		WPB_ARGS=-dv 3.5.6.13 -wv 3.03
+where -dv is used to set the DwlWin version.
+	For other files, the version is configurated by the `DWLWIN_VER' makefile variable in tng/config.mak.
+Make sure the version configuration in XRG.INI of target code, config.mak of target code, and version.mak are
+the same.
+	

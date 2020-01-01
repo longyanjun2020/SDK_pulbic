@@ -1,0 +1,402 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// (¡§MStar Confidential Information¡¨) by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+* @file    mmi_consettingapp_view_id.h
+* @version
+* @brief   ConSettingApp view ID file
+*
+*/
+
+#ifndef __MMI_CONSETTINGAPP_VIEW_ID_H_
+#define __MMI_CONSETTINGAPP_VIEW_ID_H_
+
+/*=============================================================*/
+// Include files
+/*=============================================================*/
+
+#include "mmi_view_id_range.h"
+#include "mmi_common_cfg.h"
+
+/*=============================================================*/
+// Extern definition
+/*=============================================================*/
+
+/*=============================================================*/
+// Macro definition
+/*=============================================================*/
+
+#define SetView_e_Condition 0x0F00
+#define SetView_e_Non_Condition_Mask 0x00FF
+
+#define NO_SORT_MENU_CFG_ID  0
+#define NO_SET_DATA_CFG_ID  0
+#define SET_PART_OF_CFG   0xFFFFFFFF
+#define IS_DATA_CFG_ID(Id)  (Id!=NO_SET_DATA_CFG_ID && Id!=SET_PART_OF_CFG)
+
+#define CSD_FOCUS_IDX 1
+#define IS_CSD_FOCUS(FocusIdx)  (CSD_FOCUS_IDX==FocusIdx)
+
+#ifdef __WLAN_MMI__
+#define CON_SETTING_DUAL_SIM_NUM_ITEMS          4
+#else
+#define CON_SETTING_DUAL_SIM_NUM_ITEMS          3
+#endif
+
+#ifdef __WLAN_MMI__
+enum
+{
+    CON_SETTING_DUAL_SIM_MENU_CONNECT_SET,
+    CON_SETTING_DUAL_SIM_MENU_PROFILES,
+    CON_SETTING_DUAL_SIM_MENU_MASTER_IDX,
+    CON_SETTING_DUAL_SIM_MENU_SLAVE_IDX,
+    CON_SETTING_DUAL_SIM_MENU_WIFI_HOMEPAGE
+};
+#else
+enum
+{
+    CON_SETTING_DUAL_SIM_MENU_PROFILES,
+    CON_SETTING_DUAL_SIM_MENU_MASTER_IDX,
+    CON_SETTING_DUAL_SIM_MENU_SLAVE_IDX
+};
+#endif
+
+
+
+/*=============================================================*/
+// Data type definition
+/*=============================================================*/
+
+typedef u32 SetViewType_e;
+
+enum SetViewType_e_tag{
+    SetView_e_Invalid=0,
+
+    SetView_e_Menu_MenuStart,
+    SetView_e_Menu_List=SetView_e_Menu_MenuStart,
+    SetView_e_Menu_Sort,
+    SetView_e_Menu_MFL,
+    SetView_e_Menu_Radio,
+    SetView_e_Menu_MenuTotal,
+
+    SetView_e_Editor_EditorStart,
+    SetView_e_Editor_IPInput=SetView_e_Editor_EditorStart,
+    SetView_e_Editor_TextInput,
+    SetView_e_Editor_NonEmptyTextInput,
+    SetView_e_Editor_DialNumberInput,
+    SetView_e_Editor_NumberInput,
+    SetView_e_Editor_PassWordInput,
+    SetView_e_Editor_EditorTotal
+};
+
+enum
+{
+/* View ID start */
+    CON_SETTING_INVALID_VIEW = MMI_VIEW_ID_AP_BEGIN,
+
+	CON_SETTING_MENU_VIEW_START,
+
+	CON_SETTING_LIST_MENU_START=CON_SETTING_MENU_VIEW_START,
+    CON_SETTING_LIST_STATIC_MENU_START=CON_SETTING_LIST_MENU_START,
+    CON_SETTING_LIST_MENU_CONNECT_SETTING_MENU=CON_SETTING_LIST_STATIC_MENU_START,
+	CON_SETTING_LIST_STATIC_MENU_END=CON_SETTING_LIST_MENU_CONNECT_SETTING_MENU,
+	CON_SETTING_LIST_MENU_DATA_ACCOUNT_LIST,
+	CON_SETTING_LIST_MENU_DATA_ACCOUNT_SETTING,
+#ifdef __WAP_MMI_CDWAP__
+	CON_SETTING_LIST_MENU_WAP_PROFILE,
+#endif//__WAP_MMI_CDWAP__
+#ifdef __MMS_MMI_CDMMS__
+	CON_SETTING_LIST_MENU_MMS_PROFILE,
+#endif//__MMS_MMI_CDMMS__
+	CON_SETTING_LIST_MENU_JAVA_PROFILE,
+	CON_SETTING_LIST_MENU_OTHER_PROFILE,	
+	CON_SETTING_LIST_MENU_LBS_PROFILE,
+
+#ifdef __APP_MMI_NTP__
+    CON_SETTING_LIST_MENU_NTP_PROFILE,
+#endif //__APP_MMI_NTP__
+
+#ifdef __EMAIL_MMI__
+	CON_SETTING_LIST_MENU_EMAIL_PROFILE,
+#endif // __EMAIL_MMI__
+
+#ifdef __NCCQQ_MMI__
+	CON_SETTING_LIST_MENU_QQ_PROFILE,
+#endif // __NCCQQ_MMI__
+
+#ifdef __STREAMING_MODULE__
+        CON_SETTING_LIST_MENU_STREAMING_PROFILE,
+#endif // __STREAMING_MODULE__
+
+
+	CON_SETTING_LIST_MENU_WAP_SIM_SELECTION,
+#ifdef __MMS_MMI_CDMMS__
+	CON_SETTING_LIST_MENU_MMS_SIM_SELECTION,
+#endif//__MMS_MMI_CDMMS__
+	CON_SETTING_LIST_MENU_JAVA_SIM_SELECTION,
+	CON_SETTING_LIST_MENU_OTHER_SIM_SELECTION,	
+    CON_SETTING_LIST_MENU_IPTV_SIM_SELECTION,
+    CON_SETTING_LIST_MENU_MMTV_SIM_SELECTION,
+    
+#ifdef __APP_MMI_NTP__
+    CON_SETTING_LIST_MENU_NTP_SIM_SELECTION,
+#endif // __APP_MMI_NTP__
+
+    CON_SETTING_LIST_MENU_LBS_SIM_SELECTION,
+#ifdef __EMAIL_MMI__
+    CON_SETTING_LIST_MENU_EMAIL_SIM_SELECTION,
+#endif
+
+#ifdef __NCCQQ_MMI__
+    CON_SETTING_LIST_MENU_QQ_SIM_SELECTION,
+#endif
+
+
+#ifdef __STREAMING_MODULE__
+    CON_SETTING_LIST_MENU_STREAMING_SIM_SELECTION,
+    CON_SETTING_LIST_MENU_END = CON_SETTING_LIST_MENU_STREAMING_SIM_SELECTION,
+#else 
+    #ifdef __NCCQQ_MMI__
+        CON_SETTING_LIST_MENU_END = CON_SETTING_LIST_MENU_QQ_SIM_SELECTION,
+    #else
+        #ifdef __EMAIL_MMI__
+            CON_SETTING_LIST_MENU_END = CON_SETTING_LIST_MENU_EMAIL_SIM_SELECTION,
+        #else
+            CON_SETTING_LIST_MENU_END = CON_SETTING_LIST_MENU_LBS_SIM_SELECTION,
+        #endif // #ifdef __EMAIL_MMI__
+    #endif  // #ifdef __NCCQQ_MMI__
+#endif  // #ifdef __STREAMING_MODULE__
+
+
+	CON_SETTING_RADIO_MENU_START,
+	CON_SETTING_RADIO_STATIC_MENU_START=CON_SETTING_RADIO_MENU_START,
+    CON_SETTING_RADIO_STATIC_MENU_GPRS = CON_SETTING_RADIO_STATIC_MENU_START,
+    //MM_SETTING_RADIO_STATIC_MENU_MFL_PICK,
+#ifdef SUPPORT_CSD
+    CON_SETTING_RADIO_STATIC_MENU_NAP_TYPE,
+    CON_SETTING_RADIO_STATIC_MENU_LINE_TYPE,
+    CON_SETTING_RADIO_STATIC_MENU_SPEED,
+#endif
+	CON_SETTING_RADIO_STATIC_MENU_AUTH_TYPE,
+#ifdef __WLAN_MMI__
+    CON_SETTING_RADIO_STATIC_MENU_WAP_CONNECT_SET,
+    CON_SETTING_RADIO_STATIC_MENU_JAVA_CONNECT_SET,
+
+#ifdef __APP_MMI_NTP__
+    CON_SETTING_RADIO_STATIC_MENU_NTP_CONNECT_SET,
+#endif // __APP_MMI_NTP__
+
+#ifdef __EMAIL_MMI__
+	CON_SETTING_RADIO_STATIC_MENU_EMAIL_CONNECT_SET,
+#endif  // __EMAIL_MMI__
+
+#ifdef __NCCQQ_MMI__
+	CON_SETTING_RADIO_STATIC_MENU_QQ_CONNECT_SET,
+#endif  // __NCCQQ_MMI__
+
+#ifdef __STREAMING_MODULE__
+        CON_SETTING_RADIO_STATIC_MENU_STREAMING_CONNECT_SET,
+#endif  // __NCCQQ_MMI__
+
+    CON_SETTING_RADIO_STATIC_MENU_OTHER_CONNECT_SET,    
+#endif  /* __WLAN_MMI__ */
+    CON_SETTING_RADIO_STATIC_MENU_CON_TYPE,
+    CON_SETTING_RADIO_STATIC_MENU_END=CON_SETTING_RADIO_STATIC_MENU_CON_TYPE,
+    CON_SETTING_RADIO_MENU_DATA_ACCOUNT_SELECTION, //Radio Selection Menu
+#ifdef __WAP_MMI_CDWAP__
+	CON_SETTING_RADIO_MENU_WAP_SETTING,
+#endif//__WAP_MMI_CDWAP__	
+#ifdef __MMS_MMI_CDMMS__
+	CON_SETTING_RADIO_MENU_MMS_SETTING,
+#endif//__MMS_MMI_CDMMS__
+	CON_SETTING_RADIO_MENU_JAVA_SETTING,
+	CON_SETTING_RADIO_MENU_OTHER_SETTING,	
+    CON_SETTING_RADIO_MENU_IPTV_SETTING,
+    CON_SETTING_RADIO_MENU_MMTV_SETTING,
+
+#ifdef __APP_MMI_NTP__
+    CON_SETTING_RADIO_MENU_NTP_SETTING,
+#endif // __APP_MMI_NTP__
+
+    CON_SETTING_RADIO_MENU_LBS_SETTING,
+#ifdef __EMAIL_MMI__
+    CON_SETTING_RADIO_MENU_EMAIL_SETTING,
+#endif //__EMAIL_MMI__
+
+#ifdef __NCCQQ_MMI__
+    CON_SETTING_RADIO_MENU_QQ_SETTING,
+#endif
+
+#ifdef __STREAMING_MODULE__
+    CON_SETTING_RADIO_MENU_STREAMING_SETTING,
+    CON_SETTING_RADIO_MENU_END = CON_SETTING_RADIO_MENU_STREAMING_SETTING,
+#else
+    #ifdef __NCCQQ_MMI__
+        CON_SETTING_RADIO_MENU_END = CON_SETTING_RADIO_MENU_QQ_SETTING,
+    #else
+        #ifdef __EMAIL_MMI__
+            CON_SETTING_RADIO_MENU_END = CON_SETTING_RADIO_MENU_EMAIL_SETTING,
+        #else
+            CON_SETTING_RADIO_MENU_END = CON_SETTING_RADIO_MENU_LBS_SETTING,
+        #endif //__EMAIL_MMI__
+    #endif //__NCCQQ_MMI__
+#endif //__STREAMING_MODULE__
+
+	CON_SETTING_SORT_MENU_START,
+	//CON_SETTING_SORT_MENU_DATA_ACCOUNT_LIST=CON_SETTING_SORT_MENU_START,
+	CON_SETTING_SORT_LEAF_MENU_START,
+    //CON_SETTING_SORT_MENU_DATA_ACCOUNT_SELECTION=CON_SETTING_SORT_LEAF_MENU_START, //Radio Selection Menu
+	CON_SETTING_SORT_LEAF_MENU_END,
+	CON_SETTING_SORT_MENU_END=CON_SETTING_SORT_LEAF_MENU_END,
+
+	CON_SETTING_MFL_MENU_START,
+	CON_SETTING_MFL_DATA_ACCOUNT=CON_SETTING_MFL_MENU_START,
+	CON_SETTING_MFL_PROFILE_SETTINGS_START,
+#ifdef __WAP_MMI_CDWAP__
+	CON_SETTING_MFL_WAP_SETTINGS=CON_SETTING_MFL_PROFILE_SETTINGS_START,
+#endif//__WAP_MMI_CDWAP__
+#ifdef __MMS_MMI_CDMMS__
+	CON_SETTING_MFL_MMS_SETTINGS,
+#endif//__MMS_MMI_CDMMS__	
+	CON_SETTING_MFL_JAVA_SETTINGS,
+	CON_SETTING_MFL_OTHER_SETTINGS,	
+
+#ifdef __APP_MMI_NTP__
+    CON_SETTING_MFL_NTP_SETTINGS,
+#endif // __APP_MMI_NTP__
+
+	CON_SETTING_MFL_LBS_SETTINGS,
+
+#ifdef __EMAIL_MMI__
+    CON_SETTING_MFL_EMAIL_SETTINGS,
+#endif // __EMAIL_MMI__
+
+#ifdef __NCCQQ_MMI__
+    CON_SETTING_MFL_QQ_SETTINGS,
+#endif
+
+#ifdef __STREAMING_MODULE__
+    CON_SETTING_MFL_STREAMING_SETTINGS,
+    CON_SETTING_MFL_PROFILE_SETTINGS_END=CON_SETTING_MFL_STREAMING_SETTINGS,
+	CON_SETTING_MFL_MENU_END=CON_SETTING_MFL_STREAMING_SETTINGS,
+#else
+    #ifdef __NCCQQ_MMI__
+        CON_SETTING_MFL_PROFILE_SETTINGS_END=CON_SETTING_MFL_QQ_SETTINGS,
+    	CON_SETTING_MFL_MENU_END=CON_SETTING_MFL_QQ_SETTINGS,
+    #else
+        #ifdef __EMAIL_MMI__
+            CON_SETTING_MFL_PROFILE_SETTINGS_END=CON_SETTING_MFL_EMAIL_SETTINGS,
+        	CON_SETTING_MFL_MENU_END=CON_SETTING_MFL_EMAIL_SETTINGS,
+        #else
+            CON_SETTING_MFL_PROFILE_SETTINGS_END=CON_SETTING_MFL_LBS_SETTINGS,
+        	CON_SETTING_MFL_MENU_END=CON_SETTING_MFL_LBS_SETTINGS,
+        #endif //__EMAIL_MMI__
+    #endif // __NCCQQ_MMI__
+#endif //__STREAMING_MODULE__
+
+	CON_SETTING_MENU_VIEW_END = CON_SETTING_MFL_MENU_END	,
+
+
+	CON_SETTING_EDITOR_VIEW_START,
+	CON_SETTING_TEXT_NO_CHINESE_EDITOR=CON_SETTING_EDITOR_VIEW_START,  //for APN, Username, HomePage, MMSC
+	CON_SETTING_NON_EMPTY_TEXT_EDITOR,  //for Account Name, Profile Name
+
+	CON_SETTING_COMMON_POPUP_INPUT_START,
+	CON_SETTING_PASSWORD_EDITOR = CON_SETTING_COMMON_POPUP_INPUT_START,   //for Password
+	CON_SETTING_NUMBER_EDITOR,     //for Port
+	CON_SETTING_DIAL_NUMBER_EDITOR, //for Dial number
+	CON_SETTING_IP_EDITOR,         //for DNS, Proxy
+	CON_SETTING_COMMON_POPUP_INPUT_END = CON_SETTING_IP_EDITOR,
+	CON_SETTING_EDITOR_VIEW_END=CON_SETTING_IP_EDITOR,
+/* View ID end */
+
+/* Model ID Start*/
+    CON_SETTING_OPTION_MENU_MODEL_START,
+    CON_SETTING_OPTION_MODEL_DATA_ACCOUNT_LIST_L1=CON_SETTING_OPTION_MENU_MODEL_START,
+    CON_SETTING_OPTION_MODEL_PROFILE,
+    CON_SETTING_OPTION_MODEL_DATA_ACCOUNT_ADD_TYPE,
+    CON_SETTING_OPTION_MODEL_TEXT_EDITOR,
+    CON_SETTING_OPTION_MENU_MODEL_END=CON_SETTING_OPTION_MODEL_TEXT_EDITOR,
+    CON_SETTING_POPUP_RADIO_MID_GPRS,
+#ifdef SUPPORT_CSD
+	CON_SETTING_POPUP_RADIO_MID_NAP_TYPE,
+	CON_SETTING_POPUP_RADIO_MID_LINE_TYPE,
+	CON_SETTING_POPUP_RADIO_MID_SPEED,
+#endif
+    CON_SETTING_POPUP_RADIO_MID_AUTH_TYPE,
+    CON_SETTING_POPUP_RADIO_MID_CON_TYPE
+/* Model ID End*/
+};
+
+enum
+{
+/* Widget ID start */
+	CON_SETTING_MENU_VIEW_TITLE_WDG	= 1,
+	CON_SETTING_MENU_VIEW_MENU_WDG,
+	CON_SETTING_MENU_VIEW_MFL_SCROLLBAR_WDG,
+	CON_SETTING_MENU_VIEW_MFL_WDG,
+	CON_SETTING_MENU_VIEW_ABS_WDG,
+
+    //Data Account MFL
+    CON_SETTING_MENU_VIEW_MFL_UPTEXT_ITEM_START,
+    CON_SETTING_MENU_VIEW_MFL_ITEM_ACCOUNT_NAME=CON_SETTING_MENU_VIEW_MFL_UPTEXT_ITEM_START,
+#ifdef SUPPORT_CSD
+    CON_SETTING_MENU_VIEW_MFL_ITEM_NAP,
+#endif
+    CON_SETTING_MENU_VIEW_MFL_ITEM_APN, /*for GPRS NAP*/
+#ifdef SUPPORT_CSD
+    CON_SETTING_MENU_VIEW_MFL_ITEM_DIAL_NUMBER, /*for CSD NAP*/
+#endif
+    CON_SETTING_MENU_VIEW_MFL_ITEM_USER_NAME,
+    CON_SETTING_MENU_VIEW_MFL_ITEM_PASSWORD,
+    CON_SETTING_MENU_VIEW_MFL_ITEM_AUTH_TYPE, /*for GPRS NAP*/
+#ifdef SUPPORT_CSD
+    CON_SETTING_MENU_VIEW_MFL_ITEM_LINE_TYPE, /*for CSD NAP*/
+    CON_SETTING_MENU_VIEW_MFL_ITEM_SPEED_TYPE, /*for CSD NAP*/
+#endif
+    CON_SETTING_MENU_VIEW_MFL_ITEM_DNS,
+
+    //WAP, MMS, Java, Other, LBS
+	CON_SETTING_MENU_VIEW_MFL_ITEM_CONNECT_TYPE,
+	CON_SETTING_MENU_VIEW_MFL_ITEM_PROXY,
+	CON_SETTING_MENU_VIEW_MFL_ITEM_PORT,
+	CON_SETTING_MENU_VIEW_MFL_ITEM_DATA_ACCOUNT,
+
+	CON_SETTING_MENU_VIEW_MFL_ITEM_PROFILE_NAME,
+	CON_SETTING_MENU_VIEW_MFL_ITEM_HOMEPAGE, /*for WAP NAP*/
+	CON_SETTING_MENU_VIEW_MFL_ITEM_MMSC, /*for MMS NAP*/
+	CON_SETTING_MENU_VIEW_MFL_UPTEXT_ITEM_END=CON_SETTING_MENU_VIEW_MFL_ITEM_MMSC,
+
+	// Editor
+	CON_SETTING_MENU_VIEW_EDITOR_PROP_WDG,
+	CON_SETTING_MENU_VIEW_EDITOR_ABS_WDG,
+	CON_SETTING_MENU_VIEW_EDITOR_NORMAL_WDG,
+	CON_SETTING_MENU_VIEW_EDITOR_IP_WDG,
+	CON_SETTING_MENU_VIEW_EDITOR_DOUBLE_ITEM_WDG,
+/* Widget ID end */
+};
+
+
+/*=============================================================*/
+// Variable definition
+/*=============================================================*/
+
+/*=============================================================*/
+// Global function definition
+/*=============================================================*/
+
+#endif /* __MMI_CONSETTINGAPP_VIEW_ID_H_ */

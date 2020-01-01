@@ -1,0 +1,4 @@
+#<SYMDEFS># ARM Linker, RVCT2.2 [Build 616]: Last Updated: Mon May 14 19:35:03 2012
+0x04008c00 A inflate_fast
+0x04009044 A inflate_
+0x0400aebd T inflate_table

@@ -1,0 +1,86 @@
+alias: NetAccess
+  javax.microedition.io.Connector.http,
+  javax.microedition.io.Connector.socket,
+  javax.microedition.io.Connector.https,
+  javax.microedition.io.Connector.ssl,
+  javax.microedition.io.Connector.datagram,
+  javax.microedition.io.Connector.serversocket,
+  javax.microedition.io.Connector.datagramreceiver
+
+alias: Messaging
+  javax.microedition.io.Connector.sms,
+  javax.microedition.io.Connector.cbs,
+  javax.wireless.messaging.sms.send, 
+  javax.wireless.messaging.sms.receive, 
+  javax.wireless.messaging.cbs.receive, 
+  javax.microedition.io.Connector.mms, 
+  javax.wireless.messaging.mms.send, 
+  javax.wireless.messaging.mms.receive
+  
+alias: MMRecording
+  javax.microedition.media.control.RecordControl, 
+  javax.microedition.media.control.VideoControl.getSnapshot
+
+alias: AppAutoInvoke
+  javax.microedition.io.PushRegistry,
+  javax.microedition.content.ContentHandler
+  
+alias: LocalConnectivity
+  javax.microedition.io.Connector.comm
+
+alias: ReadUserData
+  javax.microedition.pim.ContactList.read,
+  javax.microedition.pim.EventList.read,
+  javax.microedition.pim.ToDoList.read,
+  javax.microedition.io.Connector.file.read
+
+alias: WriteUserData
+  javax.microedition.pim.ContactList.write,
+  javax.microedition.pim.EventList.write,
+  javax.microedition.pim.ToDoList.write,
+  javax.microedition.io.Connector.file.write   
+   
+domain: operator
+allow: NetAccess
+allow: AppAutoInvoke
+allow: LocalConnectivity
+allow: Messaging
+allow: MMRecording
+allow: ReadUserData
+allow: WriteUserData
+
+domain: trusted
+allow: NetAccess
+allow: AppAutoInvoke
+allow: LocalConnectivity
+allow: Messaging
+allow: MMRecording
+allow: ReadUserData
+allow: WriteUserData
+
+domain: manufacturer
+allow: NetAccess
+allow: AppAutoInvoke
+allow: LocalConnectivity
+allow: Messaging
+allow: MMRecording
+allow: ReadUserData
+allow: WriteUserData
+
+domain: ThirdParty
+blanket(session): NetAccess
+blanket(session): AppAutoInvoke
+blanket(session): LocalConnectivity
+blanket(oneshot): Messaging
+blanket(oneshot): MMRecording
+blanket(session): ReadUserData
+blanket(session): WriteUserData
+
+domain: untrusted
+session(session): NetAccess
+session(session): AppAutoInvoke
+blanket(session): LocalConnectivity
+session(oneshot): Messaging
+session(oneshot): MMRecording
+blanket(session): ReadUserData
+blanket(session): WriteUserData

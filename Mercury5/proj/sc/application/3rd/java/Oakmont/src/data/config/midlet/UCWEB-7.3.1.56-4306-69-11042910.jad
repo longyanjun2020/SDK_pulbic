@@ -1,0 +1,13 @@
+MIDlet-Name: UC浏览器定制版
+MIDlet-Version: 7.3.1
+MIDlet-Vendor: UC Mobile
+MIDlet-Jar-URL: UCWEB-7.3.1.56-4306-69-11042910.jar
+MIDlet-Jar-Size: 388295
+MIDlet-Icon: /l.png
+MicroEdition-Profile: MIDP-2.0
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-1: UC浏览器定制版,/l.png,WebClient
+MIDlet-Info-URL: http://wap.uc.cn
+MIDlet-Permissions: javax.microedition.io.Connector.http
+MIDlet-Permissions-Opt: javax.microedition.io.Connector.https,javax.microedition.io.Connector.file.read,javax.microedition.io.Connector.file.write,javax.microedition.io.Connector.socket,javax.microedition.io.sms,javax.microedition.io.Connector.sms,javax.wireless.messaging.sms.send,javax.wireless.messaging.sms.receive,javax.microedition.media.control.VideoControl.getSnapshot,javax.microedition.pim.ContactList.read,javax.microedition.content.ContentHandler
+Background: True

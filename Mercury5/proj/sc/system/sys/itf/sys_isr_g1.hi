@@ -1,0 +1,6 @@
+#ifndef __SYS_ISR_G1_H__
+#define __SYS_ISR_G1_H__
+
+#include "sys_sys_isr_g1.h"
+
+#endif // __SYS_ISR_G1_H__

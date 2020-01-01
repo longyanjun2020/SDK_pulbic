@@ -1,0 +1,149 @@
+/****************************************************************************/
+/*  $Workfile::   fms_lowl.ht                                             $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Flash Memory Services                                         */
+/*            Types definition for device descriptions                      */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+
+
+#ifndef __FMS_LOWL_HT__
+#define __FMS_LOWL_HT__
+
+/****************************************************************************/
+/* FUNCTION TYPES                                                           */
+/****************************************************************************/
+
+/* Write */
+typedef s32 (*fms_ProgramFunc_t)(u32, u32);
+
+/* Erase */
+typedef s32 (*fms_EraseFunc_t)(u32, u32);
+
+/* SetProtect */
+typedef s32 (*fms_SetProtectFunc_t)(u32, u32);
+
+/* ExtendedCmd */
+typedef s32 (*fms_ExtendedCmdFunc_t)(u32, u32, void*);
+
+/* Buffer Write */
+typedef s32 (*fms_BufferProgramFunc_t)(u32, u16*);
+
+/* voidf */
+typedef void (*fms_VoidFunc_t)(void);
+
+#ifdef __GET_FLASH_NAME_BY_FLASH_ID_AND_PSRAM_ID__
+typedef u32 (*fms_ExtendedID_t)(void);
+#endif
+
+/****************************************************************************/
+/* GEOMETRY-RELATED TYPES                                                   */
+/****************************************************************************/
+
+typedef struct
+{
+   u16 u16_ShiftedSize; /* Block size = 2 ^ u16_ShiftedSize  */
+   u16 u16_Number;
+} fms_DeviceSectorRegion_t;
+
+typedef struct
+{
+   u16 u16_DeviceSize; /* Device size = u16_DeviceSize * 64 KiB */
+   u8 u8_Pad;
+   u8 u8_RegionNumber;
+   fms_DeviceSectorRegion_t as_Regions[FMS_ZERO_SIZE_ARRAY];
+} fms_DeviceGeometry_t;
+
+
+/****************************************************************************/
+/* BANKS                                                                    */
+/****************************************************************************/
+
+typedef struct
+{
+   u16 u16_BankNumber;
+   u16 au16_BankAddresses[FMS_ZERO_SIZE_ARRAY];
+} fms_BanksDescriptor_t;
+
+
+
+/****************************************************************************/
+/* CHIP DESCRIPTOR                                                          */
+/****************************************************************************/
+
+#define FMS_NUMBER_OF_FUNC_IN_DEVDESCRIPTOR (5)
+
+typedef struct
+{
+   /* Joined manufacturer code and device code */
+   u32 u32_DeviceFullId;
+      
+   /* Supported features */
+   u32 u32_Features;
+   
+   /* Device geometry */
+   fms_DeviceGeometry_t *ps_Geometry;
+   fms_BanksDescriptor_t *ps_Banks;
+
+   /* RAM based low-level functions */
+   fms_ProgramFunc_t pf_Program;
+   fms_EraseFunc_t pf_Erase;
+   fms_SetProtectFunc_t pf_SetProtect;
+   fms_ExtendedCmdFunc_t pf_ExtendedCmd;
+   fms_BufferProgramFunc_t pf_BufferProgram;
+} fms_DeviceDescriptor_t;
+
+
+
+/****************************************************************************/
+/* CHIP DIRECTORY                                                           */
+/****************************************************************************/
+
+typedef struct
+{
+   u32   b_PresentUserDevices;
+   u16   u16_UserDevicesNumber;
+   fms_DeviceDescriptor_t *ps_Devices;
+} fms_ChipDirStruct_t;
+
+
+
+/****************************************************************************/
+/* DEVICE IDENTIFICATION RELATED                                            */
+/****************************************************************************/
+
+typedef struct
+{
+   u32 u32_DeviceFullId;
+#ifdef __DOWNLOADER__
+   char *sz_FlashName;
+#else   
+   u32 u32_ProdId;
+#endif
+} fms_FlashIdentifier_t;
+
+#ifdef __GET_FLASH_NAME_BY_FLASH_ID_AND_PSRAM_ID__
+typedef struct
+{
+   u32 u32_DeviceFullId; /*manufacture ID and Flash ID*/
+   u32 u32_DeviceSecondID; /* DIDR*/
+   u32 u32_SecondIDMask;
+#ifdef __DOWNLOADER__
+   char *sz_FlashName;
+#else
+   u32 u32_ProdId;
+#endif
+} fms_FlashIdentifierEX_t;
+
+typedef struct
+{
+    fms_FlashIdentifierEX_t *ps_FlashIdentifierEX;
+    u32 u32_NumOfElement;
+    fms_ExtendedID_t pf_ExtendedID;
+}fms_GroupFlashIdentifierEX_t;
+#endif // __GET_FLASH_NAME_BY_FLASH_ID_AND_PSRAM_ID__
+   
+#endif /*  __FMS_LOWL_HT__ not defined  */

@@ -1,0 +1,35 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>SmsSettingApp</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{53db3da4-5c42-47a9-9494-44f480b9b7b1}</ProjectGuid>
+    <AssemblyName>mmi_smapp</AssemblyName>
+    <RootNamespace>mmi_smapp</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\SmsSettingApp</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\SmsSettingApp</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="mmi_smapp_qvgap_thm.eApp">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it. 
+		
+	<Target Name="BeforeClean"></Target>
+	<Target Name="AfterClean"></Target>
+	<Target Name="BeforeRebuild"></Target>
+	<Target Name="AfterRebuild"></Target>
+	<Target Name="BeforeDeploy"></Target>
+	<Target Name="AfterDeploy"></Target>
+	-->
+</Project>

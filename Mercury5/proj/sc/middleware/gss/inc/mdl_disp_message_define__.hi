@@ -1,0 +1,10 @@
+#ifndef __MDL_DISP_MSG_DEF_H__
+#define __MDL_DISP_MSG_DEF_H__
+
+VM_MSG_DEF(MDL_DISP_TASK_MSG_BASE = (VM_CUS74_BASE), void DUMMY)
+VM_MSG_DEF(MDL_DISP_TASK_MSG_UpdateScreenApp, void DUMMY)
+VM_MSG_DEF(MDL_DISP_TASK_MSG_UpdateScreenMdl, void DUMMY)
+VM_MSG_DEF(MDL_DISP_TASK_MSG_UpdateScreenAppEx, void DUMMY)
+
+#endif
+

@@ -1,0 +1,26 @@
+/**
+ * \file v24.hv
+ * \brief Variables of the V.24 serial link
+*/
+#ifndef __V24_HV__
+#define __V24_HV__
+#include "v24_msg.hi"  
+
+#ifdef __V24_VAR__         /* defined by v24_hand.c */
+#define DefExtern
+#define __init_to( _i_ )   = _i_
+#else
+#define DefExtern          extern
+#define __init_to( _i_ )
+#endif
+
+DefExtern Msg_t        *v24_PtrMsgRec;
+DefExtern Msg_t        *v24_PtrMsgSnd;
+
+#undef DefExtern
+#undef __init_to
+
+#include "sys_v24.hv"
+
+#endif /* __V24_HV__ */
+

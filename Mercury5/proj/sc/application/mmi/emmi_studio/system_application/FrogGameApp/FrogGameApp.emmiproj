@@ -1,0 +1,35 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>FrogGameApp</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2e1e0b35-1bec-4614-8a9a-70f54bfd9f62}</ProjectGuid>
+    <AssemblyName>mmi_froggameapp</AssemblyName>
+    <RootNamespace>mmi_froggameapp</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\FrogGameApp</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\FrogGameApp</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="mmi_froggameapp_qvgap_thm.eApp">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it. 
+		
+	<Target Name="BeforeClean"></Target>
+	<Target Name="AfterClean"></Target>
+	<Target Name="BeforeRebuild"></Target>
+	<Target Name="AfterRebuild"></Target>
+	<Target Name="BeforeDeploy"></Target>
+	<Target Name="AfterDeploy"></Target>
+	-->
+</Project>

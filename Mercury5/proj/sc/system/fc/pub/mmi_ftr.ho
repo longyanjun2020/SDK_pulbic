@@ -1,0 +1,90 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright VMTS S.A. (c) 2005, 2006
+*/
+
+/****************************************************************************/
+/*  File    : MMI_FTR.HO                                                    */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Hardware layer features definition.                          */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 26.08.99 |   ADA  | Creation.                                            */
+/*--------------------------------------------------------------------------*/
+/****************************************************************************/
+
+#ifndef __MMI_FTR_HO__
+#define __MMI_FTR_HO__
+
+#define mmi_MaskFtr(ElMask)
+
+/* Feature define : 1 means feature provided  or don't care.                */
+/*                  0 means feature not provided                            */
+/* A status must be provided for each existing feature                      */
+/* If the concerned  EL cope with the feature, then use the relevant define */
+/* among FTR_PROVIDED and FTR_NOT_PROVIDED.                                 */
+
+
+#define MMI_EFR_STATUS           FTR_PROVIDED
+#define MMI_HR_STATUS            FTR_PROVIDED
+#define MMI_RTC_STATUS           FTR_PROVIDED
+#define MMI_AMR_STATUS           FTR_PROVIDED
+#define MMI_FAX_C1_STATUS        FTR_PROVIDED
+#define MMI_FAX_C2_STATUS        FTR_PROVIDED
+#define MMI_ECM_STATUS           FTR_PROVIDED
+#define MMI_GSM_ALTERNATE_STATUS FTR_NOT_PROVIDED
+#define MMI_DATA_STATUS          FTR_PROVIDED
+#define MMI_DTX_DATA_STATUS      FTR_PROVIDED
+#define MMI_DATA_144_STATUS      FTR_PROVIDED
+#define MMI_V42_STATUS           FTR_PROVIDED
+#define MMI_V42_BIS_STATUS       FTR_PROVIDED
+#define MMI_MNP2_STATUS          FTR_PROVIDED
+#define MMI_IRCOM_STATUS         FTR_NOT_PROVIDED
+#define MMI_IROBEX_STATUS        FTR_NOT_PROVIDED
+#define MMI_NT_6K_STATUS         FTR_PROVIDED
+#define MMI_FAST_SCAN_STATUS     FTR_PROVIDED
+#define MMI_SIM_REMOVAL_STATUS   FTR_PROVIDED
+#define MMI_SIM_TOOL_KIT_STATUS  FTR_PROVIDED
+#define MMI_SIM_3V_STATUS        FTR_PROVIDED
+#define MMI_SIM_5V_STATUS        FTR_PROVIDED
+#define MMI_CPHS_FTR		 FTR_PROVIDED
+#define MMI_LOC_FTR		 FTR_PROVIDED
+#define MMI_INT_DETECT_FTR	 FTR_PROVIDED
+#define MMI_OPEN_AT_FTR		 FTR_PROVIDED
+
+#define MMI_FTR(Wd)            SCB(Wd, EFR_FTR,           MMI_EFR_STATUS            )\
+                             & SCB(Wd, HR_FTR,            MMI_HR_STATUS             )\
+                             & SCB(Wd, RTC_FTR,           MMI_RTC_STATUS            )\
+                             & SCB(Wd, AMR_FTR,           MMI_AMR_STATUS            )\
+                             & SCB(Wd, FAX_C1_FTR,        MMI_FAX_C1_STATUS         )\
+                             & SCB(Wd, FAX_C2_FTR,        MMI_FAX_C2_STATUS         )\
+                             & SCB(Wd, ECM_FTR,           MMI_ECM_STATUS            )\
+                             & SCB(Wd, GSM_ALTERNATE_FTR, MMI_GSM_ALTERNATE_STATUS  )\
+                             & SCB(Wd, DATA_FTR,          MMI_DATA_STATUS           )\
+                             & SCB(Wd, DTX_DATA_FTR,      MMI_DTX_DATA_STATUS       )\
+                             & SCB(Wd, DATA_144_FTR,      MMI_DATA_144_STATUS       )\
+                             & SCB(Wd, V42_FTR,           MMI_V42_STATUS            )\
+                             & SCB(Wd, V42_BIS_FTR,       MMI_V42_BIS_STATUS        )\
+                             & SCB(Wd, MNP2_FTR,          MMI_MNP2_STATUS           )\
+                             & SCB(Wd, IRCOM_FTR,         MMI_IRCOM_STATUS          )\
+                             & SCB(Wd, IROBEX_FTR,        MMI_IROBEX_STATUS         )\
+                             & SCB(Wd, NT_6K_FTR,         MMI_NT_6K_STATUS          )\
+                             & SCB(Wd, FAST_SCAN_FTR,     MMI_FAST_SCAN_STATUS      )\
+                             & SCB(Wd, SIM_REMOVAL_FTR,   MMI_SIM_REMOVAL_STATUS    )\
+                             & SCB(Wd, SIM_TOOL_KIT_FTR,  MMI_SIM_TOOL_KIT_STATUS   )\
+                             & SCB(Wd, SIM_5V_FTR,        MMI_SIM_5V_STATUS         )\
+                             & SCB(Wd, SIM_3V_FTR,        MMI_SIM_3V_STATUS         )\
+                             & SCB(Wd, CPHS_FTR,          MMI_CPHS_FTR              )\
+                             & SCB(Wd, LOC_FTR,           MMI_LOC_FTR               )\
+                             & SCB(Wd, INT_DETECT_FTR,    MMI_INT_DETECT_FTR        )\
+                             & SCB(Wd, OPEN_AT_FTR,       MMI_OPEN_AT_FTR           )
+                               
+
+#endif

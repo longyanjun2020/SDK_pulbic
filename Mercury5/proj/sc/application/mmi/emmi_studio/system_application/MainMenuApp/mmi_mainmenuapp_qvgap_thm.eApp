@@ -1,0 +1,120 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="WND_GRID" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="GridMenuWdg" ClsID="CLSID_IMGGRID_MENUWIDGET" SizeHeight="MAINMENUAPP_MAINVIEW_HEIGHT" SizeWidth="MAINMENUAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_BG_IMAGE" Value="THM_MAINMENU_IMG_BG" />
+				<Property Id="PROP_MENU_WDG_FCS_ITEM_BG_IMAGE_ID" Value="IMG_NULL_ID" />
+				<Property Id="PROP_PADDING_LEFT" Value="MAINMENUAPP_GRID_LEFT_PADDING" />
+				<Property Id="PROP_PADDING_RIGHT" Value="MAINMENUAPP_GRID_RIGHT_PADDING" />
+				<Property Id="PROP_PADDING_TOP" Value="MAINMENUAPP_GRID_TOP_PADDING" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="MAINMENUAPP_GRID_BOTTOM_PADDING" />
+				<InternProp Id="GUID" Value="36cb7" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+			</Widget>
+			<InternProp Id="GUID" Value="78110" />
+		</Widget>
+		<InternProp Id="GUID" Value="00f26" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="145" />
+	</Layout>
+	<Layout Id="WND_LIST" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ListMenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINMENUAPP_MAINVIEW_HEIGHT" SizeWidth="MAINMENUAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<InternProp Id="GUID" Value="49da2" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="51fbe" />
+		</Widget>
+		<InternProp Id="GUID" Value="3d167" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="145" />
+	</Layout>
+	<Layout Id="WND_SUB" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SubMenuWdg" ClsID="CLSID_NUMERIC_MENUWIDGET" SizeHeight="MAINMENUAPP_MAINVIEW_HEIGHT" SizeWidth="MAINMENUAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<InternProp Id="GUID" Value="8c101" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="70df7" />
+		</Widget>
+		<InternProp Id="GUID" Value="f9ac3" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="WND_SPIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="BGWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="170" SizeWidth="MAINMENUAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="118" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="7138b" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MAIN_MENU_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAINMENUAPP_TRANSFER_HEIGHT" SizeWidth="MAINMENUAPP_TRANSFER_WIDTH">
+				<Position Type="X_POSITION" Value="MAINMENUAPP_TRANSFER_LEFT_X" />
+				<Position Type="Y_POSITION" Value="MAINMENUAPP_TRANSFER_LEFT_Y" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<InternProp Id="GUID" Value="e8920" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAINMENUAPP_STATIC_MIDDLE_HEIGHT" SizeWidth="MAINMENUAPP_STATIC_MIDDLE_WIDTH">
+				<Position Type="X_POSITION" Value="MAINMENUAPP_STATIC_MIDDLE_X" />
+				<Position Type="Y_POSITION" Value="MAINMENUAPP_STATIC_MIDDLE_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="dcb19" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SpinMenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINMENUAPP_THUMBNAIL_MENU_HEIGHT" SizeWidth="MAINMENUAPP_THUMBNAIL_MENU_WIDTH">
+				<Position Type="X_POSITION" Value="MAINMENUAPP_THUMBNAIL_MENU_X" />
+				<Position Type="Y_POSITION" Value="MAINMENUAPP_THUMBNAIL_MENU_Y" />
+				<Property Id="PROP_WDG_BG_IMAGE" Value="MAIN_MENU_THUMBNAIL_BG" />
+				<InternProp Id="GUID" Value="beced" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="81dbb" />
+		</Widget>
+		<InternProp Id="GUID" Value="aa908" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="WND_SPIN3D" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<InternProp Id="GUID" Value="53e10" />
+		</Widget>
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="FALSE" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="FALSE" />
+		<InternProp Id="GUID" Value="4f758" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_MAINMENUAPP" />
+</UiRoot>

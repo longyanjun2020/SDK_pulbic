@@ -1,0 +1,75 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+/****************************************************************************/
+/*  File    : mdl_drm_vfs_file.ho                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : file access functions                           */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 23.12.02 |   NRO  |      |  Creation                                     */
+/*----------+--------+------+-----------------------------------------------*/
+/****************************************************************************/
+
+#ifndef __MDL_DRM_VFS_FILE_HO__
+#define __MDL_DRM_VFS_FILE_HO__
+
+#define DRM_FILE_ERROR_READ_FILE	(-32)
+#define DRM_FILE_ERROR_NO_KEY		(-33)
+
+/*_____ I N C L U D E S ____________________________________________________*/
+
+#include "mdl_vfs_file.ho"
+
+
+/*_____ TYPES ______________________________________________________________*/
+
+typedef struct drm_vfs_file_data
+{
+  VFS_FILE *pVFS;
+  void *pAesHandle;
+  u8 *pAESKey;
+  s32 nDataOffset;
+  u32 nPartEncLen;
+} DRM_VFS_FILE;
+
+/*_____ D E C L A R A T I O N ______________________________________________*/
+
+s32 drm_file_finit (u8 nb_f);
+
+DRM_VFS_FILE* drm_file_fopen(const u16* const pName, const ascii* const pModeStr);
+
+DRM_VFS_FILE* drm_file_fopenWithBuffer(const u16 * const pName, const ascii * const pModeStr, u8 * const pBuffer, const u32 bufferSize);
+
+s32 drm_file_fread(DRM_VFS_FILE* const pFile, u8* const pBuffer, const u32 numBytes);
+
+s32 drm_file_freadReq(DRM_VFS_FILE * const pFile, u8 * const pBuffer, const u32 numBytes, VFS_NotifyCb_t * const pVfsCb);
+
+s32 drm_file_fwrite(DRM_VFS_FILE* const pFile, const u8 * const pBuffer, const u32 numBytes);
+
+s32 drm_file_fwriteReq(DRM_VFS_FILE * const pFile, const u8 * const pBuffer, const u32 numBytes, VFS_NotifyCb_t * const pVfsCb);
+
+s32 drm_file_fclose(DRM_VFS_FILE* const pFile);
+
+s32 drm_file_feof(DRM_VFS_FILE* const pFile);
+
+s32 drm_file_fseek(DRM_VFS_FILE* const pFile, const s32 offset, const s32 position);
+
+s32 drm_file_ftell(DRM_VFS_FILE* const pFile);
+
+s32 drm_file_finfo(DRM_VFS_FILE* const pFile, VFS_File_Info_t* const pInfo);
+
+s32 drm_file_ferror(DRM_VFS_FILE * const pFile);
+
+#endif  /* __MDL_DRM_VFS_FILE_HO__ */
+

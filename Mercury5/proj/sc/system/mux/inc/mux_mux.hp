@@ -1,0 +1,173 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+//**************************************************************************//
+/**
+ *   @file    mux_mux.hp  
+ *
+ *@b Purpose:     
+ *            structures used by the multiplexer internally
+ *            
+ *--------------------------------------------------------------------------  
+ *@b Content:     
+ *                           
+ *                                                                         
+ *--------------------------------------------------------------------------
+ * @date      03/11/2003
+ * @author    MSE
+ *
+ *@b Historical:
+ ***************************************************************************
+ *   Date:      Author: Note:
+ *
+ *@n 03/11/2003 MSE     Creation
+ *@n 06/12/2004 APH     MUX integration
+ *
+ */
+//**************************************************************************//
+
+
+#ifndef __MUX_MUX_HP__
+#define __MUX_MUX_HP__
+
+
+#include "sys_v24.ht"     // TxPal_status_e
+
+#include "mux_at.hi"  // for mux_at_start_req_t and all
+
+
+/* mux_ctx.c */
+void mux_InitHyperQueue(void);
+void mux_InitQueue(mux_Queue_t *mux_PtrQueueIn);
+void mux_InitCtx(mux_Ctx_t *MuxPtrCtxIn);
+
+u8 mux_FindIndex(u32 Port);
+mux_Queue_t * mux_FindQueue(u32 Port);
+mux_Ctx_t * mux_FindCtxDlci(u8 Dlci, mux_Queue_t *mux_PtrQueueIn);
+
+bool mux_FindCtxPort(u32 Port);
+
+mux_Queue_t * mux_NewQueue(u8 Port);
+mux_Ctx_t * mux_NewCtx(mux_Queue_t *mux_PtrQueueIn);
+bool mux_RemoveCtx(mux_Queue_t *mux_PtrQueueIn, mux_Ctx_t *MuxPtrCtxIn);
+
+bool mux_NewId(void);
+bool mux_RemoveId(u8 id);
+bool mux_NewDlci(void);
+bool mux_RemoveQueue(void);
+
+
+bool mux_AssignNewDlci(mux_Queue_t *mux_PtrQueueIn, u8 Dlci);
+bool mux_RemoveDlci(mux_Queue_t *mux_PtrQueueIn, u8 Dlci);
+
+/* mux_send.c */
+void mux_Snd_AtStartRsp(bool Response);
+void mux_Snd_AtOpenDlcInd(void);
+void mux_Snd_AtOpenDlcRsp(bool Response);
+void mux_Snd_AtCloseDlcInd(void);
+void mux_Snd_AtCloseDlcRsp(bool Response);
+void mux_Snd_AtStopInd(void);
+void mux_Snd_AtStopRsp(bool Response);
+
+void mux_SendData(mux_Ctx_t *PtrCtxIn);
+void mux_Snd_LastPacket(mux_Ctx_t *MuxPtrCtxIn);
+
+
+
+void mux_Snd_Sabm(u8 Dlci);
+void mux_Snd_Ua(u8 Dlci);
+void mux_Snd_Disc(u8 Dlci);
+void mux_Snd_Dm(u8 Dlci);
+void mux_Snd_Control_UIH(u8 Type, u8 Cr, u8 size, u8 * Data);
+
+
+bool mux_Snd_CtrlRegisterStart(u32 Port);
+bool mux_Snd_CtrlRegisterStop(u32 Port);
+bool mux_Snd_CtrlRegister(u32 Port);
+bool mux_Snd_CtrlUnRegister(u32 Port);
+
+void mux_Snd_SigCtrl(u8 signal, bool Response);
+
+/*mux_mux.c */
+void mux_Start(mux_at_start_req_t muxAtStartReq);
+void mux_Stop(mux_at_stop_req_t muxAtStopReq);
+void mux_OpenDlcReq(mux_at_cmd_req_t muxAtCmdReq);
+void mux_CloseDlcReq(mux_at_cmd_req_t muxAtCmdReq);
+void mux_OpenDlcCnf(mux_at_cmd_cnf_t muxAtCmdCnf);
+void mux_CloseDlcCnf(mux_at_cmd_cnf_t muxAtCmdCnf);
+
+void mux_MuxTimer(u32 Port, u8 TimerId);
+
+void mux_HandleSigChangeReq(u8 Signal,  u8 Param, void *Context);
+bool mux_HandleSigGetReq(u8 Signal, void *Context);
+void mux_HandleSigBreak(u8 Length, u8 Param, void *Context);
+void mux_HandleSigXonXoff(u8 On, void *Context);
+
+
+
+void mux_HandlePacket(u8 *PtrData, u16 PurgeInex, u16 Length, u32 Port);
+u32  mux_HandleIndPacket(u8 *PtrData, u16 PurgeIndex , u16 Length, u32 Port);
+void mux_HandleClosed(u8 *PtrData, u16 Length);
+void mux_HandleConnectingRemote(u8 *PtrData, u16 Length);
+void mux_HandleControlCommandSent(u8 *PtrData, u16 Length);
+void mux_HandleDisconnectingRemote(u8 *PtrData, u16 Length);
+void mux_HandleCommandCld(void);
+void mux_HandleCommandMsc(u8 *PtrData, u16 Length);
+void mux_HandleCommandFcon(void);
+void mux_HandleCommandFcoff(void);
+void mux_HandleCommandPsc(void);
+void mux_HandleCommandPn(void);
+void mux_HandleCommand(u8 *PtrData, u16 Length);
+void mux_HandleCommandResponse(u8 *PtrData, u16 Length);
+
+
+void mux_HandleRxData(u8 *PtrData, u16 PurgeIndex , u16 Length, mux_Ctx_t *PtrCtxIn);
+void mux_HandleConnected(u8 *PtrData, u16 PurgeIndex, u16 Length, u8 Dlci, mux_Ctx_t *PtrCtxIn);
+TxPal_status_e mux_Snd_Data_UIH(v24_TxBlock_t *BlockPtr, u8 Dlci, mux_Ctx_t *PtrCtxIn);
+TxPal_status_e mux_HandleTxData(v24_TxBlock_t *TxBlock, mux_Ctx_t *PtrCtxLocal);
+
+TxPal_status_e mux_Snd_Data_UIH_FragmentedFormat(v24_TxBlock_t *BlockPtr, u8 Dlci, mux_Ctx_t *PtrCtxIn);
+bool mux_FindCtxHandlerPort(u32 Port);
+TxPal_status_e mux_Snd_DataUIH_Fragmented(v24_TxBlock_t *TxBlock, mux_Ctx_t *PtrCtxLocal );
+
+v24_RxItIdx_t mux_ParseRxFrame(u8 *Buf, v24_RxItIdx_t PurgeIndex, v24_RxItIdx_t FillIndex, u32 Port, u16 FifoModulo);
+
+void mux_Init(void);
+void mux_Timer(u32 Port);
+
+bool mux_HandleCommandTestRequested(u8 *pSrcDataPayload, u8 *PtrData, u16 Length);
+
+/*mux_util.c */
+u8    mux_FindIndex(u32 Port);
+u8    mux_CalculateFcs(u8 *Ptr, u8 Length);
+bool  mux_VerifyFcs(u8 *Ptr, u8 Length, u8 RFCS);
+u8 *  mux_RtkGetMemory(u16 Length);
+bool _mux_ReleaseMemory(void ** Ptr);
+void  mux_ReleaseBlockMemory(u8 *Buffer, u32 Port);
+
+bool mux_RtkSend(u16 Mbx, u8 * Ptr);
+u8   mux_GetDlci(u8 *Ptr);
+u32  mux_ConvertToPort(void);
+void mux_Copy_LastPacket(u8 *Ptr , u16 Size);
+
+/* mux_tim.c */
+void mux_SetTimer(u8 TimerId, mux_Queue_t *mux_PtrQueueIn);
+void mux_StopTimer( u8 TimerId, mux_Queue_t *mux_PtrQueueIn);
+
+
+bool mux_CanWeSendPscFrame(void);
+void mux_HandleSendWakeUpFrame(mux_Queue_t  *mux_PtrQueueIn);
+void mux_MuxRxIndSleepModeReadyPtr(u32 Arg, void* Context);
+void mux_MuxRxIndSleepModeReadyPtrAll(u32 Arg);
+
+void mux_MuxRxIndSleepModeWakeUpPtr(u32 Arg, void* Context);
+void mux_MuxRxIndSleepModeWakeUpPtrAll(u32 Arg);
+void mux_MuxRxIndSleepModeWakeUpPtrAllExclusive(u32 Arg, u8 Dlci);
+#endif /* __MUX_MUX_HP__ */

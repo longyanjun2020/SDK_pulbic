@@ -1,0 +1,161 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// (¡§MStar Confidential Information¡¨) by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+#ifndef __WAP_CONFIG_HI__
+#define __WAP_CONFIG_HI__
+#ifdef __WAP_MMI_CDWAP__
+#include "wap_porting.hi"
+
+
+// User agent & Header:
+#define NCC_CFG_HTTP_USERAGENT "User-Agent:Nokia6120c/3.83; Profile/MIDP-2.0 Configuration/CLDC-1.1"
+
+#ifdef DB_USING_OMA_DOWNLOAD
+#ifdef __NCC_BROWSER_HTML__ // defined in wap.mak
+#ifdef I18N_GBK_SUPPORT
+#define NCC_CFG_HTTP_HEADERS "Accept:text/html,application/xhtml+xml,application/vnd.wap.xhtml+xml,text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,application/vnd.oma.drm.message,application/vnd.oma.drm.content,application/vnd.oma.drm.rights+xml,application/vnd.oma.drm.rights+wbxml,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8,gbk\r\n"
+#elif defined(I18N_GB2312_SUPPORT)
+#define NCC_CFG_HTTP_HEADERS "Accept:text/html,application/xhtml+xml,application/vnd.wap.xhtml+xml,text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,application/vnd.oma.drm.message,application/vnd.oma.drm.content,application/vnd.oma.drm.rights+xml,application/vnd.oma.drm.rights+wbxml,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:gb2312,utf-8\r\n"
+#else
+#define NCC_CFG_HTTP_HEADERS "Accept:text/html,application/xhtml+xml,application/vnd.wap.xhtml+xml,text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,application/vnd.oma.drm.message,application/vnd.oma.drm.content,application/vnd.oma.drm.rights+xml,application/vnd.oma.drm.rights+wbxml,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8\r\n"
+#endif
+#else
+#ifdef I18N_GBK_SUPPORT
+#define NCC_CFG_HTTP_HEADERS "Accept:text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,application/vnd.oma.drm.message,application/vnd.oma.drm.content,application/vnd.oma.drm.rights+xml,application/vnd.oma.drm.rights+wbxml,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8,gbk\r\n"
+#elif defined(I18N_GB2312_SUPPORT)
+#define NCC_CFG_HTTP_HEADERS "Accept:text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,application/vnd.oma.drm.message,application/vnd.oma.drm.content,application/vnd.oma.drm.rights+xml,application/vnd.oma.drm.rights+wbxml,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:gb2312,utf-8\r\n"
+#else
+#define NCC_CFG_HTTP_HEADERS "Accept:text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,application/vnd.oma.drm.message,application/vnd.oma.drm.content,application/vnd.oma.drm.rights+xml,application/vnd.oma.drm.rights+wbxml,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8\r\n"
+#endif
+#endif
+#else//DB_USING_OMA_DOWNLOAD
+#ifdef __NCC_BROWSER_HTML__ // defined in wap.mak
+#ifdef I18N_GBK_SUPPORT
+#define NCC_CFG_HTTP_HEADERS "Accept:text/html,application/xhtml+xml,application/vnd.wap.xhtml+xml,text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8,gbk\r\n"
+#elif defined(I18N_GB2312_SUPPORT)
+#define NCC_CFG_HTTP_HEADERS "Accept:text/html,application/xhtml+xml,application/vnd.wap.xhtml+xml,text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:gb2312,utf-8\r\n"
+#else
+#define NCC_CFG_HTTP_HEADERS "Accept:text/html,application/xhtml+xml,application/vnd.wap.xhtml+xml,text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8\r\n"
+#endif
+#else
+#ifdef I18N_GBK_SUPPORT
+#define NCC_CFG_HTTP_HEADERS "Accept:text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8,gbk\r\n"
+#elif defined(I18N_GB2312_SUPPORT)
+#define NCC_CFG_HTTP_HEADERS "Accept:text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:gb2312,utf-8\r\n"
+#else
+#define NCC_CFG_HTTP_HEADERS "Accept:text/vnd.wap.wml,image/vnd.wap.wbmp,image/x-bmp,image/bmp,image/jpg,image/jpeg,image/pjpeg,image/gif,image/png,text/vnd.sun.j2me.app-descriptor,application/java-archive,application/x-nes-rom,text/plain,audio/midi,audio/x-midi,audio/mid,audio/x-mid,audio/sp-midi,audio/AMR,audio/x-amr,audio/wav,audio/x-wav,audio/aac,application/vnd.smaf,application/x-smaf,audio/mpeg,audio/x-mpeg,audio/mp3,audio/x-mp3,audio/mpeg3,audio/x-mpeg3,audio/mpg,audio/x-mpg,audio/x-mpegaudio,video/3gpp,video/mp4,audio/mp4,application/mp4,application/mpeg4-iod,application/mpeg4-iod-xmt,application/vnd.rn-realmedia,application/vnd.rn-realmedia-vbr,*/*;q=0.8\r\nAccept-Encoding:gzip,deflate\r\nAccept-Charset:utf-8\r\n"
+#endif
+#endif
+#endif//DB_USING_OMA_DOWNLOAD
+
+typedef enum
+{
+    REQ_WAP_INIT = WAP_EVT_MISC_BASE,               /**< Initilize WAP, x = display width, y= display height */
+    RSQ_WAP_INIT,                                   /**< Response to REQ_WAP_INIT, y = WAP_ERRCODE*/
+    REQ_WAP_UNINIT,                                 /**< Exit wap kernel, release resources */
+    RSQ_WAP_UNINIT,                                 /**< Response to REQ_WAP_UNINIT */
+    REQ_WAP_RELAYOUT,
+    REQ_WAP_SET_SCREEN_INFO,
+    RSQ_WAP_WTAI_START,
+    RSQ_WAP_WTAI_MAKECALL_IND,                      /**< WTAI: Make Call indication */
+    RSQ_WAP_WTAI_SENDDTMF_IND,                      /**< WTAI: Send DTMF indication */
+    RSQ_WAP_WTAI_ADDPBENTRY_IND,                    /**< WTAI: Add Phonebook Entry indication */
+    RSQ_WAP_WTAI_SENDNOTIFY_IND,                    /**< WTAI: Send notify indication */
+    RSQ_WAP_WTAI_END,
+    RSQ_WAP_PLAY_STREAMING_RTSP,					/**< STREAMING: Play RTSP streaming media*/
+#ifdef __STREAMING_MODULE__    
+    RSQ_WAP_PLAY_STREAMING_HTTP,					/**< STREAMING: Play HTTP streaming media*/
+#endif    
+    REQ_WAP_CFG_GET_COOKSIZE = WAP_EVT_CONFIG_BASE, /**< Get size of browser cookie */
+    REQ_WAP_CFG_SET_COOKSIZE,                       /**< Set size of browser cookie  */
+    REQ_WAP_CFG_GET_CACHESIZE,                      /**< Get size of browser cashe */
+    REQ_WAP_CFG_SET_CACHESIZE,                      /**< Set size of browser cashe */
+    REQ_WAP_CFG_GET_MAXIMGINPAGE,                   /**< Get max image in one page */
+    REQ_WAP_CFG_SET_MAXIMGINPAGE,                   /**< Set max image in one page, x = MAXIMGINPAGE */
+    REQ_WAP_CFG_GET_FONTSIZE,                       /**< Get font size,just only support medium & smallest font in xmmi platform */
+    REQ_WAP_CFG_SET_FONTSIZE,                       /**< Set font size, x = E_FONT_MODE instance, just only support medium & smallest font in xmmi platform */
+    REQ_WAP_CFG_GET_CURCODEPAGE,                    /**< Get current codepage index  */
+    REQ_WAP_CFG_SET_CURCODEPAGE,                    /**< Set current codepage index  */
+    REQ_WAP_CFG_GET_CURSCRRES,                      /**< Get current resolutin index of screen Resolution setting */
+    REQ_WAP_CFG_SET_CURSCRRES,                      /**< Set current resolutin index of screen Resolution setting */
+    REQ_WAP_CFG_GET_NETSETTING,                     /**< Get index of current selected net setting */
+    REQ_WAP_CFG_SET_NETSETTING,                     /**< Set index for current selected net setting */
+    REQ_WAP_CFG_ADD_NETSETTING,                     /**< Add one net setting into browser running config */
+    REQ_WAP_CFG_CHG_NETSETTING,                     /**< Add one net setting into browser running config */
+    REQ_WAP_CFG_SET_PROXYPORT,                      /**< Set current connect proxy and port */
+    REQ_WAP_CFG_GET_PROXYPORT,                      /**< Get current connect proxy and port */
+    REQ_WAP_CFG_GET_FAVRCOUNT,                      /**< Get total favorte items number from browser running config */
+    REQ_WAP_CFG_GET_FAVRITEM,                       /**< Get one Favorte item according to the index given from browser running config */
+    REQ_WAP_CFG_DEL_FAVRITEM,                       /**< Delete one Favorte item which have saved in browser running config */
+    REQ_WAP_CFG_ADD_FAVRITEM,                       /**< Add one Favorte item into browser running config */
+    REQ_WAP_CFG_GET_HISTITEM,                       /**< Get one history record according to the index given from browser running config */
+    REQ_WAP_CFG_ADD_HISTITEM,                       /**< Add one history record into browser running config */
+    REQ_WAP_CFG_DEL_HISTITEM,                       /**< Del one history record into browser running config */
+    REQ_WAP_CFG_CLR_HISTITEM,                       /**< Clear all history records in browser running config */
+    REQ_WAP_CFG_ENABLE_IMAGE,                       /**< Enable browser to support image */
+    REQ_WAP_CFG_DISABLE_IMAGE,                      /**< Disable browser to support image */
+    REQ_WAP_CFG_SET_HOMEPAGE,                       /**< Set the pointed url as homepage, pData = new homepage,UTF8 format */
+    REQ_WAP_CFG_CHNGSIMID,                          /**< x = ven_common_sim_id_t */
+    REQ_WAP_CFG_CHNGDLPATH,                         /**< x = CDWAPApp_STORAGE_e */
+    REQ_WAP_CFG_CHNMEMCARD,                         /**< x  */
+    REQ_WAP_CFG_SET_USERAGENT,                      /**< Set customized User-Agent  */
+#ifdef __WLAN_MMI__
+    REQ_WAP_CFG_CONNECTSET,                         /**< Set Connection is Wifi only or GPRS Only */
+#endif
+    REQ_WAP_CFG_GET_USERAGENT,                      /**< Get customized User-Agent  */
+
+    RSQ_WAP_CFG_SET_HOMEPAGE,                       /**< Response to REQ_WAP_CFG_SET_HOMEPAGE , y = WAP_ERRCODE */
+    RSQ_WAP_CFG_ENABLE_IMAGE,                       /**< Response to REQ_WAP_CFG_ENABLE_IMAGE,  y = WAP_ERRCODE */
+    RSQ_WAP_CFG_DISABLE_IMAGE,                      /**< Response to REQ_WAP_CFG_DISABLE_IMGE,  y = WAP_ERRCODE */
+    RSQ_WAP_CFG_GET_MAXIMGINPAGE,                   /**< Response to REQ_WAP_CFG_GET_MAXIMGINPAGE,  y = max img in page */
+    RSQ_WAP_CFG_SET_MAXIMGINPAGE,                   /**< Response to REQ_WAP_CFG_SET_MAXIMGINPAGE,  y = WAP_ERRCODE */
+    RSQ_WAP_CFG_GET_FONTSIZE,                       /**< Response to REQ_WAP_CFG_GET_FONTSIZE,  y = font size */
+    RSQ_WAP_CFG_SET_FONTSIZE,                       /**< Response to REQ_WAP_CFG_SET_FONTSIZE,  y = WAP_ERRCODE */
+    RSQ_WAP_CFG_CHNGSIMID,                          /**< Response to REQ_WAP_CFG_REINIT */
+    RSQ_WAP_CFG_CHNGDLPATH,                         /**< Response to REQ_WAP_CFG_CHNGDLPATH */
+    RSQ_WAP_CFG_SET_USERAGENT,                       /**< Response to RSQ_WAP_CFG_SET_USERAGENT */
+    RSQ_WAP_CFG_GET_USERAGENT                       /**< Response to RSQ_WAP_CFG_GET_USERAGENT */
+}WAP_CFG_EVENT;
+/*------------------------------------------------------------------------------------------------------------------------ */
+/* MESSAGE TYPE                     |                            RETURNED VALUE [Include WAP_ERROR_SUCCESS ]               */
+/*------------------------------------------------------------------------------------------------------------------------ */
+/* RSQ_WAP_INIT                     | WAP_ERROR_NOMEMORY, WAP_ERROR_SETTING,WAP_ERROR_NETWORK,WAP_ERROR_TIMER              */
+/* RSQ_WAP_CFG_ENABLE_IMAGE         | WAP_ERROR_CONFIG                                                                     */
+/* RSQ_WAP_CFG_DISABLE_IMAGE        | WAP_ERROR_CONFIG                                                                     */
+/* RSQ_WAP_CFG_SET_FONTSIZE         | WAP_ERROR_CONFIG                                                                     */
+/* RSQ_WAP_CFG_SET_HOMEPAGE         | WAP_ERROR_CONFIG                                                                     */
+/*------------------------------------------------------------------------------------------------------------------------ */
+#ifdef  __cplusplus
+extern "C" {
+#endif
+bool WapCreateDataLink (u32 handle, u8 simid, ven_setting_network_profile_ex_t *profile);
+bool WapReleaseDataLink(void);
+bool WapExitDataLink   (void);
+bool WapIsDisconnected(void);
+void WapSetDisconnected(void);
+
+WapErrCode_e WapSetCustomizedUserAgent( const s8* pUserAgent );
+WapErrCode_e WapConfigProxy   ( ven_common_sim_id_t simId );
+void         WapConfigCallback( WapEvent_t* pEvent );
+WapErrCode_e WapGetCurrentHttpHeaders(s8* pOutHttpHdrs, u32 nMaxLen);
+WapErrCode_e WapGetCurrentUserAgent(s8* pOutUserAgent, u32 nMaxLen);
+WapErrCode_e WapGetCurrentUserAgentEx(s8** ppOutUserAgent, u32* pLen);
+WapErrCode_e WapGetCurrentLanguage(E_LANG_MODE* pOutLanMode);
+#ifdef  __cplusplus
+}
+#endif //  extern "C"
+#endif //__WAP_MMI_CDWAP__
+#endif //__WAP_CONFIG_HI__

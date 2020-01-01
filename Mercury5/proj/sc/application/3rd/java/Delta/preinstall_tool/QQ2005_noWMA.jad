@@ -1,0 +1,10 @@
+MIDlet-1: QQ2005,/icon.png,com.tencent.kqq2_3.KQQMIDlet
+MIDlet-Icon: /icon.png
+MIDlet-Jar-Size: 125162
+MIDlet-Jar-URL: QQ2005_noWMA.jar
+MIDlet-Name: QQ2005
+MIDlet-Permissions: javax.microedition.io.Connector.socket,javax.microedition.io.Connector.http
+MIDlet-Vendor: Tencent
+MIDlet-Version: 2.4.3
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-2.0

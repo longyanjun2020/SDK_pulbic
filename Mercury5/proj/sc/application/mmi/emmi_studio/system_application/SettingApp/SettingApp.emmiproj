@@ -1,0 +1,30 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>SettingApp</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{81d5a047-0283-4b51-a077-62f0876f4a0a}</ProjectGuid>
+    <AssemblyName>mmi_settingapp</AssemblyName>
+    <RootNamespace>mmi_settingapp</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\SettingApp</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>SYSTEM</PrjType>
+    <OutputPath>..\..\..\app\SettingApp</OutputPath>
+  </PropertyGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it. 
+		
+	<Target Name="BeforeClean"></Target>
+	<Target Name="AfterClean"></Target>
+	<Target Name="BeforeRebuild"></Target>
+	<Target Name="AfterRebuild"></Target>
+	<Target Name="BeforeDeploy"></Target>
+	<Target Name="AfterDeploy"></Target>
+	-->
+</Project>

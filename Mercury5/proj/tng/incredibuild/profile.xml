@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Profile FormatVersion="1">
+    <Tools>
+        <Tool Filename="make" AllowRemote="true" AllowIntercept="true" />
+        <Tool Filename="armasm" AllowRemote="true" />
+        <Tool Filename="armcc" AllowRemote="true" />
+        <Tool Filename="armcpp" AllowRemote="true" />
+        <Tool Filename="tcc" AllowRemote="true" />
+        <Tool Filename="tcpp" AllowRemote="true" />
+        <Tool Filename="echo" AllowRemote="true" />
+        <Tool Filename="makedepend" AllowRemote="true" />
+        <Tool Filename="cygpath" AllowRemote="true" />
+        <Tool Filename="perl" AllowRemote="true" AllowIntercept="true" />
+        <Tool Filename="sed" AllowRemote="false" AllowIntercept="true" />
+        <Tool Filename="armar" AllowRemote="false" />        
+        <Tool Filename="armlink" AllowRemote="false" />
+        <Tool Filename="formelf" AllowRemote="false" />
+    <Tool Filename="rtpp" AllowRemote="false" />
+        <Tool Filename="aeon-elf-gcc" AllowRemote="true" />
+        <Tool Filename="aeon-elf-cpp" AllowRemote="true" />
+        <Tool Filename="aeon-elf-cpp" AllowRemote="true" />
+        <Tool Filename="aeon-elf-as" AllowRemote="true" />
+        <Tool Filename="ccache" AllowRemote="true" />
+        <Tool Filename="aeon-elf-ld" AllowRemote="false" />
+    </Tools>
+</Profile>

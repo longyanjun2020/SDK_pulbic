@@ -1,0 +1,802 @@
+/**
+* @file   vm_e2p_app.ho
+* @brief  EEPROM handler interface definition
+* @author Important : This software is protected by Copyright and the information
+*              contained herein is confidential. Distribution, reproduction
+*              as well as exploitation and transmission of its contents is
+*              not allowed except if expressly permitted. Infringments
+*              result in damage claims.
+*              Copyright MSTAR (c) 2008.
+*/
+
+#ifndef __VM_E2P_APP_HO__
+#define __VM_E2P_APP_HO__
+
+#include "vm_types.ht"
+#include "vm_e2p.ho"
+
+//#ifdef __E2P_INDEX_SYM__
+//#include "e2p_stck.ho"
+//#endif
+
+
+/****************************************************************************/
+/*     MMI DEFINITIONS and STRUCTURES                                       */
+/****************************************************************************/
+/* ME Personalization information */
+#define E2P_DIM_DEVISE_NAME           7
+#define E2P_FP_DISPLAY_SIZE             7
+#define E2P_DIM_BT_ADDRESS            8
+
+typedef u8 mmi_BtAddr_t[E2P_DIM_BT_ADDRESS];
+typedef ascii DeviseName_t      [E2P_DIM_DEVISE_NAME + 1];
+
+
+#ifdef __APP_E2P_MML__
+/* ME Personalization information */
+#define E2P_DIM_SERIAL_NUMBER         8
+#define E2P_DIM_BUILD_LEVEL           10
+#define E2P_DIM_PROCESS_HIST          4
+#define E2P_DIM_TEST_REPAIR_HIST      20
+#define E2P_DIM_CUSTOMER_REPAIR_HIST  8
+#define E2P_DIM_HW_VARIANTS           16
+#define E2P_DIM_TIME_MANUFAC          3
+#define E2P_DIM_TIME_FT               3
+#define E2P_DIM_TIME_PACK             3
+#define E2P_DIM_LASTCALL              12
+#define E2P_DIM_NETPWD                8
+#define E2P_NB_MAX_ALARM              16
+
+/* Weekly alarm parameters */
+typedef struct
+{
+   u8 DaysOfWeek;    /* b0: Monday                */
+                     /* b1: Tuesday               */
+                     /* etc...                    */
+                     /* b7: On/Off                */
+   u8 Hour;
+   u8 Minute;
+   u8 Pad;
+} mml_WeeklyAlarm_t;
+
+/* LTW */
+typedef struct
+{
+   u32            IncCallPictureId;       /* Default Incoming Call  Picture Id         */
+   u32            IdlePictureId;          /* Default Idle           Picture Id         */
+   u32            PowerOnRingId;          /* Default PowerOn        Ring    Id         */
+   u32            PowerOffRingId;         /* Default PowerOff       Ring    Id         */
+   u32            PowerOnPictureId;       /* Default PowerOn        Picture Id         */
+   u32            PowerOffPictureId;      /* Default PowerOff       Picture Id         */
+   u32            SmsPPRingId;            /* Default SmsPP          Ring    Id         */
+   u32            SmsCBRingId;            /* Default SmsCB          Ring    Id         */
+   u32            CalendarEventRingId;    /* Default Calendar Event Ring    Id         */
+   u32            AlarmEventRingId;       /* Default Alarm    Event Ring    Id         */
+}  mml_ConfigSetup_t;
+
+#endif /* __APP_E2P_MML__ */
+
+/****************************************************************************/
+/*                                          APPLICATION E2P STRUCTURE                                           */
+/****************************************************************************/
+#ifndef __NAND__
+typedef struct
+{
+   /****************************************************************************/
+   /*                             MMI STRUCTURES FIELDS                        */
+   /****************************************************************************/
+     u16                   OnTime;                 /* Total on time used for consumption management */
+     u8                    Customer;
+     u8                    SIMRestCounter;         /* SIM Reset Counter to avoid check card */
+     DeviseName_t          OriginalName;           /* Name's devise for MMI's converter */
+     DeviseName_t          ForeignName;            /* Name's devise for MMI's converter */
+     u8                    WitholdSupported;             /* Used to activate/deactivate the access to the "CLIR / WithHoldId" Menu */
+     u8                    DualCallIdDisplayMode;        /* Dual call id display mode */
+     u16                   SyncMLActiveProfileLocation;  /* used to save the active profile for synchronisation */
+     u8                    BtAnaFTrim;                   /* used to trim BT crystal */
+     u8                    PadApp_4;
+     u8                    CFUQueryPowerOn;              /* Default CFU when power on setting */
+     u8                    BtClockType;                  /* decide to use 13MHz or 26Mhz clock */
+     u8                    BtDspInGain[2];               /* used to adjust BT DSP input gain */
+     u16                   StlkGCFTest;                /* Used to do the GCF test */
+     u8                    MMIRunMode; /* 0: business mode, 1: factory mode */
+     u8                    BtChipInGain[2];             /* used to adjust BT chip input gain */
+     u8                    BtChipOutGain[2];            /* used to adjust BT chip output gain */
+     u8                    FmDeEmphasis;                /* used to adjust FM DeEmphasis parameter */
+     u8                    FmStepSpace;                 /* used to adjust FM StepSpace parameter */
+     u8                    FmBpfir;                     /* used to adjust FM Bpfir parameter */
+     u8                    FmBeginRange;                /* used to adjust FM BeginRange parameter */
+     u8                    FmEndRange;                  /* used to adjust FM EndRange parameter */
+     u8                    FmCarrierOn;                 /* used to adjust FM CarrierON parameter */
+     u8                    FmCarrierOff;                /* used to adjust FM CarrierOFF parameter */
+     u8                    FmPaddingApp;                   /* FM padding byte*/
+
+   #ifdef __APP_E2P_MML__
+   /****************************************************************************/
+   /*                             MML STRUCTURES FIELDS                        */
+   /****************************************************************************/
+   u8             ConfSetupFlashLoading;  /* configuration setup loading status: from e2p or flash */
+   u8             apppad[2];
+   mml_ConfigSetup_t  ConfigSetupData;    /* Default Configuration setup data          */
+   mml_WeeklyAlarm_t  WeeklyAlarm;
+   u8             DateFormat;
+   u8             ContrastDual;           /* Contrast value of external lcd */
+   u8             AnalogClock;            /* State of the analog clock */
+   u8             USB_Mode;               /* USB active in CDC - 0 or MS - 1*/
+   u8             Backlight_Level;        /* Backlight management */
+   u8             Backlight_Dual_Level;   /* Backlight management */
+   u8             Contrast;               /* LCD contrast                  */
+   Greet2_t       PadCGLGreeting2_mmi;    /* Greeting2 message, should be moved to MML */
+   u8             PadCGLRingLevelAux_mmi; /* Ring level, should be moved to MML   */
+   #else
+   u8             PadMML[76];
+   #endif /* __APP_E2P_MML__ */
+
+   u8             CustomerData[200];
+   u8             CheckSPNDisplayCondition;   
+   u8             AutoDetermineSPNwithPriority;
+   u8             USBCompositeMode; /* 0: usb composite off, 1: usb composite on */
+   u8             NetworkLockMode; /* 1: unique mode, 2: universal mode */
+   u8             NewAutoTestTrace; /*0: new auto test log off(default),  1: new auto test log on*/
+   u8             EnableRSSISmoothAlgorithm;     /* For Enable the Smooth Method for RSSI */
+   u8             app_pad[37];
+   u8             E2PVersion[4];          /* E2P version control: This field can't be modified */
+} E2pAppl_t;
+
+#else
+typedef struct
+{
+   /****************************************************************************/
+   /*                             MMI STRUCTURES FIELDS                        */
+   /****************************************************************************/
+     u16                   OnTime;                 /* Total on time used for consumption management */
+     u8                    Customer;
+     u8                    SIMRestCounter;         /* SIM Reset Counter to avoid check card */
+     DeviseName_t          OriginalName;           /* Name's devise for MMI's converter */
+     DeviseName_t          ForeignName;            /* Name's devise for MMI's converter */
+     u8                    WitholdSupported;             /* Used to activate/deactivate the access to the "CLIR / WithHoldId" Menu */
+     u8                    DualCallIdDisplayMode;        /* Dual call id display mode */
+     u16                   SyncMLActiveProfileLocation;  /* used to save the active profile for synchronisation */
+     u8                    BtAnaFTrim;                   /* used to trim BT crystal */
+     u8                    PadApp_4;
+     u8                    CFUQueryPowerOn;              /* Default CFU when power on setting */
+     u8                    BtClockType;                  /* decide to use 13MHz or 26Mhz clock */
+     u8                    BtDspInGain[2];               /* used to adjust BT DSP input gain */
+     u16                   StlkGCFTest;                /* Used to do the GCF test */
+     u8                    MMIRunMode; /* 0: business mode, 1: factory mode */
+     u8                    BtChipInGain[2];             /* used to adjust BT chip input gain */
+     u8                    BtChipOutGain[2];            /* used to adjust BT chip output gain */
+     u8                    FmDeEmphasis;                /* used to adjust FM DeEmphasis parameter */
+     u8                    FmStepSpace;                 /* used to adjust FM StepSpace parameter */
+     u8                    FmBpfir;                     /* used to adjust FM Bpfir parameter */
+     u8                    FmBeginRange;                /* used to adjust FM BeginRange parameter */
+     u8                    FmEndRange;                  /* used to adjust FM EndRange parameter */
+     u8                    FmCarrierOn;                 /* used to adjust FM CarrierON parameter */
+     u8                    FmCarrierOff;                /* used to adjust FM CarrierOFF parameter */
+     u8                    FmPaddingApp;                   /* FM padding byte*/
+     
+   #ifdef __APP_E2P_MML__
+   /****************************************************************************/
+   /*                             MML STRUCTURES FIELDS                        */
+   /****************************************************************************/
+   u8             ConfSetupFlashLoading;  /* configuration setup loading status: from e2p or flash */
+   u8             apppad[2];
+   mml_ConfigSetup_t  ConfigSetupData;    /* Default Configuration setup data          */
+   mml_WeeklyAlarm_t  WeeklyAlarm;
+   u8             DateFormat;
+   u8             ContrastDual;           /* Contrast value of external lcd */
+   u8             AnalogClock;            /* State of the analog clock */
+   u8             USB_Mode;               /* USB active in CDC - 0 or MS - 1*/
+   u8             Backlight_Level;        /* Backlight management */
+   u8             Backlight_Dual_Level;   /* Backlight management */
+   u8             Contrast;               /* LCD contrast                  */
+   Greet2_t       PadCGLGreeting2_mmi;    /* Greeting2 message, should be moved to MML */
+   u8             PadCGLRingLevelAux_mmi; /* Ring level, should be moved to MML   */
+   #else
+   u8             PadMML[76];
+   #endif /* __APP_E2P_MML__ */
+
+   u8             CustomerData[200];
+   u8             CheckSPNDisplayCondition;
+   u8             AutoDetermineSPNwithPriority;
+   u8             USBCompositeMode; /* 0: usb composite off, 1: usb composite on */
+   u8             NetworkLockMode; /* 1: unique mode, 2: universal mode */   
+   u8             NewAutoTestTrace; /*0: new auto test log off(default),  1: new auto test log on*/
+   u8             EnableRSSISmoothAlgorithm;     /* For Disable the Smooth Method for RSSI */
+   u8             app_pad[1721];
+} E2pAppl_t;
+#endif
+
+
+#ifdef __E2P_INDEX_SYM__
+
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE EXTERNAL SYMBOL FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+#ifndef __NAND__
+extern u32    E2P_SYM_BtAnaFTrim;
+extern u32    E2P_SYM_ContrastDual;
+extern u32    E2P_SYM_OnTime;
+extern u32    E2P_SYM_FmBpfir;
+extern u32    E2P_SYM_CheckSPNDisplayCondition;
+extern u32    E2P_SYM_OriginalName;
+extern u32    E2P_SYM_FmDeEmphasis;
+extern u32    E2P_SYM_ConfigSetupData;
+extern u32    E2P_SYM_AnalogClock;
+extern u32    E2P_SYM_Contrast;
+extern u32    E2P_SYM_CustomerData;
+extern u32    E2P_SYM_WeeklyAlarm;
+extern u32    E2P_SYM_FmEndRange;
+extern u32    E2P_SYM_WitholdSupported;
+extern u32    E2P_SYM_FmBeginRange;
+extern u32    E2P_SYM_BtChipOutGain;
+extern u32    E2P_SYM_FmCarrierOff;
+extern u32    E2P_SYM_ForeignName;
+extern u32    E2P_SYM_CFUQueryPowerOn;
+extern u32    E2P_SYM_FmStepSpace;
+extern u32    E2P_SYM_PadCGLGreeting2_mmi;
+extern u32    E2P_SYM_SyncMLActiveProfileLocation;
+extern u32    E2P_SYM_AutoDetermineSPNwithPriority;
+extern u32    E2P_SYM_FmCarrierOn;
+extern u32    E2P_SYM_NewAutoTestTrace;
+extern u32    E2P_SYM_BtDspInGain;
+extern u32    E2P_SYM_app_pad;
+extern u32    E2P_SYM_NetworkLockMode;
+extern u32    E2P_SYM_Backlight_Level;
+extern u32    E2P_SYM_Customer;
+extern u32    E2P_SYM_Backlight_Dual_Level;
+extern u32    E2P_SYM_EnableRSSISmoothAlgorithm;
+extern u32    E2P_SYM_FmPaddingApp;
+extern u32    E2P_SYM_ConfSetupFlashLoading;
+extern u32    E2P_SYM_USB_Mode;
+extern u32    E2P_SYM_PadCGLRingLevelAux_mmi;
+extern u32    E2P_SYM_MMIRunMode;
+extern u32    E2P_SYM_E2PVersion;
+extern u32    E2P_SYM_USBCompositeMode;
+extern u32    E2P_SYM_BtClockType;
+extern u32    E2P_SYM_StlkGCFTest;
+extern u32    E2P_SYM_BtChipInGain;
+extern u32    E2P_SYM_DualCallIdDisplayMode;
+extern u32    E2P_SYM_apppad;
+extern u32    E2P_SYM_PadApp_4;
+extern u32    E2P_SYM_DateFormat;
+extern u32    E2P_SYM_SIMRestCounter;
+
+#else
+extern u32    E2P_SYM_BtAnaFTrim;
+extern u32    E2P_SYM_ContrastDual;
+extern u32    E2P_SYM_OnTime;
+extern u32    E2P_SYM_FmBpfir;
+extern u32    E2P_SYM_CheckSPNDisplayCondition;
+extern u32    E2P_SYM_OriginalName;
+extern u32    E2P_SYM_FmDeEmphasis;
+extern u32    E2P_SYM_ConfigSetupData;
+extern u32    E2P_SYM_AnalogClock;
+extern u32    E2P_SYM_Contrast;
+extern u32    E2P_SYM_CustomerData;
+extern u32    E2P_SYM_WeeklyAlarm;
+extern u32    E2P_SYM_FmEndRange;
+extern u32    E2P_SYM_WitholdSupported;
+extern u32    E2P_SYM_FmBeginRange;
+extern u32    E2P_SYM_BtChipOutGain;
+extern u32    E2P_SYM_FmCarrierOff;
+extern u32    E2P_SYM_ForeignName;
+extern u32    E2P_SYM_CFUQueryPowerOn;
+extern u32    E2P_SYM_FmStepSpace;
+extern u32    E2P_SYM_PadCGLGreeting2_mmi;
+extern u32    E2P_SYM_SyncMLActiveProfileLocation;
+extern u32    E2P_SYM_AutoDetermineSPNwithPriority;
+extern u32    E2P_SYM_FmCarrierOn;
+extern u32    E2P_SYM_NewAutoTestTrace;
+extern u32    E2P_SYM_BtDspInGain;
+extern u32    E2P_SYM_app_pad;
+extern u32    E2P_SYM_NetworkLockMode;
+extern u32    E2P_SYM_Backlight_Level;
+extern u32    E2P_SYM_Customer;
+extern u32    E2P_SYM_Backlight_Dual_Level;
+extern u32    E2P_SYM_EnableRSSISmoothAlgorithm;
+extern u32    E2P_SYM_FmPadding;
+extern u32    E2P_SYM_ConfSetupFlashLoading;
+extern u32    E2P_SYM_USB_Mode;
+extern u32    E2P_SYM_PadCGLRingLevelAux_mmi;
+extern u32    E2P_SYM_MMIRunMode;
+extern u32    E2P_SYM_USBCompositeMode;
+extern u32    E2P_SYM_BtClockType;
+extern u32    E2P_SYM_StlkGCFTest;
+extern u32    E2P_SYM_BtChipInGain;
+extern u32    E2P_SYM_DualCallIdDisplayMode;
+extern u32    E2P_SYM_apppad;
+extern u32    E2P_SYM_PadApp_4;
+extern u32    E2P_SYM_DateFormat;
+extern u32    E2P_SYM_SIMRestCounter;
+#endif
+/*********************************************************/
+#define VM_E2P_APPL_RECORD(_X_, _Y_) (E2P_EXT_SYMBOL(_X_)), _Y_
+#else
+#define VM_E2P_APPL_ADRESS(_FIELD_)       VM_E2P_ADRESS (VM_E2P_APPL_AREA, E2pAppl_t , _FIELD_ )
+#define VM_E2P_APPL_RECORD(_X_,_Y_)       VM_E2P_APPL_ADRESS (_X_ ), _Y_
+#endif
+
+
+
+
+
+
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE MMI LOGICAL NAMES FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+#ifndef __MCP_WITHOUT_NOR__
+/*!
+  \def E2P_ONTIME
+  Category: MMI\n
+  Description: Record total time since target download code from the first time.\n
+  Default value: <OnTime>
+*/
+#define E2P_ONTIME               VM_E2P_APPL_RECORD( OnTime,              sizeof(u16))
+
+/*!
+  \def E2P_CUSTOMER
+  Category: MMI\n
+  Description: Identify the customer id.\n
+  Default value: <Customer>
+*/
+#define E2P_CUSTOMER             VM_E2P_APPL_RECORD( Customer,            sizeof(u8))
+
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_ORIGINALNAME
+  Category: MMI\n
+  Description: Original name used in currency converter.\n
+  Default value: <OriginalName>
+*/
+#define E2P_ORIGINALNAME         VM_E2P_APPL_RECORD( OriginalName,     sizeof(DeviseName_t) )
+
+/*!
+  \def E2P_FOREIGNNAME
+  Category: MMI\n
+  Description: Foreign name used in currency converter.\n
+  Default value: <ForeignName>
+*/
+#define E2P_FOREIGNNAME          VM_E2P_APPL_RECORD( ForeignName,      sizeof(DeviseName_t) )
+#else
+/*!
+  \def E2P_ORIGINALNAME
+  Category: MMI\n
+  Description: Original name used in currency converter.\n
+  Default value: <OriginalName>
+*/
+#define E2P_ORIGINALNAME         VM_E2P_APPL_RECORD( OriginalName[0],     sizeof(DeviseName_t) )
+
+/*!
+  \def E2P_FOREIGNNAME
+  Category: MMI\n
+  Description: Foreign name used in currency converter.\n
+  Default value: <ForeignName>
+*/
+#define E2P_FOREIGNNAME          VM_E2P_APPL_RECORD( ForeignName[0],      sizeof(DeviseName_t) )
+#endif
+/*!
+  \def E2P_SIMRESTCOUNTER
+  Category: MMI\n
+  Description: Record the reset Sim error counter.\n
+  Default value: <SIMRestCounter>
+*/
+#define E2P_SIMRESTCOUNTER       VM_E2P_APPL_RECORD( SIMRestCounter,      sizeof(u8))
+
+/*!
+  \def E2P_ST_GET_NOTSHOW_ID_MENU
+  Category: MMI\n
+  Description: Record the staus of Caller Identification. The caller identification menu will not be displayed if the vaule is 0.\n
+  Default value: <WitholdSupported>
+*/
+#define E2P_ST_GET_NOTSHOW_ID_MENU    VM_E2P_APPL_RECORD( WitholdSupported, sizeof(u8))
+
+/*!
+  \def E2P_SYNCML_ACTIVE_PROFILE_LOCATION
+  Category: MMI\n
+  Description: Record the active profile of SyncML.\n
+  Default value: <SyncMLActiveProfileLocation>
+*/
+#define E2P_SYNCML_ACTIVE_PROFILE_LOCATION     VM_E2P_APPL_RECORD( SyncMLActiveProfileLocation, sizeof(u16))
+
+/*!
+  \def E2P_DUAL_CALL_ID_DISPLAY_MODE
+  Category: MMI\n
+  Description: Set Dual Call Id mode to visible or confidential.\n
+  Default value: <DualCallIdDisplayMode>
+*/
+#define E2P_DUAL_CALL_ID_DISPLAY_MODE  VM_E2P_APPL_RECORD( DualCallIdDisplayMode,  sizeof(u8))
+
+/*!
+  \def E2P_CFUQUERYPOWERON
+  Category: MMI\n
+  Description: Record the status of Unconditional Call Forward.\n
+  Default value: <CFUQueryPowerOn>
+*/
+#define E2P_CFUQUERYPOWERON            VM_E2P_APPL_RECORD( CFUQueryPowerOn,  sizeof ( u8 ) )
+
+/*!
+  \def E2P_BT_ANA_FTRIM
+  Category: BT\n
+  Description: Used for trimming BT 26MHz crystal to an optimal frequency\n
+  Default value: <BtAnaFTrim>
+*/
+#define E2P_BT_ANA_FTRIM               VM_E2P_APPL_RECORD( BtAnaFTrim,    sizeof(u8) )
+
+/*!
+  \def E2P_BT_CLOCKTYPE
+  Category: BT\n
+  Description: Clock type used by BT. 0: None, 1: 13MHz clock, 2: 26MHz clock source.\n
+  Default value: <BtClockType>
+*/
+#define E2P_BT_CLOCKTYPE               VM_E2P_APPL_RECORD( BtClockType, sizeof(u8))
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_BT_DSP_INGAIN
+  Category: BT\n
+  Description: Record the ingain value of DSP.\n
+  Default value: <BtDspInGain>
+*/
+#define E2P_BT_DSP_INGAIN              VM_E2P_APPL_RECORD( BtDspInGain, sizeof(u16))
+
+/*!
+  \def E2P_BT_CHIP_INGAIN
+  Category: BT\n
+  Description: Record the ingain value of BT chip.\n
+  Default value: <BtChipInGain>
+*/
+#define E2P_BT_CHIP_INGAIN             VM_E2P_APPL_RECORD( BtChipInGain, sizeof(u16))
+
+/*!
+  \def E2P_BT_CHIP_OUTGAIN
+  Category: BT\n
+  Description: Record the ingain value of BT chip.\n
+  Default value: <BtChipOutGain>
+*/
+#define E2P_BT_CHIP_OUTGAIN            VM_E2P_APPL_RECORD( BtChipOutGain, sizeof(u16))
+#else
+/*!
+  \def E2P_BT_DSP_INGAIN
+  Category: BT\n
+  Description: Record the ingain value of DSP.\n
+  Default value: <BtDspInGain>
+*/
+#define E2P_BT_DSP_INGAIN              VM_E2P_APPL_RECORD( BtDspInGain[0], sizeof(u16))
+
+/*!
+  \def E2P_BT_CHIP_INGAIN
+  Category: BT\n
+  Description: Record the ingain value of BT chip.\n
+  Default value: <BtChipInGain>
+*/
+#define E2P_BT_CHIP_INGAIN             VM_E2P_APPL_RECORD( BtChipInGain[0], sizeof(u16))
+
+/*!
+  \def E2P_BT_CHIP_OUTGAIN
+  Category: BT\n
+  Description: Record the ingain value of BT chip.\n
+  Default value: <BtChipOutGain>
+*/
+#define E2P_BT_CHIP_OUTGAIN            VM_E2P_APPL_RECORD( BtChipOutGain[0], sizeof(u16))
+#endif
+/*!
+  \def E2P_STLK_GCF_TEST
+  Category: MMI\n
+  Description: The flag for GCF STK Test only.\n
+  Default value: <StlkGCFTest>
+*/
+#define E2P_STLK_GCF_TEST              VM_E2P_APPL_RECORD( StlkGCFTest,                        sizeof(u16))
+
+/*!
+  \def E2P_MMI_RUNMODE
+  Category: MMI\n
+  Description: Status of MMI running mode. 0: business mode, 1: factory mode.\n
+  Default value: <MMIRunMode>
+*/
+#define E2P_MMI_RUNMODE                VM_E2P_APPL_RECORD( MMIRunMode,                        sizeof(u8))
+
+/*!
+  \def E2P_FM_DEEMPHASIS
+  Category: MMI\n
+  Description: Record the deemphasis setting value of FM radio.\n
+  Default value: <FmDeEmphasis>
+*/
+#define E2P_FM_DEEMPHASIS              VM_E2P_APPL_RECORD(FmDeEmphasis, sizeof(u8))
+
+/*!
+  \def E2P_FM_STEPSPACE
+  Category: MMI\n
+  Description: Record the stepspace setting value of FM radio.\n
+  Default value: <FmStepSpace>
+*/
+#define E2P_FM_STEPSPACE               VM_E2P_APPL_RECORD(FmStepSpace, sizeof(u8))
+
+/*!
+  \def E2P_FM_BPFIR
+  Category: MMI\n
+  Description: Record the bpfir setting value of FM radio.\n
+  Default value: <FmBpfir>
+*/
+#define E2P_FM_BPFIR                   VM_E2P_APPL_RECORD(FmBpfir, sizeof(u8))
+
+/*!
+  \def E2P_FM_BEGINRANGE
+  Category: MMI\n
+  Description: Record the beginrange setting value of FM radio.\n
+  Default value: <FmBeginRange>
+*/
+#define E2P_FM_BEGINRANGE              VM_E2P_APPL_RECORD(FmBeginRange, sizeof(u8))
+
+/*!
+  \def E2P_FM_ENDRANGE
+  Category: MMI\n
+  Description: Record the endrange setting value of FM radio.\n
+  Default value: <FmEndRange>
+*/
+#define E2P_FM_ENDRANGE                VM_E2P_APPL_RECORD(FmEndRange, sizeof(u8))
+
+/*!
+  \def E2P_FM_CARRIERON 
+  Category: MMI\n
+  Description: Record the carrieron setting value of FM radio.\n
+  Default value: <FmCarrierOn>
+*/
+#define E2P_FM_CARRIERON               VM_E2P_APPL_RECORD(FmCarrierOn, sizeof(u8))
+
+/*!
+  \def E2P_FM_CARRIEROFF
+  Category: MMI\n
+  Description: Record the carrieroff setting value of FM radio.\n
+  Default value: <FmCarrierOff>
+*/
+#define E2P_FM_CARRIEROFF              VM_E2P_APPL_RECORD(FmCarrierOff, sizeof(u8))
+
+/*!
+  \def E2P_VERSION
+  Category: MMI\n
+  Description: This option decides E2P verson\n
+  Default value: <E2PVersion>
+*/
+#define E2P_E2P_VERSION                 VM_E2P_APPL_RECORD(E2PVersion, sizeof(u8))
+
+#ifdef __APP_E2P_MML__
+
+/*!
+  \def E2P_CONFSETUPFLASHLOADING
+  Category: MMI\n
+  Description: The record of config setup flash loading status for next phone start up.\n
+  Default value: <ConfSetupFlashLoading>
+*/
+#define E2P_CONFSETUPFLASHLOADING          VM_E2P_APPL_RECORD( ConfSetupFlashLoading,            sizeof(u8))
+
+/*!
+  \def E2P_CONFIGSETUPDATA
+  Category: MMI\n
+  Description: Configuration Setup data of (1)Incoming Call Picture Id (2)Idle Picture Id (3)PowerOn Ring Id\n
+   (4)PowerOff Ring Id (5)PowerOn Picture Id (6)PowerOff Picture Id (7)SmsPP Ring Id\n
+   (8)SmsCB Ring Id (9)Calendar Event Ring Id (10)Alarm Event Ring Id.\n
+  Default value: <ConfigSetupData>
+*/
+#define E2P_CONFIGSETUPDATA                VM_E2P_APPL_RECORD( ConfigSetupData,                  sizeof(mml_ConfigSetup_t))
+
+/*!
+  \def E2P_WEEK_ALARM
+  Category: MMI\n
+  Description: Record the status of weekly alarm.\n
+  Default value: <WeeklyAlarm>
+*/
+#define E2P_WEEK_ALARM                     VM_E2P_APPL_RECORD( WeeklyAlarm,                      sizeof(mml_WeeklyAlarm_t))
+
+/*!
+  \def E2P_DATEFORMAT
+  Category: MMI\n
+  Description: Record the display format of date/time.\n
+  Default value: <DateFormat>
+*/
+#define E2P_DATEFORMAT                     VM_E2P_APPL_RECORD( DateFormat , sizeof(u8))
+
+/*!
+  \def E2P_CONTRASTDUAL
+  Category: MMI\n
+  Description: The record the contrast of dual LCD.\n
+  Default value: <ContrastDual>
+*/
+#define E2P_CONTRASTDUAL                   VM_E2P_APPL_RECORD( ContrastDual,                     sizeof(u8))
+
+/*!
+  \def E2P_ANALOGCLOCK
+  Category: MMI\n
+  Description: Analog clock of dual LCD display\n
+  Default value: <AnalogClock>
+*/
+#define E2P_ANALOGCLOCK                    VM_E2P_APPL_RECORD( AnalogClock,                      sizeof(u8))
+
+#ifdef __DEV_USB__
+#define E2P_USB_SETTING                    VM_E2P_APPL_RECORD( USB_Mode,                         sizeof(u8))
+#endif
+
+/*!
+  \def E2P_BACKLIGHTLEVEL
+  Category: MMI\n
+  Description: The record the backlight level.\n
+  Default value: <Backlight_Level>
+*/
+#define E2P_BACKLIGHTLEVEL                 VM_E2P_APPL_RECORD( Backlight_Level,                  sizeof(u8))
+
+/*!
+  \def E2P_BACKLIGHTDUALLEVEL
+  Category: MMI\n
+  Description: The record the backlight level of dual LCD.\n
+  Default value: <Backlight_Dual_Level>
+*/
+#define E2P_BACKLIGHTDUALLEVEL             VM_E2P_APPL_RECORD( Backlight_Dual_Level,             sizeof(u8))
+
+/*!
+  \def E2P_CONTRAST
+  Category: MMI\n
+  Description: The record the contrast of dual LCD.\n
+  Default value: <Contrast>
+*/
+#define E2P_CONTRAST                       VM_E2P_APPL_RECORD( Contrast                      ,   sizeof(u8))
+
+#endif /* #ifdef __APP_E2P_MML__ */
+
+#define E2P_CUSTOMERDATA                   VM_E2P_APPL_RECORD( CustomerData,                     200 * sizeof(u8))
+
+/*!
+  \def E2P_ENABLE_RSSI_SMOOTH_ALGORITHM
+  Category: MMI\n
+  Description: Enable the smooth alogorithm in RSSI.
+  Default value: <0>
+*/
+#define E2P_ENABLE_RSSI_SMOOTH_ALGORITHM  VM_E2P_APPL_RECORD(EnableRSSISmoothAlgorithm, sizeof(u8))
+
+/*!
+  \def E2P_CHECKSPNDISPLAYCONDITION
+  Category: MMI\n
+  Description: Record the CheckSPNDisplayCondition setting value of SIMSRV to show Service Provider Name.\n
+  Default value: <CheckSPNDisplayCondition>
+*/
+#define E2P_CHECKSPNDISPLAYCONDITION  VM_E2P_APPL_RECORD(CheckSPNDisplayCondition, sizeof(u8))
+
+/*!
+  \def E2P_AUTODETERMINESPNWITHPRIORITY
+  Category: MMI\n
+  Description: Record the AutoDetermineSPNwithPriority setting value of idle app to show operator name.\n
+  SPN name would be checked in order according this setting as following:
+  COMMON_SPN_TYPE_ONS = COMMON_SPN_TYPE_START, (0)
+  COMMON_SPN_TYPE_ONS_SHORT,                   (1)
+  COMMON_SPN_TYPE_SPN,                         (2)
+  COMMON_SPN_TYPE_NITZ,                        (3)
+  COMMON_SPN_TYPE_PLMN,                        (4)
+  ex. Set value to COMMON_SPN_TYPE_SPN means checking from COMMON_SPN_TYPE_SPN, COMMON_SPN_TYPE_NITZ to PLMN table .
+  Default value: <AutoDetermineSPNwithPriority>
+*/
+#define E2P_AUTODETERMINESPNWITHPRIORITY  VM_E2P_APPL_RECORD(AutoDetermineSPNwithPriority, sizeof(u8))
+
+/*!
+  \def E2P_USB_COMPOSITEMODE
+  Category: MMI\n
+  Description: Status of USB composite mode. 0: business mode, 1: factory mode.\n
+  Default value: <USBCompositeMode>
+*/
+#define E2P_USB_COMPOSITEMODE                VM_E2P_APPL_RECORD(USBCompositeMode,sizeof(u8))
+
+/*!
+  \def E2P_NETWORKLOCKMODE
+  Category: MMI\n
+  Description: Record the NetworkLockMode setting value of sec app to determine network lock mode.\n
+  Default value: <NetworkLockMode>
+*/
+#define E2P_NETWORKLOCKMODE  VM_E2P_APPL_RECORD(NetworkLockMode, sizeof(u8))
+
+/*!
+  \def E2P_NEW_AUTO_TEST_TRACE
+  Category: MMI\n
+  Description: This option decides to print new auto test log or not..\n
+  Default value: <NetworkLockMode>
+*/
+#define E2P_NEW_AUTO_TEST_TRACE  VM_E2P_APPL_RECORD(NewAutoTestTrace, sizeof(u8))
+
+#else /* __MCP_WITHOUT_NOR__ */
+
+
+#define E2P_ONTIME               VM_E2P_APPL_RECORD( "OnTime",              sizeof(u16))
+#define E2P_CUSTOMER             VM_E2P_APPL_RECORD( "Customer",            sizeof(u8))
+#define E2P_ORIGINALNAME         VM_E2P_APPL_RECORD( "OriginalName[0]",     sizeof(DeviseName_t) )
+#define E2P_FOREIGNNAME          VM_E2P_APPL_RECORD( "ForeignName[0]",      sizeof(DeviseName_t) )
+#define E2P_SIMRESTCOUNTER       VM_E2P_APPL_RECORD( "SIMRestCounter",      sizeof(u8))
+#define E2P_ST_GET_NOTSHOW_ID_MENU    VM_E2P_APPL_RECORD( "WitholdSupported", sizeof(u8))
+#define E2P_SYNCML_ACTIVE_PROFILE_LOCATION     VM_E2P_APPL_RECORD( "SyncMLActiveProfileLocation", sizeof(u16))
+#define E2P_DUAL_CALL_ID_DISPLAY_MODE  VM_E2P_APPL_RECORD( "DualCallIdDisplayMode",  sizeof(u8))
+#define E2P_CFUQUERYPOWERON            VM_E2P_APPL_RECORD( "CFUQueryPowerOn",  sizeof ( u8 ) )
+
+#define E2P_STLK_GCF_TEST            VM_E2P_APPL_RECORD( "StlkGCFTest",                        sizeof(u16))
+
+#define E2P_MMI_RUNMODE            VM_E2P_APPL_RECORD( "MMIRunMode",                        sizeof(u8))
+#define E2P_FM_DEEMPHASIS              VM_E2P_APPL_RECORD("FmDeEmphasis", sizeof(u8))
+#define E2P_FM_STEPSPACE               VM_E2P_APPL_RECORD("FmStepSpace", sizeof(u8))
+#define E2P_FM_BPFIR                   VM_E2P_APPL_RECORD("FmBpfir", sizeof(u8))
+#define E2P_FM_BEGINRANGE              VM_E2P_APPL_RECORD("FmBeginRange", sizeof(u8))
+#define E2P_FM_ENDRANGE                VM_E2P_APPL_RECORD("FmEndRange", sizeof(u8))
+#define E2P_FM_CARRIERON               VM_E2P_APPL_RECORD("FmCarrierOn", sizeof(u8))
+#define E2P_FM_CARRIEROFF              VM_E2P_APPL_RECORD("FmCarrierOff", sizeof(u8))
+
+/*!
+  \def E2P_ENABLE_RSSI_SMOOTH_ALGORITHM
+  Category: MMI\n
+  Description: Enable the smooth alogorithm in RSSI.
+  Default value: <0>
+*/
+#define E2P_ENABLE_RSSI_SMOOTH_ALGORITHM  VM_E2P_APPL_RECORD(EnableRSSISmoothAlgorithm, sizeof(u8))
+
+/*!
+  \def E2P_CHECKSPNDISPLAYCONDITION
+  Category: MMI\n
+  Description: Record the CheckSPNDisplayCondition setting value of SIMSRV to show Service Provider Name.\n
+  Default value: <CheckSPNDisplayCondition>
+*/
+#define E2P_CHECKSPNDISPLAYCONDITION  VM_E2P_APPL_RECORD(CheckSPNDisplayCondition, sizeof(u8))
+
+/*!
+  \def E2P_AUTODETERMINESPNWITHPRIORITY
+  Category: MMI\n
+  Description: Record the AutoDetermineSPNwithPriority setting value of idle app to show operator name.\n
+  SPN name would be checked in order according this setting as following:
+  COMMON_SPN_TYPE_ONS = COMMON_SPN_TYPE_START, (0)
+  COMMON_SPN_TYPE_ONS_SHORT,                   (1)
+  COMMON_SPN_TYPE_SPN,                         (2)
+  COMMON_SPN_TYPE_NITZ,                        (3)
+  COMMON_SPN_TYPE_PLMN,                        (4)
+  ex. Set value to COMMON_SPN_TYPE_SPN means checking from COMMON_SPN_TYPE_SPN, COMMON_SPN_TYPE_NITZ to PLMN table .
+  Default value: <AutoDetermineSPNwithPriority>
+*/
+#define E2P_AUTODETERMINESPNWITHPRIORITY  VM_E2P_APPL_RECORD(AutoDetermineSPNwithPriority, sizeof(u8))
+
+/*!
+  \def E2P_USB_COMPOSITEMODE
+  Category: MMI\n
+  Description: Status of USB composite mode. 0: business mode, 1: factory mode.\n
+  Default value: <USBCompositeMode>
+*/
+#define E2P_USB_COMPOSITEMODE            VM_E2P_APPL_RECORD("USBCompositeMode", sizeof(u8))
+
+/*!
+  \def E2P_NETWORKLOCKMODE
+  Category: MMI\n
+  Description: Record the NetworkLockMode setting value of sec app to determine network lock mode.\n
+  Default value: <NetworkLockMode>
+*/
+#define E2P_NETWORKLOCKMODE  VM_E2P_APPL_RECORD(NetworkLockMode, sizeof(u8))
+
+
+/*!
+  \def E2P_NEW_AUTO_TEST_TRACE
+  Category: MMI\n
+  Description: This option decides to print new auto test log or not..\n
+  Default value: <NetworkLockMode>
+*/
+#define E2P_NEW_AUTO_TEST_TRACE  VM_E2P_APPL_RECORD(NewAutoTestTrace, sizeof(u8))
+
+
+
+#ifdef __APP_E2P_MML__
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE MML LOGICAL NAMES FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+
+
+
+#endif  /* __APP_E2P_MML__ */
+
+
+#endif  /*  __MCP_WITHOUT_NOR__ */
+
+
+#endif  /* __VM_E2P_APP_HO__  */

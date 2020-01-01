@@ -1,0 +1,86 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_rel.hp                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototype functions provided by relay layer.                  */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 30/01/04 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_rel.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.7            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.6            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.5            | Resolution for 27895: Bluetooth SIL
+ *          |        |                |  - V24 integration  .              
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_REL_HP__
+#define __SYS_V24_REL_HP__
+
+#include "sys_v24.ht"  // TxPal_status_e and v24_TxBlock_t
+#include "sys_v24_ctrl.ht"
+#include "sys_v24_ctrl.hc"
+
+extern void          v24_RelayInit               ( void );
+
+extern TxPal_status_e  v24_RelTxDataBlock ( v24_TxBlock_t*, void* );
+extern u16             v24_RelRxDataInd   ( u8*, u16, u16, void* );
+extern u32             v24_RelTxGetSig    ( ev24_LayerSigGet_t,  void*);
+extern void            v24_RelTxSetSig    ( ev24_SetSig_t , u32, void*);
+extern void            v24_RelDestructor  ( void* );
+extern void            v24_rel_SetLayer  ( u8 , void* , void* , eLayerId_t );
+
+extern void          v24_RelayRequestExt         ( void );
+
+extern void          v24_RelayReleaseBlock       ( u32 Port );
+
+extern bool          v24_RelRegisterPort         ( bool Activate, u32 Port );
+
+#endif
+
+
+
+
+
+

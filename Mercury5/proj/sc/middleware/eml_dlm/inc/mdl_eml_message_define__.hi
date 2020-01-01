@@ -1,0 +1,8 @@
+#ifndef __MDL_EML_MSG_DEF_H__
+#define __MDL_EML_MSG_DEF_H__
+
+VM_MSG_DEF(MDL_EML_CTL_DEVMSG=VM_CUS44_BASE, void DUMMY)
+
+
+#endif
+

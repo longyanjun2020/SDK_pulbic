@@ -1,0 +1,140 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 1994, 1995, 1996
+*/
+
+/***************************************************************************/
+/*  File       : OSUTIL.HM                                                 */
+/*-------------------------------------------------------------------------*/
+/*  Scope      : Definition of macros to use the OS                        */
+/*                                                                         */
+/*  Content    :                                                           */
+/*                                                                         */
+/*    To manipulate messages:                                              */
+/*   OS_GET_MSG(_PtrMsg, _MsgType)                                         */
+/*   OS_GET_POOL_MSG(_PtrMsg, _MsgType)                                    */
+/*   OS_SEND_MSG(_Source, _Destination, _MessagePointer, _Type)            */
+/*   OS_RECEIVE_MSG(_Mbx, _PtrMsg, _TimerID)                               */
+/*   OS_MSG_TYPE(_PtrMsg)                                                  */
+/*   OS_MSG_SRC(_PtrMsg)                                                   */
+/*                                                                         */
+/*                                                                         */
+/*  Change     :                                                           */
+/*-------------------------------------------------------------------------*/
+/*   Date   | Author    | - Modification                                   */
+/*----------+-----------+--------------------------------------------------*/
+/* 15/04/97 |   PGU     | - Creation                                       */
+/***************************************************************************/
+/*
+$LogWavecom: G:\projet\gsm\pvcsarch\archives\fc\com\osutil.hm-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  02.10.02 | ddo    | 3.1            | Merge tf v19 with rev 1.1          
+ * ----------+--------+----------------+-------------------------------------
+ *  02.10.02 | ddo    | 3.0            | integration dev tf V19             
+ * ----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __OSUTIL_HM__
+#define __OSUTIL_HM__
+
+#include "stdcomp.h"
+
+#ifndef __MSGTYP_HT__
+#include "msgtyp.ht"
+#endif
+
+typedef struct
+{
+  Header_t      Header;
+  int           Body;
+}
+osutil_Msg_t;
+
+
+
+
+/*****************************************************************************/
+/*****  Message memory alloction and init of the length field                */
+/*****************************************************************************/
+
+#define OS_MSG_SIZE(_MsgType) \
+  ( sizeof(_MsgType) + sizeof(osutil_Msg_t) - sizeof(int) )
+
+
+#define OS_GET_MSG(_PtrMsg, _MsgType)                           \
+{                                                               \
+  _PtrMsg = (void *) MsCallocateMem(OS_MSG_SIZE (_MsgType));   \
+  ((Msg_t *)_PtrMsg)->Header.Length = sizeof(_MsgType); \
+}
+
+#define VM_OS_GET_MSG(_PtrMsg, _MsgType)                           \
+{                                                               \
+  _PtrMsg = (void *) MsCallocateMem(OS_MSG_SIZE (_MsgType));   \
+  ((vm_msg_t *)_PtrMsg)->Header.Length = OS_MSG_SIZE (_MsgType); \
+}
+
+#ifdef __TARGET__
+#define concat(_s1, _s2) _s1/**/_s2
+#else
+#define concat(_s1, _s2) _s1##_s2
+#endif
+
+#define OS_GET_POOL_MSG(_PtrMsg, _MsgType)                      \
+{                                                               \
+  _PtrMsg = (void *) MsGetCPoolIdMemory (concat(Pool_,_MsgType)); \
+  ((Msg_t *)_PtrMsg)->Header.Length = sizeof(_MsgType); \
+}
+
+/*****************************************************************************/
+/*****  To send a message, fill the source, destination and type fields.     */
+/*****************************************************************************/
+
+#define OS_SEND_MSG(_Source, _Destination, _MessagePointer, _Type)         \
+{                                                                          \
+  _MessagePointer->Header.MbxSrc = _Source;                                \
+  _MessagePointer->Header.MbxDst = _Destination;                           \
+  _MessagePointer->Header.TypMsg  =_Type;                                  \
+  MsSend (_Destination, _MessagePointer);                                                 \
+}
+
+#define VM_OS_SEND_MSG(_Source, _Destination, _MessagePointer, _Type)         \
+{                                                                          \
+  _MessagePointer->Header.MbxSrc = _Source;                                \
+  _MessagePointer->Header.MbxDst = _Destination;                           \
+  _MessagePointer->Header.TypMsg  =_Type;                                  \
+  MsSend (_Destination, _MessagePointer);                                                 \
+}
+
+#define OS_RECEIVE_MSG(_Mbx, _PtrMsg, _TimerID)         \
+{                                                       \
+MsObj_t   _DescrRecObj;                           \
+							\
+  MsReceive (_Mbx, &_DescrRecObj, NULL);                     \
+  if (_DescrRecObj.Type == RTK_OBJ_TIMER)          \
+  {                                                     \
+    (_TimerID) = MsGetMsgAsTimerID(_DescrRecObj.Msg);      \
+    _PtrMsg = NULL;                                     \
+    MsReleaseMemory(_DescrRecObj.Msg); \
+  }                                                     \
+  else                                                  \
+    _PtrMsg = _DescrRecObj.Msg;         \
+}
+
+
+
+/****************************************************************************/
+/*         Macros to treat Message Header                                   */
+/****************************************************************************/
+
+#define OS_MSG_TYPE(_PtrMsg)  ( (_PtrMsg) -> Header.TypMsg )
+#define OS_MSG_SRC(_PtrMsg)   ( (_PtrMsg) -> Header.MbxSrc )
+
+
+
+#endif  /* __OSUTIL_HM__ */

@@ -1,0 +1,16 @@
+#ifndef __MDL_PM_MSG_DEF_H__
+#define __MDL_PM_MSG_DEF_H__
+
+#ifdef PM_NO_TASK_SUPPORT
+VM_MSG_DEF(MDL_PM_BASE=0x00, void DUMMY)
+#else
+VM_MSG_DEF(MDL_PM_BASE=VM_PM_BASE, void DUMMY)
+#endif
+
+VM_MSG_DEF(MDL_PM_DEV_POWER_CTL_REQ=(MDL_PM_BASE+0x00), void DUMMY)   /**< Command to switch on/off device */
+VM_MSG_DEF(MDL_PM_PAD_POWER_CTL_REQ=(MDL_PM_BASE+0x01), void DUMMY)   /**< Command to switch on/off pad power */
+VM_MSG_DEF(MDL_PM_SIM_POWER_ON_CTL_REQ=(MDL_PM_BASE+0x02), void DUMMY)   /**< Command to switch on Sim device */
+VM_MSG_DEF(MDL_PM_CORE_VOLTAGE_CTL_REQ=(MDL_PM_BASE+0x03), void DUMMY)   /**< Command to vote core voltage */
+
+#endif
+

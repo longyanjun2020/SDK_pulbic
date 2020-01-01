@@ -1,0 +1,42 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_usb.hp                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototypes used in V24 Uart layer.                            */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 17/01/05 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_usb.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.0            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  Initial revision.          
+ *----------+--------+----------------+-------------------------------------
+*/
+#ifndef __V24_USB_HP__
+#define __V24_USB_HP__
+
+#include "sys_v24_usb.hp" 
+
+#endif //__V24_USB_HP__

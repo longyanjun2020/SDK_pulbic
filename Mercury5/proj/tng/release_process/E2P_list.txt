@@ -1,0 +1,23 @@
+#e2p_path pattern line_num old_val new_val
+sc/customer/product/common/e2p/stack_nand.e2p.val WMpRelease 1 0 1
+sc/customer/product/common/e2p/stack_nor.e2p.val WMpRelease 1 0 1
+sc/customer/product/common/e2p/stack_nand.e2p.val WEnabledFtr 6 0x2 0
+sc/customer/product/common/e2p/stack_nor.e2p.val WEnabledFtr 6 0x2 0
+
+sc/customer/product/common/e2p/middleware.e2p.val WBearTypePref 1 0x27 0x25
+sc/customer/product/common/e2p/middleware.e2p.val WAtVoiceSpeechVersion 1 7 5
+sc/customer/product/common/e2p/middleware_nor.e2p.val WBearTypePref 1 0x27 0x25
+sc/customer/product/common/e2p/middleware_nor.e2p.val WAtVoiceSpeechVersion 1 7 5
+sc/customer/product/common/e2p/middleware_nand.e2p.val WBearTypePref 1 0x27 0x25
+sc/customer/product/common/e2p/middleware_nand.e2p.val WAtVoiceSpeechVersion 1 7 5
+
+sc/customer/product/common/e2p/middleware_2.e2p.val WBearTypePref_2 1 0x27 0x25
+sc/customer/product/common/e2p/middleware_2.e2p.val WAtVoiceSpeechVersion_2 1 7 5
+sc/customer/product/common/e2p/middleware_2_nor.e2p.val WBearTypePref_2 1 0x27 0x25
+sc/customer/product/common/e2p/middleware_2_nor.e2p.val WAtVoiceSpeechVersion_2 1 7 5
+sc/customer/product/common/e2p/middleware_2_nand.e2p.val WBearTypePref_2 1 0x27 0x25
+sc/customer/product/common/e2p/middleware_2_nand.e2p.val WAtVoiceSpeechVersion_2 1 7 5
+
+sc/customer/product/common/e2p/stack_nand.e2p.val WEnabledFtr 2 0xc7 0xc6
+sc/customer/product/common/e2p/stack_nor.e2p.val WEnabledFtr 2 0xc7 0xc6
+sc/customer/product/cust/e2p/cusSetting_*.val WEnabledFtr 2 0xc7 0xc6

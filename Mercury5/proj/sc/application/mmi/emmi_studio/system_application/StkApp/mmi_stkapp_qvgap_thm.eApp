@@ -1,0 +1,82 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="STKAPP_WND_SHOWMENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="30" SizeWidth="30" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="74b0d" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="586b9" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_STK&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="STKAPP_RCID_DRAWTEXT" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="abscontainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="inputwidget1" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="TRUE" />
+				<InternProp Id="GUID" Value="7cb64" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="8b8f4" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_STK&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="STKAPP_RCID_LAUNCHEDITOROPTION" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="5d7ac" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_STKAPP_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="f1b5b" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmOption" />
+	</Layout>
+	<Layout Id="STKAPP_RCID_LAUNCHEDITOR" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="VtmInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_DIALING" />
+				<InternProp Id="GUID" Value="2383e" />
+				<InternProp Id="VtmWidgetName" Value="VtmInputWdg" />
+				<Property Id="PROP_INPUT_WDG_MULTILINE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CHINESEINPUT_OFF" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_PASSWORD_STYLE" Value="TRUE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="bdb51" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmInput1" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_STK&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_STKAPP" />
+</UiRoot>

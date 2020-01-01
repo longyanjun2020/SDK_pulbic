@@ -1,0 +1,6 @@
+#ifndef __SYS_GPIO_HP__
+#define __SYS_GPIO_HP__
+
+#include "sys_sys_gpio.h"
+
+#endif /* __SYS_GPIO_HP__ */

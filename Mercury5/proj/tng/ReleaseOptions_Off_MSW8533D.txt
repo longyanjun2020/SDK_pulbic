@@ -1,0 +1,2 @@
+replace ./../mak/options_%product_name%.mak QQ_SOLUTION off
+replace ./../mak/options_%product_name%.mak VIDEO_RTSP_STREAMING_SUPPORT off

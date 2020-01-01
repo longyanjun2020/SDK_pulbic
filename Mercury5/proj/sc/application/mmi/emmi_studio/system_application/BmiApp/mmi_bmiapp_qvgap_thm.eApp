@@ -1,0 +1,140 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="BMI_WND_CALCULATOR" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="HeightTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="BMI_CALCULATOR_TEXT_LINE_HEIGHT" SizeWidth="BMI_CALCULATOR_LABEL_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_LABEL_OFFSET" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_V_MIDDLE|ALIGN_H_START)" />
+				<InternProp Id="GUID" Value="67265" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_BMI_HEIGHT" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="HeightValueTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="BMI_CALCULATOR_TEXT_LINE_HEIGHT" SizeWidth="BMI_CALCULATOR_VALUE_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_VALUE_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="BMI_CALCULATOR_VALUE_Y_OFFSET+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_V_MIDDLE|ALIGN_H_START)" />
+				<Property Id="PROP_WDG_BG_COLOR" Value="COLOR_BLUE_7" />
+				<Property Id="PROP_BORDER_SIZE" Value="1" />
+				<Property Id="PROP_BORDER_COLOR" Value="COLOR_GREY_4" />
+				<InternProp Id="GUID" Value="61ddc" />
+			</Widget>
+			<Widget Id="WeightTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="BMI_CALCULATOR_TEXT_LINE_HEIGHT" SizeWidth="BMI_CALCULATOR_LABEL_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_LABEL_OFFSET" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_V_MIDDLE|ALIGN_H_START)" />
+				<InternProp Id="GUID" Value="7d7b7" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_BMI_WEIGHT" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WeightValueTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="BMI_CALCULATOR_TEXT_LINE_HEIGHT" SizeWidth="BMI_CALCULATOR_VALUE_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_VALUE_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="BMI_CALCULATOR_VALUE_Y_OFFSET+MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_V_MIDDLE|ALIGN_H_START)" />
+				<Property Id="PROP_WDG_BG_COLOR" Value="COLOR_BLUE_7" />
+				<Property Id="PROP_BORDER_SIZE" Value="1" />
+				<Property Id="PROP_BORDER_COLOR" Value="COLOR_GREY_4" />
+				<InternProp Id="GUID" Value="2a16d" />
+			</Widget>
+			<Widget Id="BmiLimitTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="BMI_CALCULATOR_TEXT_LINE_HEIGHT" SizeWidth="BMI_CALCULATOR_DESCRIPTION_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_LABEL_OFFSET" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT*2" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_V_MIDDLE|ALIGN_H_CENTER)" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<InternProp Id="GUID" Value="1a49d" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_PML_N_BMI_LIMIT" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="JudgementTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="BMI_CALCULATOR_TEXT_LINE_HEIGHT" SizeWidth="BMI_CALCULATOR_DESCRIPTION_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_LABEL_OFFSET" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT*3" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_V_MIDDLE|ALIGN_H_START)" />
+				<InternProp Id="GUID" Value="800da" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_BMI" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="BmiValueTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="BMI_CALCULATOR_TEXT_LINE_HEIGHT" SizeWidth="BMI_VALUE_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_VALUE_TEXT_X_SHIFT" />
+				<Position Type="Y_POSITION" Value="BMI_CALCULATOR_TEXT_LINE_HEIGHT+MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT*3" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_V_MIDDLE|ALIGN_H_CENTER)" />
+				<Property Id="PROP_BORDER_SIZE" Value="1" />
+				<Property Id="PROP_BORDER_COLOR" Value="COLOR_GREY_4" />
+				<InternProp Id="GUID" Value="3cb39" />
+			</Widget>
+			<Widget Id="ValueBgImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_ONELINE_HEIGHT*2" SizeWidth="BMI_VALUE_BG_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_VALUE_BG_IMAGE_POS_X" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT*5" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="16828" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="BMI_IMG_BAR" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ValueImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_ONELINE_HEIGHT*2" SizeWidth="BMI_VALUE_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="(BMI_VALUE_BG_IMAGE_POS_X+BMI_VALUE_BG_IMAGE_WIDTH)/2" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT*5+1" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="9330a" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="BMI_IMG_TARGET" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="InputHeightWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="BMI_CALCULATOR_INPUT_HEIGHT" SizeWidth="BMI_CALCULATOR_VALUE_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_VALUE_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="BMI_CALCULATOR_VALUE_Y_OFFSET+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_RATE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_PADDING_LEFT" Value="8" />
+				<Property Id="PROP_PADDING_RIGHT" Value="0" />
+				<Property Id="PROP_PADDING_TOP" Value="0" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="0" />
+				<InternProp Id="GUID" Value="47d70" />
+			</Widget>
+			<Widget Id="InputWeightWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="BMI_CALCULATOR_INPUT_HEIGHT" SizeWidth="BMI_CALCULATOR_VALUE_WIDTH">
+				<Position Type="X_POSITION" Value="BMI_CALCULATOR_VALUE_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="BMI_CALCULATOR_VALUE_Y_OFFSET+MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_RATE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_PADDING_LEFT" Value="8" />
+				<Property Id="PROP_PADDING_RIGHT" Value="0" />
+				<Property Id="PROP_PADDING_TOP" Value="0" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="0" />
+				<InternProp Id="GUID" Value="e827f" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="96d64" />
+		</Widget>
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_BMI&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_BMI" />
+</UiRoot>

@@ -1,0 +1,180 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="GTRFB_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="CloudWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_CM_CLOUD_HEIGHT" SizeWidth="GTR_CM_CLOUD_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_CM_CLOUD_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_CM_CLOUD_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_BG_CLOUD" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="4322b" />
+			</Widget>
+			<Widget Id="ResetIconWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_CM_ICON_RESET_HEIGHT" SizeWidth="GTR_CM_ICON_RESET_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_CM_ICON_RESET_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_CM_ICON_RESET_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_ICON_RESET" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="c4708" />
+			</Widget>
+			<Widget Id="ExitIconWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_CM_ICON_EXIT_HEIGHT" SizeWidth="GTR_CM_ICON_EXIT_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_CM_ICON_EXIT_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_CM_ICON_EXIT_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_ICON_EXIT" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="9257f" />
+			</Widget>
+			<Widget Id="PetWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_PET_HEIGHT" SizeWidth="GTR_FB_PET_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_PET_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_PET_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_PET_BARK" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="06c5c" />
+			</Widget>
+			<Widget Id="FrisbeeWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_FRISBEE_HEIGHT" SizeWidth="GTR_FB_FRISBEE_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_FRISBEE_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_FRISBEE_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_FB_FRISBEE_START" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="11743" />
+			</Widget>
+			<Widget Id="TargetWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_TARGET_HEIGHT" SizeWidth="GTR_FB_TARGET_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_TARGET_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_TARGET_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_FB_TARGET" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="89cda" />
+			</Widget>
+			<Widget Id="Coin01Widget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_COIN_HEIGHT" SizeWidth="GTR_FB_COIN_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_COIN01_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_COIN_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="2ee05" />
+			</Widget>
+			<Widget Id="Coin02Widget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_COIN_HEIGHT" SizeWidth="GTR_FB_COIN_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_COIN02_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_COIN_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="620ea" />
+			</Widget>
+			<Widget Id="Coin03Widget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_COIN_HEIGHT" SizeWidth="GTR_FB_COIN_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_COIN03_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_COIN_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="17e04" />
+			</Widget>
+			<Widget Id="WindArrowWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_WINDINDICATOR_HEIGHT" SizeWidth="GTR_FB_WINDINDICATOR_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_WINDINDICATOR_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_WINDINDICATOR_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_FB_LEFT_ARROW" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="99072" />
+			</Widget>
+			<Widget Id="UserArrowWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="GTR_FB_USERINDICATOR_HEIGHT" SizeWidth="GTR_FB_USERINDICATOR_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_USERINDICATOR_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_USERINDICATOR_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_FB_TRIANGLE_N" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="ec52a" />
+			</Widget>
+			<Widget Id="SpeedLabelWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="GTR_FB_WINDSPEED_HEIGHT" SizeWidth="GTR_FB_WINDSPEED_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_WINDSPEED_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_WINDSPEED_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE" />
+				<Property Id="PROP_PADDING_LEFT" Value="0" />
+				<Property Id="PROP_PADDING_RIGHT" Value="3" />
+				<Property Id="PROP_PADDING_TOP" Value="0" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="0" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="COLOR_GREY_5" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_NONE" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="e9178" />
+			</Widget>
+			<Widget Id="GameMsgWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="GTR_FB_GAMEMSG_HEIGHT" SizeWidth="GTR_FB_GAMEMSG_WIDTH">
+				<Position Type="X_POSITION" Value="GTR_FB_GAMEMSG_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_FB_GAMEMSG_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE" />
+				<Property Id="PROP_PADDING_LEFT" Value="0" />
+				<Property Id="PROP_PADDING_RIGHT" Value="3" />
+				<Property Id="PROP_PADDING_TOP" Value="0" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="0" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="COLOR_GREY_5" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_NONE" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="d21ec" />
+			</Widget>
+			<InternProp Id="GUID" Value="9a45e" />
+		</Widget>
+		<InternProp Id="GUID" Value="cd5f8" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="28" />
+		<InternProp Id="LAYOUT_POS_Y" Value="22" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_GTRFRISBEEGAME" />
+</UiRoot>

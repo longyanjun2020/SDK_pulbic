@@ -1,0 +1,60 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_req.hp                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototype functions exported by v24_Req file.                 */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 30/01/04 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_req.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 25.11.05 | aph    | 1.6            | Resolution for 31309: [V24] V24_USB
+ *          |        |                |  part: portage/dev for USB port sup
+ *          |        |                | porting in the V24 driver  .       
+ *----------+--------+----------------+-------------------------------------
+ * 07.10.05 | aph    | 1.5            | Resolution for 30133: Swift.h clean
+ *          |        |                |  : V24 part  .                     
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_REQ_HP__
+#define __SYS_V24_REQ_HP__
+
+extern bool v24_Parse( void );
+extern bool v24_RequestQueueGlobalInit(void);
+extern bool v24_RequestQueueOutputManagement(u32 Port);
+extern bool v24_RequestQueueInputManagement(v24_Req_t Req, u32 Arg, u32 Port);
+
+#endif
+

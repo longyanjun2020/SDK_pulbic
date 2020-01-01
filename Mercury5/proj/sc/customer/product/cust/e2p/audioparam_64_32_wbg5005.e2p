@@ -1,0 +1,763 @@
+WMicGains
+32 %u8
+32 %u8
+80 %u8
+0 %u8
+WAudioDLGainHandsfree
+-12 %s8
+-9 %s8
+-6 %s8
+-3 %s8
+0 %s8
+3 %s8
+6 %s8
+9 %s8
+WAudioDLGainHandset
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-4 %s8
+0 %s8
+4 %s8
+WAudioDLGainHeadset
+-18 %s8
+-15 %s8
+-12 %s8
+-9 %s8
+-6 %s8
+-3 %s8
+0 %s8
+3 %s8
+WAudioDLGainBT
+-14 %s8
+-12 %s8
+-9 %s8
+-6 %s8
+-3 %s8
+0 %s8
+3 %s8
+6 %s8
+WAudioSTGain
+-64 %s8
+-25 %s8
+-64 %s8
+-64 %s8
+WAudioVMMicGain
+24 %s8
+WAudioCamMicGain
+24 %s8
+WAudioPcmRecMicGain
+27 %s8
+WAudioVMHeadsetMicGain
+24 %s8
+WAudioCamHeadsetMicGain
+24 %s8
+WAudioPcmRecHeadsetMicGain
+27 %s8
+WAudioAtvMicGain
+25 %s8
+WAudioFmMicGain
+25 %s8
+WAudioVtMicGain
+20 %s8
+WAudioOutputDriverHeadsetGain
+1 %u8
+WAudioOutputDriverReceiverGain
+2 %u8
+WAudioOutputDriverLineOutGain
+5 %u8
+WAudioOutputDriverSpkHeadsetGain
+1 %u8
+WAudioMediaDriverHeadsetGain
+1 %u8
+WAudioMediaDriverReceiverGain
+0 %u8
+WAudioMediaDriverLineOutGain
+7 %u8
+WAudioMediaDriverSpkHeadsetGain
+1 %u8
+WAudioClassDGain
+0 %u8
+WAudioMediaClassDGain
+0 %u8
+WAudioMicBiasLevel
+0 %u8
+WAudioFirCoeffHandsfree
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+WAudioFirCoeff
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+WAudioFirCoeffHeadset
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+WAudioFirCoeffBT
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+WIncenseDLFIRHandsfree
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+WIncenseDLFIRHandset
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+WIncenseDLFIRHeadset
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+WIncenseULFIRHandsfree
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x4000 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+WIncenseULFIRHandset
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x7fff %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+WIncenseULFIRHeadset
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x4000 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+0x0 %u16
+WIncenseGsmCtaPath
+0 %u16
+WAudioCaliCtrl
+0x17 %u32
+WAudioLoopTest
+0 %u8
+WAudioULDpgaAecHandsfree
+0x132 %u16
+0x150f %u16
+0x100 %u16
+600 %u16
+0xccd %u16
+9000 %u16
+26000 %u16
+10239 %u16
+16000 %u16
+2000 %u16
+30000 %u16
+0x101 %u16
+0xffffffe %u32
+0x6666665 %u32
+16000 %u16
+1000 %u16
+30000 %u16
+0x1fff %u16
+0x7fffffff %u32
+0x4000 %u16
+0x37f %u16
+8 %u8
+3 %u8
+0 %s8
+0 %s8
+0xcafebeef %u32
+WAudioULDpgaAecHandset
+0x32 %u16
+0x360f %u16
+0x400 %u16
+350 %u16
+0xccc %u16
+8000 %u16
+25000 %u16
+10239 %u16
+24000 %u16
+2000 %u16
+32000 %u16
+0x101 %u16
+0xe666664 %u32
+0x6666665 %u32
+22000 %u16
+1000 %u16
+32000 %u16
+0x1fff %u16
+0x7fffffff %u32
+0x4000 %u16
+0x326 %u16
+8 %u8
+3 %u8
+-2 %s8
+4 %s8
+0xcafebeef %u32
+WAudioULDpgaAecHeadset
+0x32 %u16
+0x880f %u16
+0x400 %u16
+350 %u16
+0xccd %u16
+10000 %u16
+25000 %u16
+10239 %u16
+20000 %u16
+2000 %u16
+30000 %u16
+0x101 %u16
+0xffffffe %u32
+0x6666665 %u32
+16000 %u16
+1000 %u16
+30000 %u16
+0x1fff %u16
+0x7fffffff %u32
+0x4000 %u16
+0x327 %u16
+8 %u8
+3 %u8
+0 %s8
+0 %s8
+0xcafebeef %u32
+WAudioULDpgaAecBT
+0x132 %u16
+0x180f %u16
+0x200 %u16
+350 %u16
+0xccc %u16
+8000 %u16
+25000 %u16
+10239 %u16
+20000 %u16
+2000 %u16
+30000 %u16
+0x101 %u16
+0xffffffe %u32
+0x6666665 %u32
+8000 %u16
+1000 %u16
+30000 %u16
+0x1fff %u16
+0x7fffffff %u32
+0x4000 %u16
+0x33f %u16
+8 %u8
+3 %u8
+0 %s8
+0 %s8
+0xcafebeef %u32
+WAudioCtrl
+1 %u16
+WAudioMp3GainHandsfree
+-12 %s8
+-9 %s8
+-6 %s8
+-3 %s8
+0 %s8
+3 %s8
+6 %s8
+9 %s8
+WAudio3gpGainHandsfree
+-15 %s8
+-12 %s8
+-9 %s8
+-6 %s8
+-3 %s8
+0 %s8
+3 %s8
+6 %s8
+WAudioIptvGainHandsfree
+-36 %s8
+-32 %s8
+-28 %s8
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+WAudioFmGainHandsfree
+-35 %s8
+-30 %s8
+-25 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-5 %s8
+WAudioAtvGainHandsfree
+-20 %s8
+-15 %s8
+-12 %s8
+-9 %s8
+-6 %s8
+-3 %s8
+0 %s8
+3 %s8
+WAudioDtmfGainHandsfree
+-36 %s8
+-32 %s8
+-28 %s8
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+WAudioVtGainHandsfree
+-36 %s8
+-32 %s8
+-28 %s8
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+WAudioMp3GainHeadset
+-44 %s8
+-36 %s8
+-30 %s8
+-24 %s8
+-18 %s8
+-12 %s8
+-6 %s8
+0 %s8
+WAudio3gpGainHeadset
+-28 %s8
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-4 %s8
+0 %s8
+WAudioIptvGainHeadset
+-32 %s8
+-28 %s8
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-4 %s8
+WAudioFmGainHeadset
+-35 %s8
+-30 %s8
+-25 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-5 %s8
+WAudioAtvGainHeadset
+-35 %s8
+-30 %s8
+-25 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-5 %s8
+WAudioDtmfGainHeadset
+-28 %s8
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-4 %s8
+0 %s8
+WAudioVtGainHeadset
+-28 %s8
+-24 %s8
+-20 %s8
+-16 %s8
+-12 %s8
+-8 %s8
+-4 %s8
+0 %s8
+WAudioKeypadToneGain
+-20 %s8
+-20 %s8
+-28 %s8
+-20 %s8
+WAudioDspUlFirGainHandset
+453 %u16
+WAudioDspUlFirGainHandsfree
+255 %u16
+WAudioDspUlFirGainHeadset
+255 %u16
+WAudioDspUlFirGainBt
+255 %u16
+WAudioDspUlFirCoeffHandset
+65331 %u16
+227 %u16
+65267 %u16
+369 %u16
+64826 %u16
+1078 %u16
+64587 %u16
+1387 %u16
+64006 %u16
+2765 %u16
+62113 %u16
+1319 %u16
+63265 %u16
+1341 %u16
+57494 %u16
+0x7fff %u16
+WAudioDspUlFirCoeffHandsfree
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0x7fff %u16
+WAudioDspUlFirCoeffHeadset
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0x7fff %u16
+WAudioDspUlFirCoeffBt
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0 %u16
+0x7fff %u16
+WAudioMStarAgcDrc
+0x6bb1 %u16
+0x7eca %u16
+0xcc %u16
+8 %u16
+1 %u16
+9 %u16
+2 %u16
+-90 %s16
+-60 %s16
+-20 %s16
+0 %s16
+-90 %s16
+-60 %s16
+-20 %s16
+0 %s16
+0xcafe %u16
+WAudioMstarCTACTMode
+0x310 %u16
+0x38 %u16
+0x7ff %u16
+0x30 %u16
+0x30 %u16
+0x1f4 %u16
+0x1c2 %u16
+0xfa %u16
+0xe1 %u16
+0x50a3 %u16
+0x3fff %u16
+0x200 %u16
+0x100 %u16
+0xcafe %u16
+WAudioComfortNoiseGain
+2 %u8
+2 %u8
+2 %u8
+2 %u8
+WAudioMstarAecHandsfree
+9 %u16
+240 %u16
+5000 %u16
+16383 %u16
+16 %u16
+29884 %u16
+32722 %u16
+10485 %u16
+16384 %u16
+22937 %u16
+13107 %u16
+272 %u16
+128 %u16
+54613 %u16
+0 %u16
+0 %s8
+0 %s8
+0xabba %u32
+WAudioMstarAecHandset
+9 %u16
+120 %u16
+5000 %u16
+32767 %u16
+16 %u16
+29884 %u16
+32722 %u16
+10485 %u16
+5898 %u16
+9830 %u16
+6553 %u16
+272 %u16
+128 %u16
+34133 %u16
+0 %u16
+0 %s8
+4 %s8
+0xabba %u32
+WAudioMstarAecHeadset
+9 %u16
+120 %u16
+5000 %u16
+32767 %u16
+16 %u16
+29884 %u16
+32722 %u16
+10485 %u16
+11796 %u16
+19660 %u16
+6553 %u16
+272 %u16
+128 %u16
+40000 %u16
+0 %u16
+0 %s8
+0 %s8
+0xabba %u32
+WAudioMstarAecBT
+9 %u16
+240 %u16
+5000 %u16
+16383 %u16
+16 %u16
+29884 %u16
+32722 %u16
+10485 %u16
+16384 %u16
+22937 %u16
+13107 %u16
+272 %u16
+128 %u16
+54613 %u16
+0 %u16
+0 %s8
+0 %s8
+0xabba %u32
+WAudioAecSelection
+0xffffffff %u32
+WAudioAecOn
+1 %u8
+1 %u8
+1 %u8
+1 %u8

@@ -1,0 +1,188 @@
+/****************************************************************************/
+/* File    : V24_DATA.HT                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope   : Types used in V24 Data drivers.                                */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author |        Modification                                  */
+/*----------+--------+------------------------------------------------------*/
+/* 29/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_data.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 13.02.06 | aph    | 1.12           | Resolution for 33006: [V24] Auto RT
+ *          |        |                | S/CTS implementation  .            
+ *----------+--------+----------------+-------------------------------------
+ * 16.09.05 | pmr    | 1.11           | Resolution for 30283: [OAT/CMUX] So
+ *          |        |                | metimes "OK" response is not receiv
+ *          |        |                | ed after +++ sequence dup #30274  .
+ *----------+--------+----------------+-------------------------------------
+ * 12.08.05 | pmr    | 1.10           | Resolution for 29019: Data: CONNECT
+ *          |        |                |  xxxx Message is incomplete when +I
+ *          |        |                | LRR has been enabled  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.9            | Resolution for 29017: Data: Esc Seq
+ *          |        |                | uence +++ module does not reply.  .
+ *----------+--------+----------------+-------------------------------------
+ * 01.07.05 | pmr    | 1.8            | Resolution for 29258: Internal stru
+ *          |        |                | ctures alignment in order to reduce
+ *          |        |                |  consumed memory  .                
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.7            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.6            | Resolution for 27932: V24 autobaudi
+ *          |        |                | ng  sets  reliable  .              
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.5            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 08.02.05 | vgo    | 1.3            | .                                  
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_DATA_HT__
+#define __SYS_V24_DATA_HT__
+
+#include "sys_v24.ht"
+#include "msgofs.hc"
+#include "fcm.hi"
+
+typedef enum
+{
+   V24_FCM_SEND_MESSAGE,
+   V24_FCM_STORE_MESSAGE,
+   V24_FCM_RESUME_SEND_MSG
+} 
+v24_FcmSendMsg_t;
+
+typedef enum
+{
+   V24_ESC_DISABLED,
+   V24_ESC_INIT_START_GT,      // start counting FINT frames
+   V24_ESC_WAIT_START_GT,      // Esc chars ('+') should be considered only 
+                               // after 1s of inactivity. 
+   V24_ESC_WAIT_FIRST,         // 1s inactivity has been observed : 
+                               // simply wait first '+'.
+   V24_ESC_FIRST_RECEIVED,     // first '+' received !
+   V24_ESC_WAIT_FIRST_MIN_GT,  // second '+' is expected after at least 100 ms
+   V24_ESC_WAIT_SECOND,        // second '+' is expected before 1s
+   V24_ESC_SECOND_RECEIVED,    // second '+' received !
+   V24_ESC_WAIT_SECOND_MIN_GT, // third '+' is expected after at least 100 ms
+   V24_ESC_WAIT_THIRD,         // third '+' is expected before 1s.
+   V24_ESC_INIT_STOP_GT,       // third '+' received ! <=> wait 1s inactivity 
+                               // before triggering offline.
+   V24_ESC_WAIT_STOP_GT        // 1s inactivity has been observed : GO offline!
+} v24_EscState_t;
+
+typedef struct
+{
+#ifdef __V24_DEBUG__
+  u32                     _v24_NbRxSubmitData;
+  u32                     _v24_NbTxSentData;
+#endif // __V24_DEBUG__
+
+  u32                     _v24_DataPort;
+  s32                     _v24_TimeOrigin;
+
+  void *                  _v24_FcmMsgToSubmit;
+  void *                  _v24_RxCusBuffer[ V24_RX_CUS_BUF_LENGTH ];
+
+
+  bool                    _v24_RxDataFlowCtrl;
+  v24_EscState_t          _v24_EscState;
+  bool                    _v24_Online;
+  bool                    _v24_Connected;
+
+ 
+/* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                        Variables to open V24                             */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+  bool                    _v24_CusMode;
+  bool                    _v24_ConnectSending;
+   u16                     _v24_CusTaskMbox;
+   u32                     _v24_FcmChanId;
+
+  u16                     _v24_RxFcmBlockSize;
+  u16                     _v24_RxFcmBlockIndex;
+
+  u8                      _v24_RxCusPurgeIndex;
+  u8                      _v24_RxCusFillIndex;
+  u8                      _v24_TxCusPurgeIndex;
+  u8                      _v24_TxCusFillIndex;
+
+  v24_TxBlock_t           _v24_TxCusBuffer[ V24_TX_CUS_BUF_LENGTH ];
+
+  v24_FcmSendMsg_t        _v24_RxCusStoreMsg;
+  bool                    _v24_ReleaseFcmMsg;
+  bool                    _v24_StopRcvDowlinkDataBlock;
+}
+v24_DataCtx_t;
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Access macros                                   */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+#define V24_DATACONTEXT                  v24_DataContext
+
+#define v24_DataPort                     V24_DATACONTEXT->_v24_DataPort
+#define v24_RxDataFlowCtrl               V24_DATACONTEXT->_v24_RxDataFlowCtrl
+//#define v24_DataTxBarred               V24_DATACONTEXT->_v24_DataTxBarred
+#define v24_Online                       V24_DATACONTEXT->_v24_Online
+#define v24_Connected                    V24_DATACONTEXT->_v24_Connected
+
+#define v24_EscState                     V24_DATACONTEXT->_v24_EscState          
+#define v24_TimeOrigin                   V24_DATACONTEXT->_v24_TimeOrigin        
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                         Data Tx drivers                                  */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+#define v24_TxDataFlowCtrl               V24_DATACONTEXT->_v24_TxDataFlowCtrl        
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                        Variables to open V24                             */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+#define v24_CusMode                      V24_DATACONTEXT->_v24_CusMode           
+//#define v24_CusDeferredClosing           V24_DATACONTEXT->_v24_CusDeferredClosing
+
+#define v24_CusTaskMbox                  V24_DATACONTEXT->_v24_CusTaskMbox
+
+
+#define v24_FcmChanId                    V24_DATACONTEXT->_v24_FcmChanId
+
+#define v24_RxCusStoreMsg                V24_DATACONTEXT->_v24_RxCusStoreMsg     
+#define v24_FcmMsgToSubmit               V24_DATACONTEXT->_v24_FcmMsgToSubmit    
+#define v24_ReleaseFcmMsg                V24_DATACONTEXT->_v24_ReleaseFcmMsg     
+#define v24_RxFcmBlockSize               V24_DATACONTEXT->_v24_RxFcmBlockSize    
+#define v24_RxFcmBlockIndex              V24_DATACONTEXT->_v24_RxFcmBlockIndex   
+#define v24_OpenMode                     V24_DATACONTEXT->_v24_OpenMode          
+#define v24_RxCusBuffer                  V24_DATACONTEXT->_v24_RxCusBuffer
+#define v24_TxCusBuffer                  V24_DATACONTEXT->_v24_TxCusBuffer
+#define v24_RxCusPurgeIndex              V24_DATACONTEXT->_v24_RxCusPurgeIndex   
+#define v24_RxCusFillIndex               V24_DATACONTEXT->_v24_RxCusFillIndex    
+#define v24_TxCusPurgeIndex              V24_DATACONTEXT->_v24_TxCusPurgeIndex   
+#define v24_TxCusFillIndex               V24_DATACONTEXT->_v24_TxCusFillIndex    
+
+#define v24_ConnectSending               V24_DATACONTEXT->_v24_ConnectSending
+
+#define v24_StopRcvDowlinkDataBlock      V24_DATACONTEXT->_v24_StopRcvDowlinkDataBlock
+
+
+#ifdef __V24_DEBUG__
+#define v24_NbRxSubmitData               V24_DATACONTEXT->_v24_NbRxSubmitData
+#define v24_NbTxSentData                 V24_DATACONTEXT->_v24_NbTxSentData
+#endif // __V24_DEBUG__
+
+#endif

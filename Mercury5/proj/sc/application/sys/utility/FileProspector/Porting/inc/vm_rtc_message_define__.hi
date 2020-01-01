@@ -1,0 +1,9 @@
+#ifndef __VM_RTC_MSG_DEF_H__
+#define __VM_RTC_MSG_DEF_H__
+
+VM_MSG_DEF(VM_RTC_ALARM_IND=(VM_RTC_BASE), void DUMMY)
+VM_MSG_DEF(VM_RTC_TICK_IND=(VM_RTC_BASE + 0x0001), void DUMMY)
+
+
+#endif
+

@@ -1,0 +1,148 @@
+/******************************************************************/
+/*  File    : obx_obex.hv                                         */
+/*-------------------------------------------------------------   */
+/*  Scope   : Global and other types of variables used in OBEX    */
+/*                                                                */
+/*  Content :	                                                  */
+/*                                                                */
+/*--------------------------------------------------------------  */
+/*   Date       | Author |      Err  |        Modification        */
+/*--------------+--------+-----------+--------------------------  */
+/*  28/07/1999  |  FRK   |           |        Creation            */
+/*--------------+--------+-----------+--------------------------- */
+/******************************************************************/
+/* $LogWavecom: G:\projet\gsm\pvcsarch\archives\obex\inc\obx_obex.hv-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  13.10.03 | mse    | 1.4.1.6        | .  Resolution for 16102: Modificati
+ *           |        |                | ons for SYNCML over V24 or USB     
+ * ----------+--------+----------------+-------------------------------------
+ *  15.09.03 | mse    | 1.4.1.5        | For OSS .  Resolution for 15250: OB
+ *           |        |                | EX: Added and changed comments for 
+ *           |        |                | OSS                                
+ * ----------+--------+----------------+-------------------------------------
+ *  27.06.03 | mse    | 1.4.1.4        | obex as a task  Resolution for 1209
+ *           |        |                | 2: OBEX as a task                  
+ * ----------+--------+----------------+-------------------------------------
+ *  06.05.03 | mse    | 1.4.1.1        | corrected Bug in Connect corrected 
+ *           |        |                | Bug in Disconnect one way Get Added
+ * ----------+--------+----------------+-------------------------------------
+ *  05.05.03 | mse    | 1.4.1.0        | OBEX with a modified interface with
+ *           |        |                |  MMT and a new interface with SyncM
+ *           |        |                | L                                  
+ * ----------+--------+----------------+-------------------------------------
+ *  21.08.02 | mpr    | 1.4            | Add Log modification to avoid pbs i
+ *           |        |                | n the end of files.                
+ * ----------+--------+----------------+-------------------------------------
+*/
+#ifndef __OBX_OBEX_HV__
+#define __OBX_OBEX_HV__
+
+#include "obx_obex.ht"
+#include "obx_obex.hc"
+
+extern obx_DscMsg_t  obx_Dsc_ObexConnectReq;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncConnectReq;
+extern obx_DscMsg_t  obx_Dsc_ObexConnectRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncConnectRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexConnectInd;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncConnectInd;
+extern obx_DscMsg_t  obx_Dsc_ObexConnectRspOut;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncConnectRspOut;
+
+extern obx_DscMsg_t  obx_Dsc_ObexPutReq;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncPutReq;
+extern obx_DscMsg_t  obx_Dsc_ObexPutRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncPutRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexPutInd;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncPutInd;
+extern obx_DscMsg_t  obx_Dsc_ObexPutRspOut;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncPutRspOut;
+
+extern obx_DscMsg_t  obx_Dsc_ObexGetReq;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncGetReq;
+extern obx_DscMsg_t  obx_Dsc_ObexGetRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncGetRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexGetInd;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncGetInd;
+extern obx_DscMsg_t  obx_Dsc_ObexGetRspOut;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncGetRspOut;
+
+extern obx_DscMsg_t  obx_Dsc_ObexDisconnectReq;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncDisconnectReq;
+extern obx_DscMsg_t  obx_Dsc_ObexDisconnectRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncDisconnectRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexDisconnectInd;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncDisconnectInd;
+extern obx_DscMsg_t  obx_Dsc_ObexDisconnectRspOut;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncDisconnectRspOut;
+
+extern obx_DscMsg_t  obx_Dsc_ObexSyncAbortInd;
+extern obx_DscMsg_t  obx_Dsc_ObexSyncAbortRsp;
+
+extern obx_DscMsg_t  obx_Dsc_ObexMediaOnReq;
+extern obx_DscMsg_t  obx_Dsc_ObexMediaOffReq;
+extern obx_DscMsg_t  obx_Dsc_ObexMediaOnRsp;
+
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaMediaRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaDataInd;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaConnectInd;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaDisconnectInd;
+
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaMediaReq;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaMediaOffReq;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaDataReq;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaConnectRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaDisconnectRsp;
+extern obx_DscMsg_t  obx_Dsc_ObexIrdaDisconnectReq;
+
+extern obx_DscMsg_t  obx_Dsc_Unknown;
+
+#ifdef __OBX_GLOBAL__
+#define EXT
+#else
+#define EXT	extern
+#endif
+
+static const u8 UUID_SYNCML_SYNC[UUID_SYNCML_SYNC_SIZE] = 
+         {0x53, 0x59, 0x4E, 0x43, 0x4D, 0x4C, 0x2D, 0x53, 0x59 , 0x4E, 0x43}; 
+
+static const u8 UUID_SYNCML_DEVM[UUID_SYNCML_DEVM_SIZE] = 
+         {0x53, 0x59, 0x4E, 0x43, 0x4D, 0x4C, 0x2D, 0x53, 0x59 , 0x4E, 0x43};  
+
+/*** Definition of global variables ***/
+GLOB_DATA_TOP(obex)
+
+
+GLOB_DATA(Obex_Ctx_t  *,  obx_PtrCtx );      /* current data size		*/
+
+
+/* 
+** -------------------------------------------------------------------------
+**   VARIABLES CONCERNING SENT MESSAGES
+** -------------------------------------------------------------------------
+*/
+
+GLOB_DATA( Msg_t        *, obx_PtrMsgSnd    );    /* Addr of msg to be sent */
+GLOB_DATA( obx_DscMsg_t *, obx_PtrDscMsgSnd );    /* Sent msg descriptor   */
+
+/* 
+** -------------------------------------------------------------------------
+**   VARIABLES CONCERNING RECEIVED MESSAGES
+** -------------------------------------------------------------------------
+*/
+
+GLOB_DATA( Msg_t        *, obx_PtrMsgRec    );  /* Received msg address     */
+GLOB_DATA( obx_DscMsg_t *, obx_PtrDscMsgRec );
+
+GLOB_DATA_END(obex);
+
+#define obx_PtrCtx              	ACCESS_TO( obex, obx_PtrCtx )
+#define obx_PtrMsgSnd            ACCESS_TO( obex, obx_PtrMsgSnd    )
+#define obx_PtrDscMsgSnd         ACCESS_TO( obex, obx_PtrDscMsgSnd )
+#define obx_PtrMsgRec            ACCESS_TO( obex, obx_PtrMsgRec )
+#define obx_PtrDscMsgRec         ACCESS_TO( obex, obx_PtrDscMsgRec )
+#undef EXT
+
+#endif /* __OBX_OBEX_HV__ */

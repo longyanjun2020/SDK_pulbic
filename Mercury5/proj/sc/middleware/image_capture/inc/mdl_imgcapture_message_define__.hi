@@ -1,0 +1,7 @@
+#ifndef __MDL_IMGCAPTURE_MSG_DEF_H__
+#define __MDL_IMGCAPTURE_MSG_DEF_H__
+
+VM_MSG_DEF(MDL_IMG_CAP_CTL_DEVMSG=(VM_CUS33_BASE + 0x0000), void DUMMY)/* Msg base of image capture      */
+
+#endif
+

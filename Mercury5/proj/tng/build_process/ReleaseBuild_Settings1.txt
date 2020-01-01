@@ -1,0 +1,3 @@
+FLAG_STUDIO_BUILD = False,False,False,False,False,False,False
+FLAG_PREPARE = True,True,True,True,True,True,True
+CONFIG_MAK_FILE_PARAM_PRODUCT = 8556r2_128_64_canisV,8536n_1g_256_mb303gmv3_3D,8536n_1g_256_mb303gmv3_rfid,8536n_1g_256_mb303gmv3,8532b_64_32_64mb501v2,8533c_128_32_yk701d,8533d_64_32_64n10

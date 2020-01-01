@@ -1,0 +1,2070 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+/****************************************************************************/
+/*  File    : mdl_vfs_fat.ho                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : FAT16 file-system basic functions definition                */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 23.12.02 |   NRO  |      |  Creation                                     */
+/*----------+--------+------+-----------------------------------------------*/
+/****************************************************************************/
+#ifndef __MDL_VFS_FAT_HO__
+#define __MDL_VFS_FAT_HO__
+
+/*_____ I N C L U D E S ____________________________________________________*/
+#include "vm_types.ht"
+#include "mdl_vfs_errno.h"
+#include "mdl_vfs_struct.h"
+
+#undef SEEK_CUR
+#undef SEEK_END
+#undef SEEK_SET
+#undef O_RDONLY
+
+#ifndef O_RDONLY
+#define O_RDONLY              (0)
+#endif
+#ifndef O_WRONLY
+#define O_WRONLY              (1)
+#endif
+#ifndef O_RDWR
+#define O_RDWR                (2)
+#endif
+#ifndef O_CREAT
+#define O_CREAT               (0x200)
+#endif
+#ifndef O_TRUNC
+#define O_TRUNC               (0x400)
+#endif
+#ifndef O_APPEND
+#define O_APPEND              (0x800)
+#endif
+
+#define A_NORMAL              (0x00)    /* Normal file - No read/write restrictions */
+#define A_RDONLY              (0x01)    /* Read only file                           */
+#define A_HIDDEN              (0x02)    /* Hidden file                              */
+#define A_SYSTEM              (0x04)    /* System file                              */
+#define A_SUBDIR              (0x10)    /* Subdirectory                             */
+#define A_ARCH                (0x20)    /* Archive file                             */
+
+#ifndef __PC_SIMULATOR__
+#ifndef SEEK_SET
+#define SEEK_SET              (0)       /* set file offset to offset                */
+#endif
+#ifndef SEEK_CUR
+#define SEEK_CUR              (1)       /* set file offset to current plus offset   */
+#endif
+#ifndef SEEK_END
+#define SEEK_END              (2)       /* set file offset to EOF plus offset       */
+#endif
+#endif
+
+#define FAT_HOURS(_time)  (u8)((_time&0x0000F800)>>11)
+#define FAT_MINUTES(_time)  (u8)((_time&0x000007E0)>>5)
+#define FAT_SECONDS(_time)  (u8)((_time&0x0000001F)<<1)
+
+#define FAT_DAY(_date)    (u8)((_date&0x001F0000)>>16)
+#define FAT_MONTH(_date)  (u8)((_date&0x01E00000)>>21)
+#define FAT_YEAR(_date)   (u16)(((_date&0xFE000000)>>25)+1980)
+
+#define FAT_DELETE_CHECK      (0x00)
+#define FAT_DELETE_FORCE      (0x01)
+
+#define FAT_EXCLUDE_SUBDIR    (0x00)
+#define FAT_INCLUDE_SUBDIR    (0x01)
+
+#define VFS_LOG (_CUS11 | LEVEL_0)
+
+
+
+
+#define VFS_PATH_SEPARATOR    (0x2f)    /* "/"                                                            */
+
+#define VFS_MAX_VOL_NAME_LEN  (31)      /* max 31 standard unicode                                        */
+
+
+#define VFS_SEPARATOR_CHR '/'
+#define VFS_SEPARATOR_STR "/"
+
+#define VFA_NAME_NOR    "/NOR0"
+#define VFA_NAME_SD     "/CARD"
+#define VFA_NAME_NAND   "/NAND"
+#define VFA_NAME_SD_1   "/SD_1"
+#define VFA_NAME_SD_2   "/SD_2"
+
+#define MAX_IGNORE_PATHS  (2) // only for EFS get chksum, this value will reduce the performance
+
+#define VFS_SYNC_LOCK(vol) fat_N_lock((VFS_VOL_TYPE)vol)
+#define VFS_SYNC_UNLOCK(vol) fat_N_unlock((VFS_VOL_TYPE)vol)
+
+/*******************************************************************************
+* PURPOSE:
+* FAT fat cache system
+*******************************************************************************/
+#ifdef __SDK_SIMULATION__
+typedef struct
+{
+  s8      name[12];
+  u32     fats_addr;              /* address of the first byte of FAT                                 */
+  u32     root_dir_addr;          /* address of the first byte of root dir                            */
+  u32     data_addr;              /* address of the first byte of data                                */
+  u32     nb_sectors;             /* total number of sectors of the volume                            */
+  u32     nb_hidden_sectors;      /* number of sectors between the beginning of the unit and the PBR  */
+  u16     cluster_mask;           /* mask for end of cluster test                                     */
+  u16     sector_mask;            /* mask for cluster numbers in FAT                                  */
+  u16     sector_shift;           /* shift for cluster numbers in FAT                                 */
+  u16     nb_sectors_per_FAT;     /* number of sectors occupied by one copy of the FAT                */
+  u8      nb_sectors_per_cluster; /* cluster size (sector count)                                      */
+  bool    is_fat16;               /* TRUE: FAT16 - FALSE: FAT12                                       */
+  u8      partition_index;        /* index of the partition in the storage unit (0 -> 3)              */
+  bool    mounted;                /* boolean that tells if the volume is mounted or not               */
+  u32   * directory;              /* Added by Match                                                   */
+} Volume_t;
+#endif
+
+
+typedef struct FILE_SIMPLE_INFO
+{
+  u32   Creation_Date;                        /* time & date lastmodified */
+  u32   Last_Write_Date;                      /* time & date lastmodified */
+  u32   Size;                                 /* File size in bytes       */
+  u8    Attributes;                           /* Attributes bits          */
+  u8    format83;
+} File_Simple_Info_t;
+
+
+typedef struct FILE_LIST_HEAD
+{
+  u32   volumeId;
+  u32   listLen;
+  u8  * listBuf;
+} File_List_Head_t;
+
+
+typedef struct
+{
+  u32     count;
+  u16 **  ppPathList;
+} VFS_IgnorePath_t;
+
+
+/*
+ * following structure is for PARTIAL LIST
+ */
+
+
+typedef struct
+{
+  u32   second    : 5;    /**< Unit is 2 seconds, range=0~29, ex: 2009/09/28 11:32:21, the field will be 10 */
+  u32   minute    : 6;    /**< range=0~59, ex: 2009/09/28 11:32:21, the field will be 32                    */
+  u32   hour      : 5;    /**< range=0~23, ex: 2009/09/28 11:32:21, the field will be 11                    */
+  u32   day       : 5;    /**< range=1~31, ex: 2009/09/28 11:32:21, the field will be 28                    */
+  u32   month     : 4;    /**< range=1~12, ex: 2009/09/28 11:32:21, the field will be 09                    */
+  u32   year      : 7;    /**< start from 1980, ex: 2009/09/28 11:32:21, the field will be 29 (2009-1980)   */
+} VFS_DateTime_t;
+
+
+typedef struct
+{
+  u8    isRdOnly  : 1;    /**< The bit will be set if the entry is Read-Only, bit mask = 0x01     */
+  u8    isHidden  : 1;    /**< The bit will be set if the entry is Hidden, bit mask = 0x02        */
+  u8    isSystem  : 1;    /**< The bit will be set if the entry is System File, bit mask = 0x04   */
+  u8    reserved0 : 1;    /**< Reserved Bit                                                       */
+  u8    isFolder  : 1;    /**< The bit will be set if the entry is a Folder, bit mask = 0x10      */
+  u8    isArchive : 1;    /**< The bit will be set if the entry is an Archive, bit mask = 0x20    */
+  u8    reserved1 : 2;    /**< Reserved Bit                                                       */
+} VFS_Attribute_t;
+
+
+/**
+ *  @brief The data structure defines file info structure for PARTIAL-LIST related interfaces
+ */
+
+
+
+
+/*******************************************************************************
+* PURPOSE:
+* message body structure for async file deletion
+*******************************************************************************/
+
+typedef struct
+{
+  u32                 callerTask;
+  u32                 filterFunc;
+  u32                 sessionId;
+  u32                 totalNum;
+  u32                 deleteNum;
+  u16                 pathName[MAX_CHAR_LFN + 1];
+  File_List_Head_t  * list;
+  u32                 cb;
+} vm_FatAsync_DeleteAll_Req_t, vm_FatAsync_DeleteAll_Loop_t;
+
+
+typedef struct
+{
+  u32   sessionId;
+} vm_FatAsync_DeleteAll_Abort_t;
+
+
+typedef struct
+{
+  s32   ret;
+  u32   sessionId;
+} vm_FatAsync_DeleteAll_Cnf_t;
+
+
+typedef s32 (*VFS_Delete_Filter_t)(const VFS_File_Info_t *p_info);
+
+
+typedef void (*VFS_NotifyCb)(u16 senderID, u32 userValue, VFS_NotifyInfo_t *pVfsNotifyInfo);
+
+
+typedef struct
+{
+  u16          senderID;
+  u32          userValue;
+  VFS_NotifyCb pfnNotifyCb;
+} VFS_NotifyCb_t;
+
+typedef enum {
+  VFS_NO_CARD = 0,  /**< No SD Card Insert                            */
+  VFS_UNKNOWN_MODE, /**< SD Card Status is Unknown                    */
+  VFS_1_BIT_MODE,   /**< SD Card is running under 1-bit mode, slowly  */
+  VFS_4_BIT_MODE,   /**< SD Card is running under expected 4-bit mode */
+} VFS_CardMode_e;
+
+
+
+/******************************************************************************
+* PURPOSE :
+* FAT fs functions
+******************************************************************************/
+
+#if defined (__FS_SYNC_API_INIT_RELATED__)
+#endif
+/*
+ *  FS Synchronous Initial Related API
+ *
+ *  API List:
+ *  - fat_N_list_volume()
+ *  - fat_N_get_volume_name()
+ */
+
+/*
+ *  Function:   Used to list all supported volume ID.
+ *
+ *  Parameter:
+ *    pNbVolume
+ *    Point to the storage to get the number of volumes.
+ *
+ *    ppVolumeList
+ *    Point to the volume ID list array, the number of elements is equal
+ *    the value stored in pNbVolume.
+ *
+ *  Limit:
+ *    This array in ppVolumeList should not be released, or you will get incorrect
+ *    data at next time to list volumes.
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - if success.
+ *
+ *    FAT_OUT_OF_MEMORY
+ *    - if there is no memory to allocate.
+ */
+s32   fat_N_list_volumes(u8 * pNbVolume, u32 ** ppVolumeList);
+
+
+/*
+ *  Function:   To get volume name by ID
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume used to get volume name.
+ *
+ *    pVolName
+ *    - The array allocated by caller to get volume name.
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - if success
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide GET_VOLUME_NAME function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the array point of pVolName is NULL
+ *
+ *    Others
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_get_volume_name (u32 volumeId, u16 * pVolName);
+
+
+#if defined (__FS_SYNC_API_VOLUME_BASED__)
+#endif
+/*
+ *  FS Synchronous Volume Based Operation
+ *
+ *  API List:
+ *  - fat_N_get_volume_id()
+ *  - fat_N_mount()
+ *  - fat_N_unmount()
+ *  - fat_N_format()
+ *  - fat_N_force_format()
+ *  - fat_N_get_volume_space_info()
+ */
+
+/*
+ *  Function:   Used to get volume ID from the path.
+ *
+ *  Parameter:
+ *    pPath
+ *    - The path value to be checked
+ *
+ *  Return Value:
+ *    FAT_PHYSICAL_ERROR
+ *    - if any wrong in the comparison
+ *
+ *    Other > 0
+ *    - the volume ID from the input path.
+ */
+s32 fat_N_get_volume_id(u16 * pPath);
+
+
+/*
+ *  Function:   Used to mount the volume.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be mounted
+ *
+ *  Limit:
+ *    - If the volume is not mounted, the other operations on the volume would be fail.
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - if success
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide MOUNT function to VFS, need to contact with the maintainer.
+ *
+ *    Others
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_mount(u32 volumeId);
+
+
+/*
+ *  Function:   Used to un-mount the volume.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be un-mounted
+ *
+ *  Limit:
+ *    - If the volume is not mounted, the other operations on the volume would be fail.
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - if success
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide UN-MOUNT function to VFS, need to contact with the maintainer.
+ *
+ *    Others
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_unmount(u32 volumeId);
+
+
+/*
+ *  Function:   Format the volume.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be formatted.
+ *
+ *  Limit:
+ *    - If there are any files not closed or async-operation not finished on this volume,
+ *      the format operation would be fail.
+ *
+ *  Note:
+ *    - The format performance is dependent with FAT size in the volume, which is effected by
+ *      1.device capacity; 2.cluster size.
+ *
+ *    - Default format type is FAT32
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - if success
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide FORMAT function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_RESOURCE_BUSY
+ *    - any file resources are using by the driver (not FS)
+ *
+ *    FAT_REJECT
+ *    - there are any file handle not closed or any asyn-operation not finished on this volume.
+ *
+ *    Others
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_format (u32 volumeId);
+
+
+/*
+ *  Function:   Format the volume forcely, even there is file handle opened. That means the FS
+ *              callers need to do error handling. This API is used in Personal Data Protection
+ *              mechanism, in normal case, we suggest not to use this API.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be formatted.
+ *
+ *  Note:
+ *    - The format performance is dependent with FAT size in the volume, which is effected by
+ *      1.device capacity; 2.cluster size.
+ *
+ *    - Default format type is FAT32
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - if success
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide FORCE-FORMAT function to VFS, need to contact with the maintainer.
+ *
+ *    Others
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_force_format (u32 volumeId);
+
+
+/*
+ *  Function:   To get the volume space info.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be formatted.
+ *
+ *    pCapacity
+ *    - The pointer to store the volume capacity. Unit is KB.
+ *
+ *    pFreeSpace
+ *    - The pointer to store the free space of the volume. Unit is KB.
+ *
+ *  Note:
+ *    (1) The basic unit is a cluster. If you get the remain free space is 4KB. After you
+ *        create a new file with size 0, the remain free space might be 0KB. The cause is
+ *        FAT basic unit is a cluster.
+ *
+ *    (2) That means user cannot accurately determine as file writting space avaliable basis.
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - if success
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide FORCE-FORMAT function to VFS, need to contact with the maintainer.
+ *
+ *    Others
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_get_volume_space_info(u32 volumeId, u32 * pCapacity, u32 * pFreeSpace);
+
+s32   fat_N_get_cluster_size (const u16 * DiskName, U32 *infobuf);
+
+s32   fat_N_get_volume_info(u32 volumeId, VFS_Vol_Info_t * pInfo);
+
+
+s32   fat_N_reset_volume_info(u32 volumeId);
+
+
+s32   fat_N_mount_dev(u32 volumeId, VFS_DevType_e devId);
+
+
+s32   fat_N_unmount_dev(u32 volumeId);
+
+
+s32   fat_N_vol_to_dev(u32 volumeId);
+
+
+s32   fat_N_dev_to_vol(u32 devId);
+
+
+s32   fat_N_check_volume_support(u32 volumeId);
+
+
+
+#if defined (__FS_ASYNC_API_VOLUME_BASED__)
+#endif
+/*
+ *  FS Asynchronous Volume Based API
+ *
+ *  API List:
+ *  - fat_N_async_format()
+ *  - fat_N_async_force_format()
+ *  - fat_N_async_format_abort()
+ *  - fat_N_async_chkdsk()
+ *  - fat_N_async_chkdsk_abort()
+ */
+
+/*
+ *  Function:   Format the volume Asynchronously.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be formatted.
+ *
+ *    pNotifyCb
+ *    - Pointer to a structure to store the information for the notification.
+ *
+ *    - senderID:
+ *      As the notification message destination mailbox, in most time, this value is
+ *      only used to determine the owner task.
+ *
+ *    - userValue:
+ *      As the user defined value, which can pointer to the user defined structure or just
+ *      a signature for debugging purpose.
+ *
+ *    - pfnNotifyCb:
+ *      The function address. If there is any result need to notify, this function would be called.
+ *
+ *  Behavior:
+ *    1.When fat_N_async_format() is called, send a message to VFS task, and return the session ID to
+ *      the caller. The caller task is able to execute.
+ *
+ *    2.VFS task received the message, check the parameter is OK or not.
+ *
+ *    3.If the parameter checking is OK, register the session and call pNotifyCb to notify caller task
+ *      the request has been accepted (notifyType=VFS_ASYNC_FORMAT_PROGRESS, status=FAT_NO_ERROR) and go
+ *      to Step-5.
+ *
+ *    4.If the parameter checking is fail, call pNotifyCb to notify caller task the request has been
+ *      rejected (notifyType=VFS_ASYNC_FORMAT_PROGRESS, status=FAT_PHYSICAL_ERROR), and finish the process.
+ *
+ *    5.VFS task check if there is any session not finished. After Step-3, at least one Async-Format
+ *      session would be found. Then VFS task trigger a short timer to self.
+ *
+ *    6.When the timer timeout, VFS task would process one session not finished. if the processed session
+ *      is Async-Format, do Sync-Format, and then call pNotifyCb to notify caller task the request has been
+ *      finished.
+ *
+ *    7.If result is FAT_NO_ERROR, then notify the caller with (notifyType=VFS_ASYNC_FORMAT_PROGRESS,
+ *      status=FAT_ASYNC_COMPLETED).
+ *
+ *      If result is not FAT_NO_ERROR, then notify the caller with  (notifyType=VFS_ASYNC_FORMAT_PROGRESS,
+ *      status=error code returned).
+ *
+ *    8.VFS task will release the related memory resource, and finish the request process.
+ *
+ *  Limit:
+ *    - If there are any files not closed or async-operation not finished on this volume,
+ *      the format operation would be fail.
+ *
+ *    - If one asynchronous format request is under executing, another one cannot be executed.
+ *
+ *    - You should not use any asynchronous VFS API in pfnNotifyCb, or there would be a dead-lock issue
+ *      happened.
+ *
+ *  Note:
+ *    - The format performance is dependent with FAT size in the volume, which is effected by
+ *      1.device capacity; 2.cluster size.
+ *
+ *    - Default format type is FAT32
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_OUT_OF_MEMORY
+ *    - if API cannot get the memory for message passing
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - if API cannot allocate a session for asynchronous operation.
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - if the volume does not support FORMAT function
+ *
+ *    Others > 0
+ *    - the session ID used to notify the status through callback function.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_async_format(u32 volumeId, VFS_NotifyCb_t * pNotifyCb);
+
+
+/*
+ *  Function:   Format the volume forcely in asynchronous way.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be formatted.
+ *
+ *    pNotifyCb
+ *    - Pointer to a structure to store the information for the notification.
+ *
+ *    - senderID:
+ *      As the notification message destination mailbox, in most time, this value is
+ *      only used to determine the owner task.
+ *
+ *    - userValue:
+ *      As the user defined value, which can pointer to the user defined structure or just
+ *      a signature for debugging purpose.
+ *
+ *    - pfnNotifyCb:
+ *      The function address. If there is any result need to notify, this function would be called.
+ *
+ *  Behavior:
+ *    1.When fat_N_async_force_format() is called, send a message to VFS task, and return the session ID to
+ *      the caller. The caller task is able to execute.
+ *
+ *    2.VFS task received the message, check the parameter is OK or not.
+ *
+ *    3.If the parameter checking is OK, register the session and call pNotifyCb to notify caller task
+ *      the request has been accepted (notifyType=VFS_ASYNC_FORMAT_PROGRESS, status=FAT_NO_ERROR) and go
+ *      to Step-5.
+ *
+ *    4.If the parameter checking is fail, call pNotifyCb to notify caller task the request has been
+ *      rejected (notifyType=VFS_ASYNC_FORMAT_PROGRESS, status=FAT_PHYSICAL_ERROR), and finish the process.
+ *
+ *    5.VFS task check if there is any session not finished. After Step-3, at least one Async-Format
+ *      session would be found. Then VFS task trigger a short timer to self.
+ *
+ *    6.When the timer timeout, VFS task would process one session not finished. if the processed session
+ *      is Async-Format, do Sync-Format, and then call pNotifyCb to notify caller task the request has been
+ *      finished.
+ *
+ *    7.If result is FAT_NO_ERROR, then notify the caller with (notifyType=VFS_ASYNC_FORMAT_PROGRESS,
+ *      status=FAT_ASYNC_COMPLETED).
+ *
+ *      If result is not FAT_NO_ERROR, then notify the caller with  (notifyType=VFS_ASYNC_FORMAT_PROGRESS,
+ *      status=error code returned).
+ *
+ *    8.VFS task will release the related memory resource, and finish the request process.
+ *
+ *  Limit:
+ *    - If there are any files not closed or async-operation not finished on this volume,
+ *      the format operation would be fail.
+ *
+ *    - If one asynchronous format request is under executing, another one cannot be executed.
+ *
+ *    - You should not use any asynchronous VFS API in pfnNotifyCb, or there would be a dead-lock issue
+ *      happened.
+ *
+ *  Note:
+ *    - The format performance is dependent with FAT size in the volume, which is effected by
+ *      1.device capacity; 2.cluster size.
+ *
+ *    - Default format type is FAT32
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_OUT_OF_MEMORY
+ *    - if API cannot get the memory for message passing
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - if API cannot allocate a session for asynchronous operation.
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - if the volume does not support FORMAT function
+ *
+ *    Others > 0
+ *    - the session ID used to notify the status through callback function.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_async_force_format(u32 volumeId, VFS_NotifyCb_t * pNotifyCb);
+
+
+/*
+ *  Function:   Abort Format/ForceFormat Request in synchronous way.
+ *
+ *  Parameter:
+ *    sessionId
+ *    - The session ID of the asynchronous requst sent before.
+ *
+ *  Behavior:
+ *    1.When fat_N_async_format_abort() is called, send a message to VFS task, and block to wait result.
+ *
+ *    2.VFS Task receive the message, the session ID would be checked. If that is not a valid format
+ *      session, VFS task would return FAT_BAD_PARAM_ERROR.
+ *
+ *    3.If the format has been processed, the VFS task would return FAT_PHYSICAL_ERROR.
+ *
+ *    4.If the format is not start, the VFS task would return FAT_NO_ERROR. Then Asynchronous-Format
+ *      would notity the caller with notifyType=VFS_ASYNC_FORMAT_PROGRESS, status=FAT_ASYNC_ABORT).
+ *
+ *    5.Until the notify with FAT_ASYNC_ABORT, FAT_FAT_ASYNC_COMPLETED or another different error code,
+ *      the aborted operation is finished, and able to accept the next, same type  asynchronous request.
+ *
+ *  Note:
+ *    - If the session is completed or finished due to error, the session would be closed and not to
+ *      be a valid session again. Then if you want to abort the session, the result is FAT_BAD_PARAM_ERROR.
+ *
+ *    - Format operation cannot be aborted once it is started, due to the result FAT is not able to be used.
+ *
+ *  Return Value:
+ *    FAT_BAD_PARAM_ERROR
+ *    - if the sessionId is not a valid session.
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - if the Format operation is not able to be aborted.
+ *
+ *    FAT_NO_ERROR
+ *    - the session is able to be abort.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_async_format_abort(u32 sessionId);
+s32   fat_N_async_format_pause(u32 sessionId);
+s32   fat_N_async_format_resume(U32 sessionId);
+
+
+
+
+/*
+ *  Function:   To do CHKDSK Asynchronously.
+ *
+ *  Parameter:
+ *    volumeId
+ *    - The ID of the volume would be checked.
+ *
+ *    op
+ *    - the operation of CHKDSK
+ *      VFS_CHKDSK_STOP_FS_NORMAL:
+ *      + Check file system is shutdown in the safe way or not before target boot
+ *      + The performance is very fast due to it is only check one bit.
+ *
+ *      VFS_CHKDSK_QUICK_CHECK
+ *      + Check FAT table is consistancy or not.
+ *      + The performance is dependent with FAT size (which would be effected by cluster size,
+ *        FS format, and the capacity of the volume).
+ *
+ *      VFS_CHKDSK_RECOVERY
+ *      + Check and Recovery the whole storage if any FAT content is inconsistant.
+ *      + The performance is dependent with volume capacity, used space, and disk content complexity.
+ *        It is need alot of time.
+ *
+ *    pNotifyCb
+ *    - Pointer to a structure to store the information for the notification.
+ *
+ *    - senderID:
+ *      As the notification message destination mailbox, in most time, this value is only used to
+ *      determine the owner task.
+ *
+ *    - userValue:
+ *      As the user defined value, which can pointer to the user defined structure or just
+ *      a signature for debugging purpose.
+ *
+ *    - pfnNotifyCb:
+ *      The function address. If there is any result need to notify, this function would be called.
+ *
+ *  Behavior:
+ *    1.When fat_N_async_chkdsk() is called, send a message to VFS task, and block for VFS task checking.
+ *
+ *    2.VFS task received the message, check the parameter is OK or not.
+ *
+ *    3.If the parameter checking is OK, register the session, unlock the caller thread and call pNotifyCb
+ *      to notify caller task the request has been accepted (notifyType=VFS_ASYNC_CHKDSK_PROGRESS,
+ *      status=FAT_NO_ERROR) and then register the notify callback to driver layer, and call driver layer API
+ *      to send CHKDSK request and check if driver layer accept the request or not. Go to Step-5.
+ *
+ *    4.If the parameter checking is fail or driver layer reject the request, unlock the caller thread, call
+ *      pNotifyCb to notify caller task the request has been rejected (notifyType=VFS_ASYNC_CHKDSK_PROGRESS,
+ *      status=FAT_PHYSICAL_ERROR), and finish the process.
+ *
+ *    5.VFS task check if there is any session not finished. After Step-3, at least one Async-CHKDSK session
+ *      would be found. Then VFS task trigger a short timer to self.
+ *
+ *    6.When driver layer finish the CHKDSK operation, driver will call the callback which is registered in
+ *      Step-2. The callback function would update the internal structure for fat_N_async_chkdsk().
+ *
+ *    7.When VFS task receive the timeout message, VFS task would choose one unfinished job to check its status.
+ *      If the chosen one is Async-CHKDSK, VFS task would check if the internal structure has been update
+ *      or not. If updated, VFS task will trigger a notify with (notifyType=VFS_ASYNC_CHKDSK_PROGRESS,
+ *      status=error code returned from driver).
+ *
+ *    8.VFS task will release the related memory resource, and finish the request process.
+ *
+ *  Limit:
+ *    - If there are any files not closed or async-operation not finished on this volume,
+ *      the CHKDSK operation would be fail.
+ *
+ *    - If one asynchronous CHKDSK request is under executing, another one cannot be executed.
+ *
+ *    - If one asynchronous CHKDSK request is under executing, the checked volume will be locked and reject
+ *      all sync/async FS operation until CHKDSK finished.
+ *
+ *    - You should not use any asynchronous VFS API in pfnNotifyCb, or there would be a dead-lock issue
+ *      happened.
+ *
+ *  Note:
+ *    - The CHKDSK performance is dependent with Operation Type and FAT size in the volume, which is effected by
+ *      1.device capacity; 2.cluster size; 3.volume content complexity
+ *
+ *  Return Value:
+ *    FAT_BAD_PARAM_ERROR
+ *    - if the input param is not valid.
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_OUT_OF_MEMORY
+ *    - if API cannot get the memory for message passing
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - if API cannot allocate a session for asynchronous operation.
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - if the volume does not support CHKDSK function
+ *
+ *    Others > 0
+ *    - the session ID used to notify the status through callback function.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_async_chkdsk(u32 volumeId, VFS_ChkdskOp_e op, VFS_NotifyCb_t * pNotifyCb);
+
+
+/*
+ *  Function:   Abort CHKDSK Request in synchronous way.
+ *
+ *  Parameter:
+ *    sessionId
+ *    - The session ID of the asynchronous requst sent before.
+ *
+ *  Behavior:
+ *    1.When fat_N_async_chkdsk_abort() is called, send a message to VFS task, and block to wait result.
+ *
+ *    2.VFS Task receive the message, the session ID would be checked. If that is not a valid format
+ *      session, VFS task would return FAT_BAD_PARAM_ERROR.
+ *
+ *    3.VFS Task call driver API to tell driver to abort the running CHKDSK operation.
+ *
+ *    4.VFS Task get the return value from driver for ABORT CHKDSK.
+ *
+ *    5.VFS Task will trigger a short timer and wait driver to complete CHKDSK (either finish the whole
+ *      CHKDSK process or be abortted).
+ *
+ *    6.If driver finish or abort the CHKDSK operation, driver will call the VFS internal callback which
+ *      registered in fat_N_async_chkdsk(), and then update the internal structure for fat_N_async_chkdsk().
+ *
+ *    7.After internal structure been updated, VFS task will trigger a notify with
+ *      (notifyType=VFS_ASYNC_CHKDSK_PROGRESS, status=FAT_ASYNC_COMPLETE/FAT_ASYNC_ABORT) to the caller
+ *      task, and release the caller thread.
+ *
+ *  Note:
+ *    - If the session is completed or finished due to error, the session would be closed and not to
+ *      be a valid session again. Then if you want to abort the session, the result is FAT_BAD_PARAM_ERROR.
+ *
+ *    - CHKDSK operation can be aborted, but need to wait for a little while until one file has been checked.
+ *
+ *  Return Value:
+ *    FAT_BAD_PARAM_ERROR
+ *    - if the sessionId is not a valid session.
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - if the Format operation is not able to be aborted.
+ *
+ *    FAT_NO_ERROR
+ *    - the session is able to be abort.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_async_chkdsk_abort(u32 sessionId);
+s32   fat_N_async_chkdsk_pause(u32 sessionId);
+s32   fat_N_async_chkdsk_resume(u32 sessionId);
+
+
+#if defined (__FS_SYNC_API_FILE_HANDLE_RELATED__)
+#endif
+/*
+ *  FS Synchronous File Handle Related API
+ *
+ *  API List:
+ *  - fat_N_open()
+ *  - fat_N_open_with_size()
+ *  - fat_N_open_with_buffer()
+ *  - fat_N_close()
+ *  - fat_N_read()
+ *  - fat_N_write()
+ *  - fat_N_eof()
+ *  - fat_N_seek()
+ *  - fat_N_tell()
+ *  - fat_N_get_open_file_info()
+ *  - fat_N_truncate()
+ */
+
+/*
+ *  Function:   To open the file
+ *
+ *  Parameter:
+ *    pFileName
+ *    - The full path of the file in UNICODE.
+ *
+ *    mode
+ *    - The bit value of file open mode. Only following 6 mode is valid:
+ *      (1) O_RDONLY ("r")
+ *          Open existing file for read;
+ *
+ *      (2) O_RDWR ("r+")
+ *          Open existing file for read/write anywhere;
+ *
+ *      (3) O_WRONLY|O_CREAT|O_TRUNC ("w")
+ *          Open file for write from beginning, the original data in the file would be dropped;
+ *
+ *      (4) O_RDWR|O_CREAT|O_TRUNC ("w+")
+ *          Open file for read/write anywhere, the original data in the file would be dropped;
+ *
+ *      (5) O_WRONLY|O_CREAT|O_APPEND ("a")
+ *          Open file for write from the end of the existing file. If the file is not existing,
+ *          create a new file. All written data will be appened at the end, and you can not
+ *          change by seek operation;
+ *
+ *      (6) O_RDWR|O_CREAT|O_APPEND ("a+")
+ *          Open file for read/write. If the file is not existing, create a new one. All written
+ *          data will be appened at the end of file, and you can read data from the file anywhere.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *        *)fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide OPEN function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the pFileName is not mounted before.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the pFileName is NULL or the mode is not valid.
+ *
+ *    FAT_INVALID_NAME_LEN
+ *    - the pFileName is too long, not a valid path.
+ *
+ *    FAT_NOT_FILE
+ *    - the pFileName is a folder, not a file.
+ *
+ *    FAT_NOT_EXISTING_FILE
+ *    - the pFileName is not exist, only happened if mode == O_RDONLY or mode == O_RDWR
+ *
+ *    FAT_MEMORY_FULL_ERROR
+ *    - the storage capacity is not enough to create a new file, only happened if mode != O_RDONLY or mode != O_RDWR
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - unknown error.
+ *
+ *    Others > 0
+ *    - file open success and the file handle be returned.
+ *
+ *    Others <= 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_open(const u16 * const pFileName, s32 mode);
+
+
+/*
+ *  Function:   To create the file and pre-reserved the space with specified size.
+ *              This API is to avoid updating FAT during file writing to reduce the
+ *              incidence of the CHKDSK error by prevent update, especially how
+ *              many data would be written is known.
+ *
+ *  Parameter:
+ *    pFileName
+ *    - The full path of the file in UNICODE.
+ *
+ *    mode
+ *    - The bit value of file open mode. Only following 6 mode is valid:
+ *      (1) O_RDONLY ("r") not support for this API
+ *          Open existing file for read;
+ *
+ *      (2) O_RDWR ("r+")
+ *          Open existing file for read/write anywhere;
+ *
+ *      (3) O_WRONLY|O_CREAT|O_TRUNC ("w")
+ *          Open file for write from beginning, the original data in the file would be dropped;
+ *
+ *      (4) O_RDWR|O_CREAT|O_TRUNC ("w+")
+ *          Open file for read/write anywhere, the original data in the file would be dropped;
+ *
+ *      (5) O_WRONLY|O_CREAT|O_APPEND ("a") not support for this API
+ *          Open file for write from the end of the existing file. If the file is not existing,
+ *          create a new file. All written data will be appened at the end, and you can not
+ *          change by seek operation;
+ *
+ *      (6) O_RDWR|O_CREAT|O_APPEND ("a+") not support for this API
+ *          Open file for read/write. If the file is not existing, create a new one. All written
+ *          data will be appened at the end of file, and you can read data from the file anywhere.
+ *
+ *    size
+ *    - The reserved file size
+ *
+ *  Limit:
+ *    This API is only support mode (2), (3), (4); the other modes would be returned with
+ *    FAT_BAD_PARAM_ERROR.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *        *)fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *    (3) For performance issue, the preserved data size will not be clear to zero.
+ *
+ *    (4) For performance issue, if the input size is too big, pre-reserved file size is limitted.
+ *        Current MAX pre-reserved size is 10 MB
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide OPEN_WITH_SIZE function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the pFileName is not mounted before.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the pFileName is NULL or the mode is not valid.
+ *
+ *    FAT_INVALID_NAME_LEN
+ *    - the pFileName is too long, not a valid path.
+ *
+ *    FAT_NOT_FILE
+ *    - the pFileName is a folder, not a file.
+ *
+ *    FAT_NOT_EXISTING_FILE
+ *    - the pFileName is not exist, only happened if mode == O_RDONLY or mode == O_RDWR
+ *
+ *    FAT_MEMORY_FULL_ERROR
+ *    - the storage capacity is not enough to create a new file, only happened if mode != O_RDONLY or mode != O_RDWR
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - unknown error.
+ *
+ *    Others > 0
+ *    - file open success and the file handle be returned.
+ *
+ *    Others <= 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_open_with_size(const u16 * const pFileName, s32 mode, u32 size);
+
+
+/*
+ *  Function:   To create the file with a buffer. This API is used for specific buffer to improve file
+ *              write performance, this API is not suitable for MMI or 3rd Party.
+ *
+ *  Parameter:
+ *    pFileName
+ *    - The full path of the file in UNICODE.
+ *
+ *    mode
+ *    - The bit value of file open mode. Only following 6 mode is valid:
+ *      (1) O_RDONLY ("r") not support for this API
+ *          Open existing file for read;
+ *
+ *      (2) O_RDWR ("r+")
+ *          Open existing file for read/write anywhere;
+ *
+ *      (3) O_WRONLY|O_CREAT|O_TRUNC ("w")
+ *          Open file for write from beginning, the original data in the file would be dropped;
+ *
+ *      (4) O_RDWR|O_CREAT|O_TRUNC ("w+")
+ *          Open file for read/write anywhere, the original data in the file would be dropped;
+ *
+ *      (5) O_WRONLY|O_CREAT|O_APPEND ("a") not support for this API
+ *          Open file for write from the end of the existing file. If the file is not existing,
+ *          create a new file. All written data will be appened at the end, and you can not
+ *          change by seek operation;
+ *
+ *      (6) O_RDWR|O_CREAT|O_APPEND ("a+") not support for this API
+ *          Open file for read/write. If the file is not existing, create a new one. All written
+ *          data will be appened at the end of file, and you can read data from the file anywhere.
+ *
+ *    pBuffer
+ *    - The buffer for driver layer
+ *
+ *    bufferSize
+ *    - Indicate the buffer size in bytes
+ *
+ *  Limit:
+ *    This API is only for B3 middleware layer.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *        *)fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) Returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide OPEN_WITH_BUFFER function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the pFileName is not mounted before.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the pFileName is NULL or the mode is not valid.
+ *
+ *    FAT_INVALID_NAME_LEN
+ *    - the pFileName is too long, not a valid path.
+ *
+ *    FAT_NOT_FILE
+ *    - the pFileName is a folder, not a file.
+ *
+ *    FAT_NOT_EXISTING_FILE
+ *    - the pFileName is not exist, only happened if mode == O_RDONLY or mode == O_RDWR
+ *
+ *    FAT_MEMORY_FULL_ERROR
+ *    - the storage capacity is not enough to create a new file, only happened if mode != O_RDONLY or mode != O_RDWR
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - unknown error.
+ *
+ *    Others > 0
+ *    - file open success and the file handle be returned.
+ *
+ *    Others <= 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_open_with_buffer(const u16 * const pFileName, s32 mode, u8 * pBuffer, u32 bufferSize);
+
+
+/*
+ *  Function:   To close the file with file handle which returned from fat_N_open(), fat_N_open_with_size(),
+ *              and fat_N_open_with_buffer().
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *        *)fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *  Limit:
+ *    All opened files need to be closed, even the volume has been swapped.
+ *
+ *  Return Value:
+ *    FAT_NO_ERROR
+ *    - the function success.
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide CLOSE function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ */
+s32   fat_N_close(u32 fileHandle);
+
+
+/*
+ *  Function:   To read data from file to the given buffer
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *    pBuffer
+ *    - The buffer to store read data
+ *
+ *    bufferSize
+ *    - The buffer size, is also the MAX length of read data
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *        *)fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *  Limit:
+ *    (1) the pBuffer should not be NULL. More precisely, the pBuffer should point to the address which is valid to write.
+ *    (2) the bufferSize should less than 256MB (0x10000000). Fortunately, the general in the system can not have
+ *        such a large buffer.
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide READ function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_READ_ERROR
+ *    - there is no data could be read from file.
+ *
+ *    FAT_ALLOCATE_BUFFER_FAIL
+ *    - allocate memory buffer for READ function internal using.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the pBuffer is NULL or the bufferSize is too huge.
+ *
+ *    FAT_FILE_CORRUPTED
+ *    - the file handle is corrupted for driver layer, need to close the file.
+ *
+ *    Others >= 0
+ *    - read data size.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_read(u32 fileHandle, u8 * pBuffer, u32 bufferSize);
+
+
+/*
+ *  Function:   To write data to the file
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *    pData
+ *    - The data buffer need to be written
+ *
+ *    dataSize
+ *    - The data buffer size
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *        *)fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *  Limit:
+ *    (1) the pBuffer should not be NULL. More precisely, the pData should point to the address which is valid to write.
+ *    (2) the bufferSize should less than 256MB (0x10000000). Fortunately, the general in the system can not have
+ *        such a large buffer.
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide WRITE function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_WRITE_ERROR
+ *    - there is something wrong in driver layer.
+ *
+ *    FAT_ALLOCATE_BUFFER_FAIL
+ *    - allocate memory buffer for WRITE function internal using.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the pData is NULL or the bufferSize is too huge.
+ *
+ *    FAT_MEMORY_FULL_ERROR
+ *    - the storage is full, cannot write any more data to the file.
+ *
+ *    FAT_FILE_CORRUPTED
+ *    - the file handle is corrupted for driver layer, need to close the file.
+ *
+ *    Others >= 0
+ *    - written data size, and the write operation success, the value should the same with bufferSize.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_write(u32 fileHandle, u8 * pData, u32 dataSize);
+
+
+/*
+ *  Function:   To check if the file position has reach the end of file
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *        *)fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *    (3) Due to seek operation will extend the file size, this API is only insure Read-Only file is workable.
+ *
+ *    (4) If the file size is over than 2GB, this API will not work correctly due to it is composed by
+ *        SEEK / TELL operation.
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide CHECK_EOF function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ *
+ *    FAT_FILE_CORRUPTED
+ *    - the file handle is corrupted for driver layer, need to close the file.
+ *
+ *    TRUE
+ *    - the file position has been reached the file end.
+ *
+ *    FALSE
+ *    - the file position is not reached the file end.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_eof(u32 fileHandle);
+
+
+/*
+ *  Function:   To modify the file position. If the new position is larger than the file size, extend the file
+ *              in non-Read-Only files.
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *    offset
+ *    - The offset from whence.
+ *
+ *    whence
+ *    - The start position of this SEEK operation, there are 3 whence type:
+ *      (1) SEEK_SET  - begin from the file position 0;
+ *      (2) SEEK_CUR  - begin from the current file position;
+ *      (3) SEEK_END  - begin from the end of the file.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *        *)fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *    (3) for Read-Only file handle:
+ *                      SEEK_SET    SEEK_CUR    SEEK_END
+ *        offset >= 0       v           v           x
+ *        offset  < 0       x           v           v
+ *
+ *        if the predict position is < 0          ==> return FAT_BAD_PARAM_ERROR
+ *        if the predict position is > file size  ==> return FAT_BAD_PARAM_ERROR
+ *
+ *    (4) for Non-Read-Only file handle:
+ *                      SEEK_SET    SEEK_CUR    SEEK_END
+ *        offset >= 0       v           v           v
+ *        offset  < 0       x           v           v
+ *
+ *        if the predict position is < 0          ==> return FAT_BAD_PARAM_ERROR
+ *        if the predict position is > file size  ==> extend the file size.
+ *                                                    If the storage is Full, return FAT_MEMORY_FULL_ERROR
+ *
+ *    (5) for performance issue, the extended space will not clear to zero.
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide SEEK function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ *
+ *    FAT_FILE_CORRUPTED
+ *    - the file handle is corrupted for driver layer, need to close the file.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the predict position is not correct.
+ *
+ *    FAT_MEMORY_FULL_ERROR
+ *    - the storage is full, cannot extend any bytes.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_seek(u32 fileHandle, s32 offset, s32 whence);
+
+
+/*
+ *  Function:   To get the current file position with the file handle
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *        *)fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide TELL function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ *
+ *    FAT_FILE_CORRUPTED
+ *    - the file handle is corrupted for driver layer, need to close the file.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_tell (u32 fileHandle);
+
+
+/*
+ *  Function:   To get the file information when file opened with file handle
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *        *)fat_N_get_open_file_info()  --> file_finfo()
+ *          fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *    (3) the opened file information will not update after read/write/seek/truncate.
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide TELL function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ *
+ *    FAT_FILE_CORRUPTED
+ *    - the file handle is corrupted for driver layer, need to close the file.
+ *
+ *    FAT_MEMORY_FULL_ERROR
+ *    - the storage is full, cannot extend any bytes.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the pInfo is NULL..
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_get_open_file_info (u32 fileHandle, VFS_File_Info_t* pInfo);
+
+
+/*
+ *  Function:   To get the current file position with the file handle
+ *
+ *  Parameter:
+ *    fileHandle
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *    size
+ *    - Expected size after trucate.
+ *
+ *  Note:
+ *    (1) No one should directly use the following APIs, and should use another set API defined in vfs_file.ho.
+ *          fat_N_open()                --> file_fopen()
+ *          fat_N_open_with_size()      --> file_fopenWithSize()
+ *          fat_N_open_with_buffer()    --> file_fopenWithBuffer()
+ *          fat_N_read()                --> file_fread()
+ *          fat_N_async_read()          --> file_freadReq()
+ *          fat_N_write()               --> file_fwrite()
+ *          fat_N_async_write()         --> file_fwriteReq()
+ *          fat_N_seek()                --> file_fseek()
+ *          fat_N_tell()                --> file_ftell()
+ *          fat_N_eof()                 --> file_eof()
+ *          fat_N_get_open_file_info()  --> file_finfo()
+ *        *)fat_N_truncate()            --> file_ftruncate()
+ *          fat_N_close()               --> file_fclose()
+ *
+ *    (2) returned fileHandle is composed by volume ID and file Handle on the volume
+ *        fileHandle = (volume ID) << 16 + (handle on the Volume)
+ *
+ *    (3) Expected size should less than the current file size.
+ *
+ *  Return Value:
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - the device is not provide TRUNCATE function to VFS, need to contact with the maintainer.
+ *
+ *    FAT_NOT_MOUNTED_ERROR
+ *    - the volume of the file handle is not mounted before.
+ *
+ *    FAT_CLOSE_ERROR
+ *    - the file handle is not valid on the volume.
+ *
+ *    FAT_FILE_CORRUPTED
+ *    - the file handle is corrupted for driver layer, need to close the file.
+ *
+ *    FAT_BAD_PARAM_ERROR
+ *    - the expect size is larger than the current file size.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ */
+s32   fat_N_truncate (u32 fileHandle, u32 size);
+
+
+s32   fat_N_seek_4G(u32 fileHandle, s64 offset, s32 whence);
+
+
+s32   fat_N_tell_4G (u32 fileHandle, u32 * pPosition);
+
+
+#if defined (__FS_ASYNC_API_FILE_HANDLE_RELATED__)
+#endif
+/*
+ *  FS Asynchronous File Handle Related API
+ *
+ *  API List:
+ */
+
+/*
+ *  Function:   Read a lot of data from the file in Asynchronous way.
+ *
+ *  Parameter:
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *    pBuffer
+ *    - The data buffer need to be written
+ *
+ *    bufferSize
+ *    - The data buffer size
+ *
+ *    pNotifyCb
+ *    - Pointer to a structure to store the information for the notification.
+ *
+ *    - senderID:
+ *      As the notification message destination mailbox, in most time, this value is
+ *      only used to determine the owner task.
+ *
+ *    - userValue:
+ *      As the user defined value, which can pointer to the user defined structure or just
+ *      a signature for debugging purpose.
+ *
+ *    - pfnNotifyCb:
+ *      The function address. If there is any result need to notify, this function would be called.
+ *
+ *  Behavior:
+ *    1.When fat_N_async_read() is called, send a message to VFS task, and return the session ID to
+ *      the caller. The caller task is able to execute.
+ *
+ *    2.VFS task received the message, check the parameter is OK or not.
+ *
+ *    3.If the parameter checking is OK, register the session and call pNotifyCb to notify caller task
+ *      the request has been accepted (notifyType=VFS_ASYNC_READ_PROGRESS, status=FAT_NO_ERROR) and go
+ *      to Step-5.
+ *
+ *    4.If the parameter checking is fail, call pNotifyCb to notify caller task the request has been
+ *      rejected (notifyType=VFS_ASYNC_READ_PROGRESS, status=FAT_PHYSICAL_ERROR/FAT_BAD_PARAM), and finish
+ *      the process.
+ *
+ *    5.VFS task check if there is any session not finished. After Step-3, at least one Async-Read
+ *      session would be found. Then VFS task trigger a short timer to self.
+ *
+ *    6.When the timer timeout, VFS task would process one session not finished. if the processed session
+ *      is Async-Read, do Sync-Read a segment buffer with a specific size, and then call pNotifyCb to
+ *      notify caller task with (notifyType=VFS_ASYNC_READ_PROGRESS, status=FAT_NO_ERROR).
+ *
+ *    7.If there is no more data can be read, VFS task will notify the caller with (notifyType=
+ *      VFS_ASYNC_READ_PROGRESS, status=FAT_ASYNC_COMPLETE), and the process is finished.
+ *
+ *    8.If there is some error happened in read process, VFS task will notify the caller with (notifyType=
+ *      VFS_ASYNC_READ_PROGRESS, status=errCode), and the process is finished.
+ *
+ *    9.Else, trigger a short timer to self again, and go to Step-6.
+ *
+ *   10.VFS task will release the related memory resource, and finish the request process.
+ *
+ *  Limit:
+ *    - Max Async-READ/WRITE session is limitted.
+ *
+ *    - If you use multiple async-READ/WRITE sessions to the same file handle at the same time, the file
+ *      content will be un-predictable.
+ *
+ *    - You should not use any asynchronous VFS API in pfnNotifyCb, or there would be a dead-lock issue
+ *      happened.
+ *
+ *  Note:
+ *    - The frequency of the notification with the file size be adjusted to avoid caller thread too heavy.
+ *      ex:
+ *
+ *  Return Value:
+ *    FAT_BAD_PARAM_ERROR
+ *    - if the input parameter is not valid
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_OUT_OF_MEMORY
+ *    - if API cannot get the memory for message passing
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - if API cannot allocate a session for asynchronous operation.
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - if the volume does not support FORMAT function
+ *
+ *    Others > 0
+ *    - the session ID used to notify the status through callback function.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_async_read(u32 fileHandle, u8 * pBuffer, u32 bufferSize, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_read_abort(u32 sessionId);
+
+
+/*
+ *  Function:   Write a lot of data to the file in Asynchronous way.
+ *
+ *  Parameter:
+ *    - The return value of fat_N_open(), fat_N_open_with_size(), and fat_N_open_with_buffer() which is not
+ *      error code.
+ *
+ *    pData
+ *    - The data buffer need to be written
+ *
+ *    dataSize
+ *    - The data buffer size
+ *
+ *    pNotifyCb
+ *    - Pointer to a structure to store the information for the notification.
+ *
+ *    - senderID:
+ *      As the notification message destination mailbox, in most time, this value is
+ *      only used to determine the owner task.
+ *
+ *    - userValue:
+ *      As the user defined value, which can pointer to the user defined structure or just
+ *      a signature for debugging purpose.
+ *
+ *    - pfnNotifyCb:
+ *      The function address. If there is any result need to notify, this function would be called.
+ *
+ *  Behavior:
+ *    1.When fat_N_async_read() is called, send a message to VFS task, and return the session ID to
+ *      the caller. The caller task is able to execute.
+ *
+ *    2.VFS task received the message, check the parameter is OK or not.
+ *
+ *    3.If the parameter checking is OK, register the session and call pNotifyCb to notify caller task
+ *      the request has been accepted (notifyType=VFS_ASYNC_READ_PROGRESS, status=FAT_NO_ERROR) and go
+ *      to Step-5.
+ *
+ *    4.If the parameter checking is fail, call pNotifyCb to notify caller task the request has been
+ *      rejected (notifyType=VFS_ASYNC_READ_PROGRESS, status=FAT_PHYSICAL_ERROR/FAT_BAD_PARAM), and finish
+ *      the process.
+ *
+ *    5.VFS task check if there is any session not finished. After Step-3, at least one Async-Read
+ *      session would be found. Then VFS task trigger a short timer to self.
+ *
+ *    6.When the timer timeout, VFS task would process one session not finished. if the processed session
+ *      is Async-Read, do Sync-Read a segment buffer with a specific size, and then call pNotifyCb to
+ *      notify caller task with (notifyType=VFS_ASYNC_READ_PROGRESS, status=FAT_NO_ERROR).
+ *
+ *    7.If there is no more data can be read, VFS task will notify the caller with (notifyType=
+ *      VFS_ASYNC_READ_PROGRESS, status=FAT_ASYNC_COMPLETE), and the process is finished.
+ *
+ *    8.If there is some error happened in read process, VFS task will notify the caller with (notifyType=
+ *      VFS_ASYNC_READ_PROGRESS, status=errCode), and the process is finished.
+ *
+ *    9.Else, trigger a short timer to self again, and go to Step-6.
+ *
+ *   10.VFS task will release the related memory resource, and finish the request process.
+ *
+ *  Limit:
+ *    - Max Async-READ/WRITE session is limitted.
+ *
+ *    - If you use multiple async-READ/WRITE sessions to the same file handle at the same time, the file
+ *      content will be un-predictable.
+ *
+ *    - You should not use any asynchronous VFS API in pfnNotifyCb, or there would be a dead-lock issue
+ *      happened.
+ *
+ *  Note:
+ *    - The frequency of the notification with the file size be adjusted to avoid caller thread too heavy.
+ *      ex:
+ *
+ *  Return Value:
+ *    FAT_BAD_PARAM_ERROR
+ *    - if the input parameter is not valid
+ *
+ *    FAT_NOT_EXISTING_VOL
+ *    - if the volumeId is not valid
+ *
+ *    FAT_OUT_OF_MEMORY
+ *    - if API cannot get the memory for message passing
+ *
+ *    FAT_PHYSICAL_ERROR
+ *    - if API cannot allocate a session for asynchronous operation.
+ *
+ *    FAT_FUNCTION_NOT_SUPPORT
+ *    - if the volume does not support FORMAT function
+ *
+ *    Others > 0
+ *    - the session ID used to notify the status through callback function.
+ *
+ *    Others < 0
+ *    - there might any different error code in the future.
+ *
+ */
+s32   fat_N_async_write(u32 fileHandle, u8 * pData, u32 dataSize, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_write_abort(u32 sessionId);
+
+
+#if defined (__FS_SYNC_API_EXPLORER_RELATED__)
+#endif
+/*
+ *  FS Synchronous Explorer Related API
+ *
+ *  API List:
+ */
+
+
+s32   fat_N_truncate_name(u16 *name, u32 size);
+s32   fat_N_get_folder_size(u16 *pathName, u32 flag);
+
+s32   fat_N_remove_dir(u16 *dirName, u32 flag);
+s32   fat_N_delete(const u16 * const name);
+s32   fat_N_delete_all(u16 * pathName, u32 listLen, u8 * listBuf);
+s32   fat_N_make_dir(u16 *dirName);
+s32   fat_N_rename(u16 * oldName, u16 * newName);
+s32   fat_N_exists(u16 *fileName);
+
+s32   fat_N_change_dir (u16 *pathName, File_List_Head_t ** listHead);
+s32   fat_N_get_path_nb_files(u16 * pathName);
+s32   fat_N_get_nb_files(File_List_Head_t * listHead);
+s32   fat_N_get_file_info(File_List_Head_t * listHead, u32 file_num, VFS_File_Info_t* vfs_file_info_ptr);
+s32   fat_N_free_list(File_List_Head_t * listHead);
+s32   fat_N_get_file_info_by_name(u16 * name, File_Simple_Info_t* vfs_file_info_ptr);
+s32   fat_N_get_full_info_by_name(u16 * name, VFS_PartialListFileInfo_t * vfs_file_info_ptr);
+s32   fat_N_set_file_attr(u16 * name, u32 attr);
+s32   fat_N_get_file_attr(u16 * name, u32 * attr);
+
+s32   fat_N_get_rename_length (u16 * name, u32 * length);
+
+s32   fat_N_get_dir_chksum(u16 * pDirPath, VFS_CheckSum_t * pChksum, VFS_IgnorePath_t * pIgnoreList, u32 flag);
+s32   fat_N_get_folder_chksum(u16* pDirPath, u32 bufferLen, u8* pBuffer, u32 flag);
+s32   fat_N_convert_id_to_info(u16 * pPathName, u32 numFileId, VFS_FileID_t * pFileIdArray, VFS_PartialListFileInfo_t * pFileInfoArray);
+s32   fat_N_partial_list(u16 * pPathName, VFS_PartialListFilter_t * pFilter, u32 offset, u32 requestNumEntry, u32 * pResultNumEntry, VFS_PartialListFileInfo_t * pFileInfoArray);
+
+s32   fat_N_file_combine(u16 * pFile1Path, u16 * pFile2Path);
+
+s32   fat_N_get_device_serial(u32 volumeId, VFS_DevSerial_t * pDevSerial);
+
+
+// async functions
+
+#if defined (__FS_ASYNC_API_EXPLORER_RELATED__)
+#endif
+/*
+ *  FS Asynchronous Explorer Related API
+ *
+ *  API List:
+ */
+
+s32   fat_N_async_copy(u16 * src, u16 * dst, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_copy_abort(u32 sessionId);
+s32   fat_N_async_move(u16 * oldName, u16 * newName, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_move_abort(u32 sessionId);
+#if 0 /* backup */
+s32   fat_N_async_getChksum(u16 * pathName, u32 chksumLen, VFS_IgnorePath_t * ignorePath, u32 flag, VFS_NotifyCb_t * pNotifyCb);
+#endif
+s32   fat_N_async_getChksum_abort(u32 sessionId);
+s32   fat_N_async_remove_dir_tree(u16 *dirName, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_remove_dir_tree_abort(u32 sessionId);
+s32   fat_N_async_remove_file(u16 *fileName, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_remove_file_abort(u32 sessionId);
+s32   fat_N_async_remove_dir_all(u16 *dirName, VFS_PartialListFilter_t * pFilter, bool isRecursive, bool isForceDelete, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_remove_dir_all_abort(u32 sessionId);
+
+// partial list related functions
+s32   fat_N_async_get_file_num(u16 * pPathName, VFS_PartialListFilter_t * pFilter, u32 startFileNum, u32 * pStartFileNum, VFS_PartialListFileInfo_t * pFileInfoArray, VFS_NotifyCb_t * pNotifyCb);
+s32   fat_N_async_get_file_num_abort(u32 sessionId);
+
+/*
+ *  vfs lock operations
+ */
+void  fat_N_lock(VFS_VOL_TYPE vol);
+void  fat_N_unlock(VFS_VOL_TYPE vol);
+
+
+#if defined (__FUNCTION_NOT_SUGGEST_TO_USE__)
+#endif
+/*
+ *  Not Suggested to Use APIs
+ *
+ *  API List:
+ *  - fat_N_async_delete_all()
+ *  - fat_N_async_delete_all_abort()
+ */
+
+/* not suggest to use any more */
+s32   fat_N_async_delete_all(u16 * pathName, void * filter, VFS_NotifyCb_t * cbt);
+s32   fat_N_async_delete_all_abort(u32 sessionId);
+
+/*
+ * miscellaneous API
+ */
+s32   fat_N_fsAccState(VFS_VOL_TYPE vol,  VFS_ACC_e *acc);
+s32   fat_N_fsDiskState(VFS_VOL_TYPE vol,  VFS_DiskStatus_e *diskstatus);
+bool  fat_N_EmQueryCardStatus(VFS_DevType_e dev, VFS_CardMode_e *pMode);
+bool  fat_N_FsIsActive(void);
+
+// str utility functions
+#if defined (__UNICODE_STRING_TOOL_FUNCTION__)
+#endif
+/*
+ *  FS Asynchronous Explorer Related API
+ *
+ *  API List:
+ */
+s32   uStrcat(u16 * dst, u16 * src);
+u32   uStrlen(u16 * str);
+s32   uStrcmp(u16 * dst, u16 * src);
+s32   uStrncmp(u16 * dst, u16 * src, u32 n);
+s32   uStrcasecmp(u16 * dst, u16 * src);
+s32   uStrncasecmp(u16 * dst, u16 * src, u32 n);
+s32   uStrcpy(u16 * dst, u16 * src);
+s32   uStrncpy(u16 * dst, u16 * src, u32 n);
+u16 * uStrchr(u16 * dst, u16 ch);
+u16 * uStrrchr(u16 * dst, u16 ch);
+u16 * uStrnchr(u16 * dst, u16 ch, u32 occur);
+u16 * uStrstr(u16 * dst, u16 * src);
+s32   uStrAddChar(u16 * dst, u16 ch);
+s32   uStrTo8bitStr(u8 * dst, u16 * src);
+s32   u8bitStrTouStr(u16 * dst, u8 * src);
+s32   uStrToUcs2Str(u8 * dst, u16 * src);
+s32   Ucs2StrToUstr(u16 * dst, u8 * src);
+
+#endif  /* __MDL_VFS_FAT_HO__ */

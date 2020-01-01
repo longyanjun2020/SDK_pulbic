@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>CarDV Streamer PUSH mode</title>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <!--[if IE 6]>
+    <link rel="stylesheet" href="fix.css" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript">
+      /* Copyright (C) 2007 Richard Atterer, richard©atterer.net
+       * This program is free software; you can redistribute it and/or modify it
+       * under the terms of the GNU General Public License, version 2. See the file
+       * COPYING for details.
+       */
+		
+      var imageNr = 0; // Serial number of current image
+      var finished = new Array(); // References to img objects which have finished downloading
+      var paused = false;
+      var previous_time = new Date();
+      var fcnt = 0;
+	  var imgw = 0;
+	  var imgh = 0;
+	  var status="Standby";
+	  
+      function createImageLayer() {
+        var img = new Image();
+        img.style.position = "absolute";
+        img.style.zIndex = -1;
+        img.onload  = imageOnload;
+        img.onclick = imageOnclick;
+        img.width = imgw;
+        img.height = imgh;
+        img.src = "/cgi-bin/liveMJPEG";
+        var webcam = document.getElementById("webcam");
+        webcam.insertBefore(img, webcam.firstChild);
+      }	  
+      // Two layers are always present (except at the very beginning), to avoid flicker
+      function imageOnload() {
+      }
+
+      function imageOnclick() { // Clicking on the image will pause the stream
+      }
+      
+	function loadCameraCfg(rstr,holder)
+	{
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+				if (holder) {
+					holder(xmlhttp.responseText)
+				} else {
+					alert("No Response or Time out!!");
+				}
+			}
+		}
+		xmlhttp.open("GET",rstr,true);
+		xmlhttp.send();
+	}
+	
+	function queryItem(resp,key)
+	{
+		var str=resp;
+		var n=str.split(key+"=");
+		if (n[1] != undefined) {
+			var m = n[1].split("\n");
+			return m[0];
+		} else {
+			document.getElementById("debug").innerHTML="undefined";
+		}
+	}
+
+	function onMJHolder()
+	{
+		imgw = queryItem(xmlhttp.responseText,"Camera.Preview.MJPEG.w");
+		imgh = queryItem(xmlhttp.responseText,"Camera.Preview.MJPEG.h");
+
+	    document.getElementById('size').firstChild.nodeValue = imgw + "x" + imgh;
+		document.getElementById("status").innerHTML=status;	
+		createImageLayer();
+				
+		timedCount();
+		
+	}
+	
+	function RecordStatusHolder()
+	{
+		var status=queryItem(xmlhttp.responseText,"Camera.Preview.MJPEG.status");
+		var WMSG=queryItem(xmlhttp.responseText,"Camera.Preview.MJPEG.WarningMSG");
+		document.getElementById("status").innerHTML=status;	
+		if(WMSG!="0")
+			alert(WMSG);
+	}
+	
+	function getRecordStatus() {
+		var	cfgcmd = "cgi-bin/Config.cgi?action=get&property=Camera.Preview.MJPEG.*";
+		loadWiFiCfg(cfgcmd, RecordStatusHolder);
+		//<noscript><img src="/cgi-bin/staticMJPEG"/></noscript>
+	}
+	
+	function initImageLayer() {
+		var	cfgcmd = "cgi-bin/Config.cgi?action=get&property=Camera.Preview.MJPEG.*";
+		loadCameraCfg(cfgcmd, onMJHolder);
+		//setTimeout("getTimeStamp()",1000);
+		//getTimeStamp();
+		//getRecordStatus();
+		//<noscript><img src="/cgi-bin/staticMJPEG"/></noscript>
+	}
+	
+	function loadWiFiCfg(rstr,holder)
+	{
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			if (holder) {
+				holder(xmlhttp.responseText);
+			} else {
+				document.getElementById("debug").innerHTML=xmlhttp.responseText;
+			}
+		}
+	}
+	xmlhttp.open("GET",rstr,true);
+	xmlhttp.send();
+	}
+	function videoRecord()
+	{
+	var f = document.getElementById("netcfgForm");
+	var	cfgcmd = "cgi-bin/Config.cgi?action=set";
+	cfgcmd += "&property=Video" + "&value=record";
+	loadWiFiCfg(cfgcmd, null);
+	setTimeout("getRecordStatus()",2000);
+	}
+
+	function videoCapture()
+	{
+	var f = document.getElementById("netcfgForm");
+	var	cfgcmd = "cgi-bin/Config.cgi?action=set";
+	cfgcmd += "&property=Video" + "&value=capture";
+	loadWiFiCfg(cfgcmd, null);
+	}
+	
+	function getWarningMSG()
+	{
+	var	cfgcmd = "cgi-bin/Config.cgi?action=get&property=Camera.Preview.MJPEG.WarningMSG";
+		
+		loadWiFiCfg(cfgcmd, WarningMSGStatusHolder);
+		//<noscript><img src="/cgi-bin/staticMJPEG"/></noscript>
+	}
+	
+	function WarningMSGStatusHolder()
+	{
+		var status=queryItem(xmlhttp.responseText,"Camera.Preview.MJPEG.WarningMSG");
+		alert(status);
+		//alert(status);
+				
+	}
+	
+	function getTimeStamp()
+	{
+	var	cfgcmd = "cgi-bin/Config.cgi?action=get&property=Camera.Preview.MJPEG.TimeStamp.*";
+		
+		loadWiFiCfg(cfgcmd, TimeStampHolder);
+		//<noscript><img src="/cgi-bin/staticMJPEG"/></noscript>
+	}
+	
+	function TimeStampHolder()
+	{
+		timedCount();
+		//alert(year+"/"+month+"/"+day+" "+hour+":"+minute+":"+second)
+	}
+
+	function timedCount()
+	{
+	
+	//check if less than 10 and convert to String
+	}
+	
+	function checkTime(i)
+	{
+	if (i<10) 
+	{
+	i=String(i);
+	i=0 + i;
+	}
+	return i
+	}
+
+    </script>
+  </head>
+
+  <body onload="initImageLayer();">
+    <div id="sidebar">
+      <font size="4" color="black">Version info: v0.6 (Oct 31, 2013)</font>
+	  <br></br>
+	  <font size = "4" color="black">Runtime info:</font>
+	  <font size = "4" color="black" id="size">
+	  <br></br>
+	  <font size - "4" color="black">Status:</font>
+	  <font size = "4" color="black" id="status"></font>
+	  <br></br>
+	  <div id="clock"></div>
+	  
+    </div>
+    <div id="content">
+        <div id="webcam"></div>
+    </div>
+	</table>
+  </body>
+</html>

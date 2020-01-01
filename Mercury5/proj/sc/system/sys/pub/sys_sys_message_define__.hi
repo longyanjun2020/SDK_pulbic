@@ -1,0 +1,8 @@
+#ifndef __SYS_SYS_MSG_DEF_H__
+#define __SYS_SYS_MSG_DEF_H__
+
+VM_MSG_DEF(SYS_RTK_RELEASE=(SYS_RTK_BASE + 0), void DUMMY)
+
+
+#endif
+

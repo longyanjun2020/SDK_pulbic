@@ -1,0 +1,790 @@
+/******************************************************************/
+/*  File    : RTK5TASK.C                                          */
+/*-------------------------------------------------------------   */
+/*  Scope   :   All treatements concerning tasks management       */
+/*                                                                */
+/*  Contents:                                                     */
+/*          RtkOrderTask                                          */
+/*          RtkInitTask                                           */
+/*          RtkStartTask                                          */
+/*          RtkCurrentTask                                        */
+/*                                                                */
+/******************************************************************/
+
+
+/**!
+ *   \brief comment the following to enable same priority for different tasks
+ *
+ *****/
+#include "string.h"
+#include "comdefs.hc"   /* Common define flags */
+#include "rtk_internalConfig.h"
+#include "rtkincl.h"
+
+/* for definition of W5SysTimer for use in RtkGetOsTick */
+#include "kernel.h"
+
+/* for definition of TASK_RTK_SLEEP_SEM for use in RtkSleep */
+#include "osdefs.hc"
+#include "traces.ho"
+
+
+#if defined(__INTERRUPT_INTEGRITY_PROTECT__)
+extern void RtkSysCallCheckIntIntegrity(rtk_MaskImage_t MaskInt);
+#endif
+
+void RtkRemoveTaskFromPrioList(rtk_Task_t* rtk_task) {
+
+  rtk_Task_t*ptr,*ptrPrev;
+  ptrPrev=NULL;
+
+  for (ptr=rtk_TaskPrioList;ptr && (ptr !=rtk_task);ptr=ptr->PtrNextPrio) ptrPrev=ptr;
+
+  if (ptr) {
+    if (ptrPrev) ptrPrev->PtrNextPrio = ptr->PtrNextPrio;
+    else rtk_TaskPrioList = ptr;
+  }
+}
+
+/***
+ *   \fn void RtkInsertTaskInPrioList(rtk_Task_t* rtk_task)
+ *
+ *   \brief insert a task in the activeTaskList
+ *
+ *   \param rtk_task the task to insert in the active task list
+ *   \return void
+ */
+void RtkInsertTaskInPrioList(rtk_Task_t* rtk_task) {
+  // insert the task in the prio list
+  if (rtk_TaskPrioList) {
+    rtk_Task_t  *Ptr, *PtrPrev;
+    PtrPrev=NULL;
+    for (Ptr=  rtk_TaskPrioList;Ptr;Ptr=Ptr->PtrNextPrio) {
+      if (Ptr->Priority<=rtk_task->Priority) break;
+      PtrPrev=Ptr;
+    }
+    if (Ptr) {
+      // insert it before Ptr because Ptr priority is lower than this one !
+      if (PtrPrev) {
+	// insert it between PtrPrev and Ptr
+	rtk_task->PtrNextPrio=Ptr;
+	PtrPrev->PtrNextPrio = rtk_task;
+      } else {
+	// insert it first
+	rtk_task->PtrNextPrio = rtk_TaskPrioList;
+	rtk_TaskPrioList = rtk_task;
+      }
+    } else {
+      // insert it after PtrPrev because there is no priority lower than this one !
+      PtrPrev->PtrNextPrio = rtk_task;
+      rtk_task->PtrNextPrio=(rtk_Task_t *)RTK_NULL_POINTER;
+    }
+  } else {
+    // it is the first task to be inserted in the priority list
+    rtk_TaskPrioList = rtk_task;
+    rtk_task->PtrNextPrio = (rtk_Task_t *)RTK_NULL_POINTER;
+  }
+  {    // reorder the tasks list depending on priorities
+    rtk_Task_t*Ptr;
+    register u8 bitmap=0x80;
+    register u8 bitmapIndex=0;
+    register u8*pStateBitmap = &rtk_stateBitmap[0];
+    rtk_Task_t** pTaskIndex = &rtk_BitmapIdx2task[0];
+    for (Ptr = rtk_TaskPrioList;Ptr;Ptr=Ptr->PtrNextPrio) {
+      *(pTaskIndex++)=Ptr;
+      Ptr->bitmapIndex=bitmapIndex;
+      Ptr->bitmapMask = bitmap;
+      if ((Ptr->State == RTK_READY) || (Ptr->State==RTK_SUSPENDED)) {
+	*pStateBitmap |= bitmap;
+      } else {
+	*pStateBitmap &= ~bitmap;
+      }
+      if ((bitmap>>=1)==0) {
+	bitmap=0x80;
+	bitmapIndex++;
+	pStateBitmap++;
+      }
+    }
+  }
+
+}
+
+
+
+/**
+ *   \fn u8 RtkInitTask (struct rtk_TaskInit *PtrTaskInfo)
+ *
+ *   \brief Task initialisation
+ *
+ *   \param PtrTaskInfo a \ref rtk_TaskInit pointer that defines the task initialisation parameters
+ *   \return RTK_OK
+ *
+ */
+u8 RtkInitTask (struct rtk_TaskInit *PtrTaskInfo)
+{
+    rtk_Task_t *PtrCurrentTaskInit;
+    rtk_MaskImage_t MaskInt;
+    u32 *pGuardPattern;
+
+    /*    according to version , give the possibility to define and start
+    a Backgroundtask.
+    */
+
+    if (PtrTaskInfo->rtkTaskNumber >= RTK_MAX_TASKS)
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkInitTask, task number (%d) too big in task %d",PtrTaskInfo->rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER(RTK_BAD_TASK_NUMBER, PtrTaskInfo->rtkTaskNumber);
+    }
+    PtrCurrentTaskInit = (rtk_Task_t *)(&rtk_Tasks[PtrTaskInfo->rtkTaskNumber]);
+
+    MaskInt = RTK2_DISABLE_K();
+
+    if (PtrCurrentTaskInit->State != RTK_NON_SIGNIFICANT)
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkInitTask, bad state (0x%X) in task %d",PtrCurrentTaskInit->State, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER(RTK_BAD_TASK_STATE, PtrTaskInfo->rtkTaskNumber);
+    }
+    else
+        PtrCurrentTaskInit->State              = RTK_NON_OPERATIONAL | RTK_READY;
+
+    PtrCurrentTaskInit->Priority              = PtrTaskInfo->rtkTaskPriority;
+    PtrCurrentTaskInit->Id                    = PtrTaskInfo->rtkTaskNumber;
+    PtrCurrentTaskInit->TypeOfObj             = 0;
+    PtrCurrentTaskInit->PendingObj.PtrMessage = (void *)RTK_NULL_POINTER;
+    PtrCurrentTaskInit->PtrNextPrio         = (rtk_Task_t *)RTK_NULL_POINTER;
+    PtrCurrentTaskInit->Marked		  = FALSE;
+
+#if defined(__arm)
+    PtrCurrentTaskInit->Reg.TopOfStack = PtrTaskInfo->rtkTopOfStack;
+#endif
+    PtrCurrentTaskInit->Reg.StackSize = PtrTaskInfo->rtkTaskStackLength;
+
+    PtrCurrentTaskInit->Reg.PC    = (void *) PtrTaskInfo->rtkStartAdress;
+#ifdef __RTK_STACK_DIAGNOSE__
+#if defined(__arm)
+    PtrCurrentTaskInit->Reg.SP    = (u32)PtrTaskInfo->rtkTaskStack - (2 * sizeof(u32));
+#endif
+	pGuardPattern = (u32*)PtrCurrentTaskInit->Reg.SP;
+	*pGuardPattern = 0xBEEFDEAD;
+    *(pGuardPattern + 1) = 0xBEEFDEAD;
+#else
+#ifdef __RTK_DIAGNOSE_ENHANCE__
+#if defined(__arm)
+    PtrCurrentTaskInit->Reg.SP    = (u32)PtrTaskInfo->rtkTaskStack - sizeof(u32);
+#endif
+		pGuardPattern = (u32*)PtrCurrentTaskInit->Reg.SP;
+		*pGuardPattern = 0xBEEFDEAD;
+
+#else
+    PtrCurrentTaskInit->Reg.SP    = PtrTaskInfo->rtkTaskStack;
+#endif //__RTK_DIAGNOSE_ENHANCE__
+
+#endif //__RTK_STACK_DIAGNOSE__
+
+    // init the schedule bitmap infos
+    PtrCurrentTaskInit->bitmapIndex = 0;
+    PtrCurrentTaskInit->bitmapMask  = 0;
+    // we need to have a list of the tasks sorted by priority
+
+    PtrCurrentTaskInit->userOwnCallStack  = FALSE;
+
+    RtkInsertTaskInPrioList(PtrCurrentTaskInit);
+
+    RTK2_ENABLE_K(MaskInt);
+
+    return (RTK_OK);
+}
+
+/**
+ *    \fn u32 RtkGetOsTick( void )
+ *
+ *    \return the current value of OsTickCounter (bounded by 0x00FFFFFF)
+ */
+u32 RtkGetOsTick(void)
+{
+#if 0
+  return (u32) (W5SysTimer->u32_OsTickCounter & 0x00FFFFFF);
+#else
+  extern u32 l1c_GetGlobalTickCounter(void);
+  return (u32) (l1c_GetGlobalTickCounter());
+#endif
+}
+
+/**
+ *    \fn u8 RtkSleep( u32 Count )
+ *
+ *    \brief Suspend the calling task for the specified amount of time.
+ *
+ *    The calling task is suspended for the specified amount of time.
+ *    After the call returns, Rtk_PtrCurrentTask->TypeOfObj is:
+ *    - RTK_OBJ_TIMER if it slept for the specified amount of time,
+ *    - RTK_OBJ_MESSAGE if the call was interrupted by a call to
+ *      RtkWakeUpTask from another task.
+ *
+ *    \param Count the number of timer ticks to sleep for
+ *
+ *    \return - RTK_OK if the task has slept for the speficied amount of time
+ *            - RTK_SEM_TIMEOUT if a call to RtkWakeUpTask interrupted the sleep
+ */
+u8 RtkSleep(u32 RtkSleepCount)
+{
+    u8 result;
+
+    if(RtkSleepCount == 0)
+        return RTK_OK;
+
+    result = RtkSemConsumeDelay(TASK_RTK_SLEEP_SEM, RtkSleepCount);
+
+    return (result == RTK_OK) ? RTK_SEM_TIMEOUT : RTK_OK;
+}
+
+/**
+ *   \fn u8 RtkWakeUpTask( u8 TaskNumber )
+ *
+ *   \brief Wake up a task which is currently suspended on a RtkSleep call
+ *
+ *   If the specified task was suspended in a call to RtkSleep, this call
+ *   is interrupted (made to return). The specified task's ->TypeOfObj is
+ *   then RTK_OBJ_MESSAGE to indicate that the call to RtkSleep was
+ *   interrupted before the specified amount of time has elapsed.
+ *
+ *   \param TaskNumber the task identifier
+ *
+ *   \return - RTK_OK if the task could be woken up
+ *           - RTK_BAD_TASK_NUMBER if the task identifier is invalid
+ *           - RTK_TASK_ALREADY_STARTED if the specified task was not asleep
+ *           - RTK_BAD_TASK_STATE if the task is not found in the
+ *             TASK_RTK_SLEEP_SEM semaphore queue (this is a bug)
+ */
+rtk_ErrCode_e RtkWakeUpTask( u8 rtkTaskNumber )
+{
+    rtk_Task_t *PtrTask;
+    rtk_MaskImage_t MaskInt;
+    rtk_Task_t       *DestTask;
+    rtk_Envelop_t    *PresentEnvelop;
+    rtk_Envelop_t    *PrevEnvelop;
+    rtk_Semaphor_t   *PtrSem;
+
+    if (rtkTaskNumber >= RTK_MAX_TASKS)
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkWakeUpTask, task number (%d) too big in task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER(RTK_BAD_TASK_NUMBER, rtkTaskNumber);
+        return RTK_OK; /* for lint */
+    }
+    PtrTask = &rtk_Tasks[ rtkTaskNumber];
+    MaskInt = RTK2_DISABLE_K();
+
+    if ( PtrTask->State != RTK_WAIT_SEMAPHOR )
+    {
+        /* This is not an EXCPTHANDLER since it may happen that the task
+         * returned from its RtkSleep call after we called RtkWakeUpTask
+         * and before RTK2_DISABLE_K
+         */
+        RTK2_ENABLE_K(MaskInt);
+        return RTK_BAD_TASK_STATE;
+    }
+
+    /* We need to look up for the task in the queue of tasks waiting on
+     * TASK_RTK_SLEEP_SEM
+     */
+    PtrSem = Rtk_Ptr1stSem + TASK_RTK_SLEEP_SEM;
+
+    PresentEnvelop = PtrSem->PtrFirstTask;
+    PrevEnvelop = (rtk_Envelop_t  *)0;
+    for (;;)
+    {
+        if ( !PresentEnvelop )
+        {
+            RTK2_ENABLE_K(MaskInt);
+            _ERROR((_RTK ,"RTK Exception: in RtkWakeUpTask(task %d), Envelop NULL called from task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+            EXCPTHANDLER(RTK_BAD_TASK_STATE, rtkTaskNumber);
+            return RTK_BAD_TASK_STATE;
+        }
+
+        DestTask = PresentEnvelop->PtrObject.PtrTaskObj;
+        if ( DestTask == PtrTask )
+        {
+            break;
+        }
+
+        PrevEnvelop = PresentEnvelop;
+        PresentEnvelop = PresentEnvelop->PtrNextEnv;
+    }
+
+    /* We found the task in the semaphore's tasks queue */
+    if ( !PrevEnvelop )
+    {
+        PtrSem->PtrFirstTask = PresentEnvelop->PtrNextEnv;
+    }
+    else
+    {
+        PrevEnvelop->PtrNextEnv = PresentEnvelop->PtrNextEnv;
+    }
+
+    /* Memorize task is rescheduled because its sleep was interrupted */
+    DestTask->TypeOfObj = RTK_OBJ_MESSAGE;
+    DestTask->PendingObj.ObjParameter = TASK_RTK_SLEEP_SEM;
+
+    Rtk4FreeEnv(PresentEnvelop);
+    DestTask->State = RTK_READY | (DestTask->State & RTK_NON_OPERATIONAL);
+    Rtk_WorthItSched = TRUE;
+
+    RtkStopTimer(DestTask->PtrTimer->TimerID);
+    DestTask->PtrTimer = (rtk_Timer_t *)0;
+    RTK2_ENABLE_K(MaskInt);
+    return RTK_OK;
+}
+
+/**
+ *   \fn u8 RtkStartTask( u8 rtkTaskNumber )
+ *
+ *   \brief Give the task the possibility to be scheduled
+ *
+ *   \param rtkTaskNumber the task identifier
+ *   \return RTK_OK
+ *
+ */
+u8 RtkStartTask( u8 rtkTaskNumber )
+{
+    rtk_Task_t *PtrTask;
+    rtk_MaskImage_t MaskInt;
+
+    if (rtkTaskNumber >= RTK_MAX_TASKS)
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkStartTask, task number (%d) too big in task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER(RTK_BAD_TASK_NUMBER, rtkTaskNumber);
+        return (RTK_OK); /* for lint */
+    }
+    PtrTask = &rtk_Tasks[rtkTaskNumber];
+
+    MaskInt = RTK2_DISABLE_K();
+
+    /* In Initkernel we initialize all task with this value */
+    if ( PtrTask->State == RTK_NON_SIGNIFICANT )
+    {
+        EXCPTHANDLER( RTK_TASK_NOT_INITIALIZED, rtkTaskNumber );
+    }
+
+    /* In InitTask we initialize each task with this value */
+    if ( PtrTask->State != (RTK_NON_OPERATIONAL | RTK_READY))
+    {
+        EXCPTHANDLER( RTK_TASK_ALREADY_STARTED, rtkTaskNumber);
+    }
+
+    PtrTask->State = RTK_NON_SIGNIFICANT;
+    RtkTaskSetState(PtrTask,RTK_READY);
+
+    RTK2_ENABLE_K(MaskInt);
+    return( RTK_OK );
+}
+
+
+/**
+ *    \fn void RtkRestartTasks( void )
+ *
+ *    \brief restarts tasks depending on state
+ *
+ *    \return void
+ */
+void RtkRestartTasks( void )
+{
+    rtk_MaskImage_t MaskInt;
+    rtk_Task_t * ptrTask;
+    int itask;
+    MaskInt = RTK2_DISABLE_K();
+
+#if defined(__INTERRUPT_INTEGRITY_PROTECT__)
+        RtkSysCallCheckIntIntegrity(MaskInt);
+#endif
+
+    // restart system tasks
+    for (itask=rtk_SystemTasksCount,ptrTask=&rtk_Tasks[0]; ptrTask && itask ; ptrTask++, itask--)  {
+      if (ptrTask->State == RTK_ACTIVE)
+	ptrTask->State = RTK_NON_OPERATIONAL | RTK_SUSPENDED;
+      else
+	ptrTask->State |= RTK_NON_OPERATIONAL;
+      RtkTaskSetState(ptrTask,ptrTask->State);
+    }
+
+    // restart customer tasks
+    for (itask=rtk_CustomerTasksCount,ptrTask=&rtk_Tasks[RTK_FIRST_CUSTOMER_TASKID]; ptrTask && itask ; ptrTask++, itask--)  {
+      if (ptrTask->State == RTK_ACTIVE)
+	ptrTask->State = RTK_NON_OPERATIONAL | RTK_SUSPENDED;
+      else
+	ptrTask->State |= RTK_NON_OPERATIONAL;
+      RtkTaskSetState(ptrTask,ptrTask->State);
+    }
+
+    if (Rtk_RegionCount == 0)    {
+        Rtk11Schedule(RTK_SUSPENDED);
+    }
+
+    RTK2_ENABLE_K(MaskInt);
+}
+
+
+/**
+ *    \fn u8 RtkChangeTaskPriority( u8 rtkTaskNumber, u8 rtkNewPriority )
+ *
+ *    \brief Changes the priority of a task
+ *
+ *    !!!! NOT IMPLEMENTED !!!!
+ *
+ *    \param rtkTaskNumber the task identifier
+ *    \param rtkNewPriority the new priority
+ *    \return RTK_OK
+ *
+ */
+u8 RtkChangeTaskPriority( u8 rtkTaskNumber, u8 rtkNewPriority )
+{
+    rtk_MaskImage_t MaskInt;
+
+
+    // check the parameters
+    if ( rtkTaskNumber == 0 || rtkTaskNumber >= RTK_MAX_TASKS )
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkChangeTaskPriority, task number (%d) invalid called from task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER( RTK_BAD_TASK_NUMBER, rtkTaskNumber);
+    }
+    if ( rtkNewPriority == 0 )
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkChangeTaskPriority, invalid priority (%d) for task %d called from task %d",rtkNewPriority, rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER( RTK_BAD_PRIORITY, RTK_OK );
+    }
+    // lock the scheduler
+    MaskInt = RTK2_DISABLE_K();
+
+    // check current state
+    if (rtk_Tasks[rtkTaskNumber].State == RTK_NON_SIGNIFICANT)
+    {
+        EXCPTHANDLER( RTK_TASK_NOT_INITIALIZED, rtkTaskNumber);
+    }
+
+    if ((rtkTaskNumber<RTK_FIRST_CUSTOMER_TASKID)) {
+      // system task priority is higher than customer task priority
+      rtkNewPriority+=RTK_MAX_TASK_PRIORITY+1;
+    }
+
+    // check that the priority is not already used
+    {
+        int itask;
+        rtk_Task_t * ptrTask;
+        if (rtkTaskNumber<RTK_FIRST_CUSTOMER_TASKID)
+        {
+            // check the priority range of system tasks
+            for (itask=rtk_SystemTasksCount,ptrTask=&rtk_Tasks[0]; ptrTask && itask ; ptrTask++, itask--)
+            {
+                if ((ptrTask->Priority == rtkNewPriority) && (ptrTask!=&rtk_Tasks[rtkTaskNumber]))
+                {
+                    _ERROR((_RTK ,"RTK Exception: in RtkChangeTaskPriority, priority (%d) already used for task %d called from task %d",rtkNewPriority, rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+                    EXCPTHANDLER( RTK_BAD_PRIORITY, RTK_OK );
+                }
+            }
+        }
+        else
+        {
+            // restart customer tasks
+            for (itask=rtk_CustomerTasksCount,ptrTask=&rtk_Tasks[RTK_FIRST_CUSTOMER_TASKID]; ptrTask && itask ; ptrTask++, itask--)
+            {
+                if ((ptrTask->Priority == rtkNewPriority) && (ptrTask!=&rtk_Tasks[rtkTaskNumber]))
+                {
+                    _ERROR((_RTK ,"RTK Exception: in RtkChangeTaskPriority, priority (%d) already used for task %d called from task %d",rtkNewPriority, rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+                    EXCPTHANDLER( RTK_BAD_PRIORITY, RTK_OK );
+                }
+            }
+        }
+    }
+
+    // update the priority list
+    RtkRemoveTaskFromPrioList(&rtk_Tasks[rtkTaskNumber]);
+    rtk_Tasks[rtkTaskNumber].Priority = rtkNewPriority;
+    RtkInsertTaskInPrioList(&rtk_Tasks[rtkTaskNumber]);
+
+    // unlock the scheduler
+    RTK2_ENABLE_K(MaskInt);
+
+    return( RTK_OK );
+}
+
+
+/***
+ *    \fn s32 RtkCreateSystemTask(void *entryPoint, u32 prio,void *stackAddress,u32 stackSize)
+ *
+ *    \brief add a system task
+ *
+ *    This function adds a system task. It is used at kernel initialisation
+ *    and can not be used to create dynamically tasks as system tasks never die
+ *
+ *    \param entryPoint the task function
+ *    \param prio       the task priority (must be lower or equal to \ref RTK_MAX_TASK_PRIORITY
+ *    \param stackAddress top of the stack
+ *    \param stackSize  the stack size
+ *
+ *    \return a negative  value  if the task creation failed.
+ *            the task identifier otherwise
+ *
+ *    \NOTE stackAddress is in memory order the beginning of the stack zone
+ *    \NOTE there can only be \RTK_MAX_TASKS tasks
+ *
+ *****/
+s32 RtkCreateSystemTask(void (*entryPoint) _PROTO((void)), u32 prio,void *stackAddress,u32 stackSize)
+{
+    rtk_TaskInit_t   TaskDesc;
+    rtk_MaskImage_t itmask;
+
+    if ((stackAddress == NULL) || (rtk_SystemTasksCount>=RTK_MAX_SYSTEM_TASKS) || (prio > RTK_MAX_TASK_PRIORITY))
+        return -1;
+
+    // lock the scheduler
+    itmask = RTK2_DISABLE_K();
+
+    /* make the system tasks have a higher priority than customer tasks
+    except for the idle task
+    */
+    if (prio)
+    prio+=RTK_MAX_TASK_PRIORITY+1;
+
+    {
+        int itask;
+        rtk_Task_t * ptrTask;
+        // check the priority range of system tasks
+        for (itask=rtk_SystemTasksCount,ptrTask=&rtk_Tasks[0]; ptrTask && itask ; ptrTask++, itask--)
+        {
+            if (ptrTask->Priority == prio)
+            {
+                _ERROR((_RTK ,"RTK Exception: in RtkCreateSystemTask, priority (%d) already used, called from task %d",prio, Rtk_PtrCurrentTask->Id));
+                EXCPTHANDLER( RTK_BAD_PRIORITY, RTK_OK );
+            }
+        }
+    }
+
+    // prepare the structures
+    memset(stackAddress, 0x55, stackSize);
+    TaskDesc.rtkTaskPriority   = prio;
+#if defined(__arm)
+	TaskDesc.rtkTopOfStack       = stackAddress;
+    TaskDesc.rtkTaskStack        = ((u8*)stackAddress) + ALIGN( stackSize );
+#endif
+	TaskDesc.rtkTaskStackLength  = ALIGN( stackSize );
+    TaskDesc.rtkStartAdress      = entryPoint;
+
+    // now the task number can be freely accessed
+    TaskDesc.rtkTaskNumber     = rtk_SystemTasksCount;
+    RtkInitTask (&TaskDesc);
+    rtk_SystemTasksCount++;
+
+    // unlock the scheduler
+    RTK2_ENABLE_K(itmask);
+
+    // return the result
+    return TaskDesc.rtkTaskNumber;
+}
+
+/***
+ *    \fn bool RtkCreateCustomTask(void *entryPoint, u32 prio,void *stackAddress,u32 stackSize)
+ *
+ *    \brief add a customer task
+ *
+ *    This function adds a system task. It is used at kernel initialisation
+ *    and can not be used to create dynamically tasks as system tasks never die
+ *
+ *    \param entryPoint the task function
+ *    \param prio       the task priority (must be lower or equal to \ref RTK_MAX_TASK_PRIORITY
+ *    \param stackAddress top of the stack
+ *    \param stackSize  the stack size
+ *
+ *    \return TRUE if the task creation succeeded.
+ *
+ *    \NOTE stackAddress is in memory order the beginning of the stack zone
+ *    \NOTE there can only be \RTK_MAX_TASKS tasks
+ *
+ *****/
+s32 RtkCreateCustomTask(void (*entryPoint) _PROTO((void)), u32 prio,void *stackAddress,u32 stackSize)
+{
+    rtk_TaskInit_t   TaskDesc;
+    rtk_MaskImage_t itmask;
+    s32 result = 0;
+    if ((stackAddress == NULL)
+      || (rtk_CustomerTasksCount>=RTK_MAX_CUSTOMER_TASKS)
+      || (prio > RTK_MAX_TASK_PRIORITY)) return 0;
+
+    {
+        int itask;
+        rtk_Task_t* ptrTask;
+        for (itask=rtk_CustomerTasksCount,ptrTask=&rtk_Tasks[RTK_FIRST_CUSTOMER_TASKID]; ptrTask && itask ; ptrTask++, itask--)
+        {
+            if ((ptrTask->Priority == prio))
+            {
+                _ERROR((_RTK ,"RTK Exception: in RtkCreateCustomTask, priority (%d) already used, called from task %d",prio, Rtk_PtrCurrentTask->Id));
+                EXCPTHANDLER( RTK_BAD_PRIORITY, RTK_OK );
+            }
+        }
+    }
+
+    // prepare the structures
+    memset(stackAddress, 0x55, stackSize);
+    TaskDesc.rtkTaskPriority   = prio;
+#if defined(__arm)
+    TaskDesc.rtkTopOfStack       = stackAddress;
+    TaskDesc.rtkTaskStack        = ((u8*)stackAddress) + ALIGN( stackSize );
+#endif
+	TaskDesc.rtkTaskStackLength  = ALIGN( stackSize );
+    TaskDesc.rtkStartAdress      = entryPoint;
+
+    // lock the scheduler
+    itmask = RTK2_DISABLE_K();
+    // now the task number can be freely accessed
+    TaskDesc.rtkTaskNumber     = rtk_CustomerTasksCount+RTK_FIRST_CUSTOMER_TASKID;
+    RtkInitTask (&TaskDesc);
+    result = TaskDesc.rtkTaskNumber;
+    rtk_CustomerTasksCount++;
+
+    // unlock the scheduler
+    RTK2_ENABLE_K(itmask);
+
+    // return the result
+    return result;
+}
+
+
+/**
+ *   \fn u8 RtkCurrentTask(void)
+ *
+ *   \brief to get the current task
+ *
+ *   \return the current task identifier
+ *
+ **/
+u8 RtkCurrentTask(void)
+{
+    return(Rtk_CurrentTask);
+}
+
+
+/**
+ *   \fn u8 RtkRegisterUserOwnCallStack(bool val)
+ *
+ *   \brief to register the current task to use its own call stack
+ *
+ *   \return RTK_OK
+ *
+ **/
+u8 RtkRegisterUserOwnCallStack(bool val)
+{
+    rtk_MaskImage_t itmask;
+	u8 taskNum = 0;
+
+    itmask = RTK2_DISABLE_K();
+    taskNum = RtkCurrentTask();
+    rtk_Tasks[taskNum].userOwnCallStack = val;
+    RTK2_ENABLE_K(itmask);
+
+	return RTK_OK;
+}
+
+/**
+ *     \fn u8 RtkGetTaskState( u8 rtkTaskNumber, u32 *pPC, u32 *pState);
+ *
+ *     \brief get PC and CPSR for a suspended thread
+ *
+ *     \param rtkTaskNumber Customer task number
+ *     \param pPC pointer where to store the PC value
+ *     \param pState pointer wher to store CPSR value
+ *
+ *     \return \ref RTK_OK
+ */
+u8 RtkGetTaskState( u8 rtkTaskNumber, u32 *pPC, u32 *pState)
+{
+    rtkTaskNumber = RTK_CUSTOMER_TASKID(rtkTaskNumber);
+
+    if (( rtkTaskNumber >= RTK_MAX_TASKS ) || (rtk_Tasks[rtkTaskNumber].State == RTK_NON_SIGNIFICANT))
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkGetTaskState, task number (%d) invalid in task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER( RTK_BAD_TASK_NUMBER, rtkTaskNumber);
+        return RTK_OK; /* for lint */
+    }
+    if ( rtk_Tasks[rtkTaskNumber].State != RTK_SUSPENDED )
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkGetTaskState, bad state of given task %d called from task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER( RTK_BAD_TASK_STATE, rtkTaskNumber);
+        return RTK_OK; /* for lint */
+    }
+
+    /* PC is not saved in RTK global struct but in task stack (rtk2uti.asm) */
+    *pPC = *(((u32 *)(rtk_Tasks[rtkTaskNumber].Reg.SP)) + 10);
+
+    /* CPSR is stored in the task stack (rtk2uti.asm) */
+    *pState = *((u32 *)(rtk_Tasks[rtkTaskNumber].Reg.SP));
+
+    return RTK_OK;
+}
+
+
+
+/**
+ *    \fn u8 RtkSetTaskState( u8 rtkTaskNumber, u32 PC, u32 state)
+ *
+ *    \brief Set PC and CPSR for an suspended thread
+ *
+ *    \param rtkTaskNumber Customer task number
+ *    \param pPC the new PC value
+ *    \param pState the new CPSR value
+ *
+ *    \return RTK_OK
+ */
+u8 RtkSetTaskState( u8 rtkTaskNumber, u32 PC, u32 state) {
+    rtk_Task_t * task;
+
+    rtkTaskNumber = RTK_CUSTOMER_TASKID(rtkTaskNumber);
+
+    if (( rtkTaskNumber >= RTK_MAX_TASKS ) || ( rtk_Tasks[rtkTaskNumber].State == RTK_NON_SIGNIFICANT))
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkSetTaskState, task number (%d) invalid in task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER( RTK_BAD_TASK_NUMBER, rtkTaskNumber );
+        return RTK_OK; /* for lint */
+    }
+    task = &rtk_Tasks[rtkTaskNumber];
+    if (task->State != RTK_SUSPENDED )
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkSetTaskState, given task %d not in RTK_SUSPENDED state (called from task %d)",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER( RTK_BAD_TASK_STATE, rtkTaskNumber);
+        return RTK_OK; /* for lint */
+    }
+    /* PC is not saved in RTK global struct but in task stack (rtk2uti.asm) */
+    *(((u32 *)(task->Reg.SP)) + 10) = PC;
+
+    /* CPSR is stored in the task stack (rtk2uti.asm) */
+    *((u32 *)(task->Reg.SP)) = state;
+
+    return RTK_OK;
+}
+
+
+
+/**
+ *    \fn u8 RtkGetTaskStack( u8 rtkTaskNumber, void **PtrStackBase, u32 *StackSize )
+ *
+ *    \brief Return stack information for a thread
+ *
+ *    \param rtkTaskNumber customer task number
+ *    \param PtrStackBase pointer on stack
+ *    \param StackSize stack size
+ *
+ */
+u8 RtkGetTaskStack( u8 rtkTaskNumber, void **PtrStackBase, u32 *StackSize ) {
+
+    rtkTaskNumber = RTK_CUSTOMER_TASKID(rtkTaskNumber);
+
+    if (( rtkTaskNumber >= RTK_MAX_TASKS ) || (( rtk_Tasks[rtkTaskNumber].State == RTK_NON_SIGNIFICANT)))
+    {
+        _ERROR((_RTK ,"RTK Exception: in RtkGetTaskStack, task number (%d) invalid in task %d",rtkTaskNumber, Rtk_PtrCurrentTask->Id));
+        EXCPTHANDLER( RTK_BAD_TASK_NUMBER, rtkTaskNumber );
+        return RTK_OK;
+    }
+    *StackSize = rtk_Tasks[rtkTaskNumber].Reg.StackSize;
+    *PtrStackBase = (u8 *)(rtk_Tasks[rtkTaskNumber].Reg.TopOfStack) + ( *StackSize );
+
+    return RTK_OK;
+}
+
+

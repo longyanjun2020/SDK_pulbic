@@ -1,0 +1,50 @@
+This is an SOP for how to use ReleaseOptions_*.txt
+
+There are 3 types.
+
+1.) To remove files or folder for release package process
+	ReleaseDeletedLibs.txt							->  before release package process build starts
+	ReleaseDeletedLibs_Off.txt					->  after release package process build ends
+
+##### samples
+move ./../sc/application/3rd/java/Delta/lib
+del ./../sc/application/3rd/java/Delta/preinstall_tool
+copy ./../sc/application/3rd/ime/my
+replace ./../tng/configure.pl MMI_BuildAll.sln MMI_BuildAll_cus.sln
+
+
+
+2.) To change compile option for release package process
+	ReleaseOptions.txt									->  before release package process build starts for all products
+
+	ReleaseOptions_MSW8533C.txt					->  before release package process build starts for 8533C products 
+	ReleaseOptions_MSW8533C_64.txt			->  before release package process build starts for 8533C_64 products
+	ReleaseOptions_MSW8533N.txt					->  before release package process build starts for 8533N products
+	
+	==> ReleaseOptions.txt will always run, ReleaseOptions_CHIP.txt will run if exists.  
+			It's not necessary to have a ReleaseOptions_CHIP.txt for each chip.  Add if needed
+
+	ReleaseOptions_Off.txt							->  after release package process build ends all products
+	ReleaseOptions_Off_MSW8533C.txt			->  after release package process build ends for 8533C products
+	ReleaseOptions_Off_MSW8533C_64.txt	->  after release package process build ends for 8533C_64 products
+	ReleaseOptions_Off_MSW8533N.txt			->  after release package process build ends for 8533N products
+
+	==> ReleaseOptions_Off.txt will always run, ReleaseOptions_Off_CHIP.txt will run if exists.  
+			It's not necessary to have a ReleaseOptions_Off_CHIP.txt for each chip.  Add if needed
+
+##### samples
+replace ./../sc/customer/product/common/mak/common_option.mak __DIAG_ERROR__ off
+replace ./../mak/options_%product_name%.mak DIAG_ERROR_SUPPORT on
+replace ./../mak/options_%product_name%.mak IME_SOLUTION __IME_MMI_MY__
+
+
+
+3.)	To change compile option for daily build process
+	ReleaseOptions_OptionChange.txt			-> for normal build
+	ReleaseOptions_OptionChange_MCD.txt	-> for MCD build
+
+##### samples	
+replace ./../mak/options_8533d_128_32_n10.mak ATV_CHIP __ATV_DRV_TLG1120__
+replace ./../sc/customer/product/common/mak/common_option.mak __HANDWRITING_MMI__ on
+
+

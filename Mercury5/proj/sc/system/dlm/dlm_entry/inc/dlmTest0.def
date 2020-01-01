@@ -1,0 +1,10 @@
+[MODULE] dlmTest0
+
+[DESCRIPTION] "Test the Dlm linking and running method"
+    
+[EXPORT]
+	dlmTest0_func0						@0
+	dlmTest0_func1						@1
+
+[IMPORT]
+	vm_dbgTrace

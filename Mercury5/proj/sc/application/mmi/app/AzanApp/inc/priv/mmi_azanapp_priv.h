@@ -1,0 +1,1039 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// ("MStar Confidential Information") by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+* @file    mmi_azanapp_priv.h
+* @version
+* @brief   Azan applet private header file
+*
+*/
+#ifndef __MMI_AZANAPP_PRIV_H__
+#define __MMI_AZANAPP_PRIV_H__
+
+/*=============================================================*/
+// Include files
+/*=============================================================*/
+#include "mmi_baseapplet.h"
+#include "mmi_azanapp.h"
+#include "mmi_common_vtm.h"
+#include "mmi_common_dialog.h"	
+#include "mmi_azanapp_id.h"
+#include "AzanApp_resource.h"
+#include "mmi_srv_cfg.h"
+#include "mmi_srv_audio.h"
+#include "mmi_srv_audioenv.h"
+#include "mmi_wdg_image.h"
+#include "mmi_srv_alarm.h"
+#include "mmi_wdg_mflcontainer.h"
+#include "mmi_srv_clock.h"
+#include "mmi_mae_shell.h"
+
+/*=============================================================*/
+// Extern definition
+/*=============================================================*/
+
+/*=============================================================*/
+// Macro definition
+/*=============================================================*/
+#define AZAN_ALARM_TIME_NUM 6
+#define AZAN_SET_BUFFER_SIZE 8
+#define AZAN_TRANSLATION_SIZE 32
+#define AZAN_LATITUDE_MAX_BYTE_SIZE 14
+#define AZAN_LONGITUDE_MAX_BYTE_SIZE 16
+#define AZAN_USER_DEFINE_CITY_NAME  0
+/*=============================================================*/
+// Data type definition
+/*=============================================================*/
+
+enum
+{
+    COUNTRY_AFGHANISTAN = 0,
+    COUNTRY_AZERBAIJAN,
+    COUNTRY_BANGLADESH,
+    COUNTRY_BULGARIA,
+    COUNTRY_CHINA,
+    COUNTRY_CYPRUS,
+    COUNTRY_EGYPT,
+    COUNTRY_INDIA,
+    COUNTRY_INDONESIA,
+    COUNTRY_IRAN,
+    COUNTRY_IRAQ,
+    COUNTRY_JORDAN,
+    COUNTRY_KOREA,
+    COUNTRY_KUWAIT,
+    COUNTRY_MALAYSIA,
+    COUNTRY_MOROCCO,
+    COUNTRY_NIGERIA,
+    COUNTRY_PHILIPPINES,
+    COUNTRY_QATAR,
+    COUNTRY_RUSSIA,
+    COUNTRY_SAUDI_ARABICA,
+    COUNTRY_SINGAPORE,
+    COUNTRY_THAILAND,
+    COUNTRY_TURKEY,
+    COUNTRY_U_A_EMIRATES,
+};
+//CounrtyID
+
+enum
+{
+    CITY_GHAZNI = 0,
+    CITY_HERAT,
+    CITY_JALALABAD,
+    CITY_KABOL,
+    CITY_KANDAHAR,
+    CITY_BABASER,
+    CITY_BAKI,
+    CITY_BAKISAHARI,
+    CITY_MASALLI,
+    CITY_IMISHLI,
+    CITY_DHAKA,
+    CITY_COMILLA,
+    CITY_KHULNA,
+    CITY_RAJSHAHI,
+    CITY_SYLHET,
+    CITY_BLAGOEVGRAD,
+    CITY_BURGAS,
+    CITY_GABROVO,
+    CITY_PERNIK,
+    CITY_PLEVEN,
+    CITY_SHANGHAI,
+    CITY_BEIJING,
+    CITY_GUANGZHOU,
+    CITY_HARBIN,
+    CITY_CHENGDU,
+    CITY_FAMAGUSTA,
+    CITY_LARNACA,
+    CITY_LARNACAMARINA,
+    CITY_LIMASOL,
+    CITY_NICOSIA,
+    CITY_EZBETHASSALIB,
+    CITY_RAMADANCITY,
+    CITY_ALISKANDARIYAH,
+    CITY_ALEXANDRIAGOVRN,
+    CITY_CAIRO,
+    CITY_BANGALORE,
+    CITY_BOMBAY,
+    CITY_CALCUTTA,
+    CITY_MADRAS,
+    CITY_NEWDELHI,
+    CITY_BANDUNG,
+    CITY_JAKARTA,
+    CITY_MEDAN,
+    CITY_BALI,
+    CITY_SURABAYA,
+    CITY_TEHRAN,
+    CITY_KERMANSHAH,
+    CITY_ABADAN,
+    CITY_ESFAHAN,
+    CITY_TABRIZ,
+    CITY_BAGHDAD,
+    CITY_ARBIL,
+    CITY_BASRA,
+    CITY_KIRKUK,
+    CITY_MOSUL,
+    CITY_AMMAN,
+    CITY_IRBID,
+    CITY_KARAK,
+    CITY_RAMTHA,
+    CITY_SALT,
+    CITY_SEOUL,
+    CITY_MASAN,
+    CITY_OSAN,
+    CITY_SUWON,
+    CITY_TAEJON,
+    CITY_KUWAIT,
+    CITY_QURAIN,
+    CITY_KHAITAN,
+    CITY_ROWDA,
+    CITY_SALWA,
+    CITY_JOHOR,
+    CITY_KEDAH,
+    CITY_KELANTAN, //new
+    CITY_MELAKA,
+    CITY_NEGERISEMBILAN,
+    CITY_PAHANG,    
+    CITY_PERAK,
+    CITY_PERLIS,
+    CITY_PULAUPINANG,
+    CITY_SABAH,
+    CITY_SARAWAK,
+    CITY_SELANGOR,
+    CITY_TERENGGANU,
+    CITY_W_PERSEKUTUAN,
+    CITY_AGADIR,
+    CITY_CASABLANCA,
+    CITY_IFRANE,
+    CITY_TAZA,
+    CITY_SAFI,
+    CITY_ABUJA,
+    CITY_BAUCHI,
+    CITY_ILESHA,
+    CITY_LAGOS,
+    CITY_PORTHARCOURT,
+    CITY_MANILA,
+    CITY_QUEZENCITY,
+    CITY_DAVAOCITY,
+    CITY_ZAMBOANGA,
+    CITY_MAKATI,
+    CITY_DOHA,
+    CITY_ALKHOR,
+    CITY_DUKHAN,
+    CITY_UMMSA_ID,
+    CITY_WAKRA,
+    CITY_GROZNY,
+    CITY_MOSCOW,
+    CITY_ST_PETERSBURG,
+    CITY_SAMARA,
+    CITY_KRASNOYARSK,
+    CITY_A_ILATALARTAWI,
+    CITY_ABHA,
+    CITY_AL_AHSA,
+    CITY_ALBAHAH,
+    CITY_ALHUFUF,
+    CITY_ALJAWF,
+    CITY_ALMUBARRAZ,
+    CITY_ALQASEEM,
+    CITY_BURAIDAH,
+    CITY_DAMMAM,
+    CITY_DHAHRAN,
+    CITY_HA_IL,
+    CITY_JAZAN,
+    CITY_JEDDAH,
+    CITY_KHAMISMUSHAYT,
+    CITY_KHOBAR,
+    CITY_KINGABDULAZIZNAVALBASE,
+    CITY_MADINAH,
+    CITY_MAKKAH,
+    CITY_NAJRAN,
+    CITY_QATIF,
+    CITY_RABBA,
+    CITY_RIYADH,
+    CITY_TA_IF,
+    CITY_TABUK,
+    CITY_YAHBU_ALBAHR,
+    CITY_SINGAPORE,
+    CITY_JURONG,
+    CITY_CHANGI,
+    CITY_WOODLANDS,
+    CITY_SERANGOON,
+    CITY_PHUKET,
+    CITY_BANGKOK,
+    CITY_CHIANGMAI,
+    CITY_HAADYAI,
+    CITY_PATTANI,
+    CITY_ANKARA,
+    CITY_ADANA,
+    CITY_BURSA,
+    CITY_ISTANBUL,
+    CITY_IZMIR,
+    CITY_DUBAI,
+    CITY_ABUDHABI,
+    CITY_FUJAIRAH,
+    CITY_KALBA,
+    CITY_RUWAIS,
+    CITY_KOTATINGGI,
+    CITY_KLUANG,
+    CITY_MUAR,
+    CITY_JOHORBAHRU,
+    CITY_SEGAMAT,
+    CITY_ALORSETAR,
+    CITY_BALING,
+    CITY_LANGKAWI,
+    CITY_GUNUNGJERAI,
+    CITY_KULIM,
+    CITY_KOTABHARU,
+    CITY_TANAHMERAH,
+    CITY_GUAMUSANG,
+    CITY_PASIRMAS,
+    CITY_RANTAUPANJANG,
+    CITY_BANDARMELAKA,
+    CITY_ALORGAJAH,
+    CITY_JASIN,
+    CITY_MASJIDTANAH,
+    CITY_MERLIMAU,
+    CITY_TAMPIN,
+    CITY_SEREMBAN,
+    CITY_PORTDICKSON,
+    CITY_KUALAPILAH,
+    CITY_REMBAU,
+    CITY_PULAUTIOMAN,
+    CITY_KUANTAN,
+    CITY_TEMERLOH,
+    CITY_RAUB,
+    CITY_CAMERONHIGHLAND,
+    CITY_KINTA,
+    CITY_MANJUNG,
+    CITY_MATANG,
+    CITY_HILIRPERAK,
+    CITY_BUKITLARUT,
+    CITY_ARAU,
+    CITY_KANGAR,
+    CITY_PADANGBESAR,
+    CITY_BUKITMERTAJAM,
+    CITY_BUTTERWORTH,
+    CITY_KEPALABATAS,
+    CITY_GEORGETOWN,
+    CITY_BUKITBENDERA,
+    CITY_SANDAKAN,
+    CITY_KUDAT,
+    CITY_LAHADDATU,
+    CITY_TAWAU,
+    CITY_GUNUNGKINABALU,
+    CITY_MIRI,
+    CITY_BINTULU,
+    CITY_KUCHING,
+    CITY_RAJANG,
+    CITY_SRIAMAN,
+    CITY_GOMBAK,
+    CITY_KUALASELANGOR,
+    CITY_KAJANG,
+    CITY_SEPANG,
+    CITY_SHAHALAM,
+    CITY_KUALATERENGGANU,
+    CITY_BESUT,
+    CITY_KEMAMAN,
+    CITY_HULUTERENGGANU,
+    CITY_MARANG,
+    CITY_KUALALUMPUR,
+    CITY_LABUAN,
+    CITY_PUTRAJAYA,
+};
+
+typedef struct 
+{	
+    u32 nNameTextID;
+} CountryNameData_t;
+
+typedef struct 
+{	
+    u16 nCountryID;
+    u16 nCityID;
+} CountryZoneData_t;
+
+typedef struct 
+{
+    u32 nNameTextID;
+    double fLatitude;
+    double fLongitude;
+    double fGMT;
+} CityData_t;
+
+typedef struct 
+{
+    u32 nNameTextID;
+    double fGMT;
+} TimeZoneData_t;
+
+typedef struct
+{
+    APPLET_BASE_ELEMENTS;
+    AzanSettingInfo_t tAzanSetting;
+    IIMAGE *pImage;
+    IIMAGE *pISCImage;
+    IWidget*pAnimWdg;
+    IWidget*pCompassWdg;
+    IWidget*pMakkahWdg;
+    IWidget*pArrowWdg;    
+    IIMAGE *pArrowImg;
+    IIMAGE *pMakkahImg;    
+    IIMAGE *pCompassImg;    
+    u32 nFocusWdgID;
+    double ftmpLatitude;
+    double ftmgLongitude;
+    boolean bPlaySound;
+    SetPhoneTimeFormat_e ePhoneTimeFormat;
+    u16 nCountryID;
+    u16 nCityID;
+    u16 nStateID;
+    u16 nSelectedIndex;
+    u8 nUserDefGMTTmpID;
+    MAE_WChar TmpUserDefTitleName[AZAN_USER_DEF_TILTE_MAX_SIZE+1];
+} AzanAppData_t;
+
+typedef struct
+{
+    IWidget *pMflContainerLoc;
+    IWidget *pMflContainerName;
+    IWidget *pMflContainerTime;
+    IWidget *pMflContainerAMPM;
+    IWidget *pTextWdgLocation;
+    IWidget *pTextWdgNAME[AZAN_ALARM_TIME_NUM];
+    IWidget *pTextWdgTIME[AZAN_ALARM_TIME_NUM];
+    IWidget *pTextWdgAMPM[AZAN_ALARM_TIME_NUM];
+
+} AzanMainViewWdgList_t;
+
+
+typedef struct
+{
+    IWidget *pScrollBarWidget;
+    IWidget *pMflContainer;
+    IWidget *pLocationDoubleTextWdg;
+    IWidget *pStatusTextPickWdg;
+    IWidget *pDSTTextPickWdg;
+    IWidget *pDirectionDoubleTextWdg;    
+    IWidget *pPlaySoundDoubleTextWdg;
+    IWidget *pCalMethodDoubleTextWdg;
+}AzanOptionViewWdgList_t;
+
+typedef struct
+{
+    IWidget *pScrollBarWidget;
+    IWidget *pMflContainer;
+    IWidget *pTitleDoubleTextWdg;
+    IWidget *pLatitudeTextInputWdg;    
+    IWidget *pLongitudeTextInputWdg;
+    IWidget *pTimeZoneDoubleTextWdg;
+} AzanEditViewWdgList_t;
+
+typedef struct
+{
+    u32 u32TitleID;
+    MAE_WChar *pwText;
+    InputVtmWdgList_t pWdgList;
+    InputVtmData_t pData;
+} AzanEditTitleWdgList_t;
+
+typedef struct 
+{
+    Pos_t tCenter;
+    Pos_t tPastPos;
+    double dRadius;
+} PicCircle_t;
+
+typedef struct 
+{
+    WidgetSize_t tSize;
+    IBitmap *pSrcBmp;
+    IBitmap *pDstBmp;
+} RotateImage_t;
+
+/*=============================================================*/
+// Variable definition
+/*=============================================================*/
+const CountryNameData_t g_CounrtyNameData[] =
+{
+    {TXT_LIL_N_AZAN_AFGHANISTAN},
+    {TXT_LIL_N_AZAN_AZERBAIJAN},
+    {TXT_LIL_N_AZAN_BANGLADESH},
+    {TXT_LIL_N_AZAN_BULGARIA},
+    {TXT_LIL_N_AZAN_CHINA},
+    {TXT_LIL_N_AZAN_CYPRUS},
+    {TXT_LIL_N_AZAN_EGYPT},
+    {TXT_LIL_N_AZAN_INDIA},
+    {TXT_LIL_N_AZAN_INDONESIA},
+    {TXT_LIL_N_AZAN_IRAN},
+    {TXT_LIL_N_AZAN_IRAQ},
+    {TXT_LIL_N_AZAN_JORDAN},
+    {TXT_LIL_N_AZAN_KOREA},
+    {TXT_LIL_N_AZAN_KUWAIT},
+    {TXT_LIL_N_AZAN_MALAYSIA},
+    {TXT_LIL_N_AZAN_MOROCCO},
+    {TXT_LIL_N_AZAN_NIGERIA},
+    {TXT_LIL_N_AZAN_PHILIPPINES},
+    {TXT_LIL_N_AZAN_QATAR},
+    {TXT_LIL_N_AZAN_RUSSIA},
+    {TXT_LIL_N_AZAN_SAUDI_ARABICA},
+    {TXT_LIL_N_AZAN_SINGAPORE},
+    {TXT_LIL_N_AZAN_THAILAND},
+    {TXT_LIL_N_AZAN_TURKEY},
+    {TXT_LIL_N_AZAN_U_A_EMIRATES},
+};
+
+const CountryZoneData_t g_CountryZoneData[] =
+{
+    {COUNTRY_AFGHANISTAN, CITY_GHAZNI},
+    {COUNTRY_AFGHANISTAN, CITY_HERAT},
+    {COUNTRY_AFGHANISTAN, CITY_JALALABAD},
+    {COUNTRY_AFGHANISTAN, CITY_KABOL},
+    {COUNTRY_AFGHANISTAN, CITY_KANDAHAR},
+    {COUNTRY_AZERBAIJAN, CITY_BABASER},
+    {COUNTRY_AZERBAIJAN, CITY_BAKI},
+    {COUNTRY_AZERBAIJAN, CITY_BAKISAHARI},
+    {COUNTRY_AZERBAIJAN, CITY_MASALLI},
+    {COUNTRY_AZERBAIJAN, CITY_IMISHLI},
+    {COUNTRY_BANGLADESH, CITY_DHAKA},
+    {COUNTRY_BANGLADESH, CITY_COMILLA},
+    {COUNTRY_BANGLADESH, CITY_KHULNA},
+    {COUNTRY_BANGLADESH, CITY_RAJSHAHI},
+    {COUNTRY_BANGLADESH, CITY_SYLHET},
+    {COUNTRY_BULGARIA, CITY_BLAGOEVGRAD},
+    {COUNTRY_BULGARIA, CITY_BURGAS},
+    {COUNTRY_BULGARIA, CITY_GABROVO},
+    {COUNTRY_BULGARIA, CITY_PERNIK},
+    {COUNTRY_BULGARIA, CITY_PLEVEN},
+    {COUNTRY_CHINA, CITY_SHANGHAI},
+    {COUNTRY_CHINA, CITY_BEIJING},
+    {COUNTRY_CHINA, CITY_GUANGZHOU},
+    {COUNTRY_CHINA, CITY_HARBIN},
+    {COUNTRY_CHINA, CITY_CHENGDU},
+    {COUNTRY_CYPRUS, CITY_FAMAGUSTA},
+    {COUNTRY_CYPRUS, CITY_LARNACA},
+    {COUNTRY_CYPRUS, CITY_LARNACAMARINA},
+    {COUNTRY_CYPRUS, CITY_LIMASOL},
+    {COUNTRY_CYPRUS, CITY_NICOSIA},
+    {COUNTRY_EGYPT, CITY_EZBETHASSALIB},
+    {COUNTRY_EGYPT, CITY_RAMADANCITY},
+    {COUNTRY_EGYPT, CITY_ALISKANDARIYAH},
+    {COUNTRY_EGYPT, CITY_ALEXANDRIAGOVRN},
+    {COUNTRY_EGYPT, CITY_CAIRO},
+    {COUNTRY_INDIA, CITY_BANGALORE},
+    {COUNTRY_INDIA, CITY_BOMBAY},
+    {COUNTRY_INDIA, CITY_CALCUTTA},
+    {COUNTRY_INDIA, CITY_MADRAS},
+    {COUNTRY_INDIA, CITY_NEWDELHI},
+    {COUNTRY_INDONESIA, CITY_BANDUNG},
+    {COUNTRY_INDONESIA, CITY_JAKARTA},
+    {COUNTRY_INDONESIA, CITY_MEDAN},
+    {COUNTRY_INDONESIA, CITY_BALI},
+    {COUNTRY_INDONESIA, CITY_SURABAYA},
+    {COUNTRY_IRAN, CITY_TEHRAN},
+    {COUNTRY_IRAN, CITY_KERMANSHAH},
+    {COUNTRY_IRAN, CITY_ABADAN},
+    {COUNTRY_IRAN, CITY_ESFAHAN},
+    {COUNTRY_IRAN, CITY_TABRIZ},
+    {COUNTRY_IRAQ, CITY_BAGHDAD},
+    {COUNTRY_IRAQ, CITY_ARBIL},
+    {COUNTRY_IRAQ, CITY_BASRA},
+    {COUNTRY_IRAQ, CITY_KIRKUK},
+    {COUNTRY_IRAQ, CITY_MOSUL},
+    {COUNTRY_JORDAN, CITY_AMMAN},
+    {COUNTRY_JORDAN, CITY_IRBID},
+    {COUNTRY_JORDAN, CITY_KARAK},
+    {COUNTRY_JORDAN, CITY_RAMTHA},
+    {COUNTRY_JORDAN, CITY_SALT},
+    {COUNTRY_KOREA, CITY_SEOUL},
+    {COUNTRY_KOREA, CITY_MASAN},
+    {COUNTRY_KOREA, CITY_OSAN},
+    {COUNTRY_KOREA, CITY_SUWON},
+    {COUNTRY_KOREA, CITY_TAEJON},
+    {COUNTRY_KUWAIT, CITY_KUWAIT},
+    {COUNTRY_KUWAIT, CITY_QURAIN},
+    {COUNTRY_KUWAIT, CITY_KHAITAN},
+    {COUNTRY_KUWAIT, CITY_ROWDA},
+    {COUNTRY_KUWAIT, CITY_SALWA},
+    {COUNTRY_MALAYSIA, CITY_JOHOR},
+    {COUNTRY_MALAYSIA, CITY_KEDAH},
+    {COUNTRY_MALAYSIA, CITY_KELANTAN},
+    {COUNTRY_MALAYSIA, CITY_MELAKA},
+    {COUNTRY_MALAYSIA, CITY_NEGERISEMBILAN},
+    {COUNTRY_MALAYSIA, CITY_PAHANG},
+    {COUNTRY_MALAYSIA, CITY_PERAK},
+    {COUNTRY_MALAYSIA, CITY_PERLIS},   
+    {COUNTRY_MALAYSIA, CITY_PULAUPINANG},
+    {COUNTRY_MALAYSIA, CITY_SABAH},
+    {COUNTRY_MALAYSIA, CITY_SARAWAK},
+    {COUNTRY_MALAYSIA, CITY_SELANGOR},
+    {COUNTRY_MALAYSIA, CITY_TERENGGANU},
+    {COUNTRY_MALAYSIA, CITY_W_PERSEKUTUAN},
+    {COUNTRY_MOROCCO, CITY_AGADIR},
+    {COUNTRY_MOROCCO, CITY_CASABLANCA},
+    {COUNTRY_MOROCCO, CITY_IFRANE},
+    {COUNTRY_MOROCCO, CITY_TAZA},
+    {COUNTRY_MOROCCO, CITY_SAFI},
+    {COUNTRY_NIGERIA, CITY_ABUJA},
+    {COUNTRY_NIGERIA, CITY_BAUCHI},
+    {COUNTRY_NIGERIA, CITY_ILESHA},
+    {COUNTRY_NIGERIA, CITY_LAGOS},
+    {COUNTRY_NIGERIA, CITY_PORTHARCOURT},
+    {COUNTRY_PHILIPPINES, CITY_MANILA},
+    {COUNTRY_PHILIPPINES, CITY_QUEZENCITY},
+    {COUNTRY_PHILIPPINES, CITY_DAVAOCITY},
+    {COUNTRY_PHILIPPINES, CITY_ZAMBOANGA},
+    {COUNTRY_PHILIPPINES, CITY_MAKATI},
+    {COUNTRY_QATAR, CITY_DOHA},
+    {COUNTRY_QATAR, CITY_ALKHOR},
+    {COUNTRY_QATAR, CITY_DUKHAN},
+    {COUNTRY_QATAR, CITY_UMMSA_ID},
+    {COUNTRY_QATAR, CITY_WAKRA},
+    {COUNTRY_RUSSIA, CITY_GROZNY},
+    {COUNTRY_RUSSIA, CITY_MOSCOW},
+    {COUNTRY_RUSSIA, CITY_ST_PETERSBURG},
+    {COUNTRY_RUSSIA, CITY_SAMARA},
+    {COUNTRY_RUSSIA, CITY_KRASNOYARSK},
+    {COUNTRY_SAUDI_ARABICA, CITY_A_ILATALARTAWI},
+    {COUNTRY_SAUDI_ARABICA, CITY_ABHA},
+    {COUNTRY_SAUDI_ARABICA, CITY_AL_AHSA},
+    {COUNTRY_SAUDI_ARABICA, CITY_ALBAHAH},
+    {COUNTRY_SAUDI_ARABICA, CITY_ALHUFUF},
+    {COUNTRY_SAUDI_ARABICA, CITY_ALJAWF},
+    {COUNTRY_SAUDI_ARABICA, CITY_ALMUBARRAZ},
+    {COUNTRY_SAUDI_ARABICA, CITY_ALQASEEM},
+    {COUNTRY_SAUDI_ARABICA, CITY_BURAIDAH},
+    {COUNTRY_SAUDI_ARABICA, CITY_DAMMAM},
+    {COUNTRY_SAUDI_ARABICA, CITY_DHAHRAN},
+    {COUNTRY_SAUDI_ARABICA, CITY_HA_IL},
+    {COUNTRY_SAUDI_ARABICA, CITY_JAZAN},
+    {COUNTRY_SAUDI_ARABICA, CITY_JEDDAH},
+    {COUNTRY_SAUDI_ARABICA, CITY_KHAMISMUSHAYT},
+    {COUNTRY_SAUDI_ARABICA, CITY_KHOBAR},
+    {COUNTRY_SAUDI_ARABICA, CITY_KINGABDULAZIZNAVALBASE},
+    {COUNTRY_SAUDI_ARABICA, CITY_MADINAH},
+    {COUNTRY_SAUDI_ARABICA, CITY_MAKKAH},
+    {COUNTRY_SAUDI_ARABICA, CITY_NAJRAN},
+    {COUNTRY_SAUDI_ARABICA, CITY_QATIF},
+    {COUNTRY_SAUDI_ARABICA, CITY_RABBA},
+    {COUNTRY_SAUDI_ARABICA, CITY_RIYADH},
+    {COUNTRY_SAUDI_ARABICA, CITY_TA_IF},
+    {COUNTRY_SAUDI_ARABICA, CITY_TABUK},
+    {COUNTRY_SAUDI_ARABICA, CITY_YAHBU_ALBAHR},
+    {COUNTRY_SINGAPORE, CITY_SINGAPORE},
+    {COUNTRY_SINGAPORE, CITY_JURONG},
+    {COUNTRY_SINGAPORE, CITY_CHANGI},
+    {COUNTRY_SINGAPORE, CITY_WOODLANDS},
+    {COUNTRY_SINGAPORE, CITY_SERANGOON},
+    {COUNTRY_THAILAND, CITY_PHUKET},
+    {COUNTRY_THAILAND, CITY_BANGKOK},
+    {COUNTRY_THAILAND, CITY_CHIANGMAI},
+    {COUNTRY_THAILAND, CITY_HAADYAI},
+    {COUNTRY_THAILAND, CITY_PATTANI},
+    {COUNTRY_TURKEY, CITY_ANKARA},
+    {COUNTRY_TURKEY, CITY_ADANA},
+    {COUNTRY_TURKEY, CITY_BURSA},
+    {COUNTRY_TURKEY, CITY_ISTANBUL},
+    {COUNTRY_TURKEY, CITY_IZMIR},
+    {COUNTRY_U_A_EMIRATES, CITY_DUBAI},
+    {COUNTRY_U_A_EMIRATES, CITY_ABUDHABI},
+    {COUNTRY_U_A_EMIRATES, CITY_FUJAIRAH},
+    {COUNTRY_U_A_EMIRATES, CITY_KALBA},
+    {COUNTRY_U_A_EMIRATES, CITY_RUWAIS}
+};
+
+//The special case for the states in the cities of Malaysia
+const CountryZoneData_t g_MalaysiaCountryZoneData[] =
+{
+    {CITY_JOHOR, CITY_KOTATINGGI},
+    {CITY_JOHOR, CITY_KLUANG},
+    {CITY_JOHOR, CITY_MUAR},
+    {CITY_JOHOR, CITY_JOHORBAHRU},
+    {CITY_JOHOR, CITY_SEGAMAT},
+    {CITY_KEDAH, CITY_ALORSETAR},
+    {CITY_KEDAH, CITY_BALING},
+    {CITY_KEDAH, CITY_LANGKAWI},
+    {CITY_KEDAH, CITY_GUNUNGJERAI},
+    {CITY_KEDAH, CITY_KULIM},
+    {CITY_KELANTAN, CITY_KOTABHARU},
+    {CITY_KELANTAN, CITY_TANAHMERAH},
+    {CITY_KELANTAN, CITY_GUAMUSANG},
+    {CITY_KELANTAN, CITY_PASIRMAS},
+    {CITY_KELANTAN, CITY_RANTAUPANJANG},
+    {CITY_MELAKA, CITY_BANDARMELAKA},
+    {CITY_MELAKA, CITY_ALORGAJAH},
+    {CITY_MELAKA, CITY_JASIN},
+    {CITY_MELAKA, CITY_MASJIDTANAH},
+    {CITY_MELAKA, CITY_MERLIMAU},
+    {CITY_NEGERISEMBILAN, CITY_TAMPIN},
+    {CITY_NEGERISEMBILAN, CITY_SEREMBAN},
+    {CITY_NEGERISEMBILAN, CITY_PORTDICKSON},
+    {CITY_NEGERISEMBILAN, CITY_KUALAPILAH},
+    {CITY_NEGERISEMBILAN, CITY_REMBAU},
+    {CITY_PAHANG, CITY_PULAUTIOMAN},
+    {CITY_PAHANG, CITY_KUANTAN},
+    {CITY_PAHANG, CITY_TEMERLOH},
+    {CITY_PAHANG, CITY_RAUB},
+    {CITY_PAHANG, CITY_CAMERONHIGHLAND},
+    {CITY_PERAK, CITY_KINTA},
+    {CITY_PERAK, CITY_MANJUNG},
+    {CITY_PERAK, CITY_MATANG},
+    {CITY_PERAK, CITY_HILIRPERAK},
+    {CITY_PERAK, CITY_BUKITLARUT},
+    {CITY_PERLIS, CITY_ARAU},
+    {CITY_PERLIS, CITY_KANGAR},
+    {CITY_PERLIS, CITY_PADANGBESAR},
+    {CITY_PULAUPINANG, CITY_BUKITMERTAJAM},
+    {CITY_PULAUPINANG, CITY_BUTTERWORTH},
+    {CITY_PULAUPINANG, CITY_KEPALABATAS},
+    {CITY_PULAUPINANG, CITY_GEORGETOWN},
+    {CITY_PULAUPINANG, CITY_BUKITBENDERA},
+    {CITY_SABAH, CITY_SANDAKAN},
+    {CITY_SABAH, CITY_KUDAT},
+    {CITY_SABAH, CITY_LAHADDATU},
+    {CITY_SABAH, CITY_TAWAU},
+    {CITY_SABAH, CITY_GUNUNGKINABALU},
+    {CITY_SARAWAK, CITY_MIRI},
+    {CITY_SARAWAK, CITY_BINTULU},
+    {CITY_SARAWAK, CITY_KUCHING},
+    {CITY_SARAWAK, CITY_RAJANG},
+    {CITY_SARAWAK, CITY_SRIAMAN},
+    {CITY_SELANGOR, CITY_GOMBAK},
+    {CITY_SELANGOR, CITY_KUALASELANGOR},
+    {CITY_SELANGOR, CITY_KAJANG},
+    {CITY_SELANGOR, CITY_SEPANG},
+    {CITY_SELANGOR, CITY_SHAHALAM},
+    {CITY_TERENGGANU, CITY_KUALATERENGGANU},
+    {CITY_TERENGGANU, CITY_BESUT},
+    {CITY_TERENGGANU, CITY_KEMAMAN},
+    {CITY_TERENGGANU, CITY_HULUTERENGGANU},
+    {CITY_TERENGGANU, CITY_MARANG},
+    {CITY_W_PERSEKUTUAN, CITY_KUALALUMPUR},
+    {CITY_W_PERSEKUTUAN, CITY_LABUAN},
+    {CITY_W_PERSEKUTUAN, CITY_PUTRAJAYA}
+};
+
+const CityData_t g_CityData[] =
+{
+    //COUNTRY_AFGHANISTAN
+    {TXT_LIL_N_AZAN_GHAZNI, 34.2455556, 69.1363889, 4.5}, 
+    {TXT_LIL_N_AZAN_HERAT, 34.345, 62.1997222, 4.5}, 
+    {TXT_LIL_N_AZAN_JALALABAD, 34.3586111, 62.0819444, 4.5}, 
+    {TXT_LIL_N_AZAN_KABOL, 34.9202778, 69.1077778, 4.5}, 
+    {TXT_LIL_N_AZAN_KANDAHAR, 31.6077778, 65.7052778, 4.5}, 
+    //COUNTRY_AZERBAIJAN
+    {TXT_LIL_N_AZAN_BABASER, 38.9469444, 48.6805556, 4},
+    {TXT_LIL_N_AZAN_BAKI, 40.4216667, 49.9644444, 4}, 
+    {TXT_LIL_N_AZAN_BAKISAHARI, 40.3, 49.7167, 4}, 
+    {TXT_LIL_N_AZAN_MASALLI, 39.0342, 48.6656, 4},
+    {TXT_LIL_N_AZAN_IMISHLI, 39.52, 48.336, 4}, 
+    //COUNTRY_BANGLADESH
+    {TXT_LIL_N_AZAN_DHAKA, 23.7230556, 90.4086111, 6}, 
+    {TXT_LIL_N_AZAN_COMILLA, 23.4577778, 91.2044444, 6}, 
+    {TXT_LIL_N_AZAN_KHULNA, 22.9167, 89.25, 6}, 
+    {TXT_LIL_N_AZAN_RAJSHAHI, 24.3667, 88.6000, 6}, 
+    {TXT_LIL_N_AZAN_SYLHET, 24.8966667, 91.8716667, 6},
+    //COUNTRY_BULGARIA 
+    {TXT_LIL_N_AZAN_BLAGOEVGRAD, 41.7667 , 23.5167, 3},
+    {TXT_LIL_N_AZAN_BURGAS, 42.4977, 27.4827, 3}, 
+    {TXT_LIL_N_AZAN_GABROVO, 42.8747, 25.3342, 3}, 
+    {TXT_LIL_N_AZAN_PERNIK, 42.6, 23.0333, 3}, 
+    {TXT_LIL_N_AZAN_PLEVEN, 43.4, 24.6, 3}, 
+    //COUNTRY_CHINA
+    {TXT_LIL_N_AZAN_SHANGHAI, 31.2169, 121.408, 8}, 
+    {TXT_LIL_N_AZAN_BEIJING, 39.9289, 116.3883, 8}, 
+    {TXT_LIL_N_AZAN_GUANGZHOU, 23.1166667, 113.25, 8},  //
+    {TXT_LIL_N_AZAN_HARBIN, 45.75, 126.65, 8}, 
+    {TXT_LIL_N_AZAN_CHENGDU, 30.65, 104.083, 8}, 
+    //COUNTRY_CYPRUS
+    {TXT_LIL_N_AZAN_FAMAGUSTA, 35.0, 34.0, 3},
+    {TXT_LIL_N_AZAN_LARNACA, 35.31667, 33.9, 3}, 
+    {TXT_LIL_N_AZAN_LARNACAMARINA, 34.916667, 33.641667, 3}, 
+    {TXT_LIL_N_AZAN_LIMASOL, 34.65, 33.0167, 3}, 
+    {TXT_LIL_N_AZAN_NICOSIA, 35.1666667, 33.3666667, 3}, 
+    //COUNTRY_EGYPT
+    {TXT_LIL_N_AZAN_EZBETHASSALIB, 31.0, 31.0, 2},  //no data
+    {TXT_LIL_N_AZAN_RAMADANCITY, 30.3, 31.75, 2}, 
+    {TXT_LIL_N_AZAN_ALISKANDARIYAH, 31.2135, 29.9443, 2}, 
+    {TXT_LIL_N_AZAN_ALEXANDRIAGOVRN, 31.0, 30.0, 2}, 
+    {TXT_LIL_N_AZAN_CAIRO, 30.06474166666667, 31.24950833333334, 2}, 
+    //COUNTRY_INDIA
+    {TXT_LIL_N_AZAN_BANGALORE, 12.9833,  77.5833, 5.5},
+    {TXT_LIL_N_AZAN_BOMBAY, 18.975, 72.8258, 5.5}, 
+    {TXT_LIL_N_AZAN_CALCUTTA, 22.6, 88.3667, 5.5}, 
+    {TXT_LIL_N_AZAN_MADRAS, 13.0814, 80.2772, 5.5}, 
+    {TXT_LIL_N_AZAN_NEWDELHI, 28.635308, 77.22496, 5.5}, 
+    //COUNTRY_INDONESIA
+    {TXT_LIL_N_AZAN_BANDUNG, -7.22694, 110.37, 7},   //different
+    {TXT_LIL_N_AZAN_JAKARTA, -6.17444, 106.829, 7}, 
+    {TXT_LIL_N_AZAN_MEDAN, 3.58333, 98.6667, 7}, 
+    {TXT_LIL_N_AZAN_BALI, -8.33333, 115, 7}, //
+    {TXT_LIL_N_AZAN_SURABAYA, -4.66667, 105.717, 7}, 
+    //COUNTRY_IRAN
+    {TXT_LIL_N_AZAN_TEHRAN, 35.6319, 51.4378, 4.5},
+    {TXT_LIL_N_AZAN_KERMANSHAH, 34.5, 47.0, 4.5}, 
+    {TXT_LIL_N_AZAN_ABADAN, 30.1667, 48.8333, 4.5}, 
+    {TXT_LIL_N_AZAN_ESFAHAN, 33.0, 52.1667 , 4.5}, 
+    {TXT_LIL_N_AZAN_TABRIZ, 38.1267, 46.2519, 4.5}, 
+    //COUNTRY_IRAQ
+    {TXT_LIL_N_AZAN_BAGHDAD, 33.3386, 44.3939, 3}, 
+    {TXT_LIL_N_AZAN_ARBIL, 36.19, 44.0089, 3}, 
+    {TXT_LIL_N_AZAN_BASRA, 30.4942, 47.8192 , 3}, 
+    {TXT_LIL_N_AZAN_KIRKUK, 35.5, 44.3, 3}, 
+    {TXT_LIL_N_AZAN_MOSUL, 36.4,  43.2, 3}, 
+    //COUNTRY_JORDAN
+    {TXT_LIL_N_AZAN_AMMAN, 31.5833, 36.3333, 2}, 
+    {TXT_LIL_N_AZAN_IRBID, 32.5, 35.8333, 2}, 
+    {TXT_LIL_N_AZAN_KARAK, 31.1667, 35.75, 2}, 
+    {TXT_LIL_N_AZAN_RAMTHA, 32.5592, 36.0069, 2}, 
+    {TXT_LIL_N_AZAN_SALT, 32.0, 36.0, 2},  //no data
+    //COUNTRY_KOREA
+    {TXT_LIL_N_AZAN_SEOUL, 37.75, 126.183 , 9}, 
+    {TXT_LIL_N_AZAN_MASAN, 35.0, 128.0, 9}, 
+    {TXT_LIL_N_AZAN_OSAN, 36.0, 127.0, 9}, //
+    {TXT_LIL_N_AZAN_SUWON, 36.0, 127.0, 9}, //
+    {TXT_LIL_N_AZAN_TAEJON, 33.0, 126.0, 9}, //
+    //COUNTRY_KUWAIT
+    {TXT_LIL_N_AZAN_KUWAIT,  29.5, 47.75, 3}, 
+    {TXT_LIL_N_AZAN_QURAIN, 28.77, 47.9731, 3}, 
+    {TXT_LIL_N_AZAN_KHAITAN, 29.2925, 47.9689, 3}, 
+    {TXT_LIL_N_AZAN_ROWDA, 29.3247, 48.0014, 3}, 
+    {TXT_LIL_N_AZAN_SALWA, 29.2958, 48.0786, 3}, 
+    //COUNTRY_MALAYSIA
+    {TXT_LIL_N_AZAN_JOHOR, 2.0, 103.0, 8}, //
+    {TXT_LIL_N_AZAN_KEDAH, 6.0, 100.0, 8}, // 
+    {TXT_LIL_N_AZAN_KELANTAN, 6.0, 102.0, 8}, // 
+    {TXT_LIL_N_AZAN_MELAKA, 2.0, 102.0, 8},  //
+    {TXT_LIL_N_AZAN_NEGERISEMBILAN, 3.0, 102.0, 8},  //
+    {TXT_LIL_N_AZAN_PAHANG, 3.0, 102.0, 8},  //
+    {TXT_LIL_N_AZAN_PERAK, 5.0, 101.0, 8},  //
+    {TXT_LIL_N_AZAN_PERLIS, 6.0, 100.0, 8},  //
+    {TXT_LIL_N_AZAN_PULAUPINANG, 5.0, 100.0, 8},   //
+    {TXT_LIL_N_AZAN_SABAH, 6.0, 118.0, 8},  //
+    {TXT_LIL_N_AZAN_SARAWAK, 3.0, 113.0, 8},  //
+    {TXT_LIL_N_AZAN_SELANGOR, 3.0, 102.0, 8},  //
+    {TXT_LIL_N_AZAN_TERENGGANU, 5.0, 103.0, 8},  //
+    {TXT_LIL_N_AZAN_W_PERSEKUTUAN, 3.0, 102.0, 8}, //
+    //COUNTRY_MOROCCO
+    {TXT_LIL_N_AZAN_AGADIR,  29.01, -10.25, 0}, 
+    {TXT_LIL_N_AZAN_CASABLANCA, 33.59, -7.61, 0}, 
+    {TXT_LIL_N_AZAN_IFRANE, 34.0, -5.0, 0},  //different
+    {TXT_LIL_N_AZAN_TAZA, 33.97, -4.3, 0}, 
+    {TXT_LIL_N_AZAN_SAFI, 32.3, -9.23, 0}, 
+    //COUNTRY_NIGERIA
+    {TXT_LIL_N_AZAN_ABUJA, 9.08333, 7.53333, 1}, 
+    {TXT_LIL_N_AZAN_BAUCHI, 10.3158, 9.84417, 1}, 
+    {TXT_LIL_N_AZAN_ILESHA, 9.0, 3.55, 1}, 
+    {TXT_LIL_N_AZAN_LAGOS, 6.45306, 3.39583, 1}, 
+    {TXT_LIL_N_AZAN_PORTHARCOURT, 4.784821, 7.005453, 1}, 
+    //COUNTRY_PHILIPPINES
+    {TXT_LIL_N_AZAN_MANILA, 14.5833, 121.0, 8}, 
+    {TXT_LIL_N_AZAN_QUEZENCITY, 15.0, 121.0, 8}, //
+    {TXT_LIL_N_AZAN_DAVAOCITY, 7.0644444, 125.6077778, 8}, 
+    {TXT_LIL_N_AZAN_ZAMBOANGA,  6.91667, 122.067, 8}, 
+    {TXT_LIL_N_AZAN_MAKATI, 13.0008, 120.813, 8}, 
+    //COUNTRY_QATAR
+    {TXT_LIL_N_AZAN_DOHA, 24.2719, 51.6725, 3}, 
+    {TXT_LIL_N_AZAN_ALKHOR, 26.0, 51.0, 3},  //
+    {TXT_LIL_N_AZAN_DUKHAN, 25.0, 51.0, 3}, //
+    {TXT_LIL_N_AZAN_UMMSA_ID, 25.0, 52.0, 3}, //
+    {TXT_LIL_N_AZAN_WAKRA, 25.0, 52.0, 3}, //
+    //COUNTRY_RUSSIA
+    {TXT_LIL_N_AZAN_GROZNY, 43.3083, 45.7003, 4},
+    {TXT_LIL_N_AZAN_MOSCOW, 55.7522, 37.6156, 4}, 
+    {TXT_LIL_N_AZAN_ST_PETERSBURG, 56.0, 38.0, 4},  //
+    {TXT_LIL_N_AZAN_SAMARA, 53.0, 50.0, 4}, //
+    {TXT_LIL_N_AZAN_KRASNOYARSK, 56.0097, 92.7917, 7},
+    //COUNTRY_SAUDIARABIA 
+    {TXT_LIL_N_AZAN_A_ILATALARTAWI, 29.4, 42.1, 3}, //
+    {TXT_LIL_N_AZAN_ABHA, 18.2164, 42.5053, 3}, //
+    {TXT_LIL_N_AZAN_AL_AHSA, 22.0, 51.0, 3}, //
+    {TXT_LIL_N_AZAN_ALBAHAH, 20.2722739, 41.441251, 3}, 
+    {TXT_LIL_N_AZAN_ALHUFUF, 26.2723302, 50.2096767, 3}, 
+    {TXT_LIL_N_AZAN_ALJAWF, 26.0, 50.0, 3}, //
+    {TXT_LIL_N_AZAN_ALMUBARRAZ, 25.4429862, 49.6635088, 3}, 
+    {TXT_LIL_N_AZAN_ALQASEEM, 26.0, 44.0, 3}, //
+    {TXT_LIL_N_AZAN_BURAIDAH, 26.0, 44.0, 3}, //
+    {TXT_LIL_N_AZAN_DAMMAM, 26.4258, 50.1142, 3}, 
+    {TXT_LIL_N_AZAN_DHAHRAN, 26.0, 50.0, 3}, //
+    {TXT_LIL_N_AZAN_HA_IL, 28.7872, 40.8972, 3}, 
+    {TXT_LIL_N_AZAN_JAZAN, 16.8892, 42.5511, 3}, 
+    {TXT_LIL_N_AZAN_JEDDAH, 21.5169, 39.2192, 3}, 
+    {TXT_LIL_N_AZAN_KHAMISMUSHAYT, 18.3060888, 42.7339209, 3}, 
+    {TXT_LIL_N_AZAN_KHOBAR, 26.0, 50.0, 3}, 
+    {TXT_LIL_N_AZAN_KINGABDULAZIZNAVALBASE, 26.9416389, 49.7040556, 3}, 
+    {TXT_LIL_N_AZAN_MADINAH, 24.7472, 39.6142, 3}, 
+    {TXT_LIL_N_AZAN_MAKKAH, 21.4267, 39.8261, 3}, 
+    {TXT_LIL_N_AZAN_NAJRAN, 18.0, 45.6667, 3}, 
+    {TXT_LIL_N_AZAN_QATIF, 26.5628, 49.9439, 3}, 
+    {TXT_LIL_N_AZAN_RABBA, 18.2, 42.8333, 3}, 
+    {TXT_LIL_N_AZAN_RIYADH, 24.6408, 46.7728, 3}, 
+    {TXT_LIL_N_AZAN_TA_IF, 21.2703, 40.4158, 3}, 
+    {TXT_LIL_N_AZAN_TABUK, 27.5, 37.3333, 3}, 
+    {TXT_LIL_N_AZAN_YAHBU_ALBAHR, 24.1, 38.0, 3}, //
+    //COUNTRY_SINGAPORE
+    {TXT_LIL_N_AZAN_SINGAPORE, 1.29611, 103.78, 8}, 
+    {TXT_LIL_N_AZAN_JURONG, 1.33417, 103.723, 8}, 
+    {TXT_LIL_N_AZAN_CHANGI, 1.38389, 103.984, 8}, 
+    {TXT_LIL_N_AZAN_WOODLANDS, 1.3, 104.0, 8}, //
+    {TXT_LIL_N_AZAN_SERANGOON, 1.39, 103.907, 8}, 
+    //COUNTRY_THAILAND
+    {TXT_LIL_N_AZAN_PHUKET, 7.88333, 98.3667, 7}, 
+    {TXT_LIL_N_AZAN_BANGKOK, 13.75, 100.483, 7}, 
+    {TXT_LIL_N_AZAN_CHIANGMAI, 18.7964642, 98.6600586, 7}, 
+    {TXT_LIL_N_AZAN_HAADYAI, 7.0, 100.0, 7}, //
+    {TXT_LIL_N_AZAN_PATTANI, 6.83333, 101.3, 7}, 
+    //COUNTRY_TURKEY
+    {TXT_LIL_N_AZAN_ANKARA, 39.9167, 32.8333, 2},
+    {TXT_LIL_N_AZAN_ADANA, 37.25, 35.4167, 2}, 
+    {TXT_LIL_N_AZAN_BURSA, 40.1667, 29.0833, 2}, 
+    {TXT_LIL_N_AZAN_ISTANBUL, 41.0186, 28.9647, 2}, 
+    {TXT_LIL_N_AZAN_IZMIR, 38.25, 27.5, 2},
+    //COUNTRY_U_A_EMIRATES
+    {TXT_LIL_N_AZAN_DUBAI, 25.2522, 55.28, 4}, 
+    {TXT_LIL_N_AZAN_ABUDHABI, 24.4666667, 54.3666667, 4}, 
+    {TXT_LIL_N_AZAN_FUJAIRAH, 25.0, 56.0, 4}, //
+    {TXT_LIL_N_AZAN_KALBA, 25.0833, 56.3333, 4}, 
+    {TXT_LIL_N_AZAN_RUWAIS, 23.9447, 53.8919, 4}	
+};
+
+//The special case for the states in the cities of Malaysia
+const CityData_t g_MalaysiaCityData[] =
+{
+    //CITY_JOHOR
+    {TXT_LIL_N_AZAN_KOTATINGGI, 1.7, 103.9, 8},
+    {TXT_LIL_N_AZAN_KLUANG, 2.2, 103.3, 8}, 
+    {TXT_LIL_N_AZAN_MUAR, 2.0, 102.6, 8}, 
+    {TXT_LIL_N_AZAN_JOHORBAHRU, 1.7, 103.6, 8}, 
+    {TXT_LIL_N_AZAN_SEGAMAT, 2.6, 102.6, 8}, 
+    //CITY_KEDAH
+    {TXT_LIL_N_AZAN_ALORSETAR, 6.119359, 100.36769, 8}, 
+    {TXT_LIL_N_AZAN_BALING, 5.66667, 100.917, 8}, 
+    {TXT_LIL_N_AZAN_LANGKAWI, 6.33333 , 99.75, 8}, 
+    {TXT_LIL_N_AZAN_GUNUNGJERAI, 6.0, 100.0, 8}, 
+    {TXT_LIL_N_AZAN_KULIM, 5.31667, 100.6, 8}, 
+    //CITY_KELANTAN
+    {TXT_LIL_N_AZAN_KOTABHARU, 6.122013, 102.252267, 8}, 
+    {TXT_LIL_N_AZAN_TANAHMERAH, 6.0, 102.0, 8}, 
+    {TXT_LIL_N_AZAN_GUAMUSANG, 4.860047, 101.9633609, 8},  //diff
+    {TXT_LIL_N_AZAN_PASIRMAS, 6.042681, 102.1391122, 8}, 
+    {TXT_LIL_N_AZAN_RANTAUPANJANG, 6.0, 102.0, 8}, 
+    //CITY_MELAKA
+    {TXT_LIL_N_AZAN_BANDARMELAKA, 2.039272, 102.5690918, 8}, 
+    {TXT_LIL_N_AZAN_ALORGAJAH, 2.373973, 102.2114239, 8}, 
+    {TXT_LIL_N_AZAN_JASIN, 2.51667, 103.35, 8}, 
+    {TXT_LIL_N_AZAN_MASJIDTANAH, 2.350388, 102.107786, 8}, 
+    {TXT_LIL_N_AZAN_MERLIMAU, 2.16667, 102.433, 8},     
+    //CITY_NEGERISEMBILAN
+    {TXT_LIL_N_AZAN_TAMPIN, 2.48333, 102.233, 8}, 
+    {TXT_LIL_N_AZAN_SEREMBAN, 2.65, 101.9, 8}, 
+    {TXT_LIL_N_AZAN_PORTDICKSON, 2.536424, 101.8068142, 8}, 
+    {TXT_LIL_N_AZAN_KUALAPILAH, 2.748964, 102.250211, 8}, 
+    {TXT_LIL_N_AZAN_REMBAU, 2.9, 101.9, 8}, 
+    //CITY_PAHANG
+    {TXT_LIL_N_AZAN_PULAUTIOMAN, 3.0, 104.0, 8}, 
+    {TXT_LIL_N_AZAN_KUANTAN, 3.95, 103.233, 8}, 
+    {TXT_LIL_N_AZAN_TEMERLOH, 4.65, 100.7, 8}, 
+    {TXT_LIL_N_AZAN_RAUB, 3.85, 101.8, 8}, 
+    {TXT_LIL_N_AZAN_CAMERONHIGHLAND, 4.0, 101.0, 8},  //
+    //CITY_PERAK
+    {TXT_LIL_N_AZAN_KINTA, 4.15, 101, 8}, //
+    {TXT_LIL_N_AZAN_MANJUNG, 4.2, 100.7, 8}, // 
+    {TXT_LIL_N_AZAN_MATANG, 4.8, 100.7, 8}, 
+    {TXT_LIL_N_AZAN_HILIRPERAK, 3.9138594, 101.0711758, 8}, 
+    {TXT_LIL_N_AZAN_BUKITLARUT, 5.0, 100.8, 8}, // 
+    //CITY_PERLIS
+    {TXT_LIL_N_AZAN_ARAU, 6.0, 100.0, 8}, //
+    {TXT_LIL_N_AZAN_KANGAR, 6.0, 100.0, 8}, //
+    {TXT_LIL_N_AZAN_PADANGBESAR, 6.656006, 100.311322, 8}, 
+    //CITY_PULAUPINANG
+    {TXT_LIL_N_AZAN_BUKITMERTAJAM, 5.353762, 100.4744261, 8},
+    {TXT_LIL_N_AZAN_BUTTERWORTH, 5.41667, 100.4, 8}, 
+    {TXT_LIL_N_AZAN_KEPALABATAS, 5.521016, 100.4368169, 8}, 
+    {TXT_LIL_N_AZAN_GEORGETOWN, 5.0, 100.0, 8}, //
+    {TXT_LIL_N_AZAN_BUKITBENDERA, 5.0, 100.0, 8}, //    
+    //CITY_SABAH
+    {TXT_LIL_N_AZAN_SANDAKAN, 5.83333, 118.117, 8},
+    {TXT_LIL_N_AZAN_KUDAT, 5.11667, 103.017 , 8}, //diff
+    {TXT_LIL_N_AZAN_LAHADDATU, 5.048846, 118.3593139, 8}, 
+    {TXT_LIL_N_AZAN_TAWAU, 4.33333, 117.833, 8}, 
+    {TXT_LIL_N_AZAN_GUNUNGKINABALU, 6.1, 116.6, 8}, // 
+    //CITY_SARAWAK
+    {TXT_LIL_N_AZAN_MIRI, 3.7, 113.8, 8}, //
+    {TXT_LIL_N_AZAN_BINTULU, 3.16667, 113.033, 8}, 
+    {TXT_LIL_N_AZAN_KUCHING, 1.6, 110.3, 8},  //
+    {TXT_LIL_N_AZAN_RAJANG, 2.15, 111.25, 8}, 
+    {TXT_LIL_N_AZAN_SRIAMAN, 1.23358, 111.4637422, 8},     
+    //CITY_SELANGOR
+    {TXT_LIL_N_AZAN_GOMBAK, 3.3, 101.7, 8}, 
+    {TXT_LIL_N_AZAN_KUALASELANGOR, 3.334976, 101.258023, 8},
+    {TXT_LIL_N_AZAN_KAJANG, 3.0, 102.0, 8}, //
+    {TXT_LIL_N_AZAN_SEPANG, 2.81667, 101.8, 8}, 
+    {TXT_LIL_N_AZAN_SHAHALAM, 3.090607, 101.5295969, 8},     
+    //CITY_TERENGGANU
+    {TXT_LIL_N_AZAN_KUALATERENGGANU, 5.311737, 103.119912, 8}, 
+    {TXT_LIL_N_AZAN_BESUT, 5.58333, 102.633, 8}, 
+    {TXT_LIL_N_AZAN_KEMAMAN, 4.23333, 103.45, 8}, 
+    {TXT_LIL_N_AZAN_HULUTERENGGANU, 5.0177609, 102.7135121, 8}, 
+    {TXT_LIL_N_AZAN_MARANG, 5.2, 103.217, 8}, //Diff
+    //CITY_W_PERSEKUTUAN
+    {TXT_LIL_N_AZAN_KUALALUMPUR, 3.139003, 101.686855, 8}, 
+    {TXT_LIL_N_AZAN_LABUAN, 5.27667, 115.242, 8}, 
+    {TXT_LIL_N_AZAN_PUTRAJAYA, 2.9, 101.7, 8} //  
+};
+
+const TimeZoneData_t g_TimeZoneData[] =
+{
+    {TXT_LIL_N_AZAN_GMT_1,14.00},
+    {TXT_LIL_N_AZAN_GMT_2,13.75},
+    {TXT_LIL_N_AZAN_GMT_3,13.00}, 
+    {TXT_LIL_N_AZAN_GMT_4,12.75}, 
+    {TXT_LIL_N_AZAN_GMT_5,12.00}, 
+    {TXT_LIL_N_AZAN_GMT_6,11.50}, 
+    {TXT_LIL_N_AZAN_GMT_7,11.00}, 
+    {TXT_LIL_N_AZAN_GMT_8,10.50}, 
+    {TXT_LIL_N_AZAN_GMT_9,10.00}, 
+    {TXT_LIL_N_AZAN_GMT_10,9.50}, 
+    {TXT_LIL_N_AZAN_GMT_11,9.00}, 
+    {TXT_LIL_N_AZAN_GMT_12,8.75}, 
+    {TXT_LIL_N_AZAN_GMT_13,8.00}, 
+    {TXT_LIL_N_AZAN_GMT_14,7.00}, 
+    {TXT_LIL_N_AZAN_GMT_15,6.50},
+    {TXT_LIL_N_AZAN_GMT_16,6.00},
+    {TXT_LIL_N_AZAN_GMT_17,5.75},
+    {TXT_LIL_N_AZAN_GMT_18,5.50}, 
+    {TXT_LIL_N_AZAN_GMT_19,5.00}, 
+    {TXT_LIL_N_AZAN_GMT_20,4.50}, 
+    {TXT_LIL_N_AZAN_GMT_21,4.00}, 
+    {TXT_LIL_N_AZAN_GMT_22,3.50}, 
+    {TXT_LIL_N_AZAN_GMT_23,3.00}, 
+    {TXT_LIL_N_AZAN_GMT_24,2.00}, 
+    {TXT_LIL_N_AZAN_GMT_25,1.00}, 
+    {TXT_LIL_N_AZAN_GMT_26,0.00},
+    {TXT_LIL_N_AZAN_GMT_27,-1.00},
+    {TXT_LIL_N_AZAN_GMT_28,-2.00},
+    {TXT_LIL_N_AZAN_GMT_29,-2.50}, 
+    {TXT_LIL_N_AZAN_GMT_30,-3.00}, 
+    {TXT_LIL_N_AZAN_GMT_31,-3.50},
+    {TXT_LIL_N_AZAN_GMT_32, -4.00},
+    {TXT_LIL_N_AZAN_GMT_33,-4.50}, 
+    {TXT_LIL_N_AZAN_GMT_34,-5.00}, 
+    {TXT_LIL_N_AZAN_GMT_35,-6.00}, 
+    {TXT_LIL_N_AZAN_GMT_36,-7.00}, 
+    {TXT_LIL_N_AZAN_GMT_37,-8.00}, 
+    {TXT_LIL_N_AZAN_GMT_38,-9.00}, 
+    {TXT_LIL_N_AZAN_GMT_39,-9.50}, 
+    {TXT_LIL_N_AZAN_GMT_40,-10.00}, 
+    {TXT_LIL_N_AZAN_GMT_41,-11.00}, 
+    {TXT_LIL_N_AZAN_GMT_42,-12.00}
+};
+/*=============================================================*/
+// Global function definition
+/*=============================================================*/
+boolean AzanStartCB(IApplet *pApplet, u32 nEvt, u32 nParam1, u32 nParam2);
+boolean AzanKeyPressCB(IApplet *pApplet, u32 nEvt, u32 nParam1, u32 nParam2);
+boolean AzanStopCB(IApplet *pApplet,u32	nEvt, u32 nParam1, u32 nParam2);
+boolean AzanResumeCB(IApplet *pApplet, MAEEvent_t nEvt, u32 nParam1, u32 nParam2);
+boolean AzanPreHookCB(IApplet *pApplet, u32 nEvt, u32 nParam1, u32 nParam2);
+void AzanTimeChangeCB(void *pUserData, MAE_DateTime_t *pLocalTime);
+void AzanDateChangeCB(void *pUserData);
+void AzanUpdateTime(void *pUserData);
+void AzanAudioSrvPlayStatusCb(void *pData, u32 nCusData, AudioSrvPlayStatusEvent_e eEventId, u32 nInfoData);
+void AzanPlayInterruptCB(void *pData, u32 nCusData, MediaSrvInterruptStatus_e eStatus);
+void AzanAccessoryNotifyCb(void *pThis, u32 nCusData, MediaSrvAccessoryStatus_e nStatus);
+MAE_Ret AzanErrorCaseDialogueInformationCB(void *pApplet, u32 nEvt, u32 nParam1, u32 nParam2);
+MAE_Ret AzanEditDataDialogueInformationCB(void *pApplet, u32 nEvt, u32 nParam1, u32 nParam2);
+MAE_Ret AzanDialogueInformationCB(void *pApplet, u32 nEvt, u32 nParam1, u32 nParam2);
+void AzanOptionMFLFocusSelectCb(void *pApplet, void *pUsrData, WidgetEvtCode_t nEvtCode, MFLFocusData_t *pMFLFocusData, IWidget *pWidget);
+void AzanSetCityLocSoftkeyActCb(void *pApplet, void *pUsrData, WidgetEvtCode_t nEvtCode, HistoryInfo_t *pHistoryInfo, IWidget *pWidget);
+void AzanSetCountryLocSoftkeyActCb(void *pApplet, void *pUsrData, WidgetEvtCode_t nEvtCode, HistoryInfo_t *pHistoryInfo, IWidget *pWidget);
+void AzanSetStateLocSoftkeyActCb(void *pApplet, void *pUsrData, WidgetEvtCode_t nEvtCode, HistoryInfo_t *pHistoryInfo, IWidget *pWidget);
+void AzanSetCalMethodSoftkeyActCb(void *pApplet, void *pUsrData, WidgetEvtCode_t nEvtCode, HistoryInfo_t *pHistoryInfo, IWidget *pWidget);
+void AzanEditLocationMFLFocusSelectCb(void *pApplet, void *pUsrData, WidgetEvtCode_t nEvtCode, MFLFocusData_t *pMFLFocusData, IWidget *pWidget);
+void AzanSetTimeZoneSoftkeyActCb(void *pApplet, void *pUsrData, WidgetEvtCode_t nEvtCode, HistoryInfo_t *pHistoryInfo, IWidget *pWidget);
+MAE_Ret AzanWndAlarmTimeHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndOptionHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndSetLocationHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndSetCityHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndSetStateHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndSetCalMethodHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndQiblatHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndSetTimeZoneHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndEditLocationHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanWndEditLocationTileHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+MAE_Ret AzanEditTitleOptionMenuWndHdl(void *pCusHandle, const WindowMsg_t *pWndMsg, void *pWndData, u32 nWndInitParam);
+
+#endif /* __MMI_AzanAPP_PRIV_H__ */
+

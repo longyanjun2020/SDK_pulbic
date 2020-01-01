@@ -1,0 +1,40 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright VMTS S.A. (c) 2001
+*/
+
+/****************************************************************************/
+/*  File    : vm_os.hi                                                      */
+/*--------------------------------------------------------------------------*/
+/*  Description:  Define interface structure messages for OS layer          */
+/*                                                                          */
+/*                                                                          */
+/*  History :                                                               */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author     | Err  |  Modification                             */
+/*----------+------------+------+-------------------------------------------*/
+/* 15/09/01 |  ach       |      |  Creation                                 */
+/*----------+------------+------+-------------------------------------------*/
+/*
+ *$LogWavecom: G:\projet\gsm\pvcsarch\archives\rtk\itf_open\vm_os.hi-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 30.08.02 | ddo    | 1.0            | Initial revision.                  
+ *----------+--------+----------------+-------------------------------------
+*
+* Add $log tag for comments
+*/
+/****************************************************************************/
+
+#ifndef __VM_OS_HI__
+#define __VM_OS_HI__                                                        
+
+#include "sys_rtk_vmoshi.h"
+
+#endif  /* __VM_OS_HI__ */
+

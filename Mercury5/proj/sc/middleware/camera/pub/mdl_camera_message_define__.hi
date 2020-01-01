@@ -1,0 +1,8 @@
+#ifndef __MDL_CAMERA_MSG_DEF_H__
+#define __MDL_CAMERA_MSG_DEF_H__
+
+VM_MSG_DEF(MDL_MSG_CAMERA_USECASE = VM_CUS47_BASE, void DUMMY) // to communicate with other tasks
+VM_MSG_DEF(MDL_MSG_CAMERA_RESPONSE, void DUMMY) // notify results to other tasks
+
+#endif
+

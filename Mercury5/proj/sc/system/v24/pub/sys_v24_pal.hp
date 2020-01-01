@@ -1,0 +1,133 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_pal.hp                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototypes used in V24 Physical Abstraction Layer             */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 10/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_pal.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 13.02.06 | aph    | 1.9            | Resolution for 33006: [V24] Auto RT
+ *          |        |                | S/CTS implementation  .            
+ *----------+--------+----------------+-------------------------------------
+ * 07.10.05 | aph    | 1.8            | Resolution for 30133: Swift.h clean
+ *          |        |                |  : V24 part  .                     
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.7            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 17.06.05 | pmr    | 1.6            | Resolution for 29035: Flow control 
+ *          |        |                | methods (RX/TX) aren't stored in E2
+ *          |        |                | P after an AT&W command  .         
+ *----------+--------+----------------+-------------------------------------
+ * 20.04.05 | pmr    | 1.5            | Resolution for 28389: V24 enhanceme
+ *          |        |                | nt and bugs corrections  .         
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.4            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_PAL_HP__
+#define __SYS_V24_PAL_HP__
+
+#include "sys_v24_pal.ht"
+#include "sys_v24_ctrl.ht"
+
+extern bool           v24_PalRxData             ( u32 Port );
+extern void           v24_PalInit               ( void);
+extern u32            v24_PalGetRequestExt      ( v24_Req_t Req, u32 Arg, u32 Port );
+extern void           v24_PalSetRts             ( bool On, u32 Port );
+extern void           v24_PalSetDtr             ( bool On, u32 Port );
+extern void           v24_PalSetRi              ( bool On, u32 Port );
+extern void           v24_PalSetDcd             ( bool On, u32 Port );
+extern void           v24_PalSetPulseRi         ( bool On, u32 Port );
+
+extern void           v24_PalSetRxLogiFc        ( bool On, u32 Port );
+extern void           v24_PalHandleRxFc         ( u32 Port );
+extern void           v24_PalHandleTxFc         ( u32 Port );
+extern void           v24_PalBarOrAllowReceiving( bool SetCond, u8 BarringCond, v24_PalContext_t *v24_PalContext );
+
+extern void           v24_InitReceiveCondition  ( bool Startup, u32 Port );
+
+extern u32            v24_PalInitExt            ( v24_Rate_t Rate, v24_Framing_t Framing, u8 Foo, u32 Arg, u32 Port );
+extern bool           v24_PalStartExt           ( u32 Port );
+extern void           v24_PalStopExt            ( u32 Port );
+
+
+extern void           v24_pal_SetLayer       ( u8 ,void* ,void* ,eLayerId_t );
+extern TxPal_status_e v24_PalStoreData       ( v24_TxBlock_t*, void* );
+extern u32            v24_PalTxGetSig        ( ev24_LayerSigGet_t,  void* );
+extern void           v24_PalTxSetSig        ( ev24_SetSig_t , u32, void* );
+extern void           v24_Pal_destructor     ( void* );
+extern void*          v24_pal_CreateContext  ( u32 );
+extern void           v24_pal_DeleteContext  ( v24_PalContext_t* );
+
+extern void           v24_PalSetOtherFct        ( bool On, u32 Port );
+
+//void           v24_PalRxIndCts           ( bool On, u32 Port );
+//void           v24_PalRxIndDsr           ( bool On, u32 Port );
+/* mse */
+extern void           v24_PalSaveProfileToE2p   ( u32 Port );
+
+
+extern bool            v24_PalChangeRateAndFraming( v24_Rate_t Rate, v24_Framing_t Framing, bool SetRate, u32 Port );
+
+
+extern bool            v24_PalRegisterPort      ( bool Activate, u32 Port );
+
+extern u32             v24_PalRequestCtx        ( v24_Req_t Req, u32 Arg, v24_PalContext_t *v24_PalContext );
+extern u32             v24_PalRequestExt        ( v24_Req_t Req, u32 Arg, u32 Port );
+extern void            v24_PalRequest           ( void );
+
+extern void            v24_PalIndPhyRxBarring      ( u8 UartId );
+
+extern void            v24_PalChangeSpeedFraming   (v24_Req_t Req, u32 Rate, u32 Port);
+
+
+// Auto RTS/CTS implementation
+extern void            v24_PalEnableAutoRTSCTS   ( u32 Port );
+extern void            v24_PalDisableAutoRTSCTS  ( u32 Port );
+
+#if defined(__V24_SOFT_FC__) && defined(__V24_SOFT_FC_XAUTO_MODE__)
+extern void v24_PalEnableAutoXONXOFF(u32 Port);
+extern void v24_PalDisableAutoXONXOFF(u32 Port);
+#endif
+#endif //__SYS_V24_PAL_HP__

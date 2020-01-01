@@ -1,0 +1,1454 @@
+/****************************************************************************/
+/*  File    : ms_stmsg.hi                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Mservices structure messages definition                       */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/****************************************************************************/
+/*
+* --------------------------------------------------------------------------
+*  Date     | Author | Revision       | Description
+* ----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __MS_STMSG_HI__
+#define __MS_STMSG_HI__
+
+#ifdef __MSERVICES__
+
+#include "vm_msgof.hc"
+#include "ms_prim.hc"
+
+
+/****************************************************************************/
+/*                                                                          */
+/*                                                                          */
+/*                            CONSTANTS                                     */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Constant :      MSER_MIC_MAX_URL_LEN                                    */
+/*--------------------------------------------------------------------------*/
+/*  Scope    : Size max of url used in the message structure                */
+/*             iMserv_Mic_StartUrl_t                                        */
+/*                                                                          */
+/****************************************************************************/
+#define MSER_MIC_MAX_URL_LEN 121
+
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_3rd_Application_Type_t                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type of push received                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value             |      Description                                    */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_PUSH_SI  |   Push SI received                                  */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_PUSH_SL  |   Push SL received                                  */
+/****************************************************************************/
+typedef enum
+{   
+MSERV_NONE,
+MSERV_NES,
+MSERV_WAP,
+MSERV_MMS,
+MSERV_JAVA,
+MSERV_VENDOR
+}iMserv_3rd_Application_Type_t;
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_Mic_TaskStopCause_t                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : cause of a browser stop                                     */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                 |      Description                                */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_MIC_NORMAL_STOP  |   case of a normal stop                         */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_MIC_EMPTY_PROFILE|   case of an empty profile                      */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_MIC_ERROR_STOP   |   case of an error stop                         */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_MIC_COMMUNICATION_ERROR |   case of a mic communication error      */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_SP_USER_AUTH_FAILED   |   user authentication failed               */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_SP_USER_AUTH_ABORTED   |   user authentication aborted             */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_MIC_ERROR_CONTENT|   case of an error of content                   */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_MIC_GPRS_NOT_AVAILABLE|   case of no GPRS service in TCP mode      */
+/*------------------------+-------------------------------------------------*/
+/****************************************************************************/
+typedef enum
+{
+    MSERV_MIC_NORMAL_STOP,
+        MSERV_MIC_EMPTY_PROFILE,
+        MSERV_MIC_ERROR_STOP,
+        MSERV_MIC_ERROR_OUT_OF_MEMORY,
+        MSERV_MIC_COMMUNICATION_ERROR,
+        MSERV_SP_USER_AUTH_FAILED,
+        MSERV_SP_USER_AUTH_ABORTED,
+        MSERV_MIC_ERROR_CONTENT,
+        MSERV_MIC_BATLOW_AUTOOFF,
+        MSERV_MIC_GPRS_NOT_AVAILABLE
+}iMserv_Mic_TaskStopCause_t;
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_Mic_TaskPushType_t                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type of push received                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value             |      Description                                    */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_PUSH_SI  |   Push SI received                                  */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_PUSH_SL  |   Push SL received                                  */
+/****************************************************************************/
+typedef enum
+{   MSERV_MIC_PUSH_SI,
+MSERV_MIC_PUSH_SL
+}iMserv_Mic_TaskPushType_t;
+
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_Mic_PushSiAction_t                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the action to make on the push si                  */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                 |      Description                                */
+/*------------------------+-------------------------------------------------*/
+/*MSERV_MIC_PUSH_CONNECTED|   load the push si                              */
+/*------------------------+-------------------------------------------------*/
+/* MSERV_MIC_PUSH_DELETE  |   delete the push si                            */
+/****************************************************************************/
+typedef enum
+{   MSERV_MIC_PUSH_CONNECTED,
+MSERV_MIC_PUSH_DELETE
+}iMserv_Mic_PushSiAction_t;
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_Mic_PwdKeyType_t                                 */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type of key press in the pwd dialog  box       */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value             |      Description                                    */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_PWD_OK   |   key pressed ok                                    */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_PWD_CLR  |   key pressed cancel                                */
+/****************************************************************************/
+typedef enum
+{   MSERV_MIC_PWD_OK,
+MSERV_MIC_PWD_CLR
+}iMserv_Mic_PwdKeyType_t;
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_Mic_ClearMemType_t                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type of memory to clear                        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value             |      Description                                    */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_CACHE    |   clear the cache                                   */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_COOKIES  |   clear the cookies int the database                */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_AUTH     |   clear the authentication in the database          */
+/*--------------------+-----------------------------------------------------*/
+/* MSERV_MIC_ALL      |   clear all                                         */
+/****************************************************************************/
+typedef enum
+{   MSERV_MIC_CACHE,
+MSERV_MIC_COOKIES,
+MSERV_MIC_AUTH,
+MSERV_MIC_ALL
+}iMserv_Mic_ClearMemType_t;
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_Mic_OpenEditorCause_t                            */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the cause when sending an OpenEditor message       */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                         |      Description                        */
+/*--------------------------------+-----------------------------------------*/
+/* MSERV_MIC_EDITOR_INPUT         |   input editor from the gle             */
+/*--------------------------------+-----------------------------------------*/
+/* MSERV_MIC_EDITOR_ENTERADDRESS  |   "enter address" item from wap menu    */
+/*--------------------------------+-----------------------------------------*/
+/* MSERV_MIC_EDITOR_MARKSITE      |   "mark site" item from wap menu        */
+/*--------------------------------+-----------------------------------------*/
+/****************************************************************************/
+typedef enum
+{   MSERV_MIC_EDITOR_INPUT,
+MSERV_MIC_EDITOR_ENTERADDRESS,
+MSERV_MIC_EDITOR_MARKSITE
+}iMserv_Mic_OpenEditorCause_t;
+
+/****************************************************************************/
+/*  typedef enum :  iVendor_Editor_Type_t                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type when sending an OpenEditor message        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                         |      Description                        */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_DIGITAL        |   Digital is allowed only               */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_ALPHA          |   Digital, alpha, chinese are allowed   */
+/*--------------------------------+-----------------------------------------*/
+/****************************************************************************/
+typedef enum
+{
+	E_VENDOR_EDITOR_DIGITAL,
+	E_VENDOR_EDITOR_ALPHA		
+}iVendor_Editor_Type_t;
+
+
+/****************************************************************************/
+/*  typedef enum :  iVendor_ID_t                                            */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the vendor ID                                      */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                         |      Description                        */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_DIGITAL        |   Digital is allowed only               */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_ALPHA          |   Digital, alpha, chinese are allowed   */
+/*--------------------------------+-----------------------------------------*/
+/****************************************************************************/
+typedef enum
+{
+	E_WAP_INFRAWARE,
+	E_MMS_INFRAWARE,
+        E_VENDOR_NUMBER		
+}iVendor_ID_t;
+
+
+/****************************************************************************/
+/*  typedef enum :  iVendor_Editor_Type_t                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type when sending an OpenEditor message        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                         |      Description                        */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_DIGITAL        |   Digital is allowed only               */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_ALPHA          |   Digital, alpha, chinese are allowed   */
+/*--------------------------------+-----------------------------------------*/
+/****************************************************************************/
+typedef enum
+{
+	E_VENDOR_PHBBROWSER_PHONENO,
+	E_VENDOR_PHBBROWSER_EMAIL
+}iVendor_PhbBrowser_Type_t;
+
+/****************************************************************************/
+/*  typedef enum :  iVendor_Editor_Type_t                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type when sending an OpenEditor message        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                         |      Description                        */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_DIGITAL        |   Digital is allowed only               */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_ALPHA          |   Digital, alpha, chinese are allowed   */
+/*--------------------------------+-----------------------------------------*/
+/****************************************************************************/
+typedef enum
+{
+	E_VENDOR_FILEBROWSER_IMAGE,
+	E_VENDOR_FILEBROWSER_AUDIO,
+        E_VENDOR_FILEBROWSER_VEDIO
+}iVendor_FileBrowser_Type_t;
+
+/****************************************************************************/
+/*  typedef enum :  iVendor_Editor_Type_t                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : indicate the type when sending an OpenEditor message        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                         |      Description                        */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_DIGITAL        |   Digital is allowed only               */
+/*--------------------------------+-----------------------------------------*/
+/* E_VENDOR_EDITOR_ALPHA          |   Digital, alpha, chinese are allowed   */
+/*--------------------------------+-----------------------------------------*/
+/****************************************************************************/
+typedef enum
+{
+	E_VENDOR_GRAPHIC_CLIPPING,
+	E_VENDOR_GRAPHIC_SHRINK
+}iVendor_GraphicShow_Type_t;
+
+typedef enum
+{
+  SMS_TYPE_7BIT,
+  SMS_TYPE_8BIT,
+  SMS_TYPE_UCS2
+} VEN_SMS_TYPE;
+
+typedef enum
+{
+    NET_STATE_INVALID,
+    NET_STATE_OPEN,
+    NET_STATE_OPENING,
+    NET_STATE_CLOSE,
+    NET_STATE_CLOSING
+} VEN_NET_STATE;
+
+typedef enum
+{
+    MMI_LANG_ENGLISH,
+    MMI_LANG_SCHINESE,
+    MMI_LANG_TCHINESE,    
+} VEN_LANG_SETTING;
+
+
+/****************************************************************************/
+/*                                                                          */
+/*                                                                          */
+/*                            STRUCTURES                                    */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+typedef struct
+{
+   u16 Signature;
+   u8 Depth;
+   u8 ScreenpageId;
+   u16 Width;
+   u16 Height;
+   u32 Data;
+} ven_Screenpage_t;
+
+typedef struct
+{
+   u16 Signature;
+   u8 Depth;
+   u8 Id;
+   u16 Width;
+   u16 Height;
+} ven_Picture_Header_t;
+
+typedef struct
+{
+  u8 *pScreenPage;
+  u8 *PicturePath;
+  s16 x;
+  s16 y;
+  u32 TotalFrames;
+  u32 count;
+  u16 width;
+  u16 height;
+  u8 *inBuffer;
+//  Image_Info_t *imageInfo;
+} ven_Animation_Element_t;
+
+
+/****************************************************************************/
+/*  Structure :     iMserv_Mic_StartUrl_t                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : structure used to store the start url to load               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*     ptrUrl         |    u8     |     url to load                         */
+/*--------------------+-----------+-----------------------------------------*/
+/*      len           |    u16    | length of the url                       */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u8 ptrUrl[MSER_MIC_MAX_URL_LEN];
+    u16   len;
+}iMserv_Mic_StartUrl_t;
+
+
+
+
+/****************************************************************************/
+/*                                                                          */
+/*                                                                          */
+/*                              MESSAGES                                    */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_START_REQ                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : Send MIC browser start message to Mserv                     */
+/*                                                                          */
+/*  Structure : iMserv_Mic_StartReq_t                                        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type             |  Description                  */
+/*--------------------+---------------------+-------------------------------*/
+/*  StartUrl          |iMserv_Mic_StartUrl_t| start url                     */
+/****************************************************************************/
+typedef struct
+{
+    iMserv_Mic_StartUrl_t StartUrl;
+    
+}iMserv_Mic_StartReq_t;
+
+
+
+/****************************************************************************/
+/*  Message :  I_MSERV_GLE_EDITOR_CLOSED or I_MSERV_GLE_EDITOR_NOSAVE       */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :  MMI send input data to mserv                               */
+/*                                                                          */
+/*  Structure : iMserv_Gle_EditorData_t                                     */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*       EditorData   |     u8    |  input data                             */
+/*--------------------+-----------+-----------------------------------------*/
+/*     isEnterAddress |   bool    |   indicate if data are url adress       */
+/****************************************************************************/
+typedef struct
+{
+    u8* EditorData;
+    bool isEnterAddress;
+}iMserv_Gle_EditorData_t;
+
+
+/****************************************************************************/
+/*  Message :  I_MSERV_GLE_MMI_OPEN_EDITOR                                  */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     :   editor structure send to mmi                              */
+/*                                                                          */
+/*  Structure : iMserv_Gle_EditorInfo_t                                     */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*       Title        |     u8    |     title                               */
+/*--------------------+-----------+-----------------------------------------*/
+/*     cause          |   int     |   message's cause                       */
+/*--------------------+-----------+-----------------------------------------*/
+/*     Default_Text   |     u8    |       editor default text               */
+/*--------------------+-----------+-----------------------------------------*/
+/*     password       |   bool    |    password                             */
+/*--------------------+-----------+-----------------------------------------*/
+/*     nbChars        |    int    |     number of characters in editor      */
+/*--------------------+-----------+-----------------------------------------*/
+/*     digital        |   bool    |   indicate if it's an digital editor    */
+/****************************************************************************/
+typedef struct
+{
+    u8* Title;
+    u8* Default_Text;
+    iMserv_Mic_OpenEditorCause_t cause;
+    int nbChars;
+    bool password;
+    bool digital;
+} iMserv_Gle_EditorInfo_t;
+
+/*This is a dummy structure to indicate the size of I_MSERV_MIC_BATLOW_AUTOOFF message*/
+typedef struct
+{
+    u8 pad;
+} iMserv_Gle_BatlowInfo_t;
+
+/****************************************************************************/
+/*  Message :  I_MSERV_MIC_MMI_OPEN_PWD_DIALOG                              */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     :   info structure send to mmi                                */
+/*                                                                          */
+/*  Structure : iMserv_Mic_PwdDialogInfo_t                                  */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*       objectId     |     int   |     identify the user agent             */
+/*--------------------+-----------+-----------------------------------------*/
+/*     dialogId       |   int     |       identify the dialog call          */
+/*--------------------+-----------+-----------------------------------------*/
+/*     realm          |     u8    |      information for the end user       */
+/*--------------------+-----------+-----------------------------------------*/
+/*     type           |   int     |    type of authentication required      */
+/*--------------------+-----------+-----------------------------------------*/
+/*     username       |    u8     |     username                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*     pad            |   u8      |   padding                               */
+/****************************************************************************/
+typedef struct
+{
+    int objectId;
+    int dialogId;
+    u8 *realm;
+    int   type;
+    u8* username;
+    u8 pad;
+} iMserv_Mic_PwdDialogInfo_t;
+
+
+/****************************************************************************/
+/*  Message :  I_MSERV_MIC_PWD_DIALOG_RSP                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :  MMI send input data to mserv                               */
+/*                                                                          */
+/*  Structure : iMserv_Mic_PwdDialogData_t                                  */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field       |    Type                 |  Description                    */
+/*--------------+-------------------------+---------------------------------*/
+/*       key    | iMserv_Mic_PwdKeyType_t | indicate the kind of key pressed*/
+/*--------------+-------------------------+---------------------------------*/
+/*    objectId  |     int                 |     identify the user agent     */
+/*--------------+-------------------------+---------------------------------*/
+/*     dialogId |   int                   |       identify the dialog call  */
+/*--------------+-------------------------+---------------------------------*/
+/*     password |    u8                   |    information for the end user */
+/*--------------+-------------------------+---------------------------------*/
+/*     saved    |   int                   | indicate if data should be saved*/
+/*--------------+-------------------------+---------------------------------*/
+/*     username |    u8                   |     username                    */
+/*--------------+-------------------------+---------------------------------*/
+/*     pad      |   u8                    |   padding                       */
+/****************************************************************************/
+typedef struct
+{
+    iMserv_Mic_PwdKeyType_t key;
+    int objectId;
+    int dialogId;
+    u8 *password;
+    int   saved;
+    u8* username;
+    u8 pad;
+}
+iMserv_Mic_PwdDialogData_t;
+
+/****************************************************************************/
+/*  Message :  I_MSERV_MIC_DIALOG_PROMPT_REQ                                */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     :   info structure send to mmi                                */
+/*                                                                          */
+/*  Structure : iMserv_Mic_DialogPromptInfo_t                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*       objectId     |     int   |     identify the user agent             */
+/*--------------------+-----------+-----------------------------------------*/
+/*     dialogId       |   int     |       identify the dialog call          */
+/*--------------------+-----------+-----------------------------------------*/
+/*     message        |     u8    |      dialog message             */
+/*--------------------+-----------+-----------------------------------------*/
+/*     input          |     u8    |      default text                       */
+/*--------------------+-----------+-----------------------------------------*/
+/*     ok             |     u8    |      default text for the key ok        */
+/*--------------------+-----------+-----------------------------------------*/
+/*     cancel         |     u8    |      default text for the key cancel    */
+/*--------------------+-----------+-----------------------------------------*/
+/*     pad            |   u8      |   padding                               */
+/****************************************************************************/
+typedef struct
+{
+    int objectId;
+    int dialogId;
+    u8 *message;
+    u8 *input;
+    u8 *ok;
+    u8 *cancel;
+    u8 pad;
+} iMserv_Mic_DialogPromptInfo_t;
+
+/****************************************************************************/
+/*  Message :  I_MSERV_MIC_DIALOG_PROMPT_RSP                                */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :  MMI send input data to mserv                               */
+/*                                                                          */
+/*  Structure : iMserv_Mic_DialogPromptData_t                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*       objectId     |     int   |     identify the user agent             */
+/*--------------------+-----------+-----------------------------------------*/
+/*     dialogId       |   int     |       identify the dialog call          */
+/*--------------------+-----------+-----------------------------------------*/
+/*     input          |     u8    |      default text                       */
+/*--------------------+-----------+-----------------------------------------*/
+/*     answer         |     u8    |      type of key pressed                */
+/*--------------------+-----------+-----------------------------------------*/
+/*     pad            |   u8      |   padding                               */
+/****************************************************************************/
+typedef struct
+{
+    int objectId;
+    int dialogId;
+    u8 *input;
+    u8 answer;
+    u16 pad;
+}
+iMserv_Mic_DialogPromptData_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_CLR_MEM_REQ                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : notify the MIC to clear the memory                          */
+/*                                                                          */
+/*  Structure : iMserv_Mic_ClrMemReq_t                                    */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field        |    Type                 |  Description                   */
+/*---------------+-------------------------+--------------------------------*/
+/*  ClearMemType |iMserv_Mic_ClearMemType_t|  type of memory to clear       */
+/*---------------+-------------------------+--------------------------------*/
+/*  pad               |     u32   |       padding                           */
+/****************************************************************************/
+typedef struct
+{
+    iMserv_Mic_ClearMemType_t ClearMemType;
+    u8        pad;
+}
+iMserv_Mic_ClrMemReq_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_STOP_REQ                                    */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :  MIC browser stop message                       */
+/*                                                                          */
+/*  Structure : iMserv_Mic_StopReq_t                                        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  pad               |     u32   |      padding                            */
+/****************************************************************************/
+typedef struct
+{
+    u32        pad;
+}iMserv_Mic_StopReq_t;
+
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_START_CNF                                    */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     :  sends the start confirmation message to MMI                */
+/*                                                                          */
+/*  Structure : iMserv_Mic_StartCnf_t                                        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  pad               |     u32   |      padding                            */
+/****************************************************************************/
+typedef struct
+{
+    u32        pad;
+}iMserv_Mic_StartCnf_t;
+
+
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_STOP_IND                                    */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     :  sends the stop indication message to  MMI                  */
+/*                                                                          */
+/*  Structure : iMserv_Mic_StartCnf_t                                        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type                  |  Description             */
+/*--------------------+--------------------------+--------------------------*/
+/*    pad             |    u8                    |    padding               */
+/*--------------------+--------------------------+--------------------------*/
+/*   cause            |iMserv_Mic_TaskStopCause_t |  cause of stop          */
+/****************************************************************************/
+typedef struct
+{
+    iMserv_Mic_TaskStopCause_t cause;
+    u8                      pad[3];
+}iMserv_Mic_StopInd_t;
+
+/****************************************************************************/
+/*  Message : I_MSERV_MIC_OUTGOING_CALL_IND or                              */
+/*            I_MSERV_MIC_OUTGOING_CALL_GPRS_IND                            */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     : use to make an outgoing call                                */
+/*                                                                          */
+/*  Structure : iMserv_Mic_OutgoingCallInd_t                                */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type                  |  Description             */
+/*--------------------+--------------------------+--------------------------*/
+/*      length        |    u8                    |    length of the number  */
+/*--------------------+--------------------------+--------------------------*/
+/*    PhoneNumber     |    u8                    |   number to call         */
+/*--------------------+--------------------------+--------------------------*/
+/*    pad             |    u8                    |    padding               */
+/*--------------------+--------------------------+--------------------------*/
+/*   cause            |iMserv_Mic_TaskStopCause_t |  cause of stop           */
+/****************************************************************************/
+typedef struct
+{
+    iMserv_Mic_TaskStopCause_t cause;
+    u8 length;
+    u8 pad[2];
+    u8 PhoneNumber[32];
+}iMserv_Mic_OutgoingCallInd_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_SEND_DTMF_GPRS                              */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     : notify the MMI to send a dtmf                               */
+/*                                                                          */
+/*  Structure : iMserv_Mic_SendDtmfGprs_t                                   */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*   DtmfNumbers      |   u8      |   dtmf to send                          */
+/****************************************************************************/
+typedef struct
+{
+    u8 DtmfNumbers[32];
+}iMserv_Mic_SendDtmfGprs_t;
+
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_NET_SWITCH_TO_CSD_REQ                       */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     : notify the MMI to ask user to switch to CSD                 */
+/*                                                                          */
+/*  Structure : iMserv_Mic_SwitchToCsdReq_t                                 */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  SessionIdx        |   u8      |   Index of the session                  */
+/****************************************************************************/
+typedef struct
+{
+    u8 SessionIdx;
+    u8 pad[3];
+} iMserv_Mic_SwitchToCsdReq_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_NET_SWITCH_TO_CSD_RSP                       */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv                                                */
+/*                                                                          */
+/*  Scope     : notify mserv for the user response to switch to CSD         */
+/*                                                                          */
+/*  Structure : iMserv_Mic_SwitchToCsdRsp_t                                 */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  SessionIdx        |     u8    |  Index of the session                   */
+/*--------------------+-----------+-----------------------------------------*/
+/*  Response          |     u8    |  Response of the user                   */
+/****************************************************************************/
+typedef struct
+{
+    u8 SessionIdx;
+    u8 Response;
+    u8 pad[2];
+} iMserv_Mic_SwitchToCsdRsp_t;
+
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_PUSH_IND                                    */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv to MMI                                                */
+/*                                                                          */
+/*  Scope     : notify the MMI to send a dtmf                               */
+/*                                                                          */
+/*  Structure : iMserv_Mic_PushReq_t                                        */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type                  |  Description             */
+/*--------------------+--------------------------+--------------------------*/
+/*      push_type     |iMserv_Mic_TaskPushType_t |    kind of push          */
+/*--------------------+--------------------------+--------------------------*/
+/*    message         | iMserv_Mic_StartUrl_t    |message or url received   */
+/*--------------------+--------------------------+--------------------------*/
+/*    pad             |    u8                    |    padding               */
+/****************************************************************************/
+typedef struct
+{   iMserv_Mic_TaskPushType_t push_type;
+iMserv_Mic_StartUrl_t message;
+u8    pad[3];
+}iMserv_Mic_PushReq_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_PUSH_SL_CONNECTED                           */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : notify the Mserv to load push sl                            */
+/*                                                                          */
+/*  Structure : iMserv_Mic_PushSlReq_t                                      */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type                  |  Description             */
+/*--------------------+--------------------------+--------------------------*/
+/*    message         | iMserv_Mic_StartUrl_t    | url received             */
+/****************************************************************************/
+typedef struct
+{   iMserv_Mic_StartUrl_t message;
+
+}iMserv_Mic_PushSlReq_t;
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_PUSH_SI_CONNECTED                           */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : notify the Mserv how to handle the push si                  */
+/*                                                                          */
+/*  Structure : iMserv_Mic_PushSlReq_t                                      */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type                  |  Description             */
+/*--------------------+--------------------------+--------------------------*/
+/*      action        |iMserv_Mic_PushSiAction_t |    user's action         */
+/*--------------------+--------------------------+--------------------------*/
+/*    message         |iMserv_Mic_StartUrl_t     |message  received         */
+/*--------------------+--------------------------+--------------------------*/
+/*    pad             |    u8                    |    padding               */
+/****************************************************************************/
+typedef struct
+{   iMserv_Mic_StartUrl_t message;
+iMserv_Mic_PushSiAction_t action;
+u8    pad[3];
+}iMserv_Mic_PushSiReq_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_BROWSE_AGAIN                                */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : notify the Mserv to start again the browser                 */
+/*                                                                          */
+/*  Structure : iMserv_Mic_BrowseAgainReq_t                                 */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*    pad             |    u8     |    padding                              */
+/****************************************************************************/
+typedef struct
+{
+    u32        pad;
+}iMserv_Mic_BrowseAgainReq_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_GLE_ICONBAR_DISPLAY_IND                         */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : enable/disable icon bar display                             */
+/*                                                                          */
+/*  Structure : iMserv_Gle_IconBarDisplay_t                                 */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*    LcdId           |    u8     |    Lcd identifier                       */
+/*--------------------+-----------+-----------------------------------------*/
+/*    Display         |    bool   |    enable/disable icon bar display      */
+/****************************************************************************/
+typedef struct
+{
+   u8 LcdId;
+   bool Display;
+}iMserv_Gle_IconBarDisplay_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_GLE_ICON_SET_ACTIVITY_IND                       */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : enable or disable icon object in the icon bar               */
+/*                                                                          */
+/*  Structure : iMserv_Gle_IconSetActivity_t                                */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*    IconObjectId    |    u32    |    icon object identifier               */
+/*--------------------+-----------+-----------------------------------------*/
+/*    Activity        |    bool   |    enable/disable icon object display   */
+/****************************************************************************/
+typedef struct
+{
+   u32 IconObjectId;
+   bool Activity;
+}iMserv_Gle_IconSetActivity_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_MIC_STORE_CUSTO_SETTINGS                        */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : Process custo settings for wap and mms                      */
+/*                                                                          */
+/*  Structure : iMserv_Mic_StoreCustoSettings_t                             */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  Lang_Idx          | u16       |  Langage index                          */
+/*--------------------+-----------+-----------------------------------------*/
+/*  pad               | u16       |  padding                                */
+/****************************************************************************/
+typedef struct
+{
+    u16        Lang_Idx;
+    u16        Pad;
+}iMserv_Mic_StoreCustoSettings_t;
+
+#ifdef __SYNCML__
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_SyncML_Bearer_t                                  */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     : Type of bearer used for synchronization                     */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                        |      Description                         */
+/*-------------------------------+------------------------------------------*/
+/* MSERV_SYNCML_BEARER_USB       |   USB                                    */
+/*-------------------------------+------------------------------------------*/
+/* MSERV_SYNCML_BEARER_IRDA      |   infrared                               */
+/*-------------------------------+------------------------------------------*/
+/* MSERV_SYNCML_BEARER_WAP       |   WAP                                    */
+/*-------------------------------+------------------------------------------*/
+/* MSERV_SYNCML_BEARER_BLUETOOTH |   BLUETOOTH                              */
+/****************************************************************************/
+typedef enum
+{
+    MSERV_SYNCML_BEARER_USB,
+        MSERV_SYNCML_BEARER_IRDA,
+        MSERV_SYNCML_BEARER_WAP,
+        MSERV_SYNCML_BEARER_V24,
+        MSERV_SYNCML_BEARER_BLUETOOTH,
+        MSERV_SYNCML_NO_BEARER_SELECTED
+}iMserv_SyncML_Bearer_t;
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_SyncML_Encoding_t                                */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                      |      Description                           */
+/*-----------------------------+--------------------------------------------*/
+/* MSERV_SYNCML_ENCODING_XML   |   Encoding in XML                          */
+/*-----------------------------+--------------------------------------------*/
+/* MSERV_SYNCML_ENCODING_WBXML |   Encoding in WBXML                        */
+/****************************************************************************/
+typedef enum
+{
+    MSERV_SYNCML_ENCODING_XML,
+        MSERV_SYNCML_ENCODING_WBXML
+}iMserv_SyncML_Encoding_t;
+
+/****************************************************************************/
+/*  Constant :                                                              */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                    |      Description                             */
+/*---------------------------+----------------------------------------------*/
+/* MSERV_SYNCML_LDC_PHB_ME   |   Phonebook                                  */
+/*---------------------------+----------------------------------------------*/
+/* MSERV_SYNCML_LDC_TODOLIST |   To do list                                 */
+/*---------------------------+----------------------------------------------*/
+/* MSERV_SYNCML_LDC_AGENDA   |   Agenda                                     */
+/*---------------------------+----------------------------------------------*/
+/* MSERV_SYNCML_LDC_MEMO     |   Memo                                       */
+/****************************************************************************/
+#define MSERV_SYNCML_LDC_PHB_ME     0x01
+#define MSERV_SYNCML_LDC_TODOLIST   0x02
+#define MSERV_SYNCML_LDC_AGENDA     0x04
+#define MSERV_SYNCML_LDC_MEMO       0x08
+
+
+/****************************************************************************/
+/*  typedef enum :  iMserv_SyncML_StopCause                                 */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Value                       |      Description                          */
+/*------------------------------+-------------------------------------------*/
+/* MSERV_SYNCML_SYNC_COMPLETED  |   Synchronisation completed               */
+/*------------------------------+-------------------------------------------*/
+/* MSERV_SYNCML_TRANSPORT_ERROR |   Transport error                         */
+/*------------------------------+-------------------------------------------*/
+/* MSERV_SYNCML_SERVER_BUSY     |   The server is busy                      */
+/*------------------------------+-------------------------------------------*/
+/* MSERV_SYNCML_SYNC_ABORTED    |   The synchronization is aborted          */
+/*------------------------------+-------------------------------------------*/
+/* MSERV_SYNCML_AUTH_ERROR      |   Authentication error                    */
+/*------------------------------+-------------------------------------------*/
+/* MSERV_SYNCML_NOT_FOUND       |   Not found                               */
+/*------------------------------+-------------------------------------------*/
+/* MSERV_SYNCML_UNKNOW          |   Unknown                                 */
+/****************************************************************************/
+typedef enum
+{
+    MSERV_SYNCML_SYNC_COMPLETED,
+        MSERV_SYNCML_TRANSPORT_ERROR,
+        MSERV_SYNCML_SERVER_BUSY,
+        MSERV_SYNCML_SYNC_ABORTED,
+        MSERV_SYNCML_AUTH_ERROR,
+        MSERV_SYNCML_NOT_FOUND,
+        MSERV_SYNCML_UNKNOW
+}iMserv_SyncML_StopCause;
+
+
+/****************************************************************************/
+/*  Message :       I_MSERV_SYNCML_START_REQ                                */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     : to start of synchronization                                 */
+/*                                                                          */
+/*  Structure : iMserv_Syncml_StartReq_t                                    */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |     Type                   |  Description           */
+/*--------------------+----------------------------+------------------------*/
+/*    Bearer          | iMserv_SyncML_Bearer_t     |  Irda, USB, ...        */
+/*--------------------+----------------------------+------------------------*/
+/*    Encoding        | iMserv_SyncML_Encoding_t   |  XML, WBXML            */
+/*--------------------+----------------------------+------------------------*/
+/*    ServerURL       |         const char*        |  Server address        */
+/*--------------------+----------------------------+------------------------*/
+/* LocalDatabaseCode  |            u8              |  Agenda, Phonebook ... */
+/*--------------------+----------------------------+------------------------*/
+/* RemoteDatabaseName |         const char*        |                        */
+/*--------------------+-------------+---------------------------------------*/
+/* RemoteUserName     |         const char*        |                        */
+/*--------------------+-------------+---------------------------------------*/
+/* RemotePassword     |         const char*        |                        */
+/****************************************************************************/
+typedef struct
+{
+    iMserv_SyncML_Bearer_t  Bearer;
+    iMserv_SyncML_Encoding_t    Encoding;
+    const char*         ServerURL;
+    u8              LocalDatabaseCode;
+    const char*         RemoteDatabaseNamePhonebook;
+    const char*         RemoteDatabaseNameTodolist;
+    const char*         RemoteDatabaseNameAgenda;
+    const char*         RemoteDatabaseNameMemo;
+    const char*         RemoteUserName;
+    const char*         RemotePassword;
+}iMserv_Syncml_StartReq_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_SYNCML_START_RSP                                */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     : response to start of synchronization                        */
+/*                                                                          */
+/*  Structure : iMserv_Syncml_StartRsp_t                                    */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  SynchroStarted    |    bool   |                                         */
+/****************************************************************************/
+typedef struct
+{
+    bool SynchroStarted;
+}iMserv_Syncml_StartRsp_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_SYNCML_SYNC_REQ                                 */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to  MMI                                            */
+/*                                                                          */
+/*  Scope     : Ask the user if it is ok to start the synchronization       */
+/*                                                                          */
+/*  Structure : iMserv_Syncml_StartReq_t                                    */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  OkToStartSync     |    bool   |                                         */
+/****************************************************************************/
+typedef struct
+{
+    u32 pad;
+}iMserv_Syncml_SyncReq_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_SYNCML_SYNC_RSP                                 */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     : response to start of synchronization                        */
+/*                                                                          */
+/*  Structure : iMserv_Syncml_SyncRsp_t                                     */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  SynchroStarted    |    bool   |                                         */
+/****************************************************************************/
+typedef struct
+{
+    bool              SynchroAccepted;
+    const char*       RemoteUserName;
+    const char*       RemotePassword;
+}iMserv_Syncml_SyncRsp_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_SYNCML_STATUS_IND                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     : to inform about the status of the synchronization           */
+/*                                                                          */
+/*  Structure : iMserv_Syncml_StatusInd_t                                   */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*                    |           |                                         */
+/****************************************************************************/
+typedef struct
+{
+    u16 NbItemSent;
+    u16 TotalNbItemToSend;
+    u16 NbItemReceived;
+    u16 TotalNbItemToReceived;
+}iMserv_Syncml_StatusInd_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_SYNCML_SESSION_DONE_IND                         */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMserv_Syncml_StatusInd_t                                   */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/*  StopCause         |           |  Reason for termination :               */
+/*                    |           |       - synchronisation completed       */
+/*                    |           |       - Transport error                 */
+/*                    |           |       - The server is busy              */
+/*                    |           |       - The synchronization is aborted  */
+/*                    |           |       - Unknown                         */
+/****************************************************************************/
+typedef struct
+{
+    iMserv_SyncML_StopCause StopCause;
+}iMserv_Syncml_SessionDoneInd_t;
+
+#endif /* __SYNCML__ */
+
+/****************************************************************************/
+/*  Message :       I_MSERV_START_TEST_REQ                                  */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMserv_Mic_StartTest_t                                      */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u32 data;
+} iMserv_Mic_StartTest_t;
+
+/****************************************************************************/
+/*  Message :       I_VENDOR_EDITOR_REQ                                     */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iVendor_EditorRequest_t                                     */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u8 *title;
+    u8 titleLen;
+    iVendor_Editor_Type_t type;
+    u16 maxSize;
+    u8 *data;
+    u16 dataSize;
+    iVendor_ID_t venId;
+}iVendor_EditorRequest_t;
+
+
+/****************************************************************************/
+/*  Message :       I_VENDOR_EDITOR_RES                                     */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iVendor_EditorResponse_t                                    */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u8 *data;
+    u16 dataLen;
+    iVendor_Editor_Type_t type;
+    iVendor_ID_t venId;
+}iVendor_EditorResponse_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_PUSH_INDICATION                                 */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMserv_PushIndication_t                                     */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u16 dataLen;
+    u8 refNum;
+    u8 data[1];
+}iMserv_PushIndication_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_PUSH_RESPONSE                                   */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMserv_PushResponse_t                                       */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u8 refNum;
+}iMserv_PushResponse_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_3RD_APPLICATION_START_REQ                       */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMserv_StartApplication_Req_t                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    iMserv_3rd_Application_Type_t type;
+    void                         *data;  // point to the structure related to the type.
+}iMserv_StartApplication_Req_t;
+
+/****************************************************************************/
+/*  Message :       I_MSERV_3RD_APPLICATION_STOP_REQ                       */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to Mserv(s)                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMserv_StopApplication_Req_t                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    iMserv_3rd_Application_Type_t type;
+    u32                           status;  
+}iMserv_StopApplication_Req_t;
+
+/****************************************************************************/
+/*  Message :       I_WAP_START_REQ                                  */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to XXXX                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iWAP_Start_Req_t                                      */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u8 *url;
+    u32 buffer_len;
+}iWAP_Start_Req_t;
+
+/****************************************************************************/
+/*  Message :       I_MMS_START_REQ                                  */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : MMI to XXXX                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMMS_Start_Req_t                                      */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u8 *url;
+    u32 buffer_len;
+}iMMS_Start_Req_t;
+
+/****************************************************************************/
+/*  Message :       iMserv_CreateDataLink_Rsp                               */
+/*--------------------------------------------------------------------------*/
+/*                                                                          */
+/*  From/to   : Mserv(s) to MMI                                             */
+/*                                                                          */
+/*  Scope     :                                                             */
+/*                                                                          */
+/*  Structure : iMserv_CreateDataLink_Rsp_t                                 */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Field             |    Type   |  Description                            */
+/*--------------------+-----------+-----------------------------------------*/
+/****************************************************************************/
+typedef struct
+{
+    u8 result;
+} iMserv_CreateDataLink_Rsp_t;
+
+
+#endif /* __MSERVICES__ */
+#endif
+

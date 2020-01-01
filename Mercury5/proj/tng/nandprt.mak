@@ -1,0 +1,19 @@
+
+TARGET=nandprt
+
+include $(CONFIG_MAK)
+include $(PATH_product_mak)/nand_conf.mak
+
+cpimg:
+	cp $(NAND_DIR)*.* $(OUT)
+	
+mkimg:
+	echo -ne "TARGET_BINARY_INFO:"`wc -c $(NAND_BIN_HOSTRUNTIME)|cut -f1 -d' '` `date +"%m%d%y %H:%M"`"      \000" >> $(NAND_BIN_HOSTRUNTIME)
+	$(NAND_MKIMG) -a $(NAND_SDRAM_ADDR) -n $(NAND_IMGTYPE_BOOTLOADER) -t $(NAND_IMGTYPE_BOOTLOADER) $(NAND_BIN_BOOTLOADER)
+	$(NAND_MKIMG) -a $(NAND_SDRAM_ADDR) -n $(NAND_IMGTYPE_HOSTRUNTIME) -t $(NAND_IMGTYPE_HOSTRUNTIME) $(NAND_BIN_HOSTRUNTIME)
+	
+mkptbl:
+	$(NAND_MKPTB) -c $(NAND_INI_PTABLE) -o $(NAND_PTB_PTABLE)
+
+mkprt:
+	$(NAND_MKPRT) -p $(NAND_PTB_PTABLE) -i $(NAND_IMG_BOOTLOADER) -i $(NAND_IMG_HOSTRUNTIME) -s $(NAND_PRT_SIZE) $(NAND_PRT)

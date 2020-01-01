@@ -1,0 +1,97 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="GTRBB_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ResetIconWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="32" SizeWidth="32">
+				<Position Type="X_POSITION" Value="2" />
+				<Position Type="Y_POSITION" Value="GTR_CM_ICON_RESET_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_ICON_RESET" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="234f8" />
+			</Widget>
+			<Widget Id="ExitIconWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="32" SizeWidth="32">
+				<Position Type="X_POSITION" Value="GTR_CM_ICON_EXIT_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_CM_ICON_EXIT_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_ICON_EXIT" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="d5cdf" />
+			</Widget>
+			<Widget Id="CloudWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="28" SizeWidth="125">
+				<Position Type="X_POSITION" Value="20" />
+				<Position Type="Y_POSITION" Value="20" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_BG_CLOUD" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="52453" />
+			</Widget>
+			<Widget Id="PetWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="88" SizeWidth="113">
+				<Position Type="X_POSITION" Value="GTR_BB_PET_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_BB_PET_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_CM_PET_BARK" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="b7ecf" />
+			</Widget>
+			<Widget Id="BrokenBubbleWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="85" SizeWidth="110">
+				<Position Type="X_POSITION" Value="GTR_BB_BROKENBUBBLE_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_BB_BROKENBUBBLE_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_BB_BROKENBUBBLE" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="f9868" />
+			</Widget>
+			<Widget Id="PetSignWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="88" SizeWidth="113">
+				<Position Type="X_POSITION" Value="GTR_BB_PET_SIGN_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_BB_PET_SIGN_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_BB_AWARD_STAR_1" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="b265d" />
+			</Widget>
+			<Widget Id="StickWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="89" SizeWidth="88">
+				<Position Type="X_POSITION" Value="GTR_BB_STICK_STAR_45_POS_X" />
+				<Position Type="Y_POSITION" Value="GTR_BB_STICK_STAR_45_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="TRUE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="GTR_IMG_BB_STICK_STAR_45" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="138a8" />
+			</Widget>
+			<InternProp Id="GUID" Value="127f5" />
+		</Widget>
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="FALSE" />
+		<InternProp Id="GUID" Value="9a8f9" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="27" />
+		<InternProp Id="LAYOUT_POS_Y" Value="27" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_GTRBUBBLEGAME" />
+</UiRoot>

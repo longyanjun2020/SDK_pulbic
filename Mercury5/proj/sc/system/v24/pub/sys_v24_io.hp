@@ -1,0 +1,21 @@
+/****************************************************************************/
+/* File     : v24_io.hp                                                     */
+/*--------------------------------------------------------------------------*/
+/* Scope    : IO Prototypes used outside this file...                       */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __SYS_V24_IO_HP__
+#define __SYS_V24_IO_HP__
+
+#include "sys_v24.ht"
+#include "v24.hi"
+
+extern v24_Signal_t v24_AllocUartSignal(vm_v24_UartUsed_e uartPort, u32 nRequestedSignals);
+
+#endif /*__SYS_V24_HAPC_HP__*/

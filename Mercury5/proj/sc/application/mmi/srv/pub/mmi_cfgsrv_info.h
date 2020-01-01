@@ -1,0 +1,32 @@
+
+/**
+* @file mmi_cfgsrv_info.h
+*
+* @version $Id: mmi_cfgsrv_info.h 19344 2008-12-26 14:18:55Z eric.chen $
+*/
+#ifndef __MMI_CFGSRV_INFO__H__
+#define __MMI_CFGSRV_INFO__H__
+
+
+enum
+{
+    SET_MASTER_RESET_FLAG_NONE
+   ,SET_MASTER_RESET_FLAG_RESOTRE_SETTING
+   ,SET_MASTER_RESET_FLAG_FACTORY_RESET,
+};
+
+typedef u8 SET_MASTER_RESET_FLAG_e;
+
+
+
+#ifdef __FEATURE_POWER_CONSUMPTION_LOG__
+enum
+{
+    SYS_POWER_CONSUMPTION_LOG_DISABLE
+   ,SYS_POWER_CONSUMPTION_LOG_ENABLE
+};
+typedef u8 SYS_POWER_CONSUMPTION_LOG_FLAG_et;
+#endif//__FEATURE_POWER_CONSUMPTION_LOG__
+
+
+#endif//__MMI_CFGSRV_INFO__H__

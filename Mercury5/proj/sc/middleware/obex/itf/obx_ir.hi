@@ -1,0 +1,64 @@
+/******************************************************************/
+/*  File    : obx_ir.hi                                           */
+/*-------------------------------------------------------------   */
+/*  Scope   : interface between OBEX and IRDA                     */
+/*                                                                */
+/*  Content :	                                                   */
+/*                                                                */
+/*--------------------------------------------------------------  */
+/*   Date       | Author |      Err  |        Modification        */
+/*--------------+--------+-----------+--------------------------  */
+/******************************************************************/
+
+
+
+#ifndef __OBX_IR_HI__
+#define __OBX_IR_HI__
+
+typedef struct
+{
+   u8 Response;
+   u16 MaxMediaSize;
+}
+Obex_Irda_MediaRsp_t;
+
+typedef struct
+{
+   u16 Length; 
+   u8 UserData[1];
+}
+Obex_Irda_DataInd_t;
+
+typedef struct
+{
+   u8 Param;
+}
+Obex_Irda_DisconnectInd_t;
+
+typedef struct
+{
+   u8 Media;
+   u8 Uart;
+}
+Obex_Irda_MediaReq_t;
+
+#define OBEX_IR_MEDIA_IRDA 0x00
+#define OBEX_IR_MEDIA_V24  0x01
+#define OBEX_IR_MEDIA_USB  0x02
+
+typedef struct
+{
+   u16 Length; 
+   u8  UserData[1];
+}
+Obex_Irda_DataReq_t;
+
+
+typedef struct
+{
+   u8 Param;
+}
+Obex_Irda_DisconnectRsp_t;
+
+	
+#endif /* __OBX_IR_HI__ */

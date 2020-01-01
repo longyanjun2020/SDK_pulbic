@@ -1,0 +1,225 @@
+/****************************************************************************/
+/*  File    : vm_e2p.ho                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Description:  eeprom management                                         */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*  History :                                                               */
+/****************************************************************************/
+
+#ifndef __VM_E2P_STACK_HO__
+#define __VM_E2P_STACK_HO__     
+
+#include "vm_types.ht"
+#include "vm_e2p.ho"
+
+/****************************************************************************/
+/*  E2P Stack For Customer parameters fields                                  */
+/****************************************************************************/
+/****************************************************************************/
+#define VM_E2P_DIM_VERSION            3
+#define VM_IMSI_SIZE                  9
+#define VM_IMEI_SIZE                  9
+#define VM_E2P_DIM_IMEI               9
+#define VM_E2P_DIM_GENPARAM           27
+#define VM_E2P_DIM_DATA_PARAM         100
+#define VM_E2P_DIM_SIGNATURE          32
+
+#define E2P_DIM_IMSI                   9
+#define E2P_DIM_GID                    8
+
+
+typedef ascii vm_Version_t  	[VM_E2P_DIM_VERSION +1];
+typedef u8    vm_Imsi_t			[VM_IMSI_SIZE ];
+typedef u8    vm_Imei_t			[VM_IMEI_SIZE ];
+typedef u8    vm_KeySignature_t [VM_E2P_DIM_SIGNATURE];
+
+typedef struct
+{
+ u16 SerialNumber;    /* no direct acces */
+ u16 PartList;        /* no direct acces */
+ u16 ModuleStatus;    /* no direct acces */
+ u8  ModuleType;      /* no direct acces */
+ u8  Year;            /* no direct acces */
+ u8  Week;            /* no direct acces */
+ u8  NumBenchNumber;  /* no direct acces */
+ u8  RfBenchNumber;   /* no direct acces */
+ u8  MobileStatus;    /* no direct acces */
+ u8  ModuleControl;   /* no direct acces */
+ u8  Spare[3];        /* no direct acces */
+} vm_ProdNumber_t;
+
+typedef struct
+{
+   u16   Status;                 /*  2 bytes */
+   u8    Imsi[E2P_DIM_IMSI];     /*  9 bytes */
+   u8    Gid1[E2P_DIM_GID];      /*  8 bytes */
+   u8    Gid2[E2P_DIM_GID];      /*  8 bytes */
+   u8    Pad;                    /*  Padding */
+
+} MeLock_t;                      /* 28 bytes */
+
+
+
+typedef struct
+{
+  vm_Version_t           vm_VersHard;          /*Wa*/ /* number of hard version     */          /*R*/      
+  u8                     vm_v24_Framing;       /*Wa*/ /* Framing (parity, stop ...) */          /*R*/    
+  u8                     vm_v24_Speed;         /*Wa*/ /* V.24 handler speed         */          /*R*/
+  u8                     vm_v24_Options;       /*Wa*/ /* V.24 Handler Options       */          /*R*/    
+  u8                     vm_v24_SerialOn;      /*Wa*/ /* serial link activation     */          /*R/W*/    
+  u32                    vm_v24_ExtOptions;    /*Wa*/ /* V24 user profile           */          /*R*/    
+  vm_Imei_t              vm_Imei;                     /* Inter Mobile Equip Ident   */          /*R*/
+  vm_Imsi_t              vm_Imsi;                     /* Inter Mobile Subs Ident    */          /*R/W*/
+  u8                     vm_E2pChkSumWritten;  /*Wa*/ /* Check sum of e2p written ?. */         /*R/W*/
+  u8                     vm_E2pNetMode;               /* Network selection mode      */         /*R/W*/
+  vm_ProdNumber_t        vm_ProdNumber;                                                         /*R*/
+  vm_KeySignature_t      vm_SignaturePck;                                                       /*R/W*/
+  vm_KeySignature_t      vm_SignatureNck;                                                       /*R/W*/
+  vm_KeySignature_t      vm_SignatureNsck;                                                      /*R/W*/
+  vm_KeySignature_t      vm_SignatureOptions;                                                   /*R/W*/
+  vm_KeySignature_t      vm_SignatureSpck;                                                      /*R/W*/
+  vm_KeySignature_t      vm_SignatureCck;                                                       /*R/W*/
+  vm_KeySignature_t      vm_SignatureParam;                                                     /*R/W*/
+  u8                     vm_AecType;                                                            /*R/W*/   
+  u8                     vm_IrActive;               /* Irda : Boolean Activation */             /*R/W*/
+  u8                     vm_IrDiscTime;             /* Irda : Disconnection Time */             /*R/W*/
+  u8                     vm_IrMaxTat;               /* Irda : Max Turn around Time */           /*R/W*/
+  u8                     vm_IrPreambTh;             /* Irda : Preambule threshold */            /*R/W*/
+  u8                     vm_DataCompress;           /* Type of Data Compression */              /*R/W*/
+  u8                     vm_DataSecurity;           /* Type of Data Security (V42, MNP2...) */  /*R/W*/
+  u8                     vm_ExhaustivePlmnSearch;   /* Fast and exhaustive emergency mode   */  /*R/W*/
+  u8                     vm_DataParam[VM_E2P_DIM_DATA_PARAM]; /* All Data parameters        */
+  u8                     vm_MeLockData[VM_E2P_DIM_GENPARAM+1];                    /* Data of ME Lock */ 
+  u8                     Pad568;                    /* Battery Internal Resistor goto e2p lib */
+  u8                     vm_ImeiSV;                 /* SV part of the IMEISV     */
+  u8             	 ddo_removed_vm_BatDeltaVoltage;  /* to check */
+  u8					 PadStackForCustomer;
+  u8                     vm_DotaState;                  /* DOTA state : Idle, Copy, Successful, Error*/
+  u32                    vm_DotaCellId;                 /* Id of the DOTA cell to copy, used by the Xmodem downloader */
+  u8                     vm_OpenCtrl;
+  u8							 vm_v24_SignalForUsb;
+  u8                     vm_v24_uart2_Framing;    /*Wa*/ /* Framing (parity, stop ...) */          /*R*/
+  u8                     vm_v24_uart2_Speed;      /*Wa*/ /* V.24 handler speed         */          /*R*/
+  u8                     vm_v24_uart2_Options;    /*Wa*/ /* V.24 Handler Options       */          /*R*/
+  u8                     vm_v24_uart2_ExtOptions; /*Wa*/ /* V24 user profile           */          /*R*/
+  u8                     vm_v24_usb_Framing;      /*Wa*/ /* Framing (parity, stop ...) */          /*R*/
+  u8                     vm_v24_usb_Speed;        /*Wa*/ /* V.24 handler speed         */          /*R*/
+  u8                     vm_v24_usb_Options;      /*Wa*/ /* V.24 Handler Options       */          /*R*/
+  u8                     vm_v24_usb_ExtOptions;   /*Wa*/ /* V24 user profile           */          /*R*/
+  u16                    vm_UsbPid;               /* USB Product profile user profile  */          /*R/W*/
+} vm_E2pStackForCustomer_t;
+  
+/* Wa means warning, the parameter will be suppressed from this structure  */
+/* it will be set by a specifific interface in the future */
+/* R and W are the rights to read and write the parameters */
+
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE LOGICAL NAMES FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+
+
+#ifndef __MCP_WITHOUT_NOR__
+#define VM_E2P_STACK_FOR_CUST_ADRESS(_FIELD_)    VM_E2P_ADRESS (VM_E2P_STACK_FOR_CUST_AREA, vm_E2pStackForCustomer_t , _FIELD_ )      
+#define VM_E2P_STACK_FOR_CUST_RECORD(_X_,_Y_)    VM_E2P_STACK_FOR_CUST_ADRESS (_X_ ), _Y_
+
+
+#define VM_E2P_VERSHARD                VM_E2P_STACK_FOR_CUST_RECORD( vm_VersHard,               sizeof(vm_Version_t))  
+#define VM_E2P_V24_FRAMING             VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_Framing,            sizeof(u8))             
+#define VM_E2P_V24_SPEED               VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_Speed,              sizeof(u8))             
+#define VM_E2P_V24_OPTIONS             VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_Options,            sizeof(u8))             
+#define VM_E2P_V24_SERIALON            VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_SerialOn,           sizeof(u8) )
+#define VM_E2P_V24_EXTOPTIONS          VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_ExtOptions,         sizeof(u32))            
+#define VM_E2P_PRODNUMBER              VM_E2P_STACK_FOR_CUST_RECORD( vm_ProdNumber,             sizeof(vm_ProdNumber_t))
+#define VM_E2P_IMEI                    VM_E2P_STACK_FOR_CUST_RECORD( vm_Imei[ 0 ],              sizeof(vm_Imei_t)  )
+#define VM_E2P_IMSI                    VM_E2P_STACK_FOR_CUST_RECORD( vm_Imsi[ 0 ],              sizeof(vm_Imsi_t) )
+#define VM_E2P_E2PCHKSUMWRITTEN        VM_E2P_STACK_FOR_CUST_RECORD( vm_E2pChkSumWritten,       sizeof(u8))
+#define VM_E2P_NETMODE                 VM_E2P_STACK_FOR_CUST_RECORD( vm_E2pNetMode,             sizeof(u8))
+#define VM_E2P_AECTYPE                 VM_E2P_STACK_FOR_CUST_RECORD( vm_AecType,                sizeof(u8))
+#define VM_E2P_SIGNATURE_PCK           VM_E2P_STACK_FOR_CUST_RECORD( vm_SignaturePck[0] ,       sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_NCK           VM_E2P_STACK_FOR_CUST_RECORD( vm_SignatureNck[0] ,       sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_NSCK          VM_E2P_STACK_FOR_CUST_RECORD( vm_SignatureNsck[0],       sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_OPTIONS       VM_E2P_STACK_FOR_CUST_RECORD( vm_SignatureOptions[0],    sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_SPCK          VM_E2P_STACK_FOR_CUST_RECORD( vm_SignatureSpck[0] ,      sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_CCK           VM_E2P_STACK_FOR_CUST_RECORD( vm_SignatureCck[0]  ,      sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_PARAM         VM_E2P_STACK_FOR_CUST_RECORD( vm_SignatureParam[0],      sizeof(vm_KeySignature_t))
+#define VM_E2P_IRACTIVE                VM_E2P_STACK_FOR_CUST_RECORD( vm_IrActive,               sizeof(u8))
+#define VM_E2P_IRDISCTIME              VM_E2P_STACK_FOR_CUST_RECORD( vm_IrDiscTime,             sizeof(u8))
+#define VM_E2P_IRMAXTAT                VM_E2P_STACK_FOR_CUST_RECORD( vm_IrMaxTat,               sizeof(u8))
+#define VM_E2P_IRPREAMBTH              VM_E2P_STACK_FOR_CUST_RECORD( vm_IrPreambTh,             sizeof(u8))
+#define VM_E2P_DATACOMPRESS            VM_E2P_STACK_FOR_CUST_RECORD( vm_DataCompress,           sizeof(u8))
+#define VM_E2P_DATASECURITY            VM_E2P_STACK_FOR_CUST_RECORD( vm_DataSecurity,           sizeof(u8))
+#define VM_E2P_EXHAUSTIVEPLMNSEARCH    VM_E2P_STACK_FOR_CUST_RECORD( vm_ExhaustivePlmnSearch,   sizeof(u8))
+#define VM_E2P_IMEISV                  VM_E2P_STACK_FOR_CUST_RECORD( vm_ImeiSV,                 sizeof(u8))
+#define VM_E2P_ME_LOCK_DATA            VM_E2P_STACK_FOR_CUST_RECORD( vm_MeLockData[0],          sizeof(u8)*(VM_E2P_DIM_GENPARAM+1) )
+#define VM_E2P_DOTA_STATE              VM_E2P_STACK_FOR_CUST_RECORD( vm_DotaState,              sizeof(u8))
+#define VM_E2P_DOTA_CELLID             VM_E2P_STACK_FOR_CUST_RECORD( vm_DotaCellId,             sizeof(u32))
+#define VM_E2P_OPENCTRL                VM_E2P_STACK_FOR_CUST_RECORD( vm_OpenCtrl,               sizeof(u8))
+#define VM_E2P_V24_SIGNAL_FOR_USB 		VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_SignalForUsb,  		sizeof(u8) )
+
+#define VM_E2P_V24_UART2_FRAMING       VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_uart2_Framing,      sizeof(u8))
+#define VM_E2P_V24_UART2_SPEED         VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_uart2_Speed,        sizeof(u8))
+#define VM_E2P_V24_UART2_OPTIONS       VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_uart2_Options,      sizeof(u8))
+#define VM_E2P_V24_UART2_EXTOPTIONS    VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_uart2_ExtOptions,   sizeof(u8))
+#define VM_E2P_V24_USB_FRAMING         VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_usb_Framing,        sizeof(u8))
+#define VM_E2P_V24_USB_SPEED           VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_usb_Speed,          sizeof(u8))
+#define VM_E2P_V24_USB_OPTIONS         VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_usb_Options,        sizeof(u8))
+#define VM_E2P_V24_USB_EXTOPTIONS      VM_E2P_STACK_FOR_CUST_RECORD( vm_v24_usb_ExtOptions,     sizeof(u8))
+#define VM_E2P_USBPID                  VM_E2P_STACK_FOR_CUST_RECORD( vm_UsbPid,                 sizeof(u16))
+
+#else // __MCP_WITHOUT_NOR__
+
+#define VM_E2P_STACK_FOR_CUST_RECORD(_NAME_,_SIZE_)  _NAME_, 0, _SIZE_
+
+//unused anymore
+#define VM_E2P_VERSHARD                VM_E2P_STACK_FOR_CUST_RECORD("VersHard",               sizeof(vm_Version_t))  
+
+#define VM_E2P_V24_FRAMING             VM_E2P_STACK_FOR_CUST_RECORD("v24_Framing",            sizeof(u8))             
+#define VM_E2P_V24_SPEED               VM_E2P_STACK_FOR_CUST_RECORD("v24_Speed",              sizeof(u8))             
+#define VM_E2P_V24_OPTIONS             VM_E2P_STACK_FOR_CUST_RECORD("v24_Options",            sizeof(u8))             
+#define VM_E2P_V24_SERIALON            VM_E2P_STACK_FOR_CUST_RECORD("v24_SerialOn",           sizeof(u8) )
+#define VM_E2P_V24_EXTOPTIONS          VM_E2P_STACK_FOR_CUST_RECORD("v24_ExtOptions",         sizeof(u32))            
+#define VM_E2P_PRODNUMBER              VM_E2P_STACK_FOR_CUST_RECORD("ProdNumber",             sizeof(vm_ProdNumber_t))
+#define VM_E2P_IMEI                    VM_E2P_STACK_FOR_CUST_RECORD("Imei",              sizeof(vm_Imei_t)  )
+#define VM_E2P_IMSI                    VM_E2P_STACK_FOR_CUST_RECORD("Imsi",              sizeof(vm_Imsi_t) )
+#define VM_E2P_E2PCHKSUMWRITTEN        VM_E2P_STACK_FOR_CUST_RECORD("E2pChkSumWritten",       sizeof(u8))
+#define VM_E2P_NETMODE                 VM_E2P_STACK_FOR_CUST_RECORD("E2pNetMode",             sizeof(u8))
+#define VM_E2P_AECTYPE                 VM_E2P_STACK_FOR_CUST_RECORD("AecType",                sizeof(u8))
+#define VM_E2P_SIGNATURE_PCK           VM_E2P_STACK_FOR_CUST_RECORD("SignaturePck",       sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_NCK           VM_E2P_STACK_FOR_CUST_RECORD("SignatureNck",       sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_NSCK          VM_E2P_STACK_FOR_CUST_RECORD("SignatureNsck",       sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_OPTIONS       VM_E2P_STACK_FOR_CUST_RECORD("SignatureOptions",    sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_SPCK          VM_E2P_STACK_FOR_CUST_RECORD("SignatureSpck ",      sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_CCK           VM_E2P_STACK_FOR_CUST_RECORD("SignatureCck",      sizeof(vm_KeySignature_t))
+#define VM_E2P_SIGNATURE_PARAM         VM_E2P_STACK_FOR_CUST_RECORD("SignatureParam",      sizeof(vm_KeySignature_t))
+#define VM_E2P_IRACTIVE                VM_E2P_STACK_FOR_CUST_RECORD("IrActive",               sizeof(u8))
+#define VM_E2P_IRDISCTIME              VM_E2P_STACK_FOR_CUST_RECORD("IrDiscTime",             sizeof(u8))
+#define VM_E2P_IRMAXTAT                VM_E2P_STACK_FOR_CUST_RECORD("IrMaxTat",               sizeof(u8))
+#define VM_E2P_IRPREAMBTH              VM_E2P_STACK_FOR_CUST_RECORD("IrPreambTh",             sizeof(u8))
+#define VM_E2P_DATACOMPRESS            VM_E2P_STACK_FOR_CUST_RECORD("DataCompress",           sizeof(u8))
+#define VM_E2P_DATASECURITY            VM_E2P_STACK_FOR_CUST_RECORD("DataSecurity",           sizeof(u8))
+#define VM_E2P_EXHAUSTIVEPLMNSEARCH    VM_E2P_STACK_FOR_CUST_RECORD("ExhaustivePlmnSearch",   sizeof(u8))
+#define VM_E2P_IMEISV                  VM_E2P_STACK_FOR_CUST_RECORD("ImeiSV",                 sizeof(u8))
+#define VM_E2P_ME_LOCK_DATA            VM_E2P_STACK_FOR_CUST_RECORD("MeLockData",          sizeof(u8)*(VM_E2P_DIM_GENPARAM+1) )
+#define VM_E2P_DOTA_STATE              VM_E2P_STACK_FOR_CUST_RECORD("DotaState",              sizeof(u8))
+#define VM_E2P_DOTA_CELLID             VM_E2P_STACK_FOR_CUST_RECORD("DotaCellId",             sizeof(u32))
+#define VM_E2P_OPENCTRL                VM_E2P_STACK_FOR_CUST_RECORD("OpenCtrl",               sizeof(u8))
+#define VM_E2P_V24_SIGNAL_FOR_USB 		VM_E2P_STACK_FOR_CUST_RECORD("v24_SignalForUsb",  		sizeof(u8) )
+
+#define VM_E2P_V24_UART2_FRAMING       VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_uart2_Framing",     sizeof(u8))
+#define VM_E2P_V24_UART2_SPEED         VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_uart2_Speed",       sizeof(u8))
+#define VM_E2P_V24_UART2_OPTIONS       VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_uart2_Options",     sizeof(u8))
+#define VM_E2P_V24_UART2_EXTOPTIONS    VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_uart2_ExtOptions",  sizeof(u8))
+#define VM_E2P_V24_USB_FRAMING         VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_usb_Framing",       sizeof(u8))
+#define VM_E2P_V24_USB_SPEED           VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_usb_Speed",         sizeof(u8))
+#define VM_E2P_V24_USB_OPTIONS         VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_usb_Options",       sizeof(u8))
+#define VM_E2P_V24_USB_EXTOPTIONS      VM_E2P_STACK_FOR_CUST_RECORD("vm_v24_usb_ExtOptions",    sizeof(u8))
+#define VM_E2P_USBPID                  VM_E2P_STACK_FOR_CUST_RECORD("vm_UsbPid",                sizeof(u16))
+
+#endif // __MCP_WITHOUT_NOR__
+
+#endif /* __VM_E2P_STACK_HO__*/
+

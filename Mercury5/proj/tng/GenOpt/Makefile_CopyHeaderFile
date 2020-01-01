@@ -1,0 +1,84 @@
+SHELL=/bin/bash
+TOP=./
+CONFIG_MAK=$(TOP)config.mak
+
+include $(CONFIG_MAK)
+COMPILER=$(COMPILER_ARM)
+MSTARSTUDIO_OUT_INC= ./MStarStudio_UP/MStarOut/include
+
+#Driver header path
+ifeq ($(call FIND_COMPILER_OPTION, __COMPONENT_BASE_CONFIGURATION__), TRUE)
+#
+# new architecture
+#
+CUST_DRV=$(TOP)sc/customer/product/cust/drv/
+CUST_MMI=$(TOP)sc/customer/product/cust/mmi/
+else
+#
+# old architecture
+#
+CUST_DRV=$(TOP)sc/customer/product/$(PRODUCT)/cust/drv/
+CUST_MMI=$(TOP)sc/customer/product/$(PRODUCT)/cust/mmi/
+endif
+DRV_HAL_PATH=$(TOP)sc/driver/hal/$(shell echo $(BB_CHIP_ID) | tr [:upper:] [:lower:] | sed -e "s/ //g")/
+DRV_HAL_KERNEL=$(DRV_HAL_PATH)kernel/
+DRV_HAL_INT=$(DRV_HAL_PATH)int/
+DRV_HAL_TIMER=$(DRV_HAL_PATH)timer/
+DRV_HAL_DMA2D=$(DRV_HAL_PATH)dma2d/
+DRV_HAL_AUDIO=$(DRV_HAL_PATH)audio/
+DRV_HAL_BATT=$(DRV_HAL_PATH)batt/
+DRV_HAL_ADC=$(DRV_HAL_PATH)adc/
+DRV_HAL_TSCR=$(DRV_HAL_PATH)tscr/
+DRV_HAL_DMA=$(DRV_HAL_PATH)dma/
+DRV_HAL_DISP=$(DRV_HAL_PATH)disp/
+DRV_HAL_ETMI=$(DRV_HAL_PATH)etmi/
+DRV_DRV=$(TOP)sc/driver/drv/
+MIDDLEWARE_EMA_CSL=$(TOP)sc/middleware/ema/csl/
+MDL_KEYPAD=$(TOP)sc/middleware/keypad/
+
+#overwrite first make rule.
+all: cp_drv_head	
+include $(TNG)product.mak
+
+cp_drv_head:
+ifeq ($(call FIND_COMPILER_OPTION, __COMPONENT_BASE_CONFIGURATION__), TRUE)
+#
+# new architecture
+#
+	-$(COPY) $(CUST_DRV)battery/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)gpio/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)keypad/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)lcd_logo/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)lcd_main/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)lcd_panel_all/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)pm/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)pwm/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)service/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_DRV)touchscreen/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_MMI)inc/*.h $(MSTARSTUDIO_OUT_INC)
+else
+#
+# old architecture
+#
+	-$(COPY) $(CUST_DRV)/inc/*.h $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(CUST_MMI)/inc/*.h $(MSTARSTUDIO_OUT_INC)
+endif
+	-$(COPY) $(DRV_HAL_KERNEL)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_INT)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_INT)pub/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_TIMER)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_DMA2D)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_AUDIO)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_BATT)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_ADC)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_TSCR)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_DMA)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_DISP)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_HAL_ETMI)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_DRV)power/inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(DRV_DRV)etmi/pub/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(MIDDLEWARE_EMA_CSL)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(TOP)sc/system/r2/inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(TOP)sc/system/r2/pub/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(MDL_KEYPAD)inc/*.h* $(MSTARSTUDIO_OUT_INC)
+	-$(COPY) $(MDL_KEYPAD)pub/*.h* $(MSTARSTUDIO_OUT_INC)

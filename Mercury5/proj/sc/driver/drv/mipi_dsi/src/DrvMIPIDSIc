@@ -1,0 +1,95 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2008 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// (¡§MStar Confidential Information¡¨) by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+
+//-------------------------------------------------------------------------------------------------
+//  Include Files
+//-------------------------------------------------------------------------------------------------
+
+#include "reg_mipi_dsi.h"
+#include "hal_mipi_dsi.h"
+#include "hal_mipi_dsi_util.h"
+#include "cam_os_wrapper.h"
+
+
+//-------------------------------------------------------------------------------------------------
+//  Driver Compiler Options
+//-------------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------------------------------
+//  Local Defines
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//  Local Structures
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//  Global Variables
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//  Local Variables
+//-------------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------------------------------------------------------------
+//  Debug Functions
+//-------------------------------------------------------------------------------------------------
+#define HAL_MIPI_DSI_DEBUG 1
+#if HAL_PNL_DEBUG
+#define HAL_MIPI_DSI_DBG(fmt, arg...) CamOsDebug(fmt, ##arg)
+
+#else
+#define HAL_MIPI_DSI_DBG(fmt, arg...)
+#endif
+//-------------------------------------------------------------------------------------------------
+//  Local Functions
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+// Type and Structure Declaration
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//  Global Functions
+//-------------------------------------------------------------------------------------------------
+u32 Hal_MIPI_DSI_RegisterRead(u32 u32Addr)
+{
+   return R4BYTE(u32Addr);
+}
+
+void Hal_MIPI_DSI_RegisterWriteBit(u32 u32Addr, bool bitValue, u8  u8bitpos)
+{
+    u32 u32Msk=1<<u16bitpos;
+    
+    HAL_MIPI_DSI_DBG("[B] u32Addr = %d,  bit = %d,  bEn = %d", R4BYTE(u32Addr), u8bitpos, bitValue);
+    WriteLongRegBit(u32Addr, bitValue, u32Msk);
+    HAL_MIPI_DSI_DBG("[A] u32Addr = %d,  bit = %d,  bEn = %d", R4BYTE(u32Addr), u8bitpos, bitValue);
+}
+
+void Hal_MIPI_DSI_RegisterWrite(u32 u32Addr, u32  u32value)
+{
+    HAL_MIPI_DSI_DBG("[B] u32Addr = %d,  u32value = %d", R4BYTE(u32Addr), u32value);
+    W4BYTE(u32Addr, u32value);
+    HAL_MIPI_DSI_DBG("[A] u32Addr = %d,  u32value = %d", R4BYTE(u32Addr),u32value);
+}
+//-------------------------------------------------------------------------------------------------
+//  Global setting
+//-------------------------------------------------------------------------------------------------
+

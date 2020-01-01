@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OBJECT_LIST>
+  <OBJECT Name="cust_lcd_HX8346_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9225_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9328_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9325_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9320_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_LGDP4532_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_MSDR1321_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_OTM2201_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_R61505_yk701.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_logo_m160c.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ETFR61505V.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_FT1505.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_HX8346.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9320.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9325.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9328.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_LGDP4532.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_MSDR1321.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_R61505.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9225.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_OTM2201.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_HX8347G_canisVNor.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_HX8368_canisVNor.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_ILI9225_canisVNor.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_logo_canisV.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_HX8352B_mb406g.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="drv_backlight_wled_embedded.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="myapi_rvct22.lib" LIB="myapi_rvct22.lib" CATEGORY="MMI" />
+  <OBJECT Name="stack_2.axf" LIB="stack_2.axf" CATEGORY="Driver" />
+  <OBJECT Name="stack_2.axf" LIB="stack_2.axf" CATEGORY="Driver" />
+  <OBJECT Name="drv_keypad.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_backlight_rt9379.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_lcd_HX8352B.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+  <OBJECT Name="cust_tscr_rtp_mstar.o" LIB="cust_drv.lib" CATEGORY="Driver" />
+</OBJECT_LIST>

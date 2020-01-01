@@ -1,0 +1,163 @@
+/**
+ * \page RAI (Random Access Interface) Public Interface
+ * 
+ *
+ * \section intro_sec Introduction
+ *
+ * This document describes the RAI (Random Access Interface) Public Interface. This service can be used by the 
+ * Application or the Middleware to store objects in the NOR flash.
+ *
+ *  <hr>
+ * \section SectionMMI2RAI 1. Application/Middleware to RAI Interface
+ *
+ * \li \ref vm_raiRead    
+ * \li \ref vm_raiWrite 
+ * \li \ref vm_raiDelete 
+ * \li \ref vm_raiInfo 
+ * \li \ref vm_raiFindInit
+ * \li \ref vm_raiFindNext
+ * \li \ref vm_raiFindClose  
+ * \li \ref vm_raiStats 
+ * \li \ref vm_raiGcInit
+ * \li \ref vm_raiGc 
+ *
+ *  <hr>
+ * \section Usage 2. Usage
+ *
+ * \subsection Intro 2.1. Introduction
+ *
+ *  This service is intended to store in the NOR flash objects smaller than \ref VM_FMS_RAI_SIZE_MAX. This size is due 
+ *  to a physical limitation. Indeed, an object is not split into smaller parts as FAT16 files for example, so it must 
+ *  fit into a NOR Flash sector, that can be as small as 32 KB. \n Each object has an 
+ *  unique 32 bits identifier. \n
+ *  The common way is to use the higher 16 bits to define a class of objects, then the 16 lowest bits for each 
+ *  object of the class. But it's not mandatory. \n
+ *  The 32 bits ID is a pure logical ID. It has no link with the physical address of the object.
+ *  
+ * \subsection ReadWrite 2.2. Read/Write in RAI objects
+ *
+ *  If an object already exists, the client can read it using \ref vm_raiRead. The content of the object will be returned
+ *  in the given buffer, with the given size limit and from the given offset. \n
+ *  To create an object or overwrite it, the client can use \ref vm_raiWrite. The object must be written in a single access. \n
+ *  An object can be deleted with \ref vm_raiDelete.
+ *  
+ * \subsection Parsing 2.3. RAI objects parsing
+ *
+ *  The client can get information (size) about a given object using \ref vm_raiInfo.
+ *  He can get information (used, available space,...) on the RAI area using \ref vm_raiStats.
+ *  He can get the list of objects using \ref vm_raiFindInit, and calling \ref vm_raiFindNext until it returns \ref 
+ *  VM_FMS_RAI_DONE or \ref VM_FMS_RAI_ABORT. He should then close the search using \ref vm_raiFindClose.
+ *  
+ * \subsection Garbaging 2.4. Garbage Collection
+ *
+ *  In order to improve space used and write speed, the client should from time to time (if there are many write/delete operations)
+ *  operate a garbage collection. To do so, he should call \ref vm_raiGcInit, then \ref vm_raiGc until it returns 
+ *  \ref VM_FMS_RAI_GC_OK.
+ *  
+ *  <hr>
+ *  \section Notes 3. Notes
+ *
+ * 
+ *   
+ */
+
+
+/*!
+ * \file  vm_rai.hi
+ * \brief Application/Middleware to RAI (Random Access Interface) Public Interface
+ *
+ *  This file defines the RAI public interface that is offered to the Application and to the Middleware.
+ *
+ *  The interface allows to :
+ *   \li read/write objects in the NOR Flash
+ *   \li retrieve objects in the NOR Flash.
+ *   \li operate a Garbage Collector on the RAI area of the NOR Flash
+ *
+ */
+
+
+#ifndef __VM_RAI_HI__
+#define __VM_RAI_HI__
+
+/* ========================================================================== 
+   Constants
+   ========================================================================== */
+
+
+#define VM_FMS_RAI_SIZE_MAX ((vm_raiSize_t) (30*1024)) ///< maximal data size for a random access item
+
+// return codes for vm_raiFindNext
+#define VM_FMS_RAI_FOUND 0 ///< iteration found another identifier
+#define VM_FMS_RAI_DONE  1 ///< end of iteration
+#define VM_FMS_RAI_ABORT 2 ///< iteration is aborted due to GC or other index changes
+
+// return codes for fms_rai_FLASH_gc
+#define VM_FMS_RAI_GC_CONT 0 ///< garbage collection still in progress
+#define VM_FMS_RAI_GC_OK   1 ///< garbage collection successful
+#define VM_FMS_RAI_GC_KO   2 ///< not enough room for the requested items
+
+/**
+  * \brief	random access item identifier
+  *
+  */
+typedef u32 vm_raiId_t;
+
+/**
+  * \brief	size of a random access item
+  *
+  */
+typedef u16 vm_raiSize_t; 
+
+/**
+  * \brief	information on a random access item
+  *
+  */
+typedef struct {
+    vm_raiSize_t size;  // byte size of the object
+    } vm_raiInfo_t;
+
+/**
+  * \brief	iterator for identifier search
+  *
+  */
+typedef int vm_raiBrowse_t[4];
+
+/**
+  * \brief	iterator for garbage collection
+  *
+  */
+typedef int vm_raiGC_t[2];
+
+/**
+  * \brief	global statistics on object management
+  *
+  */
+typedef struct {
+    int mem_free;            ///< total byte amount of immediately available memory
+    int mem_contig;          ///< byte amount of immediately available CONTIGUOUS memory
+    int mem_avail;           ///< byte amount of memory available after complete garbage collection
+    int mem_limit;           ///< total storage byte space (may be used as a scale factor for the other mem_xxx infos)
+    int objects_read;        ///< number of objects read since last reboot
+    int objects_created;     ///< number of objects created since last reboot
+    int objects_overwritten; ///< number of objects overwritten since last reboot
+    int objects_deleted;     ///< number of objects deleted since last reboot
+
+    int sectors_erased;      ///< number of FLASH sectors erased since last reboot
+} vm_raiStats_t;
+
+/* ==========================================================================
+   Public functions
+   ========================================================================== */
+
+int vm_raiRead (vm_raiId_t ident, vm_raiSize_t start, vm_raiSize_t length, void * data);
+bool vm_raiWrite (vm_raiId_t ident, vm_raiSize_t size, const void * data);
+bool vm_raiDelete (vm_raiId_t ident); 
+bool vm_raiInfo (vm_raiId_t     ident, vm_raiInfo_t * info); 
+void vm_raiFindInit (vm_raiId_t min, vm_raiId_t max, vm_raiBrowse_t * iterator);
+int vm_raiFindNext (vm_raiId_t *ident, vm_raiBrowse_t  * iterator); 
+int vm_raiFindClose (vm_raiBrowse_t  * iterator); 
+int vm_raiStats (vm_raiStats_t * info); 
+int vm_raiGcInit (int item_num, int item_size, vm_raiGC_t * iterator);
+int vm_raiGc (vm_raiGC_t * iterator); 
+
+#endif /* ! __VM_RAI_HI__ */

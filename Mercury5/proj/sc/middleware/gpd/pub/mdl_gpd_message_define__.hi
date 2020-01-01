@@ -1,0 +1,102 @@
+#ifndef __MDL_GPD_MSG_DEF_H__
+#define __MDL_GPD_MSG_DEF_H__
+
+/**
+ *  @brief General Peripheral Device Driver Primitive/Message ID base
+ */
+VM_MSG_DEF(GPD_BASE=VM_CUS10_BASE, void DUMMY)
+
+
+/**
+ *  @brief General Peripheral Device Driver Primitive/Message ID
+ */
+VM_MSG_DEF(GPD_VIBRATOR_SWITCH_REQ=(GPD_BASE+0x00), void DUMMY)   /**< Command to switch vibrator */
+VM_MSG_DEF(GPD_LED_SWITCH_REQ=(GPD_BASE+0x01), void DUMMY)   /**< Command to switch LED */
+VM_MSG_DEF(GPD_BACKLIGHT_SWITCH_REQ=(GPD_BASE+0x02), void DUMMY)   /**< Command to switch backlight */
+VM_MSG_DEF(GPD_GET_ACS_STATUS_REQ=(GPD_BASE+0x03), void DUMMY)   /**< Command to get accessory status */
+VM_MSG_DEF(GPD_REG_ACS_NOTIFY_REQ=(GPD_BASE+0x04), void DUMMY)   /**< Command to register accessory notification */
+VM_MSG_DEF(GPD_POWER_ON_CAUSE_REQ=(GPD_BASE+0x05), void DUMMY)   /**< Command to get power on cause */
+VM_MSG_DEF(GPD_GET_VERSION_REQ=(GPD_BASE+0x06), void DUMMY)   /**< Command to get version */
+VM_MSG_DEF(GPD_REQUEST_SYS_DBG_REQ=(GPD_BASE+0x07), void DUMMY)   /**< Command to request backtrace */
+VM_MSG_DEF(GPD_ACS_NOTIFY_IND=(GPD_BASE+0x08), void DUMMY)   /**< Command to indicate GPD task */
+VM_MSG_DEF(GPD_HEADSET_HOOK_IND=(GPD_BASE+0x09), void DUMMY)   /**< Command to indicate Hook key status */
+VM_MSG_DEF(GPD_VIBRATOR_TIMER=(GPD_BASE+0x0A), void DUMMY)   /**< Timer to control vibrator */
+VM_MSG_DEF(GPD_RGB_LED_TIMER=(GPD_BASE+0x0B), void DUMMY)   /**< Timer to control RGB LED */
+VM_MSG_DEF(GPD_BACKLIGHT_TIMER=(GPD_BASE+0x0C), void DUMMY)   /**< Timer to control backlight */
+VM_MSG_DEF(GPD_KPD_LIGHT_TIMER=(GPD_BASE+0x0D), void DUMMY)   /**< Timer to control keypad light */
+VM_MSG_DEF(GPD_HEADSET_DEBOUNCE_TIMER=(GPD_BASE+0x0E), void DUMMY)   /**< Timer to debounce headset */
+VM_MSG_DEF(GPD_HEADSET_HOOK_DEBOUNCE_TIMER=(GPD_BASE+0x0F), void DUMMY)   /**< Timer to debounce headset hook */
+VM_MSG_DEF(GPD_MEMCARD_DEBOUNCE_TIMER=(GPD_BASE+0x10), void DUMMY)   /**< Timer to debounce memory card */
+VM_MSG_DEF(GPD_REQUEST_CPU_LOAD_TIMER=(GPD_BASE+0x11), void DUMMY)   /**< Timer to show CPU loading */
+VM_MSG_DEF(GPD_SET_DEVICE_ONOFF_REQ=(GPD_BASE+0x12), void DUMMY)   /**< Set devices on/off command */
+VM_MSG_DEF(GPD_GSENSOR_SWITCH_REQ=(GPD_BASE+0x13), void DUMMY)   /**< Command to switch G-sensor */
+VM_MSG_DEF(GPD_REG_GSENSOR_NOTIFY_REQ=(GPD_BASE+0x14), void DUMMY)   /**< Command to register G-sensor notification */
+VM_MSG_DEF(GPD_GSENSOR_TIMER=(GPD_BASE+0x15), void DUMMY)   /**< Timer to control G-sensor */
+VM_MSG_DEF(GPD_BACKLIGHT_FLASH_REQ=(GPD_BASE+0x16), void DUMMY)   /**< Command to set backlight flash */
+VM_MSG_DEF(GPD_BACKLIGHT_RESTORE_REQ=(GPD_BASE+0x17), void DUMMY)   /**< Command to restore backlight before flash */
+#ifdef __MIC_IN_CHANGED_TO_HANDSET_IF_3_SEGMENT_HEADSET__
+VM_MSG_DEF(GPD_CHECK_3_SEGMENT_HEADSET_TIMER=(GPD_BASE+0x18), void DUMMY)   /**< Timer to double check if 3 segment headset */
+#endif
+VM_MSG_DEF(GPD_LCD_DMA_CNF=(GPD_BASE+0x19), void DUMMY)   /**< Confirm to LCD DMA */
+VM_MSG_DEF(GPD_GSENSOR_CALIBRATION=(GPD_BASE+0x1A), void DUMMY)   /**< Command to calibrate G-sensor */
+VM_MSG_DEF(GPD_LCD_ESD_CHECK_TIMER=(GPD_BASE+0x1B), void DUMMY)   /**< Timer to check LCD status for ESD test */
+VM_MSG_DEF(GPD_DEVICE_POWER_SWITCH_REQ=(GPD_BASE+0x1C), void DUMMY)   /**< Command to switch device power */
+#ifdef __HALL_SWITCH_DRV__
+VM_MSG_DEF(GPD_HALLSWITCH_DEBOUNCE_TIMER=(GPD_BASE+0x1D), void DUMMY)   /**< Timer to debounce Hall Switch */
+#endif
+#ifdef __FLASHLIGHT_DRV__
+VM_MSG_DEF(GPD_FLASHLIGHT_SWITCH_REQ=(GPD_BASE+0x1E), void DUMMY)   /**< Command to switch flashlight */
+#endif
+VM_MSG_DEF(GPD_DISP_TIMER=(GPD_BASE+0x1F), void DUMMY)   /**< Timer to control Display Engine */
+#ifdef __SUBBACKLIGHT_DRV__
+VM_MSG_DEF(GPD_SUBBACKLIGHT_TIMER=(GPD_BASE+0x20), void DUMMY)   /**< Timer to control Sub Backlight */
+#endif
+#ifdef __FLASHLIGHT_DRV__
+VM_MSG_DEF(GPD_FLASHLIGHT_TIMER=(GPD_BASE+0x21), void DUMMY)   /**< Timer to control Flashlight */
+#endif
+#ifdef __FILLLIGHT_DRV__
+VM_MSG_DEF(GPD_FILL_LIGHT_TIMER=(GPD_BASE+0x22), void DUMMY)   /**< Timer to control Fill light */
+#endif
+VM_MSG_DEF(GPD_INFO_LCD_REQ=(GPD_BASE+0x23), void DUMMY)   /**< Command to query lcd info */
+#ifdef __FILLLIGHT_DRV__
+VM_MSG_DEF(GPD_FILLLIGHT_SWITCH_REQ=(GPD_BASE+0x24), void DUMMY)   /**< Command to switch Fill light */
+#endif
+
+VM_MSG_DEF(GPD_MEMCARD_SLOT_1_RETRY_TIMER=(GPD_BASE+0x25), void DUMMY)   /**< Timer to retry GPD to MMI if in MassStorage mode */
+VM_MSG_DEF(GPD_MEMCARD_SLOT_2_RETRY_TIMER=(GPD_BASE+0x26), void DUMMY)   /**< Timer to retry GPD to MMI if in MassStorage mode */
+
+#ifdef __HALL_SWITCH_DRV__
+VM_MSG_DEF(GPD_SUB_KPD_LIGHT_TIMER=(GPD_BASE+0x27), void DUMMY)   /**< Timer to control sub keypad light */
+#endif
+
+#ifdef __BREATHLIGHT_DRV__
+VM_MSG_DEF(GPD_PATTERN_SWITCH_REQ=(GPD_BASE+0x28), void DUMMY)   /**< Command to switch device */
+VM_MSG_DEF(GPD_BREATHLIGHT_TIMER=(GPD_BASE+0x29), void DUMMY)   /**< Timer to control breath light */
+#endif
+
+#ifdef __PROXIMITY_SENSOR_DRV__ //Proximity Sensor
+VM_MSG_DEF(GPD_PROXIMITY_SENSOR_SWITCH_REQ=(GPD_BASE+0x32), void DUMMY)   /**< Command to switch proximity sensor */
+VM_MSG_DEF(GPD_PROXIMITY_SENSOR_REG_NOTIFY_REQ=(GPD_BASE+0x33), void DUMMY)   /**< Command to register proximity sensor notification */
+VM_MSG_DEF(GPD_PROXIMITY_SENSOR_TIMER=(GPD_BASE+0x34), void DUMMY)   /**< Timer to control proximity sensor */
+VM_MSG_DEF(GPD_PROXIMITY_SENSOR_IND=(GPD_BASE+0x35), void DUMMY)   /**< Indicate that adc is done */
+VM_MSG_DEF(GPD_PAISENSOR_IND=(GPD_BASE+0x40), void DUMMY)   /**< Indicate that pai sensor interrupt come */
+#endif
+
+#ifdef __UPGRADE_NVRAM__
+VM_MSG_DEF(GPD_NVRAM_UPDATE_REQ=(GPD_BASE+0x30), void DUMMY)   /**< Command to update NVRAM */
+VM_MSG_DEF(GPD_NVRAM_BACKUP_REQ=(GPD_BASE+0x31), void DUMMY)   /**< Command to backup NVRAM */
+//VM_MSG_DEF(GPD_NVRAM_BACKUP_REQ               (GPD_BASE+0x31), void DUMMY)   /**< Command to backup NVRAM */
+#ifdef __UPGRADE_NVRAM_ENHANCED__
+VM_MSG_DEF(GPD_NVRAM_RESTORE_REQ=(GPD_BASE+0x36), void DUMMY)   /**< Command to restore NVRAM */
+VM_MSG_DEF(GPD_NVRAM_COMPLETE_REQ=(GPD_BASE+0x37), void DUMMY)   /**< Command to restore NVRAM */
+#ifdef __UPGRADE_NVRAM_ENHANCED_TEST_ONLY__
+VM_MSG_DEF(GPD_NVRAM_IT_MODIFY_REQ=(GPD_BASE+0x39), void DUMMY)   /**< Command to test NVRAM */
+#endif
+#endif  // __UPGRADE_NVRAM_ENHANCED__
+#endif  // __UPGRADE_NVRAM__
+
+VM_MSG_DEF(GPD_VIBRATOR_SET_LEVEL_REQ=(GPD_BASE+0x38), void DUMMY)   /**< Command to set vibrator level */
+VM_MSG_DEF(GPD_HEADSET_HOOK_FAKE_TIMER=(GPD_BASE+0x39), void DUMMY)   /**< Timer to check fake hook key */
+
+#endif
+

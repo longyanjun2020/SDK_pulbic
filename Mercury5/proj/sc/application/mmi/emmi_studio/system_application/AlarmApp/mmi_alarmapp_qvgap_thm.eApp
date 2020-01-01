@@ -1,0 +1,233 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="ALARM_WND_SETALARM" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="TitleDoubleTextWidget" ClsID="CLSID_DOUBLE_TEXT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="30d2a" />
+				<Model ClsID="CLSID_DOUBLE_TEXT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_TITLE" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TimeTextTimeWidget" ClsID="CLSID_TEXT_TIME_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="e6ebe" />
+				<Model ClsID="CLSID_TEXT_TIME_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_TIME" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="StatusTextPickWidget" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="67183" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_LIL_N_STATUS" />
+						<Struct>
+							<String Id="TXT_LIL_N_OFF" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_ON" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="FrequencyDoubleTextWidget" ClsID="CLSID_DOUBLE_TEXT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="0d1aa" />
+				<Model ClsID="CLSID_DOUBLE_TEXT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_FREQUENCY" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="RingToneDoubleTextWidget" ClsID="CLSID_DOUBLE_TEXT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="0bea3" />
+				<Model ClsID="CLSID_DOUBLE_TEXT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_RINGTONE" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="6a837" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SAVE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_EDIT_ALARM&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="ALARM_WND_SETTITLE_LOADOPTIONMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="14dc1" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_COMMON_TEXT_SAVE" />
+						<String Id="TXT_OIL1_N_SAVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_COMMON_TEXT_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="cef2b" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="AlarmVtmOpt" />
+	</Layout>
+	<Layout Id="ALARM_WND_SETFREQUENCY" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget11" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_CHECK" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="62366" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="ff80b" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="AlarmVtmSelect" />
+	</Layout>
+	<Layout Id="ALARM_WND_FILEMGR" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget1" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="f0e9a" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_OK_TEXT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_SETTING_USE_SYSTEM_FILE" />
+						<Struct>
+							<String Id="TXT_LIL_N_USE_SYSTEM_FILE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_OK_TEXT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_SETTING_SELECT_FILE" />
+						<Struct>
+							<String Id="TXT_LIL_N_SELECT_FILE" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="8a5bd" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="AlarmSelect" />
+	</Layout>
+	<Layout Id="ALARM_WND_ALARMLIST" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="02e99" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="55fa5" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="AlarmVtm" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_ALARM_CLOCK&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="ALARM_WND_SETTITLE" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="280" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="InputWidgetControl" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="c14ed" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="76681" />
+		</Widget>
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_TITLE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="9599c" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="AlarmVtmInpput" />
+	</Layout>
+	<Layout Id="ALARM_WND_VIEWALARM" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="AbsContainerControl2" ClsID="CLSID_ABSCONTAINER" SizeHeight="280" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="VtmViewInput" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="95b16" />
+				<InternProp Id="VtmWidgetName" Value="VtmViewInput" />
+				<Property Id="PROP_INPUT_WDG_DISABLE_SYMBOL_TABLE" Value="TRUE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="59b2b" />
+		</Widget>
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLOSE" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_VIEW_DETAILS&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="81b82" />
+		<InternProp Id="LAYOUT_POS_X" Value="11" />
+		<InternProp Id="LAYOUT_POS_Y" Value="347" />
+		<InternProp Id="VtmId" Value="AlarmViewInput" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_ALARMAPP" />
+</UiRoot>

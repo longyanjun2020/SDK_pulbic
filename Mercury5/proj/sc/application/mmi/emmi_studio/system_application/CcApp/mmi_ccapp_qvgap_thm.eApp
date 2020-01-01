@@ -1,0 +1,707 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CC_WND_OUTGOINGCALL" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="CallScreenBGWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_DEFAULT_VIEW_HEIGHT" SizeWidth="CCAPP_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="898cc" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_DIALING_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="OutgoingCallImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_OUTGOING_IMAGE_HEIGHT" SizeWidth="CCAPP_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="d1084" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_OUTGOINGCALL_ANIM" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="CallStatesTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_OUTGOING_CALLSTATE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_OUTGOING_CALLSTATE_POS_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_GREEN_2" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="COLOR_WHITE" />
+				<InternProp Id="GUID" Value="705ce" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_CCL_N_CALLING" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="CallInfoTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_OUTGOING_CALLINFO_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_OUTGOING_CALLINFO_POS_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_BLUE_1" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="COLOR_WHITE" />
+				<InternProp Id="GUID" Value="d4442" />
+			</Widget>
+			<Widget Id="DuoStateTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_OUTGOING_CALLDUO_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_OUTGOING_CALLDUO_POS_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_GREEN_2" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="COLOR_WHITE" />
+				<InternProp Id="GUID" Value="88a3a" />
+			</Widget>
+			<InternProp Id="GUID" Value="b11d6" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1001" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_VISIABLE" />
+	</Layout>
+	<Layout Id="CC_WND_INCALLSCREEN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="CallScreenBgImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_DEFAULT_VIEW_HEIGHT" SizeWidth="CCAPP_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="c5f72" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_DIALING_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MptyImgWdg1" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_IMGAREA_MPTY_IMAGE_HIGHT" SizeWidth="CCAPP_IMGAREA_MPTY_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="fd040" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MptyImgWdg2" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_IMGAREA_MPTY_IMAGE_HIGHT" SizeWidth="CCAPP_IMGAREA_MPTY_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="8b7aa" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MptyImgWdg3" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_IMGAREA_MPTY_IMAGE_HIGHT" SizeWidth="CCAPP_IMGAREA_MPTY_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="5dac1" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MptyImgWdg4" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_IMGAREA_MPTY_IMAGE_HIGHT" SizeWidth="CCAPP_IMGAREA_MPTY_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="f0a5c" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MptyImgWdg5" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_IMGAREA_MPTY_IMAGE_HIGHT" SizeWidth="CCAPP_IMGAREA_MPTY_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="05f35" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DuoImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_DUO_IMAGE_HEIGHT" SizeWidth="CCAPP_DUO_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_DUO_IMAGE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_DUO_IMAGE_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="d85c4" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MuteImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_MUTE_IMAGE_HEIGHT" SizeWidth="CCAPP_MUTE_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_MUTE_IMAGE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_MUTE_IMAGE_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="76ff1" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_MUTE_STATE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextAreaBgImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_TEXTAREA_HEIGHT" SizeWidth="CCAPP_DEFAULT_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="3" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="f7815" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_TEXTAREA_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="CallInfoImgWdg1" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_TEXTAREA_CALLINFO_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_TEXTAREA_LINE1_IMG_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_TEXTAREA_LINE1_IMG_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="474b4" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_CALL_ACTIVE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="CallInfoTextWdg1" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_TEXTAREA_CALLINFO_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_TEXTAREA_LINE1_TEXT_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_TEXTAREA_LINE1_TEXT_POS_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_LEFT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_BLUE_1" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="COLOR_WHITE" />
+				<InternProp Id="GUID" Value="f1899" />
+			</Widget>
+			<Widget Id="CallInfoMptyListWidget" ClsID="CLSID_MENUWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_TEXTAREA_CALLINFO_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_TEXTAREA_LINE1_TEXT_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_TEXTAREA_LINE1_TEXT_POS_Y" />
+				<InternProp Id="GUID" Value="669dd" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Widget Id="CallInfoImgWdg2" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_TEXTAREA_CALLINFO_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_TEXTAREA_LINE2_IMG_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_TEXTAREA_LINE2_IMG_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="4f636" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_CALL_HOLD" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="CallInfoTextWdg2" ClsID="CLSID_TEXTWIDGET" SizeHeight="CCAPP_CALLINFO_ITEM_HEIGHT" SizeWidth="CCAPP_TEXTAREA_CALLINFO_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_TEXTAREA_LINE2_TEXT_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_TEXTAREA_LINE2_TEXT_POS_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_LEFT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_GREY_3" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="COLOR_WHITE" />
+				<InternProp Id="GUID" Value="81968" />
+			</Widget>
+			<Widget Id="RecordImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CCAPP_RECORD_IMAGE_HEIGHT" SizeWidth="CCAPP_RECORD_IMAGE_WIDTH">
+				<Position Type="X_POSITION" Value="CCAPP_RECORD_IMAGE_POS_X" />
+				<Position Type="Y_POSITION" Value="CCAPP_RECORD_IMAGE_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="ba3b5" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALL_IMG_CALL_RECORD_STATE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="c3fed" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1001" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_NONE" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_VISIABLE" />
+	</Layout>
+	<Layout Id="CC_WND_INCALLEDITOR" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="InputWidget" ClsID="CLSID_INPUTWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_WIDTH">
+				<Position Type="X_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_POS_X" />
+				<Position Type="Y_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_POS_Y" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_MULTILINE" Value="TRUE" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_CURSOR_COLOR" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_FONT_SIZE" Value="FONT_CAT_NUM_LARGE" />
+				<Property Id="PROP_INPUT_WDG_LINEGAP" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_LINEGAP" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="CCAPP_DIALER_MAX_INPUT_BYTE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_DIALING" />
+				<Property Id="PROP_INPUT_WDG_HANDWRITING_ENABLE" Value="FALSE" />
+				<InternProp Id="GUID" Value="8b431" />
+			</Widget>
+			<Widget Id="ShortcutWidget" ClsID="CLSID_TEXTWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_SHORTCUT_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_SHORTCUT_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_COLOR" />
+				<InternProp Id="GUID" Value="eca7b" />
+			</Widget>
+			<Widget Id="GridWdg1" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_WIDTH">
+				<Position Type="X_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_POS_X" />
+				<Position Type="Y_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID1_POS_Y" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="4c4bc" />
+			</Widget>
+			<Widget Id="GridWdg2" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_HEIGHT" SizeWidth="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_WIDTH">
+				<Position Type="X_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_POS_X" />
+				<Position Type="Y_POSITION" Value="DIALERAPP_LAYOUT_TOUCHDIALING_GRID2_POS_Y" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="bd173" />
+			</Widget>
+			<Widget Id="ActInputWidget" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_DEFVIEW_WIDTH" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_TEXT_COLOR" Value="DIALERAPP_LAYOUT_DIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_CURSOR_COLOR" Value="DIALERAPP_LAYOUT_DIALING_INPUT_COLOR" />
+				<Property Id="PROP_INPUT_WDG_FONT_SIZE" Value="FONT_CAT_NUM_LARGE" />
+				<Property Id="PROP_INPUT_WDG_LINEGAP" Value="DIALERAPP_LAYOUT_TOUCHDIALING_INPUT_LINEGAP" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="CCAPP_DIALER_MAX_INPUT_BYTE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_DIALING" />
+				<InternProp Id="GUID" Value="80905" />
+			</Widget>
+			<Widget Id="ActShortcutWidget" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_DEFVIEW_WIDTH" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_LEFT" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DIALERAPP_LAYOUT_DIALING_INPUT_COLOR" />
+				<InternProp Id="GUID" Value="e9ad6" />
+			</Widget>
+			<InternProp Id="GUID" Value="ca653" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_VISIABLE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+	</Layout>
+	<Layout Id="CC_WND_IPNUMBEREDITOR" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="IpNumInput" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT_WITH_SB" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_DIALING" />
+				<Property Id="PROP_INPUT_WDG_MULTILINE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="CCAPP_IPCALL_MAX_NUM_LEN" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_TOP" />
+				<InternProp Id="GUID" Value="607e6" />
+			</Widget>
+			<InternProp Id="GUID" Value="14b22" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_IP_NUMBER&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SAVE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+	</Layout>
+	<Layout Id="CC_WND_MULTIPARTYLIST" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer6" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget2" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="a80fb" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget2" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="028d0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+		<InternProp Id="VtmId" Value="MutiList" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_MULTIPARTY&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CC_WND_IPNUMBERLIST" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget1" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="2d7bf" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget1" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="5dfeb" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="IpNumber" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_IP_NUMBER&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CC_WND_INCALLEDITOROPTIONMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget2" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="f6fdd" />
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget2" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_CALL" />
+						<String Id="TXT_OIL1_N_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_IPCALL" />
+						<String Id="TXT_OIL1_N_IP_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_ADD" />
+						<String Id="TXT_OIL1_N_SAVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_SEND" />
+						<String Id="TXT_OIL1_N_SEND" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="86a9c" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="InCallMenu" />
+	</Layout>
+	<Layout Id="CC_WND_MULTIPARTYOPTIONMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget1" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="65284" />
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget1" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_SPLIT" />
+						<String Id="TXT_OIL1_N_SPLIT" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_END_SELECTED_" />
+						<String Id="TXT_OIL1_N_END_SELECTED_CALL" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="11918" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="MultiMenu" />
+	</Layout>
+	<Layout Id="CC_WND_INCALLSCREENOPTIONMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="9b4b8" />
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_SPEAKER" />
+						<String Id="TXT_OIL1_N_SPEAKER" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_HANDSET" />
+						<String Id="TXT_OIL1_N_HANDSET" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_BT_HEADSET" />
+						<String Id="TXT_OIL1_N_BTHEADSET" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_MUTE" />
+						<String Id="TXT_RSK_N_MUTE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_UNMUTE" />
+						<String Id="TXT_RSK_N_UNMUTE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_HOLD" />
+						<String Id="TXT_OIL1_N_HOLD" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_RETRIEVE" />
+						<String Id="TXT_OIL1_N_RETRIEVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_SWAP" />
+						<String Id="TXT_OIL1_N_SWAP" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_VIEW" />
+						<String Id="TXT_OIL1_N_VIEW" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_END_ACTIVE" />
+						<String Id="TXT_OIL1_N_END_ACTIVE_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_END_HOLD" />
+						<String Id="TXT_OIL1_N_END_HOLD_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_MULTIPARTY" />
+						<String Id="TXT_OIL1_N_MULTIPARTY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_TRANSFER" />
+						<String Id="TXT_OIL1_N_TRANSFER" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_VOLUME" />
+						<String Id="TXT_OIL1_N_VOLUME" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_DTMF" />
+						<String Id="TXT_OIL1_N_DTMF" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_RECORD" />
+						<String Id="TXT_OIL1_N_RECORD" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_STOP_RECORD" />
+						<String Id="TXT_OIL1_N_STOP_RECORD" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_PHONEBOOK" />
+						<String Id="TXT_OIL1_N_PHONEBOOK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_CC_OPT_MESSAGE" />
+						<String Id="TXT_OIL1_N_MESSAGES" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="b1d0c" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="InCallScreen" />
+	</Layout>
+	<Layout Id="CC_WND_DTMFNUMBERINPUT" ClsID="CLSID_VTMPOPUPINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPINPUT" FileLocation="CLSID_VTMPOPUPINPUT">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="imagewidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="4a5d5" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="vtminputwidget" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="POPUPINPUT_INPUTWDG_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_DIALING" />
+				<InternProp Id="GUID" Value="e633e" />
+				<InternProp Id="VtmWidgetName" Value="vtminputwidget" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="119d9" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<InternProp Id="VtmId" Value="DtmfInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_PML_N_DTMF_NUMBER&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CC_WND_DUALMENU" ClsID="CLSID_VTMSIMSELECTION" LayoutType="VT_NORMAL" InheritID="CLSID_VTMSIMSELECTION" FileLocation="CLSID_VTMSIMSELECTION">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="e6874" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="123b6" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="DualMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_CALL&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CCAPP" />
+</UiRoot>

@@ -1,0 +1,84 @@
+H245-CONFIGURATION DEFINITIONS AUTOMATIC TAGS ::=
+BEGIN
+
+
+
+
+
+IMPORTS
+        DataType,
+        ModeElement,
+        TerminalCapabilitySet
+    FROM MULTIMEDIA-SYSTEM-CONTROL;
+
+
+
+-- =========================================================
+-- H.245 Application msgs
+-- =========================================================
+
+H245Configuration ::=   SEQUENCE
+{
+    masterSlave                 MasterSlaveConf             OPTIONAL,
+    capabilities                CapabilitiesConf            OPTIONAL,
+    multiplexEntryTable         MultiplexEntryTableConf     OPTIONAL, -- Used only in 3G-324M
+
+    channels                    SEQUENCE OF ChannelEntry    OPTIONAL,
+    modes                       SEQUENCE OF ModeEntry       OPTIONAL,
+
+    -- Timeout values on operations
+    channelsTimeout             INTEGER(0..65535)           OPTIONAL, -- in seconds
+    roundTripTimeout            INTEGER(0..65535)           OPTIONAL, -- in seconds
+    requestCloseTimeout         INTEGER(0..65535)           OPTIONAL, -- in seconds
+    requestModeTimeout          INTEGER(0..65535)           OPTIONAL, -- in seconds
+    mediaLoopTimeout            INTEGER(0..65535)           OPTIONAL, -- in seconds
+    multiplexEntrySendTimeout   INTEGER(0..65535)           OPTIONAL, -- in seconds. Used only in 3G-324M
+    ...
+
+}
+
+
+
+MasterSlaveConf ::=     SEQUENCE
+{
+    terminalType    INTEGER (0..255),
+    manualOperation NULL                OPTIONAL, -- cancel auto-mode
+    manualResponse  NULL                OPTIONAL,
+    timeout         INTEGER (0..65535)  OPTIONAL, -- in seconds
+    ...
+}
+
+
+CapabilitiesConf ::=    SEQUENCE
+{
+    terminalCapabilitySet   TerminalCapabilitySet,
+    manualOperation         NULL                OPTIONAL, -- cancel auto-mode
+    manualResponse          NULL                OPTIONAL,
+    timeout                 INTEGER (0..65535)  OPTIONAL, -- in seconds
+    ...
+}
+
+
+MultiplexEntryTableConf ::=     SEQUENCE
+{
+    manualResponse          NULL                OPTIONAL,
+    ...
+}
+
+
+ChannelEntry ::= SEQUENCE
+{
+    name                    IA5String (SIZE(1..128)), -- data type name
+    dataType                DataType,
+    isDynamicPayloadType    NULL OPTIONAL, -- exist for dynamic payload types (as alt. H.261)
+    ...
+}
+
+ModeEntry ::= SEQUENCE
+{
+    name            IA5String (SIZE(1..128)), -- data type name
+    mode            ModeElement,
+    ...
+}
+
+END

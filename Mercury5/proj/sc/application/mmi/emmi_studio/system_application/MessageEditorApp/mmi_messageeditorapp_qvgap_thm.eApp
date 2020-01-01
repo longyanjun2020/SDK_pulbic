@@ -1,0 +1,257 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="SEA_WND_MMS_EDITOR_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SeaMmsTitleAreaSizeTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="SEA_MMS_TITLE_HEIGHT" SizeWidth="SEA_MMS_SIZE_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_MMS_SIZE_WDG_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_SIZE_WDG_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_RIGHT|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="5e713" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_P_MMS_SLIDE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsPageSwitchLeftArrowButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SEA_MMS_PAGESWITCH_ARROW_ICON_HEIGHT " SizeWidth="SEA_MMS_PAGESWITCH_ARROW_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_MMS_PAGESWITCH_WDG_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_HEIGHT+(SEA_MMS_PAGESWITCH_HEIGHT-SEA_MMS_PAGESWITCH_ARROW_ICON_HEIGHT)/2" />
+				<InternProp Id="GUID" Value="22016" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsPageSwitchPageTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="SEA_MMS_PAGESWITCH_HEIGHT" SizeWidth="SEA_MMS_PAGESWITCH_TEXTWDG_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_MMS_PAGESWITCH_WDG_X+SEA_MMS_PAGESWITCH_ARROW_ICON_WIDTH" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_SLIDE_ON_OFF" Value="FALSE" />
+				<InternProp Id="GUID" Value="0edf1" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_P_MMS_SLIDE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsPageSwitchRightArrowButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SEA_MMS_PAGESWITCH_ARROW_ICON_HEIGHT " SizeWidth="SEA_MMS_PAGESWITCH_ARROW_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_MMS_PAGESWITCH_WDG_X+SEA_MMS_PAGESWITCH_ARROW_ICON_WIDTH+SEA_MMS_PAGESWITCH_TEXTWDG_WIDTH" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_HEIGHT+(SEA_MMS_PAGESWITCH_HEIGHT-SEA_MMS_PAGESWITCH_ARROW_ICON_HEIGHT)/2" />
+				<InternProp Id="GUID" Value="36962" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsTitleAreaAttachmentIconImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SEA_MMS_OBJECT_ICON_HEIGHT" SizeWidth="SEA_MMS_OBJECT_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_MMS_ATTACHMENT_ICON_WDG_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_ATTACHMENT_ICON_WDG_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="78275" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MMS_ICON_EDIT_ATTACHED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaViewpointWdg" ClsID="CLSID_VIEWPORTWIDGET" SizeHeight="SEA_MMS_EDITOR_AREA_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_VIEWPORT_WDG_PANSTEP" Value="SEA_MMS_RECIPIENT_HEIGHT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_TOP" />
+				<InternProp Id="GUID" Value="46ed8" />
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaToDisplayWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="SEA_MMS_RECIPIENT_HEIGHT" SizeWidth="SEA_MMS_EDITOR_AREA_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="SEA_MMS_RECIPIENT_FONT_COLOR" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="SEA_MMS_RECIPIENT_HEIGHT" />
+				<InternProp Id="GUID" Value="c2cca" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaCcDisplayWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="SEA_MMS_RECIPIENT_HEIGHT" SizeWidth="SEA_MMS_EDITOR_AREA_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="SEA_MMS_RECIPIENT_HEIGHT" />
+				<InternProp Id="GUID" Value="390b9" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaBccDisplayWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="SEA_MMS_RECIPIENT_HEIGHT" SizeWidth="SEA_MMS_EDITOR_AREA_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="SEA_MMS_RECIPIENT_HEIGHT" />
+				<InternProp Id="GUID" Value="870a8" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaSubjectDisplayWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="SEA_MMS_RECIPIENT_HEIGHT" SizeWidth="SEA_MMS_EDITOR_AREA_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="SEA_MMS_RECIPIENT_HEIGHT" />
+				<InternProp Id="GUID" Value="65247" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaAudioIconImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SEA_MMS_OBJECT_ICON_HEIGHT" SizeWidth="SEA_MMS_OBJECT_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="43357" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MMS_IMG_AUDIO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaVideoIconImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SEA_MMS_OBJECT_ICON_HEIGHT" SizeWidth="SEA_MMS_OBJECT_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="f161f" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MMS_IMG_VIDEO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaInputWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="SEA_MMS_EDITOR_AREA_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="SEA_MMS_TEXTWIDGET_FONT_DEFAULT_COLOR" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="SEA_MMS_TEXTWIDGET_SINGLELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="e4cda" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_TO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaMmsEditorAreaImageImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="MAIN_DEFVIEW_X" />
+				<Position Type="Y_POSITION" Value="SEA_MMS_TITLE_WDG_Y+SEA_MMS_TITLE_AREA_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="9c91d" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="f61b3" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="267" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="GUID" Value="39906" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="SEA_WND_RECIPIENT_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SeaRecipientMenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT-SEA_RECIPIENT_EDITOR_BG_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="70b25" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Widget Id="SeaRecipientEditorBgImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SEA_RECIPIENT_EDITOR_BG_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_RECIPIENT_EDITOR_BG_X" />
+				<Position Type="Y_POSITION" Value="SEA_RECIPIENT_EDITOR_BG_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="930b3" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="INPUT_IMG_MESSAGE_RECIPIENT_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaRecipientEditorButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SEA_RECIPIENT_EDITOR_ICON_HEIGHT" SizeWidth="SEA_RECIPIENT_EDITOR_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_RECIPIENT_EDITOR_ICON_X" />
+				<Position Type="Y_POSITION" Value="SEA_RECIPIENT_EDITOR_ICON_Y" />
+				<InternProp Id="GUID" Value="df41d" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SeaRecipientEditorInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="SEA_RECIPIENT_EDITOR_WDG_HEIGHT" SizeWidth="SEA_RECIPIENT_EDITOR_WDG_WIDTH">
+				<Position Type="X_POSITION" Value="SEA_RECIPIENT_EDITOR_WDG_X" />
+				<Position Type="Y_POSITION" Value="SEA_RECIPIENT_EDITOR_WDG_Y" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="MAX_RECIPIENTS_LENGTH_BYTE_RS" />
+				<InternProp Id="GUID" Value="2324b" />
+			</Widget>
+			<InternProp Id="GUID" Value="9bf81" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_RECIPIENTS&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_ADD" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="GUID" Value="8ee9e" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_SEA" />
+</UiRoot>

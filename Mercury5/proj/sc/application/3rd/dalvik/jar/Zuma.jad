@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+MIDlet-Data-Size: 4096
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-Name: ZUMA
+Created-By: 1.4
+MIDlet-Icon: icon.png
+MIDlet-Vendor: Glu Mobile
+MIDlet-1: ZUMA, icon.png, com.sorrent.game.GameMIDletZUMA
+MIDlet-Version: 1.1.0
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Description: ZUMA
+MIDlet-Touch-Support: True
+UseNativeTextButtons: false
+ReverseSoftkeys: true
+UseNativeCommands: false
+LGE-MIDlet-TargetLCD-Height: 300
+LGE-MIDlet-TargetLCD-Width: 240
+MIDlet-Jar-Size: 531866
+MIDlet-Jar-URL: Zuma.jar

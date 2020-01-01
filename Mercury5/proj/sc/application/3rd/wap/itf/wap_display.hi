@@ -1,0 +1,281 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// ("MStar Confidential Information") by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+#ifndef __WAP_DISPLAY__
+#define __WAP_DISPLAY__
+#ifdef __WAP_MMI_CDWAP__
+#include "wap_porting.hi"
+
+#define WAP_MAX_IDLECYCLES        10
+#ifdef  __cplusplus
+extern "C" {
+#endif
+    /** \var    NodeType
+     *  \brief   page node type */
+    typedef enum
+    {
+        NODE_TYPE_LABEL,     /**< Text Label  */
+        NODE_TYPE_HOTLINK,   /**< A URL hotlink */
+        NODE_TYPE_IMAGE,     /**< Image, can be JPG, GIF, BMP... */
+        NODE_TYPE_TEXTBOX,   /**< Text box, text can be entered in it */
+        NODE_TYPE_LINE,      /**< Seprate line */
+        NODE_TYPE_EDITBOX,   /**< Edit box */
+        NODE_TYPE_PASSWORD,  /**< Password edit box */
+        NODE_TYPE_TABLE,     /**< Table list */
+        NODE_TYPE_CHECKBOX,  /**< Check box */
+        NODE_TYPE_RADIOBOX,  /**< Radio box */
+        NODE_TYPE_BUTTON,    /**< Button */
+        NODE_TYPE_COMBOBOX,  /**< Combo box */
+        NODE_TYPE_MARQUEE    /**< Marquee */
+    }NodeType_e;
+
+    typedef enum
+    {
+        REQ_WAP_DISPLAY_LABEL = WAP_EVT_DISPLAY_BASE,   /**< Send label data to UI ,              x = index,  pData = LABELOBJ instance */
+        REQ_WAP_DISPLAY_HOTLINK,                        /**< Send hotlink instance to UI,       x = index, pData = LABELOBJ instance */
+        REQ_WAP_DISPLAY_IMAGE,                          /**< Send image instance to UI,         x = index, pData = IMAGEOBJ instance */
+        REQ_WAP_DISPLAY_LINE,                           /**< Send line instance  to UI,         x = index, pData = RECT instance */
+        REQ_WAP_DISPLAY_TABLE,                          /**< Send table instance to UI,         x = index, y = table border, pData = RECT instance */
+        REQ_WAP_DISPLAY_TEXTBOX,                        /**< Send text with box instance to UI, x = index, y = max size,pData = LABELOBJ instance */
+        REQ_WAP_DISPLAY_EDITBOX,                        /**< Send editable text instance to UI, x = index, y = max size, pData = LABELOBJ instance */
+        REQ_WAP_DISPLAY_PASSWORD,                       /**< Send password instance to UI,      x = index, y = max size,pData = LABELOBJ instance */
+        REQ_WAP_DISPLAY_BUTTON,                         /**< Send button instance to UI,        x = index, pData = LABELOBJ instance */
+        REQ_WAP_DISPLAY_CHECKBOX,                       /**< Send checkbox instance to UI,      x = index, pData = CHECKBOXOBJ instance */
+        REQ_WAP_DISPLAY_RADIOBOX,                       /**< Send radiobox instance to UI,      x = index, pData = RADIOBOXOBJ instance */
+        REQ_WAP_DISPLAY_SINGLELIST,                     /**< Send single list instance to UI,   x = index, pData = SINGLELISTOBJ */
+        REQ_WAP_DISPLAY_MULTILIST,                      /**< Send multi-list instance to UI,    x = index, pData = MULTILISTBOJ */
+        REQ_WAP_DISPLAY_PROGRESS,                       /**< Send file download progress,       x = progress; while x=100, pData = FILEINFO obj, y= WAP_ERROR_SUCCESS, or WAP_ERROR_UNKNOWN*/
+        REQ_WAP_DISPLAY_EXCEPTION,                      /**< Send exception code to UI,          x = error code,such as BROWSERMSG_ADDR_ERROR define in ncciflayer.h */
+        REQ_WAP_DISPLAY_PAGEHEIGHT,                     /**< Send the current page height,      y = current page height ,x = current page location*/
+        REQ_WAP_DISPLAY_PAGEHEIGHT_PAGEEND,             /**< Send the current page height,      y = current page height ,x = current page location*/
+        REQ_WAP_DISPLAY_UPDATE_IND,
+        REQ_WAP_DISPLAY_MARQUEE,                        /**< Send the Marquee to UI,              x = index */
+        REQ_WAP_DISPLAY_PAGETITLE,                      /**< Send the accessed web page title, y = title size, pData = title string */
+        REQ_WAP_DISPLAY_PAUSE,                          /**< From UI, tell adaper layer to cancel object message when leave web page display interface */
+        RSQ_WAP_DISPLAY_PAUSE,                          /**< Response to REQ_WAP_DISPLAY_PAUSE , Y = WAP_ERROR_SUCCESS*/
+        REQ_WAP_DISPLAY_REDIRECT,                       /**< Send page redirect notice to UI */
+        REQ_WAP_DISPLAY_IND,                            /**< make event package then send to UI*/
+#ifdef __MMI_OMA_DRM_V1__
+        REQ_WAP_DISPLAY_OMA_PROGRESS
+#endif
+    }WapDispEvt_e;
+
+    /** \var     Rect
+     *   \brief    Rectangle parameter define */
+    typedef struct
+    {
+        s16 left;
+        s16 top;
+        s16 right;
+        s16 bottom;
+    }RECT;
+
+    /**  \var     PageNode
+      *   \brief    page node property member */
+    typedef struct
+    {
+        s16 nodeIndex;   /**< Each node or componet has a unique index */
+        s8 nodeType;    /**< Node type, such as label, image....      */
+        RECT rect;
+    }PageNode_t;
+
+    typedef struct{
+        u32       dwTotalNode;
+        PageNode_t* pPageNode;
+    }PageNodeTbl_t;
+
+    /** \var CtlComnAttr
+     *  \brief control common attribute*/
+    typedef struct {
+        s32     diColor;             /**<the color of the text*/
+        s32     diBcolor;            /**<the background color of the text*/
+        s16     iSize;               /**<the size of the text*/
+     /**
+        *  the 0 bit of low byte is "Bold" attribute,
+        *  the 1 bit of low byte is "Italic" attribute,
+        *  the 2 bit of low byte is "Underline" attribute
+        *  the 3 bit of low byte is "strike" attribute
+        *  the 4 bit of low byte is "subscript" attribute
+        *  the 5 bit of low byte is "superscript" attribute
+        *  the 6 bit of low byte is "overline" attribute
+        *  the 7 bit of low byte is "smallcaps" attribute
+        *  the 8 bit of low byte is "blink" attribute
+        *  the 9 bit of low byte is "white-space: nowrap" attribute
+        *  the 10 bit of low byte is "float: left" attribute
+        *  the 11 bit of low byte is "float: right" attribute
+        */
+        s16     iCompactAttr;
+    }CtlComnAttr_t;
+
+    /** \var     LabelObj
+     *  \brief   Label object define */
+    typedef struct{
+        RECT           rc;          /**< lable position info. 	*/
+        CtlComnAttr_t  cca;         /**< label attribute 		*/
+        s16            iTextLen;    /**< label string length 	*/
+        u8*            pText;       /**< UTF8 string type 		*/
+    }LabelObj_t;
+
+    /** \var     BUTTONOBJ
+     *  \brief   Button object define */
+    typedef struct{
+        RECT          rc;         /**< button position info.	*/
+        s16           iTextLen;   /**< label string length 		*/
+        u8*           pText;	  /**< UTF8 string type 		*/
+    }ButtonObj_t;
+
+    /** \var    IMAGEOBJ
+      * \brief   image class define */
+    typedef struct{
+        RECT    rc;                 /**< image position */
+        u32     dwImgSize;          /**< image size */
+        bool    bHotlink;           /**< image hotlink */
+        u8*     pImgData;
+        bool    bButton;           /**< for FIELD_TYPE_IMAGE_SUBMIT type */
+    }ImageObj_t;
+
+    /** \var     SINGLELISTOBJ
+     *  \brief    single list class define */
+    typedef struct{
+        RECT    rc;                /**< single list position info. */
+        u32     dwItems;           /**< total items of single list */
+        u32     dwSelected;        /**< selected item number   */
+        u8*     pItemData[1];      /**< each item data pointer */
+    }SingleListObj_t;
+
+    /** \var    MULTILISTITEM
+      * \brief   multi-list class define */
+    typedef struct{
+        bool    bSelected;         /**< status of selected or unselected */
+        u8*     pItemData;         /**< item data pointer */
+    }MultiListItem_t;
+
+    /** \var    MULTILISTOBJ
+      * \brief    multi-list class define */
+    typedef struct{
+        RECT             rc;            /**< position information of multi-list */
+        u32              dwItems;       /**< total items of multi-list */
+        MultiListItem_t  pListItem[1];  /**< multi-list item element */
+    }MultiListObj_t;
+
+    /** \var    RADIOBOXOBJ
+      * \brief   radio box class */
+    typedef struct{
+        RECT    rc;                     /**< position information of radio box */
+        bool    bSelected;              /**< status of selected or unselected  */
+        u8*     pName;
+    }RadioBoxObj_t;
+
+    typedef struct{
+        RECT    rc;                     /**< position information of check box */
+        bool    bSelected;              /**< status of seleced or unselected   */
+    }CheckBoxObj_t;
+
+    typedef struct{
+        RECT        rc;
+        s16         iDirection;         /**< scroll direction 			*/
+        s16         iWidth;             /**< width 						*/
+        s16         iHeight;            /**< height 					*/
+        s16         iLoop;              /**< play count 				*/
+        s16         iScrollAmout;       /**< scroll space every time	*/
+        s16         iScrollDelay;       /**< scroll interval 			*/
+        CtlComnAttr_t cca;              /**< marquee attribute 			*/
+        s8*         pContent;
+    }MarqueeObj_t;
+
+#ifdef __MMI_OMA_DRM_V1__
+    typedef struct {
+        s8 *pName;
+        s8 *pType;
+        s8 *pSize;
+        s8 *pVendor;
+        s8 *pUri;
+        s8 *pDescription;
+    } OMADDInfo_t;
+
+typedef enum _OMA_DD_STATUS_e
+{
+    OMADL_STATUS_SUCCESS,
+    OMADL_STATUS_NOMEMORY,
+    OMADL_STATUS_USERCANCEL,
+    OMADL_STATUS_LOSTSERVICE,
+    OMADL_STATUS_ATTRMISMATCH,
+    OMADL_STATUS_INVALIDDD,
+    OMADL_STATUS_INVALIDVERSION,
+    OMADL_STATUS_DEVICEABORT,
+    OMADL_STATUS_UNKOWNCONTENT,
+    OMADL_STATUS_LOADERROR,
+    OMADL_STATUS_OTHER
+} OMA_DD_STATUS_e;
+#endif
+
+    ven_common_sim_id_t  WapGetSIMId(void);
+    void    WapSetSIMId       (ven_common_sim_id_t simId);
+    int     WapGetScrnWidth   (void);
+    void    WapSetScrnWidth   (s16 diScrnWidth);
+    int     WapGetScrnHeight  (void);
+    void    WapSetScrnHeight  (s16 diScrnHeight);
+    void    WapInitDisplay    (void);
+    void    WapTimerProcess   (u16 wTimerId);
+    bool    WapGetRelayout    (void);
+    void    WapSetRelayout    (bool bRelayout);
+    void    WapDisplayWebPage (void);
+    void    WapZeroIndexCount (void);
+    void    WapZeroIndexRecord(void);
+    void    WapSlideVpos      (s32 diOffset);
+    int     WapGetVpos        (void);
+    void    WapSetVpos        (s32 diVpos);
+    void    WapSetGetHeight   (s32 diGetHeight);
+    int    WapGetTpos        (void);
+    void    WapSetTpos        (s32 diTpos);
+    void    WapSetNewPage     ( bool bIsNewPage );
+    void    WapSetShowImageFlag(bool bDisplay);
+    bool    WapGetShowImageFlag(void);
+    int     WapDisplayPage    (bool bInForTimer);
+    int     WapGetNodeType    (s32  diNodeIndex);
+    void    WapSetShowTitle   (bool bShowTitle);
+
+    int     WapGetNodeIndexByPageIndex(s32 diPageIndex);
+    int     WapGetPageIndexByNodeIndex(s32 diNodeIndex);
+
+    int     WapDialNumber    (s8 *number);
+    int     WapSendDtmf      (s8 *dtmf);
+    int     WapAddToPhonebook(s8 *name, s8 *number);
+    int     WapSendWtaiNotify(s32 cause);
+    int     WapSaveDataFile  (s8 *pBuf, s32 diSumlen, s32 saveDataErrorFlag, bool isOMADownload);
+    int     WapAuthGetFunc   (s8 *info, s8 **username, s8 **passwd);
+    int     WapSaveDataDialog(s8 *from, s8 *contentType, s8 *filename, s32 ContentLength, bool isOMADownload);
+
+    bool    WapGetPauseDisplay(void);
+    void    WapSetPauseDisplay(bool bPause);
+    bool    WapGetNodeTable   (PageNodeTbl_t* pNodeTable);
+    void    WapSetIdleCycle   (s32 diIdleCycle);
+#ifdef DB_USING_OMA_DOWNLOAD
+    s32     WapShowOMADDInfo(s8 *pName, s8 *pType, s8 *pSize, s8 *pVendor, s8 *pUri, s8 *pDescription);
+    void    WapNotifyOMADDStatus(int32_t status);
+#endif // #ifdef DB_USING_OMA_DOWNLOAD
+    s32     WapCheckSpaceAvailable(s32 fileSize, s32 bufferFactor);
+    bool     WapPlayStreaming  (s8 *pURL, bool isRtsp, s8 *pReAccessURL);
+
+    WapErrCode_e    WapAllocatePageIndexRecord(void);
+    void    WapFreePageIndexRecord(void);
+
+#ifdef  __cplusplus
+}       /* end of extern "C" */
+#endif
+
+#endif  //__WAP_MMI_CDWAP__
+#endif  //__WAP_DISPLAY__

@@ -1,0 +1,240 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>ATSyncSrv</name>
+         <version>1007</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_ATSYNCSRV</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="ATSyncSrv" id="1001" hasEntry="0" hasExit="0" hasMethod="0" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+          <node name="Init" id="27907" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment>init variable</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="LoadData" id="28162" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment>if SrvStatus == Cancel, release data, then back to idle</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="Idle" id="28188" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment>1. if SrvStatus == cancel, post event to UsbAp&#13;&#10;2. set SrvStatus = Idle</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="Active" id="28204" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="Phonebook">
+          <EntryComment>if(SrvStatus == idle), set SrvStatus == busy</EntryComment>
+          <ExitComment></ExitComment>
+              <node name="Phonebook" id="28227" hasEntry="1" hasExit="1" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send request to Phone book</EntryComment>
+              <ExitComment>Clean up</ExitComment>
+              </node>
+              <node name="Calendar" id="28250" hasEntry="1" hasExit="1" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>1. Call vCalStoreSrv API to read, write, update calendar event based on the indication event which sent from ATI.&#13;&#10;&#13;&#10;2. Call AT command generator to generate response AT command and send response back to ATI.</EntryComment>
+              <ExitComment>Free useless resource.</ExitComment>
+              </node>
+              <node name="Message" id="28273" hasEntry="0" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="DataProcess">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+                  <node name="DataProcess" id="6197" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active_Message" DefaultChild="">
+                  <EntryComment>according to nOPId</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="SendResultRsp" id="6366" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active_Message" DefaultChild="">
+                  <EntryComment>according to nOPID, send rsp&#13;&#10;release data&#13;&#10;trigger IEvt_BackToIdle</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+              </node>
+              <node name="ToDoList" id="28293" hasEntry="1" hasExit="1" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>execute action</EntryComment>
+              <ExitComment>clean resource</ExitComment>
+              </node>
+              <node name="Notepad" id="28306" hasEntry="0" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="Calllog" id="28325" hasEntry="0" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="29240"	from="_Init"  to="_Init"  type="internal"	hasCondition="0" hasAction="1">
+				<event>ATSYNCSRV_EVT_INIT_FAIL</event>
+				<condition></condition>
+				<action>post evt_start_status with Err to pClient</action>
+			</transition>
+			<transition enable="1" id="12629"	from="_Init"  to="_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>ATSYNCSRV_IEVT_INIT_OK</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="3327"	from="_Idle"  to="_Idle"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_ATSYNC_SEGMENTCMD_REQ</event>
+				<condition></condition>
+				<action>compose command</action>
+			</transition>
+			<transition enable="1" id="3726"	from="_Idle"  to="_Idle"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_ATSYNC_SEGMENTCMD_COMPLETE_REQ</event>
+				<condition></condition>
+				<action>compose command and trigger event for precessing command.</action>
+			</transition>
+			<transition enable="1" id="3939"	from="_Idle"  to="_Active_ToDoList"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_ATSYNC_TODO_DATA_REQ</event>
+				<condition></condition>
+				<action>decode QP data</action>
+			</transition>
+			<transition enable="1" id="4762"	from="_Active_ToDoList"  to="_Active_ToDoList"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_ATSYNC_TODO_DATA_REQ</event>
+				<event>MAE_EVT_TaskDB_INSERTED</event>
+				<event>MAE_EVT_TaskDB_REMOVED</event>
+				<event>MAE_EVT_TaskDB_UPDATED</event>
+				<condition></condition>
+				<action>do todo action</action>
+			</transition>
+			<transition enable="1" id="30689"	from="_Idle"  to="_Active_Phonebook"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_ATSYNC_PHB_DELETE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_QUERY_CAPACITY_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_QUERY_NEXT_ID_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_QUERY_SUPPORTED_FIELD_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_QUERY_USED_COUNT_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_READ_ENTIRE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_READ_ENTRY_VCARD_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_STORAGE_QUERY_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_STORAGE_SET_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_WRITE_ENTIRE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_PHB_WRITE_ENTRY_VCARD_IND</event>
+				<condition></condition>
+				<action>Copy structure for each event</action>
+			</transition>
+			<transition enable="1" id="30738"	from="_Active"  to="_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>ATSYNCSRV_IEVT_BACK_TO_IDLE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="9983"	from="_Active_Phonebook"  to="_Active_Phonebook"  type="internal"	hasCondition="0" hasAction="1">
+				<event>ATSYNCSRV_IEVT_PHB_DELETE_ENTRY_CNF</event>
+				<event>ATSYNCSRV_IEVT_PHB_QUERY_STATUS_CNF</event>
+				<event>ATSYNCSRV_IEVT_PHB_READ_ENTIRE_ENTRY_CNF</event>
+				<event>ATSYNCSRV_IEVT_PHB_WRITE_ENTIRE_ENTRY_CNF</event>
+				<condition></condition>
+				<action>Deal with each confirm </action>
+			</transition>
+			<transition enable="1" id="4894"	from="_Idle"  to="_LoadData"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_ATSYNC_SMS_QUERY_USED_COUNT_IND</event>
+				<condition></condition>
+				<action>set pSms_nAct = QueryCoury, query from Msg&#13;&#10;1. if SIM, open SIM buffer first&#13;&#10;2. else, list msg. then trigger IEvt_ListMsgDone with OK or Fail</action>
+			</transition>
+			<transition enable="1" id="7310"	from="_LoadData"  to="_Active_Message"  type="default"	hasCondition="0" hasAction="0">
+				<event>ATSYNCSRV_IEVT_MSGSRV_LIST_ALL_MSG_DONE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="7836"	from="_Idle"  to="_Active_Message"  type="default"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_ATSYNC_SMS_DELETE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_SMS_QUERY_CAPACITY_IND</event>
+				<event>MAE_EVT_ATSYNC_SMS_QUERY_SUPPORTED_FIELD_IND</event>
+				<event>MAE_EVT_ATSYNC_SMS_READ_ENTIRE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_SMS_SEND_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_SMS_STORAGE_QUERY_IND</event>
+				<event>MAE_EVT_ATSYNC_SMS_STORAGE_SET_IND</event>
+				<event>MAE_EVT_ATSYNC_SMS_WRITE_ENTIRE_ENTRY_IND</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="9968"	from="_Active_Message_DataProcess"  to="_Active_Message_DataProcess"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SMI_EVT_DelMsgByIdCnf</event>
+				<condition></condition>
+				<action>Deletion back.&#13;&#10;set ResultCode by return value, then trigger _IEVT_SEND_RSP</action>
+			</transition>
+			<transition enable="1" id="10843"	from="_Active_Message_DataProcess"  to="_Active_Message_SendResultRsp"  type="default"	hasCondition="0" hasAction="0">
+				<event>ATSYNCSRV_IEVT_MSG_SEND_RSP</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="11284"	from="_Active_Message_SendResultRsp"  to="_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>ATSYNCSRV_IEVT_BACK_TO_IDLE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="21894"	from="_Idle"  to="_Active_Calendar"  type="default"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_ATSYNC_CALENDAR_DELETE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_QUERY_CAPACITY_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_QUERY_NEXT_ID_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_QUERY_SUPPORTED_FIELD_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_QUERY_USED_COUNT_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_READ_ENTIRE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_READ_ENTRY_VCAL_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_WRITE_ENTIRE_ENTRY_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_WRITE_ENTRY_V2_IND</event>
+				<event>MAE_EVT_ATSYNC_CALENDAR_WRITE_ENTRY_VCAL_IND</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="22432"	from="_LoadData"  to="_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>ATSYNCSRV_IEVT_BACK_TO_IDLE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="3814"	from="_Active_ToDoList"  to="_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>ATSYNCSRV_IEVT_BACK_TO_IDLE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="15524"	from="_Idle"  to="_Active_Message"  type="default"	hasCondition="1" hasAction="0">
+				<event>MAE_EVT_ATSYNC_SMS_QUERY_NEXT_ID_IND</event>
+				<condition>if pMsgData and pMsgData-&gt;pMsgList are not empty</condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="24991"	from="_Idle"  to="_LoadData"  type="default"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_ATSYNC_SMS_QUERY_NEXT_ID_IND</event>
+				<condition>pMsgList is not null</condition>
+				<action>load the pMsgList first, then find the next one</action>
+			</transition>
+			<transition enable="1" id="3005"	from="_Active_Message_DataProcess"  to="_Active_Message_DataProcess"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SMI_EVT_SendSMSCnf</event>
+				<event>SMI_EVT_StoreMsgCfn</event>
+				<condition></condition>
+				<action>read the result code and nNewMsgId, then post ievt_SendRsp</action>
+			</transition>
+			<transition enable="1" id="3511"	from="_Active_Message_DataProcess"  to="_Active_Message_DataProcess"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SMI_EVT_RetrvMsgDataFromSimCnf</event>
+				<condition></condition>
+				<action>if result_code is success,&#13;&#10;1. BackupMsgFromSimMsgBuf&#13;&#10;2. GetSimMsgLstInf&#13;&#10;trigger SendRsp</action>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="START_STATUS" type="external"></event>
+			<event name="INIT_OK" type="internal"></event>
+			<event name="INIT_FAIL" type="external"></event>
+			<event name="STOPPED" type="external"></event>
+			<event name="BACK_TO_IDLE" type="internal"></event>
+			<event name="PHB_READ_ENTIRE_ENTRY_CNF" type="internal"></event>
+			<event name="PHB_READ_ENTRY_VCARD_CNF" type="internal"></event>
+			<event name="PHB_WRITE_ENTIRE_ENTRY_CNF" type="internal"></event>
+			<event name="PHB_WRITE_ENTRY_VCARD_CNF" type="internal"></event>
+			<event name="PHB_DELETE_ENTRY_CNF" type="internal"></event>
+			<event name="PHB_QUERY_STATUS_CNF" type="internal"></event>
+			<event name="MSGSRV_LIST_ALL_MSG_DONE" type="internal"></event>
+			<event name="MSG_SEND_RSP" type="internal"></event>
+			<event name="MSGSRV_LIST_ALL_MSG_FAILED" type="internal"></event>
+		</eventlist>
+		<functionlist>
+			<function name="StartATSync" id="29472" RetType="MAE_Ret"	Param1="IHandler* pClient" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">make sure all destination AP are ready to sync&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="StopATSync" id="19567" RetType="MAE_Ret"	Param1="IHandler* pClient" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">stop the ATSync, if success, return MAE_RET_OK, else, please wait for the EVT_STOP_OK&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

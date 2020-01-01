@@ -1,0 +1,149 @@
+/**
+ * \file rm_trc.ho
+ * \brief Types, variables and macros of remote drivers.      .
+*/
+#ifndef __SYS_RM_TRC_HO__
+#define __SYS_RM_TRC_HO__
+
+#include "stdcomp.h"
+#include "msgtyp.ht"    /* for Header_t type */
+#include "sys_vm_dbg.ho"   
+#if defined(__RM_STORE_EXT_TRACE__) && !defined (__SDK_SIMULATION__)
+#include "fms_priv.h"
+#endif
+
+#define RM_TX_BUFFER_LENGTH                  0x8000 /*32 Kbytes : SNO modif (instead of 8192 before change) */
+
+#if defined(__V24_COMPOSITE_USB___)
+#define RM_TX_CMD_BUFFER_LENGTH              0x4000 /*16 Kbytes*/
+#endif
+
+#if defined(__TRACE_IN_EXTRA_XRAM_4M__) 
+#define RM_CIRCULAR_BUFFER                     0x300000
+#else
+#if defined(__TRACE_IN_512K_CIRCULAR_BUFFER__)
+#define RM_CIRCULAR_BUFFER                     0x80000
+#else
+#define RM_CIRCULAR_BUFFER                     0x10000
+#endif
+#endif 
+/***************************************************************************/
+/***************** AA command **********************************************/
+/***************************************************************************/
+
+#if defined(__V24_COMPOSITE_USB___)
+#define RM_CMD_START_PATTERN                 0xAA
+#define RM_START_PATTERN                     ((V24_IS_TRACE_SESSION(V24_USB2))?0xBB:0xAA)
+#else
+#define RM_START_PATTERN                     0xAA
+#endif
+
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+    u32 MemoryAreaType; /* enum casted to u32 for SGT compatibility */
+}MSG2SpecificHeader_t;
+
+#define RM_LENGTH_MSG2_HEADER sizeof(MSG2SpecificHeader_t)
+
+#ifdef __SDK_SIMULATION__
+typedef __packed struct
+{
+    MSG2SpecificHeader_t MSG2SpecificHeader;
+    u8 Data;
+}BodyMSG2_t;
+#endif //__SDK_SIMULATION__
+
+/***************************************************************************/
+/* NEW HEADER */
+/* byte 1   start patten 0xAA */
+/* byte 2   payload length LSB */
+/* byte 3   payload length MSB */
+/* byte 4   M(mark of end field : 1 bit) | flow identifier */
+/* byte 5   M(mark of end field : 1 bit) | counter */
+/* byte 6   time stamp LSB */
+/* byte 7   M(mark of end field : 1 bit) | time stamp MSB */
+
+
+#define RM_MAX_HEADER_LENGTH			7
+#define RM_MIN_HEADER_LENGTH			4
+#define RM_CHECKSUM_LENGTH			1
+#define RM_MODEM_HEADER_LENGTH			8
+
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+	u8 StartPattern;
+	u8 DataLengthLSB;
+	u8 DataLengthMSB;
+	u8 FlowIdentifier;
+	u8 Counter;
+	u8 TimeStampLSB;
+	u8 TimeStampMSB;
+} RequestHeader_t;
+
+/***************************************************************************/
+/***************************************************************************/
+/***************************************************************************/
+
+typedef struct
+{
+  u32  BufferIndex;
+  u16  m__u16_Size;
+  RequestHeader_t m__RequestHeader;
+} rm_CurrentBlock_t;
+
+#if defined(__V24_COMPOSITE_USB___)
+#define RM_MOD_CMD(i)                        ((i) & (RM_TX_CMD_BUFFER_LENGTH - 1))
+#endif
+
+#define RM_MOD(i)                            ((i) & (RM_TX_BUFFER_LENGTH - 1))
+#if defined (__UPGRADE_HSL_OVER_SHMCONN__)||(__UPGRADE_GENIE_OVER_SHMCONN__)||(__UPGRADE_RAMLOG_OVER_SHMCONN__)
+#define RM_TX_GENIE_BUFFER_LENGTH                  0x10000 /* 64 Kbytes */ //0x4000 /* 16 Kbytes */
+#define RM_MOD_MODEM(i)                        ((i) & (RM_TX_GENIE_BUFFER_LENGTH - 1))
+#endif
+
+#ifndef __SDK_SIMULATION__
+#ifdef __TMT_TRACE_STORE_SD__
+
+#define RM_SD_TRACE_OFF    0x00
+#define RM_SD_TRACE_ON_WITH_CIRCULAR_BUF_MODE      0x01
+#define RM_SD_TRACE_ON_WITH_FLIPFLAP_BUF_MODE      0x02
+
+s32 rm_ActivateFlipFlap(u8 mailbox);
+s32 rm_DeactivateFlipFlap(bool saveTrc);
+s32 rm_AckFlipFlapBuffer(vm_dbgTrcBuffer_t *used_buffer);
+s32 rm_ActivateCircular(u8 mailbox, bool isAudioDump);
+s32 rm_DeactivateCircular(bool saveTrc);
+s32 rm_AckCircularBuffer(vm_dbgTrcBuffer_t *used_buffer);
+s32 rm_SetGroupIndicator(u8 indicator);
+bool rm_QueryIsActive(void);
+void rm_SaveTraceToSD(void);
+
+#ifdef __RM_STORE_EXT_TRACE__
+// define the mandatory information of storing TMT in flash
+extern fms_FlashFreeMem_t FlashFreeMem;
+
+#define FLASH_TMT_BASE_ADDRESS		(FlashFreeMem.StartAddr)
+#if defined(__TRACE_IN_512K_CIRCULAR_BUFFER__)
+#define FLASH_TMT_MAX_SIZE			(0x00080000)   // dump 512KB TMT trace to flash
+#else
+#define FLASH_TMT_MAX_SIZE			(0x00010000)   // dump 64KB TMT trace to flash
+#endif
+#define FLASH_TMT_FREE_SIZE			(FlashFreeMem.Lens)
+#define FLASH_TMT_SECTOR_SIZE		(FlashFreeMem.SectorSize)
+
+void rm_StoreTrcInFlash(void);
+#endif
+
+
+#endif // __TMT_TRACE_STORE_SD__
+#endif
+
+#endif //__SYS_RM_TRC_HO__

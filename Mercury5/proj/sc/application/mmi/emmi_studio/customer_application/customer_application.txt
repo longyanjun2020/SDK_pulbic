@@ -1,0 +1,1 @@
+建議顧客將建立的Application放於此folder,以跟MStar Application做為區分

@@ -1,0 +1,6 @@
+#ifndef __WMH_SYS_HO__
+#define __WMH_SYS_HO__     
+
+#include "sys_sys_wmh_sys.h"
+
+#endif /* __WMH_SYS_HO__*/

@@ -1,0 +1,2 @@
+CUS_PROJECT_PERL = CommonPortrait
+CUS_RES_PERL = QCIF_Res

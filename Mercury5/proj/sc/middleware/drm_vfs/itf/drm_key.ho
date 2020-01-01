@@ -1,0 +1,30 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright 
+*/
+/****************************************************************************/
+/*  File    : drm_key.ho                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : file access functions                           */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 2011.6.8 |        |      |  Creation                                     */
+/*----------+--------+------+-----------------------------------------------*/
+/****************************************************************************/
+
+#ifndef __DRM_KEY_HO__
+#define __DRM_KEY_HO__
+
+#include "mdl_drm_key.ho"
+
+#endif  /* __DRM_KEY_HO__ */
+

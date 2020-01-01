@@ -1,0 +1,181 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+
+/****************************************************************************/
+/*  File    : wmh_fcm.ho                                                    */
+/*--------------------------------------------------------------------------*/
+/*  Description:  FCM Hidden API                                            */
+/*                                                                          */
+/*  Contents: Hidden API prototypes for FCM                                 */
+/*                                                                          */
+/*  History :                                                               */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author     | Err  |  Modification                             */
+/*----------+------------+------+-------------------------------------------*/
+/* 01.28.03 | FGA        |      | Creation                                  */
+/****************************************************************************/
+/*
+ $LogWavecom: U:\projet\gsm\pvcsarch\archives\fcm\itf_open\wmh_fcm.ho-arc $
+*--------------------------------------------------------------------------
+* Date     | Author | Revision       | Description
+*----------+--------+----------------+-------------------------------------
+* 28.11.03 | fga    | 1.4            | put back v24 block identifiers  173
+*          |        |                | 36 : Resolution for FCM: better sep
+*          |        |                | aration of constants in interface
+*----------+--------+----------------+-------------------------------------
+* 25.11.03 | fga    | 1.3            | added fcm_query api  17193 : Resolu
+*          |        |                | tion for FCM: open FCM_QUERY api
+*----------+--------+----------------+-------------------------------------
+* 19.11.03 | fga    | 1.2            | added uart2/usb flow for FAL  17046
+*          |        |                |  : Resolution for FCM: create open
+*          |        |                | MMI interface - FAL
+*----------+--------+----------------+-------------------------------------
+* 19.11.03 | fga    | 1.1            | added new flow id (CUS<-> v24) for
+*          |        |                | FAL  17046 : Resolution for FCM: cr
+*          |        |                | eate open MMI interface - FAL
+*----------+--------+----------------+-------------------------------------
+* 04.11.03 | fga    | 1.0            | Initial revision.
+*----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __WMH_FCM_HO__
+#define __WMH_FCM_HO__
+
+#include "vm_types.ht"
+#include "sys_sys_vm_sys.h"
+#include "vm_msgof.hc"
+#include "vm_app.ho"
+
+/************************************************************/
+/*                                                          */
+/************************************************************/
+
+
+/************************************************************/
+/*                 FCM Flow Control Management        */
+/************************************************************/
+
+/************************************************************/
+/*                  Types definitions                       */
+/************************************************************/
+typedef struct {
+  u16 Mbox;
+  u32 ChanId;
+}vm_sysFcmFlowId_t;
+
+/************************************************************/
+/* FCM error types */
+/************************************************************/
+#define VM_FCM_EOK                   0 /* OK: no problem */
+#define VM_FCM_EOK_NO_CREDIT        -1 /* OK: Block sent but no more credit */
+#define VM_FCM_ERR_NO_CREDIT        -2 /* Error: Block not sent, no more credit */
+#define VM_FCM_ERR_NO_LINK          -3 /* Error: Flow not opened */
+#define VM_FCM_ERR_UNKNOWN_FLOW    -10 /* Error: Unkown Flow Id */
+
+
+/************************************************************/
+/* Message definitions                                      */
+/************************************************************/
+/* Message containing data for V24,PPS,IP,GSM-DATA,SNDCP,OPenAT etc. */
+#if defined(__3G__)
+
+/* Message containing data for V24,PPS,IP,GSM-DATA,SNDCP,OPenAT etc. */
+typedef struct{
+  u32 ChanId;
+    u16 DataLength;
+    u16 dataOffset;
+    u16 totalLength;
+    u16 Pad;
+    union {
+        u32 l[2];
+        u16 i[4];
+        u8  b[8];
+    } Reserve;
+    u8  *Data;
+} vm_fcmDataBlock_t;
+
+#else
+
+typedef struct{
+  u32 ChanId;
+	u16 DataLength;
+	u16 Pad;
+	union {
+		u32 l[2];
+		u16 i[4];
+		u8  b[8];
+	} Reserve;
+	u8 Data[1];
+} vm_fcmDataBlock_t;
+
+#endif
+
+/* Message to indicate flow opening */
+typedef struct{
+  u32  ChanId;
+  u16  MaxSize;
+} vm_fcmOpenFlowInd_t;
+
+/* Message to un-block a wait-blocked source */
+typedef struct
+{
+  u32 ChanId; /** Channel Id at Rx task */
+} vm_fcmResumeDataFlowInd_t;
+
+/* Message to indicate flow is closing */
+typedef struct
+{
+  u32 ChanId;
+} vm_fcmCloseFlowInd_t;
+
+/* variable changed to constant parameters for remote task needs */
+#define VM_FCM_MAX_UNIT_FCM_DEPORT 6
+#define VM_FCM_THRESHOLD_FCM_DEPORT 3
+
+#if defined(__3G__)
+/** FCM Channel Id Offset */
+#define FCM_MUX_OFFSET 0x1000
+#define FCM_PPP_OFFSET 0x2000
+#endif
+
+#ifndef VM_MSG_DEF
+#define VM_MSG_DEF(_ENUM_, _UNION_)		_ENUM_,
+#endif
+enum{
+#include "wmh_fcm_message_define__.hi"
+};
+/************************************************************/
+/*            API Function list                             */
+/************************************************************/
+/*! \struct vm_fcmOpenParams_t
+ * call parameters for vm_fcmOpen
+ */
+struct vm_fcmOpenParams_t
+{
+  u32 ChanId;
+  u16 MaxUnits;
+	 u16 Threshold;
+  u16 MaxSize; /** Max Data Packet Size */
+  u16 TxMbox;
+  u16 RxMbox;
+};
+
+typedef struct vm_fcmOpenParams_t vm_fcmOpenParams_t;
+
+s32 vm_fcmOpen(vm_fcmOpenParams_t *fcmOpenParams);
+s32 vm_fcmSubmit(u16 Mbox,  u32 ChanId, void *RtkMsgPtr);
+s32 vm_fcmRelease(u16 Mbox, u32 ChanId, u16 Credits);
+s32 vm_fcmClose(u16 Mbox, u32 ChanId);
+bool vm_fcmQuery(u16 Mbox, u32 ChanId);
+
+/****************************************************************************/
+/*}}}                     end of FCM definitions                            */
+/****************************************************************************/
+
+#endif /* __WMH_SYS_HO__*/

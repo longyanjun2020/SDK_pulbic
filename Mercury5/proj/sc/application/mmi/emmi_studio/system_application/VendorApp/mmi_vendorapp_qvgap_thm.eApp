@@ -1,0 +1,121 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="VENDOR_WND_BASE" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<InternProp Id="GUID" Value="f14ed" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_VISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<InternProp Id="GUID" Value="12e67" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="VENDOR_WND_SUSPEND" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<InternProp Id="GUID" Value="e0e9a" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="1013" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<InternProp Id="GUID" Value="b9cec" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="VENDOR_WND_TEXTVIEWER" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="TextViewerText" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE" />
+				<InternProp Id="GUID" Value="6dc46" />
+			</Widget>
+			<Widget Id="TextViewerViewPort" ClsID="CLSID_VIEWPORTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_VIEWPORT_WDG_PANSTEP" Value="MAIN_LCD_ONELINE_HEIGHT*4" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_ENABLE_SCROLLBAR" Value="SCROLL_STYLE_V_RIGHT" />
+				<InternProp Id="GUID" Value="1c75d" />
+			</Widget>
+			<InternProp Id="GUID" Value="c0ca5" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="761" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="GUID" Value="ef55c" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="VENDOR_WND_MENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget1" ClsID="CLSID_MENUWIDGET" SizeHeight="30" SizeWidth="30" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="e8273" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget1" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="8a73a" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmWndMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="58887" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="VENDOR_WND_EDITOR" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="abscontainer11" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="inputwidget" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="FALSE" />
+				<InternProp Id="GUID" Value="bd453" />
+				<InternProp Id="VtmWidgetName" Value="inputwidget" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="b235c" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmEditorInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_TITLE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="a96ba" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="VENDOR_WND_EDITOR_OPTION" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="0ca1f" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_VENDOR_OPT_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="9bdff" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmEditorOption" />
+		<InternProp Id="GUID" Value="f82c5" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_VENDORAPP" />
+</UiRoot>

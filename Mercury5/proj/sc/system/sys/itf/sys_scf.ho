@@ -1,0 +1,6 @@
+#ifndef __SYS_SCF_HO__
+#define __SYS_SCF_HO__
+
+#include "sys_sys_scf.h"
+
+#endif //__SYS_SCF_HO__

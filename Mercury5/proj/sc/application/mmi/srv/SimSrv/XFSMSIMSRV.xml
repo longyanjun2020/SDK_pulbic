@@ -1,0 +1,984 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>simsrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_SM</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="SIMSRV" id="16615" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Active">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Active" id="31138" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Idle">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="Idle" id="3083" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>if WaitingQueue is not empty&#13;&#10;  get first item to process. </EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Initial" id="11886" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="GetBasicInfo">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="GetBasicInfo" id="20536" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_Initial" DefaultChild="">
+                  <EntryComment>Purpose:&#13;&#10;  1. Read PIN status&#13;&#10;  2. Read Language&#13;&#10;  3. Read Emergency Code&#13;&#10;If bPinStatusValid is True&#13;&#10;  Status (SIM File ID) MF&#13;&#10;else&#13;&#10;   Do nothing</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="VerifyPIN" id="19403" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Initial" DefaultChild="">
+                  <EntryComment>Send verify PIN request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="UnblockPIN" id="13733" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Initial" DefaultChild="">
+                  <EntryComment>Send unblock PIN request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="GetIMSI" id="12897" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_Initial" DefaultChild="">
+                  <EntryComment>Read (SIM File ID) IMSI</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="GetSIMOPFile" id="22885" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active_Initial" DefaultChild="">
+                  <EntryComment>read SPN, ONS and SONS file</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="GetSST" id="6547" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_Initial" DefaultChild="">
+                  <EntryComment>Status (SIM File ID) SST</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+              <node name="Operation" id="20468" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="ActivateMasterSIM">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="ActivateMasterSIM" id="7450" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send activate/deactivate Master SIM request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ActivateSlaveSIM" id="9390" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send activate/deactivate Salve SIM request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="EnablePIN" id="10839" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send enable PIN request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="DisablePIN" id="19600" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send disable PIN request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="VerifyPIN" id="4747" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send verify PIN request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ChangePIN" id="25223" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send change PIN request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="UnblockPIN" id="5420" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send unblock PIN request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ReadSIMFile" id="31831" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Check status first and then send read SIM file request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="WriteSIMFile" id="4637" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send write SIM file request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="SetLanguage" id="17413" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send set preferred langauge request</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="STKRefreshMaster" id="2324" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Reset Master SIM data;&#13;&#10;activate Master SIM card;</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="STKRefreshSlave" id="25254" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Reset Slave SIM data;&#13;&#10;activate Slave SIM card;</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="StatusSIMFile" id="8623" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Status file;</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="DeactivateSIMforShutdown" id="8132" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Deactivate SIM, phonebook and SMS application;</EntryComment>
+                  <ExitComment>remove from waiting queue</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ActivateBothSIM" id="6884" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>Send activate/deactivate Master/Slave SIM request</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="PreSIMSrror" id="10935" hasEntry="1" hasExit="1" hasMethod="" FullPath="_Active_Operation" DefaultChild="">
+                  <EntryComment>trigger SIMError Event</EntryComment>
+                  <ExitComment>Remove1stItemFromQueue.</ExitComment>
+                  <ModeComment>Remove SIM Error Request and trigger SIMError event to jump to Error mode.</ModeComment>
+                  </node>
+              </node>
+              <node name="Error" id="26572" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Trigger external SIM Error event</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" prefix=""	id="9719"  from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_RACK_OPEN_IND</event>
+				<condition></condition>
+				<action>Clear SIM data</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="5641"  from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_RACK_CLOSE_IND</event>
+				<condition></condition>
+				<action>Init SIM data</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="31683"  from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_PRESENCE_IND</event>
+				<condition></condition>
+				<action>bInitSIMReady = TRUE;&#13;&#10;trigger IEVT_InitSIMReady;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="7078"  from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_ABSENCE_IND</event>
+				<condition></condition>
+				<action>bInitSIMReady = FALSE;&#13;&#10;send SIMSRV_EVT_AbortInitProcess</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="16345"  from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PUK_BLOCK_IND</event>
+				<condition></condition>
+				<action>set sim data;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="3847"  from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMIndTimeout</event>
+				<condition></condition>
+				<action>Ignore SIM absence/presence indication.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="21544"  from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>STKSRV_EVT_RefreshInd</event>
+				<condition></condition>
+				<action>add STK refresh request into waiting queue;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="5477"  from="_Active"  to="_Active_Error"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_SIMError</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="863"  from="_Active_Idle"  to="_Active_Idle"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_CheckWaitingQueue</event>
+				<condition></condition>
+				<action>if WaitingQueue is not empty&#13;&#10;  get first item to process. </action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="24483"  from="_Active_Idle"  to="_Active_Operation_ActivateMasterSIM"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_ActivateMasterSIMReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="23543"  from="_Active_Idle"  to="_Active_Operation_ActivateSlaveSIM"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_ActivateSlaveSIMReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="30519"  from="_Active_Idle"  to="_Active_Initial"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_InitSIMData</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="434"  from="_Active_Idle"  to="_Active_Operation_EnablePIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_EnablePINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="5915"  from="_Active_Idle"  to="_Active_Operation_DisablePIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_DisablePINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="840"  from="_Active_Idle"  to="_Active_Operation_VerifyPIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_VerifyPINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="24838"  from="_Active_Idle"  to="_Active_Operation_ChangePIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_ChangePINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="26562"  from="_Active_Idle"  to="_Active_Operation_UnblockPIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_UnblockPINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="22779"  from="_Active_Idle"  to="_Active_Operation_ReadSIMFile"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_ReadSIMFileReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="15666"  from="_Active_Idle"  to="_Active_Operation_WriteSIMFile"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_WriteSIMFileReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="4596"  from="_Active_Idle"  to="_Active_Operation_SetLanguage"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_SetPreferredLangReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="16399"  from="_Active_Idle"  to="_Active_Operation_STKRefreshMaster"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_STKRefreshMasterReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="22865"  from="_Active_Idle"  to="_Active_Operation_STKRefreshSlave"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_STKRefreshSlaveReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="6382"  from="_Active_Idle"  to="_Active_Operation_StatusSIMFile"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_StatusSIMFileReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="21826"  from="_Active_Idle"  to="_Active_Operation_DeactivateSIMforShutdown"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_DeactivateSIMforShutdownReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="7126"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="default"	hasCondition="1" hasAction="0">
+				<event>SIMSRV_IEVT_InitSIMReady</event>
+				<condition>Check if(active SIM is the ready SIM)</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="25842"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_STATUS_CNF</event>
+				<condition></condition>
+				<action>if (SIM File ID) is MF&#13;&#10;   Backup PIN status to memory&#13;&#10;   Set bPinStatusValid True&#13;&#10;   Status (SIM File ID) Langauge&#13;&#10;else if (SIM File ID) is Language&#13;&#10;   Backup Langauge Number to memory&#13;&#10;   Read (SIM File ID) Langauge&#13;&#10;else if (SIM File ID) is Emergency Code&#13;&#10;   Backup Emergency  Code Number to memory&#13;&#10;   Read (SIM File ID) Emergency Code</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="2481"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_READ_CNF</event>
+				<condition></condition>
+				<action>if (SIM File ID) is Language&#13;&#10;   Backup Langauge Info to memory&#13;&#10;   Set bLanguageValid True&#13;&#10;   Status (SIM File ID) Emergency Code&#13;&#10;else if (SIM File ID) is Emergency Code&#13;&#10;   Backup Emergency  Code Info to memory&#13;&#10;   Set bECCValid True&#13;&#10;   if PIN is disable&#13;&#10;      trigger InitNext event to GetIMSI mode</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="5253"  from="_Active_Idle"  to="_Active_Initial_VerifyPIN"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_Init_VerifyPINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="27260"  from="_Active_Idle"  to="_Active_Initial_UnblockPIN"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_Init_UnblockPINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="901"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetIMSI"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitNext</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="26599"  from="_Active_Initial_GetBasicInfo"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="10862"  from="_Active_Initial_GetBasicInfo"  to="_Active_Idle"  type="Default"	hasCondition="1" hasAction="0">
+				<event>SIMSRV_EVT_AbortInitProcess</event>
+				<condition>TRUE == bWaitPINVerify</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="3864"  from="_Active_Initial_VerifyPIN"  to="_Active_Initial_VerifyPIN"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_VERIFY_CNF</event>
+				<condition></condition>
+				<action>Return result to AP.&#13;&#10;if(success)&#13;&#10;{&#13;&#10;  trigger InitNext event to GetIMSI mode.&#13;&#10;}&#13;&#10;else&#13;&#10;{&#13;&#10;  do nothing. Block here.&#13;&#10;}</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="29358"  from="_Active_Initial_VerifyPIN"  to="_Active_Initial_GetIMSI"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitNext</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="20918"  from="_Active_Initial_VerifyPIN"  to="_Active_Initial_VerifyPIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_VerifyPINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="26245"  from="_Active_Initial_VerifyPIN"  to="_Active_Idle"  type="Default"	hasCondition="1" hasAction="0">
+				<event>SIMSRV_EVT_AbortInitProcess</event>
+				<condition>FALSE == bWaitCnf</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="14848"  from="_Active_Initial_VerifyPIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="3212"  from="_Active_Initial_VerifyPIN"  to="_Active_Initial_UnblockPIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_UnblockPINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="6933"  from="_Active_Initial_UnblockPIN"  to="_Active_Initial_UnblockPIN"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_UNBLOCK_CNF</event>
+				<condition></condition>
+				<action>Return result to AP.&#13;&#10;if(success)&#13;&#10;{&#13;&#10;  trigger InitNext event to GetIMSI mode.&#13;&#10;}&#13;&#10;else&#13;&#10;{&#13;&#10;  do nothing. Block here.&#13;&#10;}</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="28408"  from="_Active_Initial_UnblockPIN"  to="_Active_Initial_GetIMSI"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitNext</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="23647"  from="_Active_Initial_UnblockPIN"  to="_Active_Initial_UnblockPIN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_UnblockPINReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="31656"  from="_Active_Initial_UnblockPIN"  to="_Active_Idle"  type="Default"	hasCondition="1" hasAction="0">
+				<event>SIMSRV_EVT_AbortInitProcess</event>
+				<condition>FALSE == bWaitCnf</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="14253"  from="_Active_Initial_UnblockPIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="4664"  from="_Active_Initial_GetIMSI"  to="_Active_Initial_GetIMSI"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_READ_CNF</event>
+				<condition></condition>
+				<action>Set bIMSIValid True;&#13;&#10;trigger InitNext event to GetSST mode.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="25813"  from="_Active_Initial_GetIMSI"  to="_Active_Initial_GetSIMOPFile"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitNext</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="25084"  from="_Active_Initial_GetIMSI"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="31805"  from="_Active_Initial_GetSST"  to="_Active_Initial_GetSST"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_STATUS_CNF</event>
+				<condition></condition>
+				<action>Read (SIM File ID) SST</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="23786"  from="_Active_Initial_GetSST"  to="_Active_Initial_GetSST"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_READ_CNF</event>
+				<condition></condition>
+				<action>Backup SST to memory&#13;&#10;Set bSSTValid True&#13;&#10;trigger BackToIdle event to Idle Mode</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="19213"  from="_Active_Initial_GetSST"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action>Add init application into waiting queue;&#13;&#10;trigger SIMSRV_EVT_SIMReadyInd;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="4640"  from="_Active_Operation_ActivateMasterSIM"  to="_Active_Operation_ActivateMasterSIM"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PWOF_RSP</event>
+				<condition></condition>
+				<action>trigger external event ActivateSIMCnf/DeactivateSIMCnf;&#13;&#10;if(success)&#13;&#10;{&#13;&#10;  if(activate)&#13;&#10;  {&#13;&#10;    Set Master.bIsSIMActivate TRUE;&#13;&#10;    trigger EVT_InitSIMData to init SIM data;&#13;&#10;  }&#13;&#10;  else&#13;&#10;  {&#13;&#10;    Set Master.bIsSIMActivate FALSE; &#13;&#10;    trigger IEVT_BackToIdle;&#13;&#10;  }   &#13;&#10;}</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="1386"  from="_Active_Operation_ActivateMasterSIM"  to="_Active_Initial"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitSIM</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="29635"  from="_Active_Operation_ActivateMasterSIM"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="8535"  from="_Active_Operation_ActivateSlaveSIM"  to="_Active_Operation_ActivateSlaveSIM"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PWOF_RSP</event>
+				<condition></condition>
+				<action>trigger external event ActivateSIMCnf/DeactivateSIMCnf;&#13;&#10;if(success)&#13;&#10;{&#13;&#10;  if(activate)&#13;&#10;  {&#13;&#10;    Set Slave.bIsSIMActivate TRUE;&#13;&#10;    trigger EVT_InitSIMData to init SIM data;&#13;&#10;  }&#13;&#10;  else&#13;&#10;  {&#13;&#10;    Set Slave.bIsSIMActivate FALSE; &#13;&#10;    trigger IEVT_BackToIdle;&#13;&#10;  }   &#13;&#10;}</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="11419"  from="_Active_Operation_ActivateSlaveSIM"  to="_Active_Initial"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitSIM</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="28560"  from="_Active_Operation_ActivateSlaveSIM"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="32392"  from="_Active_Operation_EnablePIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_ENABLE_CNF</event>
+				<condition></condition>
+				<action>trigger external event EnablePINCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="16166"  from="_Active_Operation_EnablePIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="6232"  from="_Active_Operation_DisablePIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_DISABLE_CNF</event>
+				<condition></condition>
+				<action>trigger external event DisablePINCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="15745"  from="_Active_Operation_DisablePIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="17556"  from="_Active_Operation_VerifyPIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_VERIFY_CNF</event>
+				<condition></condition>
+				<action>trigger external event VerifyPINCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="16682"  from="_Active_Operation_VerifyPIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="15598"  from="_Active_Operation_ChangePIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_CHANGE_CNF</event>
+				<condition></condition>
+				<action>trigger external event ChangePINCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="8722"  from="_Active_Operation_ChangePIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="9137"  from="_Active_Operation_UnblockPIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_UNBLOCK_CNF</event>
+				<condition></condition>
+				<action>trigger external event UnblockPINCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="1094"  from="_Active_Operation_UnblockPIN"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="18700"  from="_Active_Operation_ReadSIMFile"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_READ_CNF</event>
+				<condition></condition>
+				<action>trigger external event ReadSIMFileCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="15470"  from="_Active_Operation_ReadSIMFile"  to="_Active_Operation_ReadSIMFile"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_STATUS_CNF</event>
+				<condition></condition>
+				<action>read SIM file</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="22986"  from="_Active_Operation_ReadSIMFile"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="14806"  from="_Active_Operation_WriteSIMFile"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_UPDATE_CNF</event>
+				<condition></condition>
+				<action>trigger external event WriteSIMFileCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="4125"  from="_Active_Operation_WriteSIMFile"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="391"  from="_Active_Operation_SetLanguage"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_LP_WRITE_CNF</event>
+				<condition></condition>
+				<action>trigger external event SetLanguageCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="30712"  from="_Active_Operation_SetLanguage"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="18180"  from="_Active_Operation_STKRefreshMaster"  to="_Active_Initial_GetBasicInfo"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitSIM</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="16715"  from="_Active_Operation_STKRefreshSlave"  to="_Active_Initial_GetBasicInfo"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitSIM</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="12133"  from="_Active_Operation_StatusSIMFile"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_STATUS_CNF</event>
+				<condition></condition>
+				<action>trigger external event StatusSMFileCnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="21699"  from="_Active_Operation_StatusSIMFile"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="25325"  from="_Active_Operation_DeactivateSIMforShutdown"  to="_Active_Operation_DeactivateSIMforShutdown"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PWOF_RSP</event>
+				<condition></condition>
+				<action>deactivate application;&#13;&#10;deactivate next SIM if necessary;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="25016"  from="_Active_Operation_DeactivateSIMforShutdown"  to="_Active_Operation_DeactivateSIMforShutdown"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_DeactivateAppFinished</event>
+				<event>SIMSRV_EVT_TimeExpired</event>
+				<condition></condition>
+				<action>//finish deactivate process;&#13;&#10;send DeactivateSIMforShutdownCnf;&#13;&#10;trigger IEVT_BackToIdle;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="16853"  from="_Active_Error"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="26969"  from="_Active_Error"  to="_Active_Error"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PWOF_RSP</event>
+				<condition></condition>
+				<action>reset SIM data</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="23290"  from="_Active_Initial_GetSIMOPFile"  to="_Active_Initial_GetSIMOPFile"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_STATUS_CNF</event>
+				<condition></condition>
+				<action>if File ID is SPN&#13;&#10;   Read SPN file&#13;&#10;else if File ID is ONS&#13;&#10;   Read ONS file&#13;&#10;else if File ID is SONS&#13;&#10;   Read SONS file</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="24593"  from="_Active_Initial_GetSIMOPFile"  to="_Active_Initial_GetSIMOPFile"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_FILE_READ_CNF</event>
+				<condition></condition>
+				<action>if File ID is SPN&#13;&#10;   status ONS file&#13;&#10;else  if File ID is ONS&#13;&#10;   status SONS file&#13;&#10;else&#13;&#10;   trigger Init_Next;&#13;&#10;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="24700"  from="_Active_Initial_GetSIMOPFile"  to="_Active_Initial_GetSST"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitNext</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="11684"  from="_Active_Idle"  to="_Active_Operation_ActivateBothSIM"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_EVT_ActivateBothSIMReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="11900"  from="_Active_Operation_ActivateBothSIM"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="16210"  from="_Active_Operation_ActivateBothSIM"  to="_Active_Operation_ActivateBothSIM"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PWOF_RSP</event>
+				<condition></condition>
+				<action>if(success)&#13;&#10;{&#13;&#10;  if(activate)&#13;&#10;&#13;&#10;      Set Master.bIsSIMActivate TRUE;&#13;&#10;&#13;&#10;  else&#13;&#10; &#13;&#10;      Set Master.bIsSIMActivate FALSE;&#13;&#10;  }&#13;&#10;&#13;&#10;}&#13;&#10;&#13;&#10;if(the POWF rsp of both SIMs are received )&#13;&#10;{&#13;&#10;  trigger event to process next steps.&#13;&#10;}&#13;&#10;trigger external event ActivateSIMCnf/DeactivateSIMCnf;&#13;&#10;</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="27039"  from="_Active_Operation_ActivateBothSIM"  to="_Active_Initial"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_InitSIM</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="2037"  from="_Active"  to="_Active"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_IEVT_SIMErrorPreProcess</event>
+				<condition></condition>
+				<action>Check active mode and error reason.&#13;&#10;current mode        Error reason&#13;&#10;________________________________________&#13;&#10; ActivateBothSIM     SIM Absense    |   add SIMError event&#13;&#10; other                        other               |   add SIMError event + trigger BacktoIdle Event.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="4996"  from="_Active_Idle"  to="_Active_Operation_PreSIMSrror"  type="default"	hasCondition="0" hasAction="0">
+				<event>SIMSRV_IEVT_SIMErrorReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="5885"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_FAC_STATUS_CNF</event>
+				<condition></condition>
+				<action>Store the PIN1 enable status and continues reading remaing count.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="7567"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_STATUS_CNF</event>
+				<condition></condition>
+				<action>Store PIN remaining count and continue reading other EF.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="6256"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_LP_QUERY_CNF</event>
+				<condition></condition>
+				<action>Get Language preferred count.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="6550"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_LP_READ_CNF</event>
+				<condition></condition>
+				<action>Get language preferred.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="6543"  from="_Active_Initial_VerifyPIN"  to="_Active_Initial_VerifyPIN"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_PIN_STATUS_CNF</event>
+				<condition></condition>
+				<action>Get PIN2 status</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="18656"  from="_Active_Initial_GetBasicInfo"  to="_Active_Initial_GetBasicInfo"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_ECC_CNF</event>
+				<condition></condition>
+				<action>Get ECC numbers.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="31082"  from="_Active_Initial_GetSIMOPFile"  to="_Active_Initial_GetSIMOPFile"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_SPN_CNF</event>
+				<condition></condition>
+				<action>Get MNON response.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="31242"  from="_Active_Initial_GetSIMOPFile"  to="_Active_Initial_GetSIMOPFile"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_NON_CNF</event>
+				<condition></condition>
+				<action>Handle MSPN response.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="514"  from="_Active_Initial_GetSST"  to="_Active_Initial_GetSST"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_SST_CNF</event>
+				<condition></condition>
+				<action>Store SST result</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="24385"  from="_Active"  to="_Active"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SIM_NO_RSP_IND</event>
+				<condition></condition>
+				<action>1. Deactive SIM &#13;&#10;2. Notify to AP</action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="InitNext" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SIMError" type="internal">
+				<comment></comment>
+			</event>
+			<event name="BackToIdle" type="internal">
+				<comment></comment>
+			</event>
+			<event name="InitSIM" type="internal">
+				<comment></comment>
+			</event>
+			<event name="InitSIMReady" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SIMActiveInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMReadyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMAbsenceInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="EnablePINCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="DisablePINCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="VerifyPINCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangePINCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="UnblockPINCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReadSIMFileCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="WriteSIMFileCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetPreferredLangCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="EnablePINReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="DisablePINReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="VerifyPINReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangePINReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="UnblockPINReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="ReadSIMFileReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="WriteSIMFileReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetPreferredLangReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="PINStatusInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMErrorInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="CheckWaitingQueue" type="external">
+				<comment></comment>
+			</event>
+			<event name="STKMenuInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="InitSIMData" type="external">
+				<comment></comment>
+			</event>
+			<event name="ActivateSIMCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="DeactivateSIMCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ActivateMasterSIMReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="ActivateSlaveSIMReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMIndReadyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="TimeExpired" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMIndTimeout" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMStatusChangeInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="STKRefreshMasterReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="STKRefreshSlaveReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMChangedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="NeedVerifyPINInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMMasterFileReady" type="external">
+				<comment></comment>
+			</event>
+			<event name="InitSMSReadyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="NoSIMInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AbortInitProcess" type="external">
+				<comment></comment>
+			</event>
+			<event name="StatusSIMFileReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="StatusSIMFileCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMIMSIFileReady" type="external">
+				<comment></comment>
+			</event>
+			<event name="DeactivateSIMforShutdownReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="DeactivateSIMforShutdownCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="DeactivateAppFinished" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMDeactivateInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="InitAppStartInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="InitAppFinishedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="Init_VerifyPINReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="Init_UnblockPINReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="ActivateBothSIMReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="SIMErrorPreProcess" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SIMErrorReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SIMSRV_EVT_SIMNoRspErrInd" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="RegisterNotification" id="1206" RetType="MAE_Ret"	Param1="void *pInstance" Param2="SIMSRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetPINStatus" id="3878" RetType="MAE_Ret"	Param1="SIMSRV_PIN_STATUS_t * pStatus" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetPreferredLanguage" id="30613" RetType="MAE_Ret"	Param1="MAE_LANG_CODE_e * pLangCode" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetEmergencyCode" id="19697" RetType="MAE_Ret"	Param1="SIMSRV_ECC_t * pEcc" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetIMSI" id="9948" RetType="MAE_Ret"	Param1="u8* pIMSI" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetSIMServiceTable" id="29898" RetType="boolean"	Param1="SIMSRV_SST_FEATURE_e feature" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="EnablePINReq" id="16313" RetType="MAE_Ret"	Param1="void *pCaller" Param2="u8* pPINValue"	Param3="SIMSRV_SIM_ID_e eSIMID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DisablePINReq" id="26478" RetType="MAE_Ret"	Param1="void *pCaller" Param2="u8* pPINValue"	Param3="SIMSRV_SIM_ID_e eSIMID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="VerifyPINReq" id="24464" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_PIN_TYPE_e type"	Param3="u8* pPINValue" Param4="SIMSRV_SIM_ID_e eSIMID"	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ChangePINReq" id="4271" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_PIN_TYPE_e type"	Param3="u8* pOldValue" Param4="u8* pNewValue"	Param5="SIMSRV_SIM_ID_e eSIMID" Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UnblockPINReq" id="31269" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_PIN_TYPE_e type"	Param3="u8* pPUKValue" Param4="u8* pPINValue"	Param5="SIMSRV_SIM_ID_e eSIMID" Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReadFileReq" id="28560" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_SIM_FILE_ID_e FileID"	Param3="SIMSRV_SIM_ID_e eSIMID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UpdateFileReq" id="32534" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_SIM_FILE_ID_e FileID"	Param3="u8 nDataLen" Param4="u8 * pData"	Param5="SIMSRV_SIM_ID_e eSIMID" Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeRegisterNotification" id="26945" RetType="MAE_Ret"	Param1="void *pInstance" Param2="SIMSRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetPreferredLanguage" id="10418" RetType="MAE_Ret"	Param1="void *pCaller" Param2="MAE_LANG_CODE_e LangCode"	Param3="SIMSRV_SIM_ID_e eSIMID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetMccMnc" id="6760" RetType="MAE_Ret"	Param1="MccMnc_t* pMccMnc" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3="boolean bActiveSIM" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsWhiteSIMCard" id="16165" RetType="boolean"	Param1="SIMSRV_SIM_ID_e eSIMID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetSIMCardStatus" id="19197" RetType="COMMON_SIM_CARD_STATUS_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ActivateSIMReq" id="32728" RetType="void"	Param1="void *pCaller" Param2="boolean bActivated"	Param3="SIMSRV_SIM_ID_e eSIMID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetSIMInsertStatus" id="32461" RetType="SIMSRV_SIM_INSERT_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsSIMReady" id="12327" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsSIMIndicationReady" id="31404" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CancelActivateSIMReq" id="18525" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsSIMChanged" id="32316" RetType="boolean"	Param1="SIMSRV_SIM_ID_e eSIMID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsSIMMasterFileReady" id="2198" RetType="boolean"	Param1="SIMSRV_SIM_ID_e eSIMID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Shutdown" id="19996" RetType="void"	Param1="ONOFF_Cause_e eCause" Param2="boolean bSavePowerOnOffCause"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsSSTFeatureValid" id="6646" RetType="MAE_Ret"	Param1="SIMSRV_SST_FEATURE_e feature" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3="boolean* pbIsValid" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="StatusFileReq" id="2102" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_SIM_FILE_ID_e FileID"	Param3="SIMSRV_SIM_ID_e eSIMID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsSIMIMSIFileReady" id="20896" RetType="boolean"	Param1="SIMSRV_SIM_ID_e eSIMID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SendSIMCardStatusChangedReq" id="8234" RetType="void"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IgnoreSIMCardStatusChangeInd" id="31430" RetType="void"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CancelPINPUKCheckingAndDeactivateSIMReq" id="16424" RetType="MAE_Ret"	Param1="void *pCaller" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeactivateSIMForShutdown" id="30396" RetType="void"	Param1="void *pCaller" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsInitAppFinished" id="10159" RetType="boolean"	Param1="SIMSRV_INITAPP_TYPE_e eInitAppType" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsSIMPreviousInserted" id="24209" RetType="boolean"	Param1="SIMSRV_SIM_ID_e eSIMID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetPreviousIMSI" id="1584" RetType="MAE_Ret"	Param1="u8* pIMSI" Param2="SIMSRV_SIM_ID_e eSIMID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SaveIMSItoInsertedIMSIList" id="10245" RetType="void"	Param1="SIMSRV_SIM_ID_e eSIMID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">1.Update IMSI to CFGIT_SIMSRV_LAST_INSERTED_IMSI2.&#13;&#10;2.copy the original IMSI in CFGIT_SIMSRV_LAST_INSERTED_IMSI2 &#13;&#10;to CFGIT_SIMSRV_LAST_INSERTED_IMSI1.&#13;&#10;</function>
+			<function name="IsSIMActive" id="11424" RetType="boolean"	Param1="SIMSRV_SIM_ID_e eSIMID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Check is SIM card active or not.</function>
+			<function name="GetSIMOPName" id="13151" RetType="MAE_Ret"	Param1="SIMSRV_SIM_FILE_ID_e eFileID" Param2="SIMSRV_OPName_t* pstOPName"	Param3="SIMSRV_SIM_ID_e eSIMID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Get SIMSRV_FILE_SPN, SIMSRV_FILE_ONS or SIMSRV_FILE_SONS name.</function>
+			<function name="ActivateBothSIMReq" id="10465" RetType="void"	Param1="void * pCaller" Param2="boolean bActivated"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Activate/Deactivate both SIM</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

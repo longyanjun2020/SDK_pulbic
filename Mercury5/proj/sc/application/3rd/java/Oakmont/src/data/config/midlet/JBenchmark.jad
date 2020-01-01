@@ -1,0 +1,9 @@
+MIDlet-Jar-Size: 26516 
+MIDlet-1: JBenchmark, /JBenchmark/images/JBenchmark.png, JBenchmark.JBenchmark 
+MIDlet-Jar-URL: JBenchmark.jar 
+MicroEdition-Configuration: CLDC-1.0 
+MIDlet-Version: 1.0.4 
+MIDlet-Name: JBenchmark 
+MIDlet-Vendor: Kishonti LP 
+MIDlet-Info-URL: http://wap.jbenchmark.com 
+MicroEdition-Profile: MIDP-1.0 

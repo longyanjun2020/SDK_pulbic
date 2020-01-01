@@ -1,0 +1,10 @@
+#ifndef __MMI_CHECKDISKAPP_ID_H__
+#define __MMI_CHECKDISKAPP_ID_H__
+
+typedef enum
+{
+    CHECKDISK_WND_TEXT = WND_ID_APP_BASE,
+    CHECKDISK_WND_DIALOG,
+}CheckDiskId_e;
+
+#endif //__MMI_CHECKDISKAPP_ID_H__

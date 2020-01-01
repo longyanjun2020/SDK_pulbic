@@ -1,0 +1,1055 @@
+/**
+ * \page DBG Debugging Public Interface
+ *
+ *
+ * \section intro_sec Introduction
+ *
+ * This document describes the Debugging Public Interface
+ *
+ *  <hr>
+ * \section SectionMMI2EEPROM 1. Application/Middleware to Debugging Interface
+ *
+ * \li \ref vm_dbgTrace
+ * \li \ref vm_dbgError
+ * \li \ref vm_dbgTrcSetDiagnoseName
+ * \li \ref vm_dbgTrcGetDiagnoseName
+ * \li \ref vm_dbgTrcIsLevelActive
+ * \li \ref vm_dbgTrcActivateLevel
+ * \li \ref vm_dbgTrcDeactivateLevel
+ * \li \ref vm_dbgTrcStartFlipFlapTraceBuffering
+ * \li \ref vm_dbgTrcAckFlipFlapBuffer
+ * \li \ref vm_dbgScrSubscribe
+ * \li \ref vm_dbgProdSubscribe
+ * \li \ref vm_dbgProdSendRsp
+ *
+ *  <hr>
+ * \section Usage 2. Usage
+ *
+ * \subsection Traces 2.1. Traces
+ *
+ *  The client can either call \ref vm_dbgTrace or \ref vm_dbgError to send information to the PC, with the HAPC protocol.
+ *  The information will be decoded and displayed by TMT (Target Monitoring Tool). \n
+ *  These two functions have a behaviour similar to \a printf. \n
+ *  The first parameter is a bit field containing:
+ *  \li a level from \ref LEVEL_0 to \ref LEVEL_31
+ *  \li a diagnose group from \ref _CUS1 to \ref _CUS9
+ *  \li additionnal tags like \ref FATAL or \ref STORE in the case of \ref vm_dbgError
+ *  The string format of the second parameter is similar to \a printf. The only not supported special character is '%s'. \n
+ *  The main difference between \ref vm_dbgTrace and \ref vm_dbgError is that the first one only send the string
+ *  to the PC if the given trace level and diagnose group are activated.
+ *
+ * \subsection DiagnoseIDandnames 2.2. Diagnose ID and names
+ *
+ *  There are 32 diagnose groups available in TMT. For the Customer, 10 groups are available, one by task.\n
+ *  Each of these groups have a unique ID (for example \ref _CUS1). A short string (of \ref VM_DBG_NB_MAX_CHAR_DIAGNOSE_NAME
+ *  characters) can be associated with each group. This string can be get by the client using \ref vm_dbgTrcGetDiagnoseName.
+ *  It can also be changed using \ref vm_dbgTrcSetDiagnoseName. These strings are sent to the PC when the client uses the
+ *  "Init Target" command in TMT.\n
+ *  If \ref vm_dbgTrcSetDiagnoseName is used when the PC is already connected to the Target in HAPC mode, the client can use
+ *  "Get Information about Target" command in TMT to update the names. \n
+ *  These names are diplayed in the Trace Window and in the Set/Get Trace Levels of TMT. \n
+ *
+ * \subsection Diagnoselevels 2.3. Diagnose levels
+ *
+ *  There are 32 diagnose levels available par diagnose group in TMT. The client can check if a given level of a given group
+ *  is activated (which means that the trace will be sent to the PC) using \ref vm_dbgTrcIsLevelActive. \n
+ *  He can also activate and deactivate a given level of a given group using \ref vm_dbgTrcActivateLevel and
+ *  \ref vm_dbgTrcDeactivateLevel. \n
+ *
+ * \subsection DebugScreen 2.4. Debug Screen
+ *
+ *  If the Application implements a debug screen in a hidden menu, it will require Stack information from the Protocol. \n
+ *  This information is sent to the subscribed mailbox via the message \ref VM_DEBUG_IND.\n
+ *  The content of the message (body) is of the type \ref vm_debugInd_t.
+ *  To subscribe to this service, the client should call \ref vm_dbgScrSubscribe.\n
+ *  To start this service, the client should either send a \ref VM_DEBUG_REQ (with an empty body of type \ref vm_debugReq_t)
+ *  or call the \ref vm_dbgScrStart function.
+ *
+ * \subsection GettingTraceBuffer 2.5. GettingTraceBuffer
+ *
+ *  In order to save the trace buffer (for example in SD Card) periodically when the handset is off-line (not connected
+ *  to the PC in HAPC mode, this Software Component provides a service a Flip/Flap Trace Buffering.\n
+ *  After the client calls \ref vm_dbgTrcStartFlipFlapTraceBuffering (with a reception mailbox in argument),
+ *  the Trace Buffering component will use a second buffer of the same size to operate in Flip/Flap mode.\n
+ *  Once the first buffer is full, a message (\ref VM_DEBUG_TRACE_BUFFER_FULL) is sent to the client mailbox,
+ *  containing a pointer to this buffer, and the purge and fill index. The purge index indicates where data start
+ *  and the fill index where data end. \n
+ *  The client can then copy the content of this buffer to the SD Card. Once this operation is over, the client should
+ *  call \ref vm_dbgTrcAckFlipFlapBuffer (with the pointer on the buffer as argument) to inform the Trace Buffering
+ *  component that the buffer is ready to be used again. \n
+ *
+ * \subsection ProductionMessage 2.6. Production Message (addressed to Application Services)
+ *
+ *  In order to handle production messages for Application Services, Application must receive information from Stack. \n
+ *  These production messages are sent to the subscribed mailbox via the message \ref VM_DEBUG_PROD_REQ.\n
+ *  The content of the message (body) is of the type \ref vm_dbgProdReq_t.
+ *  To subscribe to this service, the client should call \ref vm_dbgProdSubscribe.\n
+ *  When Application Services want to send a response message to the production device, it must call \ref vm_dbgProdSendRsp.
+ *  For more details, see userguide about Production Message for Application Services.
+ *
+ *  <hr>
+ *  \section Notes 3. Notes
+ *
+ *
+ *
+ */
+
+
+/*!
+ * \file  sys_vm_dbg.ho
+ * \brief Application/Middleware to Debugging Interface
+ *
+ *  This file defines the Debugging public interface that is offered to the Application and to the Middleware.
+ *
+ *  The interface allows to :
+ *   \li send traces to the PC
+ *   \li get/set diagnose levels and diagnose group names.
+ *   \li exchange debug information for the Debug Screen between the Stack and the MMI
+ *
+ */
+
+#ifndef __SYS_VM_DBG_HO__
+#define __SYS_VM_DBG_HO__
+
+#include "vm_types.ht"
+#include "vm_gmask.hc"
+#include "vm_msgof.hc"
+
+/****************************************************************************/
+/*  Debug  constants                                                        */
+/****************************************************************************/
+/****************************************************************************/
+
+#define SET_IDENT(X)     ((u32) ((X) & MASKL8))
+
+
+/*--------------------------- trace levels--------------------------------*/
+
+#define LEVEL_0  ((u32) (0x00 << 8)) ///< Diagnose level 0
+#define LEVEL_1  ((u32) (0x01 << 8)) ///< Diagnose level 1
+#define LEVEL_2  ((u32) (0x02 << 8)) ///< Diagnose level 2
+#define LEVEL_3  ((u32) (0x03 << 8)) ///< Diagnose level 3
+#define LEVEL_4  ((u32) (0x04 << 8)) ///< Diagnose level 4
+#define LEVEL_5  ((u32) (0x05 << 8)) ///< Diagnose level 5
+#define LEVEL_6  ((u32) (0x06 << 8)) ///< Diagnose level 6
+#define LEVEL_7  ((u32) (0x07 << 8)) ///< Diagnose level 7
+#define LEVEL_8  ((u32) (0x08 << 8)) ///< Diagnose level 8
+#define LEVEL_9  ((u32) (0x09 << 8)) ///< Diagnose level 9
+#define LEVEL_10 ((u32) (0x0A << 8)) ///< Diagnose level 10
+#define LEVEL_11 ((u32) (0x0B << 8)) ///< Diagnose level 11
+#define LEVEL_12 ((u32) (0x0C << 8)) ///< Diagnose level 12
+#define LEVEL_13 ((u32) (0x0D << 8)) ///< Diagnose level 13
+#define LEVEL_14 ((u32) (0x0E << 8)) ///< Diagnose level 14
+#define LEVEL_15 ((u32) (0x0F << 8)) ///< Diagnose level 15
+#define LEVEL_16 ((u32) (0x10 << 8)) ///< Diagnose level 16
+#define LEVEL_17 ((u32) (0x11 << 8)) ///< Diagnose level 17
+#define LEVEL_18 ((u32) (0x12 << 8)) ///< Diagnose level 18
+#define LEVEL_19 ((u32) (0x13 << 8)) ///< Diagnose level 19
+#define LEVEL_20 ((u32) (0x14 << 8)) ///< Diagnose level 20
+#define LEVEL_21 ((u32) (0x15 << 8)) ///< Diagnose level 21
+#define LEVEL_22 ((u32) (0x16 << 8)) ///< Diagnose level 22
+#define LEVEL_23 ((u32) (0x17 << 8)) ///< Diagnose level 23
+#define LEVEL_24 ((u32) (0x18 << 8)) ///< Diagnose level 24
+#define LEVEL_25 ((u32) (0x19 << 8)) ///< Diagnose level 25
+#define LEVEL_26 ((u32) (0x1A << 8)) ///< Diagnose level 26
+#define LEVEL_27 ((u32) (0x1B << 8)) ///< Diagnose level 27
+#define LEVEL_28 ((u32) (0x1C << 8)) ///< Diagnose level 28
+#define LEVEL_29 ((u32) (0x1D << 8)) ///< Diagnose level 29
+#define LEVEL_30 ((u32) (0x1E << 8)) ///< Diagnose level 30
+#define LEVEL_31 ((u32) (0x1F << 8)) ///< Diagnose level 31
+
+#define RM_STRING_FLAG        ((u32)0xC0000000) /* this flag is set over ID issue from RM_STRING              */
+
+/*--------------------- source of trace and errors ---------------------*/
+
+/* diagstate of e2p stack */
+#define _L3RR1  SET_IDENT(0x00)
+#define _L3MM1  SET_IDENT(0x01)
+#define _L3CC1  SET_IDENT(0x02)
+#define _L3SS1  SET_IDENT(0x03)
+#define _L3SM1  SET_IDENT(0x04)
+#define _L3UT SET_IDENT(0x05)
+#define _LAPD1  SET_IDENT(0x06)
+#define _WTCH SET_IDENT(0x07)
+#define _SCEN SET_IDENT(0x07)   /* SCEN tese task          */
+#define _FMS  SET_IDENT(0x08)
+#define _E2P  _FMS
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+#define _SIM1 SET_IDENT(0x09)
+#else
+#define _SIM  SET_IDENT(0x09)
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+#define _HAP  SET_IDENT(0x0A)   /* HAPC                    */
+#define _DMP  SET_IDENT(0x0A)   /* same as HAPC            */
+
+#define _MMI  SET_IDENT(0x0D)   /* MMI                     */
+
+#define _SPV1   SET_IDENT(0x0F)   /* supervisor              */
+#define _MSR1   SET_IDENT(0x10)   /* measure task            */
+#define _DATA SET_IDENT(0x11)   /* DATA task               */
+#define _HAC  SET_IDENT(0x12)   /* entry /exit functions   */
+#define _UTC  SET_IDENT(0x13)   /* utilities               */
+#define _SEQ  SET_IDENT(0x14)   /* sequencer               */
+#define _L1C1   SET_IDENT(0x15)   /* l1c global              */
+#define _HWL  SET_IDENT(0x16)   /* hardware layer          */
+#define _RTK  SET_IDENT(0x17)   /* RTK                     */
+#define LAST_SUBPROCESS   0x17           /* Size of the array DiagState (in stack e2p), minus one !!!*/
+                                         /* Do not change */
+
+#define _SYS  SET_IDENT(0x1E)   /* system element */
+#define _IP1    SET_IDENT(0x1F)   /* IP */
+
+#define _MMK  SET_IDENT(0x0B)   /* MMK layer (KID/KAC/KIT) */
+#define _MMT1   SET_IDENT(0x0C)   /* MMT common APIs         */
+#define _ATI1   SET_IDENT(0x0E)   /* ATI & R&S Traces        */
+#define _L3GMM1 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x00))
+#define _L3SMG1 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x01))
+#define _SNDCP1 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x02))
+#define _LLC1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x03))
+#define _RLD1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x04))
+#define _RLU1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x05))
+#define _GRR1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x06))
+#define _PPS1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x07))
+#define _CUS13  SET_IDENT ((GSM_LAST_SUBPROCESS + 0x08))    /* SPARE 1*/
+#define _CUS14  SET_IDENT ((GSM_LAST_SUBPROCESS + 0x09))    /* SPARE 2*/
+
+#define GPRS_LAST_SUBPROCESS 0x0a /* number of trace items, change if required */
+
+/* extended diagstate of e2p stack */
+#define _CUS1 SET_IDENT(0x18)   ///< Diagnose group customer 1
+#define _CUS2 SET_IDENT(0x19)   ///< Diagnose group customer 2
+#define _CUS3 SET_IDENT(0x1A)   ///< Diagnose group customer 3
+#define _CUS4 SET_IDENT(0x1B)   ///< Diagnose group customer 4
+#define _CUS5 SET_IDENT(0x1C)   ///< Diagnose group customer 5
+#define _CUS6 SET_IDENT(0x1D)   ///< Diagnose group customer 6
+
+
+#define EXTENDED_LAST_SUBPROCESS   0x8  /* Size of the array Extended_DiagState (in stack e2p) */
+                                         /* Do not change */
+#define GSM_LAST_SUBPROCESS  (LAST_SUBPROCESS + 1 + EXTENDED_LAST_SUBPROCESS)
+                                /* number of el of trace not dedicated for specific gprs purpose */
+
+#define _CUS7 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x00)   ///< Diagnose group customer 7
+#define _CUS8 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x01)   ///< Diagnose group customer 8
+#define _CUS9 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x02)   ///< Diagnose group customer 9
+#define _OBX  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x03)   /* OBEX */
+#define _DEV  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x04)   /* DEVICE : V24, USB, IRDA */
+#define _FCM  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x05)   /* FCM */
+#define _IOB  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x06)   /* IO, BUS, DAC, BAT, RTC */
+#define _MDL1    SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x07)   /* Middleware ATI, VML (old MMT) */
+#define _CUS10  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x08)    /* SPARE */
+#define _CUS11  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x09)   /* SPARE */
+#define _CUS12  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0A)   /* SPARE 6*/
+
+
+
+#if 1
+      /* No matter __MSTAR_DUAL_SIM__ is defined or not, we always define the
+       * following diagnose ID. The main reason is that dual-SIM L1C refer to
+       * these ID's too many times. As long as we are using dual-SIM L1C (in
+       * both dual-SIM and mono-SIM case), it does not make sense to wrap all of
+       * them in L1C.
+       */
+#define _SPV2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0B) /* 53 */
+#define _L1C2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0C)
+#define _MSR2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0D)
+#define _L3CC2 	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0E)   /* measure task  2          */
+#define _L3SS2 	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0F)
+#define _L3SM2 	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x10)
+#define _MMT2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x11)
+#define _ATI2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x12)   /* MMT common APIs         */
+#define _MDL2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x13)   /* ATI & R&S Traces        */
+#define _L3GMM2 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x14)
+#define _GRR2   SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x15)
+#define _CE     SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x16)
+#define _L3MM2  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x17)
+#define _L3RR2  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x18)
+#define _LAPD2  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x19)
+
+/* Excluding GPRS part below*/
+/* temporary not used due to EEPROM not enough */
+#define _L3SMG2	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1A)
+#define _SNDCP2 SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1B)
+#define _LLC2   SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1C)
+#define _RLD2   SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1D)
+#define _RLU2   SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1E)
+#define _PPS2  	SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1F)
+#define _IP2    SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x20)
+
+#define DUAL_SIM_EXTENDED_LAST_SUBPROCESS 22 /* change this value if needed*/
+
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+
+#define _SIM2   SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x21)
+
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+
+#define DUAL_SIM_EXTENDED2_LAST_SUBPROCESS 1 /* change this value if needed*/
+
+#endif
+
+
+#ifdef __UMTS__
+#define _URRC1  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x10))
+#define _URRC2  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x11))
+#define _URL    SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x12))
+#define _UMA    SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x13))
+#define _PDCP   SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x14))
+#define _BMC    SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x15))
+#define _UL1C   SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x16))
+#define UMTS_LAST_SUBPROCESS  0x07
+#else
+#define UMTS_LAST_SUBPROCESS 0
+#endif //#ifdef __UMTS__
+
+// For SDK trace level diagnose.
+#define SDK_LAST_SUBPROCESS 0x5 /* number of trace items, change if required */
+#define _SDK1  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x22))
+#define _SDK2  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x23))
+#define _SDK3  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x24))
+#define _SDK4  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x25))
+#define _SDK5  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x26))
+
+#define MIXED_LAST_SUBPROCESS 0xA /* number of trace items, change if required */
+#define _CUS20 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x27))  //auto test
+#define _MIXED1 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x28))
+#define _MIXED2 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x29))
+#define _MIXED3 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x2A))
+#define _MIXED4 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x2B))
+#define _MIXED5 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x2C))
+#define _MIXED6 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x2D))
+#define _MIXED7 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x2E))
+#define _MIXED8 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x2F))
+#define _MIXED9 SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS+ 0x30))
+
+#define LAST_TRACE_ID _MIXED9
+/*************************** Mixed user definition ***************************/
+/*----------------------------------- Tutorial -----------------------------------
+Please follow rules
+1. Please efficiently use those trace resources
+2. If you need to occupy a trace resource, just change anyone _MIXED_XXX to the name you prefer.
+3. If you don't need the trace resource anymore, please reover its name to the proper ordered _MIXED_XXX.
+-----------------------------------------------------------------------------*/
+											//comment
+//32 Don't modify this line
+#define _MIXED_032 (_MIXED1|LEVEL_0)
+#define _MIXED_033 (_MIXED1|LEVEL_1)
+#define _MIXED_034 (_MIXED1|LEVEL_2)
+#define _MIXED_035 (_MIXED1|LEVEL_3)
+#define _MIXED_036 (_MIXED1|LEVEL_4)
+#define _MIXED_037 (_MIXED1|LEVEL_5)
+#define _MIXED_038 (_MIXED1|LEVEL_6)
+#define _MIXED_039 (_MIXED1|LEVEL_7)
+//40 Don't modify this line
+#define _MIXED_040 (_MIXED1|LEVEL_8)
+#define _MIXED_041 (_MIXED1|LEVEL_9)
+#define _MIXED_042 (_MIXED1|LEVEL_10)
+#define _MIXED_043 (_MIXED1|LEVEL_11)
+#define _MIXED_044 (_MIXED1|LEVEL_12)
+#define _MIXED_045 (_MIXED1|LEVEL_13)
+#define _MIXED_046 (_MIXED1|LEVEL_14)
+#define _MIXED_047 (_MIXED1|LEVEL_15)
+#define _MIXED_048 (_MIXED1|LEVEL_16)
+#define _MIXED_049 (_MIXED1|LEVEL_17)
+//50 Don't modify this line
+#define _MIXED_050 (_MIXED1|LEVEL_18)
+#define _MIXED_051 (_MIXED1|LEVEL_19)
+#define _MIXED_052 (_MIXED1|LEVEL_20)
+#define _MIXED_053 (_MIXED1|LEVEL_21)
+#define _MIXED_054 (_MIXED1|LEVEL_22)
+#define _MIXED_055 (_MIXED1|LEVEL_23)
+#define _MIXED_056 (_MIXED1|LEVEL_24)
+#define _MIXED_057 (_MIXED1|LEVEL_25)
+#define _MIXED_058 (_MIXED1|LEVEL_26)
+#define _MIXED_059 (_MIXED1|LEVEL_27)
+//60 Don't modify this line
+#define _MIXED_060 (_MIXED1|LEVEL_28)
+#define _MIXED_061 (_MIXED1|LEVEL_29)
+#define _MIXED_062 (_MIXED1|LEVEL_30)
+#define _MIXED_063 (_MIXED1|LEVEL_31)
+#define _MIXED_064 (_MIXED2|LEVEL_0)
+#define _MIXED_065 (_MIXED2|LEVEL_1)
+#define _MIXED_066 (_MIXED2|LEVEL_2)
+#define _MIXED_067 (_MIXED2|LEVEL_3)
+#define _MIXED_068 (_MIXED2|LEVEL_4)
+#define _MIXED_069 (_MIXED2|LEVEL_5)
+//70 Don't modify this line
+#define _MIXED_070 (_MIXED2|LEVEL_6)
+#define _MIXED_071 (_MIXED2|LEVEL_7)
+#define _MIXED_072 (_MIXED2|LEVEL_8)
+#define _MIXED_073 (_MIXED2|LEVEL_9)
+#define _MIXED_074 (_MIXED2|LEVEL_10)
+#define _MIXED_075 (_MIXED2|LEVEL_11)
+#define _MIXED_076 (_MIXED2|LEVEL_12)
+#define _MIXED_077 (_MIXED2|LEVEL_13)
+#define _MIXED_078 (_MIXED2|LEVEL_14)
+#define _MIXED_079 (_MIXED2|LEVEL_15)
+//80 Don't modify this line
+#define _MIXED_080 (_MIXED2|LEVEL_16)
+#define _MIXED_081 (_MIXED2|LEVEL_17)
+#define _MIXED_082 (_MIXED2|LEVEL_18)
+#define _MIXED_083 (_MIXED2|LEVEL_19)
+#define _MIXED_084 (_MIXED2|LEVEL_20)
+#define _MIXED_085 (_MIXED2|LEVEL_21)
+#define _MIXED_086 (_MIXED2|LEVEL_22)
+#define _MIXED_087 (_MIXED2|LEVEL_23)
+#define _MIXED_088 (_MIXED2|LEVEL_24)
+#define _MIXED_089 (_MIXED2|LEVEL_25)
+#define _MIXED_090 (_MIXED2|LEVEL_26)
+//90 Don't modify this line
+#define _MIXED_091 (_MIXED2|LEVEL_27)
+#define _MIXED_092 (_MIXED2|LEVEL_28)
+#define _MIXED_093 (_MIXED2|LEVEL_29)
+#define _MIXED_094 (_MIXED2|LEVEL_30)
+#define _MIXED_095 (_MIXED2|LEVEL_31)
+#define _MIXED_096 (_MIXED3|LEVEL_0)
+#define _MIXED_097 (_MIXED3|LEVEL_1)
+#define _MIXED_098 (_MIXED3|LEVEL_2)
+#define _MIXED_099 (_MIXED3|LEVEL_3)
+//100 Don't modify this line
+#define _MIXED_100 (_MIXED3|LEVEL_4)
+#define _MIXED_101 (_MIXED3|LEVEL_5)
+#define _MIXED_102 (_MIXED3|LEVEL_6)
+#define _MIXED_103 (_MIXED3|LEVEL_7)
+#define _MIXED_104 (_MIXED3|LEVEL_8)
+#define _MIXED_105 (_MIXED3|LEVEL_9)
+#define _MIXED_106 (_MIXED3|LEVEL_10)
+#define _MIXED_107 (_MIXED3|LEVEL_11)
+#define _MIXED_108 (_MIXED3|LEVEL_12)
+#define _MIXED_109 (_MIXED3|LEVEL_13)
+//110 Don't modify this line
+#define _MIXED_110 (_MIXED3|LEVEL_14)
+#define _MIXED_111 (_MIXED3|LEVEL_15)
+#define _MIXED_112 (_MIXED3|LEVEL_16)
+#define _MIXED_113 (_MIXED3|LEVEL_17)
+#define _MIXED_114 (_MIXED3|LEVEL_18)
+#define _MIXED_115 (_MIXED3|LEVEL_19)
+#define _MIXED_116 (_MIXED3|LEVEL_20)
+#define _MIXED_117 (_MIXED3|LEVEL_21)
+#define _MIXED_118 (_MIXED3|LEVEL_22)
+#define _MIXED_119 (_MIXED3|LEVEL_23)
+//120 Don't modify this line
+#define _MIXED_120 (_MIXED3|LEVEL_24)
+#define _MIXED_121 (_MIXED3|LEVEL_25)
+#define _MIXED_122 (_MIXED3|LEVEL_26)
+#define _MIXED_123 (_MIXED3|LEVEL_27)
+#define _MIXED_124 (_MIXED3|LEVEL_28)
+#define _MIXED_125 (_MIXED3|LEVEL_29)
+#define _MIXED_126 (_MIXED3|LEVEL_30)
+#define _MIXED_127 (_MIXED3|LEVEL_31)
+#define _MIXED_128 (_MIXED4|LEVEL_0)
+#define _MIXED_129 (_MIXED4|LEVEL_1)
+//130 Don't modify this line
+#define _MIXED_130 (_MIXED4|LEVEL_2)
+#define _MIXED_131 (_MIXED4|LEVEL_3)
+#define _MIXED_132 (_MIXED4|LEVEL_4)
+#define _MIXED_133 (_MIXED4|LEVEL_5)
+#define _MIXED_134 (_MIXED4|LEVEL_6)
+#define _MIXED_135 (_MIXED4|LEVEL_7)
+#define _MIXED_136 (_MIXED4|LEVEL_8)
+#define _MIXED_137 (_MIXED4|LEVEL_9)
+#define _MIXED_138 (_MIXED4|LEVEL_10)
+#define _MIXED_139 (_MIXED4|LEVEL_11)
+//140 Don't modify this line
+#define _MIXED_140 (_MIXED4|LEVEL_12)
+#define _MIXED_141 (_MIXED4|LEVEL_13)
+#define _MIXED_142 (_MIXED4|LEVEL_14)
+#define _MIXED_143 (_MIXED4|LEVEL_15)
+#define _MIXED_144 (_MIXED4|LEVEL_16)
+#define _MIXED_145 (_MIXED4|LEVEL_17)
+#define _MIXED_146 (_MIXED4|LEVEL_18)
+#define _MIXED_147 (_MIXED4|LEVEL_19)
+#define _MIXED_148 (_MIXED4|LEVEL_20)
+#define _MIXED_149 (_MIXED4|LEVEL_21)
+//150 Don't modify this line
+#define _MIXED_150 (_MIXED4|LEVEL_22)
+#define _MIXED_151 (_MIXED4|LEVEL_23)
+#define _MIXED_152 (_MIXED4|LEVEL_24)
+#define _MIXED_153 (_MIXED4|LEVEL_25)
+#define _MIXED_154 (_MIXED4|LEVEL_26)
+#define _MIXED_155 (_MIXED4|LEVEL_27)
+#define _MIXED_156 (_MIXED4|LEVEL_28)
+#define _MIXED_157 (_MIXED4|LEVEL_29)
+#define _MIXED_158 (_MIXED4|LEVEL_30)
+#define _MIXED_159 (_MIXED4|LEVEL_31)
+//160 Don't modify this line
+#define _MIXED_160 (_MIXED5|LEVEL_0)
+#define _MIXED_161 (_MIXED5|LEVEL_1)
+#define _MIXED_162 (_MIXED5|LEVEL_2)
+#define _MIXED_163 (_MIXED5|LEVEL_3)
+#define _MIXED_164 (_MIXED5|LEVEL_4)
+#define _MIXED_165 (_MIXED5|LEVEL_5)
+#define _MIXED_166 (_MIXED5|LEVEL_6)
+#define _MIXED_167 (_MIXED5|LEVEL_7)
+#define _MIXED_168 (_MIXED5|LEVEL_8)
+#define _MIXED_169 (_MIXED5|LEVEL_9)
+//170 Don't modify this line
+#define _MIXED_170 (_MIXED5|LEVEL_10)
+#define _MIXED_171 (_MIXED5|LEVEL_11)
+#define _MIXED_172 (_MIXED5|LEVEL_12)
+#define _MIXED_173 (_MIXED5|LEVEL_13)
+#define _MIXED_174 (_MIXED5|LEVEL_14)
+#define _MIXED_175 (_MIXED5|LEVEL_15)
+#define _MIXED_176 (_MIXED5|LEVEL_16)
+#define _MIXED_177 (_MIXED5|LEVEL_17)
+#define _MIXED_178 (_MIXED5|LEVEL_18)
+#define _MIXED_179 (_MIXED5|LEVEL_19)
+//180 Don't modify this line
+#define _MIXED_180 (_MIXED5|LEVEL_20)
+#define _MIXED_181 (_MIXED5|LEVEL_21)
+#define _MIXED_182 (_MIXED5|LEVEL_22)
+#define _MIXED_183 (_MIXED5|LEVEL_23)
+#define _MIXED_184 (_MIXED5|LEVEL_24)
+#define _MIXED_185 (_MIXED5|LEVEL_25)
+#define _MIXED_186 (_MIXED5|LEVEL_26)
+#define _MIXED_187 (_MIXED5|LEVEL_27)
+#define _MIXED_188 (_MIXED5|LEVEL_28)
+#define _MIXED_189 (_MIXED5|LEVEL_29)
+//190 Don't modify this line
+#define _MIXED_190 (_MIXED5|LEVEL_30)
+#define _MIXED_191 (_MIXED5|LEVEL_31)
+#define _MIXED_192 (_MIXED6|LEVEL_0)
+#define _MIXED_193 (_MIXED6|LEVEL_1)
+#define _MIXED_194 (_MIXED6|LEVEL_2)
+#define _MIXED_195 (_MIXED6|LEVEL_3)
+#define _MIXED_196 (_MIXED6|LEVEL_4)
+#define _MIXED_197 (_MIXED6|LEVEL_5)
+#define _MIXED_198 (_MIXED6|LEVEL_6)
+#define _MIXED_199 (_MIXED6|LEVEL_7)
+//200 Don't modify this line
+#define _MIXED_200 (_MIXED6|LEVEL_8)
+#define _MIXED_201 (_MIXED6|LEVEL_9)
+#define _MIXED_202 (_MIXED6|LEVEL_10)
+#define _MIXED_203 (_MIXED6|LEVEL_11)
+#define _MIXED_204 (_MIXED6|LEVEL_12)
+#define _MIXED_205 (_MIXED6|LEVEL_13)
+#define _MIXED_206 (_MIXED6|LEVEL_14)
+#define _MIXED_207 (_MIXED6|LEVEL_15)
+#define _MIXED_208 (_MIXED6|LEVEL_16)
+#define _MIXED_209 (_MIXED6|LEVEL_17)
+//210 Don't modify this line
+#define _MIXED_210 (_MIXED6|LEVEL_18)
+#define _MIXED_211 (_MIXED6|LEVEL_19)
+#define _MIXED_212 (_MIXED6|LEVEL_20)
+#define _MIXED_213 (_MIXED6|LEVEL_21)
+#define _MIXED_214 (_MIXED6|LEVEL_22)
+#define _MIXED_215 (_MIXED6|LEVEL_23)
+#define _MIXED_216 (_MIXED6|LEVEL_24)
+#define _MIXED_217 (_MIXED6|LEVEL_25)
+#define _MIXED_218 (_MIXED6|LEVEL_26)
+#define _MIXED_219 (_MIXED6|LEVEL_27)
+//220 Don't modify this line
+#define _MIXED_220 (_MIXED6|LEVEL_28)
+#define _MIXED_221 (_MIXED6|LEVEL_29)
+#define _MIXED_222 (_MIXED6|LEVEL_30)
+#define _MIXED_223 (_MIXED6|LEVEL_31)
+#define _MIXED_224 (_MIXED7|LEVEL_0)
+#define _MIXED_225 (_MIXED7|LEVEL_1)
+#define _MIXED_226 (_MIXED7|LEVEL_2)
+#define _MIXED_227 (_MIXED7|LEVEL_3)
+#define _MIXED_228 (_MIXED7|LEVEL_4)
+#define _MIXED_229 (_MIXED7|LEVEL_5)
+//230 Don't modify this line
+#define _MIXED_230 (_MIXED7|LEVEL_6)
+#define _MIXED_231 (_MIXED7|LEVEL_7)
+#define _MIXED_232 (_MIXED7|LEVEL_8)
+#define _MIXED_233 (_MIXED7|LEVEL_9)
+#define _MIXED_234 (_MIXED7|LEVEL_10)
+#define _MIXED_235 (_MIXED7|LEVEL_11)
+#define _MIXED_236 (_MIXED7|LEVEL_12)
+#define _MIXED_237 (_MIXED7|LEVEL_13)
+#define _MIXED_238 (_MIXED7|LEVEL_14)
+#define _MIXED_239 (_MIXED7|LEVEL_15)
+//240 Don't modify this line
+#define _MIXED_240 (_MIXED7|LEVEL_16)
+#define _MIXED_241 (_MIXED7|LEVEL_17)
+#define _MIXED_242 (_MIXED7|LEVEL_18)
+#define _MIXED_243 (_MIXED7|LEVEL_19)
+#define _MIXED_244 (_MIXED7|LEVEL_20)
+#define _MIXED_245 (_MIXED7|LEVEL_21)
+#define _MIXED_246 (_MIXED7|LEVEL_22)
+#define _MIXED_247 (_MIXED7|LEVEL_23)
+#define _MIXED_248 (_MIXED7|LEVEL_24)
+#define _MIXED_249 (_MIXED7|LEVEL_25)
+//250 Don't modify this line
+#define _MIXED_250 (_MIXED7|LEVEL_26)
+#define _MIXED_251 (_MIXED7|LEVEL_27)
+#define _MIXED_252 (_MIXED7|LEVEL_28)
+#define _MIXED_253 (_MIXED7|LEVEL_29)
+#define _MIXED_254 (_MIXED7|LEVEL_30)
+#define _MIXED_255 (_MIXED7|LEVEL_31)
+#define _MIXED_256 (_MIXED8|LEVEL_0)
+#define _MIXED_257 (_MIXED8|LEVEL_1)
+#define _MIXED_258 (_MIXED8|LEVEL_2)
+#define _MIXED_259 (_MIXED8|LEVEL_3)
+//260 Don't modify this line
+#define _MIXED_260 (_MIXED8|LEVEL_4)
+#define _MIXED_261 (_MIXED8|LEVEL_5)
+#define _MIXED_262 (_MIXED8|LEVEL_6)
+#define _MIXED_263 (_MIXED8|LEVEL_7)
+#define _MIXED_264 (_MIXED8|LEVEL_8)
+#define _MIXED_265 (_MIXED8|LEVEL_9)
+#define _MIXED_266 (_MIXED8|LEVEL_10)
+#define _MIXED_267 (_MIXED8|LEVEL_11)
+#define _MIXED_268 (_MIXED8|LEVEL_12)
+#define _MIXED_269 (_MIXED8|LEVEL_13)
+//270 Don't modify this line
+#define _MIXED_270 (_MIXED8|LEVEL_14)
+#define _MIXED_271 (_MIXED8|LEVEL_15)
+#define _MIXED_272 (_MIXED8|LEVEL_16)
+#define _MIXED_273 (_MIXED8|LEVEL_17)
+#define _MIXED_274 (_MIXED8|LEVEL_18)
+#define _MIXED_275 (_MIXED8|LEVEL_19)
+#define _MIXED_276 (_MIXED8|LEVEL_20)
+#define _MIXED_277 (_MIXED8|LEVEL_21)
+#define _MIXED_278 (_MIXED8|LEVEL_22)
+#define _MIXED_279 (_MIXED8|LEVEL_23)
+//280 Don't modify this line
+#define _MIXED_280 (_MIXED8|LEVEL_24)
+#define _MIXED_281 (_MIXED8|LEVEL_25)
+#define _MIXED_282 (_MIXED8|LEVEL_26)
+#define _MIXED_283 (_MIXED8|LEVEL_27)
+#define _MIXED_284 (_MIXED8|LEVEL_28)
+#define _MIXED_285 (_MIXED8|LEVEL_29)
+#define _MIXED_286 (_MIXED8|LEVEL_30)
+#define _MIXED_287 (_MIXED8|LEVEL_31)
+#define _MIXED_288 (_MIXED9|LEVEL_0)
+#define _MIXED_289 (_MIXED9|LEVEL_1)
+//290 Don't modify this line
+#define _MIXED_290 (_MIXED9|LEVEL_2)
+#define _MIXED_291 (_MIXED9|LEVEL_3)
+#define _MIXED_292 (_MIXED9|LEVEL_4)
+#define _MIXED_293 (_MIXED9|LEVEL_5)
+#define _MIXED_294 (_MIXED9|LEVEL_6)
+#define _MIXED_295 (_MIXED9|LEVEL_7)
+#define _MIXED_296 (_MIXED9|LEVEL_8)
+#define _MIXED_297 (_MIXED9|LEVEL_9)
+#define _MIXED_298 (_MIXED9|LEVEL_10)
+#define _MIXED_299 (_MIXED9|LEVEL_11)
+//300 Don't modify this line
+#define _MIXED_300 (_MIXED9|LEVEL_12)
+#define _MIXED_301 (_MIXED9|LEVEL_13)
+#define _MIXED_302 (_MIXED9|LEVEL_14)
+#define _MIXED_303 (_MIXED9|LEVEL_15)
+#define _MIXED_304 (_MIXED9|LEVEL_16)
+#define _MIXED_305 (_MIXED9|LEVEL_17)
+#define _MIXED_306 (_MIXED9|LEVEL_18)
+#define _MIXED_307 (_MIXED9|LEVEL_19)
+#define _MIXED_308 (_MIXED9|LEVEL_20)
+#define _MIXED_309 (_MIXED9|LEVEL_21)
+//310 Don't modify this line
+#define _MIXED_310 (_MIXED9|LEVEL_22)
+#define _MIXED_311 (_MIXED9|LEVEL_23)
+#define _MIXED_312 (_MIXED9|LEVEL_24)
+#define _MIXED_313 (_MIXED9|LEVEL_25)
+#define _MIXED_314 (_MIXED9|LEVEL_26)
+#define _MIXED_315 (_MIXED9|LEVEL_27)
+#define _MIXED_316 (_MIXED9|LEVEL_28)
+#define _MIXED_317 (_MIXED9|LEVEL_29)
+#define _MIXED_318 (_MIXED9|LEVEL_30)
+#define _MIXED_319 (_MIXED9|LEVEL_31)
+/************************************************************************/
+
+#if defined(__MSTAR_DUAL_SIM__) && defined(__MSTAR_DUAL_SIM_REDUCE_CODE__)
+
+#if defined(__TRACE_C__) || (defined(__SDK_SIMULATION__) && defined(__ALLOC_RAM_DATA_ATI__))
+  #define EXT_VM_DBG
+#if defined(__EXTRA_MDL_TASK__)
+  #define INIT_VM_DBG(X,Y,Z) ={X,Y,Z}
+#else
+  #define INIT_VM_DBG(X,Y) ={X,Y}
+#endif  /* __EXTRA_MDL_TASK__ */
+#else
+  #define EXT_VM_DBG extern
+#if defined(__EXTRA_MDL_TASK__)
+  #define INIT_VM_DBG(X,Y,Z)
+#else
+  #define INIT_VM_DBG(X,Y)
+#endif  /* __EXTRA_MDL_TASK__ */
+#endif
+
+/* Trace ID lookup table */
+#if defined(__EXTRA_MDL_TASK__)
+
+/* except MDL, all other PS tasks only need two trace groups. So set them the same as stack 1's */
+EXT_VM_DBG const u32 vmTrcIdTbl_L3MM[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3MM1,_L3MM2,_L3MM1);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3RR[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3RR1,_L3RR2,_L3RR1);
+EXT_VM_DBG const u32 vmTrcIdTbl_LAPD[MS_NUM_OF_MODULES]  INIT_VM_DBG(_LAPD1,_LAPD2,_LAPD1);
+EXT_VM_DBG const u32 vmTrcIdTbl_SPV[MS_NUM_OF_MODULES]   INIT_VM_DBG(_SPV1,_SPV2,_SPV1);
+EXT_VM_DBG const u32 vmTrcIdTbl_L1C[MS_NUM_OF_MODULES]   INIT_VM_DBG(_L1C1,_L1C2,_L1C1);
+EXT_VM_DBG const u32 vmTrcIdTbl_MSR[MS_NUM_OF_MODULES]   INIT_VM_DBG(_MSR1,_MSR2,_MSR1);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3CC[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3CC1,_L3CC2,_L3CC1);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3SS[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3SS1,_L3SS2,_L3SS1);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3SM[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3SM1,_L3SM2,_L3SM1);
+EXT_VM_DBG const u32 vmTrcIdTbl_MMT[MS_NUM_OF_MODULES]   INIT_VM_DBG(_MMT1,_MMT2,_MDL1);    /* currently MDL1 and MDL2 trace group are not used so we use them for extra VML and ATI */
+EXT_VM_DBG const u32 vmTrcIdTbl_ATI[MS_NUM_OF_MODULES]   INIT_VM_DBG(_ATI1,_ATI2,_MDL2);
+EXT_VM_DBG const u32 vmTrcIdTbl_MDL[MS_NUM_OF_MODULES]   INIT_VM_DBG(_MDL1,_MDL2,_MDL1);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3GMM[MS_NUM_OF_MODULES] INIT_VM_DBG(_L3GMM1,_L3GMM2,_L3GMM1);
+EXT_VM_DBG const u32 vmTrcIdTbl_GRR[MS_NUM_OF_MODULES]   INIT_VM_DBG(_GRR1,_GRR2,_GRR1);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3SMG[MS_NUM_OF_MODULES] INIT_VM_DBG(_L3SMG1,_L3SMG2,_L3SMG1);
+EXT_VM_DBG const u32 vmTrcIdTbl_SNDCP[MS_NUM_OF_MODULES] INIT_VM_DBG(_SNDCP1,_SNDCP2,_SNDCP1);
+EXT_VM_DBG const u32 vmTrcIdTbl_LLC[MS_NUM_OF_MODULES]   INIT_VM_DBG(_LLC1,_LLC2,_LLC1);
+EXT_VM_DBG const u32 vmTrcIdTbl_RLD[MS_NUM_OF_MODULES]   INIT_VM_DBG(_RLD1,_RLD2,_RLD1);
+EXT_VM_DBG const u32 vmTrcIdTbl_RLU[MS_NUM_OF_MODULES]   INIT_VM_DBG(_RLU1,_RLU2,_RLU1);
+EXT_VM_DBG const u32 vmTrcIdTbl_PPS[MS_NUM_OF_MODULES]   INIT_VM_DBG(_PPS1,_PPS2,_PPS1);
+EXT_VM_DBG const u32 vmTrcIdTbl_IP[MS_NUM_OF_MODULES]    INIT_VM_DBG(_IP1,_IP2,_IP2);
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+EXT_VM_DBG const u32 vmTrcIdTbl_SIM[MS_NUM_OF_MODULES]   INIT_VM_DBG(_SIM1,_SIM2,_SIM1);
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+
+#else /* __EXTRA_MDL_TASK__ */
+
+EXT_VM_DBG const u32 vmTrcIdTbl_L3MM[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3MM1,_L3MM2);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3RR[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3RR1,_L3RR2);
+EXT_VM_DBG const u32 vmTrcIdTbl_LAPD[MS_NUM_OF_MODULES]  INIT_VM_DBG(_LAPD1,_LAPD2);
+EXT_VM_DBG const u32 vmTrcIdTbl_SPV[MS_NUM_OF_MODULES]   INIT_VM_DBG(_SPV1,_SPV2);
+EXT_VM_DBG const u32 vmTrcIdTbl_L1C[MS_NUM_OF_MODULES]   INIT_VM_DBG(_L1C1,_L1C2);
+EXT_VM_DBG const u32 vmTrcIdTbl_MSR[MS_NUM_OF_MODULES]   INIT_VM_DBG(_MSR1,_MSR2);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3CC[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3CC1,_L3CC2);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3SS[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3SS1,_L3SS2);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3SM[MS_NUM_OF_MODULES]  INIT_VM_DBG(_L3SM1,_L3SM2);
+EXT_VM_DBG const u32 vmTrcIdTbl_MMT[MS_NUM_OF_MODULES]   INIT_VM_DBG(_MMT1,_MMT2);
+EXT_VM_DBG const u32 vmTrcIdTbl_ATI[MS_NUM_OF_MODULES]   INIT_VM_DBG(_ATI1,_ATI2);
+EXT_VM_DBG const u32 vmTrcIdTbl_MDL[MS_NUM_OF_MODULES]   INIT_VM_DBG(_MDL1,_MDL2);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3GMM[MS_NUM_OF_MODULES] INIT_VM_DBG(_L3GMM1,_L3GMM2);
+EXT_VM_DBG const u32 vmTrcIdTbl_GRR[MS_NUM_OF_MODULES]   INIT_VM_DBG(_GRR1,_GRR2);
+EXT_VM_DBG const u32 vmTrcIdTbl_L3SMG[MS_NUM_OF_MODULES] INIT_VM_DBG(_L3SMG1,_L3SMG2);
+EXT_VM_DBG const u32 vmTrcIdTbl_SNDCP[MS_NUM_OF_MODULES] INIT_VM_DBG(_SNDCP1,_SNDCP2);
+EXT_VM_DBG const u32 vmTrcIdTbl_LLC[MS_NUM_OF_MODULES]   INIT_VM_DBG(_LLC1,_LLC2);
+EXT_VM_DBG const u32 vmTrcIdTbl_RLD[MS_NUM_OF_MODULES]   INIT_VM_DBG(_RLD1,_RLD2);
+EXT_VM_DBG const u32 vmTrcIdTbl_RLU[MS_NUM_OF_MODULES]   INIT_VM_DBG(_RLU1,_RLU2);
+EXT_VM_DBG const u32 vmTrcIdTbl_PPS[MS_NUM_OF_MODULES]   INIT_VM_DBG(_PPS1,_PPS2);
+EXT_VM_DBG const u32 vmTrcIdTbl_IP[MS_NUM_OF_MODULES]    INIT_VM_DBG(_IP1,_IP2);
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+EXT_VM_DBG const u32 vmTrcIdTbl_SIM[MS_NUM_OF_MODULES]   INIT_VM_DBG(_SIM1,_SIM2);
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+
+#endif
+
+#endif //__MSTAR_DUAL_SIM__ && __MSTAR_DUAL_SIM_REDUCE_CODE__
+
+
+#if defined(__MSTAR_DUAL_SIM_REDUCE_CODE__) && defined(__MSTAR_DUAL_SIM_DUP_GLOB__)
+
+/* For general cases, determine the mailbox by current module ID. */
+#if 0
+/* Derived from current module ID using IF ELSE */
+#define _L3MM 	((Rtk_CurrentModule==0)?_L3MM1:_L3MM2)
+#define _L3RR 	((Rtk_CurrentModule==0)?_L3RR1:_L3RR2)
+#define _LAPD 	((Rtk_CurrentModule==0)?_LAPD1:_LAPD2)
+#define _SPV  	((Rtk_CurrentModule==0)?_SPV1:_SPV2)
+#define _L1C  	((Rtk_CurrentModule==0)?_L1C1:_L1C2)
+#define _MSR  	((Rtk_CurrentModule==0)?_MSR1:_MSR2)
+#define _L3CC 	((Rtk_CurrentModule==0)?_L3CC1:_L3CC2)
+#define _L3SS 	((Rtk_CurrentModule==0)?_L3SS1:_L3SS2)
+#define _L3SM 	((Rtk_CurrentModule==0)?_L3SM1:_L3SM2)
+#define _MMT  	((Rtk_CurrentModule==0)?_MMT1:_MMT2)
+#define _ATI    ((Rtk_CurrentModule==0)?_ATI1:_ATI2)
+#define _MDL  	((Rtk_CurrentModule==0)?_MDL1:_MDL2)
+#define _L3GMM	((Rtk_CurrentModule==0)?_L3GMM1:_L3GMM2)
+#define _GRR  	((Rtk_CurrentModule==0)?_GRR1:_GRR2)
+#define _L3SMG	((Rtk_CurrentModule==0)?_L3SMG1:_L3SMG2)
+#define _SNDCP	((Rtk_CurrentModule==0)?_SNDCP1:_SNDCP2)
+#define _LLC    ((Rtk_CurrentModule==0)?_LLC1:_LLC2)
+#define _RLD  	((Rtk_CurrentModule==0)?_RLD1:_RLD2)
+#define _RLU  	((Rtk_CurrentModule==0)?_RLU1:_RLU2)
+#define _PPS  	((Rtk_CurrentModule==0)?_PPS1:_PPS2)
+#define _IP     ((Rtk_CurrentModule==0)?_IP1:_IP2)
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+#define _SIM    ((Rtk_CurrentModule==0)?_SIM1:_SIM2)
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+#else
+/* Derived from current module ID using IF ELSE */
+#define _L3MM 	vmTrcIdTbl_L3MM[Rtk_CurrentModule]
+#define _L3RR 	vmTrcIdTbl_L3RR[Rtk_CurrentModule]
+#define _LAPD 	vmTrcIdTbl_LAPD[Rtk_CurrentModule]
+#define _SPV  	vmTrcIdTbl_SPV[Rtk_CurrentModule]
+#define _L1C  	vmTrcIdTbl_L1C[Rtk_CurrentModule]
+#define _MSR  	vmTrcIdTbl_MSR[Rtk_CurrentModule]
+#define _L3CC 	vmTrcIdTbl_L3CC[Rtk_CurrentModule]
+#define _L3SS 	vmTrcIdTbl_L3SS[Rtk_CurrentModule]
+#define _L3SM 	vmTrcIdTbl_L3SM[Rtk_CurrentModule]
+#if defined(__EXTRA_MDL_TASK__)
+#define _MMT  	((Rtk_CurrentModule==2)?_MDL1:vmTrcIdTbl_MMT[Rtk_CurrentModule] )
+#else
+#define _MMT  	vmTrcIdTbl_MMT[Rtk_CurrentModule]
+#endif
+#define _ATI    vmTrcIdTbl_ATI[Rtk_CurrentModule]
+#define _MDL  	vmTrcIdTbl_MDL[Rtk_CurrentModule]
+#define _L3GMM	vmTrcIdTbl_L3GMM[Rtk_CurrentModule]
+#define _GRR  	vmTrcIdTbl_GRR[Rtk_CurrentModule]
+#define _L3SMG	vmTrcIdTbl_L3SMG[Rtk_CurrentModule]
+#define _SNDCP	vmTrcIdTbl_SNDCP[Rtk_CurrentModule]
+#define _LLC    vmTrcIdTbl_LLC[Rtk_CurrentModule]
+#define _RLD  	vmTrcIdTbl_RLD[Rtk_CurrentModule]
+#define _RLU  	vmTrcIdTbl_RLU[Rtk_CurrentModule]
+#define _PPS  	vmTrcIdTbl_PPS[Rtk_CurrentModule]
+//#define _IP     vmTrcIdTbl_IP[Rtk_CurrentModule]
+#if defined (__WLAN_IP_SUPPORT__)
+#ifdef __DUPLICATE_IP_TASK__
+#define _IP     _IP2
+#else
+#define _IP     _IP1
+#endif
+#else
+#define _IP     _IP1
+#endif
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+#define _SIM    vmTrcIdTbl_SIM[Rtk_CurrentModule]
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+#endif //#if 0
+
+#else //__MSTAR_DUAL_SIM_REDUCE_CODE__ && __MSTAR_DUAL_SIM_DUP_GLOB__
+
+#ifdef __DUPLICATE_TASK__
+#define _L3MM 	_L3MM2
+#define _L3RR 	_L3RR2
+#define _LAPD 	_LAPD2
+#define _SPV  	_SPV2
+#define _L1C  	_L1C2
+#define _MSR  	_MSR2
+#define _L3CC 	_L3CC2
+#define _L3SS 	_L3SS2
+#define _L3SM 	_L3SM2
+#define _MMT  	_MMT2
+#define _ATI    _ATI2
+#define _MDL  	_MDL2
+#define _L3GMM	_L3GMM2
+#define _GRR  	_GRR2
+#define _L3SMG	_L3SMG2
+#define _SNDCP	_SNDCP2
+#define _LLC    _LLC2
+#define _RLD  	_RLD2
+#define _RLU  	_RLU2
+#define _PPS  	_PPS2
+#define _IP     _IP2
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+#define _SIM    _SIM2
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+#else
+#define _L3MM 	_L3MM1
+#define _L3RR 	_L3RR1
+#define _LAPD 	_LAPD1
+#define _SPV  	_SPV1
+#define _L1C  	_L1C1
+#define _MSR  	_MSR1
+#define _L3CC 	_L3CC1
+#define _L3SS 	_L3SS1
+#define _L3SM 	_L3SM1
+#define _MMT  	_MMT1
+#define _ATI    _ATI1
+#define _MDL  	_MDL1
+#define _L3GMM	_L3GMM1
+#define _GRR  	_GRR1
+#define _L3SMG	_L3SMG1
+#define _SNDCP	_SNDCP1
+#define _LLC    _LLC1
+#define _RLD  	_RLD1
+#define _RLU  	_RLU1
+#define _PPS  	_PPS1
+#if defined (__WLAN_IP_SUPPORT__)
+#ifdef __DUPLICATE_IP_TASK__
+#define _IP     _IP2
+#else
+#define _IP     _IP1
+#endif /*__DUPLICATE_IP_TASK__*/
+#else
+#define _IP     _IP1
+#endif
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+#define _SIM    _SIM1
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+#endif
+
+#endif //__MSTAR_DUAL_SIM_REDUCE_CODE__ && __MSTAR_DUAL_SIM_DUP_GLOB__
+
+
+
+#define FATAL		(u32) 0x00010000  ///< fatal error, stored in eeprom and causes reset
+#define STORE		(u32) 0x00020000  ///< to store in eeprom
+#define NO_STACK	(u32) 0x00040000  ///< to be copied
+#define WATCHDOG	(u32) 0x00080000  ///< watchdog to be extracted
+#define EXCEPTION	(u32) 0x00100000  ///< Exception Occured
+#define SEVERE		(u32) 0x00200000  ///< does ASSERT() in SDK simulation (note: uses 'spare' bits)
+#define CLEAR		(u32) 0x00400000  ///< to clear all backtrace in eeprom
+#define WARNING		(u32) 0x00800000  ///< warning message
+
+/* variables for dump */
+/* variables for dump */
+extern const char *_empty_;
+#ifdef __SDK_SIMULATION_V2__
+#if defined(_MKSYS)
+extern const char *_dump_;
+#else //#if defined(_MKSYS)
+__declspec(dllimport) char *_dump_;
+#endif //#if defined(_MKSYS)
+#else //#ifdef __SDK_SIMULATION_V2__
+extern const char *_dump_;
+#endif
+extern const char *_dump3_;
+extern const char *_dump4_;
+extern const char *_dump5_;
+
+#define RM_STRING_FLAG_IS_TRUE(fmt) (((u32)fmt & (RM_STRING_FLAG)) == RM_STRING_FLAG)
+#define RM_STRING_FLAG_IS_FALSE(fmt) (((u32)fmt & (RM_STRING_FLAG)) != RM_STRING_FLAG)
+
+/* to get just one parameter in error macro */
+#define ERR_S
+#define ERR_E
+
+#define VM_DUMP4(_Id_,_Chan_,_Adr_,_Len_) (ascii *) _dump4_, (s32) _Len_, _Adr_, (s32)_Id_, (s32)_Chan_
+#define VM_DUMP2(_Adr_,_Len_)  (ascii *) _dump_, (s32) _Len_, _Adr_
+#define VM_DUMP(_Msg_)         (ascii *) _dump_, (s32)(((vm_msgHeader_t *)_Msg_)->Length + sizeof(vm_msgHeader_t)), _Msg_
+
+#define PROD_MMI        0x10
+#define PROD_MMI_REQ    (PROD_MMI|TYP_REQ)
+#define PROD_MMI_RSP    (PROD_MMI|TYP_RSP)
+#ifdef __TMT_TRACE_STORE_SD__
+typedef enum
+{
+   TMT_TRACE_UD_IND,
+   TMT_TRACE_DEFAULT_IND,
+   TMT_TRACE_AUDIO_IND,
+   TMT_TRACE_PS_GENERAL_IND,
+   TMT_TRACE_PS_L1_IND,
+   TMT_TRACE_PS_SIM_IND,
+   TMT_TRACE_DBB_MMP_IND
+} tmt_traceProInd;
+#endif
+
+typedef enum
+{
+  TRC_RUNTIME,
+  TRC_AUDIODATA,
+  TRC_EXTERNAL,
+  TRC_LOST_INFO,
+  TRC_RUNTIME_IN_SD2
+#if defined (__UPGRADE_HSL_OVER_SHMCONN__)||(__UPGRADE_GENIE_OVER_SHMCONN__)||(__UPGRADE_RAMLOG_OVER_SHMCONN__)
+  ,TRC_MODEM_GENIE_LOG,
+  TRC_MODEM_MCU_LOG,
+  TRC_MODEM_DSP_LOG,
+  TRC_MODEM_RAM_LOG
+#endif
+} runtimeTraceType_e;
+
+typedef enum
+{
+  TRACESTORESD = 1
+} traceE2pType_e;
+
+/**
+ * \brief max size in char of a diagnose element name including NULL char at the end
+ *
+ *  Used in \ref vm_dbgTrcGetDiagnoseName
+ */
+#define VM_DBG_NB_MAX_CHAR_DIAGNOSE_NAME 7
+
+/**
+ * \brief type of the body in the \ref VM_DEBUG_TRACE_BUFFER_FULL message
+ *
+ */
+typedef struct
+{
+    u8 *buffer; ///< buffer containing the traces
+    u32 fillIndex; ///< filling index
+    u32 purgeIndex; ///< purge index
+    bool bufWarpAround;
+    u32 bufLength;
+    bool isAudioDump;
+    bool isCirularBufferMode;
+    bool isForceSave;
+} vm_dbgTrcBuffer_t;
+
+typedef struct
+{
+    u8	*	buffer;
+    u32		bufferLen;
+} vm_dbgTrcLostInfo_t;
+
+#if defined (__UPGRADE_HSL_OVER_SHMCONN__)||(__UPGRADE_GENIE_OVER_SHMCONN__)||(__UPGRADE_RAMLOG_OVER_SHMCONN__)
+typedef struct
+{
+    u8	*	buffer;
+    u32		bufferLen;
+    u32            runtimeTraceType;
+} vm_dbgTrcModemLog_t;
+#endif
+
+/**
+ * \brief type of the body in the \ref VM_DEBUG_PROD_REQ message
+ */
+typedef struct
+{
+    u8 buffer[1]; /// < buffer containing the production message dedicated to Application, used the address of variable to recover the data
+} vm_dbgProdReq_t;
+
+
+/**
+ * \brief Identifiers of the messages exchanged between Stack and Application
+ *
+ */
+#ifndef VM_MSG_DEF
+#define VM_MSG_DEF(_ENUM_, _UNION_)		_ENUM_,
+#endif
+enum
+{
+#include "sys_vm_dbg_message_define__.hi"
+____VM_DEBUG_LAST____   //make e2p happy
+};
+
+
+/****************************************************************************/
+/*  Debug functions                                                         */
+/****************************************************************************/
+
+/****************************************************************************/
+/* This function is aimed at trace managing, the result string will be visualised */
+/* by TMT : Target Monitoring Tool application                                    */
+#ifdef __CRITICAL_TRACES_ONLY__
+#define vm_dbgTrace(x, y, ...)
+#else
+extern s8 vm_dbgTrace(u32 level, char *strFormat, ...);
+#endif
+
+/* If an fatal error is occurred, the function stores the error code              */
+extern s8 vm_dbgError(u32 level, char *strFormat, ...);
+
+extern s32 vm_dbgTrcSetDiagnoseName(u32 i_u32_ID, char *newName);
+extern s32 vm_dbgTrcGetDiagnoseName(u32 i_u32_ID, char name[VM_DBG_NB_MAX_CHAR_DIAGNOSE_NAME]);
+extern s32 vm_dbgTrcIsLevelActive(u32 id, u32 level);
+extern void vm_dbgTrcWriteE2pDiagLevel(u32 id, u32* level);
+extern void vm_dbgTrcActivateLevel(u32 id, u32 level);
+extern void vm_dbgTrcActivateUsrLevel(u32 id, u32 Userlevel);
+extern void vm_dbgTrcDeactivateLevel(u32 id, u32 level);
+extern s32 vm_dbgTrcStartFlipFlapTraceBuffering(u8 mailbox);
+extern s32 vm_dbgTrcAckFlipFlapBuffer(vm_dbgTrcBuffer_t *used_buffer);
+extern s32 vm_dbgScrSubscribe(u8 mailbox);
+
+extern void vm_dbgProdSubscribe(u8 mailbox);
+extern void vm_dbgProdSendRsp(void * pData, u32 dataSize);
+extern s32 vm_dbgTrcStopFlipFlapTraceBuffering(bool saveTrc);
+extern s32 vm_dbgTrcQueryIdLevel(u32 id);
+extern void vm_dbgTrcResetLevelFromE2p(void);
+extern s32 vm_dbgTrcSetIdLevel(u32 id, u32 level);
+extern s32 vm_dbgTrcStartCircularTraceBuffering(u8 mailbox, bool isAudioDump);
+extern s32 vm_dbgTrcAckCircularBuffer(vm_dbgTrcBuffer_t *used_buffer);
+extern s32 vm_dbgTrcStopCircularTraceBuffering(bool saveTrc);
+extern void vm_dbgTrcSetProfileIndicator(u8 indicator);
+extern bool vm_dbgTrcQueryIsActive(void);
+extern bool vm_dbgTrcSaveTraceToSD(void);
+
+#if defined (__UPGRADE_HSL_OVER_SHMCONN__)||(__UPGRADE_GENIE_OVER_SHMCONN__)||(__UPGRADE_RAMLOG_OVER_SHMCONN__)
+/**
+ * \fn const s32 vm_dbgTrcAckCircularBuffer(vm_dbgTrcBuffer_t *used_buffer);
+ * \brief This function acknoledges the given buffer, informing that it has been
+ *        taken into account and can be used by the DBG service.
+ * \param [in] used_buffer: pointer on the buffer that is free to be used again
+ * \return <0 if error,  >=0 otherwise
+ */
+s32 vm_dbgTrcAckModemLog(vm_dbgTrcModemLog_t *pInfoBuf);
+#endif
+
+extern s32 vm_dbgTrcE2pRead(traceE2pType_e traceE2pType, void* o__p_Buffer);
+
+#endif  /* __SYS_VM_DBG_HO__ */
+

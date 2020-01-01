@@ -1,0 +1,13 @@
+ApBegin(RS,CLSID_IDLEPREVIEWAPP)
+
+	WndBegin(IDLEPREVIEWAPP_WND_MAIN)
+
+        WndSetTitleVisiableRC(FALSE)
+	    WndSetStatusBarVisibleRC(VIEWSB_INVISIABLE)
+        WndSetSoftkeyVisibleRC(VIEWSK_INVISIABLE)
+
+    WndEnd(IDLEPREVIEWAPP_WND_MAIN)
+
+ApEnd(RS,CLSID_IDLEPREVIEWAPP)
+
+

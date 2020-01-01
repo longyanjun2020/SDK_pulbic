@@ -1,0 +1,65 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/*  File    : v24_hapc_mux.hi                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : interface between the Multiplexer handler and the hapc        */
+/*            handler                                                       */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 15/12/03 |  MSE   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 08/10/04 |  APH   | New V24: PortId, Ctxt, FctPtr v8a03_aph              */
+/*----------+--------+------------------------------------------------------*/
+/* 08/02/05 |  APH   | Add ghost interface for MUX                          */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_hapc_mux.hi-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.6            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.5            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 23.02.05 | aph    | 1.4            | Resolution for 27835: V24 supports 
+ *          |        |                | MUX  .                             
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+
+#ifndef __V24_HAPC_MUX_HI__
+#define __V24_HAPC_MUX_HI__
+
+#include "v24.ht"
+#include "v24.hc"
+
+#endif

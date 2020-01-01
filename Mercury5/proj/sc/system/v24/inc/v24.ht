@@ -1,0 +1,11 @@
+/**
+ * \file v24.ht
+ * \brief Types of the V.24 serial link handler
+*/
+#ifndef __V24_HT__
+#define __V24_HT__
+
+#include "sys_v24.ht"
+
+#endif /* __V24_HT__ */
+

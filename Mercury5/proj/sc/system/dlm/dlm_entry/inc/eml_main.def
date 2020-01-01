@@ -1,0 +1,11 @@
+[MODULE] eml_main
+
+[DESCRIPTION] "Emulator Main"
+
+[EXPORT]
+    EML_Itf_GetInfo                                     @0
+    EML_Itf_Notify                                      @1
+    EML_Itf_Stop                                        @2
+    EML_Itf_Input                                       @3
+    EML_Itf_GetSramInfo                                 @4
+    EML_Itf_InitInterface                               @5

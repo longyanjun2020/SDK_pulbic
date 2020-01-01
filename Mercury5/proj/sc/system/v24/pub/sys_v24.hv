@@ -1,0 +1,54 @@
+/**
+ * \file v24.hv
+ * \brief Variables of the V.24 serial link
+*/
+#ifndef __SYS_V24_HV__
+#define __SYS_V24_HV__
+#include "string.h"
+
+#include "sys_v24.hc"
+#include "sys_v24.ht"
+#include "sys_v24_uart.hm"
+//#include "mux_mux.ht"
+//#include "v24_msg.hi"  //dont include private header in pub header
+
+#include "drv_vm_io_types.h"
+
+#ifdef __V24_VAR__         /* defined by v24_hand.c */
+#define DefExtern
+#define __init_to( _i_ )   = _i_
+#else
+#define DefExtern          extern
+#define __init_to( _i_ )
+#endif
+
+
+DefExtern u8           v24_SchedIdle[V24_MAX_PORT_CONNECTED]; /* bit field :  bit 0 for Rx purpose, bit 1 for RM drivers purpose, ... */
+DefExtern u8           v24_WakeUpDrivers[V24_MAX_PORT_CONNECTED];
+
+
+DefExtern u8           v24_MsgPending[V24_MAX_PORT_CONNECTED];
+
+DefExtern v24_DifferedSchedulingState_e  v24_DifferedSchedulingState[V24_PHY_CHANNEL_MAX-1];//one for each IT handler (UART1, UART2, ...).
+
+extern u8 v24_SleepModeAllowed;
+
+
+#ifdef __DOWNLOADER__
+DefExtern const u16        OV13_v24_RateToMsbLsb[ OV13_V24_NB_RATES ]
+#ifdef __V24_VAR__
+  // cf v24_uart.hm for _xxx defines
+  = {OV13_1200, OV13_2400, OV13_4800, OV13_9600, OV13_19200, OV13_38400, OV13_57600, OV13_115200,
+   OV13_300, OV13_600, OV13_230400, OV13_460800}
+#endif
+;
+#endif
+
+
+extern s32                 hac_GlobalFn;  // comes from hac1tim.c
+
+#undef DefExtern
+#undef __init_to
+
+#endif /* __SYS_V24_HV__ */
+

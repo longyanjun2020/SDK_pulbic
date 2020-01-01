@@ -1,0 +1,162 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/*  File    : v24_ctrl.ht                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Prototypes for the signal controller                          */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 08/01/04 |  MSE   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 08/10/04 |  APH   | New V24: PortId, Ctxt, FctPtr v8a03_aph              */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_ctrl.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 25.11.05 | aph    | 1.11           | Resolution for 31309: [V24] V24_USB
+ *          |        |                |  part: portage/dev for USB port sup
+ *          |        |                | porting in the V24 driver  .       
+ *----------+--------+----------------+-------------------------------------
+ * 12.08.05 | pmr    | 1.10           | Resolution for 29674: Flow Control 
+ *          |        |                | problem on physical UART - dup #296
+ *          |        |                | 73  .                              
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.9            | Resolution for 29537: Sleep mode im
+ *          |        |                | plementation (adaptation for MUX as
+ *          |        |                |  well as multi-Uart)  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.7            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 17.06.05 | pmr    | 1.6            | Resolution for 28595: Serial link b
+ *          |        |                | locked when remote modem uses long 
+ *          |        |                | space disconnection (dup #28583)  .
+ *----------+--------+----------------+-------------------------------------
+ * 01.04.05 | pmr    | 1.5            | Resolution for 28181: [V24]: v24 fo
+ *          |        |                | r X55 WP3 fixed  .                 
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.4            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.3            | Resolution for 27895: Bluetooth SIL
+ *          |        |                |  - V24 integration  .              
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+
+
+#ifndef __SYS_V24_CTRL_HP__
+#define __SYS_V24_CTRL_HP__
+
+#include "stdcomp.h"
+#include "sys_v24_ctrl.ht"
+#include "sys_v24.ht"
+
+#include "sys_v24_ctrl.hc"  /* for the eLayerId_t enum */
+
+extern bool          v24_CtrlIsPortRegistrated      ( u32 Port );
+
+extern u32           v24_CtrlGetRequestExt          ( v24_Req_t Req, u32 Arg, u32 Port ); 
+
+extern void          v24_CtrlRequestExt             ( v24_Req_t Type, u32 Arg, u32 Port );
+extern void          v24_CtrlRequest                ( void );
+
+extern u8            v24_GetIdxInPalTabCtx          ( u32 Port );
+extern u8            v24_GetIdxInTabCtx             ( u32 Port );
+extern u8            v24_GetIdxInRelTabCtx          ( u32 Port );
+
+extern void          v24_CtrlTxSetRtsPtr            ( bool On, u32 Port );
+extern void          v24_CtrlTxSetDtrPtr            ( bool On, u32 Port );
+extern void          v24_CtrlTxSetRiPtr             ( bool On, u32 Port );
+extern void          v24_CtrlTxSetDcdPtr            ( bool On, u32 Port );
+extern void          v24_CtrlTxSetPulseRiPtr        ( bool On, u32 Port );
+extern void          v24_CtrlTxSetRxFcPtr           ( bool On, u32 Port );
+extern void          v24_CtrlTxSetRxLogiFc          ( bool On, u32 Port );
+extern void          v24_CtrlTxSetAllSig            ( bool On, u32 Port );
+extern void          v24_CtrlTxSetBrkPtr            ( bool On, u32 Port );
+extern void          v24_CtrlTxSetSleepModePtr      ( bool On, u32 Port );
+
+extern void          v24_CtrlRxIndPhyMsrChange      ( u32, u8, bool );
+extern void          v24_CtrlHandleMsrChange        ( u32 Port );
+extern void          v24_CtrlHandleRelMuxMsrChange  ( u32, ev24_EventInd_t, u32 );
+extern u32           v24_CtrlRequestDefaultValue    ( v24_Req_t Req, u32 Arg );
+extern u8            v24_CtrlGetPhyMsr              ( u8 );
+extern void          v24_CtrlInitLogicalMsr         ( u32  Port, bool UartInit );
+extern void          v24_CtrlUserUpdateLogicalMsr   ( bool ActOnDsrChange, u32 Port );
+extern bool          v24_CtrlIsTxBarred             ( u32 Port );
+extern bool           v24_CtrlIsPacketTxAllowed      ( u32 Port);
+
+extern void          v24_CtrlInitExt                ( u32 Port );
+extern void          v24_CtrlInit                   ( void );
+
+extern void          v24_CtrlIndUartTxFc            ( u8 Uart, u8 TxStatus );
+extern void          v24_CtrlIndLogicalTxFc         (u32 Port, bool TxStatus);
+extern void          v24_CtrlTxSetRxLogiFcIdx       (bool On, u32 Idx);
+
+extern void          v24_InitSendCondition          ( u32 Port, v24_CtrlRegisterLayerType_e CallFromLayer );
+extern void          v24_CtrlTestReleaseBlock       ( v24_TxBlock_t* v24_TxBlock, u8* Purge, u8 Fill, u8 mod );
+
+extern void          v24_CtrlHandleDcdDtrMode       ( u32 Port ); 
+extern void          v24_CtrlRestoreSigMode         (v24_DcdDtrDsrMode_t*, u32);
+extern void          v24_CtrlGetSigMode             (v24_DcdDtrDsrMode_t*, u32);
+
+
+/*==============================================================
+** Interface for the layer Registration / Unregistration process
+**==============================================================
+*/
+extern u32   v24_ctrl_RegisterLayer  (eLayerId_t eLayerId,void* pvCtx,u32 dwPortId);
+extern bool  v24_ctrl_UnregisterLayer(eLayerId_t eLayerId,u32 dwPortId);
+
+/*===========================================================
+** Convert a PortId into a context (layer has to be provided)
+**===========================================================
+*/
+extern void* v24_ctrl_PortId2pvCtxt(eLayerId_t eLayerId,u32 dwPortId);
+
+/*=====================================
+** Physical port destruction management
+**=====================================
+*/
+extern bool v24_ctrl_boStopPort(u32 dwPortId);
+
+/*========================================
+** Buid list of the active port or context
+**========================================
+*/
+extern int v24_ctrl_GetActiveCtxtList(eLayerId_t eLayerId,u32 dwPortId,void** ppvOut);
+
+/*=========================
+** Provide the kind of port
+**=========================
+*/
+extern bool v24_ctrl_IsLogicalPort(u32 dwPortId);
+
+#endif

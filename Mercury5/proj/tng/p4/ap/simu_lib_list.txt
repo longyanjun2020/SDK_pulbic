@@ -1,0 +1,7 @@
+mdl_avp_demuxer.lib
+mdl_avp_mmplayer.lib
+mdl_avp_mp4demux.lib
+mdl_avp_videc.lib
+Mmaudio.lib
+App_engine.lib
+Arp_engine.lib

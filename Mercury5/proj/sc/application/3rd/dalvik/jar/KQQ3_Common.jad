@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-Name: 手机QQ
+Created-By: dx 1.3
+MIDlet-Vendor: Tencent
+MIDlet-1: 手机QQ,/icon.png,com.tencent.kqq2_3.KQQMIDlet
+Dex-Location: classes.dex
+MIDlet-Version: 3.0.1
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Jar-Size: 93376
+MIDlet-Jar-URL: KQQ3_Common.jar

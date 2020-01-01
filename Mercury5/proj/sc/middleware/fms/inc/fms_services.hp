@@ -1,0 +1,46 @@
+/****************************************************************************/
+/*  $Workfile::   fms_services.hp                                         $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services                                        */
+/*             Services initialisation functions declarations               */
+/*  Contents:                                                               */
+/*             Init for E2P, TRC, CUSTO, RAI, OBJ, AD, FLAT's spare sector  */
+/****************************************************************************/
+
+
+
+#ifndef _799918c8de42e8df0befb09175f40f98_INCLUDED_FMS_SERVICES_HP
+#define _799918c8de42e8df0befb09175f40f98_INCLUDED_FMS_SERVICES_HP
+
+/****************************************************************************/
+/*  INITIALISATION ROUTINES                                                 */
+/****************************************************************************/
+
+/****************************************************************************/
+/*                      INITIALISATION ROUTINE FOR E2P                      */
+/****************************************************************************/
+/*
+ * Give the customer mirror address.
+ *
+ */
+void fms_E2pInit(u32 i__u32_Origin);
+
+/****************************************************************************/
+/*                    INITIALISATION ROUTINE FOR TRACES                     */
+/****************************************************************************/
+
+/*
+ * Give the origin, the number of sectors, the volume top
+ */
+void fms_TrcInit(u32 i__u32_Origin, u32 i__u32_SectNumber, u32 i__u32_VolumeTop);
+
+/****************************************************************************/
+/*  IDLE TASK'S CLEANING ROUTINES                                           */
+/****************************************************************************/
+
+void fms_E2pCleaner(void);
+void fms_ObjCleaner(void);
+
+
+
+#endif /* ! _799918c8de42e8df0befb09175f40f98_INCLUDED_FMS_SERVICES_HP   */

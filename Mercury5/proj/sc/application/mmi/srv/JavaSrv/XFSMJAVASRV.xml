@@ -1,0 +1,230 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>JavaSrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>SERVICE</ApplicationType>
+         <LogLevelName>MMI_LEVEL_VENDOR</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef>#if defined(__JAVA_MMI__)</Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="JavaSrv" id="18238" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+          <node name="Init" id="5073" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Init</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="Active" id="24177" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Idle">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+              <node name="Idle" id="28305" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="Initializing" id="11186" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="GettingInfo" id="20540" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="Launch" id="26283" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="Installing" id="30696" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="Uninstalling" id="18277" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="HttpDownloading" id="27928" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="5631"	from="_Init"  to="_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_IEVT_InitOK</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="30408"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_JAVA_REGISTER_ALARM_REQ</event>
+				<event>MAE_EVT_JAVA_DEREGISTER_ALARM_REQ</event>
+				<event>MAE_EVT_JAVA_REGISTER_PORT_REQ</event>
+				<event>MAE_EVT_JAVA_DEREGISTER_PORT_REQ</event>
+				<condition></condition>
+				<action>Update push table</action>
+			</transition>
+			<transition enable="1" id="28696"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_ALARM</event>
+				<event>MAE_EVT_JAVA_QUERY_INDEX_CNF</event>
+				<condition></condition>
+				<action>Launch Midlet</action>
+			</transition>
+			<transition enable="1" id="29780"	from="_Active_Idle"  to="_Active_Initializing"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_EVT_Init_Req</event>
+				<event>JAVASRV_EVT_Release_Req</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="16406"	from="_Active_Initializing"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_JAVA_INIT_CNF</event>
+				<condition></condition>
+				<action>Send Notify (Init Cnf)</action>
+			</transition>
+			<transition enable="1" id="22892"	from="_Active_Idle"  to="_Active_GettingInfo"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_EVT_Get_Suite_Count_Req</event>
+				<event>JAVASRV_EVT_Get_Suite_Info_Req</event>
+				<event>JAVASRV_EVT_Get_Permission_Req</event>
+				<event>JAVASRV_EVT_Set_Permission_Req</event>
+				<event>JAVASRV_EVT_Get_Midlet_Count_Req</event>
+				<event>JAVASRV_EVT_Get_Midlet_Info_Req</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="24723"	from="_Active_GettingInfo"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_JAVA_GET_SUITE_COUNT_CNF</event>
+				<event>MAE_EVT_JAVA_GET_SUITE_INFO_CNF</event>
+				<event>MAE_EVT_JAVA_GET_PERMISSION_CNF</event>
+				<event>MAE_EVT_JAVA_SET_PERMISSION_CNF</event>
+				<event>MAE_EVT_JAVA_GET_MIDLET_COUNT_CNF</event>
+				<event>MAE_EVT_JAVA_GET_MIDLET_INFO_CNF</event>
+				<condition></condition>
+				<action>Send Notify</action>
+			</transition>
+			<transition enable="1" id="6481"	from="_Active_Idle"  to="_Active_Uninstalling"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_EVT_Remove_Suite_Req</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="15917"	from="_Active_Uninstalling"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_JAVA_REMOVE_SUITE_CNF</event>
+				<condition></condition>
+				<action>Send Notify</action>
+			</transition>
+			<transition enable="1" id="25230"	from="_Active_Idle"  to="_Active_Launch"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_EVT_Launch_Midlet_Req</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="8703"	from="_Active_Launch"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_JAVA_LAUNCH_MIDLET_CNF</event>
+				<condition></condition>
+				<action>Send Notify</action>
+			</transition>
+			<transition enable="1" id="31151"	from="_Active_Idle"  to="_Active_Installing"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_EVT_Check_Midlet_Req</event>
+				<event>JAVASRV_EVT_Install_Midlet_Req</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="26126"	from="_Active_Installing"  to="_Active_Installing"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_JAVA_CHECK_MIDLET_SUITE_IND</event>
+				<event>MAE_EVT_JAVA_CHECK_MIDLET_SUITE_CNF</event>
+				<event>MAE_EVT_JAVA_INSTALL_MIDLET_SUITE_IND</event>
+				<event>MAE_EVT_JAVA_INSTALL_MIDLET_SUITE_CNF</event>
+				<event>MAE_EVT_JAVA_SET_INSTALL_PROGRESS_REQ</event>
+				<event>MAE_EVT_JAVA_DRAW_INSTALL_DIALOG_REQ</event>
+				<event>MAE_EVT_JAVA_CANCEL_INSTALL_MIDLET_CNF</event>
+				<condition></condition>
+				<action>Send Notify(Installing)</action>
+			</transition>
+			<transition enable="1" id="3281"	from="_Active_Installing"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_IEVT_InstallOK</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="8166"	from="_Active_Idle"  to="_Active_HttpDownloading"  type="Default"	hasCondition="0" hasAction="0">
+				<event>JAVASRV_EVT_Http_Download_Req</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="6219"	from="_Active_HttpDownloading"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>JAVASRV_EVT_Http_Download_Abort</event>
+				<event>MAE_EVT_JAVA_HTTP_DOWNLOAD_CNF</event>
+				<condition></condition>
+				<action>Send Notify(Http Download)</action>
+			</transition>
+			<transition enable="1" id="22554"	from="_Active"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_JAVA_RELEASE_CNF</event>
+				<condition></condition>
+				<action>Send Notify (Release Cnf)</action>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="InitOK" type="internal"></event>
+			<event name="InstallOK" type="internal"></event>
+			<event name="Init_Req" type="external"></event>
+			<event name="Init_Cnf" type="external"></event>
+			<event name="Release_Req" type="external"></event>
+			<event name="Release_Cnf" type="external"></event>
+			<event name="Get_Suite_Count_Req" type="external"></event>
+			<event name="Get_Suite_Count_Cnf" type="external"></event>
+			<event name="Get_Suite_Info_Req" type="external"></event>
+			<event name="Get_Suite_Info_Cnf" type="external"></event>
+			<event name="Remove_Suite_Req" type="external"></event>
+			<event name="Remove_Suite_Cnf" type="external"></event>
+			<event name="Get_Permission_Req" type="external"></event>
+			<event name="Get_Permission_Cnf" type="external"></event>
+			<event name="Set_Permission_Req" type="external"></event>
+			<event name="Set_Permission_Cnf" type="external"></event>
+			<event name="Get_Midlet_Count_Req" type="external"></event>
+			<event name="Get_Midlet_Count_Cnf" type="external"></event>
+			<event name="Get_Midlet_Info_Req" type="external"></event>
+			<event name="Get_Midlet_Info_Cnf" type="external"></event>
+			<event name="Launch_Midlet_Req" type="external"></event>
+			<event name="Launch_Midlet_Cnf" type="external"></event>
+			<event name="Check_Midlet_Req" type="external"></event>
+			<event name="Check_Midlet_Ind" type="external"></event>
+			<event name="Check_Midlet_Cnf" type="external"></event>
+			<event name="Install_Midlet_Req" type="external"></event>
+			<event name="Install_Midlet_Ind" type="external"></event>
+			<event name="Install_Midlet_Cnf" type="external"></event>
+			<event name="Set_Install_Progress_Req" type="external"></event>
+			<event name="Draw_Install_Dialog_Req" type="external"></event>
+			<event name="Cancel_Install_Req" type="external"></event>
+			<event name="Cancel_Install_Cnf" type="external"></event>
+			<event name="Http_Download_Req" type="external"></event>
+			<event name="Http_Download_Cnf" type="external"></event>
+			<event name="Http_Download_Abort" type="external"></event>
+		</eventlist>
+		<functionlist>
+			<function name="RegisterNotification" id="4414" RetType="MAE_Ret"	Param1="void *pInstance" Param2="JAVASRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeRegisterNotification" id="15636" RetType="MAE_Ret"	Param1="void *pInstance" Param2="JAVASRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsInitReq" id="6727" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsReleaseReq" id="26559" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsGetSuiteCountReq" id="14294" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsGetSuiteInfoReq" id="25771" RetType="MAE_Ret"	Param1="int SuiteIndex" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsRemoveSuilteReq" id="12173" RetType="MAE_Ret"	Param1="int SuiteIndex" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsGetPermission" id="25175" RetType="MAE_Ret"	Param1="int SuiteIndex" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsSetPermission" id="30751" RetType="MAE_Ret"	Param1="int SuiteIndex" Param2="java_permission_setting *ps"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsGetMidletCountReq" id="29313" RetType="MAE_Ret"	Param1="int SuiteIndex" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsGetMidletInfoReq" id="30632" RetType="MAE_Ret"	Param1="int SuiteIndex" Param2="int MidletIndex"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsLaunchMidletReq" id="5040" RetType="MAE_Ret"	Param1="int SuiteIndex" Param2="int MidletIndex"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsCheckMidletReq" id="9930" RetType="MAE_Ret"	Param1="u16 *jadPath" Param2="u16 *jarPath"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsInstallMidletReq" id="629" RetType="MAE_Ret"	Param1="u16 *jadPath" Param2="u16 *jarPath"	Param3="int KeepRMS" Param4="s32 oldId"	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsCancelInstallMidetReq" id="22633" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsSetInstallProgressRsp" id="9026" RetType="MAE_Ret"	Param1="u32 select_key" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AmsDrawInstallDialogRsp" id="17168" RetType="MAE_Ret"	Param1="u32 select_key" Param2="mmi_ams_DrawInstallDialogReq_t *pData"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="HttpDownloadReq" id="11158" RetType="MAE_Ret"	Param1="u16 *u16Http" Param2="u16 *u16FileName"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

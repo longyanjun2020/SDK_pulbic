@@ -1,0 +1,467 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 1994, 1995, 1996
+*/
+
+/****************************************************************************/
+/*  File    : REMOTE.HO                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : remote utilities interface                                    */
+/*                                                                          */
+/*  Changes :                                                               */
+/*--------------------------------------------------------------------------*/
+/*   Date       | Author | Modification                                     */
+/*--------------+--------+--------------------------------------------------*/
+/*  23/02/1995  |  FCH   | - Creation                                       */
+/*--------------+--------+--------------------------------------------------*/
+/*  27/10/1995  |  PGU   | - GSM adaptation                                 */
+/*--------------+--------+--------------------------------------------------*/
+/*  10/06/1996  |  PGU   | - INFO_RPC flow for Remote Procedure Calls       */
+/*--------------+--------+--------------------------------------------------*/
+/*  22/07/1996  |  RDO   | - Add defines for AT response window (data mode) */
+/*              |        | - Add an AT queue to interface rm_at and rm_tools*/
+/*--------------+--------+--------------------------------------------------*/
+/*  17/09/1996  |  ADA   | - Add stuff for lcd nb colons management.        */
+/*--------------+--------+--------------------------------------------------*/
+/*  31/10/96    |  PGU   | - Flow is 5 bits wide (compatible ...)           */
+/*--------------+--------+--------------------------------------------------*/
+/*  20/11/96    |  PGU   | - Add debug flow                                 */
+/*--------------+--------+--------------------------------------------------*/
+/*  09/01/1997  |  RDO   | - modify includes for data mode                  */
+/*--------------+--------+--------------------------------------------------*/
+/*  17/01/1997  |  RDO   | - modify AT & data window sizes                  */
+/*--------------+--------+--------------------------------------------------*/
+/*  31/01/1997  |  PGU   | - LINEWIDTH taken from custom.hc                 */
+/*--------------+--------+--------------------------------------------------*/
+/*  11/03/1997  |  RDO   | - Add prototypes of serial link handler functions*/
+/*--------------+--------+--------------------------------------------------*/
+/*  10/04/1997  |  RDO   | - Remove some V.24 prototypes                    */
+/*--------------+--------+--------------------------------------------------*/
+/*  10/04/1997  |  PGU   | - Remove some watch prototypes                   */
+/*--------------+--------+--------------------------------------------------*/
+/*  13/05/1997  |  RDO   | - Put back defines for AT & DATA windows sizes   */
+/*--------------+--------+--------------------------------------------------*/
+/*  15/10/1997  |  RDO   | - Modify sizes of DATA & AT windows              */
+/*--------------+--------+--------------------------------------------------*/
+/*  21/04/1998  |  PGU   | - Suppress lcd_Print prototype                   */
+/*              |        | - Remove LCD_ON_TARGET flag                      */
+/*--------------+--------+--------------------------------------------------*/
+/* 10.12.98     |  ADA   | Adds define DEBUG_GET_TRACE_BUFFER_IN_FLASH.     */
+/*--------------+--------+--------------------------------------------------*/
+/* 03.03.99     |  PGU   | - Pack Read_t and Write_t for INFO_READ_PACK     */
+/*--------------+--------+--------------------------------------------------*/
+/* 26.01.2000   |  MDZ   | - change 1st Pad of LcdMsg_t to specify Mode     */
+/*              |        | (Graphic or Text)                                */
+/*--------------+--------+------------------------------------------------  */
+/*  03/05/2000  |  FRK   | - update for TOOLS team                          */
+/*--------------+--------+--------------------------------------------------*/
+/*  21/09/2000  |  SOL   | - Add definition of the function rm_TxAtGetByte()*/
+/*              |        |   for the AT command encapsulation               */
+/*--------------+--------+--------------------------------------------------*/
+/*  23/10/2000  |  SOL   | - Add definitons of the functions rm_StoreMsgIn- */
+/*              |        | Buffer(), rm_StoreMsgInBufferOverwriting() and   */
+/*              |        | rm_StoreMsgInBufferNoOverwritng()                */
+/*--------------+--------+--------------------------------------------------*/
+/*  17/11/2000  |  FRK   | - update for Task deport                         */
+/*--------------+--------+--------------------------------------------------*/
+/*  06/12/2000  |  SOL   | - definitions of the types DiagGetMsg_t,         */
+/*              |        | Status_Elt_t and Status_Rsp_t                    */
+/*--------------+--------+--------------------------------------------------*/
+/*  04/01/2001  |  SOL   | - add header for the request INFO_STATUS         */
+/*--------------+--------+--------------------------------------------------*/
+/*  22/01/2001  |  SOL   | - add types, macros and definitions for INFO_RPC2*/
+/*--------------+--------+--------------------------------------------------*/
+/*  19/03/2001  |  LHO   | - Set StatusRsp_t size                           */
+/*--------------+--------+--------------------------------------------------*/
+/*  01/05/2001 	|  ALM   | - update for TOOLS team (__REMOTETASKS__)	    */
+/****************************************************************************/
+
+#ifndef __REMOTE_HO__
+#define __REMOTE_HO__
+
+#ifdef __BORLANDC__
+#include <stdio.h>
+#include <conio.h>
+#define __packed
+#elif defined __REMOTETASKS__
+#define __packed 
+#endif
+
+#ifdef unix
+#include <stdio.h>
+#endif
+
+#include "stdcomp.h"
+#include "msgtyp.ht"
+#include "remote.hi"
+
+#ifdef __REMOTE_VAR__
+#define DefExtern
+#else
+#define DefExtern extern
+#endif
+
+#define RAD_WIN_DATE 4
+
+#define RAD_PDRX_START   0
+#define RAD_PDRX_STOP    1
+#define RAD_SP1_START    2
+#define RAD_RX_WIN_START 3
+
+#define DEBUG_RTK_STATUS                0x00
+#define DEBUG_E2P_ERROR_STACK_ANALYSIS  0x01
+#define DEBUG_E2P_ERROR_STACK_INIT      0x02
+#define DEBUG_GET_TRACE_BUFFER_IN_FLASH 0x03
+
+#define RM_INIT_SEQUENCE_SIZE 8
+
+
+
+DefExtern const u8 rm_InitSequence [RM_INIT_SEQUENCE_SIZE]
+#ifdef __REMOTE_VAR__
+= {0xD0, 0xE0, 0xF0, 0xD0, 0xE0, 0xF0, 0xA0, 0xB0}
+#endif
+;
+
+#define LCD_EMUL_MODE_TEXT 	0x00
+#define LCD_EMUL_MODE_GRAPHIC 	0x01
+
+typedef struct
+{
+ s8 RadWinDate [RAD_WIN_DATE];
+} RadWinDate_t;
+
+typedef __packed struct
+{
+ u32 StartAddr;
+ u16 Length;
+ u16 Pad;
+} Read_t, Write_t;
+
+typedef struct
+{
+ u32 Addr;
+} ReadRsp_t;
+
+typedef struct
+{
+ u8 Type;
+ u8 Body;
+} rm_DebugMsg_t;
+
+typedef struct
+{
+ u8 Pos;
+ u8 Mode;
+ u8 Pad1;
+ u8 Pad2;
+ u8 Str [4*16];
+} LcdMsg_t;
+
+typedef struct
+{
+ u32 Ident;
+ u32 Level;
+} DiagSetMsg_t;
+
+typedef struct
+{
+ u32 Nb_Flows;
+ DiagSetMsg_t *Flow;
+} DiagGetMsg_t;
+
+typedef struct
+{
+ u32 Mbx[2];
+ u32 Tasks;
+} RtkState_t;
+
+typedef union
+{
+ Read_t     Read;
+ ReadRsp_t  ReadRsp;
+ Write_t    Write;
+} DiagBody_t;
+
+typedef struct
+{
+ u16 TargetInfo;
+ u16 Length;
+} DiagHeader_t;
+
+typedef struct
+{
+ Header_t     Header;
+ DiagBody_t   Body;
+} DiagMsg_t;
+
+#define STRING_SIZE_MAX 6  /* size maximum of the string associated to an element of trace  */
+                           /* the value may be changed to any 4*integer+2 value */ 
+
+typedef struct
+{
+ u8 Type;
+ u8 Padding;
+ u16 Length;
+}StatusHeader_t;
+
+typedef struct
+{
+ u16 Id;
+ char Name[STRING_SIZE_MAX];
+}StatusElt_t;
+
+typedef struct
+{
+ StatusHeader_t Header;
+ u16 StringSize;
+ u8 NbTasks;
+ u8 NbMbx;
+ u32 NbElts;
+ StatusElt_t Elt[1];
+}StatusRsp_t;
+
+/*------------------------------ for RPC's ---------------------------------*/
+
+#if defined (__REMOTETASKS__) && defined(__REMOTE_VAR__)
+#define MAX_SEM      8
+
+extern struct
+{
+ bool IsFree;
+ u8   Value;
+ u32  ReturnValue;
+ u16  memoryAddress;
+ u16  dataLength;
+ u8*  pData;
+} RpcSem[MAX_SEM];
+#endif
+
+#define MAX_RPC_FRAME_LENGTH 200
+
+typedef struct
+{
+ u32 CallIndex;
+ u8  NbParam;
+ u8  SemIndex;
+ u8  Pad[2];
+} RpcHeader_t;
+
+
+typedef struct
+{
+ RpcHeader_t Header;
+ u32         CallParam[4];
+} RpcDown_t;
+
+typedef struct
+{
+ u8  SemIndex;
+ u8  Pad[3];
+ u32 ReturnValue;
+} RpcUp_t;
+
+typedef struct
+{
+ u8  SemIndex;
+ u8  Pad[3];
+ u32 dataLength;
+ u8* pData;
+} Rpc2Up_t;
+
+
+typedef union
+{
+ u32 VariableData;
+ u8 *PointerData;
+} Data_t;
+
+typedef struct
+{
+ u16 Type;
+ u16 Size;
+ Data_t Data;
+} Rpc2Param_t;
+
+typedef struct
+{
+ RpcHeader_t Header;
+#ifndef __REMOTETASKS__
+ Rpc2Param_t *Param;
+#else
+ Rpc2Param_t *Param;
+#endif
+} Rpc2Down_t;
+
+typedef union
+{
+ u32 Value;
+ void *Pointer;
+} Param_t;
+
+#define RPC2_GET_TYPE(x)        (x & 0x03)
+#define RPC2_GET_ALLOC(x)       (x & 0x04)
+#define RPC2_IS_RETURN_PARAM(x) (x & 0x08)
+#define RPC2_TYPE_VARIABLE      0x00
+#define RPC2_TYPE_POINTER       0x01
+#define RPC2_STATIC_ALLOC       (0x00 << 2)
+#define RPC2_DYNAMIC_ALLOC      (0x01 << 2)
+#define RPC2_NORMAL_PARAM       (0x00 << 3)
+#define RPC2_RETURN_PARAM       ((0x01 << 3) | RPC2_DYNAMIC_ALLOC)
+
+typedef struct
+        {
+         u8  TypeData [4];
+         u32 Data;
+        } MsgTrace_t;
+
+#ifdef __TARGET__
+#ifdef __REMOTE_VAR__
+bool (*rm_UserRequest)(DiagHeader_t *) = NULL;
+#else
+extern bool (*rm_UserRequest)(DiagHeader_t *);
+#endif
+#else /* not target */
+#ifdef __REMOTE_VAR__
+#ifdef __REMOTETASKS__
+bool (*rm_UserRequest)(DiagHeader_t *, FILE *);
+#else
+bool (*rm_UserRequest)(DiagHeader_t *, FILE *) = NULL;
+bool rm_Display = TRUE;
+#endif /* REMOTETASKS */
+#else
+#ifndef __REMOTETASKS__
+extern bool (*rm_UserRequest)(DiagHeader_t *, FILE *);
+extern bool rm_Display;
+#endif
+#endif
+#endif
+
+#ifndef __REMOTETASKS__
+#ifdef __REMOTE_VAR__
+u16 rm_BadBlocks = 0;
+s8 PdRxStart = 0;
+s8 PdRxStop = 0;
+s8 Sp1Start = 0;
+s8 RxWinStart = 0;
+#else
+extern u16 rm_BadBlocks;
+extern s8 PdRxStart;
+extern s8 PdRxStop;
+extern s8 Sp1Start;
+extern s8 RxWinStart;
+#endif
+#endif /* __REMOTETASKS__ */
+
+void *rm_Send (void * Msg, u8 TargetInfo, u16 Size);
+void rm_GetRequest(void);
+void rm_Init(void);
+void rm_Status(bool Wait, char *fmt, ...);
+void rm_MbxHook(u8 Mbx, void *p, bool IsLocal);
+void rm_InitTraceDrivers(void);
+bool rm_TxTraceEmpty(void);
+bool rm_RxTraceDriver(u8);
+u32  rm_TxTraceDriverNoOverwriting(void);
+u16  rm_TxAtGetByte ( u32 );
+u32  rm_TxTraceDriver(void);
+void *rm_StoreMsgInBufferNoOverwriting(u8 *, u8, s16);
+void *rm_StoreMsgInBufferOverwriting(u8 *, u8, s16);
+DefExtern void *(*rm_StoreMsgInBuffer)(u8 *, u8, s16);
+
+
+#if defined (__BORLANDC__) || defined (__REMOTETASKS__)
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+void rm_SetTraceWindow(u8 MinX, u8 MaxX, u8 MinY, u8 MaxY);
+void rm_SetStatusWindow(u8 MinX, u8 MaxX, u8 MinY, u8 MaxY);
+u32  rm_Rpc(void *CallAddress, bool WaitReturn, u8 NbParam, ...);
+u32  rm_Rpc2(void *CallAddress, bool WaitReturn, u8 NbParam, ...);
+void rm_RpcUp(RpcUp_t *);
+void rm_Rpc2Up(Rpc2Down_t *);
+void rm_E2pUp(u8* Result, u16 dataLength);
+void settextinfo(struct text_info *);
+#ifdef __cplusplus
+}
+#endif
+
+#elif defined(__TARGET__)
+void rm_RpcDown(RpcDown_t *RpcData);
+bool rm_Rpc2Down(Rpc2Down_t *Rpc2Data);
+#endif
+
+#ifdef __arm
+extern void rm_LcdEmul (u8 Pos, char *Str);
+#endif
+
+#ifdef __BORLANDC__
+/* status window */
+#define MIN_X_STATUS 1
+#define MIN_Y_STATUS 25
+#define MAX_X_STATUS 39
+#define MAX_Y_STATUS 25
+
+/* trace window */
+#define MIN_X_TRACE 41
+#define MIN_Y_TRACE  4
+#define MAX_X_TRACE 80
+#define MAX_Y_TRACE 25
+
+/* Lcd window */
+#define MIN_X_LCD   1
+#define MIN_Y_LCD   4
+#define MAX_X_LCD   16
+#define MAX_Y_LCD   7
+
+/* Kbd window */
+#define MIN_X_KBD   1
+#define MIN_Y_KBD   8
+#define MAX_X_KBD   23
+#define MAX_Y_KBD   14
+
+
+/* Hwl window */
+#define MIN_X_HWL   1
+#define MIN_Y_HWL   1
+#define MAX_X_HWL   80
+#define MAX_Y_HWL   3
+
+/* status window */
+#define MIN_X_DEFAULT 1
+#define MIN_Y_DEFAULT 8
+#define MAX_X_DEFAULT 39
+#define MAX_Y_DEFAULT 23
+
+#define MIN_X_COMMAND 1
+#define MIN_Y_COMMAND 24
+#define MAX_X_COMMAND 39
+#define MAX_Y_COMMAND 24
+
+/* AT response window in 50-line mode */
+#define MIN_X_AT     1
+#define MIN_Y_AT     4
+#define MAX_X_AT     40
+#define MAX_Y_AT     23
+
+/* Data Status window in 50-line display */
+#define MIN_X_DATAINFO   1
+#define MIN_Y_DATAINFO   26
+#define MAX_X_DATAINFO   80
+#define MAX_Y_DATAINFO   26
+
+/* Data window in 50-line display */
+#define MIN_X_DATA      1
+#define MIN_Y_DATA   27
+#define MAX_X_DATA   80
+#define MAX_Y_DATA   50
+
+#endif /* __BORLANDC__ */
+
+#undef DefExtern
+#endif /* __REMOTE_HO__ */

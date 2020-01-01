@@ -1,0 +1,137 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+/****************************************************************************/
+/*  File    : mdl_vfs_file.ho                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : file access functions                           */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 23.12.02 |   NRO  |      |  Creation                                     */
+/*----------+--------+------+-----------------------------------------------*/
+/****************************************************************************/
+
+#ifndef __MDL_VFS_FILE_HO__
+#define __MDL_VFS_FILE_HO__
+
+/*_____ I N C L U D E S ____________________________________________________*/
+
+#include "vm_types.ht"
+#include "mdl_vfs_fat.ho"
+
+#define FILE_NO_ERROR     1
+#define FILE_WRONG_PARAMETERS   (-1)
+#define FILE_NOT_ENOUGH_MEMORY  (-2)
+
+#ifndef EOF
+#define EOF     (-1)
+#endif
+
+#define __SLBF  0x0001          /* line buffered */
+#define __SNBF  0x0002          /* unbuffered */
+#define __SRD   0x0004          /* OK to read */
+#define __SWR   0x0008          /* OK to write */
+        /* RD and WR are never simultaneously asserted */
+#define __SRW   0x0010          /* open for reading & writing */
+#define __SEOF  0x0020          /* found EOF */
+#define __SERR  0x0040          /* found error */
+#define __SMBF  0x0080          /* _buf is from malloc */
+#define __SAPP  0x0100          /* fdopen()ed in append mode - so must  write to end */
+#define __SSTR  0x0200          /* this is an sprintf/snprintf string */
+#define __SOPT  0x0400          /* do fseek() optimisation */
+#define __SNPT  0x0800          /* do not do fseek() optimisation */
+#define __SOFF  0x1000          /* set iff _offset is in fact correct */
+#define __SMOD  0x2000          /* true => fgetline modified _p text */
+
+#ifndef SEEK_SET
+#define SEEK_SET        0       /* set file offset to offset */
+#endif
+#ifndef SEEK_CUR
+#define SEEK_CUR        1       /* set file offset to current plus offset */
+#endif
+#ifndef SEEK_END
+#define SEEK_END        2       /* set file offset to EOF plus offset */
+#endif
+
+#if !(defined(__GNUC__)&&defined(__i686__))
+#ifndef __off_t
+#define __off_t
+typedef long      off_t;
+#endif
+#endif //!(defined(__GNUC__)&&defined(__i686__))
+
+
+/*_____ TYPES ______________________________________________________________*/
+
+typedef struct file_data
+{
+  u32 file_signature;
+  u32 file_reference;
+  s32 _flags;
+  u32 file_size;
+  s32 last_error; // To keep last error code
+  s32 task;
+  s32 caller;
+} VFS_FILE;
+
+/*_____ D E C L A R A T I O N ______________________________________________*/
+
+s32         file_finit(const u8 nbFiles);
+
+VFS_FILE *  file_fopen(const u16 * const pName, const ascii * const pModeStr);
+
+VFS_FILE *  file_fopenWithSize(const u16 * const pName, const ascii * const pModeStr, const u32 size);
+
+VFS_FILE *  file_fopenWithBuffer(const u16 * const pName, const ascii * const pModeStr, u8 * const pBuffer, const u32 bufferSize);
+
+s32         file_fread(VFS_FILE * const pFile, u8 * const pBuffer, const u32 numBytes);
+
+s32         file_freadReq(VFS_FILE * const pFile, u8 * const pBuffer, const u32 numBytes, VFS_NotifyCb_t * const pVfsCb);
+
+s32         file_fwrite(VFS_FILE * const pFile, const u8 * const pBuffer, const u32 numBytes);
+
+s32         file_fwriteReq(VFS_FILE * const pFile, const u8 * const pBuffer, const u32 numBytes, VFS_NotifyCb_t * const pVfsCb);
+
+s32         file_fclose(VFS_FILE * const pFile);
+
+s32         file_feof(VFS_FILE * const pFile);
+
+s32         file_ferror(VFS_FILE * const pFile);
+
+s32         file_fclearerr(VFS_FILE * const pFile);
+
+s32         file_ftruncate(VFS_FILE * const pFile, const u32 size);
+
+s32         file_fseek(VFS_FILE * const pFile, const s32 offset, const s32 position);
+
+s32         file_fseek_4G(VFS_FILE * const pFile, const s64 offset, const s32 position);
+
+s32         file_ftell(VFS_FILE * const pFile);
+
+s32         file_ftell_4G(VFS_FILE * const pFile, u32 * const pPosition);
+
+s32         file_finfo(VFS_FILE * const pFile, VFS_File_Info_t * const pInfo);
+
+s32         file_unlink(const u16 * const pName);
+
+s32         file_fputc(VFS_FILE * const pFile, const u8 ch);
+
+s32         file_fgetc(VFS_FILE * const pFile);
+
+s32         file_frewind(VFS_FILE * const pFile);
+
+bool        file_printFileNotClosed(void);
+
+void file_CheckNotCloseFile(u8 voltype, u8 devtype);
+#endif  /* __MDL_VFS_FILE_HO__ */
+

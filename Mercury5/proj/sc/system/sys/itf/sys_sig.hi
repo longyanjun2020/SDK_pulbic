@@ -1,0 +1,7 @@
+#ifndef __SYS_SIG_HI__
+#define __SYS_SIG_HI__
+
+#include "sys_sys_sig.h"
+
+#endif /* __SYS_SIG_HI__ */
+

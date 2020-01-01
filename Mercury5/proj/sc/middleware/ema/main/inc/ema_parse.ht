@@ -1,0 +1,158 @@
+/**
+ *
+ * @file    ema_parse.ht
+ *
+ * @brief   This file defines message type/stucture for EMA task
+ *
+ * @author  Pauli Leong
+ * @version $Id: ema_parse.ht 14384 2008-09-24 16:07:44Z xavier.fan $
+ *
+ */
+#ifndef __EMA_PARSE_HT__
+#define __EMA_PARSE_HT__
+
+
+/*--------------------------------------------------------------------------*/
+/* INCLUDE FILE                                                             */
+/*--------------------------------------------------------------------------*/
+#include "ema.h"
+#include "sys_rtk_vmoshi.h"
+#include "ema_cam_msg.h"
+#include "ema_vc_msg.h"
+#include "ema_gss_msg.h"
+#include "ema_aud_msg.h"
+#include "ema_efs_msg.h"
+#include "ema_sys_msg.h"
+#include "ema_vdo_msg.h"
+#include "ema_usb_msg.h"
+#include "ema_tv_msg.h"
+#include "ema_fmr_msg.h"
+#include "ema_gps_msg.h"
+#include "ema_e2p_msg.h"
+#include "ema_trc_msg.h"
+#include "ema_rfid_msg.h"
+#include "ema_nrai_msg.h"
+#include "ema_wifi_msg.h"
+//#include "voc_msg.h"
+
+
+
+/*--------------------------------------------------------------------------*/
+/* PREPROCESSOR CONSTANT DEFINITION                                         */
+/*--------------------------------------------------------------------------*/
+#ifdef DefExtern
+#undef DefExtern
+#endif
+#ifdef __EMA_PARSE__
+#define	DefExtern
+#else
+#define	DefExtern	extern
+#endif
+
+#define  vm_msg_t  vm_msg_t
+
+
+/*--------------------------------------------------------------------------*/
+/* PREPROCESSOR MACRO DEFINITION                                            */
+/*--------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------------*/
+/* TYPE DEFINITION                                                          */
+/*--------------------------------------------------------------------------*/
+typedef union {
+    ema_SysCmd_t        emaSysCmd;
+    ema_CamCmd_t        emaCamCmd;
+    ema_VC_Cmd_t        emaVcCmd;
+    ema_CamRsp_t        emaCamRsp;
+    ema_GssCmd_t        emaGssCmd;
+    ema_GssRsp_t        emaGssRsp;
+    ema_VdoCmd_t            emaVdoCmd;
+    ema_VdoRsp_t        emaVdoRsp;
+    ema_AudCmd_t        emaAudCmd;
+    ema_AudRsp_t        emaAudRsp;
+    ema_EfsCmd_t        emaEfsCmd;
+    ema_EfsRsp_t        emaEfsRsp;
+    ema_EfsDoneRsp_t    emaEfsDoneRsp;
+    ema_UsbCmd_t        emaUsbCmd;
+    ema_UsbRsp_t        emaUsbRsp;
+    ema_SysRsp_t        emaSysRsp;
+    ema_TvCmd_t         emaTvCmd;
+    ema_FmrCmd_t        emaFmrCmd;
+    ema_GpsCmd_t        emaGpsCmd;
+#ifdef __NAND__
+    ema_E2pCmd_t        emaE2pCmd;
+#endif
+    ema_TrcCmd_t        emaTrcCmd;
+    ema_RfidCmd_t       emaRfidCmd;
+    ema_NraiCmd_t	emaNraiCmd;
+    ema_WifiCmd_t       emaWifiCmd;
+    vm_osTimerMsgBody_t osTimerMsgBody;
+    //VocCmd_t            vocCmd;
+    u32                 msmInfo;
+    ema_msmPrim_t       msmPrim;
+#ifdef __TMT_TRACE_STORE_SD__
+    vm_dbgTrcBuffer_t   trcRequest;
+#endif
+} vm_msgBody_t;
+
+#include "vm_msgt.ht"
+
+typedef enum {
+  ACTIVE,
+  SLEEP
+} StandByStatus_e;
+
+
+/*--------------------------------------------------------------------------*/
+/* GLOBAL VARIABLE DEFINITION                                               */
+/*--------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------------*/
+/* GLOBAL FUNCTION DEFINITION                                               */
+/*--------------------------------------------------------------------------*/
+
+/**
+ * @brief This function is used to control wether MMP can switch to Power On or Power down in appropriate state
+ *
+ * @param  status   : MMP status is going to switch
+ *
+ * @return None
+ */
+void ema_StandbyCtrl(StandByStatus_e status);
+
+
+/**
+ * @brief EMA parser state machine check
+ *
+ * @param  typMsg            : EMA message type
+ *
+ * @retval EMA_SUCCESS       : State check success
+ * @retval EMA_STATE_ERROR   : State check error
+ */
+ema_ErrCode_e ema_CheckState(u16 typMsg);
+
+/**
+ * @brief EMA parser set state machine
+ *
+ * @param  pMsg             : EMA message information
+ *
+ * @retval EMA_SUCCESS      : State check success.
+ * @retval EMA_STATE_ERROR  : State check error.
+ */
+void ema_SetFuncState(void *pMsg);
+
+
+/**
+ * @brief EMA parser clear state machine
+ *
+ * @param  pMsg             : EMA message information
+ *
+ * @retval EMA_SUCCESS      : State check success.
+ * @retval EMA_STATE_ERROR  : State check error.
+ */
+void ema_ClearFuncState(void *pMsg);
+
+#endif /*__EMA_PARSE_HT__ */
+

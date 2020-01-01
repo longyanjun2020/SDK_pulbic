@@ -1,0 +1,7 @@
+#ifndef __DEV_ACC_MSG_DEF_H__
+#define __DEV_ACC_MSG_DEF_H__
+
+VM_MSG_DEF(DEV_ACC_PLUG_IND=(VM_CUS1_BASE + 0x0100), void DUMMY)
+VM_MSG_DEF(DEV_ACC_LAST_EXT_MSG, void DUMMY)
+
+#endif

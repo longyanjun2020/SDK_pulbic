@@ -1,0 +1,6 @@
+#ifndef __VM_TYPES_HT__
+#define __VM_TYPES_HT__                                                        
+
+#include "stdcomp.h"
+
+#endif /* __VM_TYPES_HT__ */

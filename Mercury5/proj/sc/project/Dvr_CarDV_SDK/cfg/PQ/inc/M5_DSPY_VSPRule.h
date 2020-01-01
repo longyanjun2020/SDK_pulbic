@@ -1,0 +1,36 @@
+#define PQ_VSPRule_ID_DSPY 1
+#define PQ_VSPRule_IP_NUM_DSPY 3
+#define PQ_VSPRule_NUM_DSPY 24
+
+
+typedef enum
+{
+PQ_VSPRule_PreV_ScalingDown_Interlace_DSPY,
+PQ_VSPRule_PreV_ScalingDown_Progressive_DSPY,
+PQ_VSPRule_ScalingDown_00x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_00x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_01x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_01x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_02x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_02x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_03x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_03x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_04x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_04x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_05x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_05x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_06x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_06x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_07x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_07x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_08x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_08x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_09x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_09x_RGB_DSPY,
+PQ_VSPRule_ScalingDown_10x_YUV_DSPY,
+PQ_VSPRule_ScalingDown_10x_RGB_DSPY,
+}
+MST_VSPRule_Index_DSPY;
+extern  unsigned char MST_VSPRule_IP_Index_DSPY[PQ_VSPRule_IP_NUM_DSPY];
+extern  unsigned char MST_VSPRule_Array_DSPY[PQ_VSPRule_NUM_DSPY][PQ_VSPRule_IP_NUM_DSPY];
+

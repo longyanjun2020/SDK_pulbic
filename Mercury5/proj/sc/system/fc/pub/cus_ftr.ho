@@ -1,0 +1,52 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 1994, 1995, 1996
+*/
+
+/****************************************************************************/
+/*  File    : CUS_FTR.HO                                                    */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Customer features definition.                                */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 29.09.99 |   ADA  | Creation.                                            */
+/*----------+--------+------------------------------------------------------*/
+/* 09.01.01 |   DDO  | CUS_OFF_WHEN_UNPLG_STATUS new feature for correct    */
+/*          |        | power off when module unplugged                      */
+/*--------------------------------------------------------------------------*/
+/*
+$LogWavecom: G:\projet\gsm\pvcsarch\archives\fc\com\cus_ftr.ho-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  02.10.02 | ddo    | 3.0            | integration dev tf V19             
+ * ----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __CUS_FTR_HO__
+#define __CUS_FTR_HO__
+
+#define cus_MaskFtr(ElMask)
+
+/* Feature define : 1 means feature provided  or don't care.                */
+/*                  0 means feature not provided                            */
+/* If the concerned  EL cope with the feature, then use the relevant define */
+/* among FTR_PROVIDED and FTR_NOT_PROVIDED.                                 */
+
+
+/* Customer features. */
+
+#define CUS_QUICK_OFF_STATUS   FTR_PROVIDED
+#define CUS_OFF_WHEN_UNPLG_STATUS  FTR_PROVIDED
+
+#define CUS_FTR(Wd)  (SCB(Wd, QUICK_OFF_FTR,  CUS_QUICK_OFF_STATUS)\
+		    & SCB(Wd, OFF_WHEN_UNPLG_FTR, CUS_OFF_WHEN_UNPLG_STATUS))
+
+#endif

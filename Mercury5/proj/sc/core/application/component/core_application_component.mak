@@ -1,0 +1,126 @@
+#-------------------------------------------------------------------------------
+#	Description of some variables owned by the library
+#-------------------------------------------------------------------------------
+# Library module (lib) or Binary module (bin)
+PROCESS = lib
+
+PATH_C +=\
+    $(PATH_core_application_component)/src\
+
+PATH_H +=\
+    $(PATH_project_Dvr_CarDV_SDK_Menu)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg)/algorithm/ldws/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg)/algorithm/mdtc/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg_core)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg_comp)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg_isp)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg_sdk)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg_usb)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg_fs)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_cfg_snr)/inc\
+    $(PATH_project_Dvr_CarDV_SDK_UI)/inc\
+    $(PATH_core_include_usb)\
+    $(PATH_core_application_component)/inc\
+    $(PATH_core_application_mmps_vid_play)/inc\
+    $(PATH_core_application_mmps_vid_recd)/inc\
+    $(PATH_core_application_mmps_system)/inc\
+    $(PATH_core_application_mmps_display)/inc\
+    $(PATH_core_application_mmps_audio)/inc\
+    $(PATH_core_application_mmps_adas)/inc\
+    $(PATH_core_application_mmpd_system)/inc\
+    $(PATH_core_application_mmpd_vid_recd)/inc\
+    $(PATH_core_application_mmpd_vid_play)/inc\
+    $(PATH_core_application_mmpd_audio)/inc\
+    $(PATH_core_application_mmpd_dsc)/inc\
+    $(PATH_core_application_mmpd_flow_ctl)/inc\
+    $(PATH_core_system_usb_dev)/uvc/inc\
+    $(PATH_core_system_usb_dev)/vendor/inc\
+    $(PATH_core_system_usb_host)/inc\
+    $(PATH_core_include_application)\
+    $(PATH_core_include_display)\
+    $(PATH_core_include_img_pipe)\
+    $(PATH_core_include_misc)\
+    $(PATH_core_driver_bsp)/inc\
+    $(PATH_core_driver_common)/inc\
+    $(PATH_core_driver_display)/inc\
+    $(PATH_core_driver_dma)/inc\
+    $(PATH_core_driver_img_pipe)/inc\
+    $(PATH_core_driver_jpeg)/inc\
+    $(PATH_core_driver_dma)/inc\
+    $(PATH_core_driver_dip)/inc\
+    $(PATH_core_system_fs)/inc\
+    $(PATH_core_system_buffering)/inc\
+    $(PATH_core_system_comp_ctl)/inc\
+    $(PATH_core_system_dsc)/inc\
+    $(PATH_core_system_os)/inc\
+    $(PATH_core_system_sensor)/inc\
+    $(PATH_core_system_host_if)/inc\
+    $(PATH_core_system_vid_recd)/inc\
+    $(PATH_core_system_vid_play)/inc\
+    $(PATH_core_system_vid_play)/inc/parser\
+    $(PATH_core_system_algorithm)/inc\
+    $(PATH_core_lib_algorithm)/adas/inc\
+    $(PATH_core_lib_algorithm)/mdtc/inc\
+    $(PATH_core_utility)/inc\
+    $(PATH_core_lib_fs)/inc\
+    $(PATH_core_lib_gui_inc_Config)\
+    $(PATH_core_lib_gui_inc_Core)\
+    $(PATH_core_lib_video_avc_dec)/inc\
+    $(PATH_pm_chip)/inc\
+    $(PATH_MsWrapper)/pub\
+    $(PATH_mfe)/inc\
+    $(PATH_mfe)/test\
+    $(PATH_mfe)/pub\
+    $(PATH_mfe_hal)/inc\
+    $(PATH_mhve)/pub\
+    $(PATH_jpe)/pub\
+    $(PATH_jpe)/test/common\
+    $(PATH_cam_os_wrapper)/pub\
+    $(PATH_scl)/pub\
+    $(PATH_scl)/inc/rtk\
+    $(PATH_scl)/inc/pq\
+    $(PATH_scl)/pub/rtk\
+    $(PATH_scl_hal)/inc/drv\
+    $(PATH_gop)/pub\
+    $(PATH_gop)/pub/rtk\
+    $(PATH_dec_scl)/inc\
+    $(PATH_Pnl)/inc\
+    $(PATH_Pnl_hal)/inc\
+    $(PATH_scalar_c3_mvop)/inc\
+    $(PATH_hvd)/inc\
+    $(PATH_bdma)/inc\
+    $(PATH_bdma)/pub\
+    $(PATH_utopia)/inc\
+    $(PATH_utopia_msos)/inc\
+    $(PATH_utopia_chip)/inc\
+    $(PATH_utopia_common)/inc\
+    $(PATH_utopia_vdec)/inc\
+    $(PATH_mipi_dsi_hal)/inc\
+    $(PATH_ahc)/inc\
+    $(PATH_isp_mdl)/inc\
+    $(PATH_isp)/inc\
+    $(PATH_isp)/pub\
+    $(PATH_pm_chip)/inc\
+#-------------------------------------------------------------------------------
+#	List of source files of the library or executable to generate
+#-------------------------------------------------------------------------------
+SRC_C_LIST +=\
+    component_dip.c\
+    component_display.c\
+    component_jpe.c\
+    component_jpemgr.c\
+    component_jpd.c\
+    component_mfe.c\
+    component_mgr.c\
+    component_scl.c\
+    component_aud.c\
+    component_pip.c\
+    component_hvd.c\
+    component_adas.c\
+    component_HvdTimerCtl.c\
+    component_raws.c\
+    component_huvc.c\
+    component_uvc.c\
+    component_memhost.c\
+    component_uvc.c\
+    

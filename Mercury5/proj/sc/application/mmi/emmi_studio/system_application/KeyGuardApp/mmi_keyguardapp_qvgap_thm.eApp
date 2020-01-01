@@ -1,0 +1,283 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="KEYGUARD_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="BGWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="MAIN_BG_X" />
+				<Position Type="Y_POSITION" Value="MAIN_BG_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="36c47" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="WALLPAPER_IMG_06" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="UnlockWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_LOCKWIDGET_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_LOCKWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_LOCKWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_LOCKWIDGET_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="80942" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LOCKED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DarkWdg" ClsID="CLSID_FADEOUTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_DARKNESSWIDGET_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_DARKNESSWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_DARKNESSWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_DARKNESSWIDGET_POS_Y-KEYGUARDAPP_LAYOUT_DARKNESSWIDGET_POS_Y" />
+				<Property Id="PROP_FADEOUT_WDG_FO_LEVEL" Value="FADEOUT_LEVEL_4" />
+				<InternProp Id="GUID" Value="ec99a" />
+			</Widget>
+			<Widget Id="EMNumWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_EMNUMWIDGET_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_EMNUMWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_EMNUMWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_EMNUMWIDGET_POS_Y-KEYGUARDAPP_LAYOUT_DARKNESSWIDGET_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NUM_SUPERLARGE" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COMMON_COLOR_KEYPAD_LOCKED_DIAL_NUMBER_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="0b54c" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="I12HWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_12HWIDGET_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_12HWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_12HWIDGET_POS_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_12HWIDGET_POS_Y_OFFSET" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COMMON_COLOR_KEYPAD_LOCKED_TIME_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_BOTTOM" />
+				<InternProp Id="GUID" Value="bd728" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_PDL_N_AM" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DateWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_DATEWIDGET_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_DATEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_DATEWIDGET_POS_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_DATEWIDGET_POS_Y_OFFSET" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COMMON_COLOR_KEYPAD_LOCKED_DATE_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="d7437" />
+			</Widget>
+			<Widget Id="MediaNameWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_MEDIANAMEWIDGET_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_MEDIANAMEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_MEDIANAMEWIDGET_POS_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_MEDIANAMEWIDGET_POS_Y_OFFSET" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COMMON_COLOR_KEYPAD_LOCKED_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="1a7dd" />
+			</Widget>
+			<Widget Id="CountdownWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_COUNTDOWN_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_COUNTDOWN_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_COUNTDOWN_POS_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_COUNTDOWN_POS_Y_OFFSET" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="c229c" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LOCKED_COUNDOWN_TIMER" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NetworkWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_NETWORK_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_NETWORK_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_NETWORK_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_NETWORK_POS_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<InternProp Id="GUID" Value="be351" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NIL_N_NETWORK_SEARCHING" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NetworkSlaveWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_NETWORK_SLAVE_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_NETWORK_SLAVE_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_NETWORK_SLAVE_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_NETWORK_SLAVE_POS_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<InternProp Id="GUID" Value="f85ca" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NIL_N_NETWORK_SEARCHING" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DialogInfoBGWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_DIALOG_INFO_BG_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_DIALOG_INFO_BG_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_DIALOG_INFO_BG_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_DIALOG_INFO_BG_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="94a5f" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_UNLOCK_NOTICE_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DialogInfoTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_DIALOG_INFO_TEXT_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_DIALOG_INFO_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_DIALOG_INFO_TEXT_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_DIALOG_INFO_TEXT_POS_Y" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_ELLIPSIS" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="7838e" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MissCallWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_MISS_CALL_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_MISS_CALL_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_MISS_CALL_POS_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_MISS_CALL_POS_Y_OFFSET" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="d2251" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LOCKED_MISS_CALL" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MissCallTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_MISS_CALL_TEXT_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_MISS_CALL_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_MISS_CALL_TEXT_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_MISS_CALL_TEXT_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="d8c26" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NewMsgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_NEW_MSG_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_NEW_MSG_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_NEW_MSG_POS_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_NEW_MSG_POS_Y_OFFSET" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="c41a6" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LOCKED_MESSAGE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NewMsgTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_NEW_MSG_TEXT_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_NEW_MSG_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_NEW_MSG_TEXT_POS_X" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_NEW_MSG_TEXT_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<InternProp Id="GUID" Value="67bef" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TimeWdg" ClsID="CLSID_IMGGRID_MENUWIDGET" SizeHeight="KEYGUARDAPP_LAYOUT_TIMEWIDGET_HEIGHT" SizeWidth="KEYGUARDAPP_LAYOUT_TIMEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="KEYGUARDAPP_LAYOUT_TIMEWIDGET_POS_X_OFFSET" />
+				<Position Type="Y_POSITION" Value="KEYGUARDAPP_LAYOUT_TIMEWIDGET_POS_Y_OFFSET" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+				<Property Id="PROP_PADDING_LEFT" Value="0" />
+				<Property Id="PROP_PADDING_RIGHT" Value="0" />
+				<Property Id="PROP_PADDING_TOP" Value="0" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="0" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_BOTTOM" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="ac96a" />
+				<Model ClsID="CLSID_IMGGRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="SK_SELECT" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_OK" />
+						<SoftKey Type="RIGHT_SK" Value="SK_BACK" />
+						<Binary Value="0" />
+						<Struct>
+							<Image Id="COMMON_IMG_LOCKED_NUM9" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value=" TXT_NULL_ID" />
+						<SoftKey Type="LEFT_SK" Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_SELECT" />
+						<SoftKey Type="RIGHT_SK" Value="SK_OK" />
+						<Binary Value="SK_BACK" />
+						<Struct>
+							<Image Id="1" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="COMMON_IMG_LOCKED_NUM9" />
+						<SoftKey Type="LEFT_SK" Value=" TXT_NULL_ID" />
+						<SoftKey Type="MIDDLE_SK" Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="RIGHT_SK" Value="SK_SELECT" />
+						<Binary Value="SK_OK" />
+						<Struct>
+							<Image Id="SK_BACK" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="2" />
+						<SoftKey Type="LEFT_SK" Value="COMMON_IMG_LOCKED_SYMBOL" />
+						<SoftKey Type="MIDDLE_SK" Value=" TXT_NULL_ID" />
+						<SoftKey Type="RIGHT_SK" Value="MENUMODEL_ITEM_VISABLE" />
+						<Binary Value="SK_SELECT" />
+						<Struct>
+							<Image Id="SK_OK" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="SK_BACK" />
+						<SoftKey Type="LEFT_SK" Value="3" />
+						<SoftKey Type="MIDDLE_SK" Value="COMMON_IMG_LOCKED_NUM9" />
+						<SoftKey Type="RIGHT_SK" Value=" TXT_NULL_ID" />
+						<Binary Value="MENUMODEL_ITEM_VISABLE" />
+						<Struct>
+							<Image Id="SK_SELECT" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<Property Id="PROP_ITEM_WIDTH" Value="29" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="40" />
+				<Property Id="PROP_FIXED_NUM" Value="5" />
+			</Widget>
+			<InternProp Id="GUID" Value="f56e5" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_VISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_UNLOCK" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_NONE" />
+		<InternProp Id="LAYOUT_POS_X" Value="16" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="GUID" Value="82ef7" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_KEYGUARDAPP" />
+</UiRoot>

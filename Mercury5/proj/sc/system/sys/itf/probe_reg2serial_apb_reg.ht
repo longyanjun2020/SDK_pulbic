@@ -1,0 +1,6 @@
+#ifndef __PROBE_REG2SERIAL_APB_REG_HT__
+#define __PROBE_REG2SERIAL_APB_REG_HT__
+
+#include "sys_sys_probe_reg2serial_apb_reg.h"
+
+#endif // __PROBE_REG2SERIAL_APB_REG_HT__

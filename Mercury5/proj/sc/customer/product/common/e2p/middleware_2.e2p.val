@@ -1,0 +1,71 @@
+WTp_Mr_2
+0
+WCap_mem_2
+255
+WSmVp_2
+167
+WSmPid_2
+0
+WSmDcs_2
+0
+WLastCallTime_2
+0
+WTotalCallTime_2
+0
+WSmsCbStat_2
+2
+WModem2_2
+1
+WModem_2
+0
+WAdrSC_2
+0 0 0 0 0 0 0 0 0 0 0 0
+WVoiceMail_2
+00000000000
+WNetAttempt_2
+0
+WAoCCcm_2
+0 0 0
+WCugInfo_2
+0
+WCugIndex_2
+0x0000
+0x0000
+0x0000
+0x0000
+0x0000
+0x0000
+0x0000
+0x0000
+0x0000
+0x0000
+WSmFo_2
+1
+WAtMode_2
+0
+WBearTypePref_2
+0x27
+WStatusReport_2
+0
+WWlocConfig_2
+255
+WAtVoiceSpeechVersion_2
+7
+WPlmnOns_2
+0xf
+WRIPulseEvents_2
+0
+WGpsUnsolManagement_2
+0
+WStackMode_2
+0
+WAdnCkecksum_2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+WFdnCkecksum_2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+WMsisdnCkecksum_2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+WLndCkecksum_2
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+WWlocPeriod_2
+5

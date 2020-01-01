@@ -1,0 +1,450 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="PICVIEWER_WND_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1111" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="cf82a" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ActionBarBgImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="3c9f6" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_AP_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PreviousButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_PREVIOUS_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_PREVIOUS_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_PREVIOUS_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_PREVIOUS_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="d0506" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_PREVIOUS_UNPRESS" />
+						<Image Id="PHOTOVIEWER_IMG_PREVIOUS_PRESS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NextButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_NEXT_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_NEXT_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_NEXT_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_NEXT_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="e13fa" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_NEXT_UNPRESS" />
+						<Image Id="PHOTOVIEWER_IMG_NEXT_PRESS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ViewSliceShow" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_SLIDESHOW_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_SLIDESHOW_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_SLIDESHOW_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_SLIDESHOW_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="224c5" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_AP_PLAY_UNPRESSED" />
+						<Image Id="COMMON_IMG_AP_PLAY_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="BackButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="31d7e" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_AP_BACK_UNPRESSED" />
+						<Image Id="COMMON_IMG_AP_BACK_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DeleteLSKButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_DELETE_LSK_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_DELETE_LSK_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_DELETE_LSK_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_DELETE_LSK_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="d0474" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_DELETE_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_DELETE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="OptionButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="c0849" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_OPTION_UNPRESS" />
+						<Image Id="PHOTOVIEWER_IMG_OPTION_PRESS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="OkButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_ACTION_KEY_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_ACTION_KEY_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_ACTION_KEY_X_POS" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_ACTION_KEY_Y_POS" />
+				<InternProp Id="GUID" Value="3326c" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_SET_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_SET_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicIdxTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_PIC_IDX_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_PIC_IDX_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_PIC_IDX_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_PIC_IDX_Y_POSITION" />
+				<InternProp Id="GUID" Value="868fc" />
+			</Widget>
+			<Widget Id="PicMenu" ClsID="CLSID_MENUWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_QUICKMENU_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_QUICKMENU_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_QUICKMENU_X_POS" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_QUICKMENU_Y_POS" />
+				<InternProp Id="GUID" Value="06954" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Widget Id="SelectButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_OPTION_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="9bba6" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_SELECT_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_SELECT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="24a63" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="299" />
+		<InternProp Id="LAYOUT_POS_Y" Value="44" />
+		<InternProp Id="GUID" Value="33ff9" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="PICVIEWER_WND_DETAILS" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer111" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="DetailImg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="5c5a8" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DetailActBarBg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="PV_LANDSCAPE_BAR_BG_IMAGEWIDGET_HEIGHT" SizeWidth="PV_LANDSCAPE_BAR_BG_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PV_LANDSCAPE_BAR_BG_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PV_LANDSCAPE_BAR_BG_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="27bf1" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_AP_SOFTKEY_LANDSCAPE_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DetailBack" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PV_LANDSCAPE_BACK_BUTTONWIDGET_HEIGHT" SizeWidth="PV_LANDSCAPE_BACK_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PV_LANDSCAPE_BACK_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PV_LANDSCAPE_BACK_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="58071" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_AP_BACK_LANDSCAPE_UNPRESSED" />
+						<Image Id="COMMON_IMG_AP_BACK_LANDSCAPE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DetailPrevious" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PV_LANDSCAPE_PREVIOUS_BUTTONWIDGET_HEIGHT" SizeWidth="PV_LANDSCAPE_PREVIOUS_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PV_LANDSCAPE_PREVIOUS_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PV_LANDSCAPE_PREVIOUS_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="29c4c" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_PREVIOUS_LANDSCAPE_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_PREVIOUS_LANDSCAPE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DetailNext" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PV_LANDSCAPE_NEXT_BUTTONWIDGET_HEIGHT" SizeWidth="PV_LANDSCAPE_NEXT_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PV_LANDSCAPE_NEXT_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PV_LANDSCAPE_NEXT_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="8524b" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_NEXT_LANDSCAPE_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_NEXT_LANDSCAPE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DetailDelLSK" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PV_LANDSCAPE_DELETE_BUTTONWIDGET_HEIGHT" SizeWidth="PV_LANDSCAPE_DELETE_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PV_LANDSCAPE_DELETE_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PV_LANDSCAPE_DELETE_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="004cf" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_DELETE_LANDSCAPE_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_DELETE_LANDSCAPE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DetailPicIdx" ClsID="CLSID_TEXTWIDGET" SizeHeight="PICVIEWERAPP_LANDSCAPE_PIC_IDX_HEIGHT" SizeWidth="PICVIEWERAPP_LANDSCAPE_PIC_IDX_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_LANDSCAPE_PIC_IDX_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_LANDSCAPE_PIC_IDX_Y_POSITION" />
+				<InternProp Id="GUID" Value="fa71f" />
+			</Widget>
+			<InternProp Id="GUID" Value="f43e1" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="GUID" Value="3e421" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="PICVIEWER_WND_SLIDESHOW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer11" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SlideImg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="d10a4" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="6525b" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="GUID" Value="4263e" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="PICVIEWER_WND_SETWALLPAPER" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="WallImg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="(MAIN_LCD_HEIGHT-PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_HEIGHT)" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="92b6e" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZoomInButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_CROPPING_ZOOM_IN_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_CROPPING_ZOOM_IN_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_CROPPING_ZOOM_IN_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_CROPPING_ZOOM_IN_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="05ccd" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_OPTIONS_ZOOM_IN_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_OPTIONS_ZOOM_IN_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZoomOutButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_CROPPING_ZOOM_OUT_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_CROPPING_ZOOM_OUT_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_CROPPING_ZOOM_OUT_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_CROPPING_ZOOM_OUT_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="d23d1" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_OPTIONS_ZOOM_OUT_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_OPTIONS_ZOOM_OUT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WallActBg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="f1f98" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_AP_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WallBack" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_BACK_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="5a09d" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_AP_BACK_UNPRESSED" />
+						<Image Id="COMMON_IMG_AP_BACK_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SetButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_CROPPING_SET_WALLPAPER_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_CROPPING_SET_WALLPAPER_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_CROPPING_SET_WALLPAPER_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_CROPPING_SET_WALLPAPER_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="aaa03" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_SET_AS_WALLPAPER_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_SET_AS_WALLPAPER_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZoomSwitchButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_CROPPING_ZOOM_SWITCH_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_CROPPING_ZOOM_SWITCH_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_CROPPING_ZOOM_SWITCH_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_CROPPING_ZOOM_SWITCH_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="451ad" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_ZOOM_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_ZOOM_PRESS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="b0aa6" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="GUID" Value="7633d" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="PICVIEWER_WND_ZOOM" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ZmImg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="PICVIEWERAPP_DEFAULT_SCREEN_HEIGHT" SizeWidth="PICVIEWERAPP_DEFAULT_SCREEN_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="56caf" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZmViewport" ClsID="CLSID_VIEWPORTWIDGET" SizeHeight="PICVIEWERAPP_DEFAULT_SCREEN_HEIGHT-PICVIEWERAPP_ZOOM_ARROW_PADDING*2" SizeWidth="PICVIEWERAPP_DEFAULT_SCREEN_WIDTH-PICVIEWERAPP_ZOOM_ARROW_PADDING*2">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_VIEWPORT_WDG_PANSTEP" Value="10" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="08898" />
+			</Widget>
+			<Widget Id="ZmActBg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_SK_BG_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="3c8c9" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_AP_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZmIn" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_ZOOM_IN_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_ZOOM_IN_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_ZOOM_IN_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_ZOOM_IN_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="ad173" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_ZOOMIN_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_ZOOMIN_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZmBack" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_ZOOM_BACK_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_ZOOM_BACK_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_ZOOM_BACK_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_ZOOM_BACK_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="1c6ef" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_AP_BACK_UNPRESSED" />
+						<Image Id="COMMON_IMG_AP_BACK_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZmOut" ClsID="CLSID_BUTTONWIDGET" SizeHeight="PICVIEWERAPP_DISPLAY_ZOOM_OUT_BUTTONWIDGET_HEIGHT" SizeWidth="PICVIEWERAPP_DISPLAY_ZOOM_OUT_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="PICVIEWERAPP_DISPLAY_ZOOM_OUT_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="PICVIEWERAPP_DISPLAY_ZOOM_OUT_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="f83e0" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="PHOTOVIEWER_IMG_ZOOMOUT_UNPRESSED" />
+						<Image Id="PHOTOVIEWER_IMG_ZOOMOUT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="2526e" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_ZOOM_OUT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_ZOOM_IN" />
+		<InternProp Id="GUID" Value="a395b" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_PICVIEWERAPP" />
+</UiRoot>

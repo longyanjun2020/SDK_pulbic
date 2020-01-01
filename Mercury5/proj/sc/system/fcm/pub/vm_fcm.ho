@@ -1,0 +1,89 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+
+/****************************************************************************/
+/*  File    : vm_fcm.ho                                                      */
+/*--------------------------------------------------------------------------*/
+/*  Description:  FCM  API                                                   */
+/*                                                                          */
+/*  Contents: API prototypes for FCM                                        */
+/*                                                                          */
+/*  History :                                                               */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author     | Err  |  Modification                             */
+/*----------+------------+------+-------------------------------------------*/
+/* 24/01/02 |  jlo       |      |  Creation                                 */
+/*----------+------------+------+-------------------------------------------*/
+/* 25/02/02 |  ech       |      |  add include vm_ftr.ho                    */
+/*----------+------------+------+-------------------------------------------*/
+/****************************************************************************/
+/*
+  $LogWavecom: U:\projet\gsm\pvcsarch\archives\fcm\itf_open\vm_fcm.ho-arc $
+*--------------------------------------------------------------------------
+* Date     | Author | Revision       | Description
+*----------+--------+----------------+-------------------------------------
+* 19.11.03 | fga    | 1.2            | renaming FAL strauct and funcs for 
+*          |        |                | readability.  17046 : Resolution fo
+*          |        |                | r FCM: create open MMI interface - 
+*          |        |                | FAL                                
+*----------+--------+----------------+-------------------------------------
+* 19.11.03 | fga    | 1.1            | new struct for FAL callbacks	  1704
+*          |        |                | 6 : Resolution for FCM: create open
+*          |        |                |  MMI interface - FAL               
+*----------+--------+----------------+-------------------------------------
+* 04.11.03 | fga    | 1.0            | Initial revision.                  
+*----------+--------+----------------+-------------------------------------
+*/
+/****************************************************************************/
+
+#ifndef __VM_FCM_HO__
+#define __VM_FCM_HO__     
+
+#include "vm_types.ht"
+#include "sys_sys_vm_ftr.h"
+
+/* using this table, the Cus CAM software will export the function that should be called
+   when the events happen from FCM */
+/*
+  - vm_fcmFalCusOpenCnf will be called when FCM confirms flow is open 
+  - vm_fcmFalCusCloseCnf will be called when FCM confirms flow is closed
+  - vm_fcmFalCusResume will be called when flow resumes (ie: CAMS can send new data blocks)
+  - vm_fcmFalCusDataBlock will be called when a data block has arrived, this function must 
+  manage the data which is in the incoming buffer because the message will probably 
+  be released after that.
+*/
+
+struct vm_fcmFalCusFuncTab_s {
+  void (* vm_fcmFalCusOpenCnf) (void);
+  void (* vm_fcmFalCusCloseCnf)(void);
+  void (* vm_fcmFalCusResume)  (void);
+  void (* vm_fcmFalCusDataBlock) (u16 length,u8 *buffer);
+};
+
+typedef struct vm_fcmFalCusFuncTab_s vm_fcmFalCusFuncTab_t;
+
+/* remove fcm prefix for readability */
+#define vm_falCusFuncTab_t vm_fcmFalCusFuncTab_t 
+
+#define vm_falCusOpenCnf   vm_fcmFalCusOpenCnf   
+#define vm_falCusCloseCnf  vm_fcmFalCusCloseCnf  
+#define vm_falCusResume    vm_fcmFalCusResume    
+#define vm_falCusDataBlock vm_fcmFalCusDataBlock 
+
+
+/* rename FAL API : just remove FCM prefix  */
+#define vm_falOpen        vm_fcmFalOpen
+#define vm_falClose		  vm_fcmFalClose   
+#define vm_falSubmitData  vm_fcmFalSubmitData  
+#define vm_falParseFcmMsg vm_fcmFalParseFcmMsg
+
+
+/****************************************************************************/
+
+#endif /* __VM_FCM_HO__*/

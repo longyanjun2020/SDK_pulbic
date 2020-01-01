@@ -1,0 +1,3 @@
+FLAG_STUDIO_BUILD = False,False,False,False
+FLAG_PREPARE = False,False,False,False
+CONFIG_MAK_FILE_PARAM_PRODUCT = 8532b_128_32_mb501v2_mcd_s,8533n_1g_256_mb303av2_mcdQ,8532_64_32_mb601_ft,8532_128_32_mb601_mcd_s

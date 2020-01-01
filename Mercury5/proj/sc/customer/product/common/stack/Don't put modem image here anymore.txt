@@ -1,0 +1,5 @@
+MG101-3 \\EMMI\mainline\proj\sc\customer\product\cust\stack\KeyStone
+
+MG101 \\EMMI\mainline\proj\sc\customer\product\cust\stack\RDA820
+ 
+MG102 e \\EMMI\mainline\proj\sc\customer\product\cust\stack\Si4229

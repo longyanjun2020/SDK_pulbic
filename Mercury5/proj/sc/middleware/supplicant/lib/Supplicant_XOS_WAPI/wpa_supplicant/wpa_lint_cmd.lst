@@ -1,0 +1,2 @@
+gcc -c -MMD  -Wall -g  -I../src -I../src/crypto -I../src/utils -I../src/common -I../src/rsn_supp -I../platform/include -DSVN_REV= -DOK_TO_RUN_PRODUCTION -DCONFIG_DRIVER_AQUARIUS -DPKCS12_FUNCS -DINTERNAL_AES -DINTERNAL_SHA1 -DINTERNAL_MD5 -DCONFIG_CTRL_IFACE -DCONFIG_NO_FIPS186_2_PRF -DCONFIG_NO_T_PRF -DCONFIG_NO_TLS_PRF  config.c -o config.o
+

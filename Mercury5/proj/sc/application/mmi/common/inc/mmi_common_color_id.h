@@ -1,0 +1,50 @@
+/**
+ * @file    mmi_common_color_id.h
+ * @brief   The document describes the fixed color id definition
+ * @author  lena.lin@mstarsemi.com
+ *
+ * @version $Id: mmi_common_color_id.h 11145 2008-05-29 09:11:43Z christoph.kuo $
+ */
+
+/************************************************************************/
+/* Fixed Color ID Definitions                                           */
+/************************************************************************/
+#define	CALENDAR_COLOR_EVENT							COLOR_ORANGE_4
+#define	CALENDAR_COLOR_EVENT_BORDER						COLOR_ORANGE_3
+#define	CALENDAR_COLOR_EVENT_INFORMATION_TEXT			COLOR_BLACK
+#define	CALENDAR_COLOR_EVENT_RANGE						COLOR_BLUE_1
+#define	CALENDAR_COLOR_EVENT_TEXT						COLOR_BLACK
+#define	CALENDAR_COLOR_GROUP_EVENT						COLOR_GREEN_5
+#define	CALENDAR_COLOR_GROUP_EVENT_BORDER				COLOR_GREEN_2
+#define	CALENDAR_COLOR_HIGHLIGHT						COLOR_BLUE_7
+#define	CALENDAR_COLOR_HIGHLIGHT_BORDER					COLOR_BLUE_3
+#define	CALENDAR_COLOR_MONTH_DAY_TEXT					COLOR_BLACK
+#define	CALENDAR_COLOR_WEEK_NUMBER_TEXT					COLOR_GREY_3
+#ifndef __APP_MMI_SMALLROM__
+#define	CALENDAR_COLOR_HOUR_TEXT						COLOR_GREY_4
+#define	CALENDAR_COLOR_HOUR_HIGHLIGHT_TEXT				COLOR_BLACK
+#else
+#define CALENDAR_COLOR_HOUR_TEXT                        COLOR_BLACK
+#define	CALENDAR_COLOR_HOUR_HIGHLIGHT_TEXT				COLOR_BLUE_2
+#define CALENDAR_COLOR_MONTHLY_TOPBG                    (0xff798ea8)
+#define CALENDAR_COLOR_MONTHLY_MENUITEM                 (0xffe3e3e5)
+#define CALENDAR_COLOR_MONTHLY_BOTTOMBG                 (0xff9e9fa4)
+#define CALENDAR_COLOR_MONTHLY_ITEM_EVENT               (0xffFFB400)//(0xff50b2ff)
+#define CALENDAR_COLOR_MONTHLY_ITEM_TODAY               (0xff767777)//(0xffcef547)
+#define CALENDAR_COLOR_MONTHLY_FOCUS_BORDER             (0xff1E96EA)//(COLOR_RED_2)
+
+#define PHB_COLOR_PHONEBOOK_IMAGE_BG 					(0xFFCCCCCC)
+#endif
+
+#define	CALENDAR_COLOR_DAY_TEXT						COLOR_WHITE
+#define	CALENDAR_COLOR_LUNAR_TEXT						COLOR_WHITE
+#define	CALENDAR_COLOR_ALLDAY_EVENT_INFORMATION_TEXT			COLOR_WHITE
+#define	CAMERA_COLOR_SETTING_TEXT						COLOR_WHITE
+#define	CAMERA_COLOR_SOFTKEY_HORIZONTAL_TEXT_OUTLINE	COLOR_BLACK
+#define	CAMERA_COLOR_TIMER_TEXT							COLOR_WHITE
+#define	COMMON_COLOR_KEYPAD_LOCKED_TEXT					COLOR_WHITE
+#define	COMMON_COLOR_KEYPAD_LOCKED_DATE_TEXT			COLOR_GREY_5
+#define	COMMON_COLOR_KEYPAD_LOCKED_DIAL_NUMBER_TEXT		COLOR_WHITE
+#define	COMMON_COLOR_KEYPAD_LOCKED_TIME_TEXT			COLOR_WHITE
+
+

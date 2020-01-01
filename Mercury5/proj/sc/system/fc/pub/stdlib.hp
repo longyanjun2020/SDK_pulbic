@@ -1,0 +1,50 @@
+/**
+ * \file stdlib.hp
+ * \brief GSM standard library prototypes
+*/
+
+#ifndef __STDLIB_HP__
+#define __STDLIB_HP__
+
+#include "stdcomp.h"
+
+#if !defined(unix) && !defined(__SDK_SIMULATION__)
+
+//For va_list here below.
+#include <stdarg.h>
+
+//The duplicated C lib extern "guess" is for user define flexibility, so keep it.
+extern	ascii *	strcpy	_PROTO(( ascii * s, const ascii * ct ));
+extern	ascii *	strncpy	_PROTO(( ascii * s, const ascii * ct, u32 n ));
+extern	ascii *	strcat	_PROTO(( ascii * s, const ascii * ct ));
+extern	s32		strcmp	_PROTO(( const ascii * cs, const ascii * ct ));
+extern	s32		strncmp _PROTO(( const ascii * cs, const ascii * ct, u32 n ));
+extern	u32		strspn	_PROTO(( const ascii * cs, const ascii * ct));
+extern	u32		strcspn _PROTO(( const ascii * cs, const ascii * ct));
+extern	u32		strlen	_PROTO(( const ascii * ct ));
+extern	ascii *	strtok	_PROTO(( ascii * s, const ascii * ct ));
+
+extern	void *	memcpy	_PROTO((void * s, const void * ct, u32 n));
+extern	void *	_memcpy	_PROTO((void * s, const void * ct, u32 n));
+extern	void *	__16_memcpy _PROTO((void * s, const void * ct, u32 n));
+extern	s32		memcmp	_PROTO(( const void * cs, const void * ct, u32 n ));
+extern	void *	memset	_PROTO(( void * s, s32 c, u32 n ));
+
+
+extern	s32		atoi	_PROTO(( const ascii * s ));
+extern	s32		sprintf _PROTO((ascii *buff, const ascii *fmt, ...));
+extern	s32		vsprintf_32 _PROTO((ascii *buff, const ascii *fmt, va_list arglist));
+extern	s32		vsprintf _PROTO((ascii *buff, const ascii *fmt, va_list arglist));
+extern	ascii *	__itoa	_PROTO(( s32 n, ascii *s ));
+
+
+/**
+ * \brief patch FGA .. pour la stack IP il faut memmove
+ */
+extern	void *	memmove _PROTO((void * s, const void * ct, u32 n));
+
+#endif //!defined(unix) && !defined(__SDK_SIMULATION__)
+
+#endif /* __STDLIB_HP__ */
+
+

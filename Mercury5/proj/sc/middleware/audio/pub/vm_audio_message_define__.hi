@@ -1,0 +1,15 @@
+#ifndef __VM_AUDIO_API_MSG_DEF_H__
+#define __VM_AUDIO_API_MSG_DEF_H__
+
+/**
+ * \brief Notification message sent to customer tasks
+ */
+VM_MSG_DEF(VM_AUDIO_MANAGER_MESSAGE_ID=(VM_HWL_BASE + 0xF0), void DUMMY)
+
+/**
+ * \brief PCM event message sent to customer tasks
+ */
+VM_MSG_DEF(VM_AUDIO_PCM_MESSAGE_ID=(VM_HWL_BASE + 0xF1), void DUMMY)
+
+#endif
+

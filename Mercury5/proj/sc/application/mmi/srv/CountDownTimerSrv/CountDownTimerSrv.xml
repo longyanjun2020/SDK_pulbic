@@ -1,0 +1,70 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>CountdownTimerSrv</name>
+         <version>1007</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_TOOLS</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef>#if defined(__APP_MMI_COUNTDOWN_TIMER__)</Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="CountdownTimerSrv" id="1001" hasEntry="0" hasExit="0" hasMethod="0" FullPath="" DefaultChild="Idle">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Idle" id="19223" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment>Ready</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="7285"	from="_Idle"  to="_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>COUNTDOWNTIMERSRV_EVT_Timer</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="Timer" type="external">
+				<comment>notify to app (which register countdown service) at every second</comment>
+			</event>
+			<event name="IDLE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TimeIsUp" type="external">
+				<comment>notify to keyguard when time&apos;s up</comment>
+			</event>
+			<event name="SysTimeReset" type="external">
+				<comment>notify to app (which register countdown service) when system time reset</comment>
+			</event>
+			<event name="StopMedia" type="external">
+				<comment>notify to app (which register countdown service) to stop media</comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="RegisterNotification" id="17673" RetType="MAE_Ret"	Param1="void *pInstance" Param2="CountdownTimerSrv_Notify_Mask_e eMask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="DeregisterNotification" id="17908" RetType="MAE_Ret"	Param1="void *pInstance" Param2="CountdownTimerSrv_Notify_Mask_e eMask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetState" id="11421" RetType="MAE_Ret"	Param1="CountdownTimerSrv_State_e *pState" Param2="u32 *pCountdownSeconds"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="Start" id="12119" RetType="MAE_Ret"	Param1="u32 nCountdownSeconds" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="Pause" id="12175" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="Stop" id="12221" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="Resume" id="1005" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="SetTime" id="20069" RetType="MAE_Ret"	Param1="MAE_DateTime_t *pDateTime" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetTime" id="20487" RetType="MAE_Ret"	Param1="MAE_DateTime_t *pDateTime" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="StopMedia" id="3317" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">for keyguard using to notify to app to stop media</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<script>
+
+function loadWiFiCfg(rstr,holder)
+{
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			if (holder) {
+				holder(xmlhttp.responseText)
+			} else {
+				document.getElementById("debug").innerHTML=xmlhttp.responseText;
+			}
+		}
+	}
+	xmlhttp.open("GET",rstr,true);
+	xmlhttp.send();
+}
+
+</script>
+</head>
+<body>
+	<img src="AITlogo.jpg" width=320  height=105>
+	<hr width=320 color=gray size=2 align=left>
+	
+	<BUTTON WIDTH="200" id="Control" style="WIDTH: 320px; HEIGHT: 50px" onclick="self.location.href='settings.html'"><font size=6>Camera Control</font></BUTTON></br>
+	<BUTTON WIDTH="200" id="Preview" style="WIDTH: 320px; HEIGHT: 50px" onclick="self.location.href='mj4.html'"><font size=6>Camera Preview</font></BUTTON></br>
+  </body>
+  </html>

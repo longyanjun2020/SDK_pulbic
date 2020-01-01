@@ -1,0 +1,299 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="UNICONVERTER_WND_CONVERTING" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="WdgType" ClsID="CLSID_PICK_WIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Widget Id="txtwidget3" ClsID="CLSID_TEXTWIDGET" SizeHeight="16" SizeWidth="120">
+					<InternProp Id="GUID" Value="04b78" />
+				</Widget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_PICKWDG_DIRECT_TOGGLE" Value="FALSE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<InternProp Id="GUID" Value="8071a" />
+			</Widget>
+			<Widget Id="WdgType1" ClsID="CLSID_PICK_WIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Widget Id="txtwidget2" ClsID="CLSID_TEXTWIDGET" SizeHeight="16" SizeWidth="120">
+					<InternProp Id="GUID" Value="a8c13" />
+				</Widget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_PICKWDG_DIRECT_TOGGLE" Value="TRUE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<InternProp Id="GUID" Value="d087d" />
+			</Widget>
+			<Widget Id="WdgSolarText" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER | ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="e3824" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WdgInput1" ClsID="CLSID_INPUTWIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_WDG_BG_POSITION" Value="WDG_BG_POS_INNER" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_RATE" />
+				<Property Id="PROP_INPUT_WDG_ENABLE_DECIMALPOINT" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_MAXLEN_AFTER_EXPONENT" Value="UNITCONVERTER_INPUT_FIELD_EXP_LENGTH" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="UNITCONVERTER_INPUT_FIELD_MAX_LENGTH" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_PADDING_LEFT" Value="8" />
+				<Property Id="PROP_PADDING_RIGHT" Value="5" />
+				<Property Id="PROP_PADDING_TOP" Value="2" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="2" />
+				<InternProp Id="GUID" Value="81aaf" />
+			</Widget>
+			<Widget Id="WdgSolarInput" ClsID="CLSID_DATEWIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_BG_POSITION" Value="WDG_BG_POS_INNER" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="TRUE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER | ALIGN_V_MIDDLE" />
+				<Property Id="PROP_FORMATINPUT_WDG_SET_MIN_YEAR" Value="UNITCONVERTER_MIN_YEAR" />
+				<Property Id="PROP_FORMATINPUT_WDG_SET_MAX_YEAR" Value="UNITCONVERTER_MAX_YEAR" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<InternProp Id="GUID" Value="39614" />
+				<Model ClsID="CLSID_DATEWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WdgType2" ClsID="CLSID_PICK_WIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Widget Id="txtwidget1" ClsID="CLSID_TEXTWIDGET" SizeHeight="16" SizeWidth="120">
+					<InternProp Id="GUID" Value="47512" />
+				</Widget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_PICKWDG_DIRECT_TOGGLE" Value="TRUE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER | ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<InternProp Id="GUID" Value="a4ef6" />
+			</Widget>
+			<Widget Id="WdgLunarText" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER | ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="df5fe" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WdgInput2" ClsID="CLSID_INPUTWIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_WDG_BG_POSITION" Value="WDG_BG_POS_INNER" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_RATE" />
+				<Property Id="PROP_INPUT_WDG_ENABLE_DECIMALPOINT" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_MAXLEN_AFTER_EXPONENT" Value="UNITCONVERTER_INPUT_FIELD_EXP_LENGTH" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="UNITCONVERTER_INPUT_FIELD_MAX_LENGTH" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_PADDING_LEFT" Value="8" />
+				<Property Id="PROP_PADDING_RIGHT" Value="5" />
+				<Property Id="PROP_PADDING_TOP" Value="2" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="2" />
+				<InternProp Id="GUID" Value="53d51" />
+			</Widget>
+			<Widget Id="WdgLunarInput" ClsID="CLSID_DATEWIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_BG_POSITION" Value="WDG_BG_POS_INNER" />
+				<Property Id="PROP_INPUT_WDG_SHOW_BORDER_WHEN_LOSE_FOCUS" Value="TRUE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_FORMATINPUT_WDG_SET_MIN_YEAR" Value="UNITCONVERTER_MIN_YEAR" />
+				<Property Id="PROP_FORMATINPUT_WDG_SET_MAX_YEAR" Value="UNITCONVERTER_MAX_YEAR" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<InternProp Id="GUID" Value="62e49" />
+				<Model ClsID="CLSID_DATEWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WdgRate" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="ab037" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WdgLeapMonth" ClsID="CLSID_PICK_WIDGET" SizeHeight="0" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Widget Id="TxtWidget" ClsID="CLSID_TEXTWIDGET" SizeHeight="16" SizeWidth="120">
+					<InternProp Id="GUID" Value="413c2" />
+				</Widget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_PICKWDG_DIRECT_TOGGLE" Value="TRUE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<InternProp Id="GUID" Value="c3a86" />
+			</Widget>
+			<InternProp Id="GUID" Value="9b1b8" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_CONVERTER&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="UNICONVERTER_WND_EDITNAME" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="Input" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="UNITCONVERTER_EDIT_MAXCHAR" />
+				<InternProp Id="GUID" Value="048b6" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="6841b" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="372" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+	</Layout>
+	<Layout Id="UNICONVERTER_WND_SELECTION" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="30" SizeWidth="30" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="ce003" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="1adef" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="VtmId" Value="vtmMenu" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_CONVERTER&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="UNICONVERTER_WND_EDITMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="53882" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_COMMON_TEXT_SAVE" />
+						<String Id="TXT_OIL1_N_SAVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_COMMON_TEXT_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="76554" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="VtmId" Value="vtmOptionMenu" />
+	</Layout>
+	<Layout Id="UNICONVERTER_WND_SETRATE" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="BaseCurrency" ClsID="CLSID_TEXTWIDGET" SizeHeight="UNITCONVERTER_ITEM_HEIGHT" SizeWidth="UNITCONVERTER_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="UNITCONVERTER_RATEVIEW_XPOS" />
+				<Position Type="Y_POSITION" Value="UNITCONVERTER_RATEVIEW_BASE_YPOS" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="6b17a" />
+			</Widget>
+			<Widget Id="RateInput" ClsID="CLSID_INPUTWIDGET" SizeHeight="UNITCONVERTER_ITEM_HEIGHT" SizeWidth="UNITCONVERTER_RATEVIEW_EDIT_WIDTH">
+				<Position Type="X_POSITION" Value="UNITCONVERTER_RATEVIEW_XPOS" />
+				<Position Type="Y_POSITION" Value="UNITCONVERTER_RATEVIEW_INPUT_YPOS" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_RATE" />
+				<Property Id="PROP_INPUT_WDG_ENABLE_DECIMALPOINT" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_MAXLEN_AFTER_EXPONENT" Value="UNITCONVERTER_INPUT_FIELD_EXP_LENGTH" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="UNITCONVERTER_INPUT_RATE_FIELD_MAX_LENGTH" />
+				<Property Id="PROP_INPUT_WDG_MAXLEN_AFTER_DECIMALPOINT" Value="UNITCONVERTER_INPUT_FIELD_FRA_LENGTH" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<InternProp Id="GUID" Value="21501" />
+			</Widget>
+			<Widget Id="TargetCurrency" ClsID="CLSID_TEXTWIDGET" SizeHeight="UNITCONVERTER_ITEM_HEIGHT" SizeWidth="UNITCONVERTER_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="UNITCONVERTER_RATEVIEW_XPOS" />
+				<Position Type="Y_POSITION" Value="UNITCONVERTER_RATEVIEW_TARGET_YPOS" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="696a4" />
+			</Widget>
+			<Widget Id="RateRange" ClsID="CLSID_TEXTWIDGET" SizeHeight="UNITCONVERTER_ITEM_HEIGHT" SizeWidth="UNITCONVERTER_VIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="UNITCONVERTER_RATEVIEW_RANGE_YPOS" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_PML_N_RATE_RANGE" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<InternProp Id="GUID" Value="78b0b" />
+			</Widget>
+			<InternProp Id="GUID" Value="0171e" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="650" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_RATE_SETTING&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_UNITCONVERTER" />
+</UiRoot>

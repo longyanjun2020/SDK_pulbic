@@ -1,0 +1,81 @@
+/*****************************************************************************/
+/* Copyright (C)                    WAVECOM                                  */
+/*****************************************************************************
+===================== Source Header ==========================================
+                      %PCMS_HEADER_SUBSTITUTION_START%
+    Filename: %PM%
+    Revision: %PR%
+   Item Spec: %PID%
+  Originator: %PO%
+Last Changed: %PRT%
+------------------------------------------------------------------------------
+Related Change Documents:
+   %PIRC%
+------------------------------------------------------------------------------
+Related Baselines:
+   %PIRB%
+------------------------------------------------------------------------------
+Item History:
+   %PL%
+
+===================== End of Source Header ==================================*/
+//                    %PCMS_HEADER_SUBSTITUTION_END%
+
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File    :   v24_rel.hv                                                   */
+/*                                                                          */
+/* Scope   :                                                                */
+/*                                                                          */
+/* Content :                                                                */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author |        Modification                                  */
+/*----------+--------+------------------------------------------------------*/
+/* 30/09/04 |  APH   | Creation                                             */
+/****************************************************************************/
+/*$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_rel.hv-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  26.04.06 | aph    |                | Resolution for 33913: v24 optimiza
+ *           |        |                | tion for ITCM and DTCM
+ * ----------+--------+----------------+------------------------------------- 
+*/
+
+#ifndef __SYS_V24_REL_HV__
+#define __SYS_V24_REL_HV__
+
+#include "sys_v24.hc"
+#include "sys_v24.ht"
+#include "sys_v24_rel.ht"
+
+
+#ifndef __V24_REL_VAR__
+#define DefExtern extern
+#else
+#define DefExtern 
+#endif
+
+//must be a power of 2
+#define V24_REL_MAX_TX_NB_BLOCK       8 
+
+#define V24_REL_MAX_TX_NB_BLOCK_MOD   (V24_REL_MAX_TX_NB_BLOCK-1)
+#define V24_MAX_REL_FLOW_NB           4
+
+DefExtern  v24_TxBlock_t      v24_RelTxBlockTab[V24_REL_MAX_TX_NB_BLOCK];
+DefExtern  u8                 v24_RelTxBlockPurge;
+DefExtern  u8                 v24_RelTxBlockFill;
+
+#undef DefExtern 
+
+#endif /*__SYS_V24_REL_HV__*/
+

@@ -1,0 +1,299 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+//**************************************************************************//
+/**
+ *   @file    mux_mux.ht  
+ *
+ *@b Purpose:     
+ *            structures used by the multiplexer internally
+ *            
+ *--------------------------------------------------------------------------  
+ *@b Content:     
+ *                           
+ *                                                                         
+ *--------------------------------------------------------------------------
+ * @date      03/11/2003
+ * @author    MSE
+ *
+ *@b Historical:
+ ***************************************************************************
+ *   Date:      Author: Note:
+ *
+ *@n 03/11/2005 MSE     Creation
+ *@n 06/12/04   APH     MUX integration
+ *
+ */
+//**************************************************************************//
+
+
+#ifndef __MUX_MUX_HT__
+#define __MUX_MUX_HT__
+
+#include "mux_mux.hc"  // MUX_MAX_PHYPORT
+#include "sys_v24.ht"      // for v24_TxBlock_t
+
+
+/**
+ * For sent command
+ */
+typedef struct
+{
+  u8 *Ptr;                             ///< Data pointer
+  u16 Size;                            ///< Data size to send
+}
+mux_DataTx_t;
+
+
+/**
+ * DLC context structure
+ */
+
+#define MUX_INC_IDX( idx, mod )        idx = ((idx) + 1) & (mod)
+#define MUX_DEC_IDX( idx, mod )        idx = ((idx) - 1) & (mod)
+
+#define MUX_TX_FRAGMENT_BLOCK_MAX  4
+#define MUX_TX_FRAGMENT_BLOCK_MOD (MUX_TX_FRAGMENT_BLOCK_MAX - 1)
+
+
+typedef enum
+{
+  MUX_TX_FRAG_INIT = 0,
+  MUX_TX_FRAG_START,
+  MUX_TX_FRAG_FRAGMENTING_PRE_RELEASE,
+  MUX_TX_FRAG_FRAGMENTING,
+  MUX_TX_FRAG_SENDING,
+  MUX_TX_FRAG_SENDING_ENDED,
+  MUX_TX_FRAG_SENDING_LAST_BLOCK
+}
+mux_TxFragmentState_t;
+
+
+typedef struct mux_Ctx_t
+{
+  v24_TxBlock_t           _FragmentTxBlockList[MUX_TX_FRAGMENT_BLOCK_MAX];
+
+
+  u8                Dlci;              ///< Dlci number 0-63
+  u8                Id;                ///< a Id from 0 to 63
+
+  u8                State;             ///< MUX Automaton state
+
+  u8                Nt;                ///< Current number of retransmissions
+
+  u8                ConvergenceLayer;  ///< Convergencelayer type1/4:  0-3 
+
+  u8                LSignal;           ///< Local modem signals
+  u8                RSignal;           ///< Remote signals
+
+  mux_DataTx_t      LastPacket;        ///< Last sent pointer
+  mux_DataTx_t      mux_DataTx;        ///< Transmitted data pointer/size
+
+  void*             AssociatedV24MuxCtxt;  ///< Associated v24 mux context
+  u32               AssociatedV24PortIdHandler;  ///< for AT messages IND (port handler)
+
+  struct mux_Ctx_t *Next;              ///< for context chaining
+  struct mux_Ctx_t *Previous;           ///< for context chaining
+
+
+  // Fragmentation algorithm
+  // Tx fragmentation management
+  // ---------------------------
+  u16                     _TxDataLength;          // current remaining sent frame length
+  u16                     _TxDataTotalLength;     // Total frame size to be sent
+  u8                     *_TxDataPtr;             // pointer on DataTab[1]
+  v24_TxBlock_t          *_TxBlockPtr;            // current Huge Tx block pointer
+
+  u16                     _TxMaxFrameSize;        // Max frame size system can send
+  mux_TxFragmentState_t   _TxFragmentState;
+  mux_TxFragmentState_t   _TxFragmentPreviousState;  // Previous state for release last block
+  u8                      _FragmentTxBlockListPurge;
+  u8                      _FragmentTxBlockListFill;
+
+  v24_TxBlock_t           _FragmentTxBlockSample; // Keep current header info and FCS
+}
+mux_Ctx_t;
+
+
+/**
+ * Enums for Rx frame parser automaton
+ */
+typedef enum
+{
+  RXMUX_IDLE = 0,          ///< Starting state
+
+  RXMUX_GET_OPEN_FLAG,     ///< Getting starting flag
+  RXMUX_GET_DLCI_ADDR,     ///< Getting DLCI field
+  RXMUX_GET_CONTROL,       ///< Getting Control field
+  RXMUX_GET_LENGTH_LSB,    ///< Intermediate state for short length
+  RXMUX_GET_LENGTH_MSB,    ///< Intermediate state for long length
+  RXMUX_GET_INFO,          ///< Getting Information field
+  RXMUX_GET_FCS,           ///< Getting FCS
+  RXMUX_GET_CLOSE_FLAG,    ///< Getting ending flag
+  RXMUX_GET_IGNORED_INFO   ///< Discard frame
+} 
+v24_RxMuxState_t;          ///< 27.010 Frame parser states
+
+
+/**
+ * TxBlock size defines
+ */
+#define MUX_TX_BLOCK_MOD  0x1F /* BEWARE !!! Must be a power of 2 minus one => 1, 3, 7, 15, 31, ...*/
+#define MUX_TX_BLOCK_MAX (MUX_TX_BLOCK_MOD+1)
+
+
+/**
+ * MUX commands TxBlock structure (see v24 spec)
+ */
+typedef struct
+{
+  v24_TxBlock_t   _mux_TxBlockList[MUX_TX_BLOCK_MAX];  //  blocks
+
+  u8              _mux_TxBlockListFill;
+  u8              _mux_TxBlockListPurge;
+
+}
+mux_TxBlock_t;
+
+/**
+ * Structures for Frame parser management
+*/ 
+typedef struct
+{
+
+  v24_RxMuxState_t        _RxMuxState;                 ///< Parser automaton state
+
+  // 27.010 Frame header
+  u8                    * _pRxMuxFrameBuffer;          ///< Pointer to buffer
+  u8                    * _pRxMuxFramePtr;             ///< Working buffer for increase and write
+
+  u8                      _FrameAddress;               ///< Frame address field
+  u8                      _FrameCtrl;                  ///< Frame control field
+  u8                      _FrameLengthLsb;             ///< Frame Length LSB
+  u8                      _FrameLengthMsb;             ///< Frame Length MSB
+  u8                      _FrameFCS;                   ///< Frame FCS
+
+  // APH : Sleep Mode Implementation
+  u8                      _RxNbStartFlags;     ///< Count Nb of Start Flags for Wake Up
+
+  u16                     _RxFrameTotalLength;         ///< Frame total length (info from length field)
+  u16                     _RxFramePayloadIndex;        ///< Current Payload index for fill
+  u16                     _RxFramePayloadTotalLength;  ///< Expected information field length
+}
+mux_RxParser_t;
+
+
+/**
+ * Structures for a MUX session on a physical port
+ */
+typedef struct
+{
+  mux_Ctx_t *FirstCtx;        ///< for ptr chaining
+  mux_Ctx_t *MuxPtrCtx;       ///< for ptr chaining
+
+  u8         Port;            ///< physical port
+  u8         Relay;           ///< no used
+  u8         CurrentCommand;  ///< current command 
+  u16        CurrentTimerId;  ///< Current active TimerID
+
+
+  // starting MUX session parameters
+  u16        MaxFramesize;    ///< N1 , max I field length
+  u8         T1;              ///< Ack timer
+  u8         N2;              ///< Number of retransmissions
+  u8         T2;              ///< Resp timer for DLC0 (retransmission)
+  u8         T3;              ///< Wake up timer
+           
+
+  u8         Nmux;            ///< number of opened DLC except DLC0
+  u8         Role;            ///< MUX session role: initiator or responder
+  u8         Flags;           ///< flags
+
+  u8         TabMux[8];       ///< bit fields: One bit field for 1 Dlci (here 64 Dlci = 4 bytes)
+
+
+  // APH for parser
+  mux_RxParser_t  RxParser;    ///< Rx frame parser structures
+
+  // Tx Blocks transmissions
+  mux_TxBlock_t   TxBlock;     ///< transmission commands txBlock list
+
+  // Sleep Mode Implementation
+  mux_Ctx_t *SleepModeMasterPortCtxt;  ///< Last port deciding to launch sleep on procedure
+}
+mux_Queue_t;
+
+
+/**
+  * MUX driver main structure
+  */
+typedef struct
+{
+  mux_Queue_t *TabQueue[MUX_MAX_PHYPORT];    ///< One Queue for each Physical Port
+
+  u8           NDataMux;                     ///< Number of opened DLCI
+  u8           NDataMuxPdg;                  ///< Number of Pending Data Mux Channel to be opened
+
+  u8           TabMux[MUX_MAX_DATA_CHANNEL]; ///< One tab for one DLC
+
+  u8           TabPort[MUX_MAX_PHYPORT];     ///< Physical Port Mode
+                                             ///< MUX_HYPERQUEUE_TRANSPARENT, 
+                                             ///< MUX_HYPERQUEUE_MULTIPLEXING
+}
+mux_HyperQueue_t;
+
+
+
+#define MUX_PARSER                     mux_PtrQueue->RxParser      
+
+#define mux_RxMuxState                 MUX_PARSER._RxMuxState
+
+#define mux_pRxMuxFrameBuffer          MUX_PARSER._pRxMuxFrameBuffer
+#define mux_pRxMuxFramePtr             MUX_PARSER._pRxMuxFramePtr
+
+#define mux_RxNbStartFlags             MUX_PARSER._RxNbStartFlags
+#define mux_RxFrameTotalLength         MUX_PARSER._RxFrameTotalLength
+#define mux_RxFramePayloadIndex        MUX_PARSER._RxFramePayloadIndex
+#define mux_RxFramePayloadTotalLength  MUX_PARSER._RxFramePayloadTotalLength
+
+
+
+#define mux_FrameAddress               MUX_PARSER._FrameAddress
+#define mux_FrameCtrl                  MUX_PARSER._FrameCtrl
+#define mux_FrameLengthLsb             MUX_PARSER._FrameLengthLsb
+#define mux_FrameLengthMsb             MUX_PARSER._FrameLengthMsb
+#define mux_FrameFCS                   MUX_PARSER._FrameFCS
+
+
+// Tx Blocks
+#define MUX_TXBLOCK                    mux_PtrQueue->TxBlock
+#define mux_TxBlockListFill            MUX_TXBLOCK._mux_TxBlockListFill
+#define mux_TxBlockListPurge           MUX_TXBLOCK._mux_TxBlockListPurge
+#define mux_TxBlockList                MUX_TXBLOCK._mux_TxBlockList
+
+
+
+// Fragmentation
+#define mux_TxMaxFrameSize            PtrCtxLocal->_TxMaxFrameSize        // Max frame size system can send
+
+#define mux_TxDataLength              PtrCtxLocal->_TxDataLength          // current remaining sent frame length
+#define mux_TxDataTotalLength         PtrCtxLocal->_TxDataTotalLength     // Total frame size to be sent
+#define mux_TxDataPtr                 PtrCtxLocal->_TxDataPtr             // pointer on DataTab[1]
+#define mux_TxBlockPtr                PtrCtxLocal->_TxBlockPtr            // current Huge Tx block pointer
+
+#define mux_TxFragmentState           PtrCtxLocal->_TxFragmentState
+#define mux_TxFragmentPreviousState   PtrCtxLocal->_TxFragmentPreviousState
+
+#define mux_FragmentTxBlockListSample PtrCtxLocal->_FragmentTxBlockSample
+#define mux_FragmentTxBlockList       PtrCtxLocal->_FragmentTxBlockList
+#define mux_FragmentTxBlockListPurge  PtrCtxLocal->_FragmentTxBlockListPurge
+#define mux_FragmentTxBlockListFill   PtrCtxLocal->_FragmentTxBlockListFill
+
+#endif /* __MUX_MUX_HT__ */

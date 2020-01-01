@@ -1,0 +1,14 @@
+# CGI Versions {#page_cgi_ver}
+
+@copydoc NCGI_VERSION \n
+Refer @ref NCGI_VERSION for confirm the string in the firmware.
+
+The first word in column **Command** is `action=` in CGI URI. The second word is `property=`. The optional third word is `value=`\n For example, `set Video record/capture` means `/cgi-bin/Config.cgi?action=set&property=Video&value=record`.\n
+**Obsolete** is still usable but is not recommended to be used. It is typically not included in the latest Reference APP. Consult us before you use it.\n
+**Removed** sometimes remains usable for historical issues. It should not be used in new product.
+
+<!-- Remember to keep a blank line in the end of this document for the rest of auto generated part to append -->
+<!--@addtogroup cgi_ver_matrix  CGI Version Matrix-->
+<!-- @weakgroup cgi_ver_matrix CGI Version Matrix -->
+| Command  | Since  | Obsolete  | Removed | Remarks |
+| -------- | ------ | --------- | ------- | ------- |

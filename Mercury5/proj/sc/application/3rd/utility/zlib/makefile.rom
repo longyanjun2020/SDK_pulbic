@@ -1,0 +1,147 @@
+# Note:
+#
+# Refer : zlib run in ROM
+#
+
+UDI_BB_BASE=../../../../../
+TOP=$(UDI_BB_BASE)
+CONFIG_MAK=$(UDI_BB_BASE)config.mak
+include $(CONFIG_MAK)
+
+-include zlib.mak
+
+
+CC = armcc
+LD = armlink
+FROMELF = fromelf
+TARGET = zlib_rom
+#REFERSYMBOL = zlib_rom.sym
+REFERSYMBOL = bt_rom_$(CHIP).sym
+LIB_OBJ_PATH = ./rom_tools/lib
+
+
+ifeq ($(CHIP),b5)
+HAL_NAME = msw853xb
+else
+ifeq ($(CHIP),b9)
+HAL_NAME = msw8556x
+endif
+endif
+
+
+
+INCLUDES = \
+	$(addprefix -I,$(MMI_PATH_H)) \
+	$(addprefix -I,$(OUT)) \
+	$(addprefix -I,$(PATH_H))
+
+
+CFLAGS += $(C_OPTIONS)
+CFLAGS += -DZLIB_BUILD_ROM=1 -DZLIB_USE_ROM=1
+CFLAGS += --thumb
+CFLAGS += $(INCLUDES)
+
+
+
+ROM_SOURCES += \
+	src/inffast.c \
+	src/inflate.c \
+	src/inftrees.c
+
+
+#c standard function, source form C:\cygwin\ARM\RVCT\Data\2.2\349\lib\armlib
+#armar --zs c_t__un.l > c_t__un.lst
+#armar --zs h_t__un.l > h_t__un.lst
+#armar -x c_t__un.l _printf_input_char.o _printf_outstr_char.o __printf.o _printf_char_common.o _sputc.o _printf_intcommon.o __0sprintf.o _printf_hex.o _printf_pad.o use_semi.o sys_exit.o rt_div0.o dc.o aeabi_idiv0.o sys_wrch.o rt_raise.o defsig.o aeabi_sdiv.o __raise.o rt_memcpy_w.o
+#armar -x h_t__un.l switch8.o callvia.o llcmpu.o
+LIB_OBJS_c_t__un = \
+	$(LIB_OBJ_PATH)/__raise.o \
+	$(LIB_OBJ_PATH)/aeabi_sdiv.o \
+	$(LIB_OBJ_PATH)/defsig.o \
+	$(LIB_OBJ_PATH)/rt_raise.o \
+	$(LIB_OBJ_PATH)/sys_wrch.o \
+	$(LIB_OBJ_PATH)/aeabi_idiv0.o \
+	$(LIB_OBJ_PATH)/rt_div0.o \
+	$(LIB_OBJ_PATH)/sys_exit.o \
+	$(LIB_OBJ_PATH)/use_semi.o \
+	$(LIB_OBJ_PATH)/_printf_pad.o \
+	$(LIB_OBJ_PATH)/_printf_hex.o \
+	$(LIB_OBJ_PATH)/__0sprintf.o \
+	$(LIB_OBJ_PATH)/_printf_intcommon.o \
+	$(LIB_OBJ_PATH)/_sputc.o \
+	$(LIB_OBJ_PATH)/_printf_char_common.o \
+	$(LIB_OBJ_PATH)/__printf.o \
+	$(LIB_OBJ_PATH)/_printf_outstr_char.o \
+	$(LIB_OBJ_PATH)/_printf_input_char.o \
+	$(LIB_OBJ_PATH)/rt_memcpy_w.o \
+	$(LIB_OBJ_PATH)/rt_memcpy.o
+
+LIB_OBJS_h_t__un = \
+	$(LIB_OBJ_PATH)/switch8.o \
+	$(LIB_OBJ_PATH)/callvia.o \
+	$(LIB_OBJ_PATH)/llcmpu.o
+
+LIB_OBJS = $(LIB_OBJS_c_t__un) $(LIB_OBJS_h_t__un)
+
+.c.o: makefile.rom
+	@echo "[33m Build $<[0m"
+	@$(CC) -c $(CFLAGS) -o $*.o $<
+	@echo
+
+%.i: %.c
+	@echo "[33m Build $@[0m"
+	@$(CC) -E $(CFLAGS) $*.c > $*.i
+	@./rom_tools/find_callback.exe $*.i > $*.out
+	@cp $*.out .
+	@echo
+
+
+all: $(ROM_SOURCES:.c=.o) $(TARGET).axf $(TARGET).bin $(TARGET)_symbol.sym
+
+
+find_callback.exe: find_callback.c
+	@gcc ./rom_tools/find_callback.c -o ./rom_tools/find_callback.exe
+
+findcb: find_callback.exe $(ROM_SOURCES:.c=.i)
+
+cleancb:
+	rm -f $(ROM_SOURCES:.c=.i) $(ROM_SOURCES:.c=.out) *.out
+
+clean:
+	rm -f $(ROM_SOURCES:.c=.o) $(ROM_SOURCES:.c=.i) $(TARGET).elf $(TARGET).axf $(TARGET).bin $(TARGET).lst $(TARGET).htm $(TARGET).lst $(TARGET).sym $(TARGET)_symbol.sym $(TARGET)_final.bin $(TARGET)_var_final.bin src/*.o $(TARGET)_96k_final.bin $(TARGET)_96k_final.mif unused.txt
+
+
+$(TARGET).axf:
+ifndef CHIP
+	$(WARN) "need assign CHIP"
+	$(WARN) "  => example : make -f makefile.rom CHIP=b5"
+	$(error "Need Assign CHIP, b5 or b9 !!!")
+endif
+
+
+	@echo "[33m Link $@[0m"
+
+	@# refer, c standard function
+	$(LD) -o $@ $(ROM_SOURCES:.c=.o) refer/$(REFERSYMBOL) --no_remove --map --info sizes,veneers,totals,unused --xref --callgraph --scatter scatter_rom_$(CHIP).dsc --symdefs $(TARGET).sym --list link.info
+	@# normal
+	@#$(LD) -o $@ $(ROM_SOURCES:.c=.o) --no_remove --map --info sizes,veneers,totals,unused --xref --callgraph --scatter scatter_rom.dsc --symdefs $(TARGET).sym --list link.info
+
+
+$(TARGET).bin:
+	@echo "[33m Generate $@[0m"
+	$(FROMELF) --bin -o $@ $(TARGET).axf
+	@echo "[33m Generate final bin[0m"
+	@./rom_tools/bin/arm-none-eabi-objcopy -O binary -jZLIB_ROM_EXEC   $(TARGET).axf $(TARGET)_final.bin
+	@./rom_tools/bin/arm-none-eabi-objcopy -O binary -jZLIB_VAR_TAB $(TARGET).axf $(TARGET)_var_final.bin
+	@rom-bin.sh
+	@dd if=$(TARGET)_final.bin of=$(TARGET)_96k_final.bin bs=1 seek=42k
+	@./rom_tools/bin2mif.exe $(TARGET)_96k_final.bin $(TARGET)_96k_final.mif
+
+$(TARGET)_symbol.sym:
+	@echo "[33m Generate $@[0m"
+	@rom-sym.sh
+	@echo "[33m Generate Function Pointer Table[0m"
+	mv $(TARGET)_symbol.sym  $(TARGET)_symbol_$(HAL_NAME).sym
+	cp $(TARGET)_symbol_$(HAL_NAME).sym $(OUT)
+
+create_files: $(TARGET).bin $(TARGET)_symbol.sym

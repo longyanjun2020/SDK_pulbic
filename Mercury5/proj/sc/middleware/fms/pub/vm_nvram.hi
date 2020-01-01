@@ -1,0 +1,72 @@
+
+#ifndef __VM_NVRAM_HI__
+#define __VM_NVRAM_HI__
+
+#ifdef __UPGRADE_NVRAM__
+/* ==========================================================================
+   Constants
+   ========================================================================== */
+//VM NRAM erro code
+#define VM_NVRAM_OK 0
+#define VM_NVRAM_FAIL 1
+#define VM_NVRAM_PARAM_ERROR 2
+
+
+
+/* ==========================================================================
+   Public functions
+   ========================================================================== */
+/**
+ * @brief VM Read NVRAM RO partition
+ *
+ * @param  pBuffer: Share buffer from modem
+ *
+ * @return  VM NVRAM error cde
+ */
+int vm_nvramRead_ro (void * data);
+
+
+/**
+ * @brief VM write NVRAM RO partition
+ *
+ * @param  pBuffer: Share buffer from modem
+ *
+ * @return  VM NVRAM error cde
+ */
+int vm_nvramWrite_ro (const void * data);
+
+
+/**
+ * @brief VM write NVRAM RW partition
+ *
+ * @param  pBuffer: Share buffer from modem
+ *
+ * @return  VM NVRAM error cde
+ */
+int vm_nvramWrite_rw (const void * data);
+
+#ifndef __SDK_SIMULATION__
+int vm_nvramBackup_ro (void);
+#ifdef __UPGRADE_NVRAM_ENHANCED__
+/**
+ * @brief VM read NVRAM RW partition
+ *
+ * @param  pBuffer: Share buffer from modem
+ *
+ * @return  VM NVRAM error cde
+ */
+int vm_nvramRead_rw (u8 **ppAddr, u16 *nLen);
+int vm_nvramRestore_rw(u8 **addr, u16 *len);
+int vm_nvramComplete_rw(u8 *addr);
+#ifdef __UPGRADE_NVRAM_ENHANCED_TEST_ONLY__
+u32 vm_nvram_IT_Modify_Nand_ro (u32 nOffset, u32 nLen, u8 *data);
+u32 vm_nvram_IT_Modify_CIS_ro (u32 nOffset, u32 nLen, u8 *data);
+u32 vm_nvram_IT_Modify_Nand_rw (u32 nOffset, u32 nLen, u8 *data);
+u32 vm_nvram_IT_Modify_CIS_rw (u32 nOffset, u32 nLen, u8 *data);
+#endif //__UPGRADE_NVRAM_ENHANCED_TEST_ONLY__
+#endif //__UPGRADE_NVRAM_ENHANCED__
+#endif
+
+#endif /* __UPGRADE_NVRAM__ */
+
+#endif /* ! __VM_NVRAM_HI__ */

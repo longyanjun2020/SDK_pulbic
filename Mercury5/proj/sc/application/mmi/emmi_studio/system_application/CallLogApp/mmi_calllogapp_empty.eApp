@@ -1,0 +1,59 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CALLLOG_WND_DETAILTIME_SHOW_DETAIL" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer13" ClsID="CLSID_ABSCONTAINER" SizeHeight="280" SizeWidth="240">
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="0" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_LIST" ClsID="CLSID_VTMTABMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMTABMENU" FileLocation="CLSID_VTMTABMENU">
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="0" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_TIMER_MENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="0" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_COST_MENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<InternProp Id="GUID" Value="a84e9121-b563-4b21-9636-9dd26d7456ef" />
+		<InternProp Id="LAYOUT_POS_X" Value="741" />
+		<InternProp Id="LAYOUT_POS_Y" Value="0" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_COST_SETTING_MENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="362" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_COST_SETTING_SETUNIT" ClsID="CLSID_VTMPROMPTINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPROMPTINPUT" FileLocation="CLSID_VTMPROMPTINPUT">
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="362" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_COST_SETTING_SETCURRENCY" ClsID="CLSID_VTMPROMPTINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPROMPTINPUT" FileLocation="CLSID_VTMPROMPTINPUT">
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="362" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_COST_SETTING_SETMAXUNIT" ClsID="CLSID_VTMPROMPTINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPROMPTINPUT" FileLocation="CLSID_VTMPROMPTINPUT">
+		<InternProp Id="LAYOUT_POS_X" Value="741" />
+		<InternProp Id="LAYOUT_POS_Y" Value="362" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_COST_SETTING_ENTERPIN2" ClsID="CLSID_VTMPROMPTINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPROMPTINPUT" FileLocation="CLSID_VTMPROMPTINPUT">
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="645" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_COST_RESETACCOUNT_ENTERPIN2" ClsID="CLSID_VTMPROMPTINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPROMPTINPUT" FileLocation="CLSID_VTMPROMPTINPUT">
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="645" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_TIMER_SELECT_SIM" ClsID="CLSID_VTMSIMSELECTION" LayoutType="VT_NORMAL" InheritID="CLSID_VTMSIMSELECTION" FileLocation="CLSID_VTMSIMSELECTION">
+		<InternProp Id="LAYOUT_POS_X" Value="741" />
+		<InternProp Id="LAYOUT_POS_Y" Value="645" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_LIST_SHOW_OPTION" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1008" />
+	</Layout>
+	<Layout Id="CALLLOG_WND_DETAILTIME_SHOW_OPTION" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1008" />
+	</Layout>
+</UiRoot>

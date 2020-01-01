@@ -1,0 +1,31 @@
+#ifndef __FMR_MSG_DEF_H__
+#define __FMR_MSG_DEF_H__
+#if 0
+#ifdef __ONCHIP_FMRX_ENABLE__
+VM_MSG_DEF(FMR_BASE=EMA_FMR_BASE, void DUMMY)
+#else
+VM_MSG_DEF(FMR_BASE=VM_CUS8_BASE, void DUMMY)
+#endif
+
+/**
+ *  @brief FM Radio Driver Primitive/Message ID
+ */
+VM_MSG_DEF(FMR_SET_POWER_REQ=(FMR_BASE+0x00), void DUMMY)  /**< Command to set FM radio power on/off */
+VM_MSG_DEF(FMR_SET_FREQUENCY_REQ=(FMR_BASE+0x01), void DUMMY)  /**< Command to set FM radio channel frequency */
+VM_MSG_DEF(FMR_SET_SEARCH_REQ=(FMR_BASE+0x02), void DUMMY)  /**< Command to search FM radio channel */
+VM_MSG_DEF(FMR_SET_BAND_REQ=(FMR_BASE+0x03), void DUMMY)  /**< Command to set FM radio channel band */
+VM_MSG_DEF(FMR_SET_MUTE_REQ=(FMR_BASE+0x04), void DUMMY)  /**< Command to set FM radio mute on/off */
+VM_MSG_DEF(FMR_SET_STEREO_REQ=(FMR_BASE+0x05), void DUMMY)  /**< Command to set FM radio stereo on/off */
+VM_MSG_DEF(FMR_GET_CHANINFO_REQ=(FMR_BASE+0x06), void DUMMY)  /**< Command to get FM radio channel information */
+VM_MSG_DEF(FMR_GET_CHIPINFO_REQ=(FMR_BASE+0x07), void DUMMY)  /**< Command to get FM radio chip information */
+VM_MSG_DEF(FMR_SET_AREA_REQ=(FMR_BASE+0x08), void DUMMY)  /**< Command to set FM radio AREA */
+VM_MSG_DEF(FMR_SET_CARRIER_THRESHOLD_REQ=(FMR_BASE+0x09), void DUMMY)  /**< Command to set carrier threshold */
+VM_MSG_DEF(FMR_REC_START_REQ=(FMR_BASE+0x0A), void DUMMY)  /**< FMR recording start request */
+VM_MSG_DEF(FMR_REC_STOP_REQ=(FMR_BASE+0x0B), void DUMMY)  /**< FMR recording stop request */
+VM_MSG_DEF(FMR_REC_SET_MEDIUM_REQ=(FMR_BASE+0x0C), void DUMMY)  /**< FMR recording set storage path request */
+VM_MSG_DEF(FMR_REC_GET_PATH_REQ=(FMR_BASE+0x0E), void DUMMY)  /**< FMR recording get storage path request */
+VM_MSG_DEF(FMR_REG_NOTIFY_REQ=(FMR_BASE+0x0F), void DUMMY)  /**< Register FMR Recording notificatoin */
+VM_MSG_DEF(FMR_PRIMITIVE_MAX=(FMR_BASE+0x10), void DUMMY)
+#endif
+#endif
+

@@ -1,0 +1,16 @@
+In order to generate   EgprsStatPostProcess.exe  one of the following methods can be used :
+
+Method 1:
+  - Create a solution/project 
+  - Add source file EgprsStatPostProcess.C
+  - Build
+
+
+Method 2:
+
+  - Install / initialise the C environment. 
+    For instance  "C:\Program Files\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" will initialise env for VC 9
+
+  - use command line:   cl EgprsStatPostProcess.c
+  
+ 

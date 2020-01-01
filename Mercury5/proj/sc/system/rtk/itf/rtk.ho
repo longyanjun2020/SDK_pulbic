@@ -1,0 +1,7 @@
+#ifndef __RTK_HO__
+#define __RTK_HO__
+
+#include "sys_rtk_ho.h"
+
+#endif  /* __RTK_HO__ */
+

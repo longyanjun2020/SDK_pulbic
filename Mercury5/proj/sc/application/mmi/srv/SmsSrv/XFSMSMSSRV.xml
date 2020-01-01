@@ -1,0 +1,258 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>sms</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_MESSAGE</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="sms" id="25122" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+          <node name="Init" id="13028" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>make sure the message manager, transation SRVare ready&#13;&#10;Query there is any message at outbox, &#13;&#10;if yes&#13;&#10;save all message at outbox to Sending Queue&#13;&#10;init variable&#13;&#10;pMe&#13;&#10;  Sending Queue&#13;&#10; </EntryComment>
+          <ExitComment>degreaster useless notification</ExitComment>
+          </node>
+          <node name="Idle" id="23147" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>reset sending result</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="Active" id="19756" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="CheckQueue">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+              <node name="CheckQueue" id="26088" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>if sendingqueue != empty&#13;&#10;trigger internal event to send&#13;&#10;else if there is still any messages at outbox&#13;&#10;retrieve message &#13;&#10;else empty queue &#13;&#10;  trigger idle</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="Send" id="25147" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>1.get one item from Queue&#13;&#10;2.Call API boolean SMS_SEND_REQ(u32 u32MsgId)  to send message, wait confirm to get result and notify user&#13;&#10;</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+          </node>
+          <node name="Exit" id="8609" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="Suspend" id="5691" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment>Cancel timer, reset flag</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="12226"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMS_IEVT_SIM_ReadyInd</event>
+				<condition></condition>
+				<action>execute sim related process</action>
+			</transition>
+			<transition enable="1" id="29107"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMS_IEVT_SIM_DeactiveInd</event>
+				<condition></condition>
+				<action>delete sim message at phone</action>
+			</transition>
+			<transition enable="1" id="26339"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMS_IEVT_STK_Refresh</event>
+				<condition></condition>
+				<action>delete all sim message at phone and execute sim related process</action>
+			</transition>
+			<transition enable="1" id="15603"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMS_EVT_Handle_SIM_Operation</event>
+				<condition></condition>
+				<action>get operation from array and active</action>
+			</transition>
+			<transition enable="1" id="3609"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsReadyInd</event>
+				<condition></condition>
+				<action>check if sim_card init ready</action>
+			</transition>
+			<transition enable="1" id="5855"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_TERMINATE</event>
+				<condition></condition>
+				<action>release other object</action>
+			</transition>
+			<transition enable="1" id="20768"	from="_sms"  to="_Exit"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_EXIT</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="17852"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsSetStatusReportCnf</event>
+				<condition></condition>
+				<action>get next operation</action>
+			</transition>
+			<transition enable="1" id="12429"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsQryScaCnf</event>
+				<condition></condition>
+				<action>update sca and get next operation</action>
+			</transition>
+			<transition enable="1" id="21042"	from="_sms"  to="_sms"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsSetRecvStorageCnf</event>
+				<condition></condition>
+				<action>update receive storage and get next operation</action>
+			</transition>
+			<transition enable="1" id="9045"	from="_Init"  to="_Init"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMS_IEVT_READY</event>
+				<condition></condition>
+				<action>check the queue size . If queue size &gt;0, tirgger send, else Idle, notify ready</action>
+			</transition>
+			<transition enable="1" id="3775"	from="_Init"  to="_Init"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMS_IEVT_SIM_ReadyInd</event>
+				<condition></condition>
+				<action>set recvstorage, and if smi ready query sca else wait init ready</action>
+			</transition>
+			<transition enable="1" id="7612"	from="_Init"  to="_Init"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMI_EVT_InitReady</event>
+				<condition></condition>
+				<action>query sim service center</action>
+			</transition>
+			<transition enable="1" id="14651"	from="_Init"  to="_Init"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsReadyInd</event>
+				<condition></condition>
+				<action>check if sms init ready</action>
+			</transition>
+			<transition enable="1" id="27710"	from="_Init"  to="_Active_CheckQueue"  type="default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_CheckQueue</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="5613"	from="_Init"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_Idle</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="28968"	from="_Init"  to="_Init"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsSetStatusReportCnf</event>
+				<condition></condition>
+				<action>check the status report setting confirmation</action>
+			</transition>
+			<transition enable="1" id="26734"	from="_Idle"  to="_Active_CheckQueue"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SMS_EVT_Send_Message</event>
+				<event>SMS_IEVT_CheckQueue</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="30047"	from="_Active"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_Idle</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="30252"	from="_Active"  to="_Exit"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_APP_STOP</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="16178"	from="_Active_CheckQueue"  to="_Active_Send"  type="default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_Send</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="26199"	from="_Active_Send"  to="_Active_Send"  type="internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsSendCnf</event>
+				<condition></condition>
+				<action>check and handle cnf result </action>
+			</transition>
+			<transition enable="1" id="26909"	from="_Active_Send"  to="_Active_CheckQueue"  type="Default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_CheckQueue</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="5868"	from="_Active"  to="_Suspend"  type="default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_Suspend</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="5940"	from="_Suspend"  to="_Active_CheckQueue"  type="default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_CheckQueue</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="20597"	from="_sms"  to="_sms"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SMI_EVT_AbortRetrieveSIMCnf</event>
+				<event>SMI_EVT_RetrieveSIMCnf</event>
+				<condition></condition>
+				<action>start go to next operation</action>
+			</transition>
+			<transition enable="1" id="1009"	from="_sms"  to="_sms"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SMI_EVT_DeleteInactiveSIMCnf</event>
+				<condition></condition>
+				<action>reponse SIM srv and get next step</action>
+			</transition>
+			<transition enable="1" id="25860"	from="_sms"  to="_sms"  type="internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SmsQryStorageCnf</event>
+				<condition></condition>
+				<action>reset current operation and reset buffer</action>
+			</transition>
+			<transition enable="1" id="12382"	from="_Active_CheckQueue"  to="_Active_CheckQueue"  type="default"	hasCondition="0" hasAction="0">
+				<event>SMS_IEVT_CheckQueue</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="22003"	from="_Active_Send"  to="_Active_Send"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SMI_EVT_OperationNotBusyNotify</event>
+				<condition></condition>
+				<action>remove the specified SMS which blocked by SMI_BUSY</action>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="Idle" type="internal"></event>
+			<event name="Send" type="internal"></event>
+			<event name="CheckQueue" type="internal"></event>
+			<event name="READY" type="internal"></event>
+			<event name="EXIT" type="internal"></event>
+			<event name="SIM_ReadyInd" type="internal"></event>
+			<event name="SIM_DeactiveInd" type="internal"></event>
+			<event name="STK_Refresh" type="internal"></event>
+			<event name="Send_Message" type="external"></event>
+			<event name="SmsSrv_Ready" type="external"></event>
+			<event name="Message_Sending_Start" type="external"></event>
+			<event name="Message_Sending_Finish" type="external"></event>
+			<event name="SMS_SetScaCnf" type="external"></event>
+			<event name="SIMChange_Start" type="external"></event>
+			<event name="SIMChange_Ready" type="external"></event>
+			<event name="Handle_SIM_Operation" type="external"></event>
+			<event name="SIM_RetrieveMsg_OK" type="external"></event>
+			<event name="SIM_Deactive_OK" type="external"></event>
+			<event name="Message_Send_ByData_CNF" type="external"></event>
+			<event name="Suspend" type="internal"></event>
+		</eventlist>
+		<functionlist>
+			<function name="Send_Message" id="3225" RetType="MAE_Ret"	Param1="SMS_Msg_ItemData_t *pSentItem" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_send_message&#13;&#10; *  @ brief send messaeg by msgID&#13;&#10; *  @ param pSentItem, pointer of msg info, MsgID/SIMModule/status&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="service_isReady" id="9517" RetType="MAE_Ret"	Param1="boolean *bReady" Param2="COMMON_SIM_CARD_STATUS_e *eSimCardStatus"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_service_isReady&#13;&#10; *  @ brief get the sms service status, &#13;&#10;                 if not ready, register SMS_Notify_Mask_Ready[SMS_EVT_SmsSrv_Ready]&#13;&#10; *  @ param bReady, return sms service ready status, bReady =1, it means sms service ready&#13;&#10; *  @ param eSimCardStatus, return current SIM  status.&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Register_Notification" id="31690" RetType="MAE_Ret"	Param1="void *instance" Param2="SMS_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_register_notification&#13;&#10; *  @ brief register notification&#13;&#10; *  @ param instance, register instance&#13;&#10; *  @ param mask notitication mask&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Deregister_Notification" id="31895" RetType="MAE_Ret"	Param1="void *instance" Param2="SMS_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_deregister_notification&#13;&#10; *  @ brief Deregister notification&#13;&#10; *  @ param instance, deregister instance&#13;&#10; *  @ param mask, notitication mask&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Query_MessagesAtSendingQueue" id="12819" RetType="MAE_Ret"	Param1="u32 *uUnSent" Param2="u32 *uSending"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_Query_MessagesAtSendingQueue&#13;&#10; *  @ brief check current sms sending status&#13;&#10; *  @ param uUnsent, return unsent message number&#13;&#10; *  @ param uSending, return sending message number&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Query_MessageServiceCenter" id="4970" RetType="MAE_Ret"	Param1="Msg_SMS_Service_Center_t *pSCA" Param2="u8 SimModule"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_Query_MessageServiceCenter&#13;&#10; *  @ brief get service center address&#13;&#10; *  @ param pSCA, return service center related info&#13;&#10; *  @ param SimModule, query for which sim, DUAL_MASTER/DUAL_SLAVE&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Set_MessgageServiceCenter" id="29787" RetType="MAE_Ret"	Param1="Msg_SMS_Service_Center_t *pSCA" Param2="u8 SimModule"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_Set_MessgageServiceCenter&#13;&#10; *  @ brief set service center address for certain SIM&#13;&#10; *  @ param pSCA, pointer of service center related info&#13;&#10; *  @ param SimModule,set for which sim, DUAL_MASTER/DUAL_SLAVE&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Failed, no memory to set new one</function>
+			<function name="SIMSrv_Retrieve_IND" id="10735" RetType="MAE_Ret"	Param1="u8 u8SimCardStatus" Param2="u8 u8SimModule"	Param3="boolean bSTKRefresh" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_SIMSrv_Retrieve_IND&#13;&#10; *  @ brief Simsrv notify SMS to retrieve SIM message for sim change / power on/stkrefresh&#13;&#10; *  @ param u8SimCardStatus, current sim status&#13;&#10; *  @ param u8SimModule, retrieve which sim, DUAL_MASTER/DUAL_SLAVE&#13;&#10; *  @ param bSTKRefresh, bSTKRefresh = 1, it means strkrefresh.&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, bad parameter&#9;&#9;&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Failed, no memory &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SIMSrv_Deactive_IND" id="18073" RetType="MAE_Ret"	Param1="u8 u8SimModule" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_SIMSrv_Deactive_IND&#13;&#10; * @ brief SIM srv notify sms to deactive certain SIM&#13;&#10; *  @ param u8SimModule, retrieve which sim, DUAL_MASTER/DUAL_SLAVE&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#9;&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Failed, no memory &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SIMSrv_Retrieve_Abort" id="25059" RetType="MAE_Ret"	Param1="u8 u8SimModule" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_SIMSrv_Retrieve_Abort&#13;&#10; *  @ brief Simsrv notify SMS to stop retrieving &#13;&#10; *  @ param u8SimModule, indicate stop which sim, DUAL_MASTER/DUAL_SLAVE&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_ILLEGAL_OPERATION Fail, SMI is busy</function>
+			<function name="Send_Message_byData" id="17142" RetType="MAE_Ret"	Param1="SMS_MSG_SentData_t *pSendData" Param2="pfn_sms_send_CB fnSendCB"	Param3="IBase* pObj" Param4="u32 userData"	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_Send_Message_byData&#13;&#10; *  @ brief send sms by data, sms will save and send this sms and result sent by callback function. &#13;&#10;                                              &#13;&#10; *  @ param pSendData, pointer of SMS data including content /recipient/simmodule&#13;&#10; *  @ param fnSendCB, pointer of sending result callback, caller will know sending result though this callback function &#13;&#10;                                        fnSendCB = NULL, do not pass sending result. If caller close and sms waits for sending, caller has to cancel callback&#13;&#10; *  @ param pObj, pointer of requester instance&#13;&#10; *  @ param userData, the caller data will pass by callback "fnSendCB"&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail</function>
+			<function name="SMS_CancelCallBack" id="28309" RetType="void"	Param1="pfn_sms_send_CB fnSendCB" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_SMS_CancelCallBack&#13;&#10; *  @ brief cancel the sending result callback if caller close or do not need to care sending result.&#13;&#10; *  @ param fnSendCB, pointer of sending result callback, caller will know sending result though this callback function &#13;&#10;</function>
+			<function name="SMS_SendSMS_Without_Notify" id="13344" RetType="MAE_Ret"	Param1="SMS_MSG_SentData_t*  pSendData" Param2="pfn_sms_send_CB  fnSendCB"	Param3="IBase* pObj" Param4="u32 userData"	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_Send_Message_byData&#13;&#10; *  @ brief send sms by data, 1.background sending without status report&#13;&#10;                                                2.the sending result does not display on Idle but pass by fnSendCB &#13;&#10;                                                3.no sms stored at sentbox(draft)&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#13;&#10; *  @ param pSendData, pointer of SMS data including content /recipient/simmodule&#13;&#10; *  @ param fnSendCB, pointer of sending result callback, caller will know sending result though this callback function &#13;&#10;                                        fnSendCB = NULL, do not pass sending result. If caller close and sms waits for sending, caller has to cancel callback&#13;&#10; *  @ param pObj, pointer of requester instance&#13;&#10; *  @ param userData, the caller data will pass by callback "fnSendCB"&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail&#13;&#10;</function>
+			<function name="SMS_RegisterPort" id="510" RetType="MAE_Ret"	Param1="u32 nPort" Param2="u8 nSIMModule"	Param3="pfn_sms_receive_CB pReceiveCB" Param4="u32 userData"	Param5="u32 CallerID" Param6=" "	Param7=" " Param8=" "> * sms_SMS_RegisterPort&#13;&#10; *  @ brief register certain port to receive this port SMS by receive callback&#13;&#10;&#13;&#10; *  @ param nPort, port range 1 byte or 2 byte&#13;&#10; *  @ param nSIMModule, indicate receive which SIM port SMS&#13;&#10; *  @ param pReceiveCB, receive callback funtion to receive port SMS&#13;&#10; *  @ param userData, the caller data will pass by callback "pReceiveCB", it would be NULL.&#13;&#10; *  @ param CallerID, indicate whilch caler and caller will pass by callback "pReceiveCB", it would be instance address&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail&#13;&#10; *  @retval MAE_RET_FAILED Fail&#13;&#10;&#9;</function>
+			<function name="SMS_DeRegisterPort" id="768" RetType="MAE_Ret"	Param1="u32 nPort" Param2="u8 nSIMModule"	Param3="u32 CallerID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_SMS_DeRegisterPort&#13;&#10; *  @ brief deregister certain port not to receive this port SMS&#13;&#10;&#13;&#10; *  @ param nPort, the registered one&#13;&#10; *  @ param nSIMModule, indicate deregister which SIM port SMS&#13;&#10; *  @ param CallerID, indicate whilch caler&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_FAILED Fail, do not find the registered one&#9;&#9;&#9;</function>
+			<function name="SMS_DeRegisterAllPort" id="945" RetType="MAE_Ret"	Param1="u32 CallerID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_DeRegisterAllPort&#13;&#10; *  @ brief deregister all port registered by certain caller&#13;&#10; *  @ param CallerID, indicate whilch caller&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#9;&#9;&#9;&#9;</function>
+			<function name="SMS_SendPushMessage" id="1141" RetType="MAE_Ret"	Param1="SMS_MSG_SentData_t * pSendData" Param2="u32 nPort"	Param3="pfn_sms_send_CB fnSendCB" Param4="IBase* pObj"	Param5="u32 userData" Param6=" "	Param7=" " Param8=" "> * sms_SendPushMessage&#13;&#10; *  @ brief send sms by data with certain port, &#13;&#10;                1.sms send this sms and result sent by callback function. &#13;&#10;                2. this sms donot display at message box &#13;&#10;                                              &#13;&#10;                                              &#13;&#10; *  @ param pSendData, pointer of SMS data including content /recipient/simmodule&#13;&#10; *  @ param fnSendCB, pointer of sending result callback, caller will know sending result though this callback function &#13;&#10;                                        fnSendCB = NULL, do not pass sending result. If caller close and sms waits for sending, caller has to cancel callback&#13;&#10; *  @ param pObj, pointer of requester instance&#13;&#10; *  @ param userData, the caller data will pass by callback "fnSendCB"&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail&#9;&#9;&#9;&#9;</function>
+			<function name="SMS_GetData_byMsgID" id="1242" RetType="MAE_Ret"	Param1="SMI_MsgID_t  MsgID" Param2="SMS_3rd_ReceiveData_t * pData"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_SendPushMessage&#13;&#10; *  @ brief get message content and recipients[sender] by message ID &#13;&#10;                                              &#13;&#10; *  @ param  MsgID, message Id &#13;&#10; *  @ param pData, return SMS data [content,recipient,encoding, simModule], this pData alloc by caller&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#9;&#9;&#9;&#9;&#9;&#13;&#10; *  @retval MAE_RET_BAD_PARAM Fail&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail</function>
+			<function name="SMS_GetDataSize_ByMsgID" id="1366" RetType="MAE_Ret"	Param1="SMI_MsgID_t  MsgID" Param2="u32 * pDataSize"	Param3="u32 * pTelSize" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_GetDataSize_ByMsgID&#13;&#10; *  @ brief get message content / recipient word count&#13;&#10;                                              &#13;&#10; *  @ param  MsgID, message Id &#13;&#10; *  @ param pDataSize, return  word count of SMS content&#13;&#10; *  @ param pTelSize, return word count of SMS recipient/sender telphone number &#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail, no memory&#13;&#10; *  @retval MAE_RET_BAD_PARAM Fail, error msgID&#9;&#13;&#10; *  @retval MAE_RET_FAILED Fail, over 9 page &#9;&#9;&#9;&#13;&#10; *  @retval MAE_RET_NOT_SUPPORTED Fail, pud len exceed limitation&#9;&#9;&#13;&#10;</function>
+			<function name="SMS_RegisterTelNo" id="3799" RetType="MAE_Ret"	Param1="u16* pTelNo" Param2="u8 nTelNoLen"	Param3="u8 nSIMModule" Param4="pfn_sms_receive_CB pReceiveCB"	Param5="u32 nUserData" Param6="u32 nCallerID"	Param7=" " Param8=" "> * sms_SMS_RegisterTelNo&#13;&#10; *  @ brief register certain telphone number  to receive specific SMS by receive callback&#13;&#10;&#13;&#10; *  @ param pTelNo, u16 string pointer of telphone number&#13;&#10; *  @ paramnTelNoLen, the word count of telphone number&#13;&#10; *  @ param nSIMModule, indicate receive which sim card &#13;&#10; *  @ param pReceiveCB, receive callback function. If there is one MT sms and from the registered tel, notify through this function&#13;&#10; *  @ param nUserData, It will pass by callback "pReceiveCB", apply caller to differentiate&#13;&#10; *  @ param CallerID, indicate whilch caller . It could be instance address and caller will pass by callback "pReceiveCB"&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail&#13;&#10; *  @retval MAE_RET_FAILED Fail, there is existed one.</function>
+			<function name="SMS_DeRegisterTelNo" id="4998" RetType="MAE_Ret"	Param1="u16* pTelNo" Param2="u8 nTelNoLen"	Param3="u8 nSIMModule" Param4="u32 nCallerID"	Param5=" " Param6=" "	Param7=" " Param8=" "> * sms_SMS_DeRegisterTelNo&#13;&#10; *  @ brief deregister certain telphone number  not to receive specific SMS by receive callback&#13;&#10;&#13;&#10; *  @ param pTelNo, u16 string pointer of telphone number&#13;&#10; *  @ paramnTelNoLen, the word count of telphone number&#13;&#10; *  @ param nSIMModule, indicate receive which sim card &#13;&#10; *  @ param CallerID, indicate whilch caller.&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_FAILED Fail, there is no existed one.</function>
+			<function name="SMS_DeRegisterAllTelNo" id="5654" RetType="MAE_Ret"	Param1="u32 nCallerID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* sms_DeRegisterAllTelNo&#13;&#10; *  @ brief deregister all telno. certain caller do not receive any sms.&#13;&#10; *  @ param CallerID, indicate whilch caller&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#9;</function>
+			<function name="SMS_IsTelNoMessage" id="3386" RetType="boolean"	Param1="u16* pTelNo" Param2="u8 nTelNoLen"	Param3="u8 nSIMModule" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* sms_IsTelNoMessage&#13;&#10; *  @ brief check if sender of the MT SMS is the registered one.&#13;&#10; *  @ param pTelNo,pointer of telphone number by u16 string&#13;&#10; *  @ param nTelNoLen,word count of telphone number&#13;&#10; *  @ param nSIMModule, indicate from which SIM card&#13;&#10;&#13;&#10; *  @retval TRUE , It is one SMS from  registed telNo&#13;&#10;                   FALSE, not registed telNo SMS</function>
+			<function name="SMS_KeepTelNoMsgByID" id="4147" RetType="MAE_Ret"	Param1="u16 nMsgId" Param2="boolean bKeepMsg"	Param3="u32 nCallerID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* sms_KeepTelNoMsgByID&#13;&#10; *  @ brief delete certain Msg or move certain msg to inbox&#13;&#10;&#13;&#10; *  @ param nMsgId, MsgID&#13;&#10; *  @ param bKeepMsg, FALSE: delete this Msg, TRUE:move this msg to Inbox&#13;&#10; *  @ param nCallerID, the register caller&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS , success&#13;&#10;                  MAE_RET_FAILED, Fail, no such Msg.</function>
+			<function name="SMS_SendSMS_AntiSteal" id="5595" RetType="MAE_Ret"	Param1="SMS_MSG_SentData_t* pSendData" Param2="pfn_sms_send_CB fnSendCB"	Param3="IBase* pObj" Param4="u32 userData"	Param5=" " Param6=" "	Param7=" " Param8=" ">* sms_Send_Message_byData&#13;&#10; *  @ brief send sms by data, 1.background sending without status report&#13;&#10;                                                2.the sending result does not display on Idle but pass by fnSendCB &#13;&#10;                                                3.no sms stored at sentbox(draft)&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#13;&#10; *  @ param pSendData, pointer of SMS data including content /recipient/simmodule&#13;&#10; *  @ param fnSendCB, pointer of sending result callback, caller will know sending result though this callback function &#13;&#10;                                        fnSendCB = NULL, do not pass sending result. If caller close and sms waits for sending, caller has to cancel callback&#13;&#10; *  @ param pObj, pointer of requester instance&#13;&#10; *  @ param userData, the caller data will pass by callback "fnSendCB"&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Fail&#13;&#10;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

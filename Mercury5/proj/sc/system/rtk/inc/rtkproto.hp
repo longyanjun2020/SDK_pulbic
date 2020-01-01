@@ -1,0 +1,28 @@
+/******************************************************************/
+/*  File    : RTKPROTO.HP                                         */
+/*-------------------------------------------------------------   */
+/*  Scope   :  RTK Interface prototype definitions                */
+/*                                                                */
+/*  Contents:                                                     */
+/*                                                                */
+/******************************************************************/
+
+#ifndef __RTK_PROTO_H
+#define __RTK_PROTO_H
+
+#include "sys_rtk_hp.h"
+
+#ifdef __RTK_DIAGNOSE_ENHANCE__
+void RtkAssertRoutine _PROTO((u32 id, char* fmt, ...));
+void _RtkAssertRoutine _PROTO((u32 id, u32 fmt, va_list args));
+void _RtkAssertRoutine_C _PROTO((u32 id, u32 fmt, va_list args));
+void _RtkInfoAtCmd  _PROTO((void	*	pParams));
+#endif
+
+void _RtkDequeueWaitingTaskFromMutex( rtk_Task_t *DestTask );
+void _RtkDisablePriorityInheritance(rtk_Mutex_t *mutex );
+rtk_Task_t  * _RtkMutexFindWaitingTaskWithMaxPriority( rtk_Task_t *DestTask );
+void _RtkEnablePriorityInheritance( rtk_Mutex_t *mutex, rtk_Task_t *WaitTask );
+
+#endif  /* __RTK_PROTO_H */
+

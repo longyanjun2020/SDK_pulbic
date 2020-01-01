@@ -1,0 +1,81 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="WORLDCLOCKAPP_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="MapBgImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="WORLDCLOCKAPP_MAP_BG_HEIGHT" SizeWidth="WORLDCLOCKAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="WORLDCLOCKAPP_MAP_BG_XPOS" />
+				<Position Type="Y_POSITION" Value="WORLDCLOCKAPP_MAP_BG_YPOS" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="fe996" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="TOOLS_WORLDCLOCK_IMG_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="LineImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="WORLDCLOCKAPP_LINE_IMG_HEIGHT" SizeWidth="WORLDCLOCKAPP_LINE_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="91017" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="TOOLS_WORLDCLOCK_IMG_LINE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="CityImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="WORLDCLOCKAPP_CITY_IMG_HEIGHT" SizeWidth="WORLDCLOCKAPP_CITY_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="6b0bd" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="TOOLS_WORLDCLOCK_IMG_CITY" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TzTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="WORLDCLOCKAPP_TZ_HEIGHT" SizeWidth="WORLDCLOCKAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="WORLDCLOCKAPP_TZ_XPOS" />
+				<Position Type="Y_POSITION" Value="WORLDCLOCKAPP_TZ_YPOS" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<InternProp Id="GUID" Value="d0664" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TimeTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="WORLDCLOCKAPP_TIME_HEIGHT" SizeWidth="WORLDCLOCKAPP_MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="WORLDCLOCKAPP_TIME_XPOS" />
+				<Position Type="Y_POSITION" Value="WORLDCLOCKAPP_TIME_YPOS" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER" />
+				<InternProp Id="GUID" Value="43704" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="3596d" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="216" />
+		<InternProp Id="LAYOUT_POS_Y" Value="91" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_WORLD_CLOCK&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_WORLDCLOCKAPP" />
+</UiRoot>

@@ -1,0 +1,14 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="SM_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="tSmMenu" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT-MAIN_SK_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="266a51f6-b9c9-4da9-9256-e0f3355b84b3" />
+			</Widget>
+			<InternProp Id="GUID" Value="117a18f9-51df-4398-924d-cf7ebf6317f5" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+	</Layout>
+</UiRoot>

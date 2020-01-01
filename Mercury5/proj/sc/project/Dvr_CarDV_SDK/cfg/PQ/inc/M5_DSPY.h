@@ -1,0 +1,1369 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2008-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// (; MStar; Confidential; Information; ) by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+//****************************************************
+//   Quality Map CodeGen Version 4.0
+// 1920
+// M5
+// 5/9/2018  10:17:47 AM
+// 39630.43853
+//****************************************************
+
+#ifndef _M5_DSPY_H_
+#define _M5_DSPY_H_
+
+#define PQ_IP_NUM_DSPY 155
+#define PQ_IP_VIP_IHC_CRD_SRAM_SIZE_DSPY 2178
+#define PQ_IP_VIP_ICC_CRD_SRAM_SIZE_DSPY 2178
+#define PQ_IP_SRAM1_SIZE_DSPY 320
+#define PQ_IP_SRAM2_SIZE_DSPY 320
+#define PQ_IP_SRAM3_SIZE_DSPY 640
+#define PQ_IP_SRAM4_SIZE_DSPY 640
+#define PQ_IP_C_SRAM1_SIZE_DSPY 320
+#define PQ_IP_C_SRAM2_SIZE_DSPY 320
+#define PQ_IP_C_SRAM3_SIZE_DSPY 320
+#define PQ_IP_C_SRAM4_SIZE_DSPY 320
+#define PQ_IP_WDR_Loc_TBL_0_SRAM_SIZE_DSPY 128
+#define PQ_IP_WDR_Loc_TBL_1_SRAM_SIZE_DSPY 128
+#define PQ_IP_WDR_Loc_TBL_2_SRAM_SIZE_DSPY 128
+#define PQ_IP_WDR_Loc_TBL_3_SRAM_SIZE_DSPY 128
+#define PQ_IP_WDR_Loc_TBL_4_SRAM_SIZE_DSPY 128
+#define PQ_IP_WDR_Loc_TBL_5_SRAM_SIZE_DSPY 128
+#define PQ_IP_WDR_Loc_TBL_6_SRAM_SIZE_DSPY 128
+#define PQ_IP_WDR_Loc_TBL_7_SRAM_SIZE_DSPY 128
+#define PQ_IP_YUV_Gamma_tblU_SRAM_SIZE_DSPY 256
+#define PQ_IP_YUV_Gamma_tblV_SRAM_SIZE_DSPY 256
+#define PQ_IP_YUV_Gamma_tblY_SRAM_SIZE_DSPY 512
+#define PQ_IP_ColorEng_GM10to12_Tbl_R_SRAM_SIZE_DSPY 512
+#define PQ_IP_ColorEng_GM10to12_Tbl_G_SRAM_SIZE_DSPY 512
+#define PQ_IP_ColorEng_GM10to12_Tbl_B_SRAM_SIZE_DSPY 512
+#define PQ_IP_ColorEng_GM12to10_CrcTbl_R_SRAM_SIZE_DSPY 512
+#define PQ_IP_ColorEng_GM12to10_CrcTbl_G_SRAM_SIZE_DSPY 512
+#define PQ_IP_ColorEng_GM12to10_CrcTbl_B_SRAM_SIZE_DSPY 512
+
+typedef enum
+{
+    #if PQ_QM_ISP
+    QM_FHD_YUV422_DSPY, //0
+    #endif
+    QM_INPUTTYPE_NUM_DSPY, // 1
+} SC_QUALITY_MAP_INDEX_e_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_DSPY,  //0
+PQ_IP_VOP_256_ENTRY_GAMMA_DSPY,  //1
+PQ_IP_VOP_CSC_YUV2RGB_DSPY,  //2
+PQ_IP_VOP_CLAMP_DSPY,  //3
+PQ_IP_VOP_PreBri_DSPY,  //4
+PQ_IP_VOP_PostBri_DSPY,  //5
+PQ_IP_VOP_PreCon_DSPY,  //6
+PQ_IP_VOP_PostCon_DSPY,  //7
+PQ_IP_MCNR_DSPY,  //8
+PQ_IP_LDC_DSPY,  //9
+PQ_IP_LDC_422_444_422_DSPY,  //10
+PQ_IP_NLM_DSPY,  //11
+PQ_IP_422to444_DSPY,  //12
+PQ_IP_VIP_DSPY,  //13
+PQ_IP_VIP_pseudo_DSPY,  //14
+PQ_IP_VIP_LineBuffer_DSPY,  //15
+PQ_IP_VIP_HLPF_DSPY,  //16
+PQ_IP_VIP_HLPF_dither_DSPY,  //17
+PQ_IP_VIP_VLPF_coef1_DSPY,  //18
+PQ_IP_VIP_VLPF_coef2_DSPY,  //19
+PQ_IP_VIP_VLPF_dither_DSPY,  //20
+PQ_IP_VIP_Peaking_DSPY,  //21
+PQ_IP_VIP_Peaking_band_DSPY,  //22
+PQ_IP_VIP_Peaking_adptive_DSPY,  //23
+PQ_IP_VIP_Peaking_Pcoring_DSPY,  //24
+PQ_IP_VIP_Peaking_Pcoring_ad_Y_DSPY,  //25
+PQ_IP_VIP_Peaking_gain_DSPY,  //26
+PQ_IP_VIP_Peaking_gain_ad_Y_DSPY,  //27
+PQ_IP_VIP_LCE_DSPY,  //28
+PQ_IP_VIP_LCE_dither_DSPY,  //29
+PQ_IP_VIP_LCE_setting_DSPY,  //30
+PQ_IP_VIP_LCE_curve_DSPY,  //31
+PQ_IP_VIP_DLC_His_range_DSPY,  //32
+PQ_IP_VIP_DLC_DSPY,  //33
+PQ_IP_VIP_DLC_dither_DSPY,  //34
+PQ_IP_VIP_DLC_His_rangeH_DSPY,  //35
+PQ_IP_VIP_DLC_His_rangeV_DSPY,  //36
+PQ_IP_VIP_DLC_PC_DSPY,  //37
+PQ_IP_VIP_YC_gain_offset_DSPY,  //38
+PQ_IP_VIP_UVC_DSPY,  //39
+PQ_IP_VIP_FCC_full_range_DSPY,  //40
+PQ_IP_VIP_FCC_bdry_dist_DSPY,  //41
+PQ_IP_VIP_FCC_T1_DSPY,  //42
+PQ_IP_VIP_FCC_T2_DSPY,  //43
+PQ_IP_VIP_FCC_T3_DSPY,  //44
+PQ_IP_VIP_FCC_T4_DSPY,  //45
+PQ_IP_VIP_FCC_T5_DSPY,  //46
+PQ_IP_VIP_FCC_T6_DSPY,  //47
+PQ_IP_VIP_FCC_T7_DSPY,  //48
+PQ_IP_VIP_FCC_T8_DSPY,  //49
+PQ_IP_VIP_FCC_T9_DSPY,  //50
+PQ_IP_VIP_IHC_DSPY,  //51
+PQ_IP_VIP_IHC_Ymode_DSPY,  //52
+PQ_IP_VIP_IHC_dither_DSPY,  //53
+PQ_IP_VIP_IHC_CRD_SRAM_DSPY,  //54
+PQ_IP_VIP_IHC_SETTING_DSPY,  //55
+PQ_IP_VIP_ICC_DSPY,  //56
+PQ_IP_VIP_ICC_Ymode_DSPY,  //57
+PQ_IP_VIP_ICC_dither_DSPY,  //58
+PQ_IP_VIP_ICC_CRD_SRAM_DSPY,  //59
+PQ_IP_VIP_ICC_SETTING_DSPY,  //60
+PQ_IP_VIP_Ymode_Yvalue_ALL_DSPY,  //61
+PQ_IP_VIP_Ymode_Yvalue_SETTING_DSPY,  //62
+PQ_IP_VIP_IBC_DSPY,  //63
+PQ_IP_VIP_IBC_dither_DSPY,  //64
+PQ_IP_VIP_IBC_SETTING_DSPY,  //65
+PQ_IP_VIP_ACK_DSPY,  //66
+PQ_IP_VIP_YCbCr_Clip_DSPY,  //67
+PQ_IP_VSP_Y_SC1_DSPY,  //68
+PQ_IP_VSP_C_SC1_DSPY,  //69
+PQ_IP_VSP_CoRing_SC1_DSPY,  //70
+PQ_IP_VSP_DeRing_SC1_DSPY,  //71
+PQ_IP_VSP_Dither_SC1_DSPY,  //72
+PQ_IP_VSP_PreVBound_SC1_DSPY,  //73
+PQ_IP_AntiPAL_filter_SC1_DSPY,  //74
+PQ_IP_422To444_SC1_DSPY,  //75
+PQ_IP_HSP_Y_SC1_DSPY,  //76
+PQ_IP_HSP_C_SC1_DSPY,  //77
+PQ_IP_HSP_CoRing_SC1_DSPY,  //78
+PQ_IP_HSP_DeRing_SC1_DSPY,  //79
+PQ_IP_HSP_Dither_SC1_DSPY,  //80
+PQ_IP_HnonLinear_SC1_DSPY,  //81
+PQ_IP_SRAM1_DSPY,  //82
+PQ_IP_SRAM2_DSPY,  //83
+PQ_IP_SRAM3_DSPY,  //84
+PQ_IP_SRAM4_DSPY,  //85
+PQ_IP_C_SRAM1_DSPY,  //86
+PQ_IP_C_SRAM2_DSPY,  //87
+PQ_IP_C_SRAM3_DSPY,  //88
+PQ_IP_C_SRAM4_DSPY,  //89
+PQ_IP_VSP_Y_SC2_DSPY,  //90
+PQ_IP_VSP_C_SC2_DSPY,  //91
+PQ_IP_VSP_CoRing_SC2_DSPY,  //92
+PQ_IP_VSP_DeRing_SC2_DSPY,  //93
+PQ_IP_VSP_Dither_SC2_DSPY,  //94
+PQ_IP_VSP_PreVBound_SC2_DSPY,  //95
+PQ_IP_AntiPAL_filter_SC2_DSPY,  //96
+PQ_IP_422To444_SC2_DSPY,  //97
+PQ_IP_HSP_Y_SC2_DSPY,  //98
+PQ_IP_HSP_C_SC2_DSPY,  //99
+PQ_IP_HSP_CoRing_SC2_DSPY,  //100
+PQ_IP_HSP_DeRing_SC2_DSPY,  //101
+PQ_IP_HSP_Dither_SC2_DSPY,  //102
+PQ_IP_HnonLinear_SC2_DSPY,  //103
+PQ_IP_VSP_Y_SC3_DSPY,  //104
+PQ_IP_VSP_C_SC3_DSPY,  //105
+PQ_IP_VSP_CoRing_SC3_DSPY,  //106
+PQ_IP_VSP_DeRing_SC3_DSPY,  //107
+PQ_IP_VSP_Dither_SC3_DSPY,  //108
+PQ_IP_VSP_PreVBound_SC3_DSPY,  //109
+PQ_IP_AntiPAL_filter_SC3_DSPY,  //110
+PQ_IP_422To444_SC3_DSPY,  //111
+PQ_IP_HSP_Y_SC3_DSPY,  //112
+PQ_IP_HSP_C_SC3_DSPY,  //113
+PQ_IP_HSP_CoRing_SC3_DSPY,  //114
+PQ_IP_HSP_DeRing_SC3_DSPY,  //115
+PQ_IP_HSP_Dither_SC3_DSPY,  //116
+PQ_IP_HnonLinear_SC3_DSPY,  //117
+PQ_IP_WDR_Loc_TBL_0_SRAM_DSPY,  //118
+PQ_IP_WDR_Loc_TBL_1_SRAM_DSPY,  //119
+PQ_IP_WDR_Loc_TBL_2_SRAM_DSPY,  //120
+PQ_IP_WDR_Loc_TBL_3_SRAM_DSPY,  //121
+PQ_IP_WDR_Loc_TBL_4_SRAM_DSPY,  //122
+PQ_IP_WDR_Loc_TBL_5_SRAM_DSPY,  //123
+PQ_IP_WDR_Loc_TBL_6_SRAM_DSPY,  //124
+PQ_IP_WDR_Loc_TBL_7_SRAM_DSPY,  //125
+PQ_IP_YUV_Gamma_tblY_SRAM_DSPY,  //126
+PQ_IP_YUV_Gamma_tblU_SRAM_DSPY,  //127
+PQ_IP_YUV_Gamma_tblV_SRAM_DSPY,  //128
+PQ_IP_ColorEng_GM10to12_Tbl_R_SRAM_DSPY,  //129
+PQ_IP_ColorEng_GM10to12_Tbl_G_SRAM_DSPY,  //130
+PQ_IP_ColorEng_GM10to12_Tbl_B_SRAM_DSPY,  //131
+PQ_IP_ColorEng_GM12to10_CrcTbl_R_SRAM_DSPY,  //132
+PQ_IP_ColorEng_GM12to10_CrcTbl_G_SRAM_DSPY,  //133
+PQ_IP_ColorEng_GM12to10_CrcTbl_B_SRAM_DSPY,  //134
+PQ_IP_YEE_DSPY,  //135
+PQ_IP_YEE_AC_LUT_DSPY,  //136
+PQ_IP_WDR_Glob_DSPY,  //137
+PQ_IP_WDR_Loc_DSPY,  //138
+PQ_IP_MXNR_DSPY,  //139
+PQ_IP_UV_ADJUST_DSPY,  //140
+PQ_IP_XNR_DSPY,  //141
+PQ_IP_YC10_UVM10_DSPY,  //142
+PQ_IP_Color_Transfer_DSPY,  //143
+PQ_IP_YUV_Gamma_DSPY,  //144
+PQ_IP_ColorEng_422to444_DSPY,  //145
+PQ_IP_ColorEng_YUVtoRGB_DSPY,  //146
+PQ_IP_ColorEng_GM10to12_DSPY,  //147
+PQ_IP_ColorEng_CCM_DSPY,  //148
+PQ_IP_ColorEng_HSV_DSPY,  //149
+PQ_IP_ColorEng_GM12to10_DSPY,  //150
+PQ_IP_ColorEng_RGBtoYUV_DSPY,  //151
+PQ_IP_ColorEng_444to422_DSPY,  //152
+PQ_IP_SWDriver_DSPY,  //153
+PQ_IP_SC_End_DSPY,  //154
+ }   PQ_IPTYPE_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_COM_DSPY,  //0
+PQ_IP_VOP_256_ENTRY_GAMMA_COM_DSPY,  //1
+PQ_IP_VOP_CSC_YUV2RGB_COM_DSPY,  //2
+PQ_IP_VOP_CLAMP_COM_DSPY,  //3
+PQ_IP_VOP_PreBri_COM_DSPY,  //4
+PQ_IP_VOP_PostBri_COM_DSPY,  //5
+PQ_IP_VOP_PreCon_COM_DSPY,  //6
+PQ_IP_VOP_PostCon_COM_DSPY,  //7
+PQ_IP_MCNR_COM_DSPY,  //8
+PQ_IP_LDC_COM_DSPY,  //9
+PQ_IP_LDC_422_444_422_COM_DSPY,  //10
+PQ_IP_NLM_COM_DSPY,  //11
+PQ_IP_422to444_COM_DSPY,  //12
+PQ_IP_VIP_COM_DSPY,  //13
+PQ_IP_VIP_pseudo_COM_DSPY,  //14
+PQ_IP_VIP_LineBuffer_COM_DSPY,  //15
+PQ_IP_VIP_HLPF_COM_DSPY,  //16
+PQ_IP_VIP_HLPF_dither_COM_DSPY,  //17
+PQ_IP_VIP_VLPF_coef1_COM_DSPY,  //18
+PQ_IP_VIP_VLPF_coef2_COM_DSPY,  //19
+PQ_IP_VIP_VLPF_dither_COM_DSPY,  //20
+PQ_IP_VIP_Peaking_COM_DSPY,  //21
+PQ_IP_VIP_Peaking_band_COM_DSPY,  //22
+PQ_IP_VIP_Peaking_adptive_COM_DSPY,  //23
+PQ_IP_VIP_Peaking_Pcoring_COM_DSPY,  //24
+PQ_IP_VIP_Peaking_Pcoring_ad_Y_COM_DSPY,  //25
+PQ_IP_VIP_Peaking_gain_COM_DSPY,  //26
+PQ_IP_VIP_Peaking_gain_ad_Y_COM_DSPY,  //27
+PQ_IP_VIP_LCE_COM_DSPY,  //28
+PQ_IP_VIP_LCE_dither_COM_DSPY,  //29
+PQ_IP_VIP_LCE_setting_COM_DSPY,  //30
+PQ_IP_VIP_LCE_curve_COM_DSPY,  //31
+PQ_IP_VIP_DLC_His_range_COM_DSPY,  //32
+PQ_IP_VIP_DLC_COM_DSPY,  //33
+PQ_IP_VIP_DLC_dither_COM_DSPY,  //34
+PQ_IP_VIP_DLC_His_rangeH_COM_DSPY,  //35
+PQ_IP_VIP_DLC_His_rangeV_COM_DSPY,  //36
+PQ_IP_VIP_DLC_PC_COM_DSPY,  //37
+PQ_IP_VIP_YC_gain_offset_COM_DSPY,  //38
+PQ_IP_VIP_UVC_COM_DSPY,  //39
+PQ_IP_VIP_FCC_full_range_COM_DSPY,  //40
+PQ_IP_VIP_FCC_bdry_dist_COM_DSPY,  //41
+PQ_IP_VIP_FCC_T1_COM_DSPY,  //42
+PQ_IP_VIP_FCC_T2_COM_DSPY,  //43
+PQ_IP_VIP_FCC_T3_COM_DSPY,  //44
+PQ_IP_VIP_FCC_T4_COM_DSPY,  //45
+PQ_IP_VIP_FCC_T5_COM_DSPY,  //46
+PQ_IP_VIP_FCC_T6_COM_DSPY,  //47
+PQ_IP_VIP_FCC_T7_COM_DSPY,  //48
+PQ_IP_VIP_FCC_T8_COM_DSPY,  //49
+PQ_IP_VIP_FCC_T9_COM_DSPY,  //50
+PQ_IP_VIP_IHC_COM_DSPY,  //51
+PQ_IP_VIP_IHC_Ymode_COM_DSPY,  //52
+PQ_IP_VIP_IHC_dither_COM_DSPY,  //53
+PQ_IP_VIP_IHC_CRD_SRAM_COM_DSPY,  //54
+PQ_IP_VIP_IHC_SETTING_COM_DSPY,  //55
+PQ_IP_VIP_ICC_COM_DSPY,  //56
+PQ_IP_VIP_ICC_Ymode_COM_DSPY,  //57
+PQ_IP_VIP_ICC_dither_COM_DSPY,  //58
+PQ_IP_VIP_ICC_CRD_SRAM_COM_DSPY,  //59
+PQ_IP_VIP_ICC_SETTING_COM_DSPY,  //60
+PQ_IP_VIP_Ymode_Yvalue_ALL_COM_DSPY,  //61
+PQ_IP_VIP_Ymode_Yvalue_SETTING_COM_DSPY,  //62
+PQ_IP_VIP_IBC_COM_DSPY,  //63
+PQ_IP_VIP_IBC_dither_COM_DSPY,  //64
+PQ_IP_VIP_IBC_SETTING_COM_DSPY,  //65
+PQ_IP_VIP_ACK_COM_DSPY,  //66
+PQ_IP_VIP_YCbCr_Clip_COM_DSPY,  //67
+PQ_IP_VSP_Y_SC1_COM_DSPY,  //68
+PQ_IP_VSP_C_SC1_COM_DSPY,  //69
+PQ_IP_VSP_CoRing_SC1_COM_DSPY,  //70
+PQ_IP_VSP_DeRing_SC1_COM_DSPY,  //71
+PQ_IP_VSP_Dither_SC1_COM_DSPY,  //72
+PQ_IP_VSP_PreVBound_SC1_COM_DSPY,  //73
+PQ_IP_AntiPAL_filter_SC1_COM_DSPY,  //74
+PQ_IP_422To444_SC1_COM_DSPY,  //75
+PQ_IP_HSP_Y_SC1_COM_DSPY,  //76
+PQ_IP_HSP_C_SC1_COM_DSPY,  //77
+PQ_IP_HSP_CoRing_SC1_COM_DSPY,  //78
+PQ_IP_HSP_DeRing_SC1_COM_DSPY,  //79
+PQ_IP_HSP_Dither_SC1_COM_DSPY,  //80
+PQ_IP_HnonLinear_SC1_COM_DSPY,  //81
+PQ_IP_SRAM1_COM_DSPY,  //82
+PQ_IP_SRAM2_COM_DSPY,  //83
+PQ_IP_SRAM3_COM_DSPY,  //84
+PQ_IP_SRAM4_COM_DSPY,  //85
+PQ_IP_C_SRAM1_COM_DSPY,  //86
+PQ_IP_C_SRAM2_COM_DSPY,  //87
+PQ_IP_C_SRAM3_COM_DSPY,  //88
+PQ_IP_C_SRAM4_COM_DSPY,  //89
+PQ_IP_VSP_Y_SC2_COM_DSPY,  //90
+PQ_IP_VSP_C_SC2_COM_DSPY,  //91
+PQ_IP_VSP_CoRing_SC2_COM_DSPY,  //92
+PQ_IP_VSP_DeRing_SC2_COM_DSPY,  //93
+PQ_IP_VSP_Dither_SC2_COM_DSPY,  //94
+PQ_IP_VSP_PreVBound_SC2_COM_DSPY,  //95
+PQ_IP_AntiPAL_filter_SC2_COM_DSPY,  //96
+PQ_IP_422To444_SC2_COM_DSPY,  //97
+PQ_IP_HSP_Y_SC2_COM_DSPY,  //98
+PQ_IP_HSP_C_SC2_COM_DSPY,  //99
+PQ_IP_HSP_CoRing_SC2_COM_DSPY,  //100
+PQ_IP_HSP_DeRing_SC2_COM_DSPY,  //101
+PQ_IP_HSP_Dither_SC2_COM_DSPY,  //102
+PQ_IP_HnonLinear_SC2_COM_DSPY,  //103
+PQ_IP_VSP_Y_SC3_COM_DSPY,  //104
+PQ_IP_VSP_C_SC3_COM_DSPY,  //105
+PQ_IP_VSP_CoRing_SC3_COM_DSPY,  //106
+PQ_IP_VSP_DeRing_SC3_COM_DSPY,  //107
+PQ_IP_VSP_Dither_SC3_COM_DSPY,  //108
+PQ_IP_VSP_PreVBound_SC3_COM_DSPY,  //109
+PQ_IP_AntiPAL_filter_SC3_COM_DSPY,  //110
+PQ_IP_422To444_SC3_COM_DSPY,  //111
+PQ_IP_HSP_Y_SC3_COM_DSPY,  //112
+PQ_IP_HSP_C_SC3_COM_DSPY,  //113
+PQ_IP_HSP_CoRing_SC3_COM_DSPY,  //114
+PQ_IP_HSP_DeRing_SC3_COM_DSPY,  //115
+PQ_IP_HSP_Dither_SC3_COM_DSPY,  //116
+PQ_IP_HnonLinear_SC3_COM_DSPY,  //117
+PQ_IP_WDR_Loc_TBL_0_SRAM_COM_DSPY,  //118
+PQ_IP_WDR_Loc_TBL_1_SRAM_COM_DSPY,  //119
+PQ_IP_WDR_Loc_TBL_2_SRAM_COM_DSPY,  //120
+PQ_IP_WDR_Loc_TBL_3_SRAM_COM_DSPY,  //121
+PQ_IP_WDR_Loc_TBL_4_SRAM_COM_DSPY,  //122
+PQ_IP_WDR_Loc_TBL_5_SRAM_COM_DSPY,  //123
+PQ_IP_WDR_Loc_TBL_6_SRAM_COM_DSPY,  //124
+PQ_IP_WDR_Loc_TBL_7_SRAM_COM_DSPY,  //125
+PQ_IP_YUV_Gamma_tblY_SRAM_COM_DSPY,  //126
+PQ_IP_YUV_Gamma_tblU_SRAM_COM_DSPY,  //127
+PQ_IP_YUV_Gamma_tblV_SRAM_COM_DSPY,  //128
+PQ_IP_ColorEng_GM10to12_Tbl_R_SRAM_COM_DSPY,  //129
+PQ_IP_ColorEng_GM10to12_Tbl_G_SRAM_COM_DSPY,  //130
+PQ_IP_ColorEng_GM10to12_Tbl_B_SRAM_COM_DSPY,  //131
+PQ_IP_ColorEng_GM12to10_CrcTbl_R_SRAM_COM_DSPY,  //132
+PQ_IP_ColorEng_GM12to10_CrcTbl_G_SRAM_COM_DSPY,  //133
+PQ_IP_ColorEng_GM12to10_CrcTbl_B_SRAM_COM_DSPY,  //134
+PQ_IP_YEE_COM_DSPY,  //135
+PQ_IP_YEE_AC_LUT_COM_DSPY,  //136
+PQ_IP_WDR_Glob_COM_DSPY,  //137
+PQ_IP_WDR_Loc_COM_DSPY,  //138
+PQ_IP_MXNR_COM_DSPY,  //139
+PQ_IP_UV_ADJUST_COM_DSPY,  //140
+PQ_IP_XNR_COM_DSPY,  //141
+PQ_IP_YC10_UVM10_COM_DSPY,  //142
+PQ_IP_Color_Transfer_COM_DSPY,  //143
+PQ_IP_YUV_Gamma_COM_DSPY,  //144
+PQ_IP_ColorEng_422to444_COM_DSPY,  //145
+PQ_IP_ColorEng_YUVtoRGB_COM_DSPY,  //146
+PQ_IP_ColorEng_GM10to12_COM_DSPY,  //147
+PQ_IP_ColorEng_CCM_COM_DSPY,  //148
+PQ_IP_ColorEng_HSV_COM_DSPY,  //149
+PQ_IP_ColorEng_GM12to10_COM_DSPY,  //150
+PQ_IP_ColorEng_RGBtoYUV_COM_DSPY,  //151
+PQ_IP_ColorEng_444to422_COM_DSPY,  //152
+PQ_IP_SWDriver_COM_DSPY,  //153
+PQ_IP_SC_End_COM_DSPY,  //154
+PQ_IP_COM_NUMS_DSPY
+} PQ_IP_COM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_OFF_DSPY,
+PQ_IP_VOP_NUMS_DSPY
+} PQ_IP_VOP_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_256_ENTRY_GAMMA_OFF_DSPY,
+PQ_IP_VOP_256_ENTRY_GAMMA_NUMS_DSPY
+} PQ_IP_VOP_256_ENTRY_GAMMA_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_CSC_YUV2RGB_OFF_DSPY,
+PQ_IP_VOP_CSC_YUV2RGB_ITU601_DSPY,
+PQ_IP_VOP_CSC_YUV2RGB_Full_Range_DSPY,
+PQ_IP_VOP_CSC_YUV2RGB_BRIGHT_STRONG_MODE_DSPY,
+PQ_IP_VOP_CSC_YUV2RGB_BRIGHT_MIDDLE_MODE_DSPY,
+PQ_IP_VOP_CSC_YUV2RGB_BRIGHT_WEAK_MODE_DSPY,
+PQ_IP_VOP_CSC_YUV2RGB_NUMS_DSPY
+} PQ_IP_VOP_CSC_YUV2RGB_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_CLAMP_OFF_DSPY,
+PQ_IP_VOP_CLAMP_NUMS_DSPY
+} PQ_IP_VOP_CLAMP_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_PreBri_OFF_DSPY,
+PQ_IP_VOP_PreBri_NUMS_DSPY
+} PQ_IP_VOP_PreBri_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_PostBri_OFF_DSPY,
+PQ_IP_VOP_PostBri_NUMS_DSPY
+} PQ_IP_VOP_PostBri_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_PreCon_OFF_DSPY,
+PQ_IP_VOP_PreCon_NUMS_DSPY
+} PQ_IP_VOP_PreCon_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VOP_PostCon_OFF_DSPY,
+PQ_IP_VOP_PostCon_3500k_DSPY,
+PQ_IP_VOP_PostCon_9300k_DSPY,
+PQ_IP_VOP_PostCon_3000k_DSPY,
+PQ_IP_VOP_PostCon_NUMS_DSPY
+} PQ_IP_VOP_PostCon_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_MCNR_OFF_DSPY,
+PQ_IP_MCNR_NUMS_DSPY
+} PQ_IP_MCNR_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_LDC_OFF_DSPY,
+PQ_IP_LDC_ON_DSPY,
+PQ_IP_LDC_NUMS_DSPY
+} PQ_IP_LDC_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_LDC_422_444_422_md1434_avg_DSPY,
+PQ_IP_LDC_422_444_422_NUMS_DSPY
+} PQ_IP_LDC_422_444_422_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_NLM_OFF_DSPY,
+PQ_IP_NLM_NUMS_DSPY
+} PQ_IP_NLM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_422to444_OFF_DSPY,
+PQ_IP_422to444_NUMS_DSPY
+} PQ_IP_422to444_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_OFF_DSPY,
+PQ_IP_VIP_NUMS_DSPY
+} PQ_IP_VIP_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_pseudo_OFF_DSPY,
+PQ_IP_VIP_pseudo_NUMS_DSPY
+} PQ_IP_VIP_pseudo_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_LineBuffer_OFF_DSPY,
+PQ_IP_VIP_LineBuffer_NUMS_DSPY
+} PQ_IP_VIP_LineBuffer_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_HLPF_OFF_DSPY,
+PQ_IP_VIP_HLPF_NUMS_DSPY
+} PQ_IP_VIP_HLPF_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_HLPF_dither_OFF_DSPY,
+PQ_IP_VIP_HLPF_dither_NUMS_DSPY
+} PQ_IP_VIP_HLPF_dither_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_VLPF_coef1_OFF_DSPY,
+PQ_IP_VIP_VLPF_coef1_NUMS_DSPY
+} PQ_IP_VIP_VLPF_coef1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_VLPF_coef2_OFF_DSPY,
+PQ_IP_VIP_VLPF_coef2_NUMS_DSPY
+} PQ_IP_VIP_VLPF_coef2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_VLPF_dither_OFF_DSPY,
+PQ_IP_VIP_VLPF_dither_NUMS_DSPY
+} PQ_IP_VIP_VLPF_dither_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Peaking_OFF_DSPY,
+PQ_IP_VIP_Peaking_W2_DSPY,
+PQ_IP_VIP_Peaking_NUMS_DSPY
+} PQ_IP_VIP_Peaking_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Peaking_band_OFF_DSPY,
+PQ_IP_VIP_Peaking_band_NUMS_DSPY
+} PQ_IP_VIP_Peaking_band_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Peaking_adptive_OFF_DSPY,
+PQ_IP_VIP_Peaking_adptive_NUMS_DSPY
+} PQ_IP_VIP_Peaking_adptive_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Peaking_Pcoring_OFF_DSPY,
+PQ_IP_VIP_Peaking_Pcoring_NUMS_DSPY
+} PQ_IP_VIP_Peaking_Pcoring_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Peaking_Pcoring_ad_Y_OFF_DSPY,
+PQ_IP_VIP_Peaking_Pcoring_ad_Y_NUMS_DSPY
+} PQ_IP_VIP_Peaking_Pcoring_ad_Y_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Peaking_gain_0x10_DSPY,
+PQ_IP_VIP_Peaking_gain_NUMS_DSPY
+} PQ_IP_VIP_Peaking_gain_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Peaking_gain_ad_Y_OFF_DSPY,
+PQ_IP_VIP_Peaking_gain_ad_Y_NUMS_DSPY
+} PQ_IP_VIP_Peaking_gain_ad_Y_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_LCE_OFF_DSPY,
+PQ_IP_VIP_LCE_NUMS_DSPY
+} PQ_IP_VIP_LCE_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_LCE_dither_OFF_DSPY,
+PQ_IP_VIP_LCE_dither_NUMS_DSPY
+} PQ_IP_VIP_LCE_dither_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_LCE_setting_S3_DSPY,
+PQ_IP_VIP_LCE_setting_NUMS_DSPY
+} PQ_IP_VIP_LCE_setting_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_LCE_curve_CV1_DSPY,
+PQ_IP_VIP_LCE_curve_NUMS_DSPY
+} PQ_IP_VIP_LCE_curve_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_DLC_His_range_OFF_DSPY,
+PQ_IP_VIP_DLC_His_range_NUMS_DSPY
+} PQ_IP_VIP_DLC_His_range_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_DLC_OFF_DSPY,
+PQ_IP_VIP_DLC_HIGH_CONTRAST_DSPY,
+PQ_IP_VIP_DLC_HIGH_CONTRAST1_DSPY,
+PQ_IP_VIP_DLC_HIGH_CONTRAST2_DSPY,
+PQ_IP_VIP_DLC_HIGH_CONTRAST3_DSPY,
+PQ_IP_VIP_DLC_NUMS_DSPY
+} PQ_IP_VIP_DLC_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_DLC_dither_OFF_DSPY,
+PQ_IP_VIP_DLC_dither_NUMS_DSPY
+} PQ_IP_VIP_DLC_dither_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_DLC_His_rangeH_90pa_1920_DSPY,
+PQ_IP_VIP_DLC_His_rangeH_NUMS_DSPY
+} PQ_IP_VIP_DLC_His_rangeH_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_DLC_His_rangeV_90pa_1920_DSPY,
+PQ_IP_VIP_DLC_His_rangeV_NUMS_DSPY
+} PQ_IP_VIP_DLC_His_rangeV_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_DLC_PC_OFF_DSPY,
+PQ_IP_VIP_DLC_PC_NUMS_DSPY
+} PQ_IP_VIP_DLC_PC_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_YC_gain_offset_OFF_DSPY,
+PQ_IP_VIP_YC_gain_offset_NUMS_DSPY
+} PQ_IP_VIP_YC_gain_offset_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_UVC_OFF_DSPY,
+PQ_IP_VIP_UVC_NUMS_DSPY
+} PQ_IP_VIP_UVC_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_full_range_OFF_DSPY,
+PQ_IP_VIP_FCC_full_range_NUMS_DSPY
+} PQ_IP_VIP_FCC_full_range_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_bdry_dist_OFF_DSPY,
+PQ_IP_VIP_FCC_bdry_dist_NUMS_DSPY
+} PQ_IP_VIP_FCC_bdry_dist_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T1_OFF_DSPY,
+PQ_IP_VIP_FCC_T1_NUMS_DSPY
+} PQ_IP_VIP_FCC_T1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T2_OFF_DSPY,
+PQ_IP_VIP_FCC_T2_NUMS_DSPY
+} PQ_IP_VIP_FCC_T2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T3_OFF_DSPY,
+PQ_IP_VIP_FCC_T3_NUMS_DSPY
+} PQ_IP_VIP_FCC_T3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T4_OFF_DSPY,
+PQ_IP_VIP_FCC_T4_NUMS_DSPY
+} PQ_IP_VIP_FCC_T4_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T5_OFF_DSPY,
+PQ_IP_VIP_FCC_T5_NUMS_DSPY
+} PQ_IP_VIP_FCC_T5_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T6_OFF_DSPY,
+PQ_IP_VIP_FCC_T6_NUMS_DSPY
+} PQ_IP_VIP_FCC_T6_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T7_OFF_DSPY,
+PQ_IP_VIP_FCC_T7_NUMS_DSPY
+} PQ_IP_VIP_FCC_T7_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T8_OFF_DSPY,
+PQ_IP_VIP_FCC_T8_NUMS_DSPY
+} PQ_IP_VIP_FCC_T8_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_FCC_T9_OFF_DSPY,
+PQ_IP_VIP_FCC_T9_NUMS_DSPY
+} PQ_IP_VIP_FCC_T9_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IHC_OFF_DSPY,
+PQ_IP_VIP_IHC_NUMS_DSPY
+} PQ_IP_VIP_IHC_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IHC_Ymode_OFF_DSPY,
+PQ_IP_VIP_IHC_Ymode_NUMS_DSPY
+} PQ_IP_VIP_IHC_Ymode_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IHC_dither_OFF_DSPY,
+PQ_IP_VIP_IHC_dither_NUMS_DSPY
+} PQ_IP_VIP_IHC_dither_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IHC_CRD_SRAM_15wins3_DSPY,
+PQ_IP_VIP_IHC_CRD_SRAM_NUMS_DSPY
+} PQ_IP_VIP_IHC_CRD_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IHC_SETTING_HDMI_HD_DSPY,
+PQ_IP_VIP_IHC_SETTING_NUMS_DSPY
+} PQ_IP_VIP_IHC_SETTING_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_ICC_OFF_DSPY,
+PQ_IP_VIP_ICC_NUMS_DSPY
+} PQ_IP_VIP_ICC_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_ICC_Ymode_HDMI_HD_DSPY,
+PQ_IP_VIP_ICC_Ymode_NUMS_DSPY
+} PQ_IP_VIP_ICC_Ymode_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_ICC_dither_OFF_DSPY,
+PQ_IP_VIP_ICC_dither_NUMS_DSPY
+} PQ_IP_VIP_ICC_dither_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_ICC_CRD_SRAM_15wins3_DSPY,
+PQ_IP_VIP_ICC_CRD_SRAM_NUMS_DSPY
+} PQ_IP_VIP_ICC_CRD_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_ICC_SETTING_HDMI_HD_DSPY,
+PQ_IP_VIP_ICC_SETTING_NUMS_DSPY
+} PQ_IP_VIP_ICC_SETTING_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Ymode_Yvalue_ALL_Y1_DSPY,
+PQ_IP_VIP_Ymode_Yvalue_ALL_NUMS_DSPY
+} PQ_IP_VIP_Ymode_Yvalue_ALL_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_Ymode_Yvalue_SETTING_Y2_DSPY,
+PQ_IP_VIP_Ymode_Yvalue_SETTING_NUMS_DSPY
+} PQ_IP_VIP_Ymode_Yvalue_SETTING_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IBC_OFF_DSPY,
+PQ_IP_VIP_IBC_NUMS_DSPY
+} PQ_IP_VIP_IBC_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IBC_dither_OFF_DSPY,
+PQ_IP_VIP_IBC_dither_NUMS_DSPY
+} PQ_IP_VIP_IBC_dither_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_IBC_SETTING_OFF_DSPY,
+PQ_IP_VIP_IBC_SETTING_NUMS_DSPY
+} PQ_IP_VIP_IBC_SETTING_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_ACK_OFF_DSPY,
+PQ_IP_VIP_ACK_NUMS_DSPY
+} PQ_IP_VIP_ACK_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VIP_YCbCr_Clip_OFF_DSPY,
+PQ_IP_VIP_YCbCr_Clip_NUMS_DSPY
+} PQ_IP_VIP_YCbCr_Clip_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_Y_SC1_Bypass_DSPY,
+PQ_IP_VSP_Y_SC1_NUMS_DSPY
+} PQ_IP_VSP_Y_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_C_SC1_Bypass_DSPY,
+PQ_IP_VSP_C_SC1_NUMS_DSPY
+} PQ_IP_VSP_C_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_CoRing_SC1_OFF_DSPY,
+PQ_IP_VSP_CoRing_SC1_NUMS_DSPY
+} PQ_IP_VSP_CoRing_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_DeRing_SC1_OFF_DSPY,
+PQ_IP_VSP_DeRing_SC1_NUMS_DSPY
+} PQ_IP_VSP_DeRing_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_Dither_SC1_OFF_DSPY,
+PQ_IP_VSP_Dither_SC1_NUMS_DSPY
+} PQ_IP_VSP_Dither_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_PreVBound_SC1_OFF_DSPY,
+PQ_IP_VSP_PreVBound_SC1_NUMS_DSPY
+} PQ_IP_VSP_PreVBound_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_AntiPAL_filter_SC1_OFF_DSPY,
+PQ_IP_AntiPAL_filter_SC1_NUMS_DSPY
+} PQ_IP_AntiPAL_filter_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_422To444_SC1_ON_DSPY,
+PQ_IP_422To444_SC1_NUMS_DSPY
+} PQ_IP_422To444_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_Y_SC1_Bypass_DSPY,
+PQ_IP_HSP_Y_SC1_NUMS_DSPY
+} PQ_IP_HSP_Y_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_C_SC1_Bypass_DSPY,
+PQ_IP_HSP_C_SC1_NUMS_DSPY
+} PQ_IP_HSP_C_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_CoRing_SC1_OFF_DSPY,
+PQ_IP_HSP_CoRing_SC1_NUMS_DSPY
+} PQ_IP_HSP_CoRing_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_DeRing_SC1_OFF_DSPY,
+PQ_IP_HSP_DeRing_SC1_NUMS_DSPY
+} PQ_IP_HSP_DeRing_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_Dither_SC1_OFF_DSPY,
+PQ_IP_HSP_Dither_SC1_NUMS_DSPY
+} PQ_IP_HSP_Dither_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HnonLinear_SC1_OFF_DSPY,
+PQ_IP_HnonLinear_SC1_NUMS_DSPY
+} PQ_IP_HnonLinear_SC1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_SRAM1_InvSinc4Tc4p4Fc85Fstop134Apass01Astop50G11_DSPY,
+PQ_IP_SRAM1_InvSinc4Tc4p4Fc85Fstop134Apass01Astop50G12_DSPY,
+PQ_IP_SRAM1_InvSinc4Tc4p4Fc85Fstop134Apass01Astop50G13_DSPY,
+PQ_IP_SRAM1_InvSinc4Tc4p4Fc65Apass3Astop60G14_DSPY,
+PQ_IP_SRAM1_NUMS_DSPY
+} PQ_IP_SRAM1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_SRAM2_InvSinc4Tc4p4Fc85Fstop134Apass01Astop50_DSPY,
+PQ_IP_SRAM2_InvSinc4Tc4p4Fc75Fstop124Apass0001Astop40_DSPY,
+PQ_IP_SRAM2_InvSinc4Tc4p4Fc50Apass01Astop55_DSPY,
+PQ_IP_SRAM2_InvSinc4Tc4p4Fc45Apass01Astop40_DSPY,
+PQ_IP_SRAM2_NUMS_DSPY
+} PQ_IP_SRAM2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_SRAM3_OFF_DSPY,
+PQ_IP_SRAM3_NUMS_DSPY
+} PQ_IP_SRAM3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_SRAM4_OFF_DSPY,
+PQ_IP_SRAM4_NUMS_DSPY
+} PQ_IP_SRAM4_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_C_SRAM1_C121_DSPY,
+PQ_IP_C_SRAM1_NUMS_DSPY
+} PQ_IP_C_SRAM1_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_C_SRAM2_C2121_DSPY,
+PQ_IP_C_SRAM2_NUMS_DSPY
+} PQ_IP_C_SRAM2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_C_SRAM3_C161_DSPY,
+PQ_IP_C_SRAM3_NUMS_DSPY
+} PQ_IP_C_SRAM3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_C_SRAM4_C2121_DSPY,
+PQ_IP_C_SRAM4_NUMS_DSPY
+} PQ_IP_C_SRAM4_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_Y_SC2_Bypass_DSPY,
+PQ_IP_VSP_Y_SC2_NUMS_DSPY
+} PQ_IP_VSP_Y_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_C_SC2_Bypass_DSPY,
+PQ_IP_VSP_C_SC2_NUMS_DSPY
+} PQ_IP_VSP_C_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_CoRing_SC2_OFF_DSPY,
+PQ_IP_VSP_CoRing_SC2_NUMS_DSPY
+} PQ_IP_VSP_CoRing_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_DeRing_SC2_OFF_DSPY,
+PQ_IP_VSP_DeRing_SC2_NUMS_DSPY
+} PQ_IP_VSP_DeRing_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_Dither_SC2_OFF_DSPY,
+PQ_IP_VSP_Dither_SC2_NUMS_DSPY
+} PQ_IP_VSP_Dither_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_PreVBound_SC2_OFF_DSPY,
+PQ_IP_VSP_PreVBound_SC2_NUMS_DSPY
+} PQ_IP_VSP_PreVBound_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_AntiPAL_filter_SC2_OFF_DSPY,
+PQ_IP_AntiPAL_filter_SC2_NUMS_DSPY
+} PQ_IP_AntiPAL_filter_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_422To444_SC2_ON_DSPY,
+PQ_IP_422To444_SC2_NUMS_DSPY
+} PQ_IP_422To444_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_Y_SC2_Bypass_DSPY,
+PQ_IP_HSP_Y_SC2_NUMS_DSPY
+} PQ_IP_HSP_Y_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_C_SC2_Bypass_DSPY,
+PQ_IP_HSP_C_SC2_Bilinear_DSPY,
+PQ_IP_HSP_C_SC2_C_SRAM_1_DSPY,
+PQ_IP_HSP_C_SC2_C_SRAM_2_DSPY,
+PQ_IP_HSP_C_SC2_C_SRAM_3_DSPY,
+PQ_IP_HSP_C_SC2_C_SRAM_4_DSPY,
+PQ_IP_HSP_C_SC2_SRAM_1_4Tap_DSPY,
+PQ_IP_HSP_C_SC2_SRAM_2_4Tap_DSPY,
+PQ_IP_HSP_C_SC2_NUMS_DSPY
+} PQ_IP_HSP_C_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_CoRing_SC2_OFF_DSPY,
+PQ_IP_HSP_CoRing_SC2_NUMS_DSPY
+} PQ_IP_HSP_CoRing_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_DeRing_SC2_OFF_DSPY,
+PQ_IP_HSP_DeRing_SC2_NUMS_DSPY
+} PQ_IP_HSP_DeRing_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_Dither_SC2_OFF_DSPY,
+PQ_IP_HSP_Dither_SC2_NUMS_DSPY
+} PQ_IP_HSP_Dither_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HnonLinear_SC2_OFF_DSPY,
+PQ_IP_HnonLinear_SC2_NUMS_DSPY
+} PQ_IP_HnonLinear_SC2_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_Y_SC3_Bypass_DSPY,
+PQ_IP_VSP_Y_SC3_NUMS_DSPY
+} PQ_IP_VSP_Y_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_C_SC3_Bypass_DSPY,
+PQ_IP_VSP_C_SC3_NUMS_DSPY
+} PQ_IP_VSP_C_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_CoRing_SC3_OFF_DSPY,
+PQ_IP_VSP_CoRing_SC3_NUMS_DSPY
+} PQ_IP_VSP_CoRing_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_DeRing_SC3_OFF_DSPY,
+PQ_IP_VSP_DeRing_SC3_NUMS_DSPY
+} PQ_IP_VSP_DeRing_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_Dither_SC3_OFF_DSPY,
+PQ_IP_VSP_Dither_SC3_NUMS_DSPY
+} PQ_IP_VSP_Dither_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_VSP_PreVBound_SC3_OFF_DSPY,
+PQ_IP_VSP_PreVBound_SC3_NUMS_DSPY
+} PQ_IP_VSP_PreVBound_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_AntiPAL_filter_SC3_OFF_DSPY,
+PQ_IP_AntiPAL_filter_SC3_NUMS_DSPY
+} PQ_IP_AntiPAL_filter_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_422To444_SC3_ON_DSPY,
+PQ_IP_422To444_SC3_NUMS_DSPY
+} PQ_IP_422To444_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_Y_SC3_Bypass_DSPY,
+PQ_IP_HSP_Y_SC3_NUMS_DSPY
+} PQ_IP_HSP_Y_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_C_SC3_Bypass_DSPY,
+PQ_IP_HSP_C_SC3_NUMS_DSPY
+} PQ_IP_HSP_C_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_CoRing_SC3_OFF_DSPY,
+PQ_IP_HSP_CoRing_SC3_NUMS_DSPY
+} PQ_IP_HSP_CoRing_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_DeRing_SC3_OFF_DSPY,
+PQ_IP_HSP_DeRing_SC3_NUMS_DSPY
+} PQ_IP_HSP_DeRing_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HSP_Dither_SC3_OFF_DSPY,
+PQ_IP_HSP_Dither_SC3_NUMS_DSPY
+} PQ_IP_HSP_Dither_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_HnonLinear_SC3_OFF_DSPY,
+PQ_IP_HnonLinear_SC3_NUMS_DSPY
+} PQ_IP_HnonLinear_SC3_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_0_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_0_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_0_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_1_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_1_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_1_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_2_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_2_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_2_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_3_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_3_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_3_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_4_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_4_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_4_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_5_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_5_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_5_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_6_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_6_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_6_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_TBL_7_SRAM_OFF_DSPY,
+PQ_IP_WDR_Loc_TBL_7_SRAM_NUMS_DSPY
+} PQ_IP_WDR_Loc_TBL_7_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_YUV_Gamma_tblU_SRAM_OFF_DSPY,
+PQ_IP_YUV_Gamma_tblU_SRAM_NUMS_DSPY
+} PQ_IP_YUV_Gamma_tblU_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_YUV_Gamma_tblV_SRAM_OFF_DSPY,
+PQ_IP_YUV_Gamma_tblV_SRAM_NUMS_DSPY
+} PQ_IP_YUV_Gamma_tblV_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_YUV_Gamma_tblY_SRAM_OFF_DSPY,
+PQ_IP_YUV_Gamma_tblY_SRAM_NUMS_DSPY
+} PQ_IP_YUV_Gamma_tblY_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM10to12_Tbl_R_SRAM_OFF_DSPY,
+PQ_IP_ColorEng_GM10to12_Tbl_R_SRAM_NUMS_DSPY
+} PQ_IP_ColorEng_GM10to12_Tbl_R_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM10to12_Tbl_G_SRAM_OFF_DSPY,
+PQ_IP_ColorEng_GM10to12_Tbl_G_SRAM_NUMS_DSPY
+} PQ_IP_ColorEng_GM10to12_Tbl_G_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM10to12_Tbl_B_SRAM_OFF_DSPY,
+PQ_IP_ColorEng_GM10to12_Tbl_B_SRAM_NUMS_DSPY
+} PQ_IP_ColorEng_GM10to12_Tbl_B_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM12to10_CrcTbl_R_SRAM_OFF_DSPY,
+PQ_IP_ColorEng_GM12to10_CrcTbl_R_SRAM_NUMS_DSPY
+} PQ_IP_ColorEng_GM12to10_CrcTbl_R_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM12to10_CrcTbl_G_SRAM_OFF_DSPY,
+PQ_IP_ColorEng_GM12to10_CrcTbl_G_SRAM_NUMS_DSPY
+} PQ_IP_ColorEng_GM12to10_CrcTbl_G_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM12to10_CrcTbl_B_SRAM_OFF_DSPY,
+PQ_IP_ColorEng_GM12to10_CrcTbl_B_SRAM_NUMS_DSPY
+} PQ_IP_ColorEng_GM12to10_CrcTbl_B_SRAM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_YEE_OFF_DSPY,
+PQ_IP_YEE_NUMS_DSPY
+} PQ_IP_YEE_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_YEE_AC_LUT_OFF_DSPY,
+PQ_IP_YEE_AC_LUT_NUMS_DSPY
+} PQ_IP_YEE_AC_LUT_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Glob_OFF_DSPY,
+PQ_IP_WDR_Glob_NUMS_DSPY
+} PQ_IP_WDR_Glob_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_WDR_Loc_OFF_DSPY,
+PQ_IP_WDR_Loc_NUMS_DSPY
+} PQ_IP_WDR_Loc_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_MXNR_OFF_DSPY,
+PQ_IP_MXNR_NUMS_DSPY
+} PQ_IP_MXNR_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_UV_ADJUST_OFF_DSPY,
+PQ_IP_UV_ADJUST_NUMS_DSPY
+} PQ_IP_UV_ADJUST_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_XNR_OFF_DSPY,
+PQ_IP_XNR_NUMS_DSPY
+} PQ_IP_XNR_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_YC10_UVM10_OFF_DSPY,
+PQ_IP_YC10_UVM10_NUMS_DSPY
+} PQ_IP_YC10_UVM10_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_Color_Transfer_OFF_DSPY,
+PQ_IP_Color_Transfer_NUMS_DSPY
+} PQ_IP_Color_Transfer_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_YUV_Gamma_OFF_DSPY,
+PQ_IP_YUV_Gamma_NUMS_DSPY
+} PQ_IP_YUV_Gamma_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_422to444_OFF_DSPY,
+PQ_IP_ColorEng_422to444_NUMS_DSPY
+} PQ_IP_ColorEng_422to444_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_YUVtoRGB_OFF_DSPY,
+PQ_IP_ColorEng_YUVtoRGB_NUMS_DSPY
+} PQ_IP_ColorEng_YUVtoRGB_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM10to12_OFF_DSPY,
+PQ_IP_ColorEng_GM10to12_NUMS_DSPY
+} PQ_IP_ColorEng_GM10to12_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_CCM_OFF_DSPY,
+PQ_IP_ColorEng_CCM_NUMS_DSPY
+} PQ_IP_ColorEng_CCM_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_HSV_OFF_DSPY,
+PQ_IP_ColorEng_HSV_NUMS_DSPY
+} PQ_IP_ColorEng_HSV_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_GM12to10_OFF_DSPY,
+PQ_IP_ColorEng_GM12to10_NUMS_DSPY
+} PQ_IP_ColorEng_GM12to10_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_RGBtoYUV_OFF_DSPY,
+PQ_IP_ColorEng_RGBtoYUV_NUMS_DSPY
+} PQ_IP_ColorEng_RGBtoYUV_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_ColorEng_444to422_OFF_DSPY,
+PQ_IP_ColorEng_444to422_NUMS_DSPY
+} PQ_IP_ColorEng_444to422_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_SWDriver_OFF_DSPY,
+PQ_IP_SWDriver_ON_DSPY,
+PQ_IP_SWDriver_SD_FRC_DSPY,
+PQ_IP_SWDriver_NUMS_DSPY
+} PQ_IP_SWDriver_Group_DSPY;
+
+typedef enum
+{
+PQ_IP_SC_End_End_DSPY,
+PQ_IP_SC_End_NUMS_DSPY
+} PQ_IP_SC_End_Group_DSPY;
+
+extern  unsigned char MST_SkipRule_IP_DSPY[PQ_IP_NUM_DSPY];
+extern  EN_IPTAB_INFO PQ_IPTAB_INFO_DSPY[];
+extern  unsigned char MST_VIP_IHC_CRD_SRAM_DSPY[][PQ_IP_VIP_IHC_CRD_SRAM_SIZE_DSPY];
+extern  unsigned char MST_VIP_ICC_CRD_SRAM_DSPY[][PQ_IP_VIP_ICC_CRD_SRAM_SIZE_DSPY];
+extern  unsigned char MST_SRAM1_DSPY[][PQ_IP_SRAM1_SIZE_DSPY];
+extern  unsigned char MST_C_SRAM1_DSPY[][PQ_IP_C_SRAM1_SIZE_DSPY];
+extern  unsigned char MST_SRAM2_DSPY[][PQ_IP_SRAM2_SIZE_DSPY];
+extern  unsigned char MST_C_SRAM2_DSPY[][PQ_IP_C_SRAM2_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_0_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_0_SRAM_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_1_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_1_SRAM_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_2_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_2_SRAM_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_3_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_3_SRAM_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_4_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_4_SRAM_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_5_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_5_SRAM_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_6_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_6_SRAM_SIZE_DSPY];
+extern  unsigned char MST_WDR_Loc_TBL_7_SRAM_DSPY[][PQ_IP_WDR_Loc_TBL_7_SRAM_SIZE_DSPY];
+extern  unsigned char MST_YUV_Gamma_tblY_SRAM_DSPY[][PQ_IP_YUV_Gamma_tblY_SRAM_SIZE_DSPY];
+extern  unsigned char MST_YUV_Gamma_tblU_SRAM_DSPY[][PQ_IP_YUV_Gamma_tblU_SRAM_SIZE_DSPY];
+extern  unsigned char MST_YUV_Gamma_tblV_SRAM_DSPY[][PQ_IP_YUV_Gamma_tblV_SRAM_SIZE_DSPY];
+extern  unsigned char MST_ColorEng_GM10to12_Tbl_R_SRAM_DSPY[][PQ_IP_ColorEng_GM10to12_Tbl_R_SRAM_SIZE_DSPY];
+extern  unsigned char MST_ColorEng_GM10to12_Tbl_G_SRAM_DSPY[][PQ_IP_ColorEng_GM10to12_Tbl_G_SRAM_SIZE_DSPY];
+extern  unsigned char MST_ColorEng_GM10to12_Tbl_B_SRAM_DSPY[][PQ_IP_ColorEng_GM10to12_Tbl_B_SRAM_SIZE_DSPY];
+extern  unsigned char MST_ColorEng_GM12to10_CrcTbl_R_SRAM_DSPY[][PQ_IP_ColorEng_GM12to10_CrcTbl_R_SRAM_SIZE_DSPY];
+extern  unsigned char MST_ColorEng_GM12to10_CrcTbl_G_SRAM_DSPY[][PQ_IP_ColorEng_GM12to10_CrcTbl_G_SRAM_SIZE_DSPY];
+extern  unsigned char MST_ColorEng_GM12to10_CrcTbl_B_SRAM_DSPY[][PQ_IP_ColorEng_GM12to10_CrcTbl_B_SRAM_SIZE_DSPY];
+extern  unsigned char QMAP_1920_DSPY[QM_INPUTTYPE_NUM_DSPY][PQ_IP_NUM_DSPY];
+
+#endif

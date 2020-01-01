@@ -1,0 +1,40 @@
+/****************************************************************************/
+/*  File    :  DAT_MMI.HO                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Definition of common macro between ATI/MMI and DATA tasks    */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author |  Modification                                        */
+/*----------+--------+------------------------------------------------------*/
+/* 30/07/02 |  ECH   |  Creation                                            */
+/****************************************************************************/
+
+#ifndef __VM_DATMMI_HO__
+#define __VM_DATMMI_HO__
+
+#include "vm_sys.h"   /* features management   */
+
+//
+// Filters for Wismo capabilities
+//
+#define DAT_FILTER_COMP(compress)\
+   vm_sysIsActiveFtr(V42_BIS_FTR,0) == TRUE ?\
+    ( compress == 0 ? 0 : 2 ) : 0
+
+#define DAT_FILTER_SECU(security)\
+   vm_sysIsActiveFtr(V42_FTR,0) == TRUE ?\
+    ( vm_sysIsActiveFtr(MNP2_FTR,0) == TRUE ?\
+       ( security == 0 ? 0 :\
+         security == 2 ? 2 :\
+         security == 4 ? 4 : 5 )\
+      :\
+       ( security == 0 ? 0 : 4 ) )\
+    :\
+    ( vm_sysIsActiveFtr(MNP2_FTR,0) == TRUE ?\
+       ( security == 0 ? 0 : 5 )\
+      :\
+       0 )
+
+#endif /* End of dat_mmi.ho */

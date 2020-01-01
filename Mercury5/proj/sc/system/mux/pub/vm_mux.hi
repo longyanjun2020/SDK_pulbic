@@ -1,0 +1,67 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+
+//**************************************************************************//
+/**
+ *   @file    vm_mux.hi
+ *
+ *@b Purpose:
+ *            AT open ITF defines
+ *
+ *--------------------------------------------------------------------------
+ *@b Content:
+ *            structures
+ *
+ *--------------------------------------------------------------------------
+ * @date      03/11/2003
+ * @author    MSE
+ *
+ *@b Historical:
+ ***************************************************************************
+ *   Date:      Author: Note:
+ *
+ *@n 03/11/2003 MSE     Creation
+ *@n 06/12/2004 APH     MUX integration
+ *
+ */
+//**************************************************************************//
+#ifndef __VM_MUX_HI__
+#define __VM_MUX_HI__
+
+
+#ifndef VM_MSG_DEF
+#define VM_MSG_DEF(_ENUM_, _UNION_)		_ENUM_,
+#endif
+enum{
+#include "vm_mux_message_define__.hi"
+};
+
+/**
+ * Structure for the Role field when starting MUX
+ */
+typedef enum
+{
+  VM_MUX_ROLE_NOROLE = 0,  ///< 0 default
+  VM_MUX_ROLE_INITIATOR,   ///< 1 MUX session is initiator
+  VM_MUX_ROLE_RESPONDER    ///< 2 MUX session is responder
+
+} vm_mux_RoleType_t;
+
+
+#define VM_MUX_RESPONSE_ACCEPT      (u8)(0x01)  ///< cmd req is valid
+#define VM_MUX_RESPONSE_REFUSE      (u8)(0x00)  ///< cmd req is failed
+
+#define VM_MUX_RESET_FORCED         (u8)(0x01)  ///< reset forced
+#define VM_MUX_RESET_NO_FORCED      (u8)(0x00)  ///< no reset forced
+
+//#endif
+
+#endif /* __VM_MUX_HI__ */

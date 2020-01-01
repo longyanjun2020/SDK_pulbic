@@ -1,0 +1,438 @@
+/**
+ * \file v24.hi
+ * \brief V.24 Interface header
+ */
+
+#ifndef __SYS_V24_HI__
+#define __SYS_V24_HI__
+#include "string.h"
+#include "stdcomp.h"
+#include "msgofs.hc"
+#include "osdefs.hc"
+
+
+#ifdef __V24_VAR__
+#define DefExtern
+#else
+#define DefExtern extern
+#endif
+
+// ---------------- 
+//  ...
+//  VM_V24 (MMI)
+//  ...
+// ---------------- 
+// VM_LAST_OPEN_REQ
+// ---------------- 
+//  ...
+//  WM(H)_V24 (AT/OPEN AT)
+//  ...
+// ---------------- 
+// VM_LAST_CUST_REQ
+// ---------------- 
+//  ...
+//  V24 (Stack internal)
+//  ...
+// ---------------- 
+
+#define V24_UART1_MASK      (0x01)
+#define V24_UART2_MASK      (0x02)
+#define V24_USB_MASK        (0x04)
+#if defined(__V24_COMPOSITE_USB___)
+#define V24_USB2_MASK       (0x08)  //add one for USB composite
+#endif
+
+#include "sys_wmh_v24.hi"
+
+
+typedef enum
+{
+   V24_GET_INFO = VM_V24_LAST_CUST_GET_REQ,
+   V24_IS_REMOTE_READY,       /* Is target ready to receive data packets */
+   V24_IS_LOCAL_READY,         /* Is PC ready to receive data packets     */
+   V24_GET_RI,
+   V24_GET_DCD,
+   
+   V24_OFFLINE_MODE = VM_V24_LAST_CUST_SET_REQ,
+   V24_SUSPEND,
+   V24_AT_ABORT_IF_CHAR,
+   /*
+   ** Requests relevant only for PC (only for HAPC purpose)
+   */
+   V24_GO_PWDN_32K,
+   /*
+   ** Requests to open V24
+   */
+   
+   V24_TRANSPARENT_MODE_REQ,
+   V24_ENABLE_MUX_REQ,
+   V24_ENABLE_WBT_REQ,
+   V24_REGISTER_MUX_PORT,
+   V24_REGISTER_WBT_PORT,
+   V24_LAST_GLOBAL_SET_REQ
+} 
+_v24_Req_t;
+
+typedef int v24_Req_t;
+
+/*
+** Redefine message sent to ATI/MMI whenever a new AT command is received.
+*/
+#define   V24_AT_CMD_IND                VM_V24_AT_CMD_IND           
+#define   V24_AT_MORECMD_IND            VM_V24_AT_MORECMD_IND      
+#define   V24_AT_ABORT_IND              VM_V24_AT_ABORT_IND        
+#define   V24_AT_HANGUP_IND             VM_V24_AT_HANGUP_IND       
+#define   V24_AT_OFFLINE_IND            VM_V24_AT_OFFLINE_IND      
+#define   V24_AT_UNKNOWN_SPEED_IND      VM_V24_AT_UNKNOWN_SPEED_IND
+#define   V24_AT_DTR_CHANGE_IND         VM_V24_AT_DTR_CHANGE_IND   
+#define   V24_AT_USER_MODE_IND          VM_V24_AT_USER_MODE_IND    
+
+#define   V24_AT_CMD_IND_EXTENDED       VM_V24_AT_CMD_IND_EXTENDED
+#define   V24_AT_MORECMD_IND_EXTENDED   VM_V24_AT_MORECMD_IND_EXTENDED
+
+#define   V24_AT_DATA_BRIDGE_IND        VM_V24_AT_DATA_BRIDGE_IND
+#define   V24_TO_AT_PORT_IND            VM_V24_TO_AT_PORT_IND
+
+#define   MUX_AT_START_REQ_MSG          VM_MUX_AT_START_REQ_MSG     
+#define   MUX_AT_STOP_REQ_MSG           VM_MUX_AT_STOP_REQ_MSG      
+#define   MUX_AT_OPEN_DLC_REQ_MSG       VM_MUX_AT_OPEN_DLC_REQ_MSG  
+#define   MUX_AT_CLOSE_DLC_REQ_MSG      VM_MUX_AT_CLOSE_DLC_REQ_MSG 
+#define   MUX_AT_OPEN_DLC_CNF_MSG       VM_MUX_AT_OPEN_DLC_CNF_MSG  
+#define   MUX_AT_CLOSE_DLC_CNF_MSG      VM_MUX_AT_CLOSE_DLC_CNF_MSG 
+#define   MUX_TIMER_REQ_MSG             VM_MUX_TIMER_REQ_MSG        
+
+#define   V24_LAST_EXT_MSG              VM_V24_LAST_EXT_MSG_BASE
+
+// Indexed on that base (last external message), stack internal 
+// messages may be defined...
+
+/* V24 upper drivers indicates to WBT virtual port state and attributes */
+#define   V24_WBT_PORT_READY            V24_LAST_EXT_MSG + 1
+/* V24 upper drivers send data over WBT virtual ports */
+#define   V24_WBT_DATA_REQ              V24_LAST_EXT_MSG + 2
+/* V24 upper drivers Request sig changes on WBT virtual ports */
+#define   V24_WBT_SET_SIG               V24_LAST_EXT_MSG + 3
+
+//must be updated each time a stack message is added
+#define   V24_LAST_INT_MSG              V24_WBT_SET_SIG
+
+typedef vm_v24_UartUsed_t v24_UartUsed_t;
+
+#define   V24_NO_UART                   VM_V24_NO_UART
+#define   V24_UART1                     VM_V24_UART1
+#define   V24_UART2                     VM_V24_UART2
+#define   V24_USB                       VM_V24_USB
+#if defined(__V24_COMPOSITE_USB___)
+#define   V24_USB2                      VM_V24_USB2  //add one for USB composite
+#endif
+#define   V24_ALL_UART                  VM_V24_ALL_UART
+
+
+#define   V24_GET_SA_SB_X_BRK           (v24_Req_t)VM_V24_GET_SA_SB_X_BRK       
+#define   V24_SET_SA                    (v24_Req_t)VM_V24_SET_SA                
+#define   V24_SET_SB                    (v24_Req_t)VM_V24_SET_SB                
+#define   V24_SET_X                     (v24_Req_t)VM_V24_SET_X                 
+#define   V24_SET_BRK                   (v24_Req_t)VM_V24_SET_BRK               
+#define   V24_OPEN_DATA_MODE            (v24_Req_t)VM_V24_OPEN_DATA_MODE        
+#define   V24_ONLINE_MODE               (v24_Req_t)VM_V24_ONLINE_MODE           
+#define   V24_IS_ONLINE                 (v24_Req_t)VM_V24_IS_ONLINE
+#define   V24_IS_CONNECTED              (v24_Req_t)VM_V24_IS_CONNECTED             
+#define   V24_CLOSE_DATA_MODE           (v24_Req_t)VM_V24_CLOSE_DATA_MODE       
+#define   V24_CLEAR_DATA_BUFFERS        (v24_Req_t)VM_V24_CLEAR_DATA_BUFFERS    
+#define   V24_RESUME                    (v24_Req_t)VM_V24_RESUME                
+#define   V24_ENABLE_USER_MODE          (v24_Req_t)VM_V24_ENABLE_USER_MODE //0x20+18
+#define   V24_DISABLE_USER_MODE         (v24_Req_t)VM_V24_DISABLE_USER_MODE     
+#define   V24_RAISE_RI                  (v24_Req_t)VM_V24_RAISE_RI              
+#define   V24_DROP_RI                   (v24_Req_t)VM_V24_DROP_RI               
+#define   V24_ECHO_ON                   (v24_Req_t)VM_V24_ECHO_ON //55
+#define   V24_ECHO_OFF                  (v24_Req_t)VM_V24_ECHO_OFF              
+#define   V24_AT_BINARY                 (v24_Req_t)VM_V24_AT_BINARY             
+#define   V24_RESTORE_PROFILE           (v24_Req_t)VM_V24_RESTORE_PROFILE       
+#define   V24_SAVE_PROFILE              (v24_Req_t)VM_V24_SAVE_PROFILE          
+#define   V24_SET_SPEED                 (v24_Req_t)VM_V24_SET_SPEED //0x20+2
+#define   V24_GET_SPEED                 (v24_Req_t)VM_V24_GET_SPEED //0x2
+#define   V24_SET_FRAMING               (v24_Req_t)VM_V24_SET_FRAMING           
+#define   V24_GET_FRAMING               (v24_Req_t)VM_V24_GET_FRAMING           
+#define   V24_SET_DTR_MODE              (v24_Req_t)VM_V24_SET_DTR_MODE          
+#define   V24_SET_DCD_MODE              (v24_Req_t)VM_V24_SET_DCD_MODE          
+#define   V24_SET_DSR_MODE              (v24_Req_t)VM_V24_SET_DSR_MODE          
+#define   V24_GET_DTR_MODE              (v24_Req_t)VM_V24_GET_DTR_MODE          
+#define   V24_GET_DSR_MODE              (v24_Req_t)VM_V24_GET_DSR_MODE
+#define   V24_GET_DCD_MODE              (v24_Req_t)VM_V24_GET_DCD_MODE          
+#define   V24_SET_FLOW_CONTROL          (v24_Req_t)VM_V24_SET_FLOW_CONTROL //0x20+30 = 62
+#define   V24_GET_FLOW_CONTROL          (v24_Req_t)VM_V24_GET_FLOW_CONTROL      
+#define   V24_GET_CTS                   (v24_Req_t)VM_V24_GET_CTS               
+#define   V24_GET_DSR                   (v24_Req_t)VM_V24_GET_DSR               
+#define   V24_PULSE_RI                  (v24_Req_t)VM_V24_PULSE_RI              
+#define   V24_IS_BUF_EMPTY              (v24_Req_t)VM_V24_IS_BUF_EMPTY          
+#define   V24_LOOP_BACK_MODE_REQ        (v24_Req_t)VM_V24_LOOP_BACK_MODE_REQ
+#define   V24_SETUP_PORT                (v24_Req_t)VM_V24_SETUP_PORT //0x20+4
+#define   V24_STOP_PORT                 (v24_Req_t)VM_V24_STOP_PORT
+#define   V24_RELEASE_RI_DCD            (v24_Req_t)VM_V24_RELEASE_RI_DCD
+#define   V24_GET_PORT                  (v24_Req_t)VM_V24_GET_PORT
+#define   V24_RI_PULSE_ON_SLEEP         (v24_Req_t)VM_V24_RI_PULSE_ON_SLEEP
+#define   V24_RI_PULSE_WIDTH            (v24_Req_t)VM_V24_RI_PULSE_WIDTH
+#define   V24_GET_ECHO                  (v24_Req_t)VM_V24_GET_ECHO
+#define   V24_LOCAL_DATA_BRIDGE         (v24_Req_t)VM_V24_LOCAL_DATA_BRIDGE
+
+#define   V24_SET_AT_MBOX               (v24_Req_t)VM_V24_SET_AT_MBOX
+
+#define   V24_LAST_CUST_GET_REQ         VM_V24_LAST_CUST_GET_REQ
+#define   V24_LAST_CUST_SET_REQ         VM_V24_LAST_CUST_SET_REQ
+
+typedef vm_v24_Rate_t  v24_Rate_t;		
+
+#define   V24_1200                      VM_V24_1200           
+#define   V24_2400                      VM_V24_2400           
+#define   V24_4800                      VM_V24_4800           
+#define   V24_9600                      VM_V24_9600           
+#define   V24_19200                     VM_V24_19200          
+#define   V24_38400                     VM_V24_38400          
+#define   V24_57600                     VM_V24_57600          
+#define   V24_115200                    VM_V24_115200         
+#define   V24_300                       VM_V24_300            
+#define   V24_600                       VM_V24_600            
+#define   V24_230400                    VM_V24_230400         
+#define   V24_460800                    VM_V24_460800         
+#define   V24_921600                    VM_V24_921600  
+#define   V24_UNDEFINED_RATE            VM_V24_UNDEFINED_RATE 
+#define   V24_SET_AUTOBAUD              VM_V24_SET_AUTOBAUD
+
+typedef vm_v24_SerialParity_t v24_SerialParity_t;		
+
+#define   V24_NO_PARITY                 VM_V24_NO_PARITY   
+#define   V24_ODD_PARITY                VM_V24_ODD_PARITY  
+#define   V24_EVEN_PARITY               VM_V24_EVEN_PARITY 
+#define   V24_SPACE_PARITY              VM_V24_SPACE_PARITY
+#define   V24_MARK_PARITY               VM_V24_MARK_PARITY 
+
+typedef vm_v24_DCD_Mode_t v24_DCD_Mode_t;		
+
+#define   V24_DCD_ALWAYS_ON             VM_V24_DCD_ALWAYS_ON     
+#define   V24_DCD_FOLLOWS_CARRIER       VM_V24_DCD_FOLLOWS_CARRIER
+
+typedef vm_v24_DSR_Mode_t v24_DSR_Mode_t;		
+
+typedef vm_v24_DtrAction_t v24_DtrAction_t;
+
+#define   V24_DROP_IGNORED              VM_V24_DROP_IGNORED       
+#define   V24_DROP_OFFLINE              VM_V24_DROP_OFFLINE       
+#define   V24_DROP_HANGUP               VM_V24_DROP_HANGUP        
+#define   V24_DROP_HANGUP_RESET         VM_V24_DROP_HANGUP_RESET  
+
+typedef vm_v24_FlowControl_t v24_FlowControl_t;		
+
+#define   V24_NONE                      VM_V24_NONE     
+#define   V24_HARD                      VM_V24_HARD     
+#define   V24_SOFT                      VM_V24_SOFT     
+#define   V24_HARD_SOFT                 VM_V24_HARD_SOFT
+
+typedef vm_v24_SerialReq_t v24_SerialReq_t;		
+
+#define   V24_SET_OFF                   VM_V24_SET_OFF
+#define   V24_SET_ON                    VM_V24_SET_ON 
+#define   V24_TOGGLE                    VM_V24_TOGGLE  
+
+typedef vm_v24_SerialLength_t v24_SerialLength_t;		
+
+#define   V24_5BIT_LENGTH               VM_V24_5BIT_LENGTH
+#define   V24_6BIT_LENGTH               VM_V24_6BIT_LENGTH
+#define   V24_7BIT_LENGTH               VM_V24_7BIT_LENGTH
+#define   V24_8BIT_LENGTH               VM_V24_8BIT_LENGTH
+   
+typedef vm_v24_SerialStop_t v24_SerialStop_t;		
+
+#define   V24_1STOP_BIT                 VM_V24_1STOP_BIT
+#define   V24_2STOP_BIT                 VM_V24_2STOP_BIT
+   
+typedef vm_v24_AtRspClass_t v24_AtRspClass_t;		
+
+#define   V24_RING                      VM_V24_RING      
+#define   V24_SMSPP                     VM_V24_SMSPP     
+#define   V24_SMSCB                     VM_V24_SMSCB     
+#define   V24_INFO                      VM_V24_INFO      
+#define   V24_CREG                      VM_V24_CREG      
+#define   V24_MISC                      VM_V24_MISC      
+#define   V24_AOC                       VM_V24_AOC       
+#define   V24_KEYB                      VM_V24_KEYB      
+#define   V24_CSQ                       VM_V24_CSQ       
+#define   V24_NO_CARRIER                VM_V24_NO_CARRIER
+#define   V24_STLK                      VM_V24_STLK      
+#define   V24_WIND                      VM_V24_WIND      
+#define   V24_CALA                      VM_V24_CALA      
+#define   V24_BATT                      VM_V24_BATT      
+#define   V24_WLOC                      VM_V24_WLOC      
+#define   V24_OPENAT                    VM_V24_OPENAT  
+#define   V24_WODI                      VM_V24_WODI  
+#define   V24_CGREG                     VM_V24_CGREG     
+#define   V24_CGEREP                    VM_V24_CGEREP    
+#define   V24_CSSN                      VM_V24_CSSN
+#define   V24_CUSD                      VM_V24_CUSD
+#define   V24_BT                        VM_V24_BT
+
+typedef vm_v24_UserModeArg_t v24_UserModeArg_t;		
+
+#define   V24_USER_MODE                 VM_V24_USER_MODE      
+#define   V24_AT_ENCAPSULED             VM_V24_AT_ENCAPSULED  
+#define   V24_MULTIPLEXAGE              VM_V24_MULTIPLEXAGE   
+#if defined(__V24_COMPOSITE_USB___)
+#define   V24_TRACE_MODE                VM_V24_TRACE_MODE 
+#endif
+
+typedef vm_v24_PwrDwn32K_t v24_PwrDwn32K_t;
+
+#define   V24_GO_TO_SLEEP               VM_V24_GO_TO_SLEEP
+#define   V24_READY_TO_SLEEP            VM_V24_READY_TO_SLEEP
+
+typedef vm_v24_Framing_t                v24_Framing_t;
+typedef vm_v24_AtMsg_t                  v24_AtMsg_t;
+typedef vm_v24_AtMsgExtended_t          v24_AtMsgExtended_t;
+typedef vm_v24_AtInd_t                  v24_AtInd_t;
+typedef vm_v24_AtDtrChange_t            v24_AtDtrChange_t;
+
+#define V24_SET_LENGTH( x, v )          VM_V24_SET_LENGTH( x, v )  
+#define V24_SET_PARITY( x, v )          VM_V24_SET_PARITY( x, v )  
+#define V24_SET_STOP_BIT( x, v )        VM_V24_SET_STOP_BIT( x, v )
+
+#define V24_GET_LENGTH( x )             VM_V24_GET_LENGTH( x )   
+#define V24_GET_PARITY( x )             VM_V24_GET_PARITY( x )   
+#define V24_GET_STOP_BIT( x )           VM_V24_GET_STOP_BIT( x ) 
+
+#define V24_FRAMING( l, p, s )          VM_V24_FRAMING( l, p, s )
+
+#define V24_UNDEFINED_FRAMING           VM_V24_UNDEFINED_FRAMING 
+
+#define V24_MAX_ATCMD_LENGTH            VM_V24_MAX_ATCMD_LENGTH
+
+
+typedef   vm_v24_Signal_t v24_Signal_t;
+#define   V24_SIGNAL_RX                 VM_V24_SIGNAL_RX
+#define   V24_SIGNAL_TX                 VM_V24_SIGNAL_TX
+#define   V24_SIGNAL_RTS                VM_V24_SIGNAL_RTS
+#define   V24_SIGNAL_CTS                VM_V24_SIGNAL_CTS
+#define   V24_SIGNAL_DTR                VM_V24_SIGNAL_DTR
+#define   V24_SIGNAL_DSR                VM_V24_SIGNAL_DSR
+#define   V24_SIGNAL_RI                 VM_V24_SIGNAL_RI
+#define   V24_SIGNAL_DCD                VM_V24_SIGNAL_DCD
+#define   V24_SIGNAL_BRK                VM_V24_SIGNAL_BRK
+#define   V24_SIGNAL_LAST               VM_V24_SIGNAL_LAST
+
+/*
+** Redefinition for LDB (for V24 internal use)
+*/
+typedef vm_v24_StatusLDB_t v24_StatusLDB_e;
+
+#define V24_OPEN_LDB    VM_V24_OPEN_LDB
+#define V24_CLOSE_LDB   VM_V24_CLOSE_LDB
+#define V24_ERROR_LDB   VM_V24_ERROR_LDB
+
+typedef vm_V24AtDataBridgeInd_t        V24_AtDataBridgeInd_t;
+typedef vm_v24_LocalDataBridge_t       v24_LocalDataBridge_t;
+typedef vm_v24ToAtPortInd_t            v24_AtPortInd_t;
+
+/********************************************************************************/
+/* Common DEFINE in OPEN MMI and NOT                                            */
+/********************************************************************************/
+#define V24_SA_BIT               0x80     /* DTR/DSR */
+#define V24_SB_BIT               0x40     /* RTS/DCD */
+#define V24_X_BIT                0x20     /* X  /CTS */
+#define V24_BRK_BIT              0x10
+#define V24_RI_BIT               0x08     /* Only from target to PC */
+			   
+/********************************************************************************
+** V24_NB_RATES left v24_Rate_t enum because Moka doesn't depend of ONEC version
+** Be careful when add speed in enum...
+*********************************************************************************/
+#define V24_NB_RATES  13 
+
+typedef enum 
+{
+   V24_DTR_ALWAYS_ON,
+   V24_DTR_FOLLOWS_ONLINE
+} 
+v24_DTR_Mode_t;
+ 
+#define V24_TM_END_MODE   (1 << 8)
+#define V24_TM_END_TX     (1 << 9)
+#define V24_TM_SEND_CHAR  (1 << 10)
+
+
+
+typedef u32              v24_TxTmReturn_t;
+typedef bool             (* v24_RxTmCallBack_t)(u8);
+typedef v24_TxTmReturn_t (* v24_TxTmCallBack_t)(void);
+
+typedef struct
+{
+  v24_RxTmCallBack_t RxTmCallBack;
+  v24_TxTmCallBack_t TxTmCallBack;
+} 
+v24_TmCallBack_t;
+
+
+/* SOL - Change for the implementation of the second uart ARG change for adding USB */
+DefExtern u8            v24_SerialOn; /* bit field :  bit 0 for the uart1, bit 1 for the uart2, bit 2 for the usb */ // bit 3 for usb2
+DefExtern u8            v24_NominalMode; /* bit field : bit 0 for the uart1, bit 1 for the uart2, bit 2 for the usb */ // bit 3 for usb2
+/* End SOL */
+DefExtern  u32          v24_HubPortInWMMUX;  //looks like V24_HAPC_BIT_FILED is not used so use those filed to record V24_TRACE_MODE when __V24_COMPOSITE_USB___
+
+extern       u8         v24_CustomI2cExpander;
+extern const u8         v24_CustomI2cDtrBit;
+extern const u8         v24_CustomI2cDcdBit;
+extern const u8         v24_CustomI2cRiBit;
+
+extern       u32        BUS_DefaultI2cType;
+extern       u32        BUS_DefaultI2cScl;
+extern       u32        BUS_DefaultI2cSda;
+
+extern bool                    v24_PollRxTx               ( void );
+extern u8                      v24_SetSerialState         ( v24_SerialReq_t, bool );//called by hwl_acc.c for accessories detection !!!???
+
+extern bool                    v24_SndUnsolicitedAtRsp    ( const char *, v24_AtRspClass_t );
+extern bool                    v24_SndUnsolicitedBinAtRsp ( const char *, u16, v24_AtRspClass_t);
+
+extern bool                    v24_SndUnsolicitedAtRspExt    ( const char *, v24_AtRspClass_t, u32 );
+extern bool                    v24_SndUnsolicitedBinAtRspExt ( const char *, u16, v24_AtRspClass_t, u32 );
+
+extern bool                    v24_DeleteUnsolicitedAtRsp ( v24_AtRspClass_t );
+
+extern bool                    v24_AreHWFifoAndTxBufEmpty ( void );
+
+extern u32                     v24_RequestExt              ( v24_Req_t, u32, u32 );
+extern u8                      v24_SetSerialStateExt       ( v24_SerialReq_t, bool, u32 );
+
+extern bool                    v24_SndIntermediateAtRspExt ( const char *, u32 );
+                                                    
+extern bool                    v24_SndAtRspExt             ( const char *, u32 );//used by data or RLP for info_req
+extern bool                    v24_SndBinAtRspExt            ( const char *, u16, u32 );
+
+extern void                    v24_SendAtCmdToATIExt       ( const char *, u16, u32 );//used for FAX purposes in data SE.
+extern bool                    v24_IsAtCmdToSend           ( void );
+                                                    
+extern void                    v24_ReadSignalForUsbInE2P   ( u8* );
+
+extern void                    v24_SendPriorityDataExt    ( const u8 *, u8, u32 );
+extern void                    v24_SendPriorityDataExtFunc    ( const u8 *, u8, u32 );
+
+extern u32                     v24_Request                ( v24_Req_t, u32 );//should be deleted unless some other SEs use it...
+
+/*
+** Fonctions called for errors handling (backtraces, ...)
+*/
+extern bool                    v24_UserModeIsUart(void);
+extern void                    v24_ForceUserMode           ( void );
+extern void                    v24_SendFatalString         (const char *);
+
+/*
+**   Function created for RTE
+*/
+extern void                    v24_SetVarForRTE              (u32 isUart1, u32 isUSB);
+extern void                    v24_ResetVarForRTE            (u32 isUart1, u32 isUSB);
+
+#undef DefExtern
+
+#ifdef __SDK_SIMULATION__
+void                    v24_Stop                   ( void );
+#endif //__SDK_SIMULATION__
+
+#endif //#endif __SYS_V24_HI_

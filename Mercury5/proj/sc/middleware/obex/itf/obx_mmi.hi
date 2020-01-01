@@ -1,0 +1,40 @@
+/******************************************************************/
+/*  File    : obx_mmi.hi                                          */
+/*-------------------------------------------------------------   */
+/*  Scope   : Interface between OBEX and customer (MMT or Syncml) */
+/*                                                                */
+/*  Content :	                                                   */
+/*                                                                */
+/*--------------------------------------------------------------  */
+/*   Date       | Author |      Err  |        Modification        */
+/*--------------+--------+-----------+--------------------------  */
+/*  24/03/2001  |  MSE   |           |        Creation            */
+/*--------------+--------+-----------+--------------------------- */
+
+
+
+#ifndef __OBX_MMI_HI__
+#define __OBX_MMI_HI__
+
+#include "stdcomp.h"
+
+#ifdef __MMIDEFVAR__
+#define EXT
+#else
+#define EXT	extern
+#endif
+
+
+#include "vm_obx.ht"
+
+typedef vm_ObexFrame_t			   ObexFrame_t;
+typedef vm_Obex_Acknowledge_t		Obex_Acknowledge_t;
+typedef vm_Obex_Obj_t				Obex_Obj_t;
+typedef vm_Obex_Disconnect_t     Obex_Disconnect_t;
+typedef vm_Obex_Disconnect_Rsp_t Obex_Disconnect_Rsp_t;
+typedef vm_Obex_Get_t            Obex_Get_t;
+typedef vm_Obex_Media_t          Obex_Media_t;
+
+
+#undef EXT
+#endif /* __OBX_MMI_HI__ */

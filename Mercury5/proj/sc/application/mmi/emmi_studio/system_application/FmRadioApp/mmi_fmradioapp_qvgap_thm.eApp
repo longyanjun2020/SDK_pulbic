@@ -1,0 +1,611 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="FMRAPP_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="BgImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_BG_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_BG_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_BG_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_BG_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL " />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="3c6ce" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NameTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="FMR_MAIN_PANEL_TITLE_TEXTWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_TITLE_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_TITLE_TEXTWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_TITLE_TEXTWIDGET_Y_POSITION" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<InternProp Id="GUID" Value="6dce4" />
+			</Widget>
+			<Widget Id="FrequencyTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="FMR_MAIN_PANEL_FREQUENCY_TEXTWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_FREQUENCY_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_FREQUENCY_TEXTWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_FREQUENCY_TEXTWIDGET_Y_POSITION" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_LARGE" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<InternProp Id="GUID" Value="942b4" />
+			</Widget>
+			<Widget Id="BgPlaySwitchIconWdg" ClsID="CLSID_SWITCHICONWIDGET" SizeHeight="FMR_MAIN_PANEL_BGPLAY_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_BGPLAY_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_BGPLAY_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_BGPLAY_BUTTONWIDGET_Y_POSITION" />
+				<Property Id="PROP_SWITCH_WDG_ICON_STYLE" Value="SWITCH_ICON_STYLE_CHECK" />
+				<InternProp Id="GUID" Value="3ea7a" />
+				<Model ClsID="CLSID_SWITCHICONWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ChannelAddButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="FMR_MAIN_PANEL_CHANNEL_ADD_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_CHANNEL_ADD_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_CHANNEL_ADD_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_CHANNEL_ADD_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="e35e1" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="FMRADIO_IMG_ADD_CHANNEL_UNPRESSED" />
+						<Image Id="FMRADIO_IMG_ADD_CHANNEL_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ForwardButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="FMR_MAIN_PANEL_FORWARD_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_FORWARD_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_FORWARD_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_FORWARD_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="a285e" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="FMRADIO_IMG_NEXT_UNPRESSED" />
+						<Image Id="FMRADIO_IMG_NEXT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="BackwardButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="FMR_MAIN_PANEL_BACKWARD_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_BACKWARD_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_BACKWARD_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_BACKWARD_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="ac13a" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="FMRADIO_IMG_PREVIOUS_UNPRESSED" />
+						<Image Id="FMRADIO_IMG_PREVIOUS_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PowerOnOffSwitchIconWdg" ClsID="CLSID_SWITCHICONWIDGET" SizeHeight="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_Y_POSITION" />
+				<Property Id="PROP_SWITCH_WDG_ICON_STYLE" Value="SWITCH_ICON_STYLE_CHECK" />
+				<InternProp Id="GUID" Value="146d7" />
+				<Model ClsID="CLSID_SWITCHICONWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PowerOnOffImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_POWERONOFF_BUTTONWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="dce7c" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_POWER_DISABLE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumePlusButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_PLUS_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_PLUS_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_PLUS_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_PLUS_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="2b165" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="FMRADIO_IMG_SOUND_INCREASE_UNPRESSED" />
+						<Image Id="FMRADIO_IMG_SOUND_INCREASE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeMinusButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_MINUS_BUTTONWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_MINUS_BUTTONWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_MINUS_BUTTONWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_MINUS_BUTTONWIDGET_Y_POSITION" />
+				<InternProp Id="GUID" Value="1b8b1" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="FMRADIO_IMG_SOUND_DECREASE_UNPRESSED" />
+						<Image Id="FMRADIO_IMG_SOUND_DECREASE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev8ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV8_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV8_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV8_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV8_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="b1f17" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_08" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev7ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV7_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV7_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV7_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV7_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="fdbd8" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_07" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev6ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV6_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV6_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV6_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV6_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="37407" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_06" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev5ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV5_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV5_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV5_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV5_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="0d445" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_05" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev4ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV4_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV4_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV4_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV4_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="23665" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_04" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev3ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV3_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV3_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV3_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV3_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="bb1b0" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_03" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev2ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV2_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV2_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV2_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV2_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="aa76f" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_02" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VolumeLev1ImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_VOLUME_LEV1_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_VOLUME_LEV1_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV1_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_VOLUME_LEV1_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="5ccd9" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_LEVEL_01" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SoundOnOffImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_SOUND_ONOFF_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_SOUND_ONOFF_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_SOUND_ONOFF_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_SOUND_ONOFF_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="a70da" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="FMRADIO_IMG_SOUND_ON" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="BatteryImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="FMR_MAIN_PANEL_BATTERY_IMAGEWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_BATTERY_IMAGEWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_BATTERY_IMAGEWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_BATTERY_IMAGEWIDGET_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="fe348" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="STATUSBAR_IMG_BATTERY_LEVEL4_1" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="FreqIndicatorWdg" ClsID="CLSID_INDICATORWIDGET" SizeHeight="FMR_MAIN_PANEL_FREQ_INDICATORWIDGET_HEIGHT" SizeWidth="FMR_MAIN_PANEL_FREQ_INDICATORWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="FMR_MAIN_PANEL_FREQ_INDICATORWIDGET_X_POSITION" />
+				<Position Type="Y_POSITION" Value="FMR_MAIN_PANEL_FREQ_INDICATORWIDGET_Y_POSITION" />
+				<Property Id="PROP_INDICATOR_WDG_BG_IMG_ID" Value="FMRADIO_IMG_SLIDE_BG" />
+				<Property Id="PROP_INDICATOR_WDG_IND_IMG_ID" Value="FMRADIO_IMG_SLIDE" />
+				<Property Id="PROP_INDICATOR_FG_LEFT_OFFSET" Value="FMR_FREQ_IND_PADDING_LEFT" />
+				<Property Id="PROP_INDICATOR_FG_RIGHT_OFFSET" Value="FMR_FREQ_IND_PADDING_RIGHT" />
+				<Property Id="PROP_INDICATOR_FG_TOP_OFFSET" Value="FMR_FREQ_IND_PADDING_TOP" />
+				<Property Id="PROP_INDICATOR_FG_BOTTOM_OFFSET" Value="FMR_FREQ_IND_PADDING_BOTTOM" />
+				<Property Id="PROP_INDICATOR_IND_OFFSET" Value="FMR_FREQ_IND_IND_OFFSET" />
+				<InternProp Id="GUID" Value="59f3a" />
+				<Model ClsID="CLSID_INDICATORWIDGET">
+					<ModelItem>
+						<Binary Value="FMR_FREQ_IND__START_RS" />
+						<Binary Value="FMR_FREQ_IND__END_RS" />
+						<Binary Value="FMR_FREQ_IND__POS_RS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="38178" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="FALSE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="TRUE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_QUIT" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_MYCHANNELLIST" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="MyChannelMenuWdg" ClsID="CLSID_NUMERIC_MENUWIDGET" SizeHeight="MAIN_SINGLE_LINE_MENU_ICON_HEIGHT*7" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="ee9c3" />
+			</Widget>
+			<Widget Id="FreqThmTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_SINGLE_LINE_MENU_ICON_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT+MAIN_SINGLE_LINE_MENU_ICON_HEIGHT*7" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="48670" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_FREQUENCY" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="5241c" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_OIL1_N_FMR_MY_CHANNEL&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_EDITCHANNEL_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="EditMenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_TWOLINE_HEIGHT*2" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="e560e" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="2cfd4" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_TTL_N_FMR_EDIT_CHANNEL&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_MAIN_OPTIONMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="OptionMenuWidgetControl" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="cb99c" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="VtmWidgetName" Value="OptionMenuWidgetControl" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_RADIO_ON_OFF" />
+						<String Id="TXT_OIL1_N_FMR_RADIO_ON" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_MY_CHANNEL" />
+						<String Id="TXT_OIL1_N_FMR_MY_CHANNEL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_ADD_CHANNEL" />
+						<String Id="TXT_OIL1_N_FMR_ADD_MY_CHANNEL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_MANUAL_INPUT" />
+						<String Id="TXT_OIL1_N_FMR_MANUAL_INPUT" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_BACKGROUND_PLAY" />
+						<String Id="TXT_OIL1_N_BACKGOUND_PLAY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_SPEAKER" />
+						<String Id="TXT_OIL1_N_SPEAKER" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="f8c4c" />
+		</Widget>
+		<InternProp Id="GUID" Value="861be" />
+		<InternProp Id="LAYOUT_POS_X" Value="4" />
+		<InternProp Id="LAYOUT_POS_Y" Value="334" />
+		<InternProp Id="VtmId" Value="VtmOptionMenu" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_MYCHANNELLIST_OPTIONMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="AbsContainerControl2" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="OptionMenuWidgetControl2" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="261b0" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="VtmWidgetName" Value="OptionMenuWidgetControl2" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_PLAY" />
+						<String Id="TXT_OIL1_N_PLAY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_EDIT" />
+						<String Id="TXT_LIL_N_EDIT" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_REMOVE" />
+						<String Id="TXT_OIL1_N_REMOVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_REMOVE_ALL" />
+						<String Id="TXT_OIL1_N_REMOVE_ALL" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="c9f32" />
+		</Widget>
+		<InternProp Id="GUID" Value="58c00" />
+		<InternProp Id="LAYOUT_POS_X" Value="250" />
+		<InternProp Id="LAYOUT_POS_Y" Value="334" />
+		<InternProp Id="VtmId" Value="VtmMyChListOptionMenu" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_EDITCHANNEL_EDITNAME" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="AbsContainerControl4" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="InputWidgetControl" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="6fdba" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="FMR_NAME_MAX_BYTE_SIZE_RS" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="FALSE" />
+				<InternProp Id="VtmWidgetName" Value="InputWidgetControl" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="0b96b" />
+		</Widget>
+		<InternProp Id="GUID" Value="a2709" />
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="334" />
+		<InternProp Id="VtmId" Value="VtmEditChEditName" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_FMR_CHANNEL_NAME&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_EDITCHANNEL_EDITNAME_OPTIONMENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="AbsContainerControl6" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="OptionMenuWidgetControl4" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="22105" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="VtmWidgetName" Value="OptionMenuWidgetControl4" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_OK" />
+						<String Id="TXT_LSK_N_OK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_BACK" />
+						<Binary Value="FMR_OPTION_MENU_ITEM_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="31116" />
+		</Widget>
+		<InternProp Id="GUID" Value="98e1b" />
+		<InternProp Id="LAYOUT_POS_X" Value="0" />
+		<InternProp Id="LAYOUT_POS_Y" Value="664" />
+		<InternProp Id="VtmId" Value="VtmEditNameOptionMenu" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_EDITCHANNEL_EDITFREQ" ClsID="CLSID_VTMPOPUPPROMPT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPPROMPT" FileLocation="CLSID_VTMPOPUPPROMPT">
+		<Widget Id="AbsContainerControl8" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="ImageWidgetControl" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*6" />
+				<InternProp Id="GUID" Value="6081d" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWidgetControl" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_TEXTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="POPUPINPUT_INFO_POS_X" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*7" />
+				<InternProp Id="GUID" Value="269ed" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<String Id="TXT_PML_N_FM_FREQUENCY_RANGE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VtmInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH-20" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="4" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*6" />
+				<InternProp Id="GUID" Value="159e4" />
+				<InternProp Id="VtmWidgetName" Value="VtmInputWdg" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_RATE" />
+				<Property Id="PROP_INPUT_WDG_ENABLE_DECIMALPOINT" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_MAXLEN_AFTER_EXPONENT" Value="FMR_FREQ_MAXLEN_AFTER_EXPONENT" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="FMR_FREQ_MAX_BYTE_SIZE_RS" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="7f353" />
+		</Widget>
+		<InternProp Id="GUID" Value="513c3" />
+		<InternProp Id="LAYOUT_POS_X" Value="250" />
+		<InternProp Id="LAYOUT_POS_Y" Value="664" />
+		<InternProp Id="VtmId" Value="VtmEditChEditFreq" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_FMR_CHANNEL_FREQUENCY&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="FMRAPP_WND_MANUALINPUT" ClsID="CLSID_VTMPOPUPPROMPT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPPROMPT" FileLocation="CLSID_VTMPOPUPPROMPT">
+		<Widget Id="AbsContainerControl10" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="ImageWidgetControl2" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*6" />
+				<InternProp Id="GUID" Value="d6757" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWidgetControl2" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_TEXTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="POPUPINPUT_INFO_POS_X" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*7" />
+				<InternProp Id="GUID" Value="12cdd" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<String Id="TXT_PML_N_FM_FREQUENCY_RANGE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VtmInputWdgManual" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH-20" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="4" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*6" />
+				<InternProp Id="GUID" Value="0282e" />
+				<InternProp Id="VtmWidgetName" Value="VtmInputWdgManual" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_RATE" />
+				<Property Id="PROP_INPUT_WDG_ENABLE_DECIMALPOINT" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_MAXLEN_AFTER_EXPONENT" Value="FMR_FREQ_MAXLEN_AFTER_EXPONENT" />
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="FMR_FREQ_MAX_BYTE_SIZE_RS" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="facf5" />
+		</Widget>
+		<InternProp Id="GUID" Value="0e170" />
+		<InternProp Id="LAYOUT_POS_X" Value="494" />
+		<InternProp Id="LAYOUT_POS_Y" Value="664" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="VtmId" Value="VtmManualInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_FMR_CHANNEL_FREQUENCY&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_FMRADIOAPP" />
+</UiRoot>

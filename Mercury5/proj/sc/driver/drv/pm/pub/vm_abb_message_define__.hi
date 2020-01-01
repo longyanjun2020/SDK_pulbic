@@ -1,0 +1,19 @@
+#ifndef __VM_ABB_MSG_DEF_H__
+#define __VM_ABB_MSG_DEF_H__
+
+VM_MSG_DEF(VM_ABB_ADC_RESULT_IND=VM_SYS_PRIM_MAX_BASE, void DUMMY) ///< ADC result indication
+VM_MSG_DEF(VM_ABB_TOUCHSCREEN_PEN_DETECT_IND, void DUMMY) ///< Touchscreen Pen detection IRQ
+VM_MSG_DEF(VM_ABB_RECALCULATE_VBAT, void DUMMY) ///notify BATT of recalculating vbat
+VM_MSG_DEF(VM_ABB_TOUCHSCREEN_INTERRUPT, void DUMMY) /// C type touchscreen interrupt
+#ifndef __DUAL_BATT_DRV__
+VM_MSG_DEF(VM_ABB_CUST_ADC_RESULT_IND, void DUMMY)
+#endif
+#ifdef __G1_ADC_CALIBRATION__
+VM_MSG_DEF(VM_ABB_ADC_RESULT_STOP, void DUMMY)
+#endif
+#ifndef __DUAL_BATT_DRV__
+VM_MSG_DEF(VM_ABB_AQUIRE_VOLTAGE, void DUMMY)
+VM_MSG_DEF(VM_AT_CMD_RESPONSE, void DUMMY)
+#endif
+#endif
+

@@ -1,0 +1,225 @@
+/****************************************************************************/
+/*  $Workfile::   fms_trace.hi                                            $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services - Trace storage                        */
+/*                                                                          */
+/*  Contents:  Public interface                                             */
+/*                  type definitions                                        */
+/*                  and public functions declarations                       */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   0.4  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   kod    $         |     $Date::   24 Nov 2004 15:53:02 $     */
+/****************************************************************************
+ *   $Log:   U:/projet/gsm/pvcsarch/archives/fms/itf/fms_trace.hi-arc  $
+ *
+ *   Rev 0.4   24 Nov 2004 15:53:02   kod
+ *Resolution for 26275: Two allocations with undefined size are allowed
+ *Resolution for 26611: [FMS] Xmodem downloader needs some FMS modifications
+ *Version v1a18
+ *
+ *   Rev 0.3   04 Apr 2003 12:00:00   kod
+ *Changed prototype of fms_TrcFindInit 
+ *Resolution for 9254: Interface change in FMS' TRACE service        
+ *
+ *   Rev 0.2   26 Mar 2003 10:23:34   kod
+ *Second release.
+ *Works with DwlWin.
+ *
+ *   Rev 0.1   25 Feb 2003 11:43:04   kod
+ *Initial release for integration
+ ****************************************************************************/
+
+
+
+#ifndef __FMS_TRACE_HI__
+#define __FMS_TRACE_HI__
+
+/****************************************************************************/
+/*  SPECIFIC TYPE DEFINITIONS                                               */
+/****************************************************************************/
+
+/* Opaque trace entry handler */
+
+typedef struct
+{
+  u32 opaque[4];
+} fms_TrcHandle_t;
+
+
+/* Query information structure */
+
+typedef struct
+{
+   u32   identifier;       /* identifier */
+   u32   size;             /* entry size */
+   void  *data;            /* pointer to stored data */
+   u32   remaining;        /* remaining writable space unless finalised */
+   bool  finalised;        /* TRUE if entry is finalised */
+   bool  being_written;    /* TRUE if entry is writable */
+   bool  erased;           /* TRUE if entry erased */
+   bool  broken;           /* TRUE if entry damaged */
+} fms_TrcInfo_t;
+
+
+/* Query about the whole volume */
+
+typedef struct
+{
+   u32 freemem;
+   u32 deletedmem;
+   u32 totalmem;
+   u16 numobjects;
+   u16 numdeleted;
+   bool need_recovery;   
+} fms_TrcStats_t;
+
+/****************************************************************************/
+/*  EXPORTED FUNCTIONS                                                      */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: fms_TrcAddEntry                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Allocates a new cell to append a backtrace in flash memory    */
+/*            The size of all the data that will be dumped must be          */
+/*            specified as a parameter.                                     */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Size       | X |   |   |  Size to allocate                       */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_TrcAddEntry(u32 i__u32_Ident, u32 i__u32_Size);
+
+
+/****************************************************************************/
+/*  Function: fms_TrcWriteEntry                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Appends data in an allocated cell.                            */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__p_Buffer       | X |   |   |  Source buffer                          */
+/*  i__u32_Size       | X |   |   |  Number of bytes to write               */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_TrcWriteEntry(const void *i__p_Buffer, u32 i__u32_Size);
+
+
+/****************************************************************************/
+/*  Function: fms_TrcFinalizeEntry                                          */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Finalises the creation and the storage of a new stored        */
+/*            trace.                                                        */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*                    |   |   |   |                                         */
+/*                    |   |   |   |                                         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_TrcFinalizeEntry(void);
+
+
+/****************************************************************************/
+/*  Function: fms_TrcFindInit                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Reinitialises the internal browse information                 */
+/*            so that the next call to fms_TrcFindNextEntry gets the        */
+/*            first stored entry.                                           */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Ident      | X |   |   |  Identifier to look for                 */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_TrcFindInit(u32 i__u32_Ident);
+
+
+/****************************************************************************/
+/*  Function: fms_TrcFindNextEntry                                          */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Gets the next trace entry, and updates the handle             */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Handle     | X | X |   |  Handle to update                       */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_TrcFindNextEntry(fms_TrcHandle_t *io__ps_Handle);
+
+
+/****************************************************************************/
+/*  Function: fms_TrcQueryEntry                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Gets information about the entry which the supplied           */
+/*            handle points to.                                             */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to use                          */
+/*  o__ps_Info        |   | X |   |  Query structure to use                 */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_TrcQueryEntry(fms_TrcHandle_t *i__ps_Handle, fms_TrcInfo_t *o__ps_Info);
+
+
+/****************************************************************************/
+/*  Function: fms_TrcStats                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Gets some statistic information about the memory available    */
+/*            in the trace storage service                                  */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  o__ps_Stats       |   | X |   |  Query structure to fill                */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_TrcStats(fms_TrcStats_t *o__ps_Stats);
+
+
+/****************************************************************************/
+/*  Function: fms_TrcEraseAll                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Nuke off all stored information.                              */
+/*            Cannot be invoked while an entry is being created.            */
+/*                                                                          */
+/*  Return    : void                                                        */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+void fms_TrcEraseAll(void);
+                                          
+
+#endif /* __FMS_TRACE_HI__ not defined   */

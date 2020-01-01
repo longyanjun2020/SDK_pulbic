@@ -1,0 +1,159 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/*  File    : v24_hub.ht                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope   : Types used in V24 Hub.                                         */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author |        Modification                                  */
+/*----------+--------+------------------------------------------------------*/
+/* 10/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 08/10/04 |  APH   | New V24: PortId, Ctxt, FctPtr v8a03_aph              */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_hub.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 12.09.05 | aph    | 1.11           | Resolution for 30248: [V24] Sleep M
+ *          |        |                | ode: wake up not occured if autoans
+ *          |        |                | wer config. on port  .             
+ *----------+--------+----------------+-------------------------------------
+ * 31.08.05 | aph    | 1.10           | Resolution for 30032: CMUX: W32K sh
+ *          |        |                | ould be excluded when call is on pr
+ *          |        |                | ogress  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.9            | Resolution for 29537: Sleep mode im
+ *          |        |                | plementation (adaptation for MUX as
+ *          |        |                |  well as multi-Uart)  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.7            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 01.07.05 | pmr    | 1.6            | Resolution for 29258: Internal stru
+ *          |        |                | ctures alignment in order to reduce
+ *          |        |                |  consumed memory  .                
+ *----------+--------+----------------+-------------------------------------
+ * 17.06.05 | pmr    | 1.5            | Resolution for 29035: Flow control 
+ *          |        |                | methods (RX/TX) aren't stored in E2
+ *          |        |                | P after an AT&W command  .         
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.4            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_HUB_HT__
+#define __SYS_V24_HUB_HT__
+
+#include "sys_v24.ht"
+#include "sys_v24.hc" // for MAX defines
+
+#include "sys_v24_ctrl.hc" // for eLayerId_t definition
+#include "sys_v24_at.ht"
+
+typedef enum
+{
+  V24_RX_AT_DRIVER,
+  V24_RX_DATA_DRIVER,
+  V24_RX_TRANSPARENT_MODE
+} 
+v24_RxHubState_t;
+
+
+//This enumerate should apply to all available port contexts.
+typedef enum
+{
+  V24_PORT_TRY_TO_SLEEP,
+  V24_PORT_GOING_TO_SLEEP,
+  V24_PORT_ASLEEP,
+  V24_PORT_WAKING_UP,
+  V24_PORT_SLEEP_MODE_NO_STATE = 0xFF // in order to ignore all sleep mode events
+}
+v24_PortSleepState_e;
+
+typedef enum
+{
+  V24_SLEEP_MODE_EVENT_GO_32K_REQ,
+  V24_SLEEP_MODE_EVENT_DSR,
+  V24_SLEEP_MODE_EVENT_AT_CMD,
+  V24_SLEEP_MODE_EVENT_SLEEP_MODE_READY,
+  V24_SLEEP_MODE_EVENT_PROTO_WAKEUP,
+  V24_SLEEP_MODE_EVENT_OFFLINE,
+  V24_SLEEP_MODE_EVENT_OPEN_DATA_MODE
+}
+v24_DriverSleepModeEvent_e;
+
+typedef struct
+{
+  u32                     _v24_HubPort;
+  u32                     _v24_HapcModePort;
+  void*                   _v24_UpCtxtPtr;
+  void*                   _v24_DownCtxtPtr;
+
+  eLayerId_t              _v24_DownIdLayer;
+
+  v24_RxHubState_t        _v24_RxHubState;
+  bool                    _v24_HubTxBarred;/* should be present in each layer that can create/forward data */
+  bool                    _v24_HubRxBarred;/* should be present in each layer that can receive data. */
+  
+  v24_TmCallBack_t        _v24_TmCallBack; // TRANSPARENT or LOOP_BACK MODE
+
+  v24_PortSleepState_e    _v24_PortSleepState;
+  bool                    _DTEIsBusy;
+  u8                      _v24_HubSleepIdx;
+}
+v24_HubContext_t;
+
+
+typedef struct
+{
+  v24_HubContext_t  *HubCtxtPtr;
+  v24_AtCtx_t       *AtCtxtPtr;      
+} V24AtHubCtxt_t;
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Access macros                                   */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+#define V24_HUBCONTEXT            v24_HubContext
+
+#define v24_HubPort               V24_HUBCONTEXT->_v24_HubPort
+#define v24_HapcModePort          V24_HUBCONTEXT->_v24_HapcModePort
+#define v24_DownIdLayer           V24_HUBCONTEXT->_v24_DownIdLayer
+#define v24_UpCtxtPtr             V24_HUBCONTEXT->_v24_UpCtxtPtr
+#define v24_DownCtxtPtr           V24_HUBCONTEXT->_v24_DownCtxtPtr
+#define v24_RxHubState            V24_HUBCONTEXT->_v24_RxHubState
+#define v24_HubTxBarred           V24_HUBCONTEXT->_v24_HubTxBarred
+#define v24_HubRxBarred           V24_HUBCONTEXT->_v24_HubRxBarred
+#define v24_TmCallBack            V24_HUBCONTEXT->_v24_TmCallBack
+#define v24_HubPortSleepState     V24_HUBCONTEXT->_v24_PortSleepState
+#define v24_DTEIsBusy             V24_HUBCONTEXT->_DTEIsBusy
+#define v24_HubSleepIdx           V24_HUBCONTEXT->_v24_HubSleepIdx
+#endif

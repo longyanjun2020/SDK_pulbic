@@ -1,0 +1,17 @@
+
+/******************************************************************/
+/*  File    : RTKSRTUC.HT                                         */
+/*-------------------------------------------------------------   */
+/*  Scope   :  Internal RTK Structures definitions                */
+/*                                                                */
+/*  Contents:                                                     */
+/*                                                                */
+/******************************************************************/
+
+#ifndef __RTK_STRUCT_H
+#define __RTK_STRUCT_H
+
+#include "sys_rtk_ht.h"
+
+#endif          /* __RTK_STRUCT_H */
+

@@ -1,0 +1,113 @@
+/****************************************************************************/
+/*  File    : REMOTE.HI                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : remote utilities constants                                    */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __REMOTE_HI__
+#define __REMOTE_HI__
+
+#include "stdcomp.h"
+
+/* -------------------------------------------------------------------- */
+/* -------------- remote process interface flows ---------------------- */
+/* -------------------------------------------------------------------- */
+
+
+/* flow identifiers --------------------------------------------------- */
+#define INFO_STATUS     0x00
+#define INFO_DEBUG      0x01
+#define INFO_INIT       0x02
+
+#define INFO_TRACE      0x04
+
+#define INFO_MSG        0x06
+
+#define INFO_READ       0x08
+#define INFO_READ_PACK  0x09
+#define INFO_WRITE      0x0A
+#define INFO_OBJECT     0x0B
+#define INFO_RESET      0x0C
+#define INFO_EEPROM3    0x0D
+#define INFO_EEPROM     0x0E
+#define INFO_EEPROM2    0x0F 
+#define INFO_LCD        0x10 
+#define INFO_MSG2       0x11
+#define INFO_KBD        0x12
+#define INFO_WATCH      0x14
+#define INFO_COMPACT_WATCH      0x15
+#define INFO_DIAG       0x16
+#define INFO_AUTOTEST_CMD    0x17	// read test response string buffer from target
+#define INFO_RTK        0x18
+#define INFO_RPC2       0x19
+#define INFO_PROD       0x1A
+#ifdef __REGISTER_TEST_TOOL__
+#define INFO_REGISTER	0x1B
+#endif
+#define INFO_RADIO      0x1C
+#define INFO_AT         0x1D
+#define INFO_RPC        0x1E
+#define INFO_DUMP       0x1F
+
+/* More than 31 streams are needed */
+#define INFO_GENE       0x1F
+
+#define INFO_GENIE_TRACE 0x40
+
+#if defined(__V24_COMPOSITE_USB___)  	
+#define INFO_MASK       0x7F
+/* different types of INFO_INIT */
+#define TRACE_INIT      0x01
+#else
+#define INFO_MASK       0x1F
+#endif
+
+/* different types of INFO_GENE */
+#define INFO_CONFIG_CAL_RF    0x00
+/* different types of INFO_GENE */
+#define INFO_CONFIG_ERRORTRACE_OFF    0x01
+#define INFO_CONFIG_ERRORTRACE_ON      0x02
+
+/* different types of INFO_STATUS */
+#define OVERWRITE       0x00
+#define STACK_VERSION   0x01
+#define DIAG_LEVELS     0x02
+#define AT_ENCAPSULATED 0x03
+#define LISTS           0x04
+#define CUS_EL          0x05
+#ifdef __DEBUG_IRDA__
+#define ENABLE_DEBUG_IRDA 0x06	
+#endif
+#define CONFIGURATION       0x07
+#define SET_SERIAL_SPEED    0x08
+#define GET_SERIAL_SPEED    0x09
+#define INFO_VERSION    0x0a
+#define INFO_TIMING    0x0B
+
+#define OVERWRITING     TRUE
+#define NOOVERWRITING   FALSE
+
+/* other define ------------------------------------------------------- */
+#define LENGTH_INFO	   7//5
+#define NO_OVERWRITE_INFO  (1 << LENGTH_INFO)
+#define KBD_EMUL        (1 << 12)
+
+#define CUSTUMER_RAM_AREA_ONLY 1
+
+#define HAPC_HEADER_NOT_FINISHED (1<<7)
+/* -------------- remote process interface pointer ---------------------- */
+
+#ifdef __SDK_SIMULATION__
+void *rm_UserSend(void *p, u8 Flow, u16 Size);
+#else
+void *rm_UserSend(void *p, u8 Flow, u16 Size, u32 Port);
+#endif
+
+void rm_InterfaceStoreMsg ( bool OverWriting );
+bool rm_GetInterfaceStoreMsg ( void);
+void rm_DisableStoreMsg ( void);
+void rm_TimingInfo ( bool enable);
+u32 rm_GetTxBufferPart (u8 **buf, u32 start_pos,  u32 max_size, u32 *effective_size );
+
+#endif /* __REMOTE_HI__ */

@@ -1,0 +1,164 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>smi</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_MESSAGE</LogLevelName>
+         <HasFSM>0</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="" id="" hasEntry="" hasExit="" hasMethod="" FullPath="" DefaultChild="">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+		</transitionlist>
+		<eventlist>
+			<event name="ModifyMsgParamCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="DelMsgByIdCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="DelMsgByLocCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="CmtUptMsgHdrCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="AddMsgParamCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="AddMsgNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="DelMsgNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="DelLocationNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="MoveMsgNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetMsgReadStatusNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetMsgSentStatusNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetMsgCompleteStatusNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="UpdateMsgHeaderNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="AddMsgSortByTimeNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="OperationNotBusyNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="InitReady" type="external">
+				<comment></comment>
+			</event>
+			<event name="PhoneFullNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="PhoneNotFullNotify" type="external">
+				<comment></comment>
+			</event>
+			<event name="CopySimMsgToPhoneCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="CopyPhoneMsgToSimCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="StoreMsgCfn" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrvMsgDataFromSimCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="DeleteInactiveSIMCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrieveSIMCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="AbortRetrieveSIMCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendSMSCnf" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="ModifyMessageParamsAsync" id="14153" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="SMI_MsgHdr_t *pMsgHdr" Param4="void *pinst"	Param5=" " Param6=" "	Param7=" " Param8=" "> *modify the header information of the message header&#13;&#10; *post SMI_EVT_ModifyMsgParamCnf and cnf status&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteMessageByIdAsync" id="559" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="void *pinst" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *delete the message by message id&#13;&#10; *post SMI_EVT_DelMsgByIdCnf and cnf status&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteMessageByLocAsync" id="15671" RetType="MAE_Ret"	Param1="SMI_MsgLocation_e msgLocation" Param2="void *pinst"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *delete messages by message location&#13;&#10; *post SMI_EVT_DelMsgByLocCnf and cnf status&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="RetrieveMessageHeader" id="24886" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="SMI_MsgHdr_t **pMsgHder" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *retrieve the message&apos;s header information&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ListMessageByParam" id="31623" RetType="MAE_Ret"	Param1="IModel *pMsgHdrLstModel" Param2="boolean bVectorModel"	Param3="SMI_LIST_PARAM params" Param4="SMI_MSGHEADER_TRANSFER_FUNC_PTR pTransFunc"	Param5="void *pUserData" Param6=" "	Param7=" " Param8=" "> * @par the implementation of ISMI_ListMessageByParam&#13;&#10; * &#13;&#10; *     (1)Get the message header according to the params filter&#13;&#10; *     (2)The message header will transfer to some kinds of struct pointer by the pTransFunc, and then Add into the pMsgHdrLstModel Vector/Array Model&#13;&#10; *     (3)Before calling the API, user should set the Vector/Array Model free function according to the pTransFunc&#13;&#10; *     (4)The pUserData is the pUserData param for the pTransFunc&#13;&#10; * &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CloseListMessage" id="139" RetType="void"	Param1="SMI_MsgHdrLst_t *pMsgHdrLst" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *free the messages header list&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilBeginUpdateHeader" id="16127" RetType="MAE_Ret"	Param1="SMI_LIST_PARAM BoxParam" Param2="void *pinst"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> * begin the messages list session by box param&#13;&#10; * This API only accept the same kind of box param&#13;&#10; * Ex: (1) only inbox : SMI_LIST_INBOX&#13;&#10; *     (2) only private inbox : SMI_LIST_PRVINBOX&#13;&#10; *     (3) all the inbox type : SMI_LIST_INBOX| SMI_LIST_PRVINBOX&#13;&#10; * If the box param include different type of box type, this API will return MAE_RET_BAD_PARAM&#13;&#10; *      Ex: SMI_LIST_DRAFT| SMI_LIST_SENTBOX  =&gt;return MAE_RET_BAD_PARAM&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilCommitUpdateHeaderAsync" id="17770" RetType="MAE_Ret"	Param1="void *pinst" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *commit the session which modifies header&apos;s specific information for the message&#13;&#10; *post SMI_EVT_CmtUptMsgHdrCnf and cnf status&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilCancelCommitUpdateHeader" id="29391" RetType="MAE_Ret"	Param1="void *pinst" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *cancel the begin update header, or cancel the commit update header async&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsOperationBusy" id="4083" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *Check if the SMI is busy for the begin - commit operation session&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilSetRead" id="4380" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="boolean bRead"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *After begin the update session, set the read information of the message&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilSetSent" id="11915" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_SentStatus_e eSent"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *After begin the update session, set the sent information of the message&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilSetFolder" id="31412" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e msgLoc"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *After begin the update session, set the folder information of the message&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilDeleteMessageById" id="3818" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *After begin the update session, delete the specific message with unique message ID&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilGetRead" id="12281" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="boolean *bRead"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *get the read information of the message&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilGetSent" id="24060" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_SentStatus_e *eSent"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *get the sent information of the message&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UtilGetFolder" id="9931" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e *msgLoc"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *get the folder information of the message&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CloseRetrieveMessageHeader" id="15236" RetType="MAE_Ret"	Param1="SMI_MsgHdr_t *pMsgHdr" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *close the session for retrieving the message&apos;s header information&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AddMessageParamsAsync" id="30944" RetType="MAE_Ret"	Param1="SMI_MsgHdr_t *pMsgHdr" Param2="void *pinst"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *add the header information of the message header, if successful,  post SMI_EVT_AddMsgParamCnf and cnf and msg id&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AddMessageSortByTime" id="29822" RetType="MAE_Ret"	Param1="SMI_MsgHdr_t *pMsgHdr" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *Sync function: insert the header information of the message header into the master file according to the time stamp&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Register_Notification" id="27885" RetType="MAE_Ret"	Param1="void *pinst" Param2="SMI_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Deregister_Notification" id="10811" RetType="MAE_Ret"	Param1="void *pinst" Param2="SMI_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetMsgNumByMsgBoxParam" id="18401" RetType="MAE_Ret"	Param1="SMI_LIST_PARAM MsgBoxparam" Param2="u32 *pMsgTotalNum"	Param3="u32 *pMsgReadNum" Param4="u32 *pMsgSendingNum"	Param5=" " Param6=" "	Param7=" " Param8=" "> *Get msg total, read, and sending number by valid msg box param&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CheckSeqConcateMsg" id="13815" RetType="u32"	Param1="SMI_MsgHdr_t *pMsgHdr" Param2="SMI_MsgLocation_e msgLocation"	Param3="u8 *pRecipient" Param4="u8 maxPartNum"	Param5="u8 PartNum" Param6=" "	Param7=" " Param8=" ">param[in] pMsgHdr: The message header info&#13;&#10;param[in] msgLocation: The phone message original location&#13;&#10;param[in] *pRecipient: The recipient of message&#13;&#10;param[in] maxPartNum: The total page number of whole message&#13;&#10;&#13;&#10;if pRecipient == NULL or maxPartNum =0, do not check this field for concatnated message&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9; </function>
+			<function name="IsInitReady" id="6884" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *Check if the SMI is busy for the begin - commit operation session&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CancelCnf" id="29760" RetType="MAE_Ret "	Param1="u32 eventID" Param2="void *pinst"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsPhoneFull" id="30423" RetType="boolean"	Param1="SMI_MsgID_Type_e  MsgType" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *Check if the phone message number is reached the max phone message num limitation according to message type [sms/mms/sim/push msg/CB....]&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ResetMasterFile" id="18601" RetType="MAE_Ret"	Param1="boolean bPowerOnReset" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* Message Kernel using API (Not publich API):&#13;&#10;* for SMS Service to Reset the master file and Available IDs&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SearchInboxMsgIdByTime" id="12525" RetType="MAE_Ret"	Param1="SMI_MsgID_t OldMsgID" Param2="SMI_TimeStamp_t Time"	Param3="SMI_MsgID_t *pNewMsgID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* Search the inbox msgId&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UpdateMsgFlag" id="13343" RetType="MAE_Ret"	Param1="SMI_MsgHdr_t *pMsgHdr" Param2="SMI_MsgLocation_e msgLocation"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* Update the message Flag in the master file but don&apos;t update the reading status to TXI&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopySimMsgToPhoneAsync" id="31234" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="void *pinst" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopyPhoneMsgToSimAsync" id="1816" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgID" Param2="SMI_MsgLocation_e OrgLoc"	Param3="u8 SimModule" Param4="IBase *pRequester"	Param5=" " Param6=" "	Param7=" " Param8=" ">param[in] MsgID: The message ID of the phone msg&#13;&#10;param[in] OrgLoc: The phone message original location&#13;&#10;param[in] SimModule: The Sim module ID (DUAL_MASTER/DUAL_SLAVE)&#13;&#10;param[in] pRequester: The pointer of the request instance&#13;&#10;This function will post the SMI_EVT_CopyPhoneMsgToSimCnf  confirm event to the pRequester with the copy result and the SIM message ID.&#13;&#10;If request instance don&apos;t want to get the confirm event, the pRequester could be NULL, or&#13;&#10;request instance could cancel the confirm by calling the ISMI_CancelCnf API&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;</function>
+			<function name="AddSimMsg" id="1026" RetType="MAE_Ret"	Param1="SMI_SimMsgHdr_t *pSimMsgInfo" Param2="SMI_MsgHdr_t *pMsgHdr"	Param3="u8 SIMID" Param4="u8 nPartNum"	Param5=" " Param6=" "	Param7=" " Param8=" "> * @param[in] pSimMsgInfo The pointer of SIM Message information&#13;&#10; * @param[in] pMsgHdr The pointer of message information&#13;&#10; * @param[in] SIMID for dual SIM, DUAL_MASTER or DUAL_SLAVE&#13;&#10;</function>
+			<function name="UpdateSimMsgInfoInLstBuf" id="8868" RetType="MAE_Ret"	Param1="SMI_SimMsgHdr_t *pSimMsgInfo" Param2="SMI_SimMsgHdrLst_t *pSimMsgInfoList"	Param3="SMI_MsgHdr_t *pSmHdr" Param4="u8 partNum"	Param5="u8 maxPartNum" Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetSimMsgLstInfo" id="16590" RetType="MAE_Ret"	Param1="u16 u16MsgId" Param2="u8 SIMID"	Param3="SMS_MsgRecipAddr *pRecipAddr" Param4="MAE_WChar **ppMemo"	Param5="boolean  *pbMoreMemo" Param6=" "	Param7=" " Param8=" ">* param[in] u16MsgId SIM message ID&#13;&#10;* param[in] SIMID for dual SIM, DUAL_MASTER or DUAL_SLAVE&#13;&#10;* param[out] pRecipAddr Sim message sender/recipient information&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="RetrvSimMsgDataHdr" id="16052" RetType="MAE_Ret"	Param1="u16 u16MsgId" Param2="u8 SIMID"	Param3="SMS_MsgDataHdr *pMsgDataHdr" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* param[in] u16MsgId SIM message ID&#13;&#10;* param[in] SIMID for dual SIM, DUAL_MASTER or DUAL_SLAVE&#13;&#10;* param[out] pMsgLstInfo&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="RetrvMsgDataFromSimAsync" id="25324" RetType="MAE_Ret"	Param1="u16 u16MsgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="void *pinst" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetMmsHdrInfo" id="12621" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="SMI_MmsHdr_t** ppMMSHdr" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">SMI will allocate the MMS Hdr for user, and user have to free the MMS Hdr&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UpdateMmsHdrInfo" id="22581" RetType="MAE_Ret"	Param1="SMI_MsgID_t MsgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="SMI_MmsHdr_t* pMsgHdr" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Update Mms header&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteMmsHeaderInfo" id="28734" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">delete Mms header info in message header list&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetRetrvCdMmsFlag" id="23620" RetType="MAE_Ret"	Param1="u8 bRetrvCdMms" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;</function>
+			<function name="RetrieveSIMMsg" id="8025" RetType="MAE_Ret"	Param1="u8 SIMID" Param2="IBase * pRequester"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* Message Kernel using API (Not publich API):&#13;&#10;* for SMS Service to ask retrieved SIM message</function>
+			<function name="AbortRetrievedSIMMsg" id="8502" RetType="MAE_Ret"	Param1="u8 SIMID" Param2="IBase * pRequester"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* Message Kernel using API (Not publich API):&#13;&#10;* for SMS Service to abort retrieved SIM message</function>
+			<function name="DeleteInactiveSIMMsg" id="11827" RetType="MAE_Ret"	Param1="u8 SIMID" Param2="IBase *pRequester"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* Message Kernel using API (Not publich API):&#13;&#10;* for SMS Service to Del the Msg in the inactive SIM</function>
+			<function name="GetSimPduCountInfo" id="2016" RetType="MAE_Ret"	Param1="u8 SIMID" Param2="u16 *pTotal"	Param3="u16 *pUsed" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">* Get the SIM total and used number of PDU</function>
+			<function name="StoreMessageAsync" id="2033" RetType="MAE_Ret"	Param1="u16  *pMsgCnt" Param2="u16  u16DataLen"	Param3="SMI_MsgHdr_t  *pSmHdr" Param4="SMI_MsgHdrInfo_t  *pSmHdrInfo"	Param5="SMS_MsgRecipLst  *pMsgRecipLst" Param6="IBase *pRequester"	Param7=" " Param8=" "></function>
+			<function name="IncSimPduUsedNumByOne" id="14414" RetType="MAE_Ret"	Param1="u8 nSIMId" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Inc the SIM used number of PDU by one&#13;&#10;&#13;&#10;@param nSIMId&#13;&#10;       The Sim id for this request.&#13;&#10;&#13;&#10;@return&#13;&#10;       Return the result of method call.&#13;&#10;</function>
+			<function name="QueryMessageFullStatus" id="25698" RetType="SMI_FULL_STATUS_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">check sms/mms phone/sim full status</function>
+			<function name="ResetSIMBuffer" id="2154" RetType="MAE_Ret"	Param1="u8 SIMID" Param2="u16  nTotal"	Param3="u16  nUsed" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">realloc SIM message buffer</function>
+			<function name="GetMsgNumberByType" id="32592" RetType="MAE_Ret"	Param1="SMI_MsgID_Type_e eMsgType" Param2="u32 *pMsgNumber"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">type[push message/phone SMS/CB], count by Available ID </function>
+			<function name="DeletePhoneMsgInfo" id="7852" RetType="MAE_Ret"	Param1="SMI_MsgID_t msgId" Param2="SMI_MsgLocation_e msgLocation"	Param3="void* pinst" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Delete phone messages&apos;  info</function>
+			<function name="SendSMSAsync" id="7759" RetType="MAE_Ret"	Param1="u8 simModule" Param2="SMS_MsgRecipAddr *pRecipient"	Param3="MAE_WChar *pData" Param4="u16 dataStrLen"	Param5="SMI_SmEncoding_t encoding" Param6="IBase *pRequester"	Param7=" " Param8=" "></function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

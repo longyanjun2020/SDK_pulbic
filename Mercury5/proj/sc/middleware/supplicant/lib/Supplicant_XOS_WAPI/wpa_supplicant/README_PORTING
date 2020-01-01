@@ -1,0 +1,19 @@
+wpa_supplicant xos 
+---------------------------------
+This wpa_supplicant is porting for MStar portable devices. Before you start to
+build it, please make sure the correct configuration is set. Following example 
+help you to select correct configuration for your portable device.
+
+@ B2 + M3(ECOS) 
+    CONFIG_CTRL_IFACE=kona
+    CONFIG_MSTAR_PLATFORM=m3_ecos
+    CONFIG_OS=ecos
+    CONFIG_ELOOP=eloop_ecos
+    CONFIG_L2_PACKET=ecos
+
+@ B3(RTK)  
+    CONFIG_CTRL_IFACE=rtk
+    CONFIG_MSTAR_PLATFORM=b3_rtk
+    CONFIG_OS=rtk
+    CONFIG_ELOOP=eloop_rtk
+    CONFIG_L2_PACKET=rtk

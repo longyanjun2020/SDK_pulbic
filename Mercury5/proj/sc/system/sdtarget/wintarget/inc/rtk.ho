@@ -1,0 +1,390 @@
+/****************************************************************************/
+/*  File    : rtk.ho                                                        */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : RTK exports                                                   */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 09.01.95 |   EWA  |      |  Creation                                     */
+/* 11.01.95 |   YFE  |      |  Protect against multiple include             */
+/* 25.04.95 |   EWA  |      |  adding EnableTimer, optimisation             */
+/*          |        |      |  new version                                  */
+/* 15.05.95 |   EWA  |      |  adding RtkGetPoolMemoryNoTrap primitive      */
+/* 03/09/96 |   ADA  |      |  RtkBackTrace                                 */
+/* 10/09/96 |   CAR  |      |  Add RTK_FRAME_TO_TICK, RTK_TDMA_FRAME_DELAY  */
+/* 30/07/97 |   ADA  |      |  Remove unix hard path for rtk !!             */
+/* 12/08/97 |   PGU  |      |  Add RtkReleaseMemoryGlobal                   */
+/* 05/03/98 |   PGU  |      |  Change Suspend/Resume prototypes             */
+/* 31/03/98 |   PGU  |      |  Add RTK_BAD_HEAP_RELEASE error               */
+/*          |        |      |  HeapWalk prototype                           */
+/* 01/04/98 |   PGU  |      |  Add fast heap allocation                     */
+/* 07/08/98 |   PGU  |      |  Change RtkSetOwner prototype                 */
+/*----------+--------+------+---------------------------------------------  */
+/* 03/05/00 |  FRK   |      |- update for TOOLS team                        */
+/*----------+--------+------+---------------------------------------------  */
+/* 13/05/00 |  PBA   |      |  Modify TIMER_MAX and RTK_MAXTIMER_VALUE value*/
+/*----------+--------+------+---------------------------------------------  */
+/* 17/11/00 |  FRK   |      |- update for Task deport                       */
+/*----------+--------+------+---------------------------------------------  */
+/* 17/11/00 |  FRK   |      |- add 100ms to tick macro                      */
+/*----------+--------+------+---------------------------------------------  */
+/* 07/12/00 |  LHO   |      |- Add Rtk_CusTaskId customer task id           */
+/*----------+--------+------+---------------------------------------------  */
+/* 07/12/00 |  LHO   |      |- Rtk_CusTaskId always declared                */
+/****************************************************************************/
+
+#ifndef __RTK_HO__
+#define __RTK_HO__
+
+
+#include "stdcomp.h"
+
+
+/******* Return status parameters *******/
+
+#define RTK_OK                               10
+#define RTK_NOT_RELEASED		     11
+#define RTK_UNIT_NOAVAIL                     21
+#define RTK_NO_MESSAGE                       33
+#define RTK_NON_SATISFACTORY_POOL            40
+#define RTK_NO_MEMORY_AVAIL                  41
+#define RTK_CLUSTER_OUT_OF_RANGE             42
+#define RTK_TIMER_NOT_FOUND                  43
+#define RTK_MEM_OVERFLOW                     44
+#define RTK_NULL_RELEASE                     45
+#define RTK_NOT_HEAP_RELEASE                 46
+#define RTK_NOT_MEMORY_RELEASE               47
+
+
+/******* Exception return parameters *******/
+
+#define RTK_NO_TIMER_AVAIL                   90
+#define RTK_BAD_TIMER_NAME                   92
+#define RTK_NOT_FOUND_TIMER                  93
+#define RTK_CLEAR_TIMER                      94
+
+#define RTK_DATA_AREA_OVERFLOW               100
+
+#define RTK_BAD_TASK_STATE                   110
+#define RTK_BAD_TASK_NUMBER                  111
+#define RTK_BAD_PRIORITY                     112
+#define RTK_TASK_NOT_INITIALIZED             113
+#define RTK_TASK_ALREADY_STARTED             114
+#define RTK_TASK_IN_NON_OPSTATE              115
+#define RTK_NON_ALLOWED_OPBGT                116
+
+#define RTK_COUNTER_OVERFLOW                 120
+#define RTK_COUNTER_UNDERFLOW                121
+
+#define RTK_BAD_SEM_NUMBER                   130
+#define RTK_SEM_OVERFLOW                     133
+#define RTK_SEM_UNDERFLOW                    134
+#define RTK_SEM_BUG                          135
+#define RTK_SEM_TIMEOUT                      136
+#define RTK_SEM_TIMER_ERROR                  137
+#define RTK_SEM_TIMER_USED_ERROR             138
+#define RTK_SEM_STOP_TIMER_ERROR             139
+
+#define RTK_BAD_MAILBOX_NUMBER               140
+#define RTK_MAILBOX_OVERFLOW                 143
+#define RTK_OBJECT_OVERFLOW                  144
+#define RTK_OBJECT_UNDERFLOW                 145
+
+#define RTK_POOL_ID_ERROR                    150
+#define RTK_OUT_OF_MEMORY                    151
+#define RTK_DESTROYED_MEMORY                 152
+#define RTK_NO_MEMORY_AVAILLABLE             153
+#define RTK_NULL_PTR_RELEASE                 154
+#define RTK_NON_RECOGNIZED_WAITMODE          155
+#define RTK_RELEASE_MEM_OVERFLOW             156
+#define RTK_MEMORY_SIZE_ERROR                157
+#define RTK_DESTROYED_CLUSTER                158
+#define RTK_DESTROYED_HEAP                   159
+#define RTK_DESTROYED_AREA                   160
+#define RTK_BAD_HEAP_RELEASE                 161
+
+#define RTK_BAD_COUNTER_INITIAL_VALUE        170
+#define RTK_BAD_TIMER_PERIOD                 171
+#define RTK_CLEAR_TIMER_NOT_FOUND            172
+#define RTK_BAD_EXTRACTION_TIMER             173
+
+#define RTK_NULL_PTR_SEND                    180
+#define RTK_STACK_OVERFLOW                   190
+#define RTK_NO_STARTABLE_TASK                200
+
+#define RTK_HEAP_BLOCK_FREE                  0x80000000
+
+/****** Received messages *********************/
+
+#define RTK_OBJ_TIMER                        1
+#define RTK_OBJ_MESSAGE                      0
+
+#ifdef __REMOTE_RTK__
+
+/****** Type of remote mailboxes *************/
+
+#define RTK_REMOTE_MBX                         0x01
+#define RTK_LOCAL_MBX                          0x02
+#endif
+
+/*********************** some timer values ***************************/
+
+#if defined (__arm) || defined (__REMOTETASKS__)
+
+#define RTK_TICK_TIME      18
+#define RTK_TICK_TIME_REAL (4*4.615)
+#define RTK_MS_TO_TICK(MsT) ((u32) (((MsT)*7) + 64) >> 7)
+#define RTK_100MS_TO_TICK(MsT) ((u32) (((MsT)*693L) + 64) >> 7)
+#define RTK_S_TO_TICK(SecT) ((u32) ((((SecT)*6934L) + 64) >> 7))
+#define RTK_MN_TO_TICK(MnT) ((u32) ((((MnT)*416034L) + 64) >> 7))
+#define RTK_FRAME_TO_TICK(_x)   ((_x & 0x3) ? ((_x >> 2)+1) : (_x >> 2))
+#define RTK_TDMA_FRAME_DELAY    4.615
+#define RTK_MAXTIMER_VALUE      0x3FFFFFFF
+
+#define TIMER_MAX       0xFFFF
+
+#elif defined(__BORLANDC__) || defined (__cplusplus)
+
+#define RTK_TICK_TIME      50
+#define RTK_TICK_TIME_REAL (50.0)
+#define RTK_MS_TO_TICK(MsT) ((MsT) / RTK_TICK_TIME)
+#define RTK_100MS_TO_TICK(MsT) ((u32) (((MsT) * 100L) / RTK_TICK_TIME))
+#define RTK_S_TO_TICK(SecT) ((u32) (((SecT) * 1000L) / RTK_TICK_TIME))
+#define RTK_MN_TO_TICK(MnT) ((u32) (((MnT) * 60000L) / RTK_TICK_TIME))
+#define RTK_FRAME_TO_TICK(_x)   ((_x & 0x3) ? ((_x >> 2)+1) : (_x >> 2))
+#define RTK_TDMA_FRAME_DELAY    4.615
+#define RTK_MAXTIMER_VALUE      -1L
+
+#endif
+
+/******* Structure returned by Receive and TestReceive *******/
+
+typedef struct ObjDescriptorStructure
+{
+ u8 TypeOfObj;
+ u8 Bid;
+ union
+ {
+  u16   TimerID;
+  void  *Message;
+ }ReceivedObj;
+}rtk_ObjDesc_t;
+
+
+struct rtk_KernelInit;
+struct rtk_TaskInit;
+struct TaskStructure;
+
+/******* Envelop Structure *******/
+
+typedef struct EnvStructure
+{
+ struct EnvStructure *PtrNextEnv;
+ union
+ {
+  u16      TimerID;
+  u8       *PtrMessageObj;
+  struct   TaskStructure  *PtrTaskObj;
+  void     *PtrQueueObj;
+ }PtrObject;
+}rtk_Envelop_t;
+
+#define LEN_rtk_Envelop_t sizeof (rtk_Envelop_t )
+
+/******* Structure for Queue management ***********/
+
+typedef struct
+{
+ rtk_Envelop_t  *First;
+ rtk_Envelop_t *Last;
+} rtk_Queue_t;
+
+#if defined (__BORLANDC__) || defined (REMOTETASKS)
+typedef  u8   rtk_MaskImage_t;
+typedef  rtk_MaskImage_t rtk_ItMask_t;
+#elif defined(__arm)
+typedef  u32  rtk_MaskImage_t;
+typedef  rtk_MaskImage_t rtk_ItMask_t;
+#endif
+
+
+/* ------------------------------------------------------------------------*/
+/*              C RTK prototype interface functions                        */
+/* ------------------------------------------------------------------------*/
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+
+u8        RtkInitKernel _PROTO((struct rtk_KernelInit *PtrInitTable));
+u16       RtkGetVersion _PROTO((void));
+u8        RtkInitTask _PROTO((struct rtk_TaskInit *PtrTaskInfo));
+u8        RtkStartTask _PROTO((u8 RtkTaskNumber));
+#ifdef __REMOTE_RTK__
+void      RtkRestartTasks _PROTO((void));
+#endif
+u8        RtkChangeTaskPriority _PROTO((u8 rtkTaskNumber,u8 rtkNewPriority));
+u8        RtkCurrentTask _PROTO((void));
+u8        RtkInitMailBox _PROTO((u8 MboxNo));
+u8        RtkSend _PROTO((u8 MboxNo, void *Msg));
+u8        RtkSendWithPrio _PROTO((u8 MboxNo, void *Msg));
+u8        RtkReceive _PROTO((u8 MboxNo, rtk_ObjDesc_t *Object));
+u8        RtkTestReceive _PROTO((u8 MboxNo, rtk_ObjDesc_t *Object));
+u8        RtkInitSem _PROTO(        (u8 SemNo, u16 InitialValue));
+u8        RtkSemProduce _PROTO((u8 SemNo));
+u8        RtkSemConsume _PROTO((u8 SemNo));
+u8        RtkSemConsumeDelay _PROTO((u8 SemNo, u32 NbTicks));
+u8        RtkSemTestConsume _PROTO((u8 SemNo));
+u8        RtkStartTimer _PROTO((u16 TimerID, u8 MBoxNo, u32 Count));
+u32       RtkStopTimer _PROTO((u16 TimerID));
+u8        RtkEnterRegion _PROTO((void));
+void      RtkEnterRegionIT _PROTO((void));
+u8        RtkLeaveRegion _PROTO((void));
+void      RtkLeaveRegionIT _PROTO((void));
+void     *RtkGetMemory _PROTO((u16 MemorySize));
+#define   RtkGetHeapMemory(X) _RtkGetHeapMemory(X, TRUE)
+void     *_RtkGetHeapMemory _PROTO((u16 MemorySize, bool Walk));
+void     *RtkGetPoolMemory _PROTO((u8 PoolId));
+void     *RtkGetPoolMemoryNoTrap _PROTO((u8 PoolId));
+void      RtkDefaultHook _PROTO((u8 Mbox, void *Msg, bool IsLocal));
+u8        _RtkReleaseMemory _PROTO(( void *p ));
+u8        _RtkReleaseHeapMemory _PROTO(( void *p ));
+u8        _RtkReleaseMemoryGlobal _PROTO(( void *p ));
+u32	  RtkHeapWalk(bool Start);
+#ifdef __RTK_DIAGNOSE__
+#define __NO_LVALUE__
+u8        RtkReleaseMemoryDiagnose _PROTO((void **p, u8 (*f)(void*)));
+#define   RtkReleaseMemory(x) RtkReleaseMemoryDiagnose( (void**) &( x ), _RtkReleaseMemory )
+#define   RtkReleaseHeapMemory(x) RtkReleaseMemoryDiagnose( (void**) &( x ), _RtkReleaseHeapMemory )
+#define   RtkReleaseMemoryGlobal(x) RtkReleaseMemoryDiagnose( (void**) &( x ), _RtkReleaseMemoryGlobal )
+#else
+#define   RtkReleaseMemory(x) _RtkReleaseMemory( x )
+#define   RtkReleaseHeapMemory(x) _RtkReleaseHeapMemory( x )
+#define   RtkReleaseMemoryGlobal(x) _RtkReleaseMemoryGlobal (x )
+#endif
+u8        RtkLinkMemory _PROTO((void *rtkMemoryPtr));
+u8        RtkIsMemory _PROTO((void *rtkMemoryPtr));
+void      RtkStatusMemory _PROTO((void));
+u8        RtkQueue _PROTO(( rtk_Queue_t *, void * ));
+void      *RtkDeQueue _PROTO(( rtk_Queue_t * ));
+u8        RtkInsertQueue _PROTO(( rtk_Queue_t *, void *, void * ));
+u8        RtkDeleteQueue _PROTO(( rtk_Queue_t *, void * ));
+u8        RtkQueueFirst _PROTO((rtk_Queue_t *Q, void *E));
+void      RtkOrderTask _PROTO((void));
+void      RtkSuspendTimer _PROTO((void));
+void      RtkRestoreTimer _PROTO((void));
+void      RtkSuspendTask _PROTO((u32 NbTask, ...));
+void      RtkResumeTask _PROTO((u32 NbTask, ...));
+u32	  RtkTaskMarkerCall _PROTO((void *Fct, u8 NbPar, ...));
+void      Rtk_MemCpy _PROTO((void *, const void *, u32));
+#define   RtkFindBestPool(a,b) Rtk7_FindBestPool(a,b)
+u8        Rtk7_FindBestPool _PROTO(( u16 MessageLength, u8 *PtrPoolID ));
+void      Rtk_MemSet _PROTO((void *, u8, u32));
+void      RtkConnectTimerInterrupt _PROTO(( void ** ));
+void      RtkDisconnectTimerInterrupt _PROTO(( void ** ));
+void      RtkExceptionRoutine _PROTO(( u8, u32 ));
+#ifdef __RTK_DIAGNOSE__
+void      RtkSetOwner _PROTO(( u8 , void * ));
+#else
+#define   RtkSetOwner(x, y)
+#endif
+
+/* ------------------- to be provided par user ----------------------------- */
+
+void      RtkUserInitProc _PROTO(( int agc, char **argv ));
+
+
+
+#ifdef __cplusplus
+}
+#endif
+
+/* ------------------------------------------------------------------------*/
+/*              EXPORTERTED variables                                      */
+/* ------------------------------------------------------------------------*/
+
+#define RTK_ALL_TASK_LOCAL 0xffffffff
+#define RTK_ALL_MBX_LOCAL  0xaaaaaaaa
+
+#ifdef __RTK_DATA__
+
+u8 Rtk_CusTaskId; /* open-mmi */
+u32 rtk_TaskState   = RTK_ALL_TASK_LOCAL;
+u32 rtk_MbxState[2] = { RTK_ALL_MBX_LOCAL, RTK_ALL_MBX_LOCAL };
+void *rtk_OverwriteArea = NULL;
+void (*rtk_MbxHook)( u8 Mbx, void *Msg, bool IsLocal ) = RtkDefaultHook;
+
+#else
+
+extern u8 Rtk_CusTaskId; /* open-mmi */
+extern  u32 rtk_TaskState;
+extern  u32 rtk_MbxState[2];
+extern  void (*rtk_MbxHook)( u8 Mbx, void *Msg, bool IsLocal );
+extern void *rtk_OverwriteArea;
+#endif
+
+#define EXCPTHANDLER(X, Y) {RtkExceptionRoutine(X, Y);}
+
+
+/******** QUEUE MANAGEMENT **********/
+
+#define RtkLastQueue(Q,E)          (*E = Q->Last, Q->Last->PtrObject.PtrQueueObj)
+#define RtkReplaceObjectQueue(E,P) ((rtk_Envelop_t *) (*E))->PtrObject.PtrQueueObj = (void*) P
+
+#define RtkInitQueue(Q)   \
+if ( ((rtk_Queue_t*)Q) ) ((rtk_Queue_t*) Q)->First=((rtk_Queue_t*) Q)->Last = (rtk_Envelop_t*)NULL
+
+
+#define RtkTopQueue(Q,E) \
+ (                       \
+   ((rtk_Queue_t*)Q) ? (  \
+			 (*E = (void*)((rtk_Queue_t*)Q)->First),\
+			 (((rtk_Queue_t*)Q)->First) ? ((void *)(((rtk_Envelop_t*)(*E))->PtrObject.PtrQueueObj)): NULL \
+		       ):NULL \
+ )
+
+#define RtkNextQueue(E)   \
+((*E) ? \
+  ((((rtk_Envelop_t*) (*E))->PtrNextEnv ) ? \
+  (*E = (void*) ((rtk_Envelop_t*) (*E))->PtrNextEnv, (void *) (((rtk_Envelop_t*) (*E))->PtrObject.PtrQueueObj )) \
+	: (*E = (void*) NULL, (void*) NULL)) \
+	: (void*) NULL)
+
+
+#define RtkObjectQueue(E) ((*E) ? (((rtk_Envelop_t*) (*E))->PtrObject.PtrQueueObj) : ((void *) NULL ))
+
+
+/************* MACRO INTERRUPT *******************/
+
+void         RTK2_ENABLE _PROTO((rtk_ItMask_t));
+rtk_ItMask_t RTK2_DISABLE _PROTO((void));
+#define RTK_RESTORE_INT(X)     RTK2_ENABLE(X)
+#define RTK_SAVE_DISABLE_INT() RTK2_DISABLE()
+
+#ifdef REMOTETASKS
+void RtkEnable(u8 mask);
+rtk_MaskImage_t RtkDisable(void);
+#define RTK2_ENABLE(X)  RtkEnable(X)
+#define RTK2_DISABLE()  RtkDisable()
+void main(int argc, char **argv);
+void ExitRtk(void);
+#endif
+
+/************* REMOTE MANAGEMENT MACRO *******************/
+
+#define RTK_GET_MBX_STATE(m)    ((rtk_MbxState[m >> 4] >> ((m & 15) << 1)) & 3)
+#define RTK_SET_MBX_STATE(m, s) rtk_MbxState[m >> 4] =                             \
+				(rtk_MbxState[m >> 4] & ~(3 << ((m & 15) << 1))) | \
+				(s << ((m & 15) << 1))
+
+
+#endif  /* __RTK_HO__ */
+

@@ -1,0 +1,268 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="MSGVW_WND_PlayAudioView" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer11" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<InternProp Id="GUID" Value="7db7c" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="489" />
+		<InternProp Id="LAYOUT_POS_Y" Value="7" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_OIL2_N_AUDIO&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_STOP" />
+		<InternProp Id="GUID" Value="4e467" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MSGVW_WND_SmsViewerForm" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SMS_VIEWER_TITLE_TXTWDG" ClsID="CLSID_TEXTWIDGET" SizeHeight="SVA_SMS_CB_TITLE_HEIGHT" SizeWidth="SVA_SMS_CB_TITLE_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TITLE_TEXT" />
+				<InternProp Id="GUID" Value="4d954" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_SMS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SMS_VIEWER_MESSAGE_SWITCH_LEFT_ARROW_BTNWDG" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SVA_MESSAGE_SWITCH_BTN_HIEGHT" SizeWidth="SVA_MESSAGE_SWITCH_BTN_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="ba165" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_LEFT_UNPRESSED" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_LEFT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SMS_VIEWER_MESSAGE_SWITCH_INFO_TXTWDG" ClsID="CLSID_TEXTWIDGET" SizeHeight="SVA_SMS_CB_TITLE_HEIGHT" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TITLE_TEXT" />
+				<Property Id="PROP_TEXT_WDG_SLIDE_ON_OFF" Value="FALSE" />
+				<InternProp Id="GUID" Value="abc19" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SMS_VIEWER_MESSAGE_SWITCH_RIGHT_ARROW_BTNWDG" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SVA_MESSAGE_SWITCH_BTN_HIEGHT" SizeWidth="SVA_MESSAGE_SWITCH_BTN_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="40c83" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_RIGHT_UNPRESSED" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_RIGHT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SMS_VIEWER_INPUTWIDGET" ClsID="CLSID_INPUTWIDGET" SizeHeight="SVA_SMS_CB_VIEWER_AREA_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="SVA_SMS_CB_TITLE_HEIGHT" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_DISABLE" />
+				<InternProp Id="GUID" Value="03df8" />
+			</Widget>
+			<InternProp Id="GUID" Value="b5e40" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="239" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="GUID" Value="91bff" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MSGVW_WND_MmsViewerForm" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="MMS_VIEWER_TITLE_TXTWDG" ClsID="CLSID_TEXTWIDGET" SizeHeight="SVA_MMS_TITLE_HEIGHT" SizeWidth="SVA_MMS_TITLE_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="0635a" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_MMS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_SUB_TITLE_TXTWDG" ClsID="CLSID_TEXTWIDGET" SizeHeight="SVA_MMS_TITLE_HEIGHT" SizeWidth="SVA_MMS_TITLE_RIGHT_WIDTH">
+				<Position Type="X_POSITION" Value="SVA_MMS_TITLE_WIDTH" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="e5f55" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_MESSAGE_SWITCH_LEFT_ARROW_BTNWDG" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SVA_MESSAGE_SWITCH_BTN_HIEGHT" SizeWidth="SVA_MESSAGE_SWITCH_BTN_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="4d1e8" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_LEFT_UNPRESSED" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_LEFT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_MESSAGE_SWITCH_INFO_TXTWDG" ClsID="CLSID_TEXTWIDGET" SizeHeight="SVA_MMS_TITLE_HEIGHT" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="ea8d7" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_MESSAGE_SWITCH_RIGHT_ARROW_BTNWDG" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SVA_MESSAGE_SWITCH_BTN_HIEGHT" SizeWidth="SVA_MESSAGE_SWITCH_BTN_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="69a95" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_RIGHT_UNPRESSED" />
+						<Image Id="COMMON_IMG_VIEW_ARROW_RIGHT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_SENDER_WDG" ClsID="CLSID_INPUTWIDGET" SizeHeight="SVA_MMS_LINE_HEIGHT" SizeWidth="SVA_MMS_VIEWER_AREA_WIDTH">
+				<Position Type="X_POSITION" Value="SVA_MMS_LEFT_PADDING" />
+				<Position Type="Y_POSITION" Value="SVA_MMS_RECIPIENT_LINE0_Y" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<InternProp Id="GUID" Value="92b7b" />
+			</Widget>
+			<Widget Id="MMS_VIEWER_ATTACH_ICON_IMGWDG" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SVA_MMS_LINE_HEIGHT" SizeWidth="SVA_MMS_SLIDE_SWITCH_BTN_SIZE">
+				<Position Type="X_POSITION" Value="SVA_MMS_VIEWER_AREA_WIDTH" />
+				<Position Type="Y_POSITION" Value="SVA_MMS_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="ace16" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MMS_ICON_VIEW_ATTACHED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_SLIDE_SWITCH_LEFT_ARROW_BTNWDG" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SVA_MMS_SLIDE_SWITCH_BTN_SIZE" SizeWidth="SVA_MMS_SLIDE_SWITCH_BTN_SIZE">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="5e90d" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="MMS_IMG_VIEW_LEFT_UNPRESSED" />
+						<Image Id="MMS_IMG_VIEW_LEFT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_SLIDE_SWITCH_INFO_TXTWDG" ClsID="CLSID_TEXTWIDGET" SizeHeight="SVA_MMS_LINE_HEIGHT" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="b218a" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_SLIDE_SWITCH_RIGHT_ARROW_BTNWDG" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SVA_MMS_SLIDE_SWITCH_BTN_SIZE" SizeWidth="SVA_MMS_SLIDE_SWITCH_BTN_SIZE">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="07ebd" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="MMS_IMG_VIEW_RIGHT_UNPRESSED" />
+						<Image Id="MMS_IMG_VIEW_RIGHT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_AREA_VPTWDG" ClsID="CLSID_VIEWPORTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_VIEWPORT_WDG_PANSTEP" Value="10" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_TOP" />
+				<InternProp Id="GUID" Value="e4b56" />
+			</Widget>
+			<Widget Id="MMS_VIEWER_AUDIO_ICON_IMGWDG" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SVA_MMS_LINE_HEIGHT" SizeWidth="SVA_MMS_LINE_HEIGHT">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="ee999" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MMS_IMG_AUDIO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_VIDEO_ICON_IMGWDG" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SVA_MMS_LINE_HEIGHT" SizeWidth="SVA_MMS_LINE_HEIGHT">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="921e9" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MMS_IMG_VIDEO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMS_VIEWER_SLIDE_TEXT_TXTWDG" ClsID="CLSID_INPUTWIDGET" SizeHeight="1" SizeWidth="SVA_MMS_VIEWER_AREA_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="SKBOARD_ENABLE" />
+				<InternProp Id="GUID" Value="06be5" />
+			</Widget>
+			<Widget Id="MMS_VIEWER_SLIDE_IMAGE_IMGWDG" ClsID="CLSID_IMAGEWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="14f44" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="26da8" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="GUID" Value="8f9b5" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_SVA" />
+</UiRoot>

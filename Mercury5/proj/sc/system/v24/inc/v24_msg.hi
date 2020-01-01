@@ -1,0 +1,124 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_msg.hi                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Body of messages sent by V.24                                 */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 26/08/97 |  RDO   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 23/07/97 |  RDO   | Add v24_AtDtrChange message type in body             */
+/*----------+--------+------------------------------------------------------*/
+/* 31/08/01 |  SOL   | Add new messages for the FCM and to open v24         */
+/*----------+--------+------------------------------------------------------*/
+/* 11/10/01 |  SOL   | Add flag __FCM_V24_CAPABILITIES__                    */
+/*----------+--------+------------------------------------------------------*/
+/* 19/10/01 |  SOL   | Add flag __FCM_V24_CAPABILITIES__ for file sys_fcm.hi*/
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_msg.hi-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  18.03.05 | pmr    | 1.4.1.13       | Resolution for 27999: New Contexts 
+ *           |        |                | management in V24 (Update necessary
+ *           |        |                |  for MUX/WBT purposes)  .          
+ * ----------+--------+----------------+-------------------------------------
+ *  04.03.05 | pmr    | 1.4.1.12       | Resolution for 27895: Bluetooth SIL
+ *           |        |                |  - V24 integration  .              
+ * ----------+--------+----------------+-------------------------------------
+ *  23.02.05 | aph    | 1.4.1.11       | Resolution for 27835: V24 supports 
+ *           |        |                | MUX  .                             
+ * ----------+--------+----------------+-------------------------------------
+ *  22.02.05 | aph    | 1.4.1.10       | Resolution for 27810: v24 transmiss
+ *           |        |                | ion optimization.  .               
+ * ----------+--------+----------------+-------------------------------------
+ *  08.02.05 | vgo    | 1.4.1.9        | Resolution for 27549: V24 Local Dat
+ *           |        |                | a Bridge  .                        
+ * ----------+--------+----------------+-------------------------------------
+ *  02.02.05 | mpr    | 1.4.1.8        | Resolution for 27548: New V24 archi
+ *           |        |                | tecture (designed for CMUX and Blue
+ *           |        |                | tooth)  .                          
+ * ----------+--------+----------------+-------------------------------------
+ *  24.03.04 | mse    | 1.4.1.7        | .  Resolution for 19722: New V24   
+ * ----------+--------+----------------+-------------------------------------
+ *  10.03.04 | mse    | 1.4.1.6        | .  Resolution for 19722: New V24   
+ * ----------+--------+----------------+-------------------------------------
+ * 
+ *    Rev 1.4.1.2   Oct 17 2002 15:19:52   sgr
+ * Merge with open stack branch
+*/
+
+#ifndef __V24_MSG_HI__
+#define __V24_MSG_HI__
+
+//#include "sys_v24_msg.hi"
+
+#include "sys_v24.ht"
+//#include "v24.hi"
+#include "msgofs.hc"
+#include "fcm.hi"
+
+#ifndef __V24_NO_MUX__
+#include "mux_at.hi"
+#include "mux_v24.hi"
+#endif // __V24_NO_MUX__
+
+typedef union
+{
+   v24_AtMsg_t             v24_AtMsg;
+   v24_AtInd_t             v24_AtInd;
+   v24_AtDtrChange_t       v24_AtDtrChange;
+   fcm_DataBlock_t         DataBlock;
+   fcm_OpenFlowInd_t       fcm_OpenFlowInd;
+   fcm_ResumeDataFlowInd_t fcm_ResumeDataFlowInd;
+   fcm_CloseFlowInd_t      fcm_CloseFlowInd;
+   v24_AtMsgExtended_t     v24_AtMsgExtended;
+   v24_Request_t           v24_Req;
+   v24_TimerReq_t          v24_TimerReq;
+   v24_AT_Request_t        v24_AT_Req;
+   V24_AtDataBridgeInd_t   v24_AtBridge;
+   v24_AtPortInd_t         v24_AtPortInd;
+
+#ifndef __V24_NO_MUX__ 
+   mux_at_start_req_t      muxAtStartReq;
+   mux_at_start_rsp_t      muxAtStartRsp;
+
+   mux_at_stop_req_t       muxAtStopReq;
+   mux_at_stop_rsp_t       muxAtStopRsp;
+   mux_at_stop_ind_t       muxAtStopInd;
+
+   mux_at_cmd_req_t        muxAtCmdReq;
+   mux_at_cmd_rsp_t        muxAtCmdRsp;
+
+   mux_at_cmd_ind_t        muxAtCmdInd;
+   mux_at_cmd_cnf_t        muxAtCmdCnf;
+
+   mux_TimerReq_t          muxTimerReq;
+#endif // __V24_NO_MUX__ 
+} Body_t;
+
+#include "stdmsg.ht"
+
+
+#endif
+
+

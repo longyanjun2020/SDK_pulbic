@@ -1,0 +1,198 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_hapc.ht                                                   */
+/*--------------------------------------------------------------------------*/
+/* Scope    : interface with the multiplexer                                */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 08/01/04 |  MPR   | Creation                                             */ 
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_hapc.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.8            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 01.07.05 | pmr    | 1.7            | Resolution for 29258: Internal stru
+ *          |        |                | ctures alignment in order to reduce
+ *          |        |                |  consumed memory  .                
+ *----------+--------+----------------+-------------------------------------
+ * 26.05.05 | mpr    | 1.6            | Resolution for 28807: No transfer c
+ *          |        |                | an be performed when tmt is used  .
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.5            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.4            | Resolution for 27895: Bluetooth SIL
+ *          |        |                |  - V24 integration  .              
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_HAPC_HT__
+#define __SYS_V24_HAPC_HT__
+
+#include "sys_v24.ht"
+
+#include "sys_v24_ctrl.hc"
+
+#define V24_TX_RM_BLOCK_MOD 0x0F /*Must be a power of 2 minus one => 1, 3, 7, 15, 31, ...*/
+#define V24_TX_RM_BLOCK_MAX (V24_TX_RM_BLOCK_MOD+1)
+
+#define V24_DD_PACKET_START               0xDD
+#define V24_AA_PACKET_START               0xAA
+#if defined(__V24_COMPOSITE_USB___)
+#define V24_BB_PACKET_START               (0xBB)  //USB composite
+#endif
+
+/* Index type for data receive buffer */
+typedef u16                v24_RxDataIdx_t;
+
+/* Index type for data transmit buffer */
+typedef u16                v24_TxDataIdx_t;
+
+/* Index type for data transmit buffer of info packet (user mode only) */
+typedef u8                 v24_TxDataPackIdx_t;
+
+typedef struct
+{
+  u8  StartPattern;
+  u8  LenLSB;
+  u8  LenMSB;
+  u8  FlowType;
+}
+v24_TxAtRmHeader_t;
+
+typedef enum 
+{
+   PAC_DATA,   /* Item order must not be changed. */
+   PAC_STATUS,
+   PAC_READY,
+   PAC_BUSY
+} v24_PacketType_t; 
+
+typedef enum 
+{ 
+   HAPC_RX_IDLE, 
+   HAPC_RX_LEN, 
+   HAPC_RX_TYPE, 
+   HAPC_RX_COUNTER, 
+   HAPC_RX_TIMESTAMP, 
+   HAPC_RX_DATA,
+   HAPC_RX_CRC,
+   HAPC_RX_MSG2_MEMORY_TYPE,
+   HAPC_RX_IGNORE_FRAME
+} 
+v24_HapcRxState_e;
+
+typedef struct 
+{
+  u32                     _v24_HapcPort;
+
+  // DATA Rx/Tx function ctxt
+  void*                     _v24_LowerLayerCtxt;
+  void*                     _v24_UpperLayerCtxt;
+
+
+  u8*                     _v24_Hapc_RxBuffer;
+  u8*                     _v24_Hapc_RxPtr;
+  
+  u16                     _v24_Hapc_RxCount;
+  u16                     _v24_Hapc_RxDataLen;
+  
+  // Optimisation:
+  // -------------
+  // ID of Lower/Upper layer
+  eLayerId_t                _v24_LowerLayerId;
+  eLayerId_t                _v24_UpperLayerId;
+  u8                      _v24_TxBlockListFill;
+  u8                      _v24_TxBlockListPurge;
+  
+
+  u8                      _v24_HapcPacketStart;
+  u8                      _v24_RxDataPacketStatus; // bit field <=> MSR
+  u8                      _v24_TxDataPacketStatus; // bit field <=> MSC
+  u8                      _v24_HapcCrc;
+  
+  u8                      _v24_Hapc_RxFlowId;
+  u8                      _v24_Hapc_RxCounter;
+  u16                    _v24_Hapc_RxTimeStamp;
+  v24_HapcRxState_e       _v24_Hapc_RxState;
+  bool                    _v24_AtEncapsulated;
+  bool                    _v24_DataEncapsulated;
+#if defined(__V24_COMPOSITE_USB___)  //woody check 5
+  bool                    _v24_Hapc_TraceMode;
+#endif
+
+  v24_TxBlock_t           _v24_TxBlockList[V24_TX_RM_BLOCK_MAX];
+
+} 
+v24_Hapc_Ctx_t;
+  
+#define V24_HAPC_CONTEXT              v24_HapcContext
+                                      
+#define v24_HapcPort                  V24_HAPC_CONTEXT->_v24_HapcPort
+
+#define v24_AtEncapsulated            V24_HAPC_CONTEXT->_v24_AtEncapsulated
+#define v24_DataEncapsulated          V24_HAPC_CONTEXT->_v24_DataEncapsulated
+#if defined(__V24_COMPOSITE_USB___)  //woody check 5
+#define v24_Hapc_TraceMode            V24_HAPC_CONTEXT->_v24_Hapc_TraceMode
+#endif
+
+#define v24_TxBlockList               V24_HAPC_CONTEXT->_v24_TxBlockList
+#define v24_TxBlockListFill           V24_HAPC_CONTEXT->_v24_TxBlockListFill
+#define v24_TxBlockListPurge          V24_HAPC_CONTEXT->_v24_TxBlockListPurge
+
+#define v24_HapcPacketStart           V24_HAPC_CONTEXT->_v24_HapcPacketStart
+#define v24_RxDataPacketStatus        V24_HAPC_CONTEXT->_v24_RxDataPacketStatus
+#define v24_TxDataPacketStatus        V24_HAPC_CONTEXT->_v24_TxDataPacketStatus    
+
+#define v24_Hapc_Crc                  V24_HAPC_CONTEXT->_v24_HapcCrc 
+#define v24_Hapc_RxState              V24_HAPC_CONTEXT->_v24_Hapc_RxState 
+#define v24_Hapc_RxCount              V24_HAPC_CONTEXT->_v24_Hapc_RxCount 
+#define v24_Hapc_RxDataLen            V24_HAPC_CONTEXT->_v24_Hapc_RxDataLen
+#define v24_Hapc_RxBuffer             V24_HAPC_CONTEXT->_v24_Hapc_RxBuffer
+#define v24_Hapc_RxPtr                V24_HAPC_CONTEXT->_v24_Hapc_RxPtr
+#define v24_Hapc_RxFlowId             V24_HAPC_CONTEXT->_v24_Hapc_RxFlowId
+#define v24_Hapc_RxCounter             V24_HAPC_CONTEXT->_v24_Hapc_RxCounter 
+#define v24_Hapc_RxTimeStamp             V24_HAPC_CONTEXT->_v24_Hapc_RxTimeStamp
+
+#define v24_HapcLowerLayerId          V24_HAPC_CONTEXT->_v24_LowerLayerId
+#define v24_HapcUpperLayerId          V24_HAPC_CONTEXT->_v24_UpperLayerId
+#define v24_HapcLowerLayerCtxt        V24_HAPC_CONTEXT->_v24_LowerLayerCtxt
+#define v24_HapcUpperLayerCtxt        V24_HAPC_CONTEXT->_v24_UpperLayerCtxt
+
+#endif /*__SYS_V24_HAPC_HT__*/

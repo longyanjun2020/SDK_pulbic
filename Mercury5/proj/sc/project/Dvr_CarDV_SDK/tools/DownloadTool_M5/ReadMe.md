@@ -1,0 +1,32 @@
+- 4.2.4.4: Fix progress bar and add write protect related
+- 4.2.4.3: Fix mis-delete RAW type resource.
+- 4.2.4.2: Change main dialog font to system and enable browser button.
+  - Fix minor error and memory leak.
+- 4.2.4.1: Add `[UI_SETTING]KeepTypeFat`	 in ini file to remove temp FAT bin files.
+- 4.2.4.0: Adjust directory structure. Move source code, project and res into `SourceCode/`
+  Move document to `doc/`
+- 4.2.4.0: Add command line, progress bar and tool tip support.
+  - Set default value of SearchPath82x as 0 in downloadtool.ini
+    The following versions refers to Action Cam Download Tool for detail description.
+  - 4.22x: For pana: dated fw version can't be used to update SF
+  - 4.222: sync bFirmwareNum with DiskInfo.ini, pDlg->bFirmwareNum, AIT_BurnFWBin
+  - 4.223: UI Change
+    Detail download tool for ActionCam:
+    - Align main dialog resource with newer R7770.
+    - Get default file name
+    - Modified tooltip and Title naming. Now it would be less confusing if multiple instances are running.
+    - Failed file name error protection. It would crash and disable buttons.
+    - Provide message if init is not found.
+    - Reduce memory leaking.
+    - Remove compilation warnings.
+  - 4.224: Performance Tuning
+    - Fix the problem while generating SD FW and then default C:\aitfw\82x\ALL is missing.
+    - Speed up ALL string finding. For Car DV firmware speed up from ~10 seconds to 15ms.
+    - Remove unused temp files
+    - Now version shown on Dialog title is from VS_VERSION_INFO resource.
+    - Hide command line while generating SIF file.
+    - Fix some crashes
+- 4.2.3.0: Now move version text to Product version resource.
+- 4.23: In USB download mode, fix bug if not config user area
+- 4.22: sync with ActionCam DownloadTool v4.226
+- 4.21: for SDK

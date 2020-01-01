@@ -1,0 +1,3 @@
+replace ./../mak/options_%product_name%.mak AUTO_TEST_SUPPORT off
+replace ./../mak/options_%product_name%.mak SDK_API_WAP_MMS_ONLY_SUPPORT off
+

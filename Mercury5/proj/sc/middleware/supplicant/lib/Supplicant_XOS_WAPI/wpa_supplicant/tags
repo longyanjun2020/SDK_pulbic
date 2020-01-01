@@ -1,0 +1,1910 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+-export-width	wpa_gui-qt4/icons/Makefile	/^		--export-width=$(word 1,$(subst x, ,$(@:.png=)))  \\$/;"	m
+ADDINTERFACE_H	wpa_gui-qt4/addinterface.h	16;"	d
+AKA_AUTN_LEN	eapol_test.c	806;"	d	file:
+AKA_AUTS_LEN	eapol_test.c	807;"	d	file:
+AKA_RAND_LEN	eapol_test.c	805;"	d	file:
+ALL	Makefile	/^ALL=libwpa.a$/;"	m
+AUTH_IEEE8021X	wpa_gui-qt4/networkconfig.cpp	/^    AUTH_IEEE8021X = 1,$/;"	e	enum:__anon5	file:
+AUTH_IEEE8021X	wpa_gui/networkconfig.ui.h	/^    AUTH_IEEE8021X = 1,$/;"	e	enum:__anon4
+AUTH_NONE	wpa_gui-qt4/networkconfig.cpp	/^    AUTH_NONE = 0,$/;"	e	enum:__anon5	file:
+AUTH_NONE	wpa_gui/networkconfig.ui.h	/^    AUTH_NONE = 0,$/;"	e	enum:__anon4
+AUTH_WPA2_EAP	wpa_gui-qt4/networkconfig.cpp	/^    AUTH_WPA2_EAP = 5$/;"	e	enum:__anon5	file:
+AUTH_WPA2_EAP	wpa_gui/networkconfig.ui.h	/^    AUTH_WPA2_EAP = 5$/;"	e	enum:__anon4
+AUTH_WPA2_PSK	wpa_gui-qt4/networkconfig.cpp	/^    AUTH_WPA2_PSK = 4,$/;"	e	enum:__anon5	file:
+AUTH_WPA2_PSK	wpa_gui/networkconfig.ui.h	/^    AUTH_WPA2_PSK = 4,$/;"	e	enum:__anon4
+AUTH_WPA_EAP	wpa_gui-qt4/networkconfig.cpp	/^    AUTH_WPA_EAP = 3,$/;"	e	enum:__anon5	file:
+AUTH_WPA_EAP	wpa_gui/networkconfig.ui.h	/^    AUTH_WPA_EAP = 3,$/;"	e	enum:__anon4
+AUTH_WPA_PSK	wpa_gui-qt4/networkconfig.cpp	/^    AUTH_WPA_PSK = 2,$/;"	e	enum:__anon5	file:
+AUTH_WPA_PSK	wpa_gui/networkconfig.ui.h	/^    AUTH_WPA_PSK = 2,$/;"	e	enum:__anon4
+AddInterface	wpa_gui-qt4/addinterface.cpp	/^AddInterface::AddInterface(WpaGui *_wpagui, QWidget *parent)$/;"	f	class:AddInterface
+AddInterface	wpa_gui-qt4/addinterface.h	/^class AddInterface : public QDialog$/;"	c
+BLACKLIST_H	blacklist.h	16;"	d
+BLOCK_SIZE	tests/test_aes.c	21;"	d	file:
+BROADCAST_SSID_SCAN	wpa_supplicant_i.h	317;"	d
+BYTE_ARRAY_CHUNK_SIZE	dbus_dict_helpers.c	630;"	d	file:
+BYTE_ARRAY_ITEM_SIZE	dbus_dict_helpers.c	631;"	d	file:
+BindingIndex	win_if_list.c	/^	ULONG BindingIndex;$/;"	m	struct:_NDISUIO_QUERY_BINDING	file:
+CC	Makefile	/^CC=gcc$/;"	m
+CC	Makefile	/^CC=sde-gcc$/;"	m
+CC	nmake.mak	/^CC = cl$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -MMD  -Wall -g #-O2$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DCONFIG_ANSI_C_EXTRA$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DCONFIG_CTRL_IFACE$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DCONFIG_CTRL_IFACE_NAMED_PIPE$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DCONFIG_DRIVER_NDIS$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DCONFIG_NDIS_EVENTS_INTEGRATED$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DCONFIG_WINPCAP$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_AKA$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_GTC$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_LEAP$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_MD5$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_MSCHAPv2$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_OTP$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_PAX$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_PEAP$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_PSK$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_SIM$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_TLS$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_TLS_FUNCS$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_TNC$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DEAP_TTLS$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DIEEE8021X_EAPOL$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DPCSC_FUNCS$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DPKCS12_FUNCS$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/DWIN32$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/D_CRT_SECURE_NO_DEPRECATE$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/Fo$(OBJDIR)\\\\ \/c$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/I"$(WINPCAPDIR)\/Include" \/I"$(OPENSSLDIR)\\include"$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/I..\\src \/I..\\src\\utils \/I..\\src\\common \/I..\\src\\crypto$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/I..\\src\\rsn_supp \/I..\\src\\eapol_supp \/I.$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = $(CFLAGS) \/W3$/;"	m
+CFLAGS	nmake.mak	/^CFLAGS = \/DCONFIG_NATIVE_WINDOWS$/;"	m
+CHAP	Makefile	/^CHAP=y$/;"	m
+CK_LEN	eapol_test.c	810;"	d	file:
+CMDLINE	main_winmain.c	21;"	d	file:
+CMDLINE	main_winmain.c	23;"	d	file:
+CONFIG_BACKEND	Makefile	/^CONFIG_BACKEND=file$/;"	m
+CONFIG_CRYPTO	Makefile	/^CONFIG_CRYPTO=internal$/;"	m
+CONFIG_CTRL_IFACE	Makefile	/^CONFIG_CTRL_IFACE=named_pipe$/;"	m
+CONFIG_CTRL_IFACE	Makefile	/^CONFIG_CTRL_IFACE=unix$/;"	m
+CONFIG_EAP_MSCHAPV2	Makefile	/^CONFIG_EAP_MSCHAPV2=y$/;"	m
+CONFIG_EAP_SIM_COMMON	Makefile	/^CONFIG_EAP_SIM_COMMON=y$/;"	m
+CONFIG_ELOOP	Makefile	/^CONFIG_ELOOP=eloop$/;"	m
+CONFIG_H	config.h	16;"	d
+CONFIG_IEEE8021X_EAPOL	Makefile	/^CONFIG_IEEE8021X_EAPOL=y$/;"	m
+CONFIG_INTERNAL_AES	Makefile	/^CONFIG_INTERNAL_AES=y$/;"	m
+CONFIG_INTERNAL_DES	Makefile	/^CONFIG_INTERNAL_DES=y$/;"	m
+CONFIG_INTERNAL_MD4	Makefile	/^CONFIG_INTERNAL_MD4=y$/;"	m
+CONFIG_INTERNAL_MD5	Makefile	/^CONFIG_INTERNAL_MD5=y$/;"	m
+CONFIG_INTERNAL_SHA1	Makefile	/^CONFIG_INTERNAL_SHA1=y$/;"	m
+CONFIG_INTERNAL_SHA256	Makefile	/^CONFIG_INTERNAL_SHA256=y$/;"	m
+CONFIG_L2_PACKET	Makefile	/^CONFIG_L2_PACKET=freebsd$/;"	m
+CONFIG_L2_PACKET	Makefile	/^CONFIG_L2_PACKET=linux$/;"	m
+CONFIG_L2_PACKET	Makefile	/^CONFIG_L2_PACKET=pcap$/;"	m
+CONFIG_MAIN	Makefile	/^CONFIG_MAIN=main$/;"	m
+CONFIG_OS	Makefile	/^CONFIG_OS=unix$/;"	m
+CONFIG_OS	Makefile	/^CONFIG_OS=win32$/;"	m
+CONFIG_SSID_H	config_ssid.h	16;"	d
+CONFIG_TLS	Makefile	/^CONFIG_TLS=openssl$/;"	m
+CONFIG_WINPCAP	Makefile	/^CONFIG_WINPCAP=y$/;"	m
+CONFIG_WIRELESS_EXTENSION	Makefile	/^CONFIG_WIRELESS_EXTENSION=y$/;"	m
+COOKIE_LEN	ctrl_iface_udp.c	26;"	d	file:
+CTRL_IFACE_DBUS_H	ctrl_iface_dbus.h	16;"	d
+CTRL_IFACE_DBUS_HANDLERS_H	ctrl_iface_dbus_handlers.h	16;"	d
+CTRL_IFACE_H	ctrl_iface.h	16;"	d
+ConvertStringSecurityDescriptorToSecurityDescriptor	ctrl_iface_named_pipe.c	34;"	d	file:
+ConvertStringSecurityDescriptorToSecurityDescriptor	ctrl_iface_named_pipe.c	37;"	d	file:
+DBUS_DICT_HELPERS_H	dbus_dict_helpers.h	16;"	d
+DBUS_INCLUDE	Makefile	/^DBUS_INCLUDE := $(shell pkg-config --cflags dbus-1)$/;"	m
+DBUS_LIBS	Makefile	/^DBUS_LIBS := $(shell pkg-config --libs dbus-1)$/;"	m
+DBUS_VER	ctrl_iface_dbus.c	26;"	d	file:
+DBUS_VERSION_MAJOR	Makefile	/^DBUS_VERSION_MAJOR=$(word 1,$(dbus_version))$/;"	m
+DBUS_VERSION_MAJOR	Makefile	/^DBUS_VERSION_MAJOR=0$/;"	m
+DBUS_VERSION_MINOR	Makefile	/^DBUS_VERSION_MINOR=$(word 2,$(dbus_version))$/;"	m
+DBUS_VERSION_MINOR	Makefile	/^DBUS_VERSION_MINOR=0$/;"	m
+DEFAULT_AP_SCAN	config.h	20;"	d
+DEFAULT_AP_SCAN	config.h	22;"	d
+DEFAULT_EAPOL_FLAGS	config_ssid.h	25;"	d
+DEFAULT_EAPOL_VERSION	config.h	18;"	d
+DEFAULT_EAP_WORKAROUND	config_ssid.h	24;"	d
+DEFAULT_FAST_REAUTH	config.h	24;"	d
+DEFAULT_FRAGMENT_SIZE	config_ssid.h	32;"	d
+DEFAULT_GROUP	config_ssid.h	30;"	d
+DEFAULT_KEY_MGMT	config_ssid.h	28;"	d
+DEFAULT_PAIRWISE	config_ssid.h	29;"	d
+DEFAULT_PROTO	config_ssid.h	27;"	d
+DeviceDescrLength	win_if_list.c	/^	ULONG DeviceDescrLength;$/;"	m	struct:_NDISUIO_QUERY_BINDING	file:
+DeviceDescrOffset	win_if_list.c	/^	ULONG DeviceDescrOffset;$/;"	m	struct:_NDISUIO_QUERY_BINDING	file:
+DeviceNameLength	win_if_list.c	/^	ULONG DeviceNameLength;$/;"	m	struct:_NDISUIO_QUERY_BINDING	file:
+DeviceNameOffset	win_if_list.c	/^	ULONG DeviceNameOffset;$/;"	m	struct:_NDISUIO_QUERY_BINDING	file:
+E32Main	main_symbian.cpp	/^GLDEF_C TInt E32Main(void)$/;"	f
+EAPOL_FLAG_REQUIRE_KEY_BROADCAST	config_ssid.h	179;"	d
+EAPOL_FLAG_REQUIRE_KEY_UNICAST	config_ssid.h	178;"	d
+ECOS_GLOBAL_CFLAGS	Makefile	/^ECOS_GLOBAL_CFLAGS = -mips16e -EL -msoft-float -Wall -Wpointer-arith -Wstrict-prototypes -Winline -Wundef -gdwarf-2 -ffunction-sections -fdata-sections -fno-exceptions -G0 $(EXTRA_CFLAGS)$/;"	m
+ECOS_GLOBAL_LDFLAGS	Makefile	/^ECOS_GLOBAL_LDFLAGS = -EL -msoft-float -gdwarf-2 -nostdlib -Wl,--gc-sections -Wl,-static$/;"	m
+ETH_P_EAPOL	wpa_priv.c	31;"	d	file:
+ETH_P_RSN_PREAUTH	wpa_priv.c	35;"	d	file:
+EVENTHISTORY_H	wpa_gui-qt4/eventhistory.h	16;"	d
+ErrorMsg	wpa_gui-qt4/wpagui.cpp	/^ErrorMsg::ErrorMsg(QWidget *parent, DWORD last_err) :$/;"	f	class:ErrorMsg
+ErrorMsg	wpa_gui-qt4/wpagui.cpp	/^class ErrorMsg : public QMessageBox {$/;"	c	file:
+EventHistory	wpa_gui-qt4/eventhistory.cpp	/^EventHistory::EventHistory(QWidget *parent, const char *, bool, Qt::WFlags)$/;"	f	class:EventHistory
+EventHistory	wpa_gui-qt4/eventhistory.h	/^class EventHistory : public QDialog, public Ui::EventHistory$/;"	c
+EventListModel	wpa_gui-qt4/eventhistory.h	/^	EventListModel(QObject *parent = 0)$/;"	f	class:EventListModel
+EventListModel	wpa_gui-qt4/eventhistory.h	/^class EventListModel : public QAbstractTableModel$/;"	c
+FSCTL_NDISUIO_BASE	win_if_list.c	31;"	d	file:
+FUNC	config.c	1284;"	d	file:
+FUNC	config.c	1396;"	d	file:
+FUNC	config_file.c	420;"	d	file:
+FUNC	config_file.c	464;"	d	file:
+FUNC_KEY	config.c	1285;"	d	file:
+FUNC_KEY	config.c	1397;"	d	file:
+FUNC_NO_VAR	config_file.c	421;"	d	file:
+IBDIR	Makefile	/^export LIBDIR ?= \/usr\/local\/lib\/$/;"	m
+ICONS	wpa_gui-qt4/icons/Makefile	/^ICONS := $(addsuffix .png,$(SIZES))$/;"	m
+IEEE80211W_OPTIONAL	config_ssid.h	/^		IEEE80211W_OPTIONAL = 1,$/;"	e	enum:wpa_ssid::__anon1
+IEEE80211W_REQUIRED	config_ssid.h	/^		IEEE80211W_REQUIRED = 2$/;"	e	enum:wpa_ssid::__anon1
+IEEE80211_ASSOCIATE	wpa_supplicant_i.h	/^		IEEE80211_ASSOCIATE, IEEE80211_ASSOCIATED,$/;"	e	enum:wpa_client_mlme::__anon6
+IEEE80211_ASSOCIATED	wpa_supplicant_i.h	/^		IEEE80211_ASSOCIATE, IEEE80211_ASSOCIATED,$/;"	e	enum:wpa_client_mlme::__anon6
+IEEE80211_ASSOC_MAX_TRIES	mlme.c	34;"	d	file:
+IEEE80211_ASSOC_TIMEOUT	mlme.c	33;"	d	file:
+IEEE80211_AUTHENTICATE	wpa_supplicant_i.h	/^		IEEE80211_DISABLED, IEEE80211_AUTHENTICATE,$/;"	e	enum:wpa_client_mlme::__anon6
+IEEE80211_AUTH_ALG_LEAP	wpa_supplicant_i.h	216;"	d
+IEEE80211_AUTH_ALG_OPEN	wpa_supplicant_i.h	214;"	d
+IEEE80211_AUTH_ALG_SHARED_KEY	wpa_supplicant_i.h	215;"	d
+IEEE80211_AUTH_MAX_TRIES	mlme.c	32;"	d	file:
+IEEE80211_AUTH_TIMEOUT	mlme.c	31;"	d	file:
+IEEE80211_CHANNEL_TIME	mlme.c	43;"	d	file:
+IEEE80211_DISABLED	wpa_supplicant_i.h	/^		IEEE80211_DISABLED, IEEE80211_AUTHENTICATE,$/;"	e	enum:wpa_client_mlme::__anon6
+IEEE80211_FC	mlme.c	52;"	d	file:
+IEEE80211_IBSS_INACTIVITY_LIMIT	mlme.c	47;"	d	file:
+IEEE80211_IBSS_JOINED	wpa_supplicant_i.h	/^		IEEE80211_IBSS_SEARCH, IEEE80211_IBSS_JOINED$/;"	e	enum:wpa_client_mlme::__anon6
+IEEE80211_IBSS_JOIN_TIMEOUT	mlme.c	40;"	d	file:
+IEEE80211_IBSS_MAX_STA_ENTRIES	mlme.c	49;"	d	file:
+IEEE80211_IBSS_MERGE_INTERVAL	mlme.c	46;"	d	file:
+IEEE80211_IBSS_SEARCH	wpa_supplicant_i.h	/^		IEEE80211_IBSS_SEARCH, IEEE80211_IBSS_JOINED$/;"	e	enum:wpa_client_mlme::__anon6
+IEEE80211_MAX_SUPP_RATES	mlme.c	77;"	d	file:
+IEEE80211_MONITORING_INTERVAL	mlme.c	35;"	d	file:
+IEEE80211_PASSIVE_CHANNEL_TIME	mlme.c	44;"	d	file:
+IEEE80211_PROBE_DELAY	mlme.c	42;"	d	file:
+IEEE80211_PROBE_INTERVAL	mlme.c	36;"	d	file:
+IEEE80211_RETRY_AUTH_INTERVAL	mlme.c	37;"	d	file:
+IEEE80211_SCAN_INTERVAL	mlme.c	38;"	d	file:
+IEEE80211_SCAN_INTERVAL_SLOW	mlme.c	39;"	d	file:
+IEEE80211_SCAN_RESULT_EXPIRE	mlme.c	45;"	d	file:
+IK_LEN	eapol_test.c	809;"	d	file:
+INDIR	Makefile	/^export BINDIR ?= \/usr\/local\/sbin\/$/;"	m
+INT	config.c	1270;"	d	file:
+INT	config.c	1393;"	d	file:
+INT	config_file.c	423;"	d	file:
+INT	config_file.c	466;"	d	file:
+INT	config_file.c	733;"	d	file:
+INT	config_file.c	804;"	d	file:
+INT	config_winreg.c	815;"	d	file:
+INT	config_winreg.c	886;"	d	file:
+INT_DEF	config_file.c	735;"	d	file:
+INT_DEF	config_file.c	805;"	d	file:
+INT_DEF	config_winreg.c	817;"	d	file:
+INT_DEF	config_winreg.c	887;"	d	file:
+INT_DEFe	config_file.c	736;"	d	file:
+INT_DEFe	config_winreg.c	818;"	d	file:
+INT_RANGE	config.c	1274;"	d	file:
+INT_RANGE	config.c	1394;"	d	file:
+INT_RANGE	config_file.c	424;"	d	file:
+INT_RANGE	config_file.c	467;"	d	file:
+INTe	config.c	1271;"	d	file:
+INTe	config_file.c	734;"	d	file:
+INTe	config_winreg.c	816;"	d	file:
+IOCTL_NDISUIO_BIND_WAIT	win_if_list.c	40;"	d	file:
+IOCTL_NDISUIO_QUERY_BINDING	win_if_list.c	36;"	d	file:
+LBDIR	Makefile	/^LBDIR=\/cygdrive\/d\/Project\/Kona\/SDKREL_M3_CP\/big2m3-dramBootSDK_install\/lib$/;"	m
+LDO	Makefile	/^LDO=$(CC)$/;"	m
+LFLAGS	nmake.mak	/^LFLAGS = \/libpath:"$(WINPCAPDIR)\\Lib" \/libpath:"$(OPENSSLDIR)\\lib"$/;"	m
+LIBS	nmake.mak	/^LIBS = wbemuuid.lib libcmt.lib kernel32.lib uuid.lib ole32.lib oleaut32.lib \\$/;"	m
+MAX_SSID_LEN	config_ssid.h	21;"	d
+MAX_WEP_KEY_LEN	config_ssid.h	192;"	d
+MLME_H	mlme.h	18;"	d
+MS_FUNCS	Makefile	/^MS_FUNCS=y$/;"	m
+NAME	wpa_gui-qt4/icons/Makefile	/^NAME  := wpa_gui$/;"	m
+NAMED_PIPE_PREFIX	ctrl_iface_named_pipe.c	50;"	d	file:
+NDISUIO_QUERY_BINDING	win_if_list.c	/^} NDISUIO_QUERY_BINDING, *PNDISUIO_QUERY_BINDING;$/;"	t	typeref:struct:_NDISUIO_QUERY_BINDING	file:
+NEED_AES	Makefile	/^NEED_AES=y$/;"	m
+NEED_BASE64	Makefile	/^NEED_BASE64=y$/;"	m
+NEED_CRYPTO	Makefile	/^NEED_CRYPTO=y$/;"	m
+NEED_DH_GROUPS	Makefile	/^NEED_DH_GROUPS=y$/;"	m
+NEED_FIPS186_2_PRF	Makefile	/^NEED_FIPS186_2_PRF=y$/;"	m
+NEED_MILENAGE	Makefile	/^NEED_MILENAGE=y$/;"	m
+NEED_SHA256	Makefile	/^NEED_SHA256=y$/;"	m
+NEED_TLS_PRF	Makefile	/^NEED_TLS_PRF=y$/;"	m
+NEED_T_PRF	Makefile	/^NEED_T_PRF=y$/;"	m
+NETWORKCONFIG_H	wpa_gui-qt4/networkconfig.h	16;"	d
+NO_CONFIG_WRITE	config.c	25;"	d	file:
+NO_IEEE80211W	config_ssid.h	/^		NO_IEEE80211W = 0,$/;"	e	enum:wpa_ssid::__anon1
+NUM_GLOBAL_FIELDS	config_file.c	471;"	d	file:
+NUM_PASSPHRASE_TESTS	tests/test_sha1.c	290;"	d	file:
+NUM_SSID_FIELDS	config.c	1398;"	d	file:
+NUM_WEP_KEYS	config_ssid.h	191;"	d
+NetworkConfig	wpa_gui-qt4/networkconfig.cpp	/^NetworkConfig::NetworkConfig(QWidget *parent, const char *, bool, Qt::WFlags)$/;"	f	class:NetworkConfig
+NetworkConfig	wpa_gui-qt4/networkconfig.h	/^class NetworkConfig : public QDialog, public Ui::NetworkConfig$/;"	c
+OBJDIR	nmake.mak	/^OBJDIR = objs$/;"	m
+OBJS	Makefile	/^OBJS = config.o$/;"	m
+OBJS	nmake.mak	/^OBJS = \\$/;"	m
+OBJS2	nmake.mak	/^OBJS2 = $(OBJDIR)\\drivers.obj \\$/;"	m
+OBJS3	nmake.mak	/^OBJS3 = $(OBJDIR)\\drivers.obj \\$/;"	m
+OBJS_c	Makefile	/^OBJS_c = wpa_cli.o ..\/src\/common\/wpa_ctrl.o$/;"	m
+OBJS_c	nmake.mak	/^OBJS_c = \\$/;"	m
+OBJS_p	Makefile	/^OBJS_p = wpa_passphrase.o$/;"	m
+OBJS_p	nmake.mak	/^OBJS_p = \\$/;"	m
+OBJS_t	Makefile	/^OBJS_t := $(OBJS) $(OBJS_l2) eapol_test.o ..\/src\/radius\/radius.o ..\/src\/radius\/radius_client.o$/;"	m
+OBJS_t	nmake.mak	/^OBJS_t = $(OBJS) \\$/;"	m
+OBJS_t2	Makefile	/^OBJS_t2 := $(OBJS) $(OBJS_l2) preauth_test.o$/;"	m
+OBJS_t2	nmake.mak	/^OBJS_t2 = $(OBJS) \\$/;"	m
+OBJS_wpa	Makefile	/^OBJS_wpa := $(filter-out $(OBJS_wpa_rm),$(OBJS)) $(OBJS_h) tests\/test_wpa.o$/;"	m
+OBJS_wpa_rm	Makefile	/^OBJS_wpa_rm := ctrl_iface.o mlme.o ctrl_iface_unix.o$/;"	m
+OBJSa	Makefile	/^OBJSa=..\/src\/tls\/asn1_test.o ..\/src\/tls\/asn1.o ..\/src\/tls\/x509v3.o ..\/src\/utils\/common.o ..\/src\/utils\/wpa_debug.o ..\/src\/utils\/os_unix.o \\$/;"	m
+OBJSx	Makefile	/^OBJSx=tests\/test_x509v3.o ..\/src\/tls\/asn1.o ..\/src\/tls\/x509v3.o \\$/;"	m
+OFFSET	config.c	1226;"	d	file:
+OFFSET	config.c	1229;"	d	file:
+OFFSET	config.c	1382;"	d	file:
+OFFSET	config_file.c	415;"	d	file:
+OFFSET	config_file.c	418;"	d	file:
+ONFIG_DRIVER_HOSTAP	Makefile	/^	echo CONFIG_DRIVER_HOSTAP=y >> .config$/;"	m
+ONFIG_DRIVER_WEXT	Makefile	/^	echo CONFIG_DRIVER_WEXT=y >> .config$/;"	m
+ONFIG_WIRELESS_EXTENSION	Makefile	/^	echo CONFIG_WIRELESS_EXTENSION=y >> .config$/;"	m
+OPENSSLDIR	nmake.mak	/^OPENSSLDIR=C:\\dev\\openssl$/;"	m
+PNDISUIO_QUERY_BINDING	win_if_list.c	/^} NDISUIO_QUERY_BINDING, *PNDISUIO_QUERY_BINDING;$/;"	t	typeref:struct:_NDISUIO_QUERY_BINDING	file:
+REPLY_BUFSIZE	ctrl_iface_named_pipe.c	55;"	d	file:
+REQUEST_BUFSIZE	ctrl_iface_named_pipe.c	54;"	d	file:
+RES_MAX_LEN	eapol_test.c	808;"	d	file:
+SCANRESULTS_H	wpa_gui-qt4/scanresults.h	16;"	d
+SCAN_AP_LIMIT	wpa_priv.c	188;"	d	file:
+SCAN_AP_LIMIT	wpa_supplicant.c	1291;"	d	file:
+SCAN_SEND_PROBE	wpa_supplicant_i.h	/^	enum { SCAN_SET_CHANNEL, SCAN_SEND_PROBE } scan_state;$/;"	e	enum:wpa_client_mlme::__anon7
+SCAN_SET_CHANNEL	wpa_supplicant_i.h	/^	enum { SCAN_SET_CHANNEL, SCAN_SEND_PROBE } scan_state;$/;"	e	enum:wpa_client_mlme::__anon7
+SDDL_REVISION_1	ctrl_iface_named_pipe.c	28;"	d	file:
+SIGPOLL	ctrl_iface_dbus.h	28;"	d
+SIZES	wpa_gui-qt4/icons/Makefile	/^SIZES := 16x16 22x22 32x32 48x48 64x64 128x128$/;"	m
+STA_HASH	wpa_supplicant_i.h	242;"	d
+STA_HASH_SIZE	wpa_supplicant_i.h	241;"	d
+STR	config.c	1239;"	d	file:
+STR	config.c	1384;"	d	file:
+STR	config_file.c	426;"	d	file:
+STR	config_file.c	469;"	d	file:
+STR	config_file.c	732;"	d	file:
+STR	config_file.c	803;"	d	file:
+STR	config_winreg.c	814;"	d	file:
+STR	config_winreg.c	885;"	d	file:
+STRUCT_PACKED	ctrl_iface_kona.c	/^} STRUCT_PACKED;$/;"	v	typeref:struct:ctrl_msg
+STR_ARRAY_CHUNK_SIZE	dbus_dict_helpers.c	687;"	d	file:
+STR_ARRAY_ITEM_SIZE	dbus_dict_helpers.c	688;"	d	file:
+STR_KEY	config.c	1241;"	d	file:
+STR_KEY	config.c	1385;"	d	file:
+STR_KEYe	config.c	1242;"	d	file:
+STR_LEN	config.c	1249;"	d	file:
+STR_LEN	config.c	1387;"	d	file:
+STR_LEN_KEY	config.c	1251;"	d	file:
+STR_LEN_KEY	config.c	1388;"	d	file:
+STR_LENe	config.c	1250;"	d	file:
+STR_RANGE	config.c	1256;"	d	file:
+STR_RANGE	config.c	1390;"	d	file:
+STR_RANGE	config_file.c	427;"	d	file:
+STR_RANGE	config_file.c	470;"	d	file:
+STR_RANGE_KEY	config.c	1257;"	d	file:
+STR_RANGE_KEY	config.c	1391;"	d	file:
+STRe	config.c	1240;"	d	file:
+SVG	wpa_gui-qt4/icons/Makefile	/^SVG   := $(NAME).svg$/;"	m
+ScanResults	wpa_gui-qt4/scanresults.cpp	/^ScanResults::ScanResults(QWidget *parent, const char *, bool, Qt::WFlags)$/;"	f	class:ScanResults
+ScanResults	wpa_gui-qt4/scanresults.h	/^class ScanResults : public QDialog, public Ui::ScanResults$/;"	c
+TBUFLEN	main_winsvc.c	71;"	d	file:
+TEST_AES_OBJS	Makefile	/^TEST_AES_OBJS = ..\/src\/crypto\/aes_wrap.o ..\/src\/crypto\/aes.o tests\/test_aes.o$/;"	m
+TEST_EAP_SIM_COMMON_OBJS	Makefile	/^TEST_EAP_SIM_COMMON_OBJS = ..\/src\/crypto\/sha1.o ..\/src\/crypto\/md5.o \\$/;"	m
+TEST_MD4_OBJS	Makefile	/^TEST_MD4_OBJS = ..\/src\/crypto\/md4.o tests\/test_md4.o #..\/src\/crypto\/crypto_openssl.o$/;"	m
+TEST_MD5_OBJS	Makefile	/^TEST_MD5_OBJS = ..\/src\/crypto\/md5.o tests\/test_md5.o #..\/src\/crypto\/crypto_openssl.o$/;"	m
+TEST_MS_FUNCS_OBJS	Makefile	/^TEST_MS_FUNCS_OBJS = ..\/src\/crypto\/crypto_openssl.o ..\/src\/crypto\/sha1.o ..\/src\/crypto\/md5.o \\$/;"	m
+TEST_SHA1_OBJS	Makefile	/^TEST_SHA1_OBJS = ..\/src\/crypto\/sha1.o ..\/src\/crypto\/md5.o tests\/test_sha1.o #..\/src\/crypto\/crypto_openssl.o$/;"	m
+TEST_SHA256_OBJS	Makefile	/^TEST_SHA256_OBJS = ..\/src\/crypto\/sha256.o ..\/src\/crypto\/md5.o tests\/test_sha256.o ..\/src\/utils\/os_unix.o ..\/src\/crypto\/crypto_openssl.o$/;"	m
+TLS_FUNCS	Makefile	/^TLS_FUNCS=y$/;"	m
+TNAMELEN	config_winreg.c	72;"	d	file:
+TSTR	config_winreg.c	50;"	d	file:
+TSTR	config_winreg.c	52;"	d	file:
+TSTR	main_winsvc.c	61;"	d	file:
+TSTR	main_winsvc.c	63;"	d	file:
+USERDATAREQUEST_H	wpa_gui-qt4/userdatarequest.h	16;"	d
+UserDataRequest	wpa_gui-qt4/userdatarequest.cpp	/^UserDataRequest::UserDataRequest(QWidget *parent, const char *, bool,$/;"	f	class:UserDataRequest
+UserDataRequest	wpa_gui-qt4/userdatarequest.h	/^class UserDataRequest : public QDialog, public Ui::UserDataRequest$/;"	c
+WINALL	Makefile	/^WINALL=wpa_supplicant.exe wpa_cli.exe wpa_passphrase.exe win_if_list.exe$/;"	m
+WINPCAPDIR	nmake.mak	/^WINPCAPDIR=C:\\dev\\WpdPack$/;"	m
+WPAGUI_H	wpa_gui-qt4/wpagui.h	16;"	d
+WPAMSG_H	wpa_gui-qt4/wpamsg.h	16;"	d
+WPAMSG_H	wpa_gui/wpamsg.h	2;"	d
+WPASVC_DESCRIPTION	main_winsvc.c	43;"	d	file:
+WPASVC_DISPLAY_NAME	main_winsvc.c	40;"	d	file:
+WPASVC_NAME	main_winsvc.c	37;"	d	file:
+WPASVC_NAME	wpa_gui-qt4/wpagui.cpp	1554;"	d	file:
+WPAS_DBUS_BSSIDS_PART	ctrl_iface_dbus.h	46;"	d
+WPAS_DBUS_BSSID_FORMAT	ctrl_iface_dbus.h	77;"	d
+WPAS_DBUS_IFACE_BSSID	ctrl_iface_dbus.h	47;"	d
+WPAS_DBUS_IFACE_INTERFACE	ctrl_iface_dbus.h	41;"	d
+WPAS_DBUS_IFACE_NETWORK	ctrl_iface_dbus.h	44;"	d
+WPAS_DBUS_INTERFACE	ctrl_iface_dbus.h	38;"	d
+WPAS_DBUS_NETWORKS_PART	ctrl_iface_dbus.h	43;"	d
+WPAS_DBUS_OBJECT_PATH_MAX	ctrl_iface_dbus.h	34;"	d
+WPAS_DBUS_PATH	ctrl_iface_dbus.h	37;"	d
+WPAS_DBUS_PATH_INTERFACES	ctrl_iface_dbus.h	40;"	d
+WPAS_DBUS_SERVICE	ctrl_iface_dbus.h	36;"	d
+WPAS_ERROR_ADD_ERROR	ctrl_iface_dbus.h	61;"	d
+WPAS_ERROR_ADD_NETWORK_ERROR	ctrl_iface_dbus.h	70;"	d
+WPAS_ERROR_EXISTS_ERROR	ctrl_iface_dbus.h	63;"	d
+WPAS_ERROR_INTERNAL_ERROR	ctrl_iface_dbus.h	72;"	d
+WPAS_ERROR_INVALID_BSSID	ctrl_iface_dbus.h	53;"	d
+WPAS_ERROR_INVALID_IFACE	ctrl_iface_dbus.h	58;"	d
+WPAS_ERROR_INVALID_NETWORK	ctrl_iface_dbus.h	51;"	d
+WPAS_ERROR_INVALID_OPTS	ctrl_iface_dbus.h	56;"	d
+WPAS_ERROR_REMOVE_ERROR	ctrl_iface_dbus.h	65;"	d
+WPAS_ERROR_REMOVE_NETWORK_ERROR	ctrl_iface_dbus.h	74;"	d
+WPAS_ERROR_SCAN_ERROR	ctrl_iface_dbus.h	68;"	d
+WPAS_GLUE_H	wpas_glue.h	16;"	d
+WPA_CMD_CONNECT	ctrl_iface_kona.c	53;"	d	file:
+WPA_CMD_DISCONNECT	ctrl_iface_kona.c	54;"	d	file:
+WPA_CMD_GET_CONFIGURATION	ctrl_iface_kona.c	56;"	d	file:
+WPA_CMD_OPEN	ctrl_iface_kona.c	48;"	d	file:
+WPA_CMD_POWER_SAVING	ctrl_iface_kona.c	57;"	d	file:
+WPA_CMD_RESET	ctrl_iface_kona.c	50;"	d	file:
+WPA_CMD_SCAN	ctrl_iface_kona.c	51;"	d	file:
+WPA_CMD_SCAN_RESULTS	ctrl_iface_kona.c	52;"	d	file:
+WPA_CMD_SET_CONFIGURATION	ctrl_iface_kona.c	55;"	d	file:
+WPA_CMD_STOP	ctrl_iface_kona.c	49;"	d	file:
+WPA_GUI_KEY_DATA	wpa_gui-qt4/networkconfig.cpp	30;"	d	file:
+WPA_GUI_KEY_DATA	wpa_gui/networkconfig.ui.h	24;"	d
+WPA_KEY_PREFIX	config_winreg.c	46;"	d	file:
+WPA_KEY_PREFIX	main_winsvc.c	57;"	d	file:
+WPA_KEY_PREFIX	wpa_gui-qt4/addinterface.cpp	30;"	d	file:
+WPA_KEY_ROOT	config_winreg.c	43;"	d	file:
+WPA_KEY_ROOT	main_winsvc.c	54;"	d	file:
+WPA_KEY_ROOT	wpa_gui-qt4/addinterface.cpp	27;"	d	file:
+WPA_SUPPLICANT_I_H	wpa_supplicant_i.h	16;"	d
+WPA_SUPPLICANT_NAMED_PIPE	ctrl_iface_named_pipe.c	48;"	d	file:
+WPS_PIN_SCAN_IGNORE_SEL_REG	wps_supplicant.c	32;"	d	file:
+WPS_SUPPLICANT_H	wps_supplicant.h	16;"	d
+WinMain	main_winmain.c	/^int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,$/;"	f
+WpaGui	wpa_gui-qt4/wpagui.cpp	/^WpaGui::WpaGui(QApplication *_app, QWidget *parent, const char *, Qt::WFlags)$/;"	f	class:WpaGui
+WpaGui	wpa_gui-qt4/wpagui.h	/^class WpaGui : public QMainWindow, public Ui::WpaGui$/;"	c
+WpaGuiApp	wpa_gui-qt4/main.cpp	/^WpaGuiApp::WpaGuiApp(int &argc, char **argv) : QApplication(argc, argv)$/;"	f	class:WpaGuiApp
+WpaGuiApp	wpa_gui-qt4/main.cpp	/^class WpaGuiApp : public QApplication$/;"	c	file:
+WpaMsg	wpa_gui-qt4/wpamsg.h	/^	WpaMsg(const QString &_msg, int _priority = 2)$/;"	f	class:WpaMsg
+WpaMsg	wpa_gui-qt4/wpamsg.h	/^class WpaMsg {$/;"	c
+WpaMsg	wpa_gui/wpamsg.h	/^    WpaMsg() {}$/;"	f	class:WpaMsg
+WpaMsg	wpa_gui/wpamsg.h	/^    WpaMsg(const QString &_msg, int _priority = 2)$/;"	f	class:WpaMsg
+WpaMsg	wpa_gui/wpamsg.h	/^class WpaMsg {$/;"	c
+WpaMsgList	wpa_gui-qt4/wpamsg.h	/^typedef QLinkedList<WpaMsg> WpaMsgList;$/;"	t
+WpaMsgList	wpa_gui/wpamsg.h	/^typedef QLinkedList<WpaMsg> WpaMsgList;$/;"	t
+WpaMsgList	wpa_gui/wpamsg.h	/^typedef QValueList<WpaMsg> WpaMsgList;$/;"	t
+_DBUS_VERSION	ctrl_iface_dbus.c	25;"	d	file:
+_FUNC	config.c	1279;"	d	file:
+_FUNC	config.c	1281;"	d	file:
+_FUNC	config.c	1395;"	d	file:
+_INT	config.c	1260;"	d	file:
+_INT	config.c	1263;"	d	file:
+_INT	config.c	1392;"	d	file:
+_INT	config_file.c	422;"	d	file:
+_INT	config_file.c	465;"	d	file:
+_INTe	config.c	1261;"	d	file:
+_INTe	config.c	1265;"	d	file:
+_NDISUIO_CTL_CODE	win_if_list.c	33;"	d	file:
+_NDISUIO_QUERY_BINDING	win_if_list.c	/^typedef struct _NDISUIO_QUERY_BINDING$/;"	s	file:
+_STR	config.c	1233;"	d	file:
+_STR	config.c	1236;"	d	file:
+_STR	config.c	1383;"	d	file:
+_STR	config_file.c	425;"	d	file:
+_STR	config_file.c	468;"	d	file:
+_STR_LEN	config.c	1247;"	d	file:
+_STR_LEN	config.c	1386;"	d	file:
+_STR_LENe	config.c	1248;"	d	file:
+_STR_RANGE	config.c	1255;"	d	file:
+_STR_RANGE	config.c	1389;"	d	file:
+_STRe	config.c	1234;"	d	file:
+_STRe	config.c	1237;"	d	file:
+_WIN32_WINNT	ctrl_iface_named_pipe.c	42;"	d	file:
+__ieee80211_bss_hash_add	mlme.c	/^static void __ieee80211_bss_hash_add(struct wpa_supplicant *wpa_s,$/;"	f	file:
+__ieee80211_bss_hash_del	mlme.c	/^static void __ieee80211_bss_hash_del(struct wpa_supplicant *wpa_s,$/;"	f	file:
+_wpa_alloc_eapol	preauth_test.c	/^static u8 * _wpa_alloc_eapol(void *wpa_s, u8 type,$/;"	f	file:
+_wpa_alloc_eapol	wpas_glue.c	/^static u8 * _wpa_alloc_eapol(void *wpa_s, u8 type,$/;"	f	file:
+_wpa_ctrl_command	wpa_cli.c	/^static int _wpa_ctrl_command(struct wpa_ctrl *ctrl, char *cmd, int print)$/;"	f	file:
+_wpa_dbus_add_dict_entry_basic	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_add_dict_entry_basic(DBusMessageIter *iter_dict,$/;"	f	file:
+_wpa_dbus_add_dict_entry_byte_array	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_add_dict_entry_byte_array($/;"	f	file:
+_wpa_dbus_add_dict_entry_end	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_add_dict_entry_end($/;"	f	file:
+_wpa_dbus_add_dict_entry_start	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_add_dict_entry_start($/;"	f	file:
+_wpa_dbus_dict_entry_get_array	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_dict_entry_get_array($/;"	f	file:
+_wpa_dbus_dict_entry_get_byte_array	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_dict_entry_get_byte_array($/;"	f	file:
+_wpa_dbus_dict_entry_get_string_array	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_dict_entry_get_string_array($/;"	f	file:
+_wpa_dbus_dict_fill_value_from_variant	dbus_dict_helpers.c	/^static dbus_bool_t _wpa_dbus_dict_fill_value_from_variant($/;"	f	file:
+_wpa_ether_send	wpas_glue.c	/^static int _wpa_ether_send(void *wpa_s, const u8 *dest, u16 proto,$/;"	f	file:
+_wpa_get_type_as_string_from_type	dbus_dict_helpers.c	/^static const char * _wpa_get_type_as_string_from_type(const int type)$/;"	f	file:
+_wpa_supplicant_cancel_auth_timeout	preauth_test.c	/^static void _wpa_supplicant_cancel_auth_timeout(void *wpa_s)$/;"	f	file:
+_wpa_supplicant_cancel_auth_timeout	wpas_glue.c	/^static void _wpa_supplicant_cancel_auth_timeout(void *wpa_s)$/;"	f	file:
+_wpa_supplicant_deauthenticate	preauth_test.c	/^static void _wpa_supplicant_deauthenticate(void *wpa_s, int reason_code)$/;"	f	file:
+_wpa_supplicant_deauthenticate	wpas_glue.c	/^static void _wpa_supplicant_deauthenticate(void *wpa_s, int reason_code)$/;"	f	file:
+_wpa_supplicant_disassociate	preauth_test.c	/^static void _wpa_supplicant_disassociate(void *wpa_s, int reason_code)$/;"	f	file:
+_wpa_supplicant_disassociate	wpas_glue.c	/^static void _wpa_supplicant_disassociate(void *wpa_s, int reason_code)$/;"	f	file:
+_wpa_supplicant_get_state	preauth_test.c	/^static wpa_states _wpa_supplicant_get_state(void *ctx)$/;"	f	file:
+_wpa_supplicant_get_state	wpas_glue.c	/^static wpa_states _wpa_supplicant_get_state(void *wpa_s)$/;"	f	file:
+_wpa_supplicant_set_state	preauth_test.c	/^static void _wpa_supplicant_set_state(void *ctx, wpa_states state)$/;"	f	file:
+_wpa_supplicant_set_state	wpas_glue.c	/^static void _wpa_supplicant_set_state(void *wpa_s, wpa_states state)$/;"	f	file:
+accounting_sta_start	tests/link_test.c	/^void accounting_sta_start(struct hostapd_data *hapd, struct sta_info *sta)$/;"	f
+ackTrayIcon	wpa_gui-qt4/wpagui.h	/^	bool ackTrayIcon;$/;"	m	class:WpaGui
+action_file	wpa_cli.c	/^static const char *action_file = NULL;$/;"	v	file:
+addEvent	wpa_gui-qt4/eventhistory.cpp	/^void EventHistory::addEvent(WpaMsg msg)$/;"	f	class:EventHistory
+addEvent	wpa_gui-qt4/eventhistory.cpp	/^void EventListModel::addEvent(QString time, QString msg)$/;"	f	class:EventListModel
+addEvent	wpa_gui/eventhistory.ui.h	/^void EventHistory::addEvent(WpaMsg msg)$/;"	f	class:EventHistory
+addEvents	wpa_gui-qt4/eventhistory.cpp	/^void EventHistory::addEvents(WpaMsgList msgs)$/;"	f	class:EventHistory
+addEvents	wpa_gui/eventhistory.ui.h	/^void EventHistory::addEvents(WpaMsgList msgs)$/;"	f	class:EventHistory
+addInterface	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::addInterface()$/;"	f	class:WpaGui
+addInterfaceAction	wpa_gui-qt4/wpagui.h	/^	QAction *addInterfaceAction;$/;"	m	class:WpaGui
+addInterfaces	wpa_gui-qt4/addinterface.cpp	/^void AddInterface::addInterfaces()$/;"	f	class:AddInterface
+addNetwork	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::addNetwork()$/;"	f	class:NetworkConfig
+addNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::addNetwork()$/;"	f	class:WpaGui
+addNetwork	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::addNetwork()$/;"	f	class:NetworkConfig
+addNetwork	wpa_gui/wpagui.ui.h	/^void WpaGui::addNetwork()$/;"	f	class:WpaGui
+addRegistryInterface	wpa_gui-qt4/addinterface.cpp	/^bool AddInterface::addRegistryInterface(const QString &ifname)$/;"	f	class:AddInterface
+add_extra_attr	eapol_test.c	/^static int add_extra_attr(struct radius_msg *msg,$/;"	f	file:
+add_extra_attrs	eapol_test.c	/^static int add_extra_attrs(struct radius_msg *msg,$/;"	f	file:
+add_iface	wpa_gui-qt4/wpagui.h	/^	AddInterface *add_iface;$/;"	m	class:WpaGui
+add_timeout	ctrl_iface_dbus.c	/^static dbus_bool_t add_timeout(DBusTimeout *timeout, void *data)$/;"	f	file:
+add_watch	ctrl_iface_dbus.c	/^static dbus_bool_t add_watch(DBusWatch *watch, void *data)$/;"	f	file:
+addr	ctrl_iface_udp.c	/^	struct sockaddr_in addr;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::sockaddr_in	file:
+addr	ctrl_iface_unix.c	/^	struct sockaddr_un addr;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::sockaddr_un	file:
+addrlen	ctrl_iface_udp.c	/^	socklen_t addrlen;$/;"	m	struct:wpa_ctrl_dst	file:
+addrlen	ctrl_iface_unix.c	/^	socklen_t addrlen;$/;"	m	struct:wpa_ctrl_dst	file:
+aid	wpa_supplicant_i.h	/^	u16 aid;$/;"	m	struct:wpa_client_mlme
+ap_capab	wpa_supplicant_i.h	/^	u16 ap_capab, capab;$/;"	m	struct:wpa_client_mlme
+ap_for_each_sta	tests/link_test.c	/^int ap_for_each_sta(struct hostapd_data *hapd,$/;"	f
+ap_get_sta	tests/link_test.c	/^struct sta_info * ap_get_sta(struct hostapd_data *hapd, const u8 *sta)$/;"	f
+ap_ies_from_associnfo	wpa_supplicant_i.h	/^	int ap_ies_from_associnfo;$/;"	m	struct:wpa_supplicant
+ap_scan	config.h	/^	int ap_scan;$/;"	m	struct:wpa_config
+ap_sta_bind_vlan	tests/link_test.c	/^int ap_sta_bind_vlan(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
+ap_sta_session_timeout	tests/link_test.c	/^void ap_sta_session_timeout(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
+app	wpa_gui-qt4/wpagui.h	/^	QApplication *app;$/;"	m	class:WpaGui
+array_len	dbus_dict_helpers.h	/^	dbus_uint32_t array_len; \/** length of the array if the dict entry's$/;"	m	struct:wpa_dbus_dict_entry
+array_type	dbus_dict_helpers.h	/^	int array_type;   \/** the dbus type of the array elements if the dict$/;"	m	struct:wpa_dbus_dict_entry
+assoc_tries	wpa_supplicant_i.h	/^	int auth_tries, assoc_tries;$/;"	m	struct:wpa_client_mlme
+associated	wpa_supplicant_i.h	/^	unsigned int associated:1;$/;"	m	struct:wpa_client_mlme
+assocreq_ies	wpa_supplicant_i.h	/^	u8 *assocreq_ies, *assocresp_ies;$/;"	m	struct:wpa_client_mlme
+assocreq_ies_len	wpa_supplicant_i.h	/^	size_t assocreq_ies_len, assocresp_ies_len;$/;"	m	struct:wpa_client_mlme
+assocresp_ies	wpa_supplicant_i.h	/^	u8 *assocreq_ies, *assocresp_ies;$/;"	m	struct:wpa_client_mlme
+assocresp_ies_len	wpa_supplicant_i.h	/^	size_t assocreq_ies_len, assocresp_ies_len;$/;"	m	struct:wpa_client_mlme
+attached	ctrl_iface_named_pipe.c	/^	int attached;$/;"	m	struct:wpa_ctrl_dst	file:
+attr	ctrl_iface_named_pipe.c	/^	SECURITY_ATTRIBUTES attr;$/;"	m	struct:ctrl_iface_priv	file:
+auth	tests/test_wpa.c	/^	struct wpa_state_machine *auth;$/;"	m	struct:wpa	typeref:struct:wpa::wpa_state_machine	file:
+authChanged	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::authChanged(int sel)$/;"	f	class:NetworkConfig
+authChanged	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::authChanged(int sel)$/;"	f	class:NetworkConfig
+auth_addr	tests/test_wpa.c	/^	u8 auth_addr[ETH_ALEN];$/;"	m	struct:wpa	file:
+auth_alg	config_ssid.h	/^	int auth_alg;$/;"	m	struct:wpa_ssid
+auth_alg	wpa_supplicant_i.h	/^	int auth_alg; \/* currently used IEEE 802.11 authentication algorithm *\/$/;"	m	struct:wpa_client_mlme
+auth_algs	wpa_supplicant_i.h	/^	unsigned int auth_algs; \/* bitfield of allowed auth algs *\/$/;"	m	struct:wpa_client_mlme
+auth_eapol	tests/test_wpa.c	/^	u8 *auth_eapol;$/;"	m	struct:wpa	file:
+auth_eapol_dst	tests/test_wpa.c	/^	u8 auth_eapol_dst[ETH_ALEN];$/;"	m	struct:wpa	file:
+auth_eapol_len	tests/test_wpa.c	/^	size_t auth_eapol_len;$/;"	m	struct:wpa	file:
+auth_eapol_rx	tests/test_wpa.c	/^static void auth_eapol_rx(void *eloop_data, void *user_ctx)$/;"	f	file:
+auth_get_psk	tests/test_wpa.c	/^static const u8 * auth_get_psk(void *ctx, const u8 *addr, const u8 *prev_psk)$/;"	f	file:
+auth_group	tests/test_wpa.c	/^	struct wpa_authenticator *auth_group;$/;"	m	struct:wpa	typeref:struct:wpa::wpa_authenticator	file:
+auth_init	tests/test_wpa.c	/^static int auth_init(struct wpa *wpa)$/;"	f	file:
+auth_init_group	tests/test_wpa.c	/^static int auth_init_group(struct wpa *wpa)$/;"	f	file:
+auth_logger	tests/test_wpa.c	/^static void auth_logger(void *ctx, const u8 *addr, logger_level level,$/;"	f	file:
+auth_send_eapol	tests/test_wpa.c	/^static int auth_send_eapol(void *ctx, const u8 *addr, const u8 *data,$/;"	f	file:
+auth_timed_out	eapol_test.c	/^	int auth_timed_out;$/;"	m	struct:eapol_test_data	file:
+auth_timed_out	preauth_test.c	/^	int auth_timed_out;$/;"	m	struct:preauth_test_data	file:
+auth_transaction	wpa_supplicant_i.h	/^	int auth_transaction;$/;"	m	struct:wpa_client_mlme
+auth_tries	wpa_supplicant_i.h	/^	int auth_tries, assoc_tries;$/;"	m	struct:wpa_client_mlme
+authenticated	wpa_supplicant_i.h	/^	unsigned int authenticated:1;$/;"	m	struct:wpa_client_mlme
+authenticator_pmk	eapol_test.c	/^	u8 authenticator_pmk[PMK_LEN];$/;"	m	struct:eapol_test_data	file:
+authenticator_pmk_len	eapol_test.c	/^	size_t authenticator_pmk_len;$/;"	m	struct:eapol_test_data	file:
+beacon_int	mlme.c	/^	int beacon_int;$/;"	m	struct:ieee80211_sta_bss	file:
+blacklist	wpa_supplicant_i.h	/^	struct wpa_blacklist *blacklist;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_blacklist
+blacklist_cleared	wpa_supplicant_i.h	/^	int blacklist_cleared;$/;"	m	struct:wpa_supplicant
+blobs	config.h	/^	struct wpa_config_blob *blobs;$/;"	m	struct:wpa_config	typeref:struct:wpa_config::wpa_config_blob
+bool_value	dbus_dict_helpers.h	/^		dbus_bool_t bool_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+bridge_ifname	wpa_supplicant_i.h	/^	char bridge_ifname[16];$/;"	m	struct:wpa_supplicant
+bridge_ifname	wpa_supplicant_i.h	/^	const char *bridge_ifname;$/;"	m	struct:wpa_interface
+bssFromScan	wpa_gui-qt4/wpagui.h	/^	QString bssFromScan;$/;"	m	class:WpaGui
+bssSelected	wpa_gui-qt4/scanresults.cpp	/^void ScanResults::bssSelected(QTreeWidgetItem *sel)$/;"	f	class:ScanResults
+bssSelected	wpa_gui/scanresults.ui.h	/^void ScanResults::bssSelected( Q3ListViewItem * sel )$/;"	f	class:ScanResults
+bssid	blacklist.h	/^	u8 bssid[ETH_ALEN];$/;"	m	struct:wpa_blacklist
+bssid	config_ssid.h	/^	u8 bssid[ETH_ALEN];$/;"	m	struct:wpa_ssid
+bssid	mlme.c	/^	u8 bssid[ETH_ALEN];$/;"	m	struct:ieee80211_sta_bss	file:
+bssid	wpa_gui-qt4/networkconfig.h	/^	QString bssid;$/;"	m	class:NetworkConfig
+bssid	wpa_supplicant_i.h	/^	u8 bssid[ETH_ALEN];$/;"	m	struct:wpa_supplicant
+bssid_set	config_ssid.h	/^	int bssid_set;$/;"	m	struct:wpa_ssid
+bssid_set	wpa_supplicant_i.h	/^	unsigned int bssid_set:1;$/;"	m	struct:wpa_client_mlme
+byte_array_to_string	examples/wpas-test.py	/^def byte_array_to_string(s):$/;"	f
+byte_value	dbus_dict_helpers.h	/^		char byte_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+bytearray_value	dbus_dict_helpers.h	/^		char *bytearray_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+capab	wpa_supplicant_i.h	/^	u16 ap_capab, capab;$/;"	m	struct:wpa_client_mlme
+capability	mlme.c	/^	u16 capability; \/* host byte order *\/$/;"	m	struct:ieee80211_sta_bss	file:
+channel	mlme.c	/^	int channel;$/;"	m	struct:ieee80211_sta_bss	file:
+channel	wpa_supplicant_i.h	/^	int channel; \/* The current IEEE 802.11 channel number *\/$/;"	m	struct:wpa_client_mlme
+cipher_suite2driver	wpa_supplicant.c	/^static wpa_cipher cipher_suite2driver(int cipher)$/;"	f	file:
+cli_cmd_flag_none	wpa_cli.c	/^	cli_cmd_flag_none		= 0x00,$/;"	e	enum:wpa_cli_cmd_flags	file:
+cli_cmd_flag_sensitive	wpa_cli.c	/^	cli_cmd_flag_sensitive		= 0x01$/;"	e	enum:wpa_cli_cmd_flags	file:
+closeEvent	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::closeEvent(QCloseEvent *event)$/;"	f	class:WpaGui
+cmd	ctrl_iface_kona.c	/^	u32 cmd;$/;"	m	struct:ctrl_msg	file:
+cmd	wpa_cli.c	/^	const char *cmd;$/;"	m	struct:wpa_cli_cmd	file:
+cmd_has_sensitive_data	wpa_cli.c	/^static int cmd_has_sensitive_data(const char *cmd)$/;"	f	file:
+columnCount	wpa_gui-qt4/eventhistory.cpp	/^int EventListModel::columnCount(const QModelIndex &) const$/;"	f	class:EventListModel
+con	ctrl_iface_dbus.c	/^	DBusConnection *con;$/;"	m	struct:ctrl_iface_dbus_priv	file:
+conf	wpa_supplicant_i.h	/^	struct wpa_config *conf;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_config
+config_ssid	config_none.c	/^char config_ssid[32] = "MSTAR8F1";$/;"	v
+confname	wpa_supplicant_i.h	/^	char confname[32];$/;"	m	struct:wpa_supplicant
+confname	wpa_supplicant_i.h	/^	const char *confname;$/;"	m	struct:wpa_interface
+connectB	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::connectB()$/;"	f	class:WpaGui
+connectB	wpa_gui/wpagui.ui.h	/^void WpaGui::connectB()$/;"	f	class:WpaGui
+connect_info	eapol_test.c	/^	char *connect_info;$/;"	m	struct:eapol_test_data	file:
+connectedToService	wpa_gui-qt4/wpagui.h	/^	bool connectedToService;$/;"	m	class:WpaGui
+connection_setup_add_timeout	ctrl_iface_dbus.c	/^static void connection_setup_add_timeout(struct ctrl_iface_dbus_priv *iface,$/;"	f	file:
+connection_setup_add_watch	ctrl_iface_dbus.c	/^static void connection_setup_add_watch(struct ctrl_iface_dbus_priv *iface,$/;"	f	file:
+connection_setup_remove_timeout	ctrl_iface_dbus.c	/^static void connection_setup_remove_timeout(struct ctrl_iface_dbus_priv *iface,$/;"	f	file:
+connection_setup_remove_watch	ctrl_iface_dbus.c	/^static void connection_setup_remove_watch(struct ctrl_iface_dbus_priv *iface,$/;"	f	file:
+connection_setup_wakeup_main	ctrl_iface_dbus.c	/^static int connection_setup_wakeup_main(struct ctrl_iface_dbus_priv *iface)$/;"	f	file:
+cookie	ctrl_iface_udp.c	/^	u8 cookie[COOKIE_LEN];$/;"	m	struct:ctrl_iface_global_priv	file:
+cookie	ctrl_iface_udp.c	/^	u8 cookie[COOKIE_LEN];$/;"	m	struct:ctrl_iface_priv	file:
+count	blacklist.h	/^	int count;$/;"	m	struct:wpa_blacklist
+countermeasures	wpa_supplicant_i.h	/^	int countermeasures;$/;"	m	struct:wpa_supplicant
+country	config.h	/^	char country[2];$/;"	m	struct:wpa_config
+createTrayIcon	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::createTrayIcon(bool trayOnly)$/;"	f	class:WpaGui
+create_ibss	wpa_supplicant_i.h	/^	unsigned int create_ibss:1;$/;"	m	struct:wpa_client_mlme
+ctrlRequest	wpa_gui-qt4/wpagui.cpp	/^int WpaGui::ctrlRequest(const char *cmd, char *buf, size_t *buflen)$/;"	f	class:WpaGui
+ctrlRequest	wpa_gui/wpagui.ui.h	/^int WpaGui::ctrlRequest(const char *cmd, char *buf, size_t *buflen)$/;"	f	class:WpaGui
+ctrl_broken_pipe	ctrl_iface_named_pipe.c	/^static int ctrl_broken_pipe(HANDLE pipe, int used)$/;"	f	file:
+ctrl_close_pipe	ctrl_iface_named_pipe.c	/^static void ctrl_close_pipe(struct wpa_ctrl_dst *dst)$/;"	f	file:
+ctrl_conn	wpa_cli.c	/^static struct wpa_ctrl *ctrl_conn;$/;"	v	typeref:struct:wpa_ctrl	file:
+ctrl_conn	wpa_gui-qt4/wpagui.h	/^	struct wpa_ctrl *ctrl_conn;$/;"	m	class:WpaGui	typeref:struct:WpaGui::wpa_ctrl
+ctrl_dst	ctrl_iface_kona.c	/^	struct wpa_ctrl_dst *ctrl_dst;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_ctrl_dst	file:
+ctrl_dst	ctrl_iface_named_pipe.c	/^	struct wpa_ctrl_dst *ctrl_dst;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_ctrl_dst	file:
+ctrl_dst	ctrl_iface_named_pipe.c	/^	struct wpa_global_dst *ctrl_dst;$/;"	m	struct:ctrl_iface_global_priv	typeref:struct:ctrl_iface_global_priv::wpa_global_dst	file:
+ctrl_dst	ctrl_iface_udp.c	/^	struct wpa_ctrl_dst *ctrl_dst;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_ctrl_dst	file:
+ctrl_dst	ctrl_iface_unix.c	/^	struct wpa_ctrl_dst *ctrl_dst;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_ctrl_dst	file:
+ctrl_flush_broken_pipes	ctrl_iface_named_pipe.c	/^static void ctrl_flush_broken_pipes(struct ctrl_iface_priv *priv)$/;"	f	file:
+ctrl_iface	wpa_gui-qt4/wpagui.h	/^	char *ctrl_iface;$/;"	m	class:WpaGui
+ctrl_iface	wpa_supplicant_i.h	/^	struct ctrl_iface_global_priv *ctrl_iface;$/;"	m	struct:wpa_global	typeref:struct:wpa_global::ctrl_iface_global_priv
+ctrl_iface	wpa_supplicant_i.h	/^	struct ctrl_iface_priv *ctrl_iface;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::ctrl_iface_priv
+ctrl_iface_dbus_priv	ctrl_iface_dbus.c	/^struct ctrl_iface_dbus_priv {$/;"	s	file:
+ctrl_iface_dir	wpa_cli.c	/^static const char *ctrl_iface_dir = "\/var\/run\/wpa_supplicant";$/;"	v	file:
+ctrl_iface_dir	wpa_gui-qt4/wpagui.h	/^	char *ctrl_iface_dir;$/;"	m	class:WpaGui
+ctrl_iface_get_capability_auth_alg	ctrl_iface.c	/^static int ctrl_iface_get_capability_auth_alg(int res, char *strict,$/;"	f	file:
+ctrl_iface_get_capability_group	ctrl_iface.c	/^static int ctrl_iface_get_capability_group(int res, char *strict,$/;"	f	file:
+ctrl_iface_get_capability_key_mgmt	ctrl_iface.c	/^static int ctrl_iface_get_capability_key_mgmt(int res, char *strict,$/;"	f	file:
+ctrl_iface_get_capability_pairwise	ctrl_iface.c	/^static int ctrl_iface_get_capability_pairwise(int res, char *strict,$/;"	f	file:
+ctrl_iface_get_capability_proto	ctrl_iface.c	/^static int ctrl_iface_get_capability_proto(int res, char *strict,$/;"	f	file:
+ctrl_iface_global_priv	ctrl_iface_kona.c	/^struct ctrl_iface_global_priv {$/;"	s	file:
+ctrl_iface_global_priv	ctrl_iface_named_pipe.c	/^struct ctrl_iface_global_priv {$/;"	s	file:
+ctrl_iface_global_priv	ctrl_iface_udp.c	/^struct ctrl_iface_global_priv {$/;"	s	file:
+ctrl_iface_global_priv	ctrl_iface_unix.c	/^struct ctrl_iface_global_priv {$/;"	s	file:
+ctrl_iface_parse	ctrl_iface_named_pipe.c	/^static int ctrl_iface_parse(struct ctrl_iface_priv *priv, const char *params)$/;"	f	file:
+ctrl_iface_priv	ctrl_iface_kona.c	/^struct ctrl_iface_priv {$/;"	s	file:
+ctrl_iface_priv	ctrl_iface_named_pipe.c	/^struct ctrl_iface_priv {$/;"	s	file:
+ctrl_iface_priv	ctrl_iface_udp.c	/^struct ctrl_iface_priv {$/;"	s	file:
+ctrl_iface_priv	ctrl_iface_unix.c	/^struct ctrl_iface_priv {$/;"	s	file:
+ctrl_iface_read_completed	ctrl_iface_named_pipe.c	/^static VOID WINAPI ctrl_iface_read_completed(DWORD err, DWORD bytes,$/;"	f	file:
+ctrl_iface_write_completed	ctrl_iface_named_pipe.c	/^static VOID WINAPI ctrl_iface_write_completed(DWORD err, DWORD bytes,$/;"	f	file:
+ctrl_ifname	wpa_cli.c	/^static char *ctrl_ifname = NULL;$/;"	v	file:
+ctrl_interface	config.h	/^	char *ctrl_interface;$/;"	m	struct:wpa_config
+ctrl_interface	wpa_supplicant_i.h	/^	char *ctrl_interface;$/;"	m	struct:wpa_params
+ctrl_interface	wpa_supplicant_i.h	/^	const char *ctrl_interface;$/;"	m	struct:wpa_interface
+ctrl_interface_group	config.h	/^	char *ctrl_interface_group;$/;"	m	struct:wpa_config
+ctrl_msg	ctrl_iface_kona.c	/^struct ctrl_msg {$/;"	s	file:
+ctrl_open_pipe	ctrl_iface_named_pipe.c	/^static int ctrl_open_pipe(struct ctrl_iface_priv *priv)$/;"	f	file:
+cts_protect_erp_frames	wpa_supplicant_i.h	/^	int cts_protect_erp_frames;$/;"	m	struct:wpa_client_mlme
+curr_rates	wpa_supplicant_i.h	/^	struct wpa_rate_data *curr_rates;$/;"	m	struct:wpa_client_mlme	typeref:struct:wpa_client_mlme::wpa_rate_data
+current_md	wpa_supplicant_i.h	/^	u8 current_md[6];$/;"	m	struct:wpa_client_mlme
+current_ssid	wpa_supplicant_i.h	/^	struct wpa_ssid *current_ssid;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_ssid
+daemonize	wpa_supplicant_i.h	/^	int daemonize;$/;"	m	struct:wpa_params
+data	ctrl_iface_kona.c	/^	u8  data[1];$/;"	m	struct:ctrl_msg	file:
+data	eapol_test.c	/^	char *data;$/;"	m	struct:extra_radius_attr	file:
+data	tests/test_sha256.c	/^	char *data;$/;"	m	struct:__anon3	file:
+data	tests/test_sha256.c	/^	u8 data[128];$/;"	m	struct:hmac_test	file:
+data	wpa_gui-qt4/eventhistory.cpp	/^QVariant EventListModel::data(const QModelIndex &index, int role) const$/;"	f	class:EventListModel
+data0	tests/test_sha1.c	/^static u8 data0[] = "Hi There";$/;"	v	file:
+data1	tests/test_sha1.c	/^static u8 data1[] = "what do ya want for nothing?";$/;"	v	file:
+data2	tests/test_sha1.c	/^static u8 data2[] =$/;"	v	file:
+data_len	tests/test_sha256.c	/^	size_t data_len;$/;"	m	struct:hmac_test	file:
+dbus_ctrl_iface	wpa_supplicant_i.h	/^	struct ctrl_iface_dbus_priv *dbus_ctrl_iface;$/;"	m	struct:wpa_global	typeref:struct:wpa_global::ctrl_iface_dbus_priv
+dbus_ctrl_interface	wpa_supplicant_i.h	/^	int dbus_ctrl_interface;$/;"	m	struct:wpa_params
+dbus_path	wpa_supplicant_i.h	/^	char *dbus_path;$/;"	m	struct:wpa_supplicant
+dbus_version	Makefile	/^dbus_version=$(subst ., ,$(shell pkg-config --modversion dbus-1))$/;"	m
+dbus_watch_get_unix_fd	ctrl_iface_dbus.c	29;"	d	file:
+debug_level	ctrl_iface_kona.c	/^	int debug_level;$/;"	m	struct:wpa_ctrl_dst	file:
+debug_level	ctrl_iface_named_pipe.c	/^	int debug_level;$/;"	m	struct:wpa_ctrl_dst	file:
+debug_level	ctrl_iface_udp.c	/^	int debug_level;$/;"	m	struct:wpa_ctrl_dst	file:
+debug_level	ctrl_iface_unix.c	/^	int debug_level;$/;"	m	struct:wpa_ctrl_dst	file:
+deinit	tests/test_wpa.c	/^static void deinit(struct wpa *wpa)$/;"	f	file:
+destroy	wpa_gui/eventhistory.ui.h	/^void EventHistory::destroy()$/;"	f	class:EventHistory
+destroy	wpa_gui/scanresults.ui.h	/^void ScanResults::destroy()$/;"	f	class:ScanResults
+destroy	wpa_gui/wpagui.ui.h	/^void WpaGui::destroy()$/;"	f	class:WpaGui
+device_name	config.h	/^	char *device_name;$/;"	m	struct:wpa_config
+device_type	config.h	/^	char *device_type;$/;"	m	struct:wpa_config
+disableAllNetworks	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::disableAllNetworks()$/;"	f	class:WpaGui
+disableListedNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::disableListedNetwork(bool disabled)$/;"	f	class:WpaGui
+disableNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::disableNetwork(const QString &sel)$/;"	f	class:WpaGui
+disabled	config_ssid.h	/^	int disabled;$/;"	m	struct:wpa_ssid
+disconnect	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::disconnect()$/;"	f	class:WpaGui
+disconnect	wpa_gui/wpagui.ui.h	/^void WpaGui::disconnect()$/;"	f	class:WpaGui
+disconnectAction	wpa_gui-qt4/wpagui.h	/^	QAction *disconnectAction;$/;"	m	class:WpaGui
+disconnected	wpa_supplicant_i.h	/^	int disconnected; \/* all connections disabled; i.e., do no reassociate$/;"	m	struct:wpa_supplicant
+dispatch_initial_dbus_messages	ctrl_iface_dbus.c	/^static void dispatch_initial_dbus_messages(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+dont_quote	ctrl_iface_dbus_handlers.c	/^static const char *dont_quote[] = {$/;"	v	file:
+dot11RSNAConfigPMKLifetime	config.h	/^	unsigned int dot11RSNAConfigPMKLifetime;$/;"	m	struct:wpa_config
+dot11RSNAConfigPMKReauthThreshold	config.h	/^	unsigned int dot11RSNAConfigPMKReauthThreshold;$/;"	m	struct:wpa_config
+dot11RSNAConfigSATimeout	config.h	/^	unsigned int dot11RSNAConfigSATimeout;$/;"	m	struct:wpa_config
+double_value	dbus_dict_helpers.h	/^		double double_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+driver	wpa_priv.c	/^	struct wpa_driver_ops *driver;$/;"	m	struct:wpa_priv_interface	typeref:struct:wpa_priv_interface::wpa_driver_ops	file:
+driver	wpa_supplicant_i.h	/^	const char *driver;$/;"	m	struct:wpa_interface
+driver	wpa_supplicant_i.h	/^	struct wpa_driver_ops *driver;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_driver_ops
+driver_4way_handshake	wpa_supplicant_i.h	/^	int driver_4way_handshake;$/;"	m	struct:wpa_supplicant
+driver_name	wpa_priv.c	/^	char *driver_name;$/;"	m	struct:wpa_priv_interface	file:
+driver_param	config.h	/^	char *driver_param;$/;"	m	struct:wpa_config
+driver_param	wpa_supplicant_i.h	/^	const char *driver_param;$/;"	m	struct:wpa_interface
+drv_addr	wpa_priv.c	/^	struct sockaddr_un drv_addr;$/;"	m	struct:wpa_priv_interface	typeref:struct:wpa_priv_interface::sockaddr_un	file:
+drv_count	wpa_supplicant_i.h	/^	size_t drv_count;$/;"	m	struct:wpa_global
+drv_priv	wpa_priv.c	/^	void *drv_priv;$/;"	m	struct:wpa_priv_interface	file:
+drv_priv	wpa_supplicant_i.h	/^	void **drv_priv;$/;"	m	struct:wpa_global
+drv_priv	wpa_supplicant_i.h	/^	void *drv_priv; \/* private data used by driver_ops *\/$/;"	m	struct:wpa_supplicant
+dummy_driver	preauth_test.c	/^static struct wpa_driver_ops dummy_driver;$/;"	v	typeref:struct:wpa_driver_ops	file:
+eap	config_ssid.h	/^	struct eap_peer_config eap;$/;"	m	struct:wpa_ssid	typeref:struct:wpa_ssid::eap_peer_config
+eapChanged	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::eapChanged(int sel)$/;"	f	class:NetworkConfig
+eap_identity	eapol_test.c	/^	u8 *eap_identity;$/;"	m	struct:eapol_test_data	file:
+eap_identity_len	eapol_test.c	/^	size_t eap_identity_len;$/;"	m	struct:eapol_test_data	file:
+eap_peer_config_free	config.c	/^static void eap_peer_config_free(struct eap_peer_config *eap)$/;"	f	file:
+eap_type_text	eapol_test.c	/^static char *eap_type_text(u8 type)$/;"	f	file:
+eap_workaround	config_ssid.h	/^	unsigned int eap_workaround;$/;"	m	struct:wpa_ssid
+eapol	wpa_supplicant_i.h	/^	struct eapol_sm *eapol;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::eapol_sm
+eapol_flags	config_ssid.h	/^	int eapol_flags;$/;"	m	struct:wpa_ssid
+eapol_received	wpa_supplicant_i.h	/^	int eapol_received; \/* number of EAPOL packets received after the$/;"	m	struct:wpa_supplicant
+eapol_sm_cb	eapol_test.c	/^static void eapol_sm_cb(struct eapol_sm *eapol, int success, void *ctx)$/;"	f	file:
+eapol_sm_reauth	eapol_test.c	/^static void eapol_sm_reauth(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+eapol_test	eapol_test.c	/^static struct eapol_test_data eapol_test;$/;"	v	typeref:struct:eapol_test_data	file:
+eapol_test_compare_pmk	eapol_test.c	/^static int eapol_test_compare_pmk(struct eapol_test_data *e)$/;"	f	file:
+eapol_test_data	eapol_test.c	/^struct eapol_test_data {$/;"	s	file:
+eapol_test_eapol_done_cb	eapol_test.c	/^static void eapol_test_eapol_done_cb(void *ctx)$/;"	f	file:
+eapol_test_eapol_send	eapol_test.c	/^static int eapol_test_eapol_send(void *ctx, int type, const u8 *buf,$/;"	f	file:
+eapol_test_get_config_blob	eapol_test.c	/^eapol_test_get_config_blob(void *ctx, const char *name)$/;"	f	file:
+eapol_test_num_reauths	eapol_test.c	/^	int eapol_test_num_reauths;$/;"	m	struct:eapol_test_data	file:
+eapol_test_poll	preauth_test.c	/^static void eapol_test_poll(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+eapol_test_set_config_blob	eapol_test.c	/^static void eapol_test_set_config_blob(void *ctx,$/;"	f	file:
+eapol_test_terminate	eapol_test.c	/^static void eapol_test_terminate(int sig, void *eloop_ctx,$/;"	f	file:
+eapol_test_terminate	preauth_test.c	/^static void eapol_test_terminate(int sig, void *eloop_ctx,$/;"	f	file:
+eapol_test_timeout	eapol_test.c	/^static void eapol_test_timeout(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+eapol_test_timeout	preauth_test.c	/^static void eapol_test_timeout(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+eapol_version	config.h	/^	int eapol_version;$/;"	m	struct:wpa_config
+editListedNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::editListedNetwork()$/;"	f	class:WpaGui
+editNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::editNetwork(const QString &sel)$/;"	f	class:WpaGui
+editNetwork	wpa_gui/wpagui.ui.h	/^void WpaGui::editNetwork()$/;"	f	class:WpaGui
+editSelectedNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::editSelectedNetwork()$/;"	f	class:WpaGui
+edit_network_id	wpa_gui-qt4/networkconfig.h	/^	int edit_network_id;$/;"	m	class:NetworkConfig
+eh	wpa_gui-qt4/wpagui.h	/^	EventHistory *eh;$/;"	m	class:WpaGui
+elm	wpa_gui-qt4/eventhistory.h	/^	EventListModel *elm;$/;"	m	class:EventHistory
+enableAllNetworks	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::enableAllNetworks()$/;"	f	class:WpaGui
+enableListedNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::enableListedNetwork(bool enabled)$/;"	f	class:WpaGui
+enableNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::enableNetwork(const QString &sel)$/;"	f	class:WpaGui
+encrChanged	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::encrChanged(const QString &sel)$/;"	f	class:NetworkConfig
+encrChanged	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::encrChanged( const QString &sel )$/;"	f	class:NetworkConfig
+err	wpa_gui-qt4/wpagui.cpp	/^	DWORD err;$/;"	m	class:ErrorMsg	file:
+errors	ctrl_iface_kona.c	/^	int errors;$/;"	m	struct:wpa_ctrl_dst	file:
+errors	ctrl_iface_named_pipe.c	/^	int errors;$/;"	m	struct:wpa_ctrl_dst	file:
+errors	ctrl_iface_udp.c	/^	int errors;$/;"	m	struct:wpa_ctrl_dst	file:
+errors	ctrl_iface_unix.c	/^	int errors;$/;"	m	struct:wpa_ctrl_dst	file:
+eventAction	wpa_gui-qt4/wpagui.h	/^	QAction *eventAction;$/;"	m	class:WpaGui
+eventHistory	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::eventHistory()$/;"	f	class:WpaGui
+eventHistory	wpa_gui/wpagui.ui.h	/^void WpaGui::eventHistory()$/;"	f	class:WpaGui
+extra_attrs	eapol_test.c	/^	struct extra_radius_attr *extra_attrs;$/;"	m	struct:eapol_test_data	typeref:struct:eapol_test_data::extra_radius_attr	file:
+extra_ie	wpa_supplicant_i.h	/^	u8 *extra_ie; \/* to be added to the end of AssocReq *\/$/;"	m	struct:wpa_client_mlme
+extra_ie_len	wpa_supplicant_i.h	/^	size_t extra_ie_len;$/;"	m	struct:wpa_client_mlme
+extra_probe_ie	wpa_supplicant_i.h	/^	u8 *extra_probe_ie; \/* to be added to the end of ProbeReq *\/$/;"	m	struct:wpa_client_mlme
+extra_probe_ie_len	wpa_supplicant_i.h	/^	size_t extra_probe_ie_len;$/;"	m	struct:wpa_client_mlme
+extra_radius_attr	eapol_test.c	/^struct extra_radius_attr {$/;"	s	file:
+fast_reauth	config.h	/^	int fast_reauth;$/;"	m	struct:wpa_config
+fd	wpa_priv.c	/^	int fd;$/;"	m	struct:wpa_priv_interface	file:
+field	wpa_gui-qt4/userdatarequest.h	/^	QString field;$/;"	m	class:UserDataRequest
+fileStartServiceAction	wpa_gui-qt4/wpagui.h	/^	QAction *fileStartServiceAction;$/;"	m	class:WpaGui
+fileStopServiceAction	wpa_gui-qt4/wpagui.h	/^	QAction *fileStopServiceAction;$/;"	m	class:WpaGui
+find_extra_attr	eapol_test.c	/^find_extra_attr(struct extra_radius_attr *attrs, u8 type)$/;"	f	file:
+fixcomment	doc/kerneldoc2doxygen.pl	/^sub fixcomment {$/;"	s
+flags	wpa_cli.c	/^	enum wpa_cli_cmd_flags flags;$/;"	m	struct:wpa_cli_cmd	typeref:enum:wpa_cli_cmd::wpa_cli_cmd_flags	file:
+freq	mlme.c	/^	int freq;$/;"	m	struct:ieee80211_sta_bss	file:
+freq	wpa_supplicant_i.h	/^	int freq; \/* The current frequency in MHz *\/$/;"	m	struct:wpa_client_mlme
+frequency	config_ssid.h	/^	int frequency;$/;"	m	struct:wpa_ssid
+ft_ies	wpa_supplicant_i.h	/^	u8 *ft_ies;$/;"	m	struct:wpa_client_mlme
+ft_ies_len	wpa_supplicant_i.h	/^	size_t ft_ies_len;$/;"	m	struct:wpa_client_mlme
+getEapCapa	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::getEapCapa()$/;"	f	class:NetworkConfig
+getEapCapa	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::getEapCapa()$/;"	f	class:NetworkConfig
+getMsg	wpa_gui-qt4/wpamsg.h	/^	QString getMsg() const { return msg; }$/;"	f	class:WpaMsg
+getMsg	wpa_gui/wpamsg.h	/^    QString getMsg() const { return msg; }$/;"	f	class:WpaMsg
+getNetworkDisabled	wpa_gui-qt4/wpagui.cpp	/^int WpaGui::getNetworkDisabled(const QString &sel)$/;"	f	class:WpaGui
+getPriority	wpa_gui-qt4/wpamsg.h	/^	int getPriority() const { return priority; }$/;"	f	class:WpaMsg
+getPriority	wpa_gui/wpamsg.h	/^    int getPriority() const { return priority; }$/;"	f	class:WpaMsg
+getResults	wpa_gui-qt4/scanresults.cpp	/^void ScanResults::getResults()$/;"	f	class:ScanResults
+getResults	wpa_gui/scanresults.ui.h	/^void ScanResults::getResults()$/;"	f	class:ScanResults
+getTimestamp	wpa_gui-qt4/wpamsg.h	/^	QDateTime getTimestamp() const { return timestamp; }$/;"	f	class:WpaMsg
+getTimestamp	wpa_gui/wpamsg.h	/^    QDateTime getTimestamp() const { return timestamp; }$/;"	f	class:WpaMsg
+global	ctrl_iface_dbus.c	/^	struct wpa_global *global;$/;"	m	struct:ctrl_iface_dbus_priv	typeref:struct:ctrl_iface_dbus_priv::wpa_global	file:
+global	ctrl_iface_kona.c	/^	struct wpa_global *global;$/;"	m	struct:ctrl_iface_global_priv	typeref:struct:ctrl_iface_global_priv::wpa_global	file:
+global	ctrl_iface_named_pipe.c	/^	struct wpa_global *global;$/;"	m	struct:ctrl_iface_global_priv	typeref:struct:ctrl_iface_global_priv::wpa_global	file:
+global	ctrl_iface_unix.c	/^	struct wpa_global *global;$/;"	m	struct:ctrl_iface_global_priv	typeref:struct:ctrl_iface_global_priv::wpa_global	file:
+global	wpa_supplicant_i.h	/^	struct wpa_global *global;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_global
+global_close_pipe	ctrl_iface_named_pipe.c	/^static void global_close_pipe(struct wpa_global_dst *dst)$/;"	f	file:
+global_fields	config_file.c	/^static const struct global_parse_data global_fields[] = {$/;"	v	typeref:struct:global_parse_data	file:
+global_flush_broken_pipes	ctrl_iface_named_pipe.c	/^static void global_flush_broken_pipes(struct ctrl_iface_global_priv *priv)$/;"	f	file:
+global_iface_read_completed	ctrl_iface_named_pipe.c	/^static VOID WINAPI global_iface_read_completed(DWORD err, DWORD bytes,$/;"	f	file:
+global_iface_write_completed	ctrl_iface_named_pipe.c	/^static VOID WINAPI global_iface_write_completed(DWORD err, DWORD bytes,$/;"	f	file:
+global_open_pipe	ctrl_iface_named_pipe.c	/^static int global_open_pipe(struct ctrl_iface_global_priv *priv)$/;"	f	file:
+global_parse_data	config_file.c	/^struct global_parse_data {$/;"	s	file:
+group_cipher	config_ssid.h	/^	int group_cipher;$/;"	m	struct:wpa_ssid
+group_cipher	wpa_supplicant_i.h	/^	int group_cipher;$/;"	m	struct:wpa_supplicant
+handler	wpa_cli.c	/^	int (*handler)(struct wpa_ctrl *ctrl, int argc, char *argv[]);$/;"	m	struct:wpa_cli_cmd	file:
+hash	tests/test_sha256.c	/^	u8 hash[32];$/;"	m	struct:__anon3	file:
+hash	tests/test_sha256.c	/^	u8 hash[32];$/;"	m	struct:hmac_test	file:
+headerData	wpa_gui-qt4/eventhistory.cpp	/^QVariant EventListModel::headerData(int section, Qt::Orientation orientation,$/;"	f	class:EventListModel
+helpAbout	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::helpAbout()$/;"	f	class:WpaGui
+helpAbout	wpa_gui/wpagui.ui.h	/^void WpaGui::helpAbout()$/;"	f	class:WpaGui
+helpContents	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::helpContents()$/;"	f	class:WpaGui
+helpContents	wpa_gui/wpagui.ui.h	/^void WpaGui::helpContents()$/;"	f	class:WpaGui
+helpIndex	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::helpIndex()$/;"	f	class:WpaGui
+helpIndex	wpa_gui/wpagui.ui.h	/^void WpaGui::helpIndex()$/;"	f	class:WpaGui
+hideAction	wpa_gui-qt4/wpagui.h	/^	QAction *hideAction;$/;"	m	class:WpaGui
+hmac_test	tests/test_sha256.c	/^struct hmac_test {$/;"	s	file:
+hmac_tests	tests/test_sha256.c	/^} hmac_tests[] = {$/;"	v	typeref:struct:hmac_test
+hnext	mlme.c	/^	struct ieee80211_sta_bss *hnext;$/;"	m	struct:ieee80211_sta_bss	typeref:struct:ieee80211_sta_bss::ieee80211_sta_bss	file:
+hostapd_get_eap_user	tests/link_test.c	/^hostapd_get_eap_user(const struct hostapd_bss_config *conf, const u8 *identity,$/;"	f
+hostapd_get_vlan_id_ifname	tests/link_test.c	/^const char * hostapd_get_vlan_id_ifname(struct hostapd_vlan *vlan, int vlan_id)$/;"	f
+hostapd_logger_cb	eapol_test.c	/^static void hostapd_logger_cb(void *ctx, const u8 *addr, unsigned int module,$/;"	f	file:
+hw_mode	mlme.c	/^	int hw_mode;$/;"	m	struct:ieee80211_sta_bss	file:
+hw_modes	wpa_supplicant_i.h	/^	unsigned int hw_modes; \/* bitfield of allowed hardware modes;$/;"	m	struct:wpa_client_mlme
+ibss_join_req	wpa_supplicant_i.h	/^	struct os_time ibss_join_req;$/;"	m	struct:wpa_client_mlme	typeref:struct:wpa_client_mlme::os_time
+id	config_ssid.h	/^	int id;$/;"	m	struct:wpa_ssid
+id_str	config_ssid.h	/^	char *id_str;$/;"	m	struct:wpa_ssid
+ie	mlme.c	/^	u8 *ie;$/;"	m	struct:ieee80211_sta_bss	file:
+ie_len	mlme.c	/^	size_t ie_len;$/;"	m	struct:ieee80211_sta_bss	file:
+ieee80211_active_scan	mlme.c	/^static int ieee80211_active_scan(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_associate	mlme.c	/^static void ieee80211_associate(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_associated	mlme.c	/^static void ieee80211_associated(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_auth_challenge	mlme.c	/^static void ieee80211_auth_challenge(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_auth_completed	mlme.c	/^static void ieee80211_auth_completed(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_authenticate	mlme.c	/^static void ieee80211_authenticate(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_bss_add	mlme.c	/^ieee80211_bss_add(struct wpa_supplicant *wpa_s, const u8 *bssid)$/;"	f	file:
+ieee80211_bss_free	mlme.c	/^static void ieee80211_bss_free(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_bss_get	mlme.c	/^ieee80211_bss_get(struct wpa_supplicant *wpa_s, const u8 *bssid)$/;"	f	file:
+ieee80211_bss_info	mlme.c	/^static void ieee80211_bss_info(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_bss_list_deinit	mlme.c	/^static void ieee80211_bss_list_deinit(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_ft_assoc_resp	mlme.c	/^static int ieee80211_ft_assoc_resp(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_ibss_allowed	mlme.c	/^static int ieee80211_ibss_allowed(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_privacy_mismatch	mlme.c	/^static int ieee80211_privacy_mismatch(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_reschedule_timer	mlme.c	/^static void ieee80211_reschedule_timer(struct wpa_supplicant *wpa_s, int ms)$/;"	f	file:
+ieee80211_rx_mgmt_action	mlme.c	/^static void ieee80211_rx_mgmt_action(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_assoc_resp	mlme.c	/^static void ieee80211_rx_mgmt_assoc_resp(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_auth	mlme.c	/^static void ieee80211_rx_mgmt_auth(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_beacon	mlme.c	/^static void ieee80211_rx_mgmt_beacon(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_deauth	mlme.c	/^static void ieee80211_rx_mgmt_deauth(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_disassoc	mlme.c	/^static void ieee80211_rx_mgmt_disassoc(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_ft_action	mlme.c	/^static void ieee80211_rx_mgmt_ft_action(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_probe_req	mlme.c	/^static void ieee80211_rx_mgmt_probe_req(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_probe_resp	mlme.c	/^static void ieee80211_rx_mgmt_probe_resp(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_rx_mgmt_sa_query_action	mlme.c	/^static void ieee80211_rx_mgmt_sa_query_action($/;"	f	file:
+ieee80211_send_assoc	mlme.c	/^static void ieee80211_send_assoc(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_send_auth	mlme.c	/^static void ieee80211_send_auth(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_send_deauth	mlme.c	/^static void ieee80211_send_deauth(struct wpa_supplicant *wpa_s, u16 reason)$/;"	f	file:
+ieee80211_send_disassoc	mlme.c	/^static void ieee80211_send_disassoc(struct wpa_supplicant *wpa_s, u16 reason)$/;"	f	file:
+ieee80211_send_probe_req	mlme.c	/^static void ieee80211_send_probe_req(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_set_associated	mlme.c	/^static void ieee80211_set_associated(struct wpa_supplicant *wpa_s, int assoc)$/;"	f	file:
+ieee80211_sta_active_ibss	mlme.c	/^static int ieee80211_sta_active_ibss(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_associate	mlme.c	/^int ieee80211_sta_associate(struct wpa_supplicant *wpa_s,$/;"	f
+ieee80211_sta_associate	mlme.h	/^ieee80211_sta_associate(struct wpa_supplicant *wpa_s,$/;"	f
+ieee80211_sta_bss	mlme.c	/^struct ieee80211_sta_bss {$/;"	s	file:
+ieee80211_sta_deauthenticate	mlme.c	/^int ieee80211_sta_deauthenticate(struct wpa_supplicant *wpa_s, u16 reason)$/;"	f
+ieee80211_sta_deauthenticate	mlme.h	/^static inline int ieee80211_sta_deauthenticate(struct wpa_supplicant *wpa_s,$/;"	f
+ieee80211_sta_deinit	mlme.c	/^void ieee80211_sta_deinit(struct wpa_supplicant *wpa_s)$/;"	f
+ieee80211_sta_deinit	mlme.h	/^static inline void ieee80211_sta_deinit(struct wpa_supplicant *wpa_s)$/;"	f
+ieee80211_sta_disassociate	mlme.c	/^int ieee80211_sta_disassociate(struct wpa_supplicant *wpa_s, u16 reason)$/;"	f
+ieee80211_sta_disassociate	mlme.h	/^static inline int ieee80211_sta_disassociate(struct wpa_supplicant *wpa_s,$/;"	f
+ieee80211_sta_expire	mlme.c	/^static void ieee80211_sta_expire(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_find_ibss	mlme.c	/^static int ieee80211_sta_find_ibss(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_free_hw_features	mlme.c	/^void ieee80211_sta_free_hw_features(struct wpa_hw_modes *hw_features,$/;"	f
+ieee80211_sta_free_hw_features	mlme.h	/^ieee80211_sta_free_hw_features(struct wpa_hw_modes *hw_features,$/;"	f
+ieee80211_sta_get_scan_results	mlme.c	/^ieee80211_sta_get_scan_results(struct wpa_supplicant *wpa_s)$/;"	f
+ieee80211_sta_get_scan_results	mlme.h	/^ieee80211_sta_get_scan_results(struct wpa_supplicant *wpa_s)$/;"	f
+ieee80211_sta_get_ssid	mlme.c	/^int ieee80211_sta_get_ssid(struct wpa_supplicant *wpa_s, u8 *ssid,$/;"	f
+ieee80211_sta_get_ssid	mlme.h	/^static inline int ieee80211_sta_get_ssid(struct wpa_supplicant *wpa_s,$/;"	f
+ieee80211_sta_init	mlme.c	/^int ieee80211_sta_init(struct wpa_supplicant *wpa_s)$/;"	f
+ieee80211_sta_init	mlme.h	/^static inline int ieee80211_sta_init(struct wpa_supplicant *wpa_s)$/;"	f
+ieee80211_sta_join_ibss	mlme.c	/^static int ieee80211_sta_join_ibss(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_sta_merge_ibss	mlme.c	/^static void ieee80211_sta_merge_ibss(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_new_auth	mlme.c	/^static void ieee80211_sta_new_auth(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_req_scan	mlme.c	/^int ieee80211_sta_req_scan(struct wpa_supplicant *wpa_s, const u8 *ssid,$/;"	f
+ieee80211_sta_req_scan	mlme.h	/^static inline int ieee80211_sta_req_scan(struct wpa_supplicant *wpa_s,$/;"	f
+ieee80211_sta_restore_oper_chan	mlme.c	/^static int ieee80211_sta_restore_oper_chan(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_rx	mlme.c	/^void ieee80211_sta_rx(struct wpa_supplicant *wpa_s, const u8 *buf, size_t len,$/;"	f
+ieee80211_sta_rx	mlme.h	/^ieee80211_sta_rx(struct wpa_supplicant *wpa_s, const u8 *buf, size_t len,$/;"	f
+ieee80211_sta_rx_mgmt	mlme.c	/^static void ieee80211_sta_rx_mgmt(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_sta_rx_scan	mlme.c	/^static void ieee80211_sta_rx_scan(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_sta_save_oper_chan	mlme.c	/^static void ieee80211_sta_save_oper_chan(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_scan_timer	mlme.c	/^static void ieee80211_sta_scan_timer(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+ieee80211_sta_send_ft_action	mlme.c	/^int ieee80211_sta_send_ft_action(struct wpa_supplicant *wpa_s, u8 action,$/;"	f
+ieee80211_sta_send_ft_action	mlme.h	/^ieee80211_sta_send_ft_action(struct wpa_supplicant *wpa_s, u8 action,$/;"	f
+ieee80211_sta_send_sa_query_resp	mlme.c	/^static int ieee80211_sta_send_sa_query_resp(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_sta_set_channel	mlme.c	/^static int ieee80211_sta_set_channel(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211_sta_set_probe_req_ie	mlme.c	/^int ieee80211_sta_set_probe_req_ie(struct wpa_supplicant *wpa_s, const u8 *ies,$/;"	f
+ieee80211_sta_set_probe_req_ie	mlme.h	/^ieee80211_sta_set_probe_req_ie(struct wpa_supplicant *wpa_s, const u8 *ies,$/;"	f
+ieee80211_sta_timer	mlme.c	/^static void ieee80211_sta_timer(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+ieee80211_sta_tx	mlme.c	/^static int ieee80211_sta_tx(struct wpa_supplicant *wpa_s, const u8 *buf,$/;"	f	file:
+ieee80211_sta_update_ft_ies	mlme.c	/^int ieee80211_sta_update_ft_ies(struct wpa_supplicant *wpa_s, const u8 *md,$/;"	f
+ieee80211_sta_update_ft_ies	mlme.h	/^ieee80211_sta_update_ft_ies(struct wpa_supplicant *wpa_s, const u8 *md,$/;"	f
+ieee80211_sta_wep_configured	mlme.c	/^static int ieee80211_sta_wep_configured(struct wpa_supplicant *wpa_s)$/;"	f	file:
+ieee80211_sta_wmm_params	mlme.c	/^static void ieee80211_sta_wmm_params(struct wpa_supplicant *wpa_s,$/;"	f	file:
+ieee80211w	config_ssid.h	/^	} ieee80211w;$/;"	m	struct:wpa_ssid	typeref:enum:wpa_ssid::__anon1
+ieee802_1x_decapsulate_radius	eapol_test.c	/^static void ieee802_1x_decapsulate_radius(struct eapol_test_data *e)$/;"	f	file:
+ieee802_1x_encapsulate_radius	eapol_test.c	/^static void ieee802_1x_encapsulate_radius(struct eapol_test_data *e,$/;"	f	file:
+ieee802_1x_get_keys	eapol_test.c	/^static void ieee802_1x_get_keys(struct eapol_test_data *e,$/;"	f	file:
+ieee802_1x_receive_auth	eapol_test.c	/^ieee802_1x_receive_auth(struct radius_msg *msg, struct radius_msg *req,$/;"	f	file:
+ifaces	wpa_supplicant_i.h	/^	struct wpa_supplicant *ifaces;$/;"	m	struct:wpa_global	typeref:struct:wpa_global::wpa_supplicant
+ifname	wpa_priv.c	/^	char *ifname;$/;"	m	struct:wpa_priv_interface	file:
+ifname	wpa_supplicant_i.h	/^	char ifname[100];$/;"	m	struct:wpa_supplicant
+ifname	wpa_supplicant_i.h	/^	const char *ifname;$/;"	m	struct:wpa_interface
+inTray	wpa_gui-qt4/wpagui.h	/^	bool inTray;$/;"	m	class:WpaGui
+init	wpa_gui/eventhistory.ui.h	/^void EventHistory::init()$/;"	f	class:EventHistory
+init	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::init()$/;"	f	class:NetworkConfig
+init	wpa_gui/scanresults.ui.h	/^void ScanResults::init()$/;"	f	class:ScanResults
+init	wpa_gui/wpagui.ui.h	/^void WpaGui::init()$/;"	f	class:WpaGui
+int16_value	dbus_dict_helpers.h	/^		dbus_int16_t int16_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+int32_value	dbus_dict_helpers.h	/^		dbus_int32_t int32_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+int64_value	dbus_dict_helpers.h	/^		dbus_int64_t int64_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+integrate_with_eloop	ctrl_iface_dbus.c	/^static int integrate_with_eloop(DBusConnection *connection,$/;"	f	file:
+interfaceSelected	wpa_gui-qt4/addinterface.cpp	/^void AddInterface::interfaceSelected(QTreeWidgetItem *sel)$/;"	f	class:AddInterface
+interfaceWidget	wpa_gui-qt4/addinterface.h	/^	QTreeWidget *interfaceWidget;$/;"	m	class:AddInterface
+interface_removed	wpa_supplicant_i.h	/^	int interface_removed; \/* whether the network interface has been$/;"	m	struct:wpa_supplicant
+is_hex	config.c	/^static int is_hex(const u8 *data, size_t len)$/;"	f	file:
+k	tests/test_aes.c	/^	u8 k[16];$/;"	m	struct:omac1_test_vector	file:
+key	dbus_dict_helpers.h	/^	const char *key;  \/** key of the dict entry *\/$/;"	m	struct:wpa_dbus_dict_entry
+key	tests/test_sha256.c	/^	u8 key[80];$/;"	m	struct:hmac_test	file:
+key0	tests/test_sha1.c	/^static u8 key0[] =$/;"	v	file:
+key1	tests/test_sha1.c	/^static u8 key1[] = "Jefe";$/;"	v	file:
+key2	tests/test_sha1.c	/^static u8 key2[] =$/;"	v	file:
+key_data	config.c	/^	int key_data;$/;"	m	struct:parse_data	file:
+key_len	tests/test_sha256.c	/^	size_t key_len;$/;"	m	struct:hmac_test	file:
+key_mgmt	config_ssid.h	/^	int key_mgmt;$/;"	m	struct:wpa_ssid
+key_mgmt	wpa_supplicant_i.h	/^	int key_mgmt;$/;"	m	struct:wpa_supplicant
+key_mgmt	wpa_supplicant_i.h	/^	wpa_key_mgmt key_mgmt;$/;"	m	struct:wpa_client_mlme
+key_mgmt2driver	wpa_supplicant.c	/^static wpa_key_mgmt key_mgmt2driver(int key_mgmt)$/;"	f	file:
+key_value_isset	wpa_gui-qt4/networkconfig.cpp	/^static int key_value_isset(const char *reply, size_t reply_len)$/;"	f	file:
+key_value_isset	wpa_gui/networkconfig.ui.h	/^static int key_value_isset(const char *reply, size_t reply_len)$/;"	f
+keys_cleared	wpa_supplicant_i.h	/^	int keys_cleared;$/;"	m	struct:wpa_supplicant
+kill_svc	main_winsvc.c	/^static HANDLE kill_svc;$/;"	v	file:
+kona_wpa_global	wpa_supplicant.c	/^struct wpa_global kona_wpa_global;$/;"	v	typeref:struct:wpa_global
+kona_wpa_interface	main.c	/^struct wpa_interface kona_wpa_interface;$/;"	v	typeref:struct:wpa_interface
+l2	wpa_priv.c	/^	struct l2_packet_data *l2;$/;"	m	struct:wpa_priv_interface	typeref:struct:wpa_priv_interface::l2_packet_data	file:
+l2	wpa_supplicant_i.h	/^	struct l2_packet_data *l2;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::l2_packet_data
+l2_addr	wpa_priv.c	/^	struct sockaddr_un l2_addr;$/;"	m	struct:wpa_priv_interface	typeref:struct:wpa_priv_interface::sockaddr_un	file:
+l2_br	wpa_supplicant_i.h	/^	struct l2_packet_data *l2_br;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::l2_packet_data
+languageChange	wpa_gui-qt4/eventhistory.cpp	/^void EventHistory::languageChange()$/;"	f	class:EventHistory
+languageChange	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::languageChange()$/;"	f	class:NetworkConfig
+languageChange	wpa_gui-qt4/scanresults.cpp	/^void ScanResults::languageChange()$/;"	f	class:ScanResults
+languageChange	wpa_gui-qt4/userdatarequest.cpp	/^void UserDataRequest::languageChange()$/;"	f	class:UserDataRequest
+languageChange	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::languageChange()$/;"	f	class:WpaGui
+last_eap_radius	eapol_test.c	/^	u8 *last_eap_radius; \/* last received EAP Response from Authentication$/;"	m	struct:eapol_test_data	file:
+last_eap_radius_len	eapol_test.c	/^	size_t last_eap_radius_len;$/;"	m	struct:eapol_test_data	file:
+last_eapol_src	wpa_supplicant_i.h	/^	unsigned char last_eapol_src[ETH_ALEN];$/;"	m	struct:wpa_supplicant
+last_michael_mic_error	wpa_supplicant_i.h	/^	os_time_t last_michael_mic_error;$/;"	m	struct:wpa_supplicant
+last_probe	wpa_supplicant_i.h	/^	struct os_time last_probe;$/;"	m	struct:wpa_client_mlme	typeref:struct:wpa_client_mlme::os_time
+last_recv_radius	eapol_test.c	/^	struct radius_msg *last_recv_radius;$/;"	m	struct:eapol_test_data	typeref:struct:eapol_test_data::radius_msg	file:
+last_scan_completed	wpa_supplicant_i.h	/^	struct os_time last_scan_completed;$/;"	m	struct:wpa_client_mlme	typeref:struct:wpa_client_mlme::os_time
+last_update	mlme.c	/^	struct os_time last_update;$/;"	m	struct:ieee80211_sta_bss	typeref:struct:ieee80211_sta_bss::os_time	file:
+leap	config_ssid.h	/^	int leap;$/;"	m	struct:wpa_ssid
+len	ctrl_iface_kona.c	/^	u16 len;$/;"	m	struct:ctrl_msg	file:
+license	main.c	/^static void license(void)$/;"	f	file:
+main	eapol_test.c	/^int main(int argc, char *argv[])$/;"	f
+main	examples/wpas-test.py	/^def main():$/;"	f
+main	main_none.c	/^int main(int argc, char *argv[])$/;"	f
+main	main_winsvc.c	/^int main(int argc, char *argv[])$/;"	f
+main	preauth_test.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_aes.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_eap_sim_common.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_md4.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_md5.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_ms_funcs.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_sha1.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_sha256.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_wpa.c	/^int main(int argc, char *argv[])$/;"	f
+main	tests/test_x509v3.c	/^int main(int argc, char *argv[])$/;"	f
+main	win_if_list.c	/^int main(int argc, char *argv[])$/;"	f
+main	wpa_cli.c	/^int main(int argc, char *argv[])$/;"	f
+main	wpa_gui-qt4/main.cpp	/^int main(int argc, char *argv[])$/;"	f
+main	wpa_gui/main.cpp	/^int main( int argc, char ** argv )$/;"	f
+main	wpa_passphrase.c	/^int main(int argc, char *argv[])$/;"	f
+main	wpa_priv.c	/^int main(int argc, char *argv[])$/;"	f
+main_wpa_supplicant	main.c	/^void main_wpa_supplicant(void)$/;"	f
+manufacturer	config.h	/^	char *manufacturer;$/;"	m	struct:wpa_config
+max_args	wpa_cli.c	1536;"	d	file:
+mbox	ctrl_iface_kona.c	/^	cyg_mbox mbox;$/;"	m	struct:ctrl_iface_priv	file:
+mdie	mlme.c	/^	u8 *mdie;$/;"	m	struct:ieee80211_sta_bss	file:
+mdie_len	mlme.c	/^	size_t mdie_len;$/;"	m	struct:ieee80211_sta_bss	file:
+mgmt_group_cipher	wpa_supplicant_i.h	/^	int mgmt_group_cipher;$/;"	m	struct:wpa_supplicant
+mic_errors_seen	wpa_supplicant_i.h	/^	int mic_errors_seen; \/* Michael MIC errors with the current PTK *\/$/;"	m	struct:wpa_supplicant
+mixed_cell	config_ssid.h	/^	int mixed_cell;$/;"	m	struct:wpa_ssid
+mixed_cell	wpa_supplicant_i.h	/^	unsigned int mixed_cell:1;$/;"	m	struct:wpa_client_mlme
+mlme	wpa_supplicant_i.h	/^	struct wpa_client_mlme mlme;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_client_mlme
+mode	config_ssid.h	/^	int mode;$/;"	m	struct:wpa_ssid
+model_name	config.h	/^	char *model_name;$/;"	m	struct:wpa_config
+model_number	config.h	/^	char *model_number;$/;"	m	struct:wpa_config
+modes	wpa_supplicant_i.h	/^	struct wpa_hw_modes *modes;$/;"	m	struct:wpa_client_mlme	typeref:struct:wpa_client_mlme::wpa_hw_modes
+monitor_conn	wpa_gui-qt4/wpagui.h	/^	struct wpa_ctrl *monitor_conn;$/;"	m	class:WpaGui	typeref:struct:WpaGui::wpa_ctrl
+msg	tests/test_aes.c	/^	u8 msg[64];$/;"	m	struct:omac1_test_vector	file:
+msg	wpa_gui-qt4/wpamsg.h	/^	QString msg;$/;"	m	class:WpaMsg
+msg	wpa_gui/wpamsg.h	/^    QString msg;$/;"	m	class:WpaMsg
+msgList	wpa_gui-qt4/eventhistory.h	/^	QStringList msgList;$/;"	m	class:EventListModel
+msgNotifier	wpa_gui-qt4/wpagui.h	/^	QSocketNotifier *msgNotifier;$/;"	m	class:WpaGui
+msg_len	tests/test_aes.c	/^	int msg_len;$/;"	m	struct:omac1_test_vector	file:
+msgs	wpa_gui-qt4/wpagui.h	/^	WpaMsgList msgs;$/;"	m	class:WpaGui
+name	config.c	/^	char *name;$/;"	m	struct:parse_data	file:
+name	config_file.c	/^	char *name;$/;"	m	struct:global_parse_data	file:
+ndisuio_enum_bindings	win_if_list.c	/^static void ndisuio_enum_bindings(void)$/;"	f	file:
+ndisuio_open	win_if_list.c	/^static HANDLE ndisuio_open(void)$/;"	f	file:
+ndisuio_query_bindings	win_if_list.c	/^static void ndisuio_query_bindings(HANDLE ndisuio)$/;"	f	file:
+networkMayHaveChanged	wpa_gui-qt4/wpagui.h	/^	bool networkMayHaveChanged;$/;"	m	class:WpaGui
+networkid	wpa_gui-qt4/userdatarequest.h	/^	int networkid;$/;"	m	class:UserDataRequest
+newNetwork	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::newNetwork()$/;"	f	class:NetworkConfig
+newNetwork	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::newNetwork()$/;"	f	class:NetworkConfig
+new_connection	wpa_supplicant_i.h	/^	int new_connection;$/;"	m	struct:wpa_supplicant
+new_network	wpa_gui-qt4/networkconfig.h	/^	bool new_network;$/;"	m	class:NetworkConfig
+next	blacklist.h	/^	struct wpa_blacklist *next;$/;"	m	struct:wpa_blacklist	typeref:struct:wpa_blacklist::wpa_blacklist
+next	config_ssid.h	/^	struct wpa_ssid *next;$/;"	m	struct:wpa_ssid	typeref:struct:wpa_ssid::wpa_ssid
+next	ctrl_iface_kona.c	/^	struct wpa_ctrl_dst *next;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::wpa_ctrl_dst	file:
+next	ctrl_iface_named_pipe.c	/^	struct wpa_ctrl_dst *next, *prev;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::wpa_ctrl_dst	file:
+next	ctrl_iface_named_pipe.c	/^	struct wpa_global_dst *next, *prev;$/;"	m	struct:wpa_global_dst	typeref:struct:wpa_global_dst::wpa_global_dst	file:
+next	ctrl_iface_udp.c	/^	struct wpa_ctrl_dst *next;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::wpa_ctrl_dst	file:
+next	ctrl_iface_unix.c	/^	struct wpa_ctrl_dst *next;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::wpa_ctrl_dst	file:
+next	eapol_test.c	/^	struct extra_radius_attr *next;$/;"	m	struct:extra_radius_attr	typeref:struct:extra_radius_attr::extra_radius_attr	file:
+next	mlme.c	/^	struct ieee80211_sta_bss *next;$/;"	m	struct:ieee80211_sta_bss	typeref:struct:ieee80211_sta_bss::ieee80211_sta_bss	file:
+next	wpa_priv.c	/^	struct wpa_priv_interface *next;$/;"	m	struct:wpa_priv_interface	typeref:struct:wpa_priv_interface::wpa_priv_interface	file:
+next	wpa_supplicant_i.h	/^	struct wpa_supplicant *next;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_supplicant
+next_objid	ctrl_iface_dbus.c	/^	u32 next_objid;$/;"	m	struct:ctrl_iface_dbus_priv	file:
+nlist	config_none.c	/^struct wpa_ssid *nlist[1];			\/\/only one priority$/;"	v	typeref:struct:wpa_ssid
+no_mppe_keys	eapol_test.c	/^	int no_mppe_keys;$/;"	m	struct:eapol_test_data	file:
+non_leap	config_ssid.h	/^	int non_leap;$/;"	m	struct:wpa_ssid
+num_curr_rates	wpa_supplicant_i.h	/^	int num_curr_rates;$/;"	m	struct:wpa_client_mlme
+num_modes	wpa_supplicant_i.h	/^	size_t num_modes;$/;"	m	struct:wpa_client_mlme
+num_mppe_mismatch	eapol_test.c	/^	int num_mppe_ok, num_mppe_mismatch;$/;"	m	struct:eapol_test_data	file:
+num_mppe_ok	eapol_test.c	/^	int num_mppe_ok, num_mppe_mismatch;$/;"	m	struct:eapol_test_data	file:
+num_prio	config.h	/^	int num_prio;$/;"	m	struct:wpa_config
+num_triplets	eapol_test.c	798;"	d	file:
+num_triplets	eapol_test.c	890;"	d	file:
+omac1_test_vector	tests/test_aes.c	/^struct omac1_test_vector {$/;"	s	file:
+openCtrlConnection	wpa_gui-qt4/wpagui.cpp	/^int WpaGui::openCtrlConnection(const char *ifname)$/;"	f	class:WpaGui
+openCtrlConnection	wpa_gui/wpagui.ui.h	/^int WpaGui::openCtrlConnection(const char *ifname)$/;"	f	class:WpaGui
+opensc_engine_path	config.h	/^	char *opensc_engine_path;$/;"	m	struct:wpa_config
+os_version	config.h	/^	u8 os_version[4];$/;"	m	struct:wpa_config
+overlap	ctrl_iface_named_pipe.c	/^	OVERLAPPED overlap;$/;"	m	struct:wpa_ctrl_dst	file:
+overlap	ctrl_iface_named_pipe.c	/^	OVERLAPPED overlap;$/;"	m	struct:wpa_global_dst	file:
+own_addr	eapol_test.c	/^	u8 own_addr[ETH_ALEN];$/;"	m	struct:eapol_test_data	file:
+own_addr	wpa_supplicant_i.h	/^	unsigned char own_addr[ETH_ALEN];$/;"	m	struct:wpa_supplicant
+own_ip_addr	eapol_test.c	/^	struct in_addr own_ip_addr;$/;"	m	struct:eapol_test_data	typeref:struct:eapol_test_data::in_addr	file:
+pad	ctrl_iface_kona.c	/^	u16 pad;$/;"	m	struct:ctrl_msg	file:
+pairwise_cipher	config_ssid.h	/^	int pairwise_cipher;$/;"	m	struct:wpa_ssid
+pairwise_cipher	wpa_supplicant_i.h	/^	int pairwise_cipher;$/;"	m	struct:wpa_supplicant
+param1	config.c	/^	void *param1, *param2, *param3, *param4;$/;"	m	struct:parse_data	file:
+param1	config_file.c	/^	void *param1, *param2, *param3;$/;"	m	struct:global_parse_data	file:
+param2	config.c	/^	void *param1, *param2, *param3, *param4;$/;"	m	struct:parse_data	file:
+param2	config_file.c	/^	void *param1, *param2, *param3;$/;"	m	struct:global_parse_data	file:
+param3	config.c	/^	void *param1, *param2, *param3, *param4;$/;"	m	struct:parse_data	file:
+param3	config_file.c	/^	void *param1, *param2, *param3;$/;"	m	struct:global_parse_data	file:
+param4	config.c	/^	void *param1, *param2, *param3, *param4;$/;"	m	struct:parse_data	file:
+params	wpa_supplicant_i.h	/^	struct wpa_params params;$/;"	m	struct:wpa_global	typeref:struct:wpa_global::wpa_params
+paramsFromConfig	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::paramsFromConfig(int network_id)$/;"	f	class:NetworkConfig
+paramsFromConfig	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::paramsFromConfig( int network_id )$/;"	f	class:NetworkConfig
+paramsFromScanResults	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::paramsFromScanResults(QTreeWidgetItem *sel)$/;"	f	class:NetworkConfig
+paramsFromScanResults	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::paramsFromScanResults(Q3ListViewItem *sel)$/;"	f	class:NetworkConfig
+parse_argv	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::parse_argv()$/;"	f	class:WpaGui
+parse_argv	wpa_gui/wpagui.ui.h	/^void WpaGui::parse_argv()$/;"	f	class:WpaGui
+parse_data	config.c	/^struct parse_data {$/;"	s	file:
+parser	config.c	/^	int (*parser)(const struct parse_data *data, struct wpa_ssid *ssid,$/;"	m	struct:parse_data	file:
+parser	config_file.c	/^	int (*parser)(const struct global_parse_data *data,$/;"	m	struct:global_parse_data	file:
+passphrase	config_ssid.h	/^	char *passphrase;$/;"	m	struct:wpa_ssid
+passphrase	tests/test_sha1.c	/^	char *passphrase;$/;"	m	struct:passphrase_test	file:
+passphrase_test	tests/test_sha1.c	/^struct passphrase_test {$/;"	s	file:
+passphrase_tests	tests/test_sha1.c	/^static struct passphrase_test passphrase_tests[] =$/;"	v	typeref:struct:passphrase_test	file:
+pcap_enum_devs	win_if_list.c	/^static void pcap_enum_devs(void)$/;"	f	file:
+peerkey	config_ssid.h	/^	int peerkey;$/;"	m	struct:wpa_ssid
+pending_bssid	events.c	/^u8 *pending_bssid;$/;"	v
+pending_bssid	wpa_supplicant_i.h	/^	u8 pending_bssid[ETH_ALEN]; \/* If wpa_state == WPA_ASSOCIATING, this$/;"	m	struct:wpa_supplicant
+pending_mic_error_pairwise	wpa_supplicant_i.h	/^	int pending_mic_error_pairwise;$/;"	m	struct:wpa_supplicant
+pending_mic_error_report	wpa_supplicant_i.h	/^	int pending_mic_error_report;$/;"	m	struct:wpa_supplicant
+phymode	wpa_supplicant_i.h	/^	int phymode; \/* current mode; WPA_MODE_IEEE80211A, .. *\/$/;"	m	struct:wpa_client_mlme
+pid_file	wpa_cli.c	/^static const char *pid_file = NULL;$/;"	v	file:
+pid_file	wpa_supplicant_i.h	/^	char *pid_file;$/;"	m	struct:wpa_params
+ping	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::ping()$/;"	f	class:WpaGui
+ping	wpa_gui/wpagui.ui.h	/^void WpaGui::ping()$/;"	f	class:WpaGui
+ping_interval	wpa_cli.c	/^static int ping_interval = 5;$/;"	v	file:
+pingsToStatusUpdate	wpa_gui-qt4/wpagui.h	/^	int pingsToStatusUpdate;$/;"	m	class:WpaGui
+pipe	ctrl_iface_named_pipe.c	/^	HANDLE pipe;$/;"	m	struct:wpa_ctrl_dst	file:
+pipe	ctrl_iface_named_pipe.c	/^	HANDLE pipe;$/;"	m	struct:wpa_global_dst	file:
+pkcs11_engine_path	config.h	/^	char *pkcs11_engine_path;$/;"	m	struct:wpa_config
+pkcs11_module_path	config.h	/^	char *pkcs11_module_path;$/;"	m	struct:wpa_config
+pmksa_cache_to_eapol_data	tests/link_test.c	/^void pmksa_cache_to_eapol_data(struct rsn_pmksa_cache_entry *entry,$/;"	f
+pnext	config_ssid.h	/^	struct wpa_ssid *pnext;$/;"	m	struct:wpa_ssid	typeref:struct:wpa_ssid::wpa_ssid
+preauth_test_data	preauth_test.c	/^struct preauth_test_data {$/;"	s	file:
+prev	ctrl_iface_named_pipe.c	/^	struct wpa_ctrl_dst *next, *prev;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::	file:
+prev	ctrl_iface_named_pipe.c	/^	struct wpa_global_dst *next, *prev;$/;"	m	struct:wpa_global_dst	typeref:struct:wpa_global_dst::	file:
+prev_bssid	wpa_supplicant_i.h	/^	u8 prev_bssid[ETH_ALEN];$/;"	m	struct:wpa_client_mlme
+prev_bssid_set	wpa_supplicant_i.h	/^	unsigned int prev_bssid_set:1;$/;"	m	struct:wpa_client_mlme
+prev_scan_ssid	wpa_supplicant_i.h	/^	struct wpa_ssid *prev_scan_ssid; \/* previously scanned SSID;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_ssid
+prf0	tests/test_sha1.c	/^static u8 prf0[] =$/;"	v	file:
+prf1	tests/test_sha1.c	/^static u8 prf1[] =$/;"	v	file:
+prf2	tests/test_sha1.c	/^static u8 prf2[] =$/;"	v	file:
+print_cmd_help	wpa_cli.c	/^static void print_cmd_help(struct wpa_cli_cmd *cmd, const char *pad)$/;"	f	file:
+print_help	wpa_cli.c	/^static void print_help(void)$/;"	f	file:
+printf	wpa_gui-qt4/wpagui.cpp	38;"	d	file:
+priority	config_ssid.h	/^	int priority;$/;"	m	struct:wpa_ssid
+priority	wpa_gui-qt4/wpamsg.h	/^	int priority;$/;"	m	class:WpaMsg
+priority	wpa_gui/wpamsg.h	/^    int priority;$/;"	m	class:WpaMsg
+priv	ctrl_iface_named_pipe.c	/^	struct ctrl_iface_global_priv *priv;$/;"	m	struct:wpa_global_dst	typeref:struct:wpa_global_dst::ctrl_iface_global_priv	file:
+priv	ctrl_iface_named_pipe.c	/^	struct ctrl_iface_priv *priv;$/;"	m	struct:wpa_ctrl_dst	typeref:struct:wpa_ctrl_dst::ctrl_iface_priv	file:
+proactive_key_caching	config_ssid.h	/^	int proactive_key_caching;$/;"	m	struct:wpa_ssid
+probe_resp	mlme.c	/^	int probe_resp;$/;"	m	struct:ieee80211_sta_bss	file:
+probe_resp	wpa_supplicant_i.h	/^	u8 *probe_resp; \/* ProbeResp template for IBSS *\/$/;"	m	struct:wpa_client_mlme
+probe_resp_len	wpa_supplicant_i.h	/^	size_t probe_resp_len;$/;"	m	struct:wpa_client_mlme
+probereq_poll	wpa_supplicant_i.h	/^	unsigned int probereq_poll:1;$/;"	m	struct:wpa_client_mlme
+processCtrlReq	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::processCtrlReq(const char *req)$/;"	f	class:WpaGui
+processCtrlReq	wpa_gui/wpagui.ui.h	/^void WpaGui::processCtrlReq(const char *req)$/;"	f	class:WpaGui
+processMsg	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::processMsg(char *msg)$/;"	f	class:WpaGui
+processMsg	wpa_gui/wpagui.ui.h	/^void WpaGui::processMsg(char *msg)$/;"	f	class:WpaGui
+process_timeout	ctrl_iface_dbus.c	/^static void process_timeout(void *eloop_ctx, void *sock_ctx)$/;"	f	file:
+process_wakeup_main	ctrl_iface_dbus.c	/^static void process_wakeup_main(int sig, void *eloop_ctx, void *signal_ctx)$/;"	f	file:
+process_watch	ctrl_iface_dbus.c	/^static void process_watch(struct ctrl_iface_dbus_priv *iface,$/;"	f	file:
+process_watch_exception	ctrl_iface_dbus.c	/^static void process_watch_exception(int sock, void *eloop_ctx, void *sock_ctx)$/;"	f	file:
+process_watch_read	ctrl_iface_dbus.c	/^static void process_watch_read(int sock, void *eloop_ctx, void *sock_ctx)$/;"	f	file:
+process_watch_write	ctrl_iface_dbus.c	/^static void process_watch_write(int sock, void *eloop_ctx, void *sock_ctx)$/;"	f	file:
+proto	config_ssid.h	/^	int proto;$/;"	m	struct:wpa_ssid
+psk	config_ssid.h	/^	u8 psk[32];$/;"	m	struct:wpa_ssid
+psk	tests/test_sha1.c	/^	char psk[32];$/;"	m	struct:passphrase_test	file:
+psk	tests/test_wpa.c	/^	u8 psk[PMK_LEN];$/;"	m	struct:wpa	file:
+psk_set	config_ssid.h	/^	int psk_set;$/;"	m	struct:wpa_ssid
+pssid	config.h	/^	struct wpa_ssid **pssid;$/;"	m	struct:wpa_config	typeref:struct:wpa_config::wpa_ssid
+quitAction	wpa_gui-qt4/wpagui.h	/^	QAction *quitAction;$/;"	m	class:WpaGui
+radius	eapol_test.c	/^	struct radius_client_data *radius;$/;"	m	struct:eapol_test_data	typeref:struct:eapol_test_data::radius_client_data	file:
+radius_access_accept_received	eapol_test.c	/^	int radius_access_accept_received;$/;"	m	struct:eapol_test_data	file:
+radius_access_reject_received	eapol_test.c	/^	int radius_access_reject_received;$/;"	m	struct:eapol_test_data	file:
+radius_conf	eapol_test.c	/^	struct hostapd_radius_servers *radius_conf;$/;"	m	struct:eapol_test_data	typeref:struct:eapol_test_data::hostapd_radius_servers	file:
+radius_identifier	eapol_test.c	/^	u8 radius_identifier;$/;"	m	struct:eapol_test_data	file:
+read_interface	main_winsvc.c	/^static int read_interface(struct wpa_global *global, HKEY _hk,$/;"	f	file:
+reassociate	wpa_supplicant_i.h	/^	int reassociate; \/* reassociation requested *\/$/;"	m	struct:wpa_supplicant
+reassociated_connection	wpa_supplicant_i.h	/^	int reassociated_connection;$/;"	m	struct:wpa_supplicant
+receiveMsgs	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::receiveMsgs()$/;"	f	class:WpaGui
+receiveMsgs	wpa_gui/wpagui.ui.h	/^void WpaGui::receiveMsgs()$/;"	f	class:WpaGui
+reconnectAction	wpa_gui-qt4/wpagui.h	/^	QAction *reconnectAction;$/;"	m	class:WpaGui
+register_service	main_winsvc.c	/^static int register_service(const TCHAR *exe)$/;"	f	file:
+removeAllNetworks	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::removeAllNetworks()$/;"	f	class:WpaGui
+removeListedNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::removeListedNetwork()$/;"	f	class:WpaGui
+removeNetwork	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::removeNetwork()$/;"	f	class:NetworkConfig
+removeNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::removeNetwork(const QString &sel)$/;"	f	class:WpaGui
+removeNetwork	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::removeNetwork()$/;"	f	class:NetworkConfig
+removeSelectedNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::removeSelectedNetwork()$/;"	f	class:WpaGui
+remove_timeout	ctrl_iface_dbus.c	/^static void remove_timeout(DBusTimeout *timeout, void *data)$/;"	f	file:
+remove_watch	ctrl_iface_dbus.c	/^static void remove_watch(DBusWatch *watch, void *data)$/;"	f	file:
+req_buf	ctrl_iface_named_pipe.c	/^	char req_buf[REQUEST_BUFSIZE];$/;"	m	struct:wpa_ctrl_dst	file:
+req_buf	ctrl_iface_named_pipe.c	/^	char req_buf[REQUEST_BUFSIZE];$/;"	m	struct:wpa_global_dst	file:
+rowCount	wpa_gui-qt4/eventhistory.cpp	/^int EventListModel::rowCount(const QModelIndex &) const$/;"	f	class:EventListModel
+rsn_ie	mlme.c	/^	u8 *rsn_ie;$/;"	m	struct:ieee80211_sta_bss	file:
+rsn_ie_len	mlme.c	/^	size_t rsn_ie_len;$/;"	m	struct:ieee80211_sta_bss	file:
+rsn_preauth_finished	tests/link_test.c	/^void rsn_preauth_finished(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
+rsn_preauth_send	tests/link_test.c	/^void rsn_preauth_send(struct hostapd_data *hapd, struct sta_info *sta,$/;"	f
+rsp_buf	ctrl_iface_named_pipe.c	/^	char *rsp_buf;$/;"	m	struct:wpa_ctrl_dst	file:
+rsp_buf	ctrl_iface_named_pipe.c	/^	char *rsp_buf;$/;"	m	struct:wpa_global_dst	file:
+rssi	mlme.c	/^	int rssi;$/;"	m	struct:ieee80211_sta_bss	file:
+run_test	tests/test_x509v3_nist.sh	/^function run_test$/;"	f
+run_test	tests/test_x509v3_nist2.sh	/^function run_test$/;"	f
+saveConfig	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::saveConfig()$/;"	f	class:WpaGui
+saveState	wpa_gui-qt4/main.cpp	/^void WpaGuiApp::saveState(QSessionManager &manager)$/;"	f	class:WpaGuiApp
+saveState	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::saveState()$/;"	f	class:WpaGui
+scan	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::scan()$/;"	f	class:WpaGui
+scan	wpa_gui/wpagui.ui.h	/^void WpaGui::scan()$/;"	f	class:WpaGui
+scanAction	wpa_gui-qt4/wpagui.h	/^	QAction *scanAction;$/;"	m	class:WpaGui
+scanRequest	wpa_gui-qt4/scanresults.cpp	/^void ScanResults::scanRequest()$/;"	f	class:ScanResults
+scanRequest	wpa_gui/scanresults.ui.h	/^void ScanResults::scanRequest()$/;"	f	class:ScanResults
+scan_channel_idx	wpa_supplicant_i.h	/^	int scan_channel_idx;$/;"	m	struct:wpa_client_mlme
+scan_hw_mode_idx	wpa_supplicant_i.h	/^	int scan_hw_mode_idx;$/;"	m	struct:wpa_client_mlme
+scan_oper_channel	wpa_supplicant_i.h	/^	int scan_oper_channel;$/;"	m	struct:wpa_client_mlme
+scan_oper_freq	wpa_supplicant_i.h	/^	int scan_oper_freq;$/;"	m	struct:wpa_client_mlme
+scan_oper_phymode	wpa_supplicant_i.h	/^	int scan_oper_phymode;$/;"	m	struct:wpa_client_mlme
+scan_req	wpa_supplicant_i.h	/^	int scan_req; \/* manual scan request; this forces a scan even if there$/;"	m	struct:wpa_supplicant
+scan_res	wpa_supplicant_i.h	/^	struct wpa_scan_results *scan_res;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_scan_results
+scan_res_tried	wpa_supplicant_i.h	/^	int scan_res_tried; \/* whether ap_scan=1 mode has tried to fetch scan$/;"	m	struct:wpa_supplicant
+scan_runs	wpa_supplicant_i.h	/^	int scan_runs; \/* number of scan runs since WPS was started *\/$/;"	m	struct:wpa_supplicant
+scan_skip_11b	wpa_supplicant_i.h	/^	int scan_skip_11b;$/;"	m	struct:wpa_client_mlme
+scan_ssid	config_ssid.h	/^	int scan_ssid;$/;"	m	struct:wpa_ssid
+scan_ssid	wpa_supplicant_i.h	/^	u8 scan_ssid[32];$/;"	m	struct:wpa_client_mlme
+scan_ssid_len	wpa_supplicant_i.h	/^	size_t scan_ssid_len;$/;"	m	struct:wpa_client_mlme
+scan_state	wpa_supplicant_i.h	/^	enum { SCAN_SET_CHANNEL, SCAN_SEND_PROBE } scan_state;$/;"	m	struct:wpa_client_mlme	typeref:enum:wpa_client_mlme::__anon7
+scanres	wpa_gui-qt4/wpagui.h	/^	ScanResults *scanres;$/;"	m	class:WpaGui
+scard	wpa_supplicant_i.h	/^	struct scard_data *scard;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::scard_data
+scard_get_triplets	eapol_test.c	/^static int scard_get_triplets(int argc, char *argv[])$/;"	f	file:
+scard_test	eapol_test.c	/^static int scard_test(void)$/;"	f	file:
+sec_attr_set	ctrl_iface_named_pipe.c	/^	int sec_attr_set;$/;"	m	struct:ctrl_iface_priv	file:
+selectAdapter	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::selectAdapter( const QString & sel )$/;"	f	class:WpaGui
+selectAdapter	wpa_gui/wpagui.ui.h	/^void WpaGui::selectAdapter( const QString & sel )$/;"	f	class:WpaGui
+selectNetwork	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::selectNetwork( const QString &sel )$/;"	f	class:WpaGui
+selectNetwork	wpa_gui/wpagui.ui.h	/^void WpaGui::selectNetwork( const QString &sel )$/;"	f	class:WpaGui
+sendReply	wpa_gui-qt4/userdatarequest.cpp	/^void UserDataRequest::sendReply()$/;"	f	class:UserDataRequest
+sendReply	wpa_gui/userdatarequest.ui.h	/^void UserDataRequest::sendReply()$/;"	f	class:UserDataRequest
+send_eap_request_identity	eapol_test.c	/^static void send_eap_request_identity(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+serial_number	config.h	/^	char *serial_number;$/;"	m	struct:wpa_config
+serviceRunning	wpa_gui-qt4/wpagui.cpp	/^bool WpaGui::serviceRunning()$/;"	f	class:WpaGui
+service_ctrl_handler	main_winsvc.c	/^static void WINAPI service_ctrl_handler(DWORD control_code)$/;"	f	file:
+service_start	main_winsvc.c	/^static void WINAPI service_start(DWORD argc, LPTSTR *argv)$/;"	f	file:
+setBssFromScan	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::setBssFromScan(const QString &bssid)$/;"	f	class:WpaGui
+setNetworkParam	wpa_gui-qt4/networkconfig.cpp	/^int NetworkConfig::setNetworkParam(int id, const char *field,$/;"	f	class:NetworkConfig
+setNetworkParam	wpa_gui/networkconfig.ui.h	/^int NetworkConfig::setNetworkParam(int id, const char *field, const char *value, bool quote)$/;"	f	class:NetworkConfig
+setParams	wpa_gui-qt4/userdatarequest.cpp	/^int UserDataRequest::setParams(WpaGui *_wpagui, const char *reqMsg)$/;"	f	class:UserDataRequest
+setParams	wpa_gui/userdatarequest.ui.h	/^int UserDataRequest::setParams(WpaGui *_wpagui, const char *reqMsg)$/;"	f	class:UserDataRequest
+setWpaGui	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::setWpaGui(WpaGui *_wpagui)$/;"	f	class:NetworkConfig
+setWpaGui	wpa_gui-qt4/scanresults.cpp	/^void ScanResults::setWpaGui(WpaGui *_wpagui)$/;"	f	class:ScanResults
+setWpaGui	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::setWpaGui( WpaGui *_wpagui )$/;"	f	class:NetworkConfig
+setWpaGui	wpa_gui/scanresults.ui.h	/^void ScanResults::setWpaGui(WpaGui *_wpagui)$/;"	f	class:ScanResults
+should_dispatch	ctrl_iface_dbus.c	/^	int should_dispatch;$/;"	m	struct:ctrl_iface_dbus_priv	file:
+should_quote_opt	ctrl_iface_dbus_handlers.c	/^static dbus_bool_t should_quote_opt(const char *key)$/;"	f	file:
+showAction	wpa_gui-qt4/wpagui.h	/^	QAction *showAction;$/;"	m	class:WpaGui
+showMsg	wpa_gui-qt4/wpagui.cpp	/^void ErrorMsg::showMsg(QString msg)$/;"	f	class:ErrorMsg
+showTrayMessage	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::showTrayMessage(QSystemTrayIcon::MessageIcon type, int sec,$/;"	f	class:WpaGui
+showTrayStatus	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::showTrayStatus()$/;"	f	class:WpaGui
+show_dev	win_if_list.c	/^static void show_dev(pcap_if_t *dev)$/;"	f	file:
+sock	ctrl_iface_kona.c	/^	cyg_handle_t sock;$/;"	m	struct:ctrl_iface_priv	file:
+sock	ctrl_iface_kona.c	/^	int sock;$/;"	m	struct:ctrl_iface_global_priv	file:
+sock	ctrl_iface_kona.c	/^cyg_handle_t sock;$/;"	v
+sock	ctrl_iface_udp.c	/^	int sock;$/;"	m	struct:ctrl_iface_global_priv	file:
+sock	ctrl_iface_udp.c	/^	int sock;$/;"	m	struct:ctrl_iface_priv	file:
+sock	ctrl_iface_unix.c	/^	int sock;$/;"	m	struct:ctrl_iface_global_priv	file:
+sock	ctrl_iface_unix.c	/^	int sock;$/;"	m	struct:ctrl_iface_priv	file:
+sock_name	wpa_priv.c	/^	char *sock_name;$/;"	m	struct:wpa_priv_interface	file:
+ssid	config.h	/^	struct wpa_ssid *ssid;$/;"	m	struct:wpa_config	typeref:struct:wpa_config::wpa_ssid
+ssid	config_ssid.h	/^	u8 *ssid;$/;"	m	struct:wpa_ssid
+ssid	mlme.c	/^	u8 ssid[MAX_SSID_LEN];$/;"	m	struct:ieee80211_sta_bss	file:
+ssid	tests/test_sha1.c	/^	char *ssid;$/;"	m	struct:passphrase_test	file:
+ssid	tests/test_wpa.c	/^	struct wpa_ssid ssid;$/;"	m	struct:wpa	typeref:struct:wpa::wpa_ssid	file:
+ssid	wpa_supplicant_i.h	/^	u8 ssid[32];$/;"	m	struct:wpa_client_mlme
+ssid_fields	config.c	/^static const struct parse_data ssid_fields[] = {$/;"	v	typeref:struct:parse_data	file:
+ssid_len	config_ssid.h	/^	size_t ssid_len;$/;"	m	struct:wpa_ssid
+ssid_len	mlme.c	/^	size_t ssid_len;$/;"	m	struct:ieee80211_sta_bss	file:
+ssid_len	wpa_supplicant_i.h	/^	size_t ssid_len;$/;"	m	struct:wpa_client_mlme
+ssid_set	wpa_supplicant_i.h	/^	unsigned int ssid_set:1;$/;"	m	struct:wpa_client_mlme
+sta_bss_hash	wpa_supplicant_i.h	/^	struct ieee80211_sta_bss *sta_bss_hash[STA_HASH_SIZE];$/;"	m	struct:wpa_client_mlme	typeref:struct:wpa_client_mlme::ieee80211_sta_bss
+sta_bss_list	wpa_supplicant_i.h	/^	struct ieee80211_sta_bss *sta_bss_list;$/;"	m	struct:wpa_client_mlme	typeref:struct:wpa_client_mlme::ieee80211_sta_bss
+sta_scanning	wpa_supplicant_i.h	/^	int sta_scanning;$/;"	m	struct:wpa_client_mlme
+startInTray	wpa_gui-qt4/wpagui.h	/^	bool startInTray;$/;"	m	class:WpaGui
+startService	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::startService()$/;"	f	class:WpaGui
+statAction	wpa_gui-qt4/wpagui.h	/^	QAction *statAction;$/;"	m	class:WpaGui
+state	wpa_supplicant_i.h	/^	} state;$/;"	m	struct:wpa_client_mlme	typeref:enum:wpa_client_mlme::__anon6
+stopService	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::stopService()$/;"	f	class:WpaGui
+stopWpsRun	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::stopWpsRun(bool success)$/;"	f	class:WpaGui
+str_match	wpa_cli.c	/^static int str_match(const char *a, const char *b)$/;"	f	file:
+str_match	wpa_gui-qt4/wpagui.cpp	/^static int str_match(const char *a, const char *b)$/;"	f	file:
+str_match	wpa_gui/wpagui.ui.h	/^static int str_match(const char *a, const char *b)$/;"	f
+str_value	dbus_dict_helpers.h	/^		char *str_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+strarray_value	dbus_dict_helpers.h	/^		char **strarray_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+supp	tests/test_wpa.c	/^	struct wpa_sm *supp;$/;"	m	struct:wpa	typeref:struct:wpa::wpa_sm	file:
+supp_addr	tests/test_wpa.c	/^	u8 supp_addr[ETH_ALEN];$/;"	m	struct:wpa	file:
+supp_alloc_eapol	tests/test_wpa.c	/^static u8 * supp_alloc_eapol(void *ctx, u8 type, const void *data,$/;"	f	file:
+supp_cancel_auth_timeout	tests/test_wpa.c	/^static void supp_cancel_auth_timeout(void *ctx)$/;"	f	file:
+supp_cancel_scan	tests/test_wpa.c	/^static void supp_cancel_scan(void *ctx)$/;"	f	file:
+supp_eapol	tests/test_wpa.c	/^	u8 *supp_eapol;$/;"	m	struct:wpa	file:
+supp_eapol_len	tests/test_wpa.c	/^	size_t supp_eapol_len;$/;"	m	struct:wpa	file:
+supp_eapol_rx	tests/test_wpa.c	/^static void supp_eapol_rx(void *eloop_data, void *user_ctx)$/;"	f	file:
+supp_ether_send	tests/test_wpa.c	/^static int supp_ether_send(void *ctx, const u8 *dest, u16 proto, const u8 *buf,$/;"	f	file:
+supp_get_beacon_ie	tests/test_wpa.c	/^static int supp_get_beacon_ie(void *ctx)$/;"	f	file:
+supp_get_bssid	tests/test_wpa.c	/^static int supp_get_bssid(void *ctx, u8 *bssid)$/;"	f	file:
+supp_get_ssid	tests/test_wpa.c	/^static struct wpa_ssid * supp_get_ssid(void *ctx)$/;"	f	file:
+supp_ie	tests/test_wpa.c	/^	u8 supp_ie[80];$/;"	m	struct:wpa	file:
+supp_ie_len	tests/test_wpa.c	/^	size_t supp_ie_len;$/;"	m	struct:wpa	file:
+supp_init	tests/test_wpa.c	/^static int supp_init(struct wpa *wpa)$/;"	f	file:
+supp_mlme_setprotection	tests/test_wpa.c	/^static int supp_mlme_setprotection(void *ctx, const u8 *addr,$/;"	f	file:
+supp_rates	mlme.c	/^	u8 supp_rates[IEEE80211_MAX_SUPP_RATES];$/;"	m	struct:ieee80211_sta_bss	file:
+supp_rates_bits	wpa_supplicant_i.h	/^	u32 supp_rates_bits;$/;"	m	struct:wpa_client_mlme
+supp_rates_len	mlme.c	/^	size_t supp_rates_len;$/;"	m	struct:ieee80211_sta_bss	file:
+supp_set_key	tests/test_wpa.c	/^static int supp_set_key(void *ctx, wpa_alg alg,$/;"	f	file:
+supp_set_state	tests/test_wpa.c	/^static void supp_set_state(void *ctx, wpa_states state)$/;"	f	file:
+svc_status	main_winsvc.c	/^static SERVICE_STATUS svc_status;$/;"	v	file:
+svc_status_handle	main_winsvc.c	/^static SERVICE_STATUS_HANDLE svc_status_handle;$/;"	v	file:
+svc_thread	main_winsvc.c	/^static DWORD svc_thread(LPDWORD param)$/;"	f	file:
+syntax	eapol_test.c	/^	char syntax;$/;"	m	struct:extra_radius_attr	file:
+tabChanged	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::tabChanged(int index)$/;"	f	class:WpaGui
+tag	tests/test_aes.c	/^	u8 tag[16];$/;"	m	struct:omac1_test_vector	file:
+test_aes_perf	tests/test_aes.c	/^static void test_aes_perf(void)$/;"	f	file:
+test_cbc	tests/test_aes.c	/^static int test_cbc(void)$/;"	f	file:
+test_eap_fast	tests/test_sha1.c	/^static int test_eap_fast(void)$/;"	f	file:
+test_eap_sim_prf	tests/test_eap_sim_common.c	/^static int test_eap_sim_prf(void)$/;"	f	file:
+test_eapol	eapol_test.c	/^static int test_eapol(struct eapol_test_data *e, struct wpa_supplicant *wpa_s,$/;"	f	file:
+test_eapol_clean	eapol_test.c	/^static void test_eapol_clean(struct eapol_test_data *e,$/;"	f	file:
+test_eapol_clean	preauth_test.c	/^static void test_eapol_clean(struct wpa_supplicant *wpa_s)$/;"	f	file:
+test_eax	tests/test_aes.c	/^static int test_eax(void)$/;"	f	file:
+test_vectors	tests/test_aes.c	/^static struct omac1_test_vector test_vectors[] =$/;"	v	typeref:struct:omac1_test_vector	file:
+tests	tests/test_sha256.c	/^} tests[] = {$/;"	v	typeref:struct:__anon3
+timeList	wpa_gui-qt4/eventhistory.h	/^	QStringList timeList;$/;"	m	class:EventListModel
+timeout_toggled	ctrl_iface_dbus.c	/^static void timeout_toggled(DBusTimeout *timeout, void *data)$/;"	f	file:
+timer	wpa_gui-qt4/wpagui.h	/^	QTimer *timer;$/;"	m	class:WpaGui
+timestamp	mlme.c	/^	u64 timestamp;$/;"	m	struct:ieee80211_sta_bss	file:
+timestamp	wpa_gui-qt4/wpamsg.h	/^	QDateTime timestamp;$/;"	m	class:WpaMsg
+timestamp	wpa_gui/wpamsg.h	/^    QDateTime timestamp;$/;"	m	class:WpaMsg
+trayActivated	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::trayActivated(QSystemTrayIcon::ActivationReason how)$/;"	f	class:WpaGui
+tray_icon	wpa_gui-qt4/wpagui.h	/^	QSystemTrayIcon *tray_icon;$/;"	m	class:WpaGui
+tray_menu	wpa_gui-qt4/wpagui.h	/^	QMenu *tray_menu;$/;"	m	class:WpaGui
+triggerUpdate	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::triggerUpdate()$/;"	f	class:WpaGui
+triggerUpdate	wpa_gui/wpagui.ui.h	/^void WpaGui::triggerUpdate()$/;"	f	class:WpaGui
+tst_buf	ctrl_iface_kona.c	/^u8 tst_buf[256];$/;"	v
+type	dbus_dict_helpers.h	/^	int type;         \/** the dbus type of the dict entry's value *\/$/;"	m	struct:wpa_dbus_dict_entry
+type	eapol_test.c	/^	u8 type;$/;"	m	struct:extra_radius_attr	file:
+udr	wpa_gui-qt4/wpagui.h	/^	UserDataRequest *udr;$/;"	m	class:WpaGui
+uint16_value	dbus_dict_helpers.h	/^		dbus_uint16_t uint16_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+uint32_value	dbus_dict_helpers.h	/^		dbus_uint32_t uint32_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+uint64_value	dbus_dict_helpers.h	/^		dbus_uint64_t uint64_value;$/;"	m	union:wpa_dbus_dict_entry::__anon2
+unregister_service	main_winsvc.c	/^static int unregister_service(void)$/;"	f	file:
+updateNetworkDisabledStatus	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::updateNetworkDisabledStatus()$/;"	f	class:WpaGui
+updateNetworks	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::updateNetworks()$/;"	f	class:WpaGui
+updateNetworks	wpa_gui/wpagui.ui.h	/^void WpaGui::updateNetworks()$/;"	f	class:WpaGui
+updateResults	wpa_gui-qt4/scanresults.cpp	/^void ScanResults::updateResults()$/;"	f	class:ScanResults
+updateResults	wpa_gui/scanresults.ui.h	/^void ScanResults::updateResults()$/;"	f	class:ScanResults
+updateStatus	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::updateStatus()$/;"	f	class:WpaGui
+updateStatus	wpa_gui/wpagui.ui.h	/^void WpaGui::updateStatus()$/;"	f	class:WpaGui
+update_config	config.h	/^	int update_config;$/;"	m	struct:wpa_config
+usage	eapol_test.c	/^static void usage(void)$/;"	f	file:
+usage	main.c	/^static void usage(void)$/;"	f	file:
+usage	wpa_cli.c	/^	const char *usage;$/;"	m	struct:wpa_cli_cmd	file:
+usage	wpa_cli.c	/^static void usage(void)$/;"	f	file:
+usage	wpa_priv.c	/^static void usage(void)$/;"	f	file:
+useWps	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::useWps()$/;"	f	class:NetworkConfig
+use_client_mlme	wpa_supplicant_i.h	/^	int use_client_mlme;$/;"	m	struct:wpa_supplicant
+use_protection	wpa_supplicant_i.h	/^	unsigned int use_protection:1;$/;"	m	struct:wpa_client_mlme
+used	ctrl_iface_named_pipe.c	/^	int used;$/;"	m	struct:wpa_ctrl_dst	file:
+used	ctrl_iface_named_pipe.c	/^	int used;$/;"	m	struct:wpa_global_dst	file:
+uuid	config.h	/^	u8 uuid[16];$/;"	m	struct:wpa_config
+vboxLayout	wpa_gui-qt4/addinterface.h	/^	QVBoxLayout *vboxLayout;$/;"	m	class:AddInterface
+w	wpa_gui-qt4/main.cpp	/^	WpaGui *w;$/;"	m	class:WpaGuiApp	file:
+wait_for_monitor	wpa_supplicant_i.h	/^	int wait_for_monitor;$/;"	m	struct:wpa_params
+wakeup_main	ctrl_iface_dbus.c	/^static void wakeup_main(void *data)$/;"	f	file:
+watch_toggled	ctrl_iface_dbus.c	/^static void watch_toggled(DBusWatch *watch, void *data)$/;"	f	file:
+wepEnabled	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::wepEnabled(bool enabled)$/;"	f	class:NetworkConfig
+wepEnabled	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::wepEnabled( bool enabled )$/;"	f	class:NetworkConfig
+wep_key	config_ssid.h	/^	u8 wep_key[NUM_WEP_KEYS][MAX_WEP_KEY_LEN];$/;"	m	struct:wpa_ssid
+wep_key_len	config_ssid.h	/^	size_t wep_key_len[NUM_WEP_KEYS];$/;"	m	struct:wpa_ssid
+wep_tx_keyidx	config_ssid.h	/^	int wep_tx_keyidx;$/;"	m	struct:wpa_ssid
+wmm_enabled	wpa_supplicant_i.h	/^	unsigned int wmm_enabled:1;$/;"	m	struct:wpa_client_mlme
+wmm_ie	mlme.c	/^	u8 *wmm_ie;$/;"	m	struct:ieee80211_sta_bss	file:
+wmm_ie_len	mlme.c	/^	size_t wmm_ie_len;$/;"	m	struct:ieee80211_sta_bss	file:
+wmm_last_param_set	wpa_supplicant_i.h	/^	int wmm_last_param_set;$/;"	m	struct:wpa_client_mlme
+wpa	tests/test_wpa.c	/^struct wpa {$/;"	s	file:
+wpa	wpa_supplicant_i.h	/^	struct wpa_sm *wpa;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wpa_sm
+wpa_alloc_eapol	preauth_test.c	/^static u8 * wpa_alloc_eapol(const struct wpa_supplicant *wpa_s, u8 type,$/;"	f	file:
+wpa_alloc_eapol	wpas_glue.c	/^static u8 * wpa_alloc_eapol(const struct wpa_supplicant *wpa_s, u8 type,$/;"	f	file:
+wpa_blacklist	blacklist.h	/^struct wpa_blacklist {$/;"	s
+wpa_blacklist_add	blacklist.c	/^int wpa_blacklist_add(struct wpa_supplicant *wpa_s, const u8 *bssid)$/;"	f
+wpa_blacklist_clear	blacklist.c	/^void wpa_blacklist_clear(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_blacklist_del	blacklist.c	/^int wpa_blacklist_del(struct wpa_supplicant *wpa_s, const u8 *bssid)$/;"	f
+wpa_blacklist_get	blacklist.c	/^struct wpa_blacklist * wpa_blacklist_get(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_clear_keys	wpa_supplicant.c	/^void wpa_clear_keys(struct wpa_supplicant *wpa_s, const u8 *addr)$/;"	f
+wpa_cli_action	wpa_cli.c	/^static void wpa_cli_action(struct wpa_ctrl *ctrl)$/;"	f	file:
+wpa_cli_action_cb	wpa_cli.c	/^static void wpa_cli_action_cb(char *msg, size_t len)$/;"	f	file:
+wpa_cli_action_process	wpa_cli.c	/^static void wpa_cli_action_process(const char *msg)$/;"	f	file:
+wpa_cli_alarm	wpa_cli.c	/^static void wpa_cli_alarm(int sig)$/;"	f	file:
+wpa_cli_attached	wpa_cli.c	/^static int wpa_cli_attached = 0;$/;"	v	file:
+wpa_cli_cleanup	wpa_cli.c	/^static void wpa_cli_cleanup(void)$/;"	f	file:
+wpa_cli_close_connection	wpa_cli.c	/^static void wpa_cli_close_connection(void)$/;"	f	file:
+wpa_cli_cmd	wpa_cli.c	/^struct wpa_cli_cmd {$/;"	s	file:
+wpa_cli_cmd_add_network	wpa_cli.c	/^static int wpa_cli_cmd_add_network(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_ap_scan	wpa_cli.c	/^static int wpa_cli_cmd_ap_scan(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_bss	wpa_cli.c	/^static int wpa_cli_cmd_bss(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_bssid	wpa_cli.c	/^static int wpa_cli_cmd_bssid(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_disable_network	wpa_cli.c	/^static int wpa_cli_cmd_disable_network(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_disconnect	wpa_cli.c	/^static int wpa_cli_cmd_disconnect(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_enable_network	wpa_cli.c	/^static int wpa_cli_cmd_enable_network(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_flags	wpa_cli.c	/^enum wpa_cli_cmd_flags {$/;"	g	file:
+wpa_cli_cmd_ft_ds	wpa_cli.c	/^static int wpa_cli_cmd_ft_ds(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_gen	wpa_cli.c	/^static char * wpa_cli_cmd_gen(const char *text, int state)$/;"	f	file:
+wpa_cli_cmd_get_capability	wpa_cli.c	/^static int wpa_cli_cmd_get_capability(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_get_network	wpa_cli.c	/^static int wpa_cli_cmd_get_network(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_help	wpa_cli.c	/^static int wpa_cli_cmd_help(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_identity	wpa_cli.c	/^static int wpa_cli_cmd_identity(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_interface	wpa_cli.c	/^static int wpa_cli_cmd_interface(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_interface_add	wpa_cli.c	/^static int wpa_cli_cmd_interface_add(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_interface_list	wpa_cli.c	/^static int wpa_cli_cmd_interface_list(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_interface_remove	wpa_cli.c	/^static int wpa_cli_cmd_interface_remove(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_level	wpa_cli.c	/^static int wpa_cli_cmd_level(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_license	wpa_cli.c	/^static int wpa_cli_cmd_license(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_list_networks	wpa_cli.c	/^static int wpa_cli_cmd_list_networks(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_logoff	wpa_cli.c	/^static int wpa_cli_cmd_logoff(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_logon	wpa_cli.c	/^static int wpa_cli_cmd_logon(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_mib	wpa_cli.c	/^static int wpa_cli_cmd_mib(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_new_password	wpa_cli.c	/^static int wpa_cli_cmd_new_password(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_otp	wpa_cli.c	/^static int wpa_cli_cmd_otp(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_passphrase	wpa_cli.c	/^static int wpa_cli_cmd_passphrase(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_password	wpa_cli.c	/^static int wpa_cli_cmd_password(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_pin	wpa_cli.c	/^static int wpa_cli_cmd_pin(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_ping	wpa_cli.c	/^static int wpa_cli_cmd_ping(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_pmksa	wpa_cli.c	/^static int wpa_cli_cmd_pmksa(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_preauthenticate	wpa_cli.c	/^static int wpa_cli_cmd_preauthenticate(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_quit	wpa_cli.c	/^static int wpa_cli_cmd_quit(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_reassociate	wpa_cli.c	/^static int wpa_cli_cmd_reassociate(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_reconfigure	wpa_cli.c	/^static int wpa_cli_cmd_reconfigure(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_reconnect	wpa_cli.c	/^static int wpa_cli_cmd_reconnect(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_remove_network	wpa_cli.c	/^static int wpa_cli_cmd_remove_network(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_save_config	wpa_cli.c	/^static int wpa_cli_cmd_save_config(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_scan	wpa_cli.c	/^static int wpa_cli_cmd_scan(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_scan_results	wpa_cli.c	/^static int wpa_cli_cmd_scan_results(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_select_network	wpa_cli.c	/^static int wpa_cli_cmd_select_network(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_set	wpa_cli.c	/^static int wpa_cli_cmd_set(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_set_network	wpa_cli.c	/^static int wpa_cli_cmd_set_network(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_status	wpa_cli.c	/^static int wpa_cli_cmd_status(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_stkstart	wpa_cli.c	/^static int wpa_cli_cmd_stkstart(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_terminate	wpa_cli.c	/^static int wpa_cli_cmd_terminate(struct wpa_ctrl *ctrl, int argc,$/;"	f	file:
+wpa_cli_cmd_wps_pbc	wpa_cli.c	/^static int wpa_cli_cmd_wps_pbc(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_wps_pin	wpa_cli.c	/^static int wpa_cli_cmd_wps_pin(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_cmd_wps_reg	wpa_cli.c	/^static int wpa_cli_cmd_wps_reg(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_cli_commands	wpa_cli.c	/^static struct wpa_cli_cmd wpa_cli_commands[] = {$/;"	v	typeref:struct:wpa_cli_cmd	file:
+wpa_cli_completion	wpa_cli.c	/^static char ** wpa_cli_completion(const char *text, int start, int end)$/;"	f	file:
+wpa_cli_connected	wpa_cli.c	/^static int wpa_cli_connected = 0;$/;"	v	file:
+wpa_cli_dummy_gen	wpa_cli.c	/^static char * wpa_cli_dummy_gen(const char *text, int state)$/;"	f	file:
+wpa_cli_exec	wpa_cli.c	/^static int wpa_cli_exec(const char *program, const char *arg1,$/;"	f	file:
+wpa_cli_full_license	wpa_cli.c	/^static const char *wpa_cli_full_license =$/;"	v	file:
+wpa_cli_get_default_ifname	wpa_cli.c	/^static char * wpa_cli_get_default_ifname(void)$/;"	f	file:
+wpa_cli_interactive	wpa_cli.c	/^static void wpa_cli_interactive(void)$/;"	f	file:
+wpa_cli_last_id	wpa_cli.c	/^static int wpa_cli_last_id = 0;$/;"	v	file:
+wpa_cli_license	wpa_cli.c	/^static const char *wpa_cli_license =$/;"	v	file:
+wpa_cli_list_interfaces	wpa_cli.c	/^static int wpa_cli_list_interfaces(struct wpa_ctrl *ctrl)$/;"	f	file:
+wpa_cli_msg_cb	wpa_cli.c	/^static void wpa_cli_msg_cb(char *msg, size_t len)$/;"	f	file:
+wpa_cli_open_connection	wpa_cli.c	/^static struct wpa_ctrl * wpa_cli_open_connection(const char *ifname)$/;"	f	file:
+wpa_cli_quit	wpa_cli.c	/^static int wpa_cli_quit = 0;$/;"	v	file:
+wpa_cli_reconnect	wpa_cli.c	/^static void wpa_cli_reconnect(void)$/;"	f	file:
+wpa_cli_recv_pending	wpa_cli.c	/^static void wpa_cli_recv_pending(struct wpa_ctrl *ctrl, int in_read,$/;"	f	file:
+wpa_cli_show_network_variables	wpa_cli.c	/^static void wpa_cli_show_network_variables(void)$/;"	f	file:
+wpa_cli_show_variables	wpa_cli.c	/^static void wpa_cli_show_variables(void)$/;"	f	file:
+wpa_cli_terminate	wpa_cli.c	/^static void wpa_cli_terminate(int sig)$/;"	f	file:
+wpa_cli_version	wpa_cli.c	/^static const char *wpa_cli_version =$/;"	v	file:
+wpa_client_mlme	wpa_supplicant_i.h	/^struct wpa_client_mlme {$/;"	s
+wpa_config	config.h	/^struct wpa_config {$/;"	s
+wpa_config_add_network	config.c	/^struct wpa_ssid * wpa_config_add_network(struct wpa_config *config)$/;"	f
+wpa_config_add_prio_network	config.c	/^int wpa_config_add_prio_network(struct wpa_config *config,$/;"	f
+wpa_config_alloc_empty	config.c	/^struct wpa_config * wpa_config_alloc_empty(const char *ctrl_interface,$/;"	f
+wpa_config_debug_dump_networks	config.c	/^void wpa_config_debug_dump_networks(struct wpa_config *config)$/;"	f
+wpa_config_debug_dump_networks	config.h	356;"	d
+wpa_config_delete_subkeys	config_winreg.c	/^static int wpa_config_delete_subkeys(HKEY hk, const TCHAR *key)$/;"	f	file:
+wpa_config_free	config.c	/^void wpa_config_free(struct wpa_config *config)$/;"	f
+wpa_config_free_blob	config.c	/^void wpa_config_free_blob(struct wpa_config_blob *blob)$/;"	f
+wpa_config_free_ssid	config.c	/^void wpa_config_free_ssid(struct wpa_ssid *ssid)$/;"	f
+wpa_config_get	config.c	/^char * wpa_config_get(struct wpa_ssid *ssid, const char *var)$/;"	f
+wpa_config_get_blob	config.c	/^const struct wpa_config_blob * wpa_config_get_blob(struct wpa_config *config,$/;"	f
+wpa_config_get_line	config_file.c	/^static char * wpa_config_get_line(char *s, int size, FILE *stream, int *line,$/;"	f	file:
+wpa_config_get_network	config.c	/^struct wpa_ssid * wpa_config_get_network(struct wpa_config *config, int id)$/;"	f
+wpa_config_get_no_key	config.c	/^char * wpa_config_get_no_key(struct wpa_ssid *ssid, const char *var)$/;"	f
+wpa_config_parse_auth_alg	config.c	/^static int wpa_config_parse_auth_alg(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_bssid	config.c	/^static int wpa_config_parse_bssid(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_cipher	config.c	/^static int wpa_config_parse_cipher(int line, const char *value)$/;"	f	file:
+wpa_config_parse_eap	config.c	/^static int wpa_config_parse_eap(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_group	config.c	/^static int wpa_config_parse_group(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_int	config.c	/^static int wpa_config_parse_int(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_int	config_file.c	/^static int wpa_config_parse_int(const struct global_parse_data *data,$/;"	f	file:
+wpa_config_parse_key_mgmt	config.c	/^static int wpa_config_parse_key_mgmt(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_pairwise	config.c	/^static int wpa_config_parse_pairwise(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_password	config.c	/^static int wpa_config_parse_password(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_proto	config.c	/^static int wpa_config_parse_proto(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_psk	config.c	/^static int wpa_config_parse_psk(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_str	config.c	/^static int wpa_config_parse_str(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_str	config_file.c	/^static int wpa_config_parse_str(const struct global_parse_data *data,$/;"	f	file:
+wpa_config_parse_string	config.c	/^static char * wpa_config_parse_string(const char *value, size_t *len)$/;"	f	file:
+wpa_config_parse_wep_key	config.c	/^static int wpa_config_parse_wep_key(u8 *key, size_t *len, int line,$/;"	f	file:
+wpa_config_parse_wep_key0	config.c	/^static int wpa_config_parse_wep_key0(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_wep_key1	config.c	/^static int wpa_config_parse_wep_key1(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_wep_key2	config.c	/^static int wpa_config_parse_wep_key2(const struct parse_data *data,$/;"	f	file:
+wpa_config_parse_wep_key3	config.c	/^static int wpa_config_parse_wep_key3(const struct parse_data *data,$/;"	f	file:
+wpa_config_process_blob	config_file.c	/^static int wpa_config_process_blob(struct wpa_config *config, FILE *f,$/;"	f	file:
+wpa_config_process_country	config_file.c	/^static int wpa_config_process_country(const struct global_parse_data *data,$/;"	f	file:
+wpa_config_process_global	config_file.c	/^static int wpa_config_process_global(struct wpa_config *config, char *pos,$/;"	f	file:
+wpa_config_process_load_dynamic_eap	config_file.c	/^static int wpa_config_process_load_dynamic_eap($/;"	f	file:
+wpa_config_process_os_version	config_file.c	/^static int wpa_config_process_os_version(const struct global_parse_data *data,$/;"	f	file:
+wpa_config_process_uuid	config_file.c	/^static int wpa_config_process_uuid(const struct global_parse_data *data,$/;"	f	file:
+wpa_config_read	config_file.c	/^struct wpa_config * wpa_config_read(const char *name)$/;"	f
+wpa_config_read	config_none.c	/^struct wpa_config * wpa_config_read(const char *name)$/;"	f
+wpa_config_read	config_winreg.c	/^struct wpa_config * wpa_config_read(const char *name)$/;"	f
+wpa_config_read_blob	config_file.c	/^static struct wpa_config_blob * wpa_config_read_blob(FILE *f, int *line,$/;"	f	file:
+wpa_config_read_blobs	config_winreg.c	/^static int wpa_config_read_blobs(struct wpa_config *config, HKEY hk)$/;"	f	file:
+wpa_config_read_global	config_winreg.c	/^static int wpa_config_read_global(struct wpa_config *config, HKEY hk)$/;"	f	file:
+wpa_config_read_global_os_version	config_winreg.c	/^static int wpa_config_read_global_os_version(struct wpa_config *config,$/;"	f	file:
+wpa_config_read_global_uuid	config_winreg.c	/^static int wpa_config_read_global_uuid(struct wpa_config *config, HKEY hk)$/;"	f	file:
+wpa_config_read_network	config_file.c	/^static struct wpa_ssid * wpa_config_read_network(FILE *f, int *line, int id)$/;"	f	file:
+wpa_config_read_network	config_winreg.c	/^static struct wpa_ssid * wpa_config_read_network(HKEY hk, const TCHAR *netw,$/;"	f	file:
+wpa_config_read_networks	config_winreg.c	/^static int wpa_config_read_networks(struct wpa_config *config, HKEY hk)$/;"	f	file:
+wpa_config_read_reg_dword	config_winreg.c	/^static int wpa_config_read_reg_dword(HKEY hk, const TCHAR *name, int *_val)$/;"	f	file:
+wpa_config_read_reg_string	config_winreg.c	/^static char * wpa_config_read_reg_string(HKEY hk, const TCHAR *name)$/;"	f	file:
+wpa_config_remove_blob	config.c	/^int wpa_config_remove_blob(struct wpa_config *config, const char *name)$/;"	f
+wpa_config_remove_network	config.c	/^int wpa_config_remove_network(struct wpa_config *config, int id)$/;"	f
+wpa_config_set	config.c	/^int wpa_config_set(struct wpa_ssid *ssid, const char *var, const char *value,$/;"	f
+wpa_config_set_blob	config.c	/^void wpa_config_set_blob(struct wpa_config *config,$/;"	f
+wpa_config_set_network_defaults	config.c	/^void wpa_config_set_network_defaults(struct wpa_ssid *ssid)$/;"	f
+wpa_config_update_prio_list	config.c	/^static int wpa_config_update_prio_list(struct wpa_config *config)$/;"	f	file:
+wpa_config_update_psk	config.c	/^void wpa_config_update_psk(struct wpa_ssid *ssid)$/;"	f
+wpa_config_validate_network	config_file.c	/^static int wpa_config_validate_network(struct wpa_ssid *ssid, int line)$/;"	f	file:
+wpa_config_write	config_file.c	/^int wpa_config_write(const char *name, struct wpa_config *config)$/;"	f
+wpa_config_write	config_none.c	/^int wpa_config_write(const char *name, struct wpa_config *config)$/;"	f
+wpa_config_write	config_winreg.c	/^int wpa_config_write(const char *name, struct wpa_config *config)$/;"	f
+wpa_config_write_auth_alg	config.c	/^static char * wpa_config_write_auth_alg(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_blob	config_file.c	/^static int wpa_config_write_blob(FILE *f, struct wpa_config_blob *blob)$/;"	f	file:
+wpa_config_write_blob	config_winreg.c	/^static int wpa_config_write_blob(HKEY hk, struct wpa_config_blob *blob)$/;"	f	file:
+wpa_config_write_bssid	config.c	/^static char * wpa_config_write_bssid(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_cipher	config.c	/^static char * wpa_config_write_cipher(int cipher)$/;"	f	file:
+wpa_config_write_eap	config.c	/^static char * wpa_config_write_eap(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_global	config_file.c	/^static void wpa_config_write_global(FILE *f, struct wpa_config *config)$/;"	f	file:
+wpa_config_write_global	config_winreg.c	/^static int wpa_config_write_global(struct wpa_config *config, HKEY hk)$/;"	f	file:
+wpa_config_write_group	config.c	/^static char * wpa_config_write_group(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_int	config.c	/^static char * wpa_config_write_int(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_key_mgmt	config.c	/^static char * wpa_config_write_key_mgmt(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_network	config_file.c	/^static void wpa_config_write_network(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+wpa_config_write_network	config_winreg.c	/^static int wpa_config_write_network(HKEY hk, struct wpa_ssid *ssid, int id)$/;"	f	file:
+wpa_config_write_pairwise	config.c	/^static char * wpa_config_write_pairwise(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_password	config.c	/^static char * wpa_config_write_password(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_proto	config.c	/^static char * wpa_config_write_proto(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_psk	config.c	/^static char * wpa_config_write_psk(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_reg_dword	config_winreg.c	/^static int wpa_config_write_reg_dword(HKEY hk, const TCHAR *name, int val,$/;"	f	file:
+wpa_config_write_reg_string	config_winreg.c	/^static int wpa_config_write_reg_string(HKEY hk, const char *name,$/;"	f	file:
+wpa_config_write_str	config.c	/^static char * wpa_config_write_str(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_string	config.c	/^static char * wpa_config_write_string(const u8 *value, size_t len)$/;"	f	file:
+wpa_config_write_string_ascii	config.c	/^static char * wpa_config_write_string_ascii(const u8 *value, size_t len)$/;"	f	file:
+wpa_config_write_string_hex	config.c	/^static char * wpa_config_write_string_hex(const u8 *value, size_t len)$/;"	f	file:
+wpa_config_write_wep_key	config.c	/^static char * wpa_config_write_wep_key(struct wpa_ssid *ssid, int idx)$/;"	f	file:
+wpa_config_write_wep_key0	config.c	/^static char * wpa_config_write_wep_key0(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_wep_key1	config.c	/^static char * wpa_config_write_wep_key1(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_wep_key2	config.c	/^static char * wpa_config_write_wep_key2(const struct parse_data *data,$/;"	f	file:
+wpa_config_write_wep_key3	config.c	/^static char * wpa_config_write_wep_key3(const struct parse_data *data,$/;"	f	file:
+wpa_ctrl_command	wpa_cli.c	/^static int wpa_ctrl_command(struct wpa_ctrl *ctrl, char *cmd)$/;"	f	file:
+wpa_ctrl_dst	ctrl_iface_kona.c	/^struct wpa_ctrl_dst {$/;"	s	file:
+wpa_ctrl_dst	ctrl_iface_named_pipe.c	/^struct wpa_ctrl_dst {$/;"	s	file:
+wpa_ctrl_dst	ctrl_iface_udp.c	/^struct wpa_ctrl_dst {$/;"	s	file:
+wpa_ctrl_dst	ctrl_iface_unix.c	/^struct wpa_ctrl_dst {$/;"	s	file:
+wpa_dbus_dict_append_bool	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_bool(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_byte	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_byte(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_byte_array	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_byte_array(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_double	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_double(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_int16	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_int16(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_int32	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_int32(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_int64	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_int64(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_object_path	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_object_path(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_string	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_string(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_string_array	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_string_array(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_uint16	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_uint16(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_uint32	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_uint32(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_append_uint64	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_append_uint64(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_begin_string_array	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_begin_string_array(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_close_write	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_close_write(DBusMessageIter *iter,$/;"	f
+wpa_dbus_dict_end_string_array	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_end_string_array(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_entry	dbus_dict_helpers.h	/^struct wpa_dbus_dict_entry {$/;"	s
+wpa_dbus_dict_entry_clear	dbus_dict_helpers.c	/^void wpa_dbus_dict_entry_clear(struct wpa_dbus_dict_entry *entry)$/;"	f
+wpa_dbus_dict_get_entry	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_get_entry(DBusMessageIter *iter_dict,$/;"	f
+wpa_dbus_dict_has_dict_entry	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_has_dict_entry(DBusMessageIter *iter_dict)$/;"	f
+wpa_dbus_dict_open_read	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_open_read(DBusMessageIter *iter,$/;"	f
+wpa_dbus_dict_open_write	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_open_write(DBusMessageIter *iter,$/;"	f
+wpa_dbus_dict_string_array_add_element	dbus_dict_helpers.c	/^dbus_bool_t wpa_dbus_dict_string_array_add_element(DBusMessageIter *iter_array,$/;"	f
+wpa_debug_file_path	wpa_supplicant_i.h	/^	const char *wpa_debug_file_path;$/;"	m	struct:wpa_params
+wpa_debug_level	wpa_supplicant_i.h	/^	int wpa_debug_level;$/;"	m	struct:wpa_params
+wpa_debug_show_keys	wpa_supplicant_i.h	/^	int wpa_debug_show_keys;$/;"	m	struct:wpa_params
+wpa_debug_timestamp	wpa_supplicant_i.h	/^	int wpa_debug_timestamp;$/;"	m	struct:wpa_params
+wpa_drv_add_pmkid	wpa_supplicant_i.h	/^static inline int wpa_drv_add_pmkid(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_associate	wpa_supplicant_i.h	/^static inline int wpa_drv_associate(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_deauthenticate	wpa_supplicant_i.h	/^static inline int wpa_drv_deauthenticate(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_deinit	wpa_supplicant_i.h	/^static inline void wpa_drv_deinit(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_drv_disassociate	wpa_supplicant_i.h	/^static inline int wpa_drv_disassociate(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_flush_pmkid	wpa_supplicant_i.h	/^static inline int wpa_drv_flush_pmkid(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_drv_get_bssid	wpa_supplicant_i.h	/^static inline int wpa_drv_get_bssid(struct wpa_supplicant *wpa_s, u8 *bssid)$/;"	f
+wpa_drv_get_capa	wpa_supplicant_i.h	/^static inline int wpa_drv_get_capa(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_get_hw_feature_data	wpa_supplicant_i.h	/^wpa_drv_get_hw_feature_data(struct wpa_supplicant *wpa_s, u16 *num_modes,$/;"	f
+wpa_drv_get_ifname	wpa_supplicant_i.h	/^static inline const char * wpa_drv_get_ifname(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_drv_get_mac_addr	wpa_supplicant_i.h	/^static inline const u8 * wpa_drv_get_mac_addr(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_drv_get_scan_results	wpa_supplicant_i.h	/^static inline int wpa_drv_get_scan_results(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_get_scan_results2	wpa_supplicant_i.h	/^static inline struct wpa_scan_results * wpa_drv_get_scan_results2($/;"	f
+wpa_drv_get_ssid	wpa_supplicant_i.h	/^static inline int wpa_drv_get_ssid(struct wpa_supplicant *wpa_s, u8 *ssid)$/;"	f
+wpa_drv_init	wpa_supplicant_i.h	/^static inline void * wpa_drv_init(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_mlme_add_sta	wpa_supplicant_i.h	/^static inline int wpa_drv_mlme_add_sta(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_mlme_remove_sta	wpa_supplicant_i.h	/^static inline int wpa_drv_mlme_remove_sta(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_mlme_setprotection	wpa_supplicant_i.h	/^static inline int wpa_drv_mlme_setprotection(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_poll	wpa_supplicant_i.h	/^static inline void wpa_drv_poll(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_drv_remove_pmkid	wpa_supplicant_i.h	/^static inline int wpa_drv_remove_pmkid(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_scan	wpa_supplicant_i.h	/^static inline int wpa_drv_scan(struct wpa_supplicant *wpa_s, const u8 *ssid,$/;"	f
+wpa_drv_send_eapol	wpa_supplicant_i.h	/^static inline int wpa_drv_send_eapol(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_send_ft_action	wpa_supplicant_i.h	/^static inline int wpa_drv_send_ft_action(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_send_mlme	wpa_supplicant_i.h	/^static inline int wpa_drv_send_mlme(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_auth_alg	wpa_supplicant_i.h	/^static inline int wpa_drv_set_auth_alg(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_bssid	wpa_supplicant_i.h	/^static inline int wpa_drv_set_bssid(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_channel	wpa_supplicant_i.h	/^static inline int wpa_drv_set_channel(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_countermeasures	wpa_supplicant_i.h	/^static inline int wpa_drv_set_countermeasures(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_country	wpa_supplicant_i.h	/^static inline int wpa_drv_set_country(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_drop_unencrypted	wpa_supplicant_i.h	/^static inline int wpa_drv_set_drop_unencrypted(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_key	wpa_supplicant_i.h	/^static inline int wpa_drv_set_key(struct wpa_supplicant *wpa_s, wpa_alg alg,$/;"	f
+wpa_drv_set_mode	wpa_supplicant_i.h	/^static inline int wpa_drv_set_mode(struct wpa_supplicant *wpa_s, int mode)$/;"	f
+wpa_drv_set_operstate	wpa_supplicant_i.h	/^static inline int wpa_drv_set_operstate(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_param	wpa_supplicant_i.h	/^static inline int wpa_drv_set_param(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_probe_req_ie	wpa_supplicant_i.h	/^static inline int wpa_drv_set_probe_req_ie(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_ssid	wpa_supplicant_i.h	/^static inline int wpa_drv_set_ssid(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_drv_set_wpa	wpa_supplicant_i.h	/^static inline int wpa_drv_set_wpa(struct wpa_supplicant *wpa_s, int enabled)$/;"	f
+wpa_drv_update_ft_ies	wpa_supplicant_i.h	/^static inline int wpa_drv_update_ft_ies(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_eapol_set_wep_key	wpas_glue.c	/^static int wpa_eapol_set_wep_key(void *ctx, int unicast, int keyidx,$/;"	f	file:
+wpa_ether_send	preauth_test.c	/^static int wpa_ether_send(void *wpa_s, const u8 *dest, u16 proto,$/;"	f	file:
+wpa_ether_send	wpas_glue.c	/^static int wpa_ether_send(struct wpa_supplicant *wpa_s, const u8 *dest,$/;"	f	file:
+wpa_find_assoc_pmkid	events.c	/^static void wpa_find_assoc_pmkid(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_free_iface_info	ctrl_iface.c	/^static void wpa_free_iface_info(struct wpa_interface_info *iface)$/;"	f	file:
+wpa_get_beacon_ie	wpas_glue.c	/^static int wpa_get_beacon_ie(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_global	wpa_supplicant_i.h	/^struct wpa_global {$/;"	s
+wpa_global_dst	ctrl_iface_named_pipe.c	/^struct wpa_global_dst {$/;"	s	file:
+wpa_gui_msg_cb	wpa_gui-qt4/wpagui.cpp	/^static void wpa_gui_msg_cb(char *msg, size_t)$/;"	f	file:
+wpa_gui_msg_cb	wpa_gui/wpagui.ui.h	/^static void wpa_gui_msg_cb(char *msg, size_t)$/;"	f
+wpa_ie	mlme.c	/^	u8 *wpa_ie;$/;"	m	struct:ieee80211_sta_bss	file:
+wpa_ie_len	mlme.c	/^	size_t wpa_ie_len;$/;"	m	struct:ieee80211_sta_bss	file:
+wpa_init_conf	eapol_test.c	/^static void wpa_init_conf(struct eapol_test_data *e,$/;"	f	file:
+wpa_init_conf	preauth_test.c	/^static void wpa_init_conf(struct wpa_supplicant *wpa_s, const char *ifname)$/;"	f	file:
+wpa_interface	wpa_supplicant_i.h	/^struct wpa_interface {$/;"	s
+wpa_params	wpa_supplicant_i.h	/^struct wpa_params {$/;"	s
+wpa_priv_cmd_associate	wpa_priv.c	/^static void wpa_priv_cmd_associate(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_get_bssid	wpa_priv.c	/^static void wpa_priv_cmd_get_bssid(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_get_capa	wpa_priv.c	/^static void wpa_priv_cmd_get_capa(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_get_scan_results	wpa_priv.c	/^static void wpa_priv_cmd_get_scan_results(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_get_ssid	wpa_priv.c	/^static void wpa_priv_cmd_get_ssid(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_l2_notify_auth_start	wpa_priv.c	/^static void wpa_priv_cmd_l2_notify_auth_start(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_l2_register	wpa_priv.c	/^static void wpa_priv_cmd_l2_register(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_l2_send	wpa_priv.c	/^static void wpa_priv_cmd_l2_send(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_l2_unregister	wpa_priv.c	/^static void wpa_priv_cmd_l2_unregister(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_register	wpa_priv.c	/^static void wpa_priv_cmd_register(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_scan	wpa_priv.c	/^static void wpa_priv_cmd_scan(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_set_country	wpa_priv.c	/^static void wpa_priv_cmd_set_country(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_set_key	wpa_priv.c	/^static void wpa_priv_cmd_set_key(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_set_mode	wpa_priv.c	/^static void wpa_priv_cmd_set_mode(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_set_wpa	wpa_priv.c	/^static void wpa_priv_cmd_set_wpa(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_cmd_unregister	wpa_priv.c	/^static void wpa_priv_cmd_unregister(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_fd_workaround	wpa_priv.c	/^static void wpa_priv_fd_workaround(void)$/;"	f	file:
+wpa_priv_get_scan_results2	wpa_priv.c	/^static void wpa_priv_get_scan_results2(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_interface	wpa_priv.c	/^struct wpa_priv_interface {$/;"	s	file:
+wpa_priv_interface_deinit	wpa_priv.c	/^static void wpa_priv_interface_deinit(struct wpa_priv_interface *iface)$/;"	f	file:
+wpa_priv_interface_init	wpa_priv.c	/^wpa_priv_interface_init(const char *dir, const char *params)$/;"	f	file:
+wpa_priv_l2_rx	wpa_priv.c	/^static void wpa_priv_l2_rx(void *ctx, const u8 *src_addr, const u8 *buf,$/;"	f	file:
+wpa_priv_receive	wpa_priv.c	/^static void wpa_priv_receive(int sock, void *eloop_ctx, void *sock_ctx)$/;"	f	file:
+wpa_priv_send_assoc	wpa_priv.c	/^static void wpa_priv_send_assoc(struct wpa_priv_interface *iface, int event,$/;"	f	file:
+wpa_priv_send_event	wpa_priv.c	/^static int wpa_priv_send_event(struct wpa_priv_interface *iface, int event,$/;"	f	file:
+wpa_priv_send_ft_response	wpa_priv.c	/^static void wpa_priv_send_ft_response(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_send_interface_status	wpa_priv.c	/^static void wpa_priv_send_interface_status(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_send_old_scan_results	wpa_priv.c	/^static void wpa_priv_send_old_scan_results(struct wpa_priv_interface *iface,$/;"	f	file:
+wpa_priv_terminate	wpa_priv.c	/^static void wpa_priv_terminate(int sig, void *eloop_ctx, void *signal_ctx)$/;"	f	file:
+wpa_ptk_rekey	config_ssid.h	/^	int wpa_ptk_rekey;$/;"	m	struct:wpa_ssid
+wpa_recv_pkt	wpa_supplicant.c	/^void wpa_recv_pkt(unsigned char *data, int len)$/;"	f
+wpa_request	wpa_cli.c	/^static int wpa_request(struct wpa_ctrl *ctrl, int argc, char *argv[])$/;"	f	file:
+wpa_s	ctrl_iface_kona.c	/^	struct wpa_supplicant *wpa_s;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_supplicant	file:
+wpa_s	ctrl_iface_named_pipe.c	/^	struct wpa_supplicant *wpa_s;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_supplicant	file:
+wpa_s	ctrl_iface_udp.c	/^	struct wpa_supplicant *wpa_s;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_supplicant	file:
+wpa_s	ctrl_iface_unix.c	/^	struct wpa_supplicant *wpa_s;$/;"	m	struct:ctrl_iface_priv	typeref:struct:ctrl_iface_priv::wpa_supplicant	file:
+wpa_s	eapol_test.c	/^	struct wpa_supplicant *wpa_s;$/;"	m	struct:eapol_test_data	typeref:struct:eapol_test_data::wpa_supplicant	file:
+wpa_set_wep_keys	wpa_supplicant.c	/^static int wpa_set_wep_keys(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_ssid	config_ssid.h	/^struct wpa_ssid {$/;"	s
+wpa_state	wpa_supplicant_i.h	/^	wpa_states wpa_state;$/;"	m	struct:wpa_supplicant
+wpa_supplicant	wpa_supplicant_i.h	/^struct wpa_supplicant {$/;"	s
+wpa_supplicant_aborted_cached	wpas_glue.c	/^static void wpa_supplicant_aborted_cached(void *ctx)$/;"	f	file:
+wpa_supplicant_add_iface	wpa_supplicant.c	/^struct wpa_supplicant * wpa_supplicant_add_iface(struct wpa_global *global,$/;"	f
+wpa_supplicant_add_pmkid	preauth_test.c	/^static int wpa_supplicant_add_pmkid(void *wpa_s,$/;"	f	file:
+wpa_supplicant_add_pmkid	wpas_glue.c	/^static int wpa_supplicant_add_pmkid(void *wpa_s,$/;"	f	file:
+wpa_supplicant_alloc	wpa_supplicant.c	/^static struct wpa_supplicant * wpa_supplicant_alloc(void)$/;"	f	file:
+wpa_supplicant_associate	wpa_supplicant.c	/^void wpa_supplicant_associate(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_cancel_auth_timeout	wpa_supplicant.c	/^void wpa_supplicant_cancel_auth_timeout(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_cancel_scan	scan.c	/^void wpa_supplicant_cancel_scan(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_cipher_txt	ctrl_iface.c	/^static char * wpa_supplicant_cipher_txt(char *pos, char *end, int cipher)$/;"	f	file:
+wpa_supplicant_cleanup	wpa_supplicant.c	/^static void wpa_supplicant_cleanup(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_clear_status	wpa_supplicant.c	/^static void wpa_supplicant_clear_status(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_ctrl_iface_add_network	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_add_network($/;"	f	file:
+wpa_supplicant_ctrl_iface_ap_scan	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_ap_scan($/;"	f	file:
+wpa_supplicant_ctrl_iface_attach	ctrl_iface_udp.c	/^static int wpa_supplicant_ctrl_iface_attach(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_attach	ctrl_iface_unix.c	/^static int wpa_supplicant_ctrl_iface_attach(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_bss	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_bss(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_bssid	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_bssid(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_cmd_msg	ctrl_iface_kona.c	/^void wpa_supplicant_ctrl_iface_cmd_msg(void)$/;"	f
+wpa_supplicant_ctrl_iface_ctrl_rsp	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_ctrl_rsp(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_deinit	ctrl_iface.h	/^wpa_supplicant_ctrl_iface_deinit(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_deinit	ctrl_iface_kona.c	/^void wpa_supplicant_ctrl_iface_deinit(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_deinit	ctrl_iface_named_pipe.c	/^void wpa_supplicant_ctrl_iface_deinit(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_deinit	ctrl_iface_udp.c	/^void wpa_supplicant_ctrl_iface_deinit(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_deinit	ctrl_iface_unix.c	/^void wpa_supplicant_ctrl_iface_deinit(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_detach	ctrl_iface_udp.c	/^static int wpa_supplicant_ctrl_iface_detach(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_detach	ctrl_iface_unix.c	/^static int wpa_supplicant_ctrl_iface_detach(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_disable_network	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_disable_network($/;"	f	file:
+wpa_supplicant_ctrl_iface_enable_network	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_enable_network($/;"	f	file:
+wpa_supplicant_ctrl_iface_ft_ds	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_ft_ds($/;"	f	file:
+wpa_supplicant_ctrl_iface_get_capability	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_get_capability($/;"	f	file:
+wpa_supplicant_ctrl_iface_get_cookie	ctrl_iface_udp.c	/^wpa_supplicant_ctrl_iface_get_cookie(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_get_network	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_get_network($/;"	f	file:
+wpa_supplicant_ctrl_iface_handle_msg	ctrl_iface_kona.c	/^static int wpa_supplicant_ctrl_iface_handle_msg(struct wpa_supplicant *wpa_s, struct ctrl_msg *ctrl, char *buf)$/;"	f	file:
+wpa_supplicant_ctrl_iface_init	ctrl_iface.h	/^wpa_supplicant_ctrl_iface_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_ctrl_iface_init	ctrl_iface_kona.c	/^wpa_supplicant_ctrl_iface_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_ctrl_iface_init	ctrl_iface_named_pipe.c	/^wpa_supplicant_ctrl_iface_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_ctrl_iface_init	ctrl_iface_udp.c	/^wpa_supplicant_ctrl_iface_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_ctrl_iface_init	ctrl_iface_unix.c	/^wpa_supplicant_ctrl_iface_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_ctrl_iface_level	ctrl_iface_udp.c	/^static int wpa_supplicant_ctrl_iface_level(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_level	ctrl_iface_unix.c	/^static int wpa_supplicant_ctrl_iface_level(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_list_networks	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_list_networks($/;"	f	file:
+wpa_supplicant_ctrl_iface_msg_cb	ctrl_iface_named_pipe.c	/^static void wpa_supplicant_ctrl_iface_msg_cb(void *ctx, int level,$/;"	f	file:
+wpa_supplicant_ctrl_iface_msg_cb	ctrl_iface_udp.c	/^static void wpa_supplicant_ctrl_iface_msg_cb(void *ctx, int level,$/;"	f	file:
+wpa_supplicant_ctrl_iface_msg_cb	ctrl_iface_unix.c	/^static void wpa_supplicant_ctrl_iface_msg_cb(void *ctx, int level,$/;"	f	file:
+wpa_supplicant_ctrl_iface_path	ctrl_iface_unix.c	/^static char * wpa_supplicant_ctrl_iface_path(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_ctrl_iface_preauth	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_preauth(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_process	ctrl_iface.c	/^char * wpa_supplicant_ctrl_iface_process(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_ctrl_iface_receive	ctrl_iface_kona.c	/^static void wpa_supplicant_ctrl_iface_receive(int sock, void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_ctrl_iface_receive	ctrl_iface_named_pipe.c	/^static void wpa_supplicant_ctrl_iface_receive(void *eloop_data, void *user_ctx)$/;"	f	file:
+wpa_supplicant_ctrl_iface_receive	ctrl_iface_udp.c	/^static void wpa_supplicant_ctrl_iface_receive(int sock, void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_ctrl_iface_receive	ctrl_iface_unix.c	/^static void wpa_supplicant_ctrl_iface_receive(int sock, void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_ctrl_iface_remove_network	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_remove_network($/;"	f	file:
+wpa_supplicant_ctrl_iface_rx	ctrl_iface_named_pipe.c	/^static void wpa_supplicant_ctrl_iface_rx(struct wpa_ctrl_dst *dst, size_t len)$/;"	f	file:
+wpa_supplicant_ctrl_iface_rx_sock	ctrl_iface_kona.c	/^static cyg_handle_t wpa_supplicant_ctrl_iface_rx_sock(void)$/;"	f	file:
+wpa_supplicant_ctrl_iface_save_config	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_save_config(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_ctrl_iface_scan_result	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_scan_result($/;"	f	file:
+wpa_supplicant_ctrl_iface_scan_results	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_scan_results($/;"	f	file:
+wpa_supplicant_ctrl_iface_select_network	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_select_network($/;"	f	file:
+wpa_supplicant_ctrl_iface_select_network	ctrl_iface_kona.c	/^static void wpa_supplicant_ctrl_iface_select_network(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_ctrl_iface_send	ctrl_iface.h	/^wpa_supplicant_ctrl_iface_send(struct ctrl_iface_priv *priv, int level,$/;"	f
+wpa_supplicant_ctrl_iface_send	ctrl_iface_named_pipe.c	/^static void wpa_supplicant_ctrl_iface_send(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_send	ctrl_iface_udp.c	/^static void wpa_supplicant_ctrl_iface_send(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_send	ctrl_iface_unix.c	/^static void wpa_supplicant_ctrl_iface_send(struct ctrl_iface_priv *priv,$/;"	f	file:
+wpa_supplicant_ctrl_iface_set	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_set(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_set_network	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_set_network($/;"	f	file:
+wpa_supplicant_ctrl_iface_status	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_status(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_stkstart	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_stkstart($/;"	f	file:
+wpa_supplicant_ctrl_iface_wait	ctrl_iface.h	/^wpa_supplicant_ctrl_iface_wait(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_wait	ctrl_iface_kona.c	/^void wpa_supplicant_ctrl_iface_wait(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_wait	ctrl_iface_named_pipe.c	/^void wpa_supplicant_ctrl_iface_wait(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_wait	ctrl_iface_udp.c	/^void wpa_supplicant_ctrl_iface_wait(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_wait	ctrl_iface_unix.c	/^void wpa_supplicant_ctrl_iface_wait(struct ctrl_iface_priv *priv)$/;"	f
+wpa_supplicant_ctrl_iface_wps_pbc	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_wps_pbc(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_wps_pin	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_wps_pin(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ctrl_iface_wps_reg	ctrl_iface.c	/^static int wpa_supplicant_ctrl_iface_wps_reg(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_daemon	wpa_supplicant.c	/^static int wpa_supplicant_daemon(const char *pid_file)$/;"	f	file:
+wpa_supplicant_dbus_ctrl_iface_deinit	ctrl_iface_dbus.c	/^void wpa_supplicant_dbus_ctrl_iface_deinit(struct ctrl_iface_dbus_priv *iface)$/;"	f
+wpa_supplicant_dbus_ctrl_iface_deinit	ctrl_iface_dbus.h	/^wpa_supplicant_dbus_ctrl_iface_deinit(struct ctrl_iface_dbus_priv *iface)$/;"	f
+wpa_supplicant_dbus_ctrl_iface_init	ctrl_iface_dbus.c	/^wpa_supplicant_dbus_ctrl_iface_init(struct wpa_global *global)$/;"	f
+wpa_supplicant_dbus_ctrl_iface_init	ctrl_iface_dbus.h	/^wpa_supplicant_dbus_ctrl_iface_init(struct wpa_global *global)$/;"	f
+wpa_supplicant_dbus_next_objid	ctrl_iface_dbus.c	/^u32 wpa_supplicant_dbus_next_objid (struct ctrl_iface_dbus_priv *iface)$/;"	f
+wpa_supplicant_dbus_notify_scan_results	ctrl_iface_dbus.c	/^void wpa_supplicant_dbus_notify_scan_results(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_dbus_notify_scan_results	ctrl_iface_dbus.h	/^wpa_supplicant_dbus_notify_scan_results(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_dbus_notify_state_change	ctrl_iface_dbus.c	/^void wpa_supplicant_dbus_notify_state_change(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_dbus_notify_state_change	ctrl_iface_dbus.h	/^wpa_supplicant_dbus_notify_state_change(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_dbus_notify_wps_cred	ctrl_iface_dbus.c	/^void wpa_supplicant_dbus_notify_wps_cred(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_dbus_notify_wps_cred	ctrl_iface_dbus.h	/^wpa_supplicant_dbus_notify_wps_cred(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_deauthenticate	wpa_supplicant.c	/^void wpa_supplicant_deauthenticate(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_deinit	wpa_supplicant.c	/^void wpa_supplicant_deinit(struct wpa_global *global)$/;"	f
+wpa_supplicant_deinit_iface	wpa_supplicant.c	/^static void wpa_supplicant_deinit_iface(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_delayed_mic_error_report	events.c	/^static void wpa_supplicant_delayed_mic_error_report(void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_disassociate	wpa_supplicant.c	/^void wpa_supplicant_disassociate(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_driver_init	wpa_supplicant.c	/^int wpa_supplicant_driver_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_drivers	eapol_test.c	/^struct wpa_driver_ops *wpa_supplicant_drivers[] = { NULL };$/;"	v	typeref:struct:wpa_driver_ops
+wpa_supplicant_drivers	preauth_test.c	/^struct wpa_driver_ops *wpa_supplicant_drivers[] = { NULL };$/;"	v	typeref:struct:wpa_driver_ops
+wpa_supplicant_dynamic_keys	events.c	/^static int wpa_supplicant_dynamic_keys(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_eap_param_needed	wpas_glue.c	/^static void wpa_supplicant_eap_param_needed(void *ctx, const char *field,$/;"	f	file:
+wpa_supplicant_eap_param_needed	wpas_glue.c	532;"	d	file:
+wpa_supplicant_eapol_cb	wpas_glue.c	/^static void wpa_supplicant_eapol_cb(struct eapol_sm *eapol, int success,$/;"	f	file:
+wpa_supplicant_eapol_send	wpas_glue.c	/^static int wpa_supplicant_eapol_send(void *ctx, int type, const u8 *buf,$/;"	f	file:
+wpa_supplicant_event	events.c	/^void wpa_supplicant_event(void *ctx, wpa_event_type event,$/;"	f
+wpa_supplicant_event	wpa_priv.c	/^void wpa_supplicant_event(void *ctx, wpa_event_type event,$/;"	f
+wpa_supplicant_event_assoc	events.c	/^static void wpa_supplicant_event_assoc(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_event_associnfo	events.c	/^static void wpa_supplicant_event_associnfo(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_event_disassoc	events.c	/^static void wpa_supplicant_event_disassoc(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_event_ft_response	events.c	/^wpa_supplicant_event_ft_response(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_event_interface_status	events.c	/^wpa_supplicant_event_interface_status(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_event_michael_mic_failure	events.c	/^wpa_supplicant_event_michael_mic_failure(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_event_pmkid_candidate	events.c	/^static void wpa_supplicant_event_pmkid_candidate(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_event_scan_results	events.c	/^static void wpa_supplicant_event_scan_results(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_event_stkstart	events.c	/^wpa_supplicant_event_stkstart(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_fd_workaround	main.c	/^static void wpa_supplicant_fd_workaround(void)$/;"	f	file:
+wpa_supplicant_full_license1	wpa_supplicant.c	/^const char *wpa_supplicant_full_license1 =$/;"	v
+wpa_supplicant_full_license2	wpa_supplicant.c	/^const char *wpa_supplicant_full_license2 =$/;"	v
+wpa_supplicant_full_license3	wpa_supplicant.c	/^const char *wpa_supplicant_full_license3 =$/;"	v
+wpa_supplicant_full_license4	wpa_supplicant.c	/^const char *wpa_supplicant_full_license4 =$/;"	v
+wpa_supplicant_full_license5	wpa_supplicant.c	/^const char *wpa_supplicant_full_license5 =$/;"	v
+wpa_supplicant_gen_assoc_event	scan.c	/^static void wpa_supplicant_gen_assoc_event(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_get_beacon_ie	preauth_test.c	/^static int wpa_supplicant_get_beacon_ie(void *wpa_s)$/;"	f	file:
+wpa_supplicant_get_beacon_ie	wpas_glue.c	/^static int wpa_supplicant_get_beacon_ie(void *ctx)$/;"	f	file:
+wpa_supplicant_get_bssid	preauth_test.c	/^static int wpa_supplicant_get_bssid(void *wpa_s, u8 *bssid)$/;"	f	file:
+wpa_supplicant_get_bssid	wpas_glue.c	/^static int wpa_supplicant_get_bssid(void *ctx, u8 *bssid)$/;"	f	file:
+wpa_supplicant_get_config_blob	preauth_test.c	/^wpa_supplicant_get_config_blob(void *ctx, const char *name)$/;"	f	file:
+wpa_supplicant_get_config_blob	wpas_glue.c	/^wpa_supplicant_get_config_blob(void *ctx, const char *name)$/;"	f	file:
+wpa_supplicant_get_dbus_path	ctrl_iface_dbus.c	/^const char * wpa_supplicant_get_dbus_path(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_get_iface	wpa_supplicant.c	/^struct wpa_supplicant * wpa_supplicant_get_iface(struct wpa_global *global,$/;"	f
+wpa_supplicant_get_iface_by_dbus_path	ctrl_iface_dbus.c	/^struct wpa_supplicant * wpa_supplicant_get_iface_by_dbus_path($/;"	f
+wpa_supplicant_get_network_ctx	preauth_test.c	/^static void * wpa_supplicant_get_network_ctx(void *wpa_s)$/;"	f	file:
+wpa_supplicant_get_network_ctx	wpas_glue.c	/^static void * wpa_supplicant_get_network_ctx(void *wpa_s)$/;"	f	file:
+wpa_supplicant_get_rx_sock	wpa_supplicant.c	/^cyg_handle_t wpa_supplicant_get_rx_sock(void)$/;"	f
+wpa_supplicant_get_scan_results	wpa_supplicant.c	/^int wpa_supplicant_get_scan_results(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_get_scan_results_old	wpa_supplicant.c	/^static int wpa_supplicant_get_scan_results_old(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_get_ssid	wpa_supplicant.c	/^struct wpa_ssid * wpa_supplicant_get_ssid(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_get_state	wpas_glue.c	/^static wpa_states wpa_supplicant_get_state(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_global_ctrl_iface_deinit	ctrl_iface.h	/^wpa_supplicant_global_ctrl_iface_deinit(struct ctrl_iface_global_priv *priv)$/;"	f
+wpa_supplicant_global_ctrl_iface_deinit	ctrl_iface_kona.c	/^wpa_supplicant_global_ctrl_iface_deinit(struct ctrl_iface_global_priv *priv)$/;"	f
+wpa_supplicant_global_ctrl_iface_deinit	ctrl_iface_named_pipe.c	/^wpa_supplicant_global_ctrl_iface_deinit(struct ctrl_iface_global_priv *priv)$/;"	f
+wpa_supplicant_global_ctrl_iface_deinit	ctrl_iface_udp.c	/^wpa_supplicant_global_ctrl_iface_deinit(struct ctrl_iface_global_priv *priv)$/;"	f
+wpa_supplicant_global_ctrl_iface_deinit	ctrl_iface_unix.c	/^wpa_supplicant_global_ctrl_iface_deinit(struct ctrl_iface_global_priv *priv)$/;"	f
+wpa_supplicant_global_ctrl_iface_init	ctrl_iface.h	/^wpa_supplicant_global_ctrl_iface_init(struct wpa_global *global)$/;"	f
+wpa_supplicant_global_ctrl_iface_init	ctrl_iface_kona.c	/^wpa_supplicant_global_ctrl_iface_init(struct wpa_global *global)$/;"	f
+wpa_supplicant_global_ctrl_iface_init	ctrl_iface_named_pipe.c	/^wpa_supplicant_global_ctrl_iface_init(struct wpa_global *global)$/;"	f
+wpa_supplicant_global_ctrl_iface_init	ctrl_iface_udp.c	/^wpa_supplicant_global_ctrl_iface_init(struct wpa_global *global)$/;"	f
+wpa_supplicant_global_ctrl_iface_init	ctrl_iface_unix.c	/^wpa_supplicant_global_ctrl_iface_init(struct wpa_global *global)$/;"	f
+wpa_supplicant_global_ctrl_iface_process	ctrl_iface.c	/^char * wpa_supplicant_global_ctrl_iface_process(struct wpa_global *global,$/;"	f
+wpa_supplicant_global_ctrl_iface_receive	ctrl_iface_udp.c	/^static void wpa_supplicant_global_ctrl_iface_receive(int sock, void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_global_ctrl_iface_receive	ctrl_iface_unix.c	/^static void wpa_supplicant_global_ctrl_iface_receive(int sock, void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_global_get_cookie	ctrl_iface_udp.c	/^wpa_supplicant_global_get_cookie(struct ctrl_iface_global_priv *priv,$/;"	f	file:
+wpa_supplicant_global_iface_add	ctrl_iface.c	/^static int wpa_supplicant_global_iface_add(struct wpa_global *global,$/;"	f	file:
+wpa_supplicant_global_iface_interfaces	ctrl_iface.c	/^static int wpa_supplicant_global_iface_interfaces(struct wpa_global *global,$/;"	f	file:
+wpa_supplicant_global_iface_list	ctrl_iface.c	/^static int wpa_supplicant_global_iface_list(struct wpa_global *global,$/;"	f	file:
+wpa_supplicant_global_iface_receive	ctrl_iface_named_pipe.c	/^static void wpa_supplicant_global_iface_receive(void *eloop_data,$/;"	f	file:
+wpa_supplicant_global_iface_remove	ctrl_iface.c	/^static int wpa_supplicant_global_iface_remove(struct wpa_global *global,$/;"	f	file:
+wpa_supplicant_global_iface_rx	ctrl_iface_named_pipe.c	/^static void wpa_supplicant_global_iface_rx(struct wpa_global_dst *dst,$/;"	f	file:
+wpa_supplicant_ie_txt	ctrl_iface.c	/^static char * wpa_supplicant_ie_txt(char *pos, char *end, const char *proto,$/;"	f	file:
+wpa_supplicant_init	wpa_supplicant.c	/^struct wpa_global * wpa_supplicant_init(struct wpa_params *params)$/;"	f
+wpa_supplicant_init_eapol	wpas_glue.c	/^int wpa_supplicant_init_eapol(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_init_iface	wpa_supplicant.c	/^static int wpa_supplicant_init_iface(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_init_iface2	wpa_supplicant.c	/^static int wpa_supplicant_init_iface2(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_init_wpa	wpas_glue.c	/^int wpa_supplicant_init_wpa(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_initiate_eapol	wpa_supplicant.c	/^void wpa_supplicant_initiate_eapol(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_license	wpa_supplicant.c	/^const char *wpa_supplicant_license =$/;"	v
+wpa_supplicant_mark_disassoc	events.c	/^void wpa_supplicant_mark_disassoc(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_match_privacy	events.c	/^static int wpa_supplicant_match_privacy(struct wpa_scan_res *bss,$/;"	f	file:
+wpa_supplicant_mlme_setprotection	preauth_test.c	/^static int wpa_supplicant_mlme_setprotection(void *wpa_s, const u8 *addr,$/;"	f	file:
+wpa_supplicant_mlme_setprotection	wpas_glue.c	/^static int wpa_supplicant_mlme_setprotection(void *wpa_s, const u8 *addr,$/;"	f	file:
+wpa_supplicant_notify_eapol_done	wpas_glue.c	/^static void wpa_supplicant_notify_eapol_done(void *ctx)$/;"	f	file:
+wpa_supplicant_reconfig	wpa_supplicant.c	/^static void wpa_supplicant_reconfig(int sig, void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_reload_configuration	wpa_supplicant.c	/^int wpa_supplicant_reload_configuration(struct wpa_supplicant *wpa_s)$/;"	f
+wpa_supplicant_remove_iface	wpa_supplicant.c	/^int wpa_supplicant_remove_iface(struct wpa_global *global,$/;"	f
+wpa_supplicant_remove_pmkid	preauth_test.c	/^static int wpa_supplicant_remove_pmkid(void *wpa_s,$/;"	f	file:
+wpa_supplicant_remove_pmkid	wpas_glue.c	/^static int wpa_supplicant_remove_pmkid(void *wpa_s,$/;"	f	file:
+wpa_supplicant_req_auth_timeout	wpa_supplicant.c	/^void wpa_supplicant_req_auth_timeout(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_req_scan	scan.c	/^void wpa_supplicant_req_scan(struct wpa_supplicant *wpa_s, int sec, int usec)$/;"	f
+wpa_supplicant_rsn_supp_set_config	wpas_glue.c	/^void wpa_supplicant_rsn_supp_set_config(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_run	wpa_supplicant.c	/^int wpa_supplicant_run(struct wpa_global *global)$/;"	f
+wpa_supplicant_rx_eapol	wpa_priv.c	/^void wpa_supplicant_rx_eapol(void *ctx, const u8 *src_addr,$/;"	f
+wpa_supplicant_rx_eapol	wpa_supplicant.c	/^void wpa_supplicant_rx_eapol(void *ctx, const u8 *src_addr,$/;"	f
+wpa_supplicant_scan	scan.c	/^static void wpa_supplicant_scan(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+wpa_supplicant_scard_init	events.c	/^int wpa_supplicant_scard_init(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_select_bss	events.c	/^wpa_supplicant_select_bss(struct wpa_supplicant *wpa_s, struct wpa_ssid *group,$/;"	f	file:
+wpa_supplicant_select_bss_non_wpa	events.c	/^wpa_supplicant_select_bss_non_wpa(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_select_bss_wpa	events.c	/^wpa_supplicant_select_bss_wpa(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_select_config	events.c	/^static int wpa_supplicant_select_config(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_send_ft_action	wpas_glue.c	/^static int wpa_supplicant_send_ft_action(void *ctx, u8 action,$/;"	f	file:
+wpa_supplicant_set_config_blob	preauth_test.c	/^static void wpa_supplicant_set_config_blob(void *ctx,$/;"	f	file:
+wpa_supplicant_set_config_blob	wpas_glue.c	/^static void wpa_supplicant_set_config_blob(void *ctx,$/;"	f	file:
+wpa_supplicant_set_dbus_path	ctrl_iface_dbus.c	/^int wpa_supplicant_set_dbus_path(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_set_driver	wpa_supplicant.c	/^static int wpa_supplicant_set_driver(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_set_key	preauth_test.c	/^static int wpa_supplicant_set_key(void *wpa_s, wpa_alg alg,$/;"	f	file:
+wpa_supplicant_set_key	wpas_glue.c	/^static int wpa_supplicant_set_key(void *_wpa_s, wpa_alg alg,$/;"	f	file:
+wpa_supplicant_set_non_wpa_policy	wpa_supplicant.c	/^void wpa_supplicant_set_non_wpa_policy(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_set_state	wpa_supplicant.c	/^void wpa_supplicant_set_state(struct wpa_supplicant *wpa_s, wpa_states state)$/;"	f
+wpa_supplicant_set_suites	wpa_supplicant.c	/^int wpa_supplicant_set_suites(struct wpa_supplicant *wpa_s,$/;"	f
+wpa_supplicant_set_wpa_none_key	wpa_supplicant.c	/^static int wpa_supplicant_set_wpa_none_key(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_ssid_bss_match	events.c	/^static int wpa_supplicant_ssid_bss_match(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_sta_free_hw_features	wpa_priv.c	/^void wpa_supplicant_sta_free_hw_features(struct wpa_hw_modes *hw_features,$/;"	f
+wpa_supplicant_sta_free_hw_features	wpa_supplicant.c	/^void wpa_supplicant_sta_free_hw_features(struct wpa_hw_modes *hw_features,$/;"	f
+wpa_supplicant_sta_rx	wpa_priv.c	/^void wpa_supplicant_sta_rx(void *ctx, const u8 *buf, size_t len,$/;"	f
+wpa_supplicant_sta_rx	wpa_supplicant.c	/^void wpa_supplicant_sta_rx(void *ctx, const u8 *buf, size_t len,$/;"	f
+wpa_supplicant_state_txt	wpa_supplicant.c	/^const char * wpa_supplicant_state_txt(int state)$/;"	f
+wpa_supplicant_stop_countermeasures	events.c	/^static void wpa_supplicant_stop_countermeasures(void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_suites_from_ai	wpa_supplicant.c	/^static int wpa_supplicant_suites_from_ai(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_terminate	wpa_supplicant.c	/^static void wpa_supplicant_terminate(int sig, void *eloop_ctx,$/;"	f	file:
+wpa_supplicant_thread	main_winsvc.c	/^static int wpa_supplicant_thread(void)$/;"	f	file:
+wpa_supplicant_timeout	wpa_supplicant.c	/^static void wpa_supplicant_timeout(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+wpa_supplicant_update_ft_ies	wpas_glue.c	/^static int wpa_supplicant_update_ft_ies(void *ctx, const u8 *md,$/;"	f	file:
+wpa_supplicant_version	wpa_supplicant.c	/^const char *wpa_supplicant_version =$/;"	v
+wpa_supplicant_wps_cred	wps_supplicant.c	/^static int wpa_supplicant_wps_cred(void *ctx,$/;"	f	file:
+wpa_supplicant_wps_event	wps_supplicant.c	/^static void wpa_supplicant_wps_event(void *ctx, enum wps_event event,$/;"	f	file:
+wpa_supplicant_wps_event_fail	wps_supplicant.c	/^static void wpa_supplicant_wps_event_fail(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_wps_event_m2d	wps_supplicant.c	/^static void wpa_supplicant_wps_event_m2d(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpa_supplicant_wps_event_success	wps_supplicant.c	/^static void wpa_supplicant_wps_event_success(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpa_supplicant_wps_ie_txt	ctrl_iface.c	/^static char * wpa_supplicant_wps_ie_txt(char *pos, char *end,$/;"	f	file:
+wpagui	wpa_gui-qt4/addinterface.h	/^	WpaGui *wpagui;$/;"	m	class:AddInterface
+wpagui	wpa_gui-qt4/networkconfig.h	/^	WpaGui *wpagui;$/;"	m	class:NetworkConfig
+wpagui	wpa_gui-qt4/scanresults.h	/^	WpaGui *wpagui;$/;"	m	class:ScanResults
+wpagui	wpa_gui-qt4/userdatarequest.h	/^	WpaGui *wpagui;$/;"	m	class:UserDataRequest
+wpagui_printf	wpa_gui-qt4/wpagui.cpp	/^static int wpagui_printf(const char *, ...)$/;"	f	file:
+wpas_clear_wps	wps_supplicant.c	/^static void wpas_clear_wps(struct wpa_supplicant *wpa_s)$/;"	f	file:
+wpas_dbus_bssid_properties	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_bssid_properties(DBusMessage *message,$/;"	f
+wpas_dbus_decompose_object_path	ctrl_iface_dbus.c	/^char * wpas_dbus_decompose_object_path(const char *path, char **network,$/;"	f
+wpas_dbus_free_wpa_interface	ctrl_iface_dbus_handlers.c	/^static void wpas_dbus_free_wpa_interface(struct wpa_interface *iface)$/;"	f	file:
+wpas_dbus_global_add_interface	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_global_add_interface(DBusMessage *message,$/;"	f
+wpas_dbus_global_get_interface	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_global_get_interface(DBusMessage *message,$/;"	f
+wpas_dbus_global_remove_interface	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_global_remove_interface(DBusMessage *message,$/;"	f
+wpas_dbus_iface_add_network	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_add_network(DBusMessage *message,$/;"	f
+wpas_dbus_iface_capabilities	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_capabilities(DBusMessage *message,$/;"	f
+wpas_dbus_iface_disable_network	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_disable_network(DBusMessage *message,$/;"	f
+wpas_dbus_iface_disconnect	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_disconnect(DBusMessage *message,$/;"	f
+wpas_dbus_iface_enable_network	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_enable_network(DBusMessage *message,$/;"	f
+wpas_dbus_iface_get_state	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_get_state(DBusMessage *message,$/;"	f
+wpas_dbus_iface_remove_blobs	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_remove_blobs(DBusMessage *message,$/;"	f
+wpas_dbus_iface_remove_network	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_remove_network(DBusMessage *message,$/;"	f
+wpas_dbus_iface_scan	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_scan(DBusMessage *message,$/;"	f
+wpas_dbus_iface_scan_results	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_scan_results(DBusMessage *message,$/;"	f
+wpas_dbus_iface_select_network	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_select_network(DBusMessage *message,$/;"	f
+wpas_dbus_iface_set_ap_scan	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_set_ap_scan(DBusMessage *message,$/;"	f
+wpas_dbus_iface_set_blobs	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_set_blobs(DBusMessage *message,$/;"	f
+wpas_dbus_iface_set_network	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_set_network(DBusMessage *message,$/;"	f
+wpas_dbus_iface_set_smartcard_modules	ctrl_iface_dbus_handlers.c	/^DBusMessage * wpas_dbus_iface_set_smartcard_modules($/;"	f
+wpas_dbus_new_invalid_bssid_error	ctrl_iface_dbus.c	/^static DBusMessage * wpas_dbus_new_invalid_bssid_error(DBusMessage *message)$/;"	f	file:
+wpas_dbus_new_invalid_iface_error	ctrl_iface_dbus.c	/^DBusMessage * wpas_dbus_new_invalid_iface_error(DBusMessage *message)$/;"	f
+wpas_dbus_new_invalid_network_error	ctrl_iface_dbus.c	/^DBusMessage * wpas_dbus_new_invalid_network_error(DBusMessage *message)$/;"	f
+wpas_dbus_new_invalid_opts_error	ctrl_iface_dbus_handlers.c	/^static DBusMessage * wpas_dbus_new_invalid_opts_error(DBusMessage *message,$/;"	f	file:
+wpas_dbus_new_success_reply	ctrl_iface_dbus_handlers.c	/^static DBusMessage * wpas_dbus_new_success_reply(DBusMessage *message)$/;"	f	file:
+wpas_dbus_register_iface	ctrl_iface_dbus.c	/^int wpas_dbus_register_iface(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_dbus_register_iface	ctrl_iface_dbus.h	/^wpas_dbus_register_iface(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_dbus_unregister_iface	ctrl_iface_dbus.c	/^int wpas_dbus_unregister_iface(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_dbus_unregister_iface	ctrl_iface_dbus.h	/^wpas_dbus_unregister_iface(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_dispatch_bssid_method	ctrl_iface_dbus.c	/^static DBusMessage * wpas_dispatch_bssid_method(DBusMessage *message,$/;"	f	file:
+wpas_dispatch_network_method	ctrl_iface_dbus.c	/^static DBusMessage * wpas_dispatch_network_method(DBusMessage *message,$/;"	f	file:
+wpas_iface_message_handler	ctrl_iface_dbus.c	/^static DBusHandlerResult wpas_iface_message_handler(DBusConnection *connection,$/;"	f	file:
+wpas_message_handler	ctrl_iface_dbus.c	/^static DBusHandlerResult wpas_message_handler(DBusConnection *connection,$/;"	f	file:
+wpas_registered	wpa_priv.c	/^	int wpas_registered;$/;"	m	struct:wpa_priv_interface	file:
+wpas_wps_add_network	wps_supplicant.c	/^static struct wpa_ssid * wpas_wps_add_network(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpas_wps_deinit	wps_supplicant.c	/^void wpas_wps_deinit(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_deinit	wps_supplicant.h	/^static inline void wpas_wps_deinit(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_eapol_cb	wps_supplicant.c	/^int wpas_wps_eapol_cb(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_eapol_cb	wps_supplicant.h	/^static inline int wpas_wps_eapol_cb(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_get_req_type	wps_supplicant.c	/^enum wps_request_type wpas_wps_get_req_type(struct wpa_ssid *ssid)$/;"	f
+wpas_wps_get_req_type	wps_supplicant.h	/^static inline u8 wpas_wps_get_req_type(struct wpa_ssid *ssid)$/;"	f
+wpas_wps_in_use	scan.c	/^static int wpas_wps_in_use(struct wpa_config *conf,$/;"	f	file:
+wpas_wps_init	wps_supplicant.c	/^int wpas_wps_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_init	wps_supplicant.h	/^static inline int wpas_wps_init(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_new_psk_cb	wps_supplicant.c	/^static int wpas_wps_new_psk_cb(void *ctx, const u8 *mac_addr, const u8 *psk,$/;"	f	file:
+wpas_wps_notify_scan_results	wps_supplicant.c	/^void wpas_wps_notify_scan_results(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_notify_scan_results	wps_supplicant.h	/^static inline void wpas_wps_notify_scan_results(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_pin_needed_cb	wps_supplicant.c	/^static void wpas_wps_pin_needed_cb(void *ctx, const u8 *uuid_e,$/;"	f	file:
+wpas_wps_reassoc	wps_supplicant.c	/^static void wpas_wps_reassoc(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpas_wps_scan_pbc_overlap	wps_supplicant.c	/^int wpas_wps_scan_pbc_overlap(struct wpa_supplicant *wpa_s,$/;"	f
+wpas_wps_scan_pbc_overlap	wps_supplicant.h	/^static inline int wpas_wps_scan_pbc_overlap(struct wpa_supplicant *wpa_s,$/;"	f
+wpas_wps_searching	wps_supplicant.c	/^int wpas_wps_searching(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_searching	wps_supplicant.h	/^static inline int wpas_wps_searching(struct wpa_supplicant *wpa_s)$/;"	f
+wpas_wps_security_workaround	wps_supplicant.c	/^static void wpas_wps_security_workaround(struct wpa_supplicant *wpa_s,$/;"	f	file:
+wpas_wps_ssid_bss_match	wps_supplicant.c	/^int wpas_wps_ssid_bss_match(struct wpa_supplicant *wpa_s,$/;"	f
+wpas_wps_ssid_bss_match	wps_supplicant.h	/^static inline int wpas_wps_ssid_bss_match(struct wpa_supplicant *wpa_s,$/;"	f
+wpas_wps_ssid_wildcard_ok	wps_supplicant.c	/^int wpas_wps_ssid_wildcard_ok(struct wpa_supplicant *wpa_s,$/;"	f
+wpas_wps_ssid_wildcard_ok	wps_supplicant.h	/^static inline int wpas_wps_ssid_wildcard_ok(struct wpa_supplicant *wpa_s,$/;"	f
+wpas_wps_start_pbc	wps_supplicant.c	/^int wpas_wps_start_pbc(struct wpa_supplicant *wpa_s, const u8 *bssid)$/;"	f
+wpas_wps_start_pin	wps_supplicant.c	/^int wpas_wps_start_pin(struct wpa_supplicant *wpa_s, const u8 *bssid,$/;"	f
+wpas_wps_start_reg	wps_supplicant.c	/^int wpas_wps_start_reg(struct wpa_supplicant *wpa_s, const u8 *bssid,$/;"	f
+wpas_wps_timeout	wps_supplicant.c	/^static void wpas_wps_timeout(void *eloop_ctx, void *timeout_ctx)$/;"	f	file:
+wps	wpa_supplicant_i.h	/^	struct wps_context *wps;$/;"	m	struct:wpa_supplicant	typeref:struct:wpa_supplicant::wps_context
+wpsApPin	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::wpsApPin()$/;"	f	class:WpaGui
+wpsApPinChanged	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::wpsApPinChanged(const QString &text)$/;"	f	class:WpaGui
+wpsDialog	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::wpsDialog()$/;"	f	class:WpaGui
+wpsGeneratePin	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::wpsGeneratePin()$/;"	f	class:WpaGui
+wpsPbc	wpa_gui-qt4/wpagui.cpp	/^void WpaGui::wpsPbc()$/;"	f	class:WpaGui
+wpsRunning	wpa_gui-qt4/wpagui.h	/^	bool wpsRunning;$/;"	m	class:WpaGui
+wps_cred_processing	config.h	/^	int wps_cred_processing;$/;"	m	struct:wpa_config
+wps_success	wpa_supplicant_i.h	/^	int wps_success; \/* WPS success event received *\/$/;"	m	struct:wpa_supplicant
+writeWepKey	wpa_gui-qt4/networkconfig.cpp	/^void NetworkConfig::writeWepKey(int network_id, QLineEdit *edit, int id)$/;"	f	class:NetworkConfig
+writeWepKey	wpa_gui/networkconfig.ui.h	/^void NetworkConfig::writeWepKey( int network_id, QLineEdit *edit, int id )$/;"	f	class:NetworkConfig
+write_auth_alg	config_file.c	/^static void write_auth_alg(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_auth_alg	config_winreg.c	/^static void write_auth_alg(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_bssid	config_file.c	/^static void write_bssid(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_bssid	config_winreg.c	/^static void write_bssid(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_eap	config_file.c	/^static void write_eap(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_eap	config_winreg.c	/^static void write_eap(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_group	config_file.c	/^static void write_group(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_group	config_winreg.c	/^static void write_group(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_int	config_file.c	/^static void write_int(FILE *f, const char *field, int value, int def)$/;"	f	file:
+write_int	config_winreg.c	/^static void write_int(HKEY hk, const char *field, int value, int def)$/;"	f	file:
+write_key_mgmt	config_file.c	/^static void write_key_mgmt(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_key_mgmt	config_winreg.c	/^static void write_key_mgmt(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_pairwise	config_file.c	/^static void write_pairwise(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_pairwise	config_winreg.c	/^static void write_pairwise(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_proto	config_file.c	/^static void write_proto(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_proto	config_winreg.c	/^static void write_proto(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_psk	config_file.c	/^static void write_psk(FILE *f, struct wpa_ssid *ssid)$/;"	f	file:
+write_psk	config_winreg.c	/^static void write_psk(HKEY hk, struct wpa_ssid *ssid)$/;"	f	file:
+write_str	config_file.c	/^static void write_str(FILE *f, const char *field, struct wpa_ssid *ssid)$/;"	f	file:
+write_str	config_winreg.c	/^static void write_str(HKEY hk, const char *field, struct wpa_ssid *ssid)$/;"	f	file:
+write_wep_key	config_file.c	/^static void write_wep_key(FILE *f, int idx, struct wpa_ssid *ssid)$/;"	f	file:
+write_wep_key	config_winreg.c	/^static void write_wep_key(HKEY hk, int idx, struct wpa_ssid *ssid)$/;"	f	file:
+writer	config.c	/^	char * (*writer)(const struct parse_data *data, struct wpa_ssid *ssid);$/;"	m	struct:parse_data	file:
+~EventHistory	wpa_gui-qt4/eventhistory.cpp	/^EventHistory::~EventHistory()$/;"	f	class:EventHistory
+~NetworkConfig	wpa_gui-qt4/networkconfig.cpp	/^NetworkConfig::~NetworkConfig()$/;"	f	class:NetworkConfig
+~ScanResults	wpa_gui-qt4/scanresults.cpp	/^ScanResults::~ScanResults()$/;"	f	class:ScanResults
+~UserDataRequest	wpa_gui-qt4/userdatarequest.cpp	/^UserDataRequest::~UserDataRequest()$/;"	f	class:UserDataRequest
+~WpaGui	wpa_gui-qt4/wpagui.cpp	/^WpaGui::~WpaGui()$/;"	f	class:WpaGui

@@ -1,0 +1,80 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 1994, 1995, 1996
+*/
+
+/****************************************************************************/
+/*  File    : REMOTE.HI                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : remote utilities constants                                    */
+/*                                                                          */
+/*  Changes :                                                               */
+/*--------------------------------------------------------------------------*/
+/*   Date       | Author | Modification                                     */
+/*--------------+--------+--------------------------------------------------*/
+/*  03/04/1997  |  PGU   | - Creation                                       */
+/*--------------+--------+--------------------------------------------------*/
+/*  03/03/1999  |  PGU   | - Add INFO_READ_PACK                             */
+/*--------------+--------+--------------------------------------------------*/
+/*  29/03/1999  |  PBA   | - Add INFO_OBJECT                                */
+/*              |        | - Add INFO_GENE                                  */
+/*--------------+--------+--------------------------------------------------*/
+/*  21/09/2000  |  SOL   | - Add INFO_STATUS                                */
+/*              |        | - Add INFO_AT                                    */
+/*--------------+--------+--------------------------------------------------*/
+/*  22/01/2001  |  SOL   | - Add INFO_RPC2                                  */
+/****************************************************************************/
+#ifndef __REMOTE_HI__
+#define __REMOTE_HI__
+
+#include "stdcomp.h"
+
+#ifdef __REMOTE_EXT_VAR__
+#define DefExtern
+#else
+#define DefExtern extern
+#endif
+
+/* -------------- remote process interface flows ---------------------- */
+
+#define INFO_STATUS     0x00
+#define INFO_INIT       0x02
+#define INFO_TRACE      0x04
+#define INFO_MSG        0x06
+#define INFO_READ       0x08
+#define INFO_READ_PACK  0x09
+#define INFO_WRITE      0x0A
+#define INFO_RESET      0x0C
+#define INFO_EEPROM     0x0E
+#define INFO_LCD        0x10
+#define INFO_KBD        0x12
+#define INFO_WATCH      0x14
+#define INFO_DIAG       0x16
+#define INFO_RTK        0x18
+#define INFO_RPC2       0x19
+#define INFO_PROD       0x1A
+#define INFO_RADIO      0x1C
+#define INFO_AT         0x1D
+#define INFO_RPC        0x1E
+#define INFO_DEBUG      0x01
+#define INFO_WI2C       0x03
+#define INFO_RI2C       0x05
+#define INFO_OBJECT     0x0B
+/* could be used later when more than 31 streams are needed */
+#define INFO_GENE       0x1F
+
+#define LENGTH_INFO	   5
+#define NO_OVERWRITE_INFO  (1 << LENGTH_INFO)
+
+#define KBD_EMUL        (1 << 12)
+
+/* -------------- remote process interface pointer ---------------------- */
+
+DefExtern void *(*rm_UserSend)(void *p, u8 Flow, u16 Size);
+
+#undef DefExtern
+#endif /* __REMOTE_HI__ */

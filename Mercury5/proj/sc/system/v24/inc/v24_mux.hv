@@ -1,0 +1,60 @@
+/*****************************************************************************/
+/* Copyright (C)                    WAVECOM                                  */
+/*****************************************************************************
+===================== Source Header ==========================================
+                      %PCMS_HEADER_SUBSTITUTION_START%
+    Filename: %PM%
+    Revision: %PR%
+   Item Spec: %PID%
+  Originator: %PO%
+Last Changed: %PRT%
+------------------------------------------------------------------------------
+Related Change Documents:
+   %PIRC%
+------------------------------------------------------------------------------
+Related Baselines:
+   %PIRB%
+------------------------------------------------------------------------------
+Item History:
+   %PL%
+
+===================== End of Source Header ==================================*/
+//                    %PCMS_HEADER_SUBSTITUTION_END%
+
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File    :   v24_mux.hv                                                   */
+/*                                                                          */
+/* Scope   :                                                                */
+/*                                                                          */
+/* Content :                                                                */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author |        Modification                                  */
+/*----------+--------+------------------------------------------------------*/
+/* 30/09/04 |  APH   | Creation                                             */
+/****************************************************************************/
+/*$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_mux.hv-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  26.04.06 | aph    |                | Resolution for 33913: v24 optimiza
+ *           |        |                | tion for ITCM and DTCM
+ * ----------+--------+----------------+------------------------------------- 
+*/
+
+#ifndef __V24_MUX_HV__
+#define __V24_MUX_HV__
+
+#include "sys_v24_mux.hv"
+
+#endif /*__V24_MUX_HV__*/
+

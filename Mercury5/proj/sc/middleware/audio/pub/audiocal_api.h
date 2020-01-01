@@ -1,0 +1,147 @@
+#ifndef __AUDIOCAL_API_H__
+#define __AUDIOCAL_API_H__
+
+/* Audio calibration control from E2P */
+#define AUD_CAL_CTRL_USE_E2P_PRE_FIR            0x00000001
+#define AUD_CAL_CTRL_USE_E2P_INCENSE_UL_FIR     0x00000002
+#define AUD_CAL_CTRL_USE_E2P_INCENSE_DL_FIR     0x00000004
+#define AUD_CAL_CTRL_USE_E2P_INCENSE_AGC        0x00000008
+#define AUD_CAL_CTRL_USE_E2P_DSP_UL_FIR         0x00000010
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT5       0x00000020
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT6       0x00000040
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT7       0x00000080
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT8       0x00000100
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT9       0x00000200
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT10      0x00000400
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT11      0x00000800
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT12      0x00001000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT13      0x00002000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT14      0x00004000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT15      0x00008000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT16      0x00010000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT17      0x00020000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT18      0x00040000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT19      0x00080000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT20      0x00100000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT21      0x00200000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT22      0x00400000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT23      0x00800000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT24      0x01000000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT25      0x02000000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT26      0x04000000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT27      0x08000000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT28      0x01000000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT29      0x02000000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT30      0x04000000
+#define AUD_CAL_CTRL_USE_E2P_RESERVE_BIT31      0x08000000
+
+enum
+{
+    AC_HANDSET = 0,
+    AC_HEADSET,
+    AC_HANDSFREE,
+    AC_BLUETOOTH,
+    AC_MAX /* number of Audio Calibration profiles */
+};
+
+#define AP_AEC_ENABLE       (1<<0)
+#define AP_AEC_DTENABLE     (1<<1)
+#define AP_AEC_NLPENABLE    (1<<2)
+#define AP_AEC_HDENABLE     (1<<3)
+#define AP_AEC_CNGON        (1<<4)
+#define AP_AEC_TONEDET      (1<<5)
+#define AP_AEC_NSON         (1<<6)
+#define AP_AEC_STARTHD      (1<<7)
+#define AP_AEC_HOWLING      (1<<8)
+#define AP_AEC_REFSMOOTHING (1<<9)
+#define AP_AEC_REDUCE_FE_DT (1<<10)
+#define AP_AEC_ENHANCED_NS  (1<<11)
+#define AP_AEC_RUN_INP_AGC  (1<<12)
+#define AP_AEC_RUN_OUT_AGC  (1<<13)
+
+#define AP_AEC_DT_THR_MAX       (8)
+#define AP_AEC_DT_THR_MIN       (5)
+
+#define AP_AEC_NLP_SHIFT_MAX    (13)
+#define AP_AEC_NLP_SHIFT_MIN    (1)
+
+#define AP_AEC_TONEDET_THR_MAX  (3276)
+#define AP_AEC_TONEDET_THR_MIN  (1036)
+
+#define AP_AEC_NS_MIN_WEIGHT_MAX    (16383)
+#define AP_AEC_NS_MIN_WEIGHT_MIN    (3276)
+
+#define AP_AEC_REFSMOOTHING_MAG_MAX (32767)
+#define AP_AEC_REFSMOOTHING_MAG_MIN (2000)
+
+#define AP_AEC_DT_SENS_THR_MAX  (12287)
+#define AP_AEC_DT_SENS_THR_MIN  (8192)
+
+#define AP_AEC_LPF_CUT_OFF_MAX  (64)
+#define AP_AEC_LPF_CUT_OFF_MIN  (1)
+
+#define AP_AEC_FIXED_DELAY_MAX  (3) /* depends on DSP delay line length - currently 128 samples so max delay =96 = 3*32 */
+#define AP_AEC_FIXED_DELAY_MIN  (1)
+
+#define AC_PREDIST_LENGTH   (32)
+#define AC_DSPUL_LENGTH     (16)
+#define AC_GSMDL_LENGTH     (16)
+#define AC_GSMUL_LENGTH     (16)
+
+#define AP_CONFIG_PREDIST_EN    (1<<0)
+#define AP_CONFIG_GSMDL_EN      (1<<1)
+#define AP_CONFIG_GSMUL_EN      (1<<2)
+#define AP_CONFIG_ST1_EN        (1<<3)
+#define AP_CONFIG_ST2_EN        (1<<4)
+#define AP_CONFIG_DSPUL_EN      (1<<5)
+#define AP_CONFIG_VALID         (1<<7)
+
+#define AP_ST1VOL_MIN           (-64)
+#define AP_ST1VOL_MAX           (0)
+
+#define AP_ST2VOL_MIN           (-128)
+#define AP_ST2VOL_MAX           (127)
+
+/* need to keep this up to date!!! */
+#define SIZEOF_tACParams_E2P (21)
+
+enum
+{
+    AP_REC_VOICE_MEMO = 0,
+    AP_REC_CAMCORDER,
+    AP_REC_PCM_RECORDING,
+    AP_REC_HS_VOICE_MEMO,
+    AP_REC_HS_CAMCORDER,
+    AP_REC_HS_PCM_RECORDING,
+    AP_REC_ATV,
+    AP_REC_FM,
+};
+
+enum
+{
+    AP_OUTPUT_DRIVER_HST = 0,
+    AP_OUTPUT_DRIVER_RCV,
+    AP_OUTPUT_DRIVER_LINE,
+    AP_OUTPUT_DRIVER_SPK_HST,
+    AP_OUTPUT_MAX
+};
+
+/* need to sync with dev_MediaType_t */
+enum
+{
+    AP_MEDIA_MP3 = 0,
+    AP_MEDIA_MIDI,
+    AP_MEDIA_AMR,
+    AP_MEDIA_AAC,
+    AP_MEDIA_3GP,
+    AP_MEDIA_WAVE,
+    AP_MEDIA_M2_PCM,
+    AP_MEDIA_FM,
+    AP_MEDIA_DTMF,
+};
+
+//extern tACParams ACParams[AC_MAX];
+extern void audiocal_Init(const tACParams_E2P *pACE2P);
+
+#endif /* __AUDIOCAL_API_H__ */
+

@@ -1,0 +1,79 @@
+/****************************************************************************/
+/*  $Workfile::   fms_insd.hi                                             $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services - Insider's utilities                  */
+/*                  Used to frob the driver or to peep at some internals    */
+/*  Contents:                                                               */
+/*            fms_CoreDenyErasure                                           */
+/*            fms_CoreAllowErasure                                          */
+/*            fms_GetHardwareId                                             */
+/*            fms_Cleaner                                                   */
+/*            fms_GetFlashProdId                                            */
+/*            fms_GetDeviceSize                                             */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   0.4  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   kod    $         |     $Date::   08 Apr 2005 17:32:30 $     */
+/****************************************************************************
+ *   $Log:   U:/projet/gsm/pvcsarch/archives/fms/itf/fms_insd.hi-arc  $
+ *
+ *   Rev 0.4   08 Apr 2005 17:32:30   kod
+ *Version v1a1d.
+ *
+ *   Rev 0.3   24 Nov 2004 15:53:00   kod
+ *Resolution for 26275: Two allocations with undefined size are allowed
+ *Resolution for 26611: [FMS] Xmodem downloader needs some FMS modifications
+ *Version v1a18
+ *
+ *   Rev 0.2   08 Apr 2003 12:00:00   kod
+ *New exported function giving the device size.
+ *Resolution for 9256: FMS Core maintenance
+ *
+ *   Rev 0.1   10 Sep 2002 14:52:06   kod
+ *First beta version
+ ****************************************************************************/
+
+
+
+#ifndef __FMS_INSD_HI__
+#define __FMS_INSD_HI__
+
+#include "mdl_fms.h"
+#include "fms_burst.h"
+
+/****************************************************************************/
+/*  Function:  fms_GetHardwareId                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns a 32-bit value computed from the device's s/n        */
+/*             and used by sys_GetHardwareId                                */
+/*                                                                          */
+/*  Return    : (u32) HardwareID                                            */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+u32 fms_GetHardwareId(void);
+
+/****************************************************************************/
+/*  Function:  fms_GetFlashProdId                                           */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns an index used by remote tools in production plants   */
+/*             to identify the flash device                                 */
+/*                                                                          */
+/*  Return    :  (u32) Index                                                */
+/*                                                                          */
+/*  Interface :  n/a                                                        */
+/****************************************************************************/
+u32 fms_GetFlashProdId(void);
+
+/****************************************************************************/
+/*  Function: fms_GetDeviceSize                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Returns the size of the main flash device                     */
+/*                                                                          */
+/*  Return    : (u32) Device size                                           */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+u32 fms_GetDeviceSize(void);
+
+#endif /* __FMS_INSD_HI__ not defined   */

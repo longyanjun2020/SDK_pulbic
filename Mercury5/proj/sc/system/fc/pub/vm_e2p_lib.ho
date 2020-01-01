@@ -1,0 +1,3269 @@
+/**
+ * \file
+ * \brief VML e2p definition
+ */
+
+#ifndef __VM_E2P_LIB_HO__
+#define __VM_E2P_LIB_HO__
+
+#include "vm_types.ht"
+#include "vm_e2p.ho"
+
+#ifdef __E2P_INDEX_SYM__
+#include "e2p_stck.ho"
+#endif
+
+/*
+**   Volume, Sound, Status Control settings   **
+*/
+
+
+typedef struct
+{
+    u8   Mode : 1;
+    u8   EdgeState : 2;
+    u8   ProcessingMode : 2;
+    u8   DebounceTiming : 3;
+} InterruptConfig_t;
+
+typedef struct
+{
+   u8             Status2;                    /* b0: Greeting Status         */
+                                              /* b1: default language        */
+                                              /* b2: time format             */
+   u8             RingTone;                   /* Ringing tone                */
+   u8             KeyTone;                    /* Key tone                    */
+   u8             SpkLevel;                   /* Speaker level               */
+   u8             RingLevel;                  /* Ring level                  */
+   u8             KeyLevel;                   /* Key level                   */
+   u8             MsgTone;                    /* Message tone                */
+   u8             AutoAnswer;                 /* Auto Answer                 */
+   u8             DigitalGain;                /* Digital gain                */
+   u8             SpkMax;                     /* Speakers Max levels         */
+   u8             SideTone;                   /* SideTone                    */
+   u8             SpkMin;                     /* Speakers Min levels         */
+
+   u32            Status;                     /* b0: Call time               */
+                                              /* b1: Any key answer          */
+                                              /* b2: Back light              */
+                                              /* b3: One minute beep         */
+                                              /* b4: Auto Redialing          */
+                                              /* b5: Auto Lock               */
+                                              /* b6: Error Tone              */
+                                              /* b7: TX DTMF                 */
+                                              /* b8-9: Auto Answer           */
+                                              /* b10-11: Auto Power          */
+                                              /* b12-13: Flash LED           */
+                                              /* b14-b15 : Display AOC       */
+                                              /* b16: Keylock                */
+                                              /* b17: E2prom Mem Access      */
+                                              /* b18: Sim card Access        */
+                                              /* b19: Sim Locking mode       */
+                                              /* b20: Sim Lock off           */
+                                              /* b21: Sim presence           */
+                                              /* b22: Net Locking mode       */
+                                              /* b23: Subnet1 Locking mode   */
+                                              /* b24: Subnet2 Locking mode   */
+                                              /* b25: Net Lock off           */
+                                              /* b26: Subnet Lock off        */
+                                              /* b27: Data/Fax mode          */
+                                              /* b28: Call type              */
+                                              /* b29: ID Restriction         */
+                                              /* b30: keylock mode           */
+                                              /* b31: Endless Back Light     */
+} Settings_t;
+
+typedef struct
+{
+   u8             Status;                     /* b0: Alert mode: ring        */
+                                              /* b1: Alert mode: vibrator    */
+                                              /* b2: Warning tone: net found */
+                                              /* b3: Warning tone: net lost  */
+                                              /* b4: Flip                    */
+                                              /* b5: One beep during comm    */
+                                              /* b6-b7: Backlight bright     */
+   u8             Status2;                    /* b0: Keypadlock code         */
+                                              /* b1: Keypadlock code menu    */
+                                              /* b3: Alert and ring          */
+                                              /* b4: smscb beep              */
+   u8             BacklightLength;            /* Backlight activation length */
+   u8             OneBeepDelay;               /* Delay before beep           */
+
+} SettingsExt_t;
+
+
+/*
+**   Message waiting group type   **
+*/
+typedef struct
+{
+   u8     cphs_flag_set;
+   u8     cphs_line1_mail;
+   u8     cphs_line2_mail;
+   u8     cphs_data;
+   u8     cphs_fax;
+   u8     voice_mail;
+   u8     e_mail;
+   u8     fax;
+}Message_waiting_group_t;
+
+
+/* ME Personalization information */
+
+#define E2P_DIM_CTRL_KEY              8
+#define E2P_DIM_CNL                   6
+#define E2P_NB_MAX_CNL                20
+#define E2P_NB_MAX_LND                10
+#define E2P_LND_SIZE                  12
+#define E2P_NB_MAX_MISS               10
+#define E2P_DIM_MISSCALL              12
+#define E2P_DIM_NETPWD                8
+#define E2P_DIM_AOCCCM                3
+#define E2P_DIM_LASTCALL              12
+#define E2P_NB_MAX_CUG_INDEX          10
+#define E2P_NB_MAX_ALARM              16
+#define E2P_DIM_TIME_PACK             3
+#define E2P_DIM_LOCK_CNL_1            23
+#define E2P_DIM_LOCK_CNL_2            24
+#define E2P_DIM_LOCK_CNL_3            70
+#define E2P_DIM_LOCK_CNL_4            3
+#define E2P_DIM_MMT_ECC               4
+#define E2P_DIM_CHECKSUM              16
+
+
+/* -F- MGI */
+
+
+/* --------------------------------- */
+/* CMUX configuration stored in e2p  */
+/* --------------------------------- */
+
+typedef struct
+{
+    u16                      N1;                                 /* Max frame size */
+    u8                       T1;                                 /* Ack timer in msec for CMUX start */
+    u8                       T2;                                 /* Rsp timer in msec for DLC opening */
+    u8                       T3;                                 /* Wake-up Rsp timer in sec */
+    u8                       N2;                                 /* Max Nb of retransmission */
+    u8                       V24PortSpeed;                       /* Transmission rate */
+    u8                       Role;                               /* Role: Initiator or Responder */
+    u8                       State;                              /* State of the automaton */
+    u8                       Mode;                               /* Multiplexer transparency mechanism */
+    u8                       Subset;                             /* control channel set up */
+    u8                       SpeedSet;
+} CmuxConfig_t;
+
+#ifndef __NAND__
+typedef struct
+{
+   u8                        ReportSs;                           /* for SS reports purpose */
+   u8                        SmPdu;                              /* SMS PDU presence */
+   u8                        SmVp;                               /* SMS validity period */
+   u8                        SmPid;                              /* SMS protocol identifier */
+   u8                        SmDcs;                              /* SMS data coding scheme */
+   u8                        PadLib0[3];
+   u32                       LastCallTime;                       /* Last Calling Time */
+   u32                       TotalCallTime;                      /* Total Call Time */
+   u8                        SmsCbStat;                          /* Sms Cb Activ or NOT */
+   LockPwd_t                 LockPwd;                            /* Phone Lock password */
+   u8                        Modem2;                             /* modem connection elements */
+   u8                        SmsConvTab;                         /* Selected char. set for SMS */
+   u8                        AtRetCode;                          /* format of AT Responses */
+   u8                        PadLib1[3];
+   Settings_t                Settings;                           /* Settings for Volume&Sound */
+   u8                        Language;                           /* Active Language */
+   u8                        Modem;                              /* modem and transmission types */
+   u8                        Report;                             /* for AT reports purpose */
+   u8                        NewMsgInd;                          /* new message indications */
+   Greet_t                   Greeting;                           /* Greeting message */
+   E2pLnd_t                  PadCGLE2pLnd;                       /* Number of LND used & indexes */
+   AdrSC_t                   AdrSC   ;                           /* Service Center Address */
+   u8                        SmsCbCustomFlags;                   /* bits 1 0 : status : 00 desactived */
+                                                                 /*                     01 list actived */
+                                                                 /*                     10 all actived */
+   u8                        LockCNL_1[E2P_DIM_LOCK_CNL_1];      /* Part 1 of Lock CNL Table */
+   u8                        MicSelected;                        /* Selected audio input (see vm_audio.h) */
+   u8                        SpeakerSelected;                    /* Selected audio output (see vm_audio.h) */
+   u8                        AudioChannel;                       /* Voice or Stereo channel (see vm_audio.h) */
+   VoiceMail_t               VoiceMail;                          /* Voice Mail Number */
+   MissedIndex_t             PadCGLMissedIndex;                  /* Nb of Missed Calls used & index*/
+   u8                        LockCNL_2[E2P_DIM_LOCK_CNL_2];      /* Part 2 of Lock CNL Table */
+   NetStr_t                  NetStr;                             /* MCC & MNC Network values */
+   u8                        NetAttempt;                         /* Attempt Ntlock attempt counter */
+
+   u8                        LibPad0[2];                            /* Pad */
+   u8                        LibPad1[2];                            /* Pad */
+   u8                        LibPad2[2];                            /* Pad */
+   u8                        LibPad3[2];                            /* Pad */
+   u8                        LockCNL_3[E2P_DIM_LOCK_CNL_3];      /* Part 3 of Lock CNL Table */
+   u8                        AoCCcm[E2P_DIM_AOCCCM];             /* Current call meter */
+   u8                        StackMode;                          /* Protocol stack Mode: Air plane or phone mode */
+   u8                        SmFo;                               /* SMS First octet. cf 07.05 */
+   u8                        CugInfo;                            /* b0-b3 : Current CUG Index */
+                                                                 /* b4    : Disable CUG functions */
+                                                                 /* b5    : OA suppress */
+                                                                 /* b6    : Pref. Suppress */
+                                                                 /* b7    : not used */
+   CugIndex_t                CugIndex[E2P_NB_MAX_CUG_INDEX];     /* CUG Index (0-32767) array */
+   u8                        PadLib2[2];
+   u32                       ProdTestRes;                        /* Result of Production Test */
+                                                                 /* each bit meaning is product dependent */
+   RtcAlarm_t                PadCGLRtcAlarm;                     /* RTC Alarm (6 bytes array) */
+   u8                        PadLib3[2];
+   u32                       AtWind;                             /* AT private Unsollicited res. */
+   u16                       PadEchoCancelParam1;                /* EchoCancelation Parameter 1 */
+   u16                       PadEchoCancelParam2;                /* EchoCancelation Parameter 2 */
+   u16                       PadEchoCancelParam3;                /* EchoCancelation Parameter 3 */
+   u16                       PadEchoCancelParam4;                /* EchoCancelation Parameter 4 */
+   u8                        LibPad4;                               /* Pad */
+   u8                        BearTypePref;                       /* Bearer (data or voice ) type preferred */
+   u8                        OutputValue;                        /* Speaker Control value */
+   u8                        AtMode;                             /* for AT  purpose */
+   StlkTermProf_t            StlkTermProf;                       /* STLK Terminal Profile */
+   u8                        StlkActivStatus;                    /* STLK activation status */
+   u8                        PadCGLBefDialTone;                  /* Before Dialing tone */
+   u16                       PadEchoCancelParam5;                /* EchoCancelation Parameter 5 */
+   u16                       PadEchoCancelParam6;                /* EchoCancelation Parameter 6 */
+   u16                       PadEchoCancelParam7;                /* EchoCancelation Parameter 7 not used */
+   u8                        PadEchoCancelInfos ;                /* Param Switch Attenuation */
+   u8                        Cap_mem;                            /* Memory capacity flag */
+   Greet2_t                  PadCGLGreeting2;                    /* Greeting2 message */
+   u8                        InputValue;                         /* Mic Control value */
+   SettingsExt_t             SettingsExt;                        /* New settings for handsets */
+   u16                       PadWMicGain;                        /* Wavecom Mic Gain Control */
+   u8                        StlkTimeoutCfg;                     /* Sim Toolkit timeout config */
+
+   u8                        Tp_Mr;                              /* TP Message Reference */
+   u8                        PadCGLTimePack[E2P_DIM_TIME_PACK];  /* Field TIME_PACK */
+   u8                        SettingMode;                        /* Current profile */
+   u8                        TerminalProfileLength;              /* Terminal profile length : STK */
+   u8                        AtCphsFtr;                          /* CPHS features for AT */
+   u8                        StatusReport;                       /* SMS Status Report parameters */
+   u8                        LockCNL_4[E2P_DIM_LOCK_CNL_4];      /* Part 4 of Lock CNL Table */
+   u8                        PadLib4[2];                         /* SIMRestCounter move to vm_E2pAppl_t */
+/****** u32 ******/
+   u16                       ResetTimer;                         /* Reset Timer */
+   u8                        WlocPeriod;                         /* time period   for the command WLOC */
+   u8                        WlocConfig;                         /* configuration for the command WLOC */
+   u8                        PadToRemoveSpiConfig;
+   u8                        PadLib5;
+   u16                       PadEchoParam1;                      /* Echo cancellation parameter1 */
+   u16                       PadEchoParam2;                      /* Echo cancellation parameter2 */
+   u16                       PadEchoParam3;                      /* Echo cancellation parameter3 */
+   u16                       PadEchoParam4;                      /* Echo cancellation parameter4 */
+   u8                        PadCGLSpkPhoneMicGain;              /* Mic gain in speaker phone mode */
+   u8                        PadCGLSpkPhoneSpkGain;              /* Spk gain in speaker phone mode */
+   u8                        PadCGLEchoCancelAlg;                /* Echo cancellation algorithm */
+   Surprise_t                Surprise;                           /* used when watchdog reset */
+   u8                        PadCGLRingToneAux;                  /* Ringing tone */
+   u8                        PadCGLRingLevelAux;                 /* Ring level */
+   u32                       CustomerKey;                        /* Customer Key */
+   u8                        PadCGLBatDeltaVoltage;              /* for charging purpose*/
+   u8                        PadCGLColorTheme;                   /* Store color theme */
+   u8                        PadCustomBitField;                  /* For Customer configuration */
+                                                                 /* b0: 0=normal 1=VGT for Magneti */
+   u8                        AtEventReport;                      /* Events Reporting for ATI */
+   u8                        PadCGLFlipDial;
+   u8                        CommonGprsSettings;
+   u8                        GprsConfig;
+   u8                        LibPad5;                               /* Pad */
+   u8                        Band;                               /* Bands in use */
+   u8                        CurrentMultislotClass;              /* GPRS MultislotClass required */
+   u8                        EgprsCurrentMultislotClass;         /* EGPRS MultislotClass required */
+   u8                        AtWindV24;                          /* AT WIND command availability through V24: TRUE/FALSE  */
+   u8                        AtOpenV24;                          /* Unsolicited message available through V24: TRUE/FALSE */
+   u8                        PadLib6;
+   u16                       ParallelConfig;                     /* configuration for the command WBM*/
+   u16                       SpiConfig;                          /* configuration for the command WSBM*/
+
+   u16                       LowLimitForKeyboardHysteresis;      /* Keyboard hysteresis purpose */
+   u16                       UpLimitForKeyboardHysteresis;       /* Keyboard hysteresis purpose */
+
+   CustomLabel_t             CustomLabel;                        /* Customer Version Label */
+   u8                        Uart;
+   u8                        VmlNbMaxASEClient;                  /* Define how many applications can register to ASE */
+   u8                        AtVoiceSpeechVersion;               /* Preferred rate for MT voice call */
+   u8                        AtDataRate;                         /* Preferred rate for MT data call: Half or Full rate  */
+   u8                        AtCtmTtyBearer;                     /* CTM TTY Bearer */
+   u8                        PadLib7;
+   u16                       AtGeneralBehaviour;                 /* configuring modem's behaviour */
+
+   Greet3_t                  PadCGLGreeting3;                    /* Greeting3 message -> AT+CGMI */
+   u8                        AtMFAutomaticCall;                  /* ports for automatic dialing or answer */
+   u8                        AtMFPortsState;                     /* ports's state : 0->desactive; 1->active */
+   u8                        AtMFAutomaticCallPerc;              /* ports for automatic dialing */
+   u16                       AtMFDataRedirected;                 /* ports for data redirected */
+
+   u8                        Mmt_Ecc[E2P_DIM_MMT_ECC*3];
+
+   u8                        PadLib6A[2];                            /* Pad */
+   u8                        PulseWidth;                         /* width of the pulse on packet downloaded: AT+WRIM=2 */
+   u8                        PlmnOns;                            /* BitField for configuration of operator name service */
+   Message_waiting_group_t   message_waiting_group;              /* Message waiting group */
+   u32                       RIPulseEvents;                      /* Selected events for RI pulse: AT+WRIM=3 */
+#ifdef __WMUX__
+   u16                       WmuxConfig;                         /* Indicate the uart where the wmux mode is activated */
+#else
+   u16                       PadWmux;
+#endif /* __WMUX__ */
+   u16                       BattLevelFilter;                    /* Indicate value in ms to filter +WBCI indication */
+   u32                       CmuxListOpenedDlc;                  /* List Opened DLC for CMUX management */
+   CmuxConfig_t              CmuxPort1Config;                    /* Configuration of Physical Port 1 */
+   CmuxConfig_t              CmuxPort2Config;                    /* Configuration of Physical Port 2 */
+   CmuxConfig_t              CmuxPort3Config;                    /* Configuration of Physical Port 3 */
+   CmuxConfig_t              CmuxPort4Config;                    /* Configuration of Physical Port 4 */
+   u32                       GpsUnsolManagement;
+   u32                       PadBattUnsolManagement;
+   u8                        LlcSettings;
+   u8                        RegControlMode;
+   u8                        CLAEmode;
+   u8                        CSTAtype;
+   u32                       OatStartAddr;
+   u16                       OpenAtKeySafeMode;
+
+   u8                        AdnCkecksum[E2P_DIM_CHECKSUM];
+   u8                        FdnCkecksum[E2P_DIM_CHECKSUM];
+   u8                        MsisdnCkecksum[E2P_DIM_CHECKSUM];
+   u8                        LndCkecksum[E2P_DIM_CHECKSUM];
+   u8                        DirtyE2P;                              /* Check if E2P need restored */
+   u8                        PhbAdnChecksum[E2P_DIM_CHECKSUM];
+   u8                        AdnNeedReload;                        /* check whether we shall reload ADN */
+   u8                        AdnNeedSyncToMT;                      /* check whether ADN shall be sync to MT */
+
+   #ifdef __MSTAR_DUAL_SIM_E2P__
+   u8                        SmPdu_2;                              /* SMS PDU presence */
+   u8                        SmVp_2;                               /* SMS validity period */
+   u8                        SmPid_2;                              /* SMS protocol identifier */
+   u8                        SmDcs_2;                              /* SMS data coding scheme */
+   u8                        PadDualSim0[3];
+   u32                       LastCallTime_2;                       /* Last Calling Time */
+   u32                       TotalCallTime_2;                      /* Total Call Time */
+   u8                        SmsCbStat_2;                          /* Sms Cb Activ or NOT */
+   u8                        Modem2_2;                             /* modem connection elements */
+   u8                        AtRetCode_2;                          /* format of AT Responses */
+   u8                        PadDualSim1;
+   Settings_t                Settings_2;                           /* Settings for Volume&Sound */
+   u8                        Modem_2;
+   u8                        NewMsgInd_2;                          /* new message indications */
+   AdrSC_t                   AdrSC_2   ;                           /* Service Center Address */
+   u8                        SmsCbCustomFlags_2;                   /* bits 1 0 : status : 00 desactived */
+   VoiceMail_t               VoiceMail_2;                          /* Voice Mail Number */
+   u8                        NetAttempt_2;                         /* Attempt Ntlock attempt counter */
+   u8                        AoCCcm_2[E2P_DIM_AOCCCM];             /* Current call meter */
+   u8                        StackMode_2;                          /* Protocol stack Mode: Air plane or phone mode */
+   u8                        SmFo_2;                               /* SMS First octet. cf 07.05 */
+   u8                        CugInfo_2;                            /* b0-b3 : Current CUG Index */
+   CugIndex_t                CugIndex_2[E2P_NB_MAX_CUG_INDEX];     /* CUG Index (0-32767) array */
+   u8                        BearTypePref_2;                       /* Bearer (data or voice ) type preferred */
+   u8                        AtMode_2;                             /* for AT  purpose */
+   u8                        StlkActivStatus_2;                    /* STLK activation status */
+   u8                        Cap_mem_2;                            /* Memory capacity flag */
+   u8                        Tp_Mr_2;                              /* TP Message Reference */
+   u8                        AtCphsFtr_2;                          /* CPHS features for AT */
+   u8                        StatusReport_2;                       /* SMS Status Report parameters */
+   u8                        WlocPeriod_2;                         /* time period   for the command WLOC */
+   u8                        WlocConfig_2;                         /* configuration for the command WLOC */
+   u8                        AtVoiceSpeechVersion_2;               /* Preferred rate for MT voice call */
+   u8                        PlmnOns_2;                            /* BitField for configuration of operator name service */
+   u8                        PadDualSim2[3];
+   u32                       RIPulseEvents_2;                      /* Selected events for RI pulse: AT+WRIM=3 */
+   u32                       GpsUnsolManagement_2;
+   u8                        Band_2;                               /* Bands in use */
+   u8                        AdnCkecksum_2[E2P_DIM_CHECKSUM];
+   u8                        FdnCkecksum_2[E2P_DIM_CHECKSUM];
+   u8                        MsisdnCkecksum_2[E2P_DIM_CHECKSUM];
+   u8                        LndCkecksum_2[E2P_DIM_CHECKSUM];
+   u8                        PhbAdnChecksum_2[E2P_DIM_CHECKSUM];
+   u8                        AdnNeedReload_2;                      /* check whether we shall reload ADN2 */
+   u8                        AdnNeedSyncToMT_2;                    /* check whether ADN2 shall be sync to MT */
+   #else
+   u8                        DualSimReserved0[194]
+   #endif
+
+
+   /* AT&F will restore E2P to factory settings. But Windows will sent AT&F in modem mode */
+   /* So we backup E2P and restore after usb cable unpluged */
+
+
+   u8                        PadLib8;
+   Settings_t                Settings_BK;                           /* Settings for Volume&Sound */
+   u8                        StatusReport_BK;                       /* SMS Status Report parameters */
+   u8                        E2pNetMode_BK;                         /* Network selection mode     */
+
+
+   #ifdef __MSTAR_DUAL_SIM_E2P__
+   u8                        PadDualSim3[2];
+   Settings_t                Settings_2_BK;                         /* Settings for Volume&Sound */
+   u8                        StatusReport_2_BK;                     /* SMS Status Report parameters */
+   u8                        E2pNetMode_2_BK;                       /* Network selection mode     */
+   #else
+   u8                        DualSimReserved1[20];
+   #endif
+   u8                        CompareLength;                         /* Length for tel number compare */
+   #ifdef __MSTAR_DUAL_SIM_E2P__ /* CR-39401. Duplicate E2P_COMMONGPRSSETTINGS. */
+   u8                        CommonGprsSettings_2;
+   #else
+   u8                        DualSimReserved2;
+   #endif
+
+   u8                        CalibrationReserved2[100];
+
+   u8                        lib_pad[159];
+   /* WARNING: Never add new field after this*/
+   u8                        PadLastE2pFieldLib;
+} E2pLib_t;
+#else //__NAND__
+typedef struct
+{
+   u8                        ReportSs;                           /* for SS reports purpose */
+   u8                        SmPdu;                              /* SMS PDU presence */
+   u8                        SmVp;                               /* SMS validity period */
+   u8                        SmPid;                              /* SMS protocol identifier */
+   u8                        SmDcs;                              /* SMS data coding scheme */
+//RO   u32                       LastCallTime;                       /* Last Calling Time */
+//RO   u32                       TotalCallTime;                      /* Total Call Time */
+   u8                        SmsCbStat;                          /* Sms Cb Activ or NOT */
+//RO   LockPwd_t                 LockPwd;                            /* Phone Lock password */
+   u8                        Modem2;                             /* modem connection elements */
+//RO   u8                        SmsConvTab;                         /* Selected char. set for SMS */
+   u8                        AtRetCode;                          /* format of AT Responses */
+   Settings_t                Settings;                           /* Settings for Volume&Sound */
+//RO   u8                        Language;                           /* Active Language */
+   u8                        Modem;                              /* modem and transmission types */
+   u8                        Report;                             /* for AT reports purpose */
+   u8                        NewMsgInd;                          /* new message indications */
+//RO   Greet_t                   Greeting;                           /* Greeting message */
+   E2pLnd_t                  PadCGLE2pLnd;                       /* Number of LND used & indexes */
+   AdrSC_t                   AdrSC   ;                           /* Service Center Address */
+//RO   u8                        SmsCbCustomFlags;                   /* bits 1 0 : status : 00 desactived */
+                                                                 /*                     01 list actived */
+                                                                 /*                     10 all actived */
+   u8                        LockCNL_1[E2P_DIM_LOCK_CNL_1];      /* Part 1 of Lock CNL Table */
+   u8                        MicSelected;                        /* Selected audio input (see vm_audio.h) */
+   u8                        SpeakerSelected;                    /* Selected audio output (see vm_audio.h) */
+   u8                        AudioChannel;                       /* Voice or Stereo channel (see vm_audio.h) */
+   VoiceMail_t               VoiceMail;                          /* Voice Mail Number */
+   MissedIndex_t             PadCGLMissedIndex;                  /* Nb of Missed Calls used & index*/
+   u8                        LockCNL_2[E2P_DIM_LOCK_CNL_2];      /* Part 2 of Lock CNL Table */
+//RO   NetStr_t                  NetStr;                             /* MCC & MNC Network values */
+   u8                        NetAttempt;                         /* Attempt Ntlock attempt counter */
+
+   u8                        LibPad0[2];                            /* Pad */
+   u8                        LibPad1[2];                            /* Pad */
+   u8                        LibPad2[2];                            /* Pad */
+   u8                        LibPad3[2];                            /* Pad */
+   u8                        LockCNL_3[E2P_DIM_LOCK_CNL_3];      /* Part 3 of Lock CNL Table */
+   u8                        AoCCcm[E2P_DIM_AOCCCM];             /* Current call meter */
+   u8                        StackMode;                          /* Protocol stack Mode: Air plane or phone mode */
+   u8                        SmFo;                               /* SMS First octet. cf 07.05 */
+   u8                        CugInfo;                            /* b0-b3 : Current CUG Index */
+                                                                 /* b4    : Disable CUG functions */
+                                                                 /* b5    : OA suppress */
+                                                                 /* b6    : Pref. Suppress */
+                                                                 /* b7    : not used */
+   CugIndex_t                CugIndex[E2P_NB_MAX_CUG_INDEX];     /* CUG Index (0-32767) array */
+//RO   u32                       ProdTestRes;                        /* Result of Production Test */
+                                                                 /* each bit meaning is product dependent */
+   //RtcAlarm_t                PadCGLRtcAlarm;                     /* RTC Alarm (6 bytes array) */
+   u32                       AtWind;                             /* AT private Unsollicited res. */
+   u16                       PadEchoCancelParam1;                /* EchoCancelation Parameter 1 */
+   u16                       PadEchoCancelParam2;                /* EchoCancelation Parameter 2 */
+   u16                       PadEchoCancelParam3;                /* EchoCancelation Parameter 3 */
+   u16                       PadEchoCancelParam4;                /* EchoCancelation Parameter 4 */
+   u8                        LibPad4;                               /* Pad */
+   u8                        BearTypePref;                       /* Bearer (data or voice ) type preferred */
+   u8                        OutputValue;                        /* Speaker Control value */
+   u8                        AtMode;                             /* for AT  purpose */
+   StlkTermProf_t            StlkTermProf;                       /* STLK Terminal Profile */
+   u8                        StlkActivStatus;                    /* STLK activation status */
+   u8                        PadCGLBefDialTone;                  /* Before Dialing tone */
+   u16                       PadEchoCancelParam5;                /* EchoCancelation Parameter 5 */
+   u16                       PadEchoCancelParam6;                /* EchoCancelation Parameter 6 */
+   u16                       PadEchoCancelParam7;                /* EchoCancelation Parameter 7 not used */
+   u8                        PadEchoCancelInfos ;                /* Param Switch Attenuation */
+   u8                        Cap_mem;                            /* Memory capacity flag */
+//RO   Greet2_t                  PadCGLGreeting2;                    /* Greeting2 message */
+   u8                        InputValue;                         /* Mic Control value */
+//RO   SettingsExt_t             SettingsExt;                        /* New settings for handsets */
+   u8                        PadWMicGain[3];                        /* Wavecom Mic Gain Control */
+   u8                        StlkTimeoutCfg;                     /* Sim Toolkit timeout config */
+
+   u8                        Tp_Mr;                              /* TP Message Reference */
+   u8                        PadCGLTimePack[E2P_DIM_TIME_PACK];  /* Field TIME_PACK */
+//RO   u8                        SettingMode;                        /* Current profile */
+//RO   u8                        TerminalProfileLength;              /* Terminal profile length : STK */
+   u8                        AtCphsFtr;                          /* CPHS features for AT */
+   u8                        StatusReport;                       /* SMS Status Report parameters */
+   u8                        LockCNL_4[E2P_DIM_LOCK_CNL_4];      /* Part 4 of Lock CNL Table */
+   //u8                        PadLib38;                           /* SIMRestCounter move to vm_E2pAppl_t */
+/****** u32 ******/
+   u16                       ResetTimer;                         /* Reset Timer */
+   u8                        WlocPeriod;                         /* time period   for the command WLOC */
+   u8                        WlocConfig;                         /* configuration for the command WLOC */
+
+   u16                       PadEchoParam1;                      /* Echo cancellation parameter1 */
+   u16                       PadEchoParam2;                      /* Echo cancellation parameter2 */
+   u16                       PadEchoParam3;                      /* Echo cancellation parameter3 */
+   u16                       PadEchoParam4;                      /* Echo cancellation parameter4 */
+   u8                        PadCGLSpkPhoneMicGain;              /* Mic gain in speaker phone mode */
+   u8                        PadCGLSpkPhoneSpkGain;              /* Spk gain in speaker phone mode */
+   u8                        PadCGLEchoCancelAlg;                /* Echo cancellation algorithm */
+   Surprise_t                Surprise;                           /* used when watchdog reset */
+   u8                        PadCGLRingToneAux;                  /* Ringing tone */
+//RO   u8                        PadCGLRingLevelAux;                 /* Ring level */
+//RO   u32                       CustomerKey;                        /* Customer Key */
+   u8                        PadCGLBatDeltaVoltage;              /* for charging purpose*/
+   u8                        PadCGLColorTheme;                   /* Store color theme */
+   u8                        PadCustomBitField;                  /* For Customer configuration */
+                                                                 /* b0: 0=normal 1=VGT for Magneti */
+   u8                        AtEventReport;                      /* Events Reporting for ATI */
+   u8                        PadCGLFlipDial;
+   u8                        CommonGprsSettings;
+   u8                        GprsConfig;
+   u8                        LibPad5;                               /* Pad */
+   u8                        Band;                               /* Bands in use */
+   u8                        CurrentMultislotClass;              /* GPRS MultislotClass required */
+   u8                        EgprsCurrentMultislotClass;         /* EGPRS MultislotClass required */
+   u8                        AtWindV24;                          /* AT WIND command availability through V24: TRUE/FALSE  */
+   u8                        AtOpenV24;                          /* Unsolicited message available through V24: TRUE/FALSE */
+   u16                       ParallelConfig;                     /* configuration for the command WBM*/
+   u16                       SpiConfig;                          /* configuration for the command WSBM*/
+
+   u16                       LowLimitForKeyboardHysteresis;      /* Keyboard hysteresis purpose */
+   u16                       UpLimitForKeyboardHysteresis;       /* Keyboard hysteresis purpose */
+
+//RO   CustomLabel_t             CustomLabel;                        /* Customer Version Label */
+//RO   u8                        Uart;
+//RO   u8                        VmlNbMaxASEClient;                  /* Define how many applications can register to ASE */
+   u8                        AtVoiceSpeechVersion;               /* Preferred rate for MT voice call */
+//RO   u8                        AtDataRate;                         /* Preferred rate for MT data call: Half or Full rate  */
+   u8                        AtCtmTtyBearer;                     /* CTM TTY Bearer */
+   u16                       AtGeneralBehaviour;                 /* configuring modem's behaviour */
+
+   Greet3_t                  PadCGLGreeting3;                    /* Greeting3 message -> AT+CGMI */
+   u8                        AtMFAutomaticCall;                  /* ports for automatic dialing or answer */
+   u8                        AtMFPortsState;                     /* ports's state : 0->desactive; 1->active */
+   u8                        AtMFAutomaticCallPerc;              /* ports for automatic dialing */
+   u16                       AtMFDataRedirected;                 /* ports for data redirected */
+
+//RO   u8                        Mmt_Ecc[E2P_DIM_MMT_ECC*3];
+
+   u8                        PadLib6A[2];                            /* Pad */
+   u8                        PulseWidth;                         /* width of the pulse on packet downloaded: AT+WRIM=2 */
+   u8                        PlmnOns;                            /* BitField for configuration of operator name service */
+//RO   Message_waiting_group_t   message_waiting_group;              /* Message waiting group */
+   u32                       RIPulseEvents;                      /* Selected events for RI pulse: AT+WRIM=3 */
+#ifdef __WMUX__
+   u16                       WmuxConfig;                         /* Indicate the uart where the wmux mode is activated */
+#else
+   u16                       PadWmux;
+#endif /* __WMUX__ */
+   u16                       BattLevelFilter;                    /* Indicate value in ms to filter +WBCI indication */
+   u32                       CmuxListOpenedDlc;                  /* List Opened DLC for CMUX management */
+   CmuxConfig_t              CmuxPort1Config;                    /* Configuration of Physical Port 1 */
+   CmuxConfig_t              CmuxPort2Config;                    /* Configuration of Physical Port 2 */
+   CmuxConfig_t              CmuxPort3Config;                    /* Configuration of Physical Port 3 */
+   CmuxConfig_t              CmuxPort4Config;                    /* Configuration of Physical Port 4 */
+//RO   u32                       GpsUnsolManagement;
+   u32                       PadBattUnsolManagement;
+//RO   u8                        LlcSettings;
+//RO   u8                        RegControlMode;
+   u8                        CLAEmode;
+   u8                        CSTAtype;
+//RO   u32                       OatStartAddr;
+   u16                       OpenAtKeySafeMode;
+
+   u8                        AdnCkecksum[E2P_DIM_CHECKSUM];
+   u8                        FdnCkecksum[E2P_DIM_CHECKSUM];
+   u8                        MsisdnCkecksum[E2P_DIM_CHECKSUM];
+   u8                        LndCkecksum[E2P_DIM_CHECKSUM];
+   u8                        DirtyE2P;                              /* Check if E2P need restored */
+//RO   u8                        PhbAdnChecksum[E2P_DIM_CHECKSUM];
+//RO   u8                        AdnNeedReload;                        /* check whether we shall reload ADN */
+//RO   u8                        AdnNeedSyncToMT;                      /* check whether ADN shall be sync to MT */
+
+   #ifdef __MSTAR_DUAL_SIM_E2P__
+   u8                        SmPdu_2;                              /* SMS PDU presence */
+   u8                        SmVp_2;                               /* SMS validity period */
+   u8                        SmPid_2;                              /* SMS protocol identifier */
+   u8                        SmDcs_2;                              /* SMS data coding scheme */
+
+   u8                        padBA[3];
+
+   u32                       LastCallTime_2;                       /* Last Calling Time */
+   u32                       TotalCallTime_2;                      /* Total Call Time */
+   u8                        SmsCbStat_2;                          /* Sms Cb Activ or NOT */
+   u8                        Modem2_2;                             /* modem connection elements */
+   u8                        AtRetCode_2;                          /* format of AT Responses */
+
+   u8                        padBB;
+
+   Settings_t                Settings_2;                           /* Settings for Volume&Sound */
+   u8                        Modem_2;
+   u8                        NewMsgInd_2;                          /* new message indications */
+   AdrSC_t                   AdrSC_2   ;                           /* Service Center Address */
+//RO   u8                        SmsCbCustomFlags_2;                   /* bits 1 0 : status : 00 desactived */
+   VoiceMail_t               VoiceMail_2;                          /* Voice Mail Number */
+   u8                        NetAttempt_2;                         /* Attempt Ntlock attempt counter */
+   u8                        AoCCcm_2[E2P_DIM_AOCCCM];             /* Current call meter */
+   u8                        StackMode_2;                          /* Protocol stack Mode: Air plane or phone mode */
+   u8                        SmFo_2;                               /* SMS First octet. cf 07.05 */
+   u8                        CugInfo_2;                            /* b0-b3 : Current CUG Index */
+
+   u8                        padBC;
+
+   CugIndex_t                CugIndex_2[E2P_NB_MAX_CUG_INDEX];     /* CUG Index (0-32767) array */
+   u8                        BearTypePref_2;                       /* Bearer (data or voice ) type preferred */
+   u8                        AtMode_2;                             /* for AT  purpose */
+   u8                        StlkActivStatus_2;                    /* STLK activation status */
+   u8                        Cap_mem_2;                            /* Memory capacity flag */
+   u8                        Tp_Mr_2;                              /* TP Message Reference */
+   u8                        AtCphsFtr_2;                          /* CPHS features for AT */
+   u8                        StatusReport_2;                       /* SMS Status Report parameters */
+   u8                        WlocPeriod_2;                         /* time period   for the command WLOC */
+   u8                        WlocConfig_2;                         /* configuration for the command WLOC */
+   u8                        AtVoiceSpeechVersion_2;               /* Preferred rate for MT voice call */
+   u8                        PlmnOns_2;                            /* BitField for configuration of operator name service */
+
+   u8                        padBD[3];
+
+   u32                       RIPulseEvents_2;                      /* Selected events for RI pulse: AT+WRIM=3 */
+ //RO  u32                       GpsUnsolManagement_2;
+   u8                        Band_2;                               /* Bands in use */
+   u8                        AdnCkecksum_2[E2P_DIM_CHECKSUM];
+   u8                        FdnCkecksum_2[E2P_DIM_CHECKSUM];
+   u8                        MsisdnCkecksum_2[E2P_DIM_CHECKSUM];
+   u8                        LndCkecksum_2[E2P_DIM_CHECKSUM];
+ //RO  u8                        PhbAdnChecksum_2[E2P_DIM_CHECKSUM];
+ //RO  u8                        AdnNeedReload_2;                      /* check whether we shall reload ADN2 */
+ //RO  u8                        AdnNeedSyncToMT_2;                    /* check whether ADN2 shall be sync to MT */
+
+   #else
+   u8                        DualSimReserved0[172];
+   #endif
+
+
+   /* AT&F will restore E2P to factory settings. But Windows will sent AT&F in modem mode */
+   /* So we backup E2P and restore after usb cable unpluged */
+
+
+ //RO  Settings_t                Settings_BK;                           /* Settings for Volume&Sound */
+ //RO  u8                        StatusReport_BK;                       /* SMS Status Report parameters */
+ //RO  u8                        E2pNetMode_BK;                         /* Network selection mode     */
+
+
+//   #ifdef __MSTAR_DUAL_SIM_E2P__
+
+//RO   Settings_t                Settings_2_BK;                         /* Settings for Volume&Sound */
+//RO   u8                        StatusReport_2_BK;                     /* SMS Status Report parameters */
+//RO   u8                        E2pNetMode_2_BK;                       /* Network selection mode     */
+//   #endif
+   u8                        CompareLength;                         /* Length for tel number compare */
+//   #ifdef __MSTAR_DUAL_SIM_E2P__ /* CR-39401. Duplicate E2P_COMMONGPRSSETTINGS. */
+//RO   u8                        CommonGprsSettings_2;
+//   #endif
+
+   u8                        lib_pad[1353];
+   /* WARNING: Never add new field after this*/
+   u8                        PadLastE2pFieldLib;
+} E2pLib_t;
+#endif
+
+typedef struct
+{
+	ascii	e2Name[50]; /* E2P name 	*/
+	u32		e2Addr;	    /* E2P address  */
+	u32		e2pSize; 	/* E2P size 	*/
+	#if defined (__SDK_SIMULATION__) &&  defined (__E2P_INDEX_SYM__)
+	char* Variable;
+	#endif
+}E2pTab_t;
+
+
+#ifdef __E2P_INDEX_SYM__
+
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE EXTERNAL SYMBOL FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+#ifndef __NAND__
+extern u32	  E2P_SYM_TotalCallTime;
+extern u32	  E2P_SYM_WlocPeriod;
+extern u32	  E2P_SYM_CugIndex_2;
+extern u32	  E2P_SYM_NetAttempt;
+extern u32	  E2P_SYM_NewMsgInd_2;
+extern u32	  E2P_SYM_LibPad5;
+extern u32	  E2P_SYM_StatusReport;
+extern u32	  E2P_SYM_LibPad4;
+extern u32	  E2P_SYM_LibPad3;
+extern u32	  E2P_SYM_LibPad1;
+extern u32	  E2P_SYM_LibPad0;
+extern u32	  E2P_SYM_NetAttempt_2;
+extern u32	  E2P_SYM_LibPad2;
+extern u32	  E2P_SYM_AtMFAutomaticCall;
+extern u32	  E2P_SYM_Cap_mem_2;
+extern u32	  E2P_SYM_TotalCallTime_2;
+extern u32	  E2P_SYM_ParallelConfig;
+extern u32	  E2P_SYM_CmuxListOpenedDlc;
+extern u32	  E2P_SYM_PadCGLE2pLnd;
+extern u32	  E2P_SYM_AtWind;
+extern u32	  E2P_SYM_SmPid_2;
+extern u32	  E2P_SYM_PadCGLTimePack;
+extern u32	  E2P_SYM_OatStartAddr;
+extern u32	  E2P_SYM_CLAEmode;
+extern u32	  E2P_SYM_PadEchoCancelInfos;
+extern u32	  E2P_SYM_LastCallTime_2;
+extern u32	  E2P_SYM_Settings;
+extern u32	  E2P_SYM_SmPid;
+extern u32	  E2P_SYM_PadWmux;
+extern u32	  E2P_SYM_StlkTermProf;
+extern u32	  E2P_SYM_PadDualSim3;
+extern u32	  E2P_SYM_PadDualSim2;
+extern u32	  E2P_SYM_PadDualSim1;
+extern u32	  E2P_SYM_PadDualSim0;
+extern u32	  E2P_SYM_AtOpenV24;
+extern u32	  E2P_SYM_StatusReport_2_BK;
+extern u32	  E2P_SYM_LndCkecksum_2;
+extern u32	  E2P_SYM_ProdTestRes;
+extern u32	  E2P_SYM_AdnNeedSyncToMT;
+extern u32	  E2P_SYM_StlkTimeoutCfg;
+extern u32	  E2P_SYM_SmVp;
+extern u32	  E2P_SYM_AdnCkecksum_2;
+extern u32	  E2P_SYM_PulseWidth;
+extern u32	  E2P_SYM_Settings_BK;
+extern u32	  E2P_SYM_FdnCkecksum_2;
+extern u32	  E2P_SYM_MicSelected;
+extern u32	  E2P_SYM_Band_2;
+extern u32	  E2P_SYM_SettingMode;
+extern u32	  E2P_SYM_GprsConfig;
+extern u32	  E2P_SYM_StackMode_2;
+extern u32	  E2P_SYM_AtDataRate;
+extern u32	  E2P_SYM_SmPdu_2;
+extern u32	  E2P_SYM_CugInfo;
+extern u32	  E2P_SYM_MsisdnCkecksum_2;
+extern u32	  E2P_SYM_PadCGLRtcAlarm;
+extern u32	  E2P_SYM_SmPdu;
+extern u32	  E2P_SYM_SettingsExt;
+extern u32	  E2P_SYM_SmsCbCustomFlags_2;
+extern u32	  E2P_SYM_EgprsCurrentMultislotClass;
+extern u32	  E2P_SYM_TerminalProfileLength;
+extern u32	  E2P_SYM_WlocConfig_2;
+extern u32	  E2P_SYM_AdnNeedSyncToMT_2;
+extern u32	  E2P_SYM_AdnNeedReload;
+extern u32	  E2P_SYM_AtWindV24;
+extern u32	  E2P_SYM_Tp_Mr_2;
+extern u32	  E2P_SYM_LockPwd;
+extern u32	  E2P_SYM_MsisdnCkecksum;
+extern u32	  E2P_SYM_PadCGLBatDeltaVoltage;
+extern u32	  E2P_SYM_WlocConfig;
+extern u32	  E2P_SYM_StackMode;
+extern u32	  E2P_SYM_SmsConvTab;
+extern u32	  E2P_SYM_Settings_2;
+extern u32	  E2P_SYM_PadCGLColorTheme;
+extern u32	  E2P_SYM_SmsCbStat_2;
+extern u32	  E2P_SYM_RIPulseEvents_2;
+extern u32	  E2P_SYM_InputValue;
+extern u32	  E2P_SYM_AdnNeedReload_2;
+extern u32	  E2P_SYM_PadToRemoveSpiConfig;
+extern u32	  E2P_SYM_PadWMicGain;
+extern u32	  E2P_SYM_PadCGLRingLevelAux;
+extern u32	  E2P_SYM_Tp_Mr;
+extern u32	  E2P_SYM_Greeting;
+extern u32	  E2P_SYM_PadCGLFlipDial;
+extern u32	  E2P_SYM_AudioChannel;
+extern u32	  E2P_SYM_RIPulseEvents;
+extern u32	  E2P_SYM_AtCtmTtyBearer;
+extern u32	  E2P_SYM_Band;
+extern u32	  E2P_SYM_Language;
+extern u32	  E2P_SYM_PadBattUnsolManagement;
+extern u32	  E2P_SYM_BattLevelFilter;
+extern u32	  E2P_SYM_SmFo_2;
+extern u32	  E2P_SYM_DirtyE2P;
+extern u32	  E2P_SYM_CmuxPort4Config;
+extern u32	  E2P_SYM_PadCGLRingToneAux;
+extern u32	  E2P_SYM_CmuxPort1Config;
+extern u32	  E2P_SYM_Uart;
+extern u32	  E2P_SYM_SmsCbStat;
+extern u32	  E2P_SYM_CmuxPort3Config;
+extern u32	  E2P_SYM_PadLib6A;
+extern u32	  E2P_SYM_Report;
+extern u32	  E2P_SYM_CmuxPort2Config;
+extern u32	  E2P_SYM_CSTAtype;
+extern u32	  E2P_SYM_LockCNL_4;
+extern u32	  E2P_SYM_AtMode_2;
+extern u32	  E2P_SYM_LockCNL_3;
+extern u32	  E2P_SYM_CurrentMultislotClass;
+extern u32	  E2P_SYM_LockCNL_2;
+extern u32	  E2P_SYM_LockCNL_1;
+extern u32	  E2P_SYM_CommonGprsSettings_2;
+extern u32	  E2P_SYM_Mmt_Ecc;
+extern u32	  E2P_SYM_PadCGLGreeting3;
+extern u32	  E2P_SYM_AtEventReport;
+extern u32	  E2P_SYM_PadCGLGreeting2;
+extern u32	  E2P_SYM_LowLimitForKeyboardHysteresis;
+extern u32	  E2P_SYM_PadCGLEchoCancelAlg;
+extern u32	  E2P_SYM_PadCGLMissedIndex;
+extern u32	  E2P_SYM_BearTypePref_2;
+extern u32	  E2P_SYM_OpenAtKeySafeMode;
+extern u32	  E2P_SYM_AtMode;
+extern u32	  E2P_SYM_PadCGLBefDialTone;
+extern u32	  E2P_SYM_LastCallTime;
+extern u32	  E2P_SYM_CugInfo_2;
+extern u32	  E2P_SYM_AdrSC;
+extern u32	  E2P_SYM_CompareLength;
+extern u32	  E2P_SYM_AtCphsFtr_2;
+extern u32	  E2P_SYM_lib_pad;
+extern u32	  E2P_SYM_VmlNbMaxASEClient;
+extern u32	  E2P_SYM_E2pNetMode_BK;
+extern u32	  E2P_SYM_AdrSC_2;
+extern u32	  E2P_SYM_Cap_mem;
+extern u32	  E2P_SYM_AtCphsFtr;
+extern u32	  E2P_SYM_PhbAdnChecksum_2;
+extern u32	  E2P_SYM_CustomerKey;
+extern u32	  E2P_SYM_SmDcs_2;
+extern u32	  E2P_SYM_CalibrationReserved2;
+extern u32	  E2P_SYM_PadCustomBitField;
+extern u32	  E2P_SYM_BearTypePref;
+extern u32	  E2P_SYM_CommonGprsSettings;
+extern u32	  E2P_SYM_SmFo;
+extern u32	  E2P_SYM_PhbAdnChecksum;
+extern u32	  E2P_SYM_AtVoiceSpeechVersion_2;
+extern u32	  E2P_SYM_LndCkecksum;
+extern u32	  E2P_SYM_AtMFPortsState;
+extern u32	  E2P_SYM_AoCCcm_2;
+extern u32	  E2P_SYM_PadCGLSpkPhoneMicGain;
+extern u32	  E2P_SYM_AdnCkecksum;
+extern u32	  E2P_SYM_SpeakerSelected;
+extern u32	  E2P_SYM_FdnCkecksum;
+extern u32	  E2P_SYM_SmDcs;
+extern u32	  E2P_SYM_PlmnOns_2;
+extern u32	  E2P_SYM_GpsUnsolManagement;
+extern u32	  E2P_SYM_PadEchoParam2;
+extern u32	  E2P_SYM_AoCCcm;
+extern u32	  E2P_SYM_PadEchoParam3;
+extern u32	  E2P_SYM_PadEchoParam1;
+extern u32	  E2P_SYM_StlkActivStatus;
+extern u32	  E2P_SYM_NetStr;
+extern u32	  E2P_SYM_PadLastE2pFieldLib;
+extern u32	  E2P_SYM_PadEchoParam4;
+extern u32	  E2P_SYM_ResetTimer;
+extern u32	  E2P_SYM_E2pNetMode_2_BK;
+extern u32	  E2P_SYM_StatusReport_2;
+extern u32	  E2P_SYM_LlcSettings;
+extern u32	  E2P_SYM_PadCGLSpkPhoneSpkGain;
+extern u32	  E2P_SYM_CugIndex;
+extern u32	  E2P_SYM_GpsUnsolManagement_2;
+extern u32	  E2P_SYM_AtMFAutomaticCallPerc;
+extern u32	  E2P_SYM_Modem;
+extern u32	  E2P_SYM_Modem2;
+extern u32	  E2P_SYM_OutputValue;
+extern u32	  E2P_SYM_AtMFDataRedirected;
+extern u32	  E2P_SYM_AtRetCode;
+extern u32	  E2P_SYM_WlocPeriod_2;
+extern u32	  E2P_SYM_Modem_2;
+extern u32	  E2P_SYM_AtVoiceSpeechVersion;
+extern u32	  E2P_SYM_ReportSs;
+extern u32	  E2P_SYM_PadLib8;
+extern u32	  E2P_SYM_PadLib7;
+extern u32	  E2P_SYM_PadLib6;
+extern u32	  E2P_SYM_PadLib5;
+extern u32	  E2P_SYM_PadLib3;
+extern u32	  E2P_SYM_PadLib2;
+extern u32	  E2P_SYM_PadLib1;
+extern u32	  E2P_SYM_PadLib0;
+extern u32	  E2P_SYM_UpLimitForKeyboardHysteresis;
+extern u32	  E2P_SYM_StatusReport_BK;
+extern u32	  E2P_SYM_PadEchoCancelParam7;
+extern u32	  E2P_SYM_PadEchoCancelParam6;
+extern u32	  E2P_SYM_PadEchoCancelParam5;
+extern u32	  E2P_SYM_PadEchoCancelParam4;
+extern u32	  E2P_SYM_PadEchoCancelParam3;
+extern u32	  E2P_SYM_PadEchoCancelParam2;
+extern u32	  E2P_SYM_PadEchoCancelParam1;
+extern u32	  E2P_SYM_StlkActivStatus_2;
+extern u32	  E2P_SYM_PadLib4;
+extern u32	  E2P_SYM_AtRetCode_2;
+extern u32	  E2P_SYM_Settings_2_BK;
+extern u32	  E2P_SYM_SmVp_2;
+extern u32	  E2P_SYM_VoiceMail_2;
+extern u32    E2P_SYM_Surprise;
+extern u32    E2P_SYM_AtGeneralBehaviour;
+extern u32    E2P_SYM_RegControlMode;
+extern u32    E2P_SYM_message_waiting_group;
+extern u32    E2P_SYM_NewMsgInd;
+extern u32    E2P_SYM_PlmnOns;
+extern u32    E2P_SYM_SmsCbCustomFlags;
+extern u32    E2P_SYM_Modem2_2;
+extern u32    E2P_SYM_CustomLabel;
+extern u32    E2P_SYM_SpiConfig;
+extern u32    E2P_SYM_VoiceMail;
+#else
+extern u32    E2P_SYM_WlocPeriod;
+extern u32    E2P_SYM_CugIndex_2;
+extern u32    E2P_SYM_NetAttempt;
+extern u32    E2P_SYM_NewMsgInd_2;
+extern u32    E2P_SYM_LibPad5;
+extern u32    E2P_SYM_StatusReport;
+extern u32    E2P_SYM_LibPad4;
+extern u32    E2P_SYM_LibPad3;
+extern u32    E2P_SYM_LibPad1;
+extern u32    E2P_SYM_LibPad0;
+extern u32    E2P_SYM_NetAttempt_2;
+extern u32    E2P_SYM_LibPad2;
+extern u32    E2P_SYM_AtMFAutomaticCall;
+extern u32    E2P_SYM_Cap_mem_2;
+extern u32    E2P_SYM_TotalCallTime_2;
+extern u32    E2P_SYM_ParallelConfig;
+extern u32    E2P_SYM_CmuxListOpenedDlc;
+extern u32    E2P_SYM_PadCGLE2pLnd;
+extern u32    E2P_SYM_AtWind;
+extern u32    E2P_SYM_SmPid_2;
+extern u32    E2P_SYM_PadCGLTimePack;
+extern u32    E2P_SYM_CLAEmode;
+extern u32    E2P_SYM_PadEchoCancelInfos;
+extern u32    E2P_SYM_LastCallTime_2;
+extern u32    E2P_SYM_Settings;
+extern u32    E2P_SYM_SmPid;
+extern u32    E2P_SYM_PadWmux;
+extern u32    E2P_SYM_StlkTermProf;
+extern u32    E2P_SYM_padBA;
+extern u32    E2P_SYM_padBB;
+extern u32    E2P_SYM_padBC;
+extern u32    E2P_SYM_AtOpenV24;
+extern u32    E2P_SYM_padBD;
+extern u32    E2P_SYM_LndCkecksum_2;
+extern u32    E2P_SYM_StlkTimeoutCfg;
+extern u32    E2P_SYM_SmVp;
+extern u32    E2P_SYM_AdnCkecksum_2;
+extern u32    E2P_SYM_PulseWidth;
+extern u32    E2P_SYM_FdnCkecksum_2;
+extern u32    E2P_SYM_MicSelected;
+extern u32    E2P_SYM_Band_2;
+extern u32    E2P_SYM_GprsConfig;
+extern u32    E2P_SYM_StackMode_2;
+extern u32    E2P_SYM_SmPdu_2;
+extern u32    E2P_SYM_CugInfo;
+extern u32    E2P_SYM_MsisdnCkecksum_2;
+extern u32    E2P_SYM_SmPdu;
+extern u32    E2P_SYM_EgprsCurrentMultislotClass;
+extern u32    E2P_SYM_WlocConfig_2;
+extern u32    E2P_SYM_AtWindV24;
+extern u32    E2P_SYM_Tp_Mr_2;
+extern u32    E2P_SYM_MsisdnCkecksum;
+extern u32    E2P_SYM_PadCGLBatDeltaVoltage;
+extern u32    E2P_SYM_WlocConfig;
+extern u32    E2P_SYM_StackMode;
+extern u32    E2P_SYM_Settings_2;
+extern u32    E2P_SYM_PadCGLColorTheme;
+extern u32    E2P_SYM_SmsCbStat_2;
+extern u32    E2P_SYM_RIPulseEvents_2;
+extern u32    E2P_SYM_InputValue;
+extern u32    E2P_SYM_PadWMicGain;
+extern u32    E2P_SYM_Tp_Mr;
+extern u32    E2P_SYM_PadCGLFlipDial;
+extern u32    E2P_SYM_AudioChannel;
+extern u32    E2P_SYM_RIPulseEvents;
+extern u32    E2P_SYM_AtCtmTtyBearer;
+extern u32    E2P_SYM_Band;
+extern u32    E2P_SYM_PadBattUnsolManagement;
+extern u32    E2P_SYM_BattLevelFilter;
+extern u32    E2P_SYM_SmFo_2;
+extern u32    E2P_SYM_DirtyE2P;
+extern u32    E2P_SYM_CmuxPort4Config;
+extern u32    E2P_SYM_PadCGLRingToneAux;
+extern u32    E2P_SYM_CmuxPort1Config;
+extern u32    E2P_SYM_SmsCbStat;
+extern u32    E2P_SYM_CmuxPort3Config;
+extern u32    E2P_SYM_PadLib6A;
+extern u32    E2P_SYM_Report;
+extern u32    E2P_SYM_CmuxPort2Config;
+extern u32    E2P_SYM_CSTAtype;
+extern u32    E2P_SYM_LockCNL_4;
+extern u32    E2P_SYM_AtMode_2;
+extern u32    E2P_SYM_LockCNL_3;
+extern u32    E2P_SYM_CurrentMultislotClass;
+extern u32    E2P_SYM_LockCNL_2;
+extern u32    E2P_SYM_LockCNL_1;
+extern u32    E2P_SYM_PadCGLGreeting3;
+extern u32    E2P_SYM_AtEventReport;
+extern u32    E2P_SYM_LowLimitForKeyboardHysteresis;
+extern u32    E2P_SYM_PadCGLEchoCancelAlg;
+extern u32    E2P_SYM_PadCGLMissedIndex;
+extern u32    E2P_SYM_BearTypePref_2;
+extern u32    E2P_SYM_OpenAtKeySafeMode;
+extern u32    E2P_SYM_AtMode;
+extern u32    E2P_SYM_PadCGLBefDialTone;
+extern u32    E2P_SYM_CugInfo_2;
+extern u32    E2P_SYM_AdrSC;
+extern u32    E2P_SYM_CompareLength;
+extern u32    E2P_SYM_AtCphsFtr_2;
+extern u32    E2P_SYM_lib_pad;
+extern u32    E2P_SYM_AdrSC_2;
+extern u32    E2P_SYM_Cap_mem;
+extern u32    E2P_SYM_AtCphsFtr;
+extern u32    E2P_SYM_SmDcs_2;
+extern u32    E2P_SYM_PadCustomBitField;
+extern u32    E2P_SYM_BearTypePref;
+extern u32    E2P_SYM_CommonGprsSettings;
+extern u32    E2P_SYM_SmFo;
+extern u32    E2P_SYM_AtVoiceSpeechVersion_2;
+extern u32    E2P_SYM_LndCkecksum;
+extern u32    E2P_SYM_AtMFPortsState;
+extern u32    E2P_SYM_AoCCcm_2;
+extern u32    E2P_SYM_PadCGLSpkPhoneMicGain;
+extern u32    E2P_SYM_AdnCkecksum;
+extern u32    E2P_SYM_SpeakerSelected;
+extern u32    E2P_SYM_FdnCkecksum;
+extern u32    E2P_SYM_SmDcs;
+extern u32    E2P_SYM_PlmnOns_2;
+extern u32    E2P_SYM_PadEchoParam2;
+extern u32    E2P_SYM_AoCCcm;
+extern u32    E2P_SYM_PadEchoParam3;
+extern u32    E2P_SYM_PadEchoParam1;
+extern u32    E2P_SYM_StlkActivStatus;
+extern u32    E2P_SYM_PadLastE2pFieldLib;
+extern u32    E2P_SYM_PadEchoParam4;
+extern u32    E2P_SYM_ResetTimer;
+extern u32    E2P_SYM_StatusReport_2;
+extern u32    E2P_SYM_PadCGLSpkPhoneSpkGain;
+extern u32    E2P_SYM_CugIndex;
+extern u32    E2P_SYM_AtMFAutomaticCallPerc;
+extern u32    E2P_SYM_Modem;
+extern u32    E2P_SYM_Modem2;
+extern u32    E2P_SYM_OutputValue;
+extern u32    E2P_SYM_AtMFDataRedirected;
+extern u32    E2P_SYM_AtRetCode;
+extern u32    E2P_SYM_WlocPeriod_2;
+extern u32    E2P_SYM_Modem_2;
+extern u32    E2P_SYM_AtVoiceSpeechVersion;
+extern u32    E2P_SYM_ReportSs;
+extern u32    E2P_SYM_UpLimitForKeyboardHysteresis;
+extern u32    E2P_SYM_PadEchoCancelParam7;
+extern u32    E2P_SYM_PadEchoCancelParam6;
+extern u32    E2P_SYM_PadEchoCancelParam5;
+extern u32    E2P_SYM_PadEchoCancelParam4;
+extern u32    E2P_SYM_PadEchoCancelParam3;
+extern u32    E2P_SYM_PadEchoCancelParam2;
+extern u32    E2P_SYM_PadEchoCancelParam1;
+extern u32    E2P_SYM_StlkActivStatus_2;
+extern u32    E2P_SYM_AtRetCode_2;
+extern u32    E2P_SYM_SmVp_2;
+extern u32    E2P_SYM_VoiceMail_2;
+extern u32    E2P_SYM_Surprise;
+extern u32    E2P_SYM_AtGeneralBehaviour;
+extern u32    E2P_SYM_NewMsgInd;
+extern u32    E2P_SYM_PlmnOns;
+extern u32    E2P_SYM_Modem2_2;
+extern u32    E2P_SYM_SpiConfig;
+extern u32    E2P_SYM_VoiceMail;
+#endif
+/*****************************************************************************/
+
+#define VM_E2P_LIB_RECORD_STRUCT(_T_, _X_, _Z_, _Y_) ((offsetof(_T_, _X_)+ (E2P_EXT_SYMBOL(_Z_)))), _Y_
+//#define VM_E2P_LIB_RECORD(_X_, _Y_) ((E2P_EXT_SYMBOL(_X_)-E2P_EXT_SYMBOL(GsmLib))|VM_E2P_LIB_AREA), _Y_
+#define VM_E2P_LIB_RECORD(_X_, _Y_) (E2P_EXT_SYMBOL(_X_)), _Y_
+
+#else
+#define VM_E2P_LIB_ADRESS(_FIELD_)           VM_E2P_ADRESS (VM_E2P_LIB_AREA, E2pLib_t , _FIELD_ )
+#define VM_E2P_LIB_RECORD(_X_,_Y_)           VM_E2P_LIB_ADRESS (_X_ ), _Y_
+#endif
+
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE LOGICAL NAMES FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+
+/*!
+  \def E2P_SETTINGS
+  Category: Settings\n
+  Description: Settings for Volume&Soun\n
+  Default value: <Settings>
+*/
+#define E2P_SETTINGS                       VM_E2P_LIB_RECORD( Settings,                                sizeof(Settings_t))
+
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_SETTINGS2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   b0: Greeting Status\n
+               b1: default language\n
+               b2: time format\n
+  Default value: <Settings.Status2>
+*/
+
+#define E2P_SETTINGS2                      VM_E2P_LIB_RECORD_STRUCT( Settings_t, Status2, Settings, sizeof(u8))
+
+//#define E2P_SETTINGS2_TEST                 E2P_RECORD_LIB_STRUCT_TEST( Settings_t, Status2, Settings, sizeof(u8))
+
+
+/*!
+  \def E2P_RINGLEVEL
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   ring tone level \n
+  Default value: <Settings.RingLevel>
+*/
+#define E2P_RINGLEVEL                      VM_E2P_LIB_RECORD_STRUCT( Settings_t, RingLevel, Settings, sizeof(u8))
+
+//#define E2P_RINGLEVEL_TEST                 E2P_RECORD_LIB_STRUCT_TEST( Settings_t, RingLevel, Settings, sizeof(u8))
+
+
+/*!
+  \def E2P_KEYLEVEL
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   key level\n
+  Default value: <Settings.KeyLevel>
+*/
+#define E2P_KEYLEVEL                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, KeyLevel, Settings, sizeof(u8))
+
+/*!
+  \def E2P_RINGTONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   ring tone \n
+  Default value: <Settings.RingTone>
+*/
+#define E2P_RINGTONE                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, RingTone, Settings, sizeof(u8))
+
+/*!
+  \def E2P_KEYTONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   key tone\n
+  Default value: <Settings.KeyTone>
+*/
+#define E2P_KEYTONE                        VM_E2P_LIB_RECORD_STRUCT( Settings_t, KeyTone, Settings, sizeof(u8))
+
+/*!
+  \def E2P_MSGTONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   message tone\n
+  Default value: <Settings.MsgTone>
+*/
+#define E2P_MSGTONE                        VM_E2P_LIB_RECORD_STRUCT( Settings_t, MsgTone, Settings, sizeof(u8))
+
+/*!
+  \def E2P_AUTOANSWER
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   auto answer\n
+  Default value: <Settings.AutoAnswer>
+*/
+#define E2P_AUTOANSWER                     VM_E2P_LIB_RECORD_STRUCT( Settings_t, AutoAnswer, Settings, sizeof(u8))
+
+/*!
+  \def E2P_SPKMIN
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   speakers min level\n
+  Default value: <Settings.SpkMin>
+*/
+#define E2P_SPKMIN                         VM_E2P_LIB_RECORD_STRUCT( Settings_t, SpkMin, Settings, sizeof(u8))
+
+/*!
+  \def E2P_SIDETONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   side tone\n
+  Default value: <Settings.SideTone>
+*/
+#define E2P_SIDETONE                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, SideTone, Settings, sizeof(u8))
+
+/*!
+  \def E2P_SPKMAX
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   speakers max level\n
+  Default value: <Settings.SpkMax>
+*/
+#define E2P_SPKMAX                         VM_E2P_LIB_RECORD_STRUCT( Settings_t, SpkMax, Settings, sizeof(u8))
+
+/*!
+  \def E2P_SPKLEVEL
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   speaker level\n
+  Default value: <Settings.SpkLevel>
+*/
+#define E2P_SPKLEVEL                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, SpkLevel, Settings, sizeof(u8))
+#else
+/*!
+  \def E2P_SETTINGS2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   b0: Greeting Status\n
+               b1: default language\n
+               b2: time format\n
+  Default value: <Settings.Status2>
+*/
+
+#define E2P_SETTINGS2                      VM_E2P_LIB_RECORD( Settings.Status2,                        sizeof(u8))
+
+//#define E2P_SETTINGS2_TEST                 E2P_RECORD_LIB_STRUCT_TEST( Settings_t, Status2, Settings, sizeof(u8))
+
+
+/*!
+  \def E2P_RINGLEVEL
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   ring tone level \n
+  Default value: <Settings.RingLevel>
+*/
+#define E2P_RINGLEVEL                      VM_E2P_LIB_RECORD( Settings.RingLevel,                      sizeof(u8))
+
+//#define E2P_RINGLEVEL_TEST                 E2P_RECORD_LIB_STRUCT_TEST( Settings_t, RingLevel, Settings, sizeof(u8))
+
+
+/*!
+  \def E2P_KEYLEVEL
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   key level\n
+  Default value: <Settings.KeyLevel>
+*/
+#define E2P_KEYLEVEL                       VM_E2P_LIB_RECORD( Settings.KeyLevel ,                      sizeof(u8))
+
+/*!
+  \def E2P_RINGTONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   ring tone \n
+  Default value: <Settings.RingTone>
+*/
+#define E2P_RINGTONE                       VM_E2P_LIB_RECORD( Settings.RingTone ,                      sizeof(u8))
+
+/*!
+  \def E2P_KEYTONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   key tone\n
+  Default value: <Settings.KeyTone>
+*/
+#define E2P_KEYTONE                        VM_E2P_LIB_RECORD( Settings.KeyTone  ,                      sizeof(u8))
+
+/*!
+  \def E2P_MSGTONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   message tone\n
+  Default value: <Settings.MsgTone>
+*/
+#define E2P_MSGTONE                        VM_E2P_LIB_RECORD( Settings.MsgTone  ,                      sizeof(u8))
+
+/*!
+  \def E2P_AUTOANSWER
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   auto answer\n
+  Default value: <Settings.AutoAnswer>
+*/
+#define E2P_AUTOANSWER                     VM_E2P_LIB_RECORD( Settings.AutoAnswer,                     sizeof(u8))
+
+/*!
+  \def E2P_SPKMIN
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   speakers min level\n
+  Default value: <Settings.SpkMin>
+*/
+#define E2P_SPKMIN                         VM_E2P_LIB_RECORD( Settings.SpkMin,                         sizeof(u8))
+
+/*!
+  \def E2P_SIDETONE
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   side tone\n
+  Default value: <Settings.SideTone>
+*/
+#define E2P_SIDETONE                       VM_E2P_LIB_RECORD( Settings.SideTone ,                      sizeof(u8))
+
+/*!
+  \def E2P_SPKMAX
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   speakers max level\n
+  Default value: <Settings.SpkMax>
+*/
+#define E2P_SPKMAX                         VM_E2P_LIB_RECORD( Settings.SpkMax,                         sizeof(u8))
+
+/*!
+  \def E2P_SPKLEVEL
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS \n
+  			   speaker level\n
+  Default value: <Settings.SpkLevel>
+*/
+#define E2P_SPKLEVEL                       VM_E2P_LIB_RECORD( Settings.SpkLevel,                       sizeof(u8))
+#endif
+/*!
+  \def E2P_LASTCALLTIME
+  Category: Call\n
+  Description: duration of last call\n
+  Default value: <LastCallTime>
+*/
+//#define E2P_LASTCALLTIME                   VM_E2P_LIB_RECORD( LastCallTime  ,                          sizeof(u32))
+
+/*!
+  \def E2P_TOTALCALLTIME
+  Category: Call\n
+  Description: total duration of call\n
+  Default value: <TotalCallTime>
+*/
+//#define E2P_TOTALCALLTIME                  VM_E2P_LIB_RECORD( TotalCallTime ,                          sizeof(u32))
+
+/*!
+  \def E2P_SMSCBSTAT
+  Category: SMS\n
+  Description: SMS CB Active or not\n
+  Default value: <SmsCbStat>
+*/
+#define E2P_SMSCBSTAT                      VM_E2P_LIB_RECORD( SmsCbStat,                               sizeof(u8))
+
+/*!
+  \def E2P_STATUS
+  Category: Settings\n
+  Description:  this E2P value is included in E2P_SETTINGS \n
+  				b0: Call time \n
+ 				b1: Any key answer \n
+ 				b2: Back light \n
+ 				b3: One minute beep \n
+ 				b4: Auto Redialing \n
+ 				b5: Auto Lock \n
+ 				b6: Error Tone \n
+ 				b7: TX DTMF \n
+				b8-9: Auto Answer \n
+				b10-11: Auto Power \n
+				b12-13: Flash LED \n
+				b14-b15 : Display AOC \n
+				b16: Keylock \n
+				b17: E2prom Mem Access \n
+				b18: Sim card Access \n
+				b19: Sim Locking mode \n
+				b20: Sim Lock off \n
+				b21: Sim presence \n
+				b22: Net Locking mode \n
+				b23: Subnet1 Locking mode \n
+				b24: Subnet2 Locking mode \n
+				b25: Net Lock off \n
+				b26: Subnet Lock off \n
+				b27: Data/Fax mode \n
+				b28: Call type \n
+				b29: ID Restriction \n
+				b30: keylock mode \n
+				b31: Endless Back Ligh\n
+  Default value: <Settings.Status>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_STATUS                         VM_E2P_LIB_RECORD_STRUCT( Settings_t, Status, Settings, sizeof(u8))
+#else
+#define E2P_STATUS                         VM_E2P_LIB_RECORD( Settings.Status,                         sizeof(u32))
+#endif
+
+/*!
+  \def E2P_LOCKPWD
+  Category: Settings\n
+  Description: Phone Lock password\n
+  Default value: <LockPwd>
+*/
+//#define E2P_LOCKPWD                        VM_E2P_LIB_RECORD( LockPwd[0],                              sizeof(LockPwd_t))
+
+/*!
+  \def E2P_ATRETCODE
+  Category: ATI/V24\n
+  Description: 8 bits\n
+			   1 (LSB): verbose, return response as verbose if 1\n
+			   2: result, suppress result if 1\n
+   			   3: pducbrep, 0 -> pdu mode and 1 -> text mode\n
+			   4: phbmode, no phonebook init if 1\n
+			   5/6: netreg_mode, network registration mode\n
+			   7: cfun_ind, not used\n
+			   8: cusd_mode, 0 -> disable CUSD indication and 1 -> enable CUSD indication\n\n
+  Default value: <AtRetCode>
+*/
+#define E2P_ATRETCODE                      VM_E2P_LIB_RECORD( AtRetCode           ,                    sizeof(u8))
+
+/*!
+  \def E2P_ADRSC
+  Category: SMS\n
+  Description: Store SMS service center number\n
+  Default value: <AdrSC>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_ADRSC                          VM_E2P_LIB_RECORD( AdrSC,                                sizeof(AdrSC_t))
+#else
+#define E2P_ADRSC                          VM_E2P_LIB_RECORD( AdrSC[0],                                sizeof(AdrSC_t))
+#endif
+/*!
+  \def E2P_LANGUAGE
+  Category: Settings\n
+  Description: Active Language\n
+  Default value: <Language>
+*/
+//#define E2P_LANGUAGE                       VM_E2P_LIB_RECORD( Language,                                sizeof(u8))
+
+/*!
+  \def E2P_GREETING
+  Category: Settings\n
+  Description: Greeting message\n
+  Default value: <Greeting>
+*/
+//#define E2P_GREETING                       VM_E2P_LIB_RECORD( Greeting[0],                             sizeof(Greet_t))
+
+/*!
+  \def E2P_VOICEMAIL
+  Category: SMS\n
+  Description: Store SMS voicemail number\n
+  Default value: <VoiceMail>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_VOICEMAIL                      VM_E2P_LIB_RECORD( VoiceMail,                            sizeof(VoiceMail_t))
+#else
+#define E2P_VOICEMAIL                      VM_E2P_LIB_RECORD( VoiceMail[0],                            sizeof(VoiceMail_t))
+#endif
+/*!
+  \def E2P_NEWMSGIND
+  Category: SMS\n
+  Description: Procedure for message reception from network. Related to AT+CNMI\n
+  Default value: <NewMsgInd>
+*/
+#define E2P_NEWMSGIND                      VM_E2P_LIB_RECORD( NewMsgInd,                               sizeof(u8))
+
+
+/*!
+  \def E2P_REPORT
+  Category: ATI/V24\n
+  Description: 8 bits\n
+			   1 (LSB): CMOD, call mode, 0 -> single mode, 1 -> alternating voice/fax, 2 -> alternating voice/data, and 3 -> voice followed by data\n
+			   2: CR, service reporting control, reporting is disabled if 0\n
+			   3: CRC, cellular result code, extended format is disabled if 0\n
+			   4: ILRR, TE-TA data rate, not report if 0\n
+			   5: CMEE, report mobile termination error, 0 -> disable, 1 -> enable with numeric error code\n
+			   6: CCCM, current call meter, report if 1\n
+			   7/8: IBEAR, bear type, 0 -> voice, 2 -> fax, and 4 -> data\n
+  Default value: <Report>
+*/
+#define E2P_REPORT                         VM_E2P_LIB_RECORD( Report,                                  sizeof(u8))
+
+/*!
+  \def E2P_MODEM
+  Category: ATI/V24\n
+  Description: data rate for data call\n
+  Default value: <Modem>
+*/
+#define E2P_MODEM                          VM_E2P_LIB_RECORD( Modem,                                   sizeof(u8))
+
+/*!
+  \def E2P_SMPDU
+  Category: SMS\n
+  Description: Store preferred message format. PDU or text mode\n
+  Default value: <SmPdu>
+*/
+#define E2P_SMPDU                          VM_E2P_LIB_RECORD( SmPdu,                                   sizeof(u8))
+
+/*!
+  \def E2P_SMVP
+  Category: SMS\n
+  Description: Store SMS validity period\n
+  Default value: <SmVp>
+*/
+#define E2P_SMVP                           VM_E2P_LIB_RECORD( SmVp,                                    sizeof(u8))
+
+/*!
+  \def E2P_SMPID
+  Category: SMS\n
+  Description: Store SMS protocol ID\n
+  Default value: <SmPid>
+*/
+#define E2P_SMPID                          VM_E2P_LIB_RECORD( SmPid,                                   sizeof(u8))
+
+/*!
+  \def E2P_SMDCS
+  Category: SMS\n
+  Description: Store SMS data coding scheme\n
+  Default value: <SmDcs>
+*/
+#define E2P_SMDCS                          VM_E2P_LIB_RECORD( SmDcs,                                   sizeof(u8))
+
+/*!
+  \def E2P_TP_MR
+  Category: SMS\n
+  Description: Store SMS TP-MR (message reference)\n
+  Default value: <Tp_Mr>
+*/
+#define E2P_TP_MR                          VM_E2P_LIB_RECORD( Tp_Mr   ,                                sizeof(u8))
+
+/*!
+  \def E2P_REPORTSS
+  Category: ATI/V24\n
+  Description: 8 bits\n
+			   1 (LSB): CLIP, disable CLIP if 0\n
+			   2: CSSU, disable CSSU if 0\n
+			   3: CSSI, disbale CSSI if 0\n
+			   4: COLP, disable COLP if 0\n
+			   5: DR, DCE-DCE data compression type, report if 1\n
+			   6: CCWA, report call waiting indication if 1\n
+			   7: PN, not used\n
+			   8: SIMLK, not used\n
+  Default value: <ReportSs>
+*/
+#define E2P_REPORTSS                       VM_E2P_LIB_RECORD( ReportSs,                                sizeof(u8))
+
+/*!
+  \def E2P_AOCCCM
+  Category: AOC\n
+  Description: Current call meter\n
+  Default value: <AoCCcm>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_AOCCCM                         VM_E2P_LIB_RECORD( AoCCcm,                               sizeof(u8)*E2P_DIM_AOCCCM)
+#else
+#define E2P_AOCCCM                         VM_E2P_LIB_RECORD( AoCCcm[0],                               sizeof(u8)*E2P_DIM_AOCCCM)
+#endif
+
+/*!
+  \def E2P_NETSTR
+  Category: IMSI\n
+  Description: MCC & MNC Network values\n
+  Default value: <NetStr>
+*/
+//#define E2P_NETSTR                         VM_E2P_LIB_RECORD( NetStr[0],                               sizeof(NetStr_t))
+
+
+/*!
+  \def E2P_NET_ATTEMPT
+  Category: Lock\n
+  Description: Attempt Ntlock attempt counter\n
+  Default value: <NetAttempt>
+*/
+#define E2P_NET_ATTEMPT                    VM_E2P_LIB_RECORD( NetAttempt,                              sizeof(u8))
+
+/*!
+  \def E2P_MODEM2
+  Category: ATI/V24\n
+  Description: bear connection element\n
+  Default value: <Modem2>
+*/
+#define E2P_MODEM2                         VM_E2P_LIB_RECORD( Modem2,                                  sizeof(u8))
+
+/*!
+  \def E2P_SMSCONVTAB
+  Category: SMS\n
+  Description: Store character set\n
+  Default value: <SmsConvTab>
+*/
+//#define E2P_SMSCONVTAB                     VM_E2P_LIB_RECORD( SmsConvTab,                              sizeof(u8))
+
+/*!
+  \def E2P_STACKMODE
+  Category: ATI/V24\n
+  Description: stack mode, 0 -> phone mode (RF + SIM up), 1 -> airplace mode (SIM up), and 2 -> emergency mode (RF up)\n
+  Default value: <StackMode>
+*/
+#define E2P_STACKMODE                      VM_E2P_LIB_RECORD( StackMode,                               sizeof(u8))
+
+/*!
+  \def E2P_SMFO
+  Category: SMS\n
+  Description: Store First byte of SMS-Deliver, SMS-Submit or SMS-Status-Report\n
+  Default value: <SmFo>
+*/
+#define E2P_SMFO                           VM_E2P_LIB_RECORD( SmFo,                                    sizeof(u8))
+
+/*!
+  \def E2P_CUGINFO
+  Category: Call\n
+  Description: cug related information\n
+  			   1. MML_CALL_CUG_CUR_INDEX_MASK 0x0F\n
+    			  Mask used to get the CUG current index\n
+			   2. MML_CALL_CUG_ENABLE_STATUS_BIT 0x10\n
+    			  Mask used to get the CUG enable status bit\n
+			   3. MML_CALL_CUG_OA_SUPPR_STATUS_BIT 0x20\n
+			      Mask used to get the CUG outgoing access suppress status bit\n
+			   4. MML_CALL_CUG_PREF_SUPPR_STATUS_BIT 0x40\n
+			      Mask used to get the CUG preferential suppress status bit\n
+			   5. MML_CALL_CUG_INVOKE_INDEX_PRES_BIT 0x01\n
+			      Mask to encode the CUG index presence bit in the\n
+			      invoke parameter of the CC_SETUP_REQ\n
+			   6. MML_CALL_CUG_INVOKE_PREF_SUPPR_BIT 0x02\n
+			      Mask to encode the CUG preferential suppress status\n
+			      bit in the invoke parameter of the CC_SETUP_REQ\n
+			   7. MML_CALL_CUG_INVOKE_OA_SUPPR_BIT 0x04\n
+			      Mask to encode the CUG outgoing access suppress\n
+			      status bit in the invoke parameter of the CC_SETUP_REQ\n
+  Default value: <CugInfo>
+*/
+#define E2P_CUGINFO                        VM_E2P_LIB_RECORD( CugInfo,                                 sizeof(u8))
+
+/*!
+  \def E2P_CUGINDEX
+  Category: Call\n
+  Description: cug index\n
+			   max value: I_MML_CALL_CUG_MAX_INDEX_VALUE 0x7FFF\n
+  Default value: <CugIndex>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_CUGINDEX                       VM_E2P_LIB_RECORD( CugIndex,                             sizeof(CugIndex_t)*E2P_NB_MAX_CUG_INDEX)
+#else
+#define E2P_CUGINDEX                       VM_E2P_LIB_RECORD( CugIndex[0],                             sizeof(CugIndex_t)*E2P_NB_MAX_CUG_INDEX)
+#endif
+/*!
+  \def E2P_PRODTESTRES
+  Category: N/A\n
+  Description: Result of Production Test\n
+  Default value: <ProdTestRes>
+*/
+//#define E2P_PRODTESTRES                    VM_E2P_LIB_RECORD( ProdTestRes,                             sizeof(u32))
+
+/*!
+  \def E2P_ATWIND
+  Category: ATI/V24\n
+  Description: 17 bits, report corresponding +wind indication if bit is set to 1\n
+  Default value: <AtWind>
+*/
+#define E2P_ATWIND                         VM_E2P_LIB_RECORD( AtWind,                                  sizeof(u32))
+
+/*!
+  \def E2P_ATMODE
+  Category: ATI/V24\n
+  Description: 8 bits\n
+			   1/2 (LSB): status, set DTR signal, 0 -> DTR signal is ignored, 1 -> modem switches from data to command mode when DTR switch from ON to OFF, 2 -> upon DTR switch from ON to OFF, the call is release\n
+			   3: call type, voice if 0\n
+			   4: RI mod, 0 -> up-down signal sent when receiving incoming call, 1 -> RI sent when specific event happen\n
+			   5:  \n
+			   6: RI mode packet, make RI during sleep if 1\n
+			   7: voice mail mode, disable voice mail number if 0\n
+			   8: wloc mode, location info, 0 -> stop automatic shot, 1 -> one shot, 2 -> automatic shot, and 3 -> configure dump value\n
+  Default value: <AtMode>
+*/
+#define E2P_ATMODE                         VM_E2P_LIB_RECORD( AtMode,                                  sizeof(u8))
+
+/*!
+  \def E2P_BEARTYPEPREF
+  Category: PS\n
+  Description: Bearer (data or voice ) type preferred\n
+  Default value: <BearTypePref>
+*/
+#define E2P_BEARTYPEPREF                   VM_E2P_LIB_RECORD( BearTypePref ,                           sizeof(u8))
+
+/*!
+  \def E2P_STLKTERMPROF
+  Category: STK\n
+  Description: STLK terminal profile\n
+  Default value: <StlkTermProf>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_STLKTERMPROF                   VM_E2P_LIB_RECORD( StlkTermProf,                         sizeof(StlkTermProf_t))
+#else
+#define E2P_STLKTERMPROF                   VM_E2P_LIB_RECORD( StlkTermProf[0],                         sizeof(StlkTermProf_t))
+#endif
+
+/*!
+  \def E2P_STLKACTSTATUS
+  Category: STK\n
+  Description: STLK is activated or not (1: activated/ 0: deactivated)\n
+  Default value: <StlkActivStatus>
+*/
+#define E2P_STLKACTSTATUS                  VM_E2P_LIB_RECORD( StlkActivStatus,                         sizeof(u8 ))
+
+/*!
+  \def E2P_CAP_MEM
+  Category: SMS\n
+  Description: Store the flag which records if SIM memory capacity is exceeded\n
+  Default value: <Cap_mem>
+*/
+#define E2P_CAP_MEM                        VM_E2P_LIB_RECORD( Cap_mem ,                                sizeof(u8))
+
+/*!
+  \def E2P_SETTINGSEXT
+  Category: Settings\n
+  Description: New settings for handsets\n
+  Default value: <SettingsExt>
+*/
+//#define E2P_SETTINGSEXT                    VM_E2P_LIB_RECORD( SettingsExt ,                            sizeof(SettingsExt_t))
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_STATUSEXT
+  Category: Settings\n
+  Description:  this E2P value is included in E2P_SETTINGSEXT \n
+  				b1: Alert mode: vibrator\n
+ 				b2: Warning tone: net found\n
+ 				b3: Warning tone: net lost\n
+ 				b4: Flip\n
+ 				b5: One beep during comm\n
+ 				b6-b7: Backlight bright \n
+  Default value: <SettingsExt.Status>
+*/
+//#define E2P_STATUSEXT                      VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, Status, SettingsExt, sizeof(u8))
+
+
+/*!
+  \def E2P_BACKLIGHTLENGTH
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGSEXT \n
+  			   Backlight activation length\n
+  Default value: <SettingsExt.BacklightLength>
+*/
+//#define E2P_BACKLIGHTLENGTH                VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, BacklightLength, SettingsExt, sizeof(u8))
+
+/*!
+  \def E2P_ONEBEEPDELAY
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGSEXT \n
+  			   Delay before beep\n
+  Default value: <SettingsExt.OneBeepDelay>
+*/
+//#define E2P_ONEBEEPDELAY                    VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, OneBeepDelay, SettingsExt, sizeof(u8))
+
+/*!
+  \def E2P_STATUSEXT2
+  Category: Settings\n
+  Description:  this E2P value is included in E2P_SETTINGSEXT \n
+  				b0: Keypadlock code\n
+ 				b1: Keypadlock code menu\n
+ 				b3: Alert and ring\n
+ 				b4: smscb beep  \n
+  Default value: <SettingsExt.Status2>
+*/
+//#define E2P_STATUSEXT2                      VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, Status2, SettingsExt, sizeof(u8))
+#else
+/*!
+  \def E2P_STATUSEXT
+  Category: Settings\n
+  Description:  this E2P value is included in E2P_SETTINGSEXT \n
+  				b1: Alert mode: vibrator\n
+ 				b2: Warning tone: net found\n
+ 				b3: Warning tone: net lost\n
+ 				b4: Flip\n
+ 				b5: One beep during comm\n
+ 				b6-b7: Backlight bright \n
+  Default value: <SettingsExt.Status>
+*/
+//#define E2P_STATUSEXT                      VM_E2P_LIB_RECORD( SettingsExt.Status,                      sizeof(u8))
+
+
+/*!
+  \def E2P_BACKLIGHTLENGTH
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGSEXT \n
+  			   Backlight activation length\n
+  Default value: <SettingsExt.BacklightLength>
+*/
+//#define E2P_BACKLIGHTLENGTH                VM_E2P_LIB_RECORD( SettingsExt.BacklightLength,             sizeof(u8))
+
+/*!
+  \def E2P_ONEBEEPDELAY
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGSEXT \n
+  			   Delay before beep\n
+  Default value: <SettingsExt.OneBeepDelay>
+*/
+//#define E2P_ONEBEEPDELAY                   VM_E2P_LIB_RECORD( SettingsExt.OneBeepDelay,                sizeof(u8))
+
+/*!
+  \def E2P_STATUSEXT2
+  Category: Settings\n
+  Description:  this E2P value is included in E2P_SETTINGSEXT \n
+  				b0: Keypadlock code\n
+ 				b1: Keypadlock code menu\n
+ 				b3: Alert and ring\n
+ 				b4: smscb beep  \n
+  Default value: <SettingsExt.Status2>
+*/
+//#define E2P_STATUSEXT2                     VM_E2P_LIB_RECORD( SettingsExt.Status2,                     sizeof(u8))
+#endif
+/*!
+  \def E2P_STLK_TIMEOUT_CFG
+  Category: STK\n
+  Description:  STLK timeout timer configuration (in units of 10 seconds)\n
+  Default value: <StlkTimeoutCfg>
+*/
+#define E2P_STLK_TIMEOUT_CFG               VM_E2P_LIB_RECORD( StlkTimeoutCfg,                          sizeof(u8))
+
+/*!
+  \def E2P_TERMPROFILELEN
+  Category: STK\n
+  Description:  The length of STLK terminal profile\n
+  Default value: <TerminalProfileLength>
+*/
+//#define E2P_TERMPROFILELEN                 VM_E2P_LIB_RECORD( TerminalProfileLength,                   sizeof(u8))
+
+/*!
+  \def E2P_SETTING_MODE
+  Category: Settings\n
+  Description:  Current profile\n
+  Default value: <SettingMode>
+*/
+//#define E2P_SETTING_MODE                   VM_E2P_LIB_RECORD( SettingMode,                             sizeof(u8))
+
+/*!
+  \def E2P_SMSCB_CUSTOM_FLAGS
+  Category: SMS\n
+  Description:  Store SMS-CB activation type. Deactivated/List Activated/All Activated\n
+  Default value: <SmsCbCustomFlags>
+*/
+//#define E2P_SMSCB_CUSTOM_FLAGS             VM_E2P_LIB_RECORD( SmsCbCustomFlags,                        sizeof(u8))
+
+/*!
+  \def E2P_ATCPHSFTR
+  Category: SMS\n
+  Description: Store CPHS feature\n
+  Default value: <AtCphsFtr>
+*/
+#define E2P_ATCPHSFTR                      VM_E2P_LIB_RECORD( AtCphsFtr,                               sizeof(u8))
+
+/*!
+  \def E2P_STATUSREPORT
+  Category: SMS\n
+  Description: Store Status-Report setting\n
+  Default value: <StatusReport>
+*/
+#define E2P_STATUSREPORT                   VM_E2P_LIB_RECORD( StatusReport,                            sizeof(u8))
+
+/*!
+  \def E2P_TIMERESET
+  Category: ATI/V24\n
+  Description: reset CPU after a programmed delay, disable if 0\n
+  Default value: <ResetTimer>
+*/
+#define E2P_TIMERESET                      VM_E2P_LIB_RECORD( ResetTimer,                              sizeof(u16))
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_LOCK_CNL_1
+  Category: Lock\n
+  Description:  Part 1 of Lock CNL Table\n
+  Default value: <LockCNL_1>
+*/
+#define E2P_LOCK_CNL_1                     VM_E2P_LIB_RECORD( LockCNL_1,                               sizeof(u8)* E2P_DIM_LOCK_CNL_1 )
+
+/*!
+  \def E2P_LOCK_CNL_2
+  Category: Lock\n
+  Description:  Part 2 of Lock CNL Table\n
+  Default value: <LockCNL_2>
+*/
+#define E2P_LOCK_CNL_2                     VM_E2P_LIB_RECORD( LockCNL_2,                               sizeof(u8)* E2P_DIM_LOCK_CNL_2 )
+
+/*!
+  \def E2P_LOCK_CNL_3
+  Category: Lock\n
+  Description:  Part 3 of Lock CNL Table\n
+  Default value: <LockCNL_3>
+*/
+#define E2P_LOCK_CNL_3                     VM_E2P_LIB_RECORD( LockCNL_3,                               sizeof(u8)* E2P_DIM_LOCK_CNL_3 )
+
+/*!
+  \def E2P_LOCK_CNL_4
+  Category: Lock\n
+  Description:  Part 4 of Lock CNL Table\n
+  Default value: <LockCNL_4>
+*/
+#define E2P_LOCK_CNL_4                     VM_E2P_LIB_RECORD( LockCNL_4,                               sizeof(u8)* E2P_DIM_LOCK_CNL_4 )
+#else
+/*!
+  \def E2P_LOCK_CNL_1
+  Category: Lock\n
+  Description:  Part 1 of Lock CNL Table\n
+  Default value: <LockCNL_1>
+*/
+#define E2P_LOCK_CNL_1                     VM_E2P_LIB_RECORD( LockCNL_1[0],                               sizeof(u8)* E2P_DIM_LOCK_CNL_1 )
+
+/*!
+  \def E2P_LOCK_CNL_2
+  Category: Lock\n
+  Description:  Part 2 of Lock CNL Table\n
+  Default value: <LockCNL_2>
+*/
+#define E2P_LOCK_CNL_2                     VM_E2P_LIB_RECORD( LockCNL_2[0],                               sizeof(u8)* E2P_DIM_LOCK_CNL_2 )
+
+/*!
+  \def E2P_LOCK_CNL_3
+  Category: Lock\n
+  Description:  Part 3 of Lock CNL Table\n
+  Default value: <LockCNL_3>
+*/
+#define E2P_LOCK_CNL_3                     VM_E2P_LIB_RECORD( LockCNL_3[0],                               sizeof(u8)* E2P_DIM_LOCK_CNL_3 )
+
+/*!
+  \def E2P_LOCK_CNL_4
+  Category: Lock\n
+  Description:  Part 4 of Lock CNL Table\n
+  Default value: <LockCNL_4>
+*/
+#define E2P_LOCK_CNL_4                     VM_E2P_LIB_RECORD( LockCNL_4[0],                               sizeof(u8)* E2P_DIM_LOCK_CNL_4 )
+#endif
+/*!
+  \def E2P_WLOC_PERIOD
+  Category: Settings\n
+  Description:  time period for the command WLOC\n
+  Default value: <WlocPeriod>
+*/
+#define E2P_WLOC_PERIOD                    VM_E2P_LIB_RECORD( WlocPeriod,                              sizeof(u8))
+
+/*!
+  \def E2P_WLOC_CONFIG
+  Category: Settings\n
+  Description:  configuration for the command WLOC\n
+  Default value: <WlocConfig>
+*/
+#define E2P_WLOC_CONFIG                    VM_E2P_LIB_RECORD( WlocConfig,                              sizeof(u8))
+
+/*!
+  \def E2P_SPI_CONFIG
+  Category: HW\n
+  Description:  SPI configuration\n
+  Default value: <SpiConfig>
+*/
+#define E2P_SPI_CONFIG                     VM_E2P_LIB_RECORD( SpiConfig ,                              sizeof(u16))
+
+
+/*!
+  \def E2P_PARALLEL_CONFIG
+  Category: Only used in AT&F\n
+  Description:  configuration for the command WBM\n
+  Default value: <ParallelConfig>
+*/
+#define E2P_PARALLEL_CONFIG                VM_E2P_LIB_RECORD( ParallelConfig ,                         sizeof(u16))
+
+/*!
+  \def E2P_SURPRISE
+  Category: PIN\n
+  Description:  used when watchdog reset\n
+  Default value: <Surprise>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_SURPRISE                       VM_E2P_LIB_RECORD( Surprise,                           sizeof(Surprise_t))
+#else
+#define E2P_SURPRISE                       VM_E2P_LIB_RECORD( Surprise[ 0 ],                           sizeof(Surprise_t))
+#endif
+
+/*!
+  \def E2P_CUSTOMERKEY
+  Category: Lock\n
+  Description:  Customer Key\n
+  Default value: <CustomerKey>
+*/
+//#define E2P_CUSTOMERKEY                    VM_E2P_LIB_RECORD( CustomerKey,                             sizeof(u32))
+
+/*!
+  \def E2P_ATEVENTREPORT
+  Category: ATI/V24\n
+  Description: sending unsolicated result code when key press, disable if 0\n
+  Default value: <AtEventReport>
+*/
+#define E2P_ATEVENTREPORT                  VM_E2P_LIB_RECORD( AtEventReport,                           sizeof(u8))
+
+/*!
+  \def E2P_COMMONGPRSSETTINGS
+  Category: GPRS\n
+  Description:  GPRS common setting (1 byte)\n
+				bit 1: GPRS attach status\n
+				bit 2~3: GPRS class\n
+				bit 4~5: GPRS SERVSMS status\n
+				bit 6: GPRS PDP init status\n
+				bit 7: GPRS PPP silent\n
+				bit 8: GPRS slow connect\n
+  Default value: <CommonGprsSettings>
+*/
+#define E2P_COMMONGPRSSETTINGS             VM_E2P_LIB_RECORD( CommonGprsSettings,                      sizeof(u8))
+
+
+/*!
+  \def E2P_GPRSCONFIG
+  Category: GPRS\n
+  Description: GPRS setting for ATI (1 byte)\n
+			   b1-b3: GPRS event reporting\n
+			   b4-b5: GPRS Automatic response\n
+			   b6-b7: GPRS netreg. Status\n
+			   b8: GPRS RAC Automatic status\n
+  Default value: <GprsConfig>
+*/
+#define E2P_GPRSCONFIG                     VM_E2P_LIB_RECORD( GprsConfig,                              sizeof(u8))
+
+#ifdef __WMUX__
+
+/*!
+  \def E2P_WMUX_CONFIG
+  Category: ATI/V24\n
+  Description: mux configuration (07.10)\n
+  Default value: <WmuxConfig>
+*/
+#define E2P_WMUX_CONFIG                    VM_E2P_LIB_RECORD( WmuxConfig,                              sizeof(u16))
+#endif /* __WMUX__ */
+
+//  List of Opened DLC for CMUX
+
+/*!
+  \def E2P_CMUX_LISTOPENEDDLC
+  Category: ATI/V24\n
+  Description: number of opened DLC, range 0 ~ 4\n
+  Default value: <CmuxListOpenedDlc>
+*/
+#define E2P_CMUX_LISTOPENEDDLC             VM_E2P_LIB_RECORD( CmuxListOpenedDlc,                       sizeof(u32))
+
+/*!
+  \def E2P_CMUX_PORT1_CONFIG
+  Category: ATI/V24\n
+  Description: configuration of DLC1\n
+  Default value: <CmuxPort1Config>
+*/
+#define E2P_CMUX_PORT1_CONFIG              VM_E2P_LIB_RECORD( CmuxPort1Config,                         sizeof(CmuxConfig_t))
+
+/*!
+  \def E2P_CMUX_PORT2_CONFIG
+  Category: ATI/V24\n
+  Description: configuration of DLC2\n
+  Default value: <CmuxPort2Config>
+*/
+#define E2P_CMUX_PORT2_CONFIG              VM_E2P_LIB_RECORD( CmuxPort2Config,                         sizeof(CmuxConfig_t))
+
+/*!
+  \def E2P_CMUX_PORT3_CONFIG
+  Category: ATI/V24\n
+  Description: configuration of DLC3\n
+  Default value: <CmuxPort3Config>
+*/
+#define E2P_CMUX_PORT3_CONFIG              VM_E2P_LIB_RECORD( CmuxPort3Config,                         sizeof(CmuxConfig_t))
+
+/*!
+  \def E2P_CMUX_PORT4_CONFIG
+  Category: ATI/V24\n
+  Description: configuration of DLC4\n
+  Default value: <CmuxPort4Config>
+*/
+#define E2P_CMUX_PORT4_CONFIG              VM_E2P_LIB_RECORD( CmuxPort4Config,                         sizeof(CmuxConfig_t))
+
+/*!
+  \def E2P_GPS_UNSOLICITED_MANAGEMENT
+  Category: ATI/V24\n
+  Description: port for GPS, not used\n
+  Default value: <GpsUnsolManagement>
+*/
+//#define E2P_GPS_UNSOLICITED_MANAGEMENT     VM_E2P_LIB_RECORD( GpsUnsolManagement,                      sizeof(u32))
+
+/*!
+  \def E2P_BAND
+  Category: MML\n
+  Description: band in use\n
+  Default value: <Band>
+*/
+#define E2P_BAND                           VM_E2P_LIB_RECORD( Band,                                    sizeof(u8))
+
+/*!
+  \def E2P_LLCSETTINGS
+  Category: PS\n
+  Description: LLC settings for data call\n
+  Default value: <LlcSettings>
+*/
+//#define E2P_LLCSETTINGS                    VM_E2P_LIB_RECORD( LlcSettings,                             sizeof(u8))
+
+/*!
+  \def E2P_REGCONTROLMODE
+  Category: GPRS\n
+  Description: TREGC command parameter\n
+  Default value: <RegControlMode>
+*/
+//#define E2P_REGCONTROLMODE                 VM_E2P_LIB_RECORD( RegControlMode,                          sizeof(u8))
+
+/*!
+  \def E2P_CSTA_PARAM
+  Category: MISC\n
+  Description: The type of address of the number for further ATD commands \n
+  Default value: <CSTAtype>
+*/
+#define E2P_CSTA_PARAM                     VM_E2P_LIB_RECORD( CSTAtype,                                sizeof(u8) )
+
+/*!
+  \def E2P_CURRENTMULTISLOTCLASS
+  Category: PS\n
+  Description: GPRS MultislotClass required\n
+  Default value: <CurrentMultislotClass>
+*/
+#define E2P_CURRENTMULTISLOTCLASS          VM_E2P_LIB_RECORD( CurrentMultislotClass,                   sizeof(u8))
+
+/*!
+  \def E2P_EGPRSCURRENTMULTISLOTCLASS
+  Category: PS\n
+  Description: EGPRS MultislotClass required\n
+  Default value: <EgprsCurrentMultislotClass>
+*/
+#define E2P_EGPRSCURRENTMULTISLOTCLASS     VM_E2P_LIB_RECORD( EgprsCurrentMultislotClass,              sizeof(u8))
+
+/*!
+  \def E2P_LOWLIMITFORKEYBOARDHYSTERESIS
+  Category: DRV\n
+  Description: The low limit of keypad buffer\n
+  Default value: <LowLimitForKeyboardHysteresis>
+*/
+#define E2P_LOWLIMITFORKEYBOARDHYSTERESIS  VM_E2P_LIB_RECORD( LowLimitForKeyboardHysteresis,           sizeof(u16))
+
+/*!
+  \def E2P_UPLIMITFORKEYBOARDHYSTERESIS
+  Category: DRV\n
+  Description: The up limit of keypad buffer\n
+  Default value: <UpLimitForKeyboardHysteresis>
+*/
+#define E2P_UPLIMITFORKEYBOARDHYSTERESIS   VM_E2P_LIB_RECORD( UpLimitForKeyboardHysteresis,            sizeof(u16))
+
+/*!
+  \def E2P_CUSTOMLABEL
+  Category: ATI/V24\n
+  Description: custom label\n
+  Default value: <CustomLabel>
+*/
+//#define E2P_CUSTOMLABEL                    VM_E2P_LIB_RECORD( CustomLabel[0],                             sizeof(CustomLabel_t))
+
+/*!
+  \def E2P_ATCTMTTYBEARER
+  Category: PS\n
+  Description: CTM TTY Bearer\n
+  Default value: <AtCtmTtyBearer>
+*/
+#define E2P_ATCTMTTYBEARER                 VM_E2P_LIB_RECORD( AtCtmTtyBearer,                          sizeof(u8))
+
+/*!
+  \def E2P_ATGENERALBEHAVIOUR
+  Category: ATI/V24\n
+  Description: 5 bits\n
+			   1 (LSB): response on outgoing voice call, 0 -> sent on call establishment, 1 -> sent when audio path is opened\n
+			   2/3: working mode, 0 -> fast idle mode, 1 -> fast standby mode, 2 -> slow standby mode\n
+			   4: response delay for a call, 0 -> response when remote party hangup, 1 -> OK displayed right after ATD\n
+		 	   5: ENS, deactivate if 0\n
+  Default value: <AtGeneralBehaviour>
+*/
+#define E2P_ATGENERALBEHAVIOUR             VM_E2P_LIB_RECORD( AtGeneralBehaviour,                      sizeof(u16))
+
+/*!
+  \def E2P_PULSEWIDTH
+  Category: MISC\n
+  Description: Duration of Ring Indicator pulse\n
+  Default value: <PulseWidth>
+*/
+#define E2P_PULSEWIDTH                     VM_E2P_LIB_RECORD( PulseWidth,                              sizeof(u8))
+
+/*!
+  \def E2P_RIPULSEEVENTS
+  Category: MISC\n
+  Description: Setting of each event or unsolicited indication to indicate that if they need the electrical pulse on the Ring Indicator signal\n
+  Default value: <RIPulseEvents>
+*/
+#define E2P_RIPULSEEVENTS                  VM_E2P_LIB_RECORD( RIPulseEvents,                           sizeof(u32))
+
+/*!
+  \def E2P_UART
+  Category: ATI/V24\n
+  Description: UART id for bluetooth\n
+  Default value: <Uart>
+*/
+//#define E2P_UART                           VM_E2P_LIB_RECORD( Uart,                                    sizeof(u8))
+#define E2P_ATGENERALBEHAVIOUR             VM_E2P_LIB_RECORD( AtGeneralBehaviour,                      sizeof(u16))
+
+/*!
+  \def E2P_ATMFAUTOMATICCALL
+  Category: ATI/V24\n
+  Description: number of ring before automatic answer, rang 0 ~ 255, where 0 disable it\n
+  Default value: <AtMFAutomaticCall>
+*/
+#define E2P_ATMFAUTOMATICCALL              VM_E2P_LIB_RECORD( AtMFAutomaticCall,                       sizeof(u8))
+
+/*!
+  \def E2P_ATMFAUTOMATICCALLPERC
+  Category: ATI/V24\n
+  Description: port used for automatic answer\n
+  Default value: <AtMFAutomaticCallPerc>
+*/
+#define E2P_ATMFAUTOMATICCALLPERC          VM_E2P_LIB_RECORD( AtMFAutomaticCallPerc,                   sizeof(u8))
+
+/*!
+  \def E2P_ATMFPORTSSTATE
+  Category: ATI/V24\n
+  Description: uart port state, 0 if closed\n
+  Default value: <AtMFPortsState>
+*/
+#define E2P_ATMFPORTSSTATE                 VM_E2P_LIB_RECORD( AtMFPortsState,                          sizeof(u8))
+
+/*!
+  \def E2P_ATMFDATAREDIRECTED
+  Category: ATI/V24\n
+  Description: manage multiflow port state, range 0 ~ 3\n
+  Default value: <AtMFDataRedirected>
+*/
+#define E2P_ATMFDATAREDIRECTED             VM_E2P_LIB_RECORD( AtMFDataRedirected,                      sizeof(u8))
+
+/*!
+  \def E2P_ATVOICESPEECHVERSION
+  Category: PS\n
+  Description: Preferred rate for MT voice call\n
+  Default value: <AtVoiceSpeechVersion>
+*/
+#define E2P_ATVOICESPEECHVERSION           VM_E2P_LIB_RECORD( AtVoiceSpeechVersion,                    sizeof(u8))
+
+/*!
+  \def E2P_ATDATARATE
+  Category: PS\n
+  Description: Preferred rate for MT data call: Half or Full rate\n
+  Default value: <AtDataRate>
+*/
+//#define E2P_ATDATARATE                     VM_E2P_LIB_RECORD( AtDataRate,                              sizeof(u8))
+
+/*!
+  \def E2P_MMTECC
+  Category: PHB\n
+  Description: static ECC numbers\n
+  Default value: <Mmt_Ecc>
+*/
+//#define E2P_MMTECC                         VM_E2P_LIB_RECORD( Mmt_Ecc[0],                                 E2P_DIM_MMT_ECC*3)
+
+/*!
+  \def E2P_PLMNONS
+  Category: MML\n
+  Description: BitField for configuration of operator name service\n
+  Default value: <PlmnOns>
+*/
+#define E2P_PLMNONS                        VM_E2P_LIB_RECORD( PlmnOns,                                 sizeof(u8))
+
+/*!
+  \def E2P_MSGWAIT_GROUP
+  Category: SMS\n
+  Description: Store info of message waiting group\n
+  Default value: <message_waiting_group>
+*/
+//#define E2P_MSGWAIT_GROUP                  VM_E2P_LIB_RECORD( message_waiting_group,                   sizeof(Message_waiting_group_t))
+
+/*!
+  \def E2P_VMLNBMAXASECLIENT
+  Category: MISC\n
+  Description: Max number of VML ASE client\n
+  Default value: <VmlNbMaxASEClient>
+*/
+//#define E2P_VMLNBMAXASECLIENT              VM_E2P_LIB_RECORD( VmlNbMaxASEClient,                       sizeof(u8))
+
+/*!
+  \def E2P_ATWINDV24
+  Category: ATI/V24\n
+  Description: "+wind" is available through v24, disable if 0\n
+  Default value: <AtWindV24>
+*/
+#define E2P_ATWINDV24                      VM_E2P_LIB_RECORD( AtWindV24,                               sizeof(u8))
+
+/*!
+  \def E2P_ATOPENV24
+  Category: ATI/V24\n
+  Description: return +wind indication to v24, disable if 0\n
+  Default value: <AtOpenV24>
+*/
+#define E2P_ATOPENV24                      VM_E2P_LIB_RECORD( AtOpenV24,                               sizeof(u8))
+
+/*!
+  \def E2P_INPUTVALUE
+  Category: Audio\n
+  Description: Microphone gain\n
+  Default value: <InputValue>
+*/
+#define E2P_INPUTVALUE                     VM_E2P_LIB_RECORD( InputValue,                              sizeof(u8))
+
+/*!
+  \def E2P_OUTPUTVALUE
+  Category: Audio\n
+  Description: Speaker gain\n
+  Default value: <OutputValue>
+*/
+#define E2P_OUTPUTVALUE                    VM_E2P_LIB_RECORD( OutputValue,                             sizeof(u8))
+
+/*!
+  \def E2P_MICSELECTED
+  Category: Audio\n
+  Description: Selected microphone\n
+  Default value: <MicSelected>
+*/
+#define E2P_MICSELECTED                    VM_E2P_LIB_RECORD( MicSelected,                             sizeof(u8))
+
+/*!
+  \def E2P_SPEAKERSELECTED
+  Category: Audio\n
+  Description: Selected speaker\n
+  Default value: <SpeakerSelected>
+*/
+#define E2P_SPEAKERSELECTED                VM_E2P_LIB_RECORD( SpeakerSelected,                         sizeof(u8))
+/*!
+  \def E2P_CLAE_PARAM
+  Category: Audio\n
+  Description: Language event mode\n
+  Default value: <CLAEmode>
+*/
+#define E2P_CLAE_PARAM                     VM_E2P_LIB_RECORD( CLAEmode,                                sizeof(u8))
+
+/*!
+  \def E2P_OPENATSTARTADDRESS
+  Category: ATI/V24\n
+  Description: for dota (download over the air), not used\n
+  Default value: <OatStartAddr>
+*/
+//#define E2P_OPENATSTARTADDRESS             VM_E2P_LIB_RECORD( OatStartAddr,                            sizeof(u32)  )
+
+/*!
+  \def E2P_OPENAT_KEY_SAFEMODE
+  Category: ATI/V24\n
+  Description: key for safe boot, not used\n
+  Default value: <OpenAtKeySafeMode>
+*/
+#define E2P_OPENAT_KEY_SAFEMODE            VM_E2P_LIB_RECORD( OpenAtKeySafeMode,                       sizeof(u16)  )
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_ADNCHECKSUM
+  Category: PHB\n
+  Description: ADN checksum used in ATI\n
+  Default value: <AdnCkecksum>
+*/
+#define E2P_ADNCHECKSUM                    VM_E2P_LIB_RECORD( AdnCkecksum,                             sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_FDNCHECKSUM
+  Category: PHB\n
+  Description: FDN checksum used in ATI\n
+  Default value: <FdnCkecksum>
+*/
+#define E2P_FDNCHECKSUM                    VM_E2P_LIB_RECORD( FdnCkecksum,                             sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_MSISDNCHECKSUM
+  Category: PHB\n
+  Description: MSISDN checksum used in ATI\n
+  Default value: <MsisdnCkecksum>
+*/
+#define E2P_MSISDNCHECKSUM                 VM_E2P_LIB_RECORD( MsisdnCkecksum,                          sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_LNDCHECKSUM
+  Category: PHB\n
+  Description: LND checksum used in ATI\n
+  Default value: <LndCkecksum>
+*/
+#define E2P_LNDCHECKSUM                    VM_E2P_LIB_RECORD( LndCkecksum,                             sizeof(u8)* E2P_DIM_CHECKSUM )
+#else
+/*!
+  \def E2P_ADNCHECKSUM
+  Category: PHB\n
+  Description: ADN checksum used in ATI\n
+  Default value: <AdnCkecksum>
+*/
+#define E2P_ADNCHECKSUM                    VM_E2P_LIB_RECORD( AdnCkecksum[0],                             sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_FDNCHECKSUM
+  Category: PHB\n
+  Description: FDN checksum used in ATI\n
+  Default value: <FdnCkecksum>
+*/
+#define E2P_FDNCHECKSUM                    VM_E2P_LIB_RECORD( FdnCkecksum[0],                             sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_MSISDNCHECKSUM
+  Category: PHB\n
+  Description: MSISDN checksum used in ATI\n
+  Default value: <MsisdnCkecksum>
+*/
+#define E2P_MSISDNCHECKSUM                 VM_E2P_LIB_RECORD( MsisdnCkecksum[0],                          sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_LNDCHECKSUM
+  Category: PHB\n
+  Description: LND checksum used in ATI\n
+  Default value: <LndCkecksum>
+*/
+#define E2P_LNDCHECKSUM                    VM_E2P_LIB_RECORD( LndCkecksum[0],                             sizeof(u8)* E2P_DIM_CHECKSUM )
+#endif
+/*!
+  \def E2P_DIRTYE2P
+  Category: MISC\n
+  Description: Check if E2P need restored\n
+  Default value: <DirtyE2P>
+*/
+#define E2P_DIRTYE2P                       VM_E2P_LIB_RECORD( DirtyE2P,                                   sizeof(u8))
+
+/*!
+  \def E2P_PHBADNCHECKSUM
+  Category: PHB\n
+  Description: ADN checksum used in MML\n
+  Default value: <PhbAdnChecksum>
+*/
+//#define E2P_PHBADNCHECKSUM                 VM_E2P_LIB_RECORD( PhbAdnChecksum[0],                          sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_ADNNEEDRELOAD
+  Category: PHB\n
+  Description: Whether we need to use AT+CPBR to request ADN records and store as FLASH objects (1: need/ 0: no need)\n
+  Default value: <AdnNeedReload>
+*/
+//#define E2P_ADNNEEDRELOAD                  VM_E2P_LIB_RECORD( AdnNeedReload,                              sizeof(u8))
+
+/*!
+  \def E2P_ADNNEEDSYNCTOMT
+  Category: PHB\n
+  Description: Whether we need to update ADN FLASH object Id into MT sort list (1: need/ 0: no need)\n
+  Default value: <AdnNeedSyncToMT>
+*/
+//#define E2P_ADNNEEDSYNCTOMT                VM_E2P_LIB_RECORD( AdnNeedSyncToMT,                            sizeof(u8))
+
+/* For Backup E2P */
+/*!
+  \def E2P_SETTINGS_BK
+  Category: MISC\n
+  Description: Settings for Volume&Sound\n
+  Default value: <Settings_BK>
+*/
+//#define E2P_SETTINGS_BK                    VM_E2P_LIB_RECORD( Settings_BK,                             sizeof(Settings_t))
+
+/*!
+  \def E2P_STATUSREPORT_BK
+  Category: MISC\n
+  Description: SMS Status Report parameters\n
+  Default value: <StatusReport_BK>
+*/
+//#define E2P_STATUSREPORT_BK                VM_E2P_LIB_RECORD( StatusReport_BK,                         sizeof(u8))
+
+/*!
+  \def E2P_NETMODE_BK
+  Category: MISC\n
+  Description: Network selection mode\n
+  Default value: <E2pNetMode_BK>
+*/
+//#define E2P_NETMODE_BK                     VM_E2P_LIB_RECORD( E2pNetMode_BK,                           sizeof(u8))
+
+#ifdef __MSTAR_DUAL_SIM_E2P__
+
+/*!
+  \def E2P_SMPDU_2
+  Category: SMS\n
+  Description: Store preferred message format. PDU or text mode\n
+  Default value: <SmPdu_2>
+*/
+#define E2P_SMPDU_2                          VM_E2P_LIB_RECORD( SmPdu_2,                                   sizeof(u8))
+
+/*!
+  \def E2P_SMVP_2
+  Category: SMS\n
+  Description: Store SMS validity period\n
+  Default value: <SmVp_2>
+*/
+#define E2P_SMVP_2                           VM_E2P_LIB_RECORD( SmVp_2,                                   sizeof(u8))
+
+/*!
+  \def E2P_SMPID_2
+  Category: SMS\n
+  Description: Store SMS protocol ID\n
+  Default value: <SmPid_2>
+*/
+#define E2P_SMPID_2                          VM_E2P_LIB_RECORD( SmPid_2,                                   sizeof(u8))
+
+/*!
+  \def E2P_SMDCS_2
+  Category: SMS\n
+  Description: Store SMS data coding scheme\n
+  Default value: <SmDcs_2>
+*/
+#define E2P_SMDCS_2                          VM_E2P_LIB_RECORD( SmDcs_2,                                   sizeof(u8))
+
+/*!
+  \def E2P_LASTCALLTIME_2
+  Category: Call\n
+  Description: duration of last call\n
+  Default value: <LastCallTime_2>
+*/
+#define E2P_LASTCALLTIME_2                   VM_E2P_LIB_RECORD( LastCallTime_2  ,                          sizeof(u32))
+
+/*!
+  \def E2P_TOTALCALLTIME_2
+  Category: Call\n
+  Description: total duration of call\n
+  Default value: <TotalCallTime_2>
+*/
+#define E2P_TOTALCALLTIME_2                  VM_E2P_LIB_RECORD( TotalCallTime_2 ,                          sizeof(u32))
+
+/*!
+  \def E2P_SMSCBSTAT_2
+  Category: SMS\n
+  Description: SMS CB Active or not\n
+  Default value: <SmsCbStat_2>
+*/
+#define E2P_SMSCBSTAT_2                      VM_E2P_LIB_RECORD( SmsCbStat_2,                               sizeof(u8))
+
+/*!
+  \def E2P_MODEM2_2
+  Category: ATI/V24\n
+  Description: bear connection element\n
+  Default value: <Modem2_2>
+*/
+#define E2P_MODEM2_2                         VM_E2P_LIB_RECORD( Modem2_2,                                  sizeof(u8))
+
+/*!
+  \def E2P_ATRETCODE_2
+  Category: ATI/V24\n
+  Description: 8 bits\n
+			   1 (LSB): verbose, return response as verbose if 1\n
+			   2: result, suppress result if 1\n
+   			   3: pducbrep, 0 -> pdu mode and 1 -> text mode\n
+			   4: phbmode, no phonebook init if 1\n
+			   5/6: netreg_mode, network registration mode\n
+			   7: cfun_ind, not used\n
+			   8: cusd_mode, 0 -> disable CUSD indication and 1 -> enable CUSD indication\n\n
+  Default value: <AtRetCode_2>
+*/
+#define E2P_ATRETCODE_2                      VM_E2P_LIB_RECORD( AtRetCode_2           ,                    sizeof(u8))
+
+/*!
+  \def E2P_SETTINGS_2
+  Category: Settings\n
+  Description: Settings for Volume&Soun. include many setting value\n
+  Default value: <Settings_2>
+*/
+#define E2P_SETTINGS_2                       VM_E2P_LIB_RECORD( Settings_2,                                sizeof(Settings_t))
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_SETTINGS2_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   b0: Greeting Status\n
+               b1: default language\n
+               b2: time format\n
+  Default value: <Settings_2.Status2>
+*/
+#define E2P_SETTINGS2_2                      VM_E2P_LIB_RECORD_STRUCT( Settings_t, Status2, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_RINGLEVEL_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   ring tone level \n
+  Default value: <Settings_2.RingLevel>
+*/
+#define E2P_RINGLEVEL_2                      VM_E2P_LIB_RECORD_STRUCT( Settings_t, RingLevel, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_KEYLEVEL_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   key level\n
+  Default value: <Settings_2.KeyLevel>
+*/
+#define E2P_KEYLEVEL_2                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, KeyLevel, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_RINGTONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   ring tone \n
+  Default value: <Settings_2.RingTone>
+*/
+#define E2P_RINGTONE_2                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, RingTone, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_KEYTONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   key tone\n
+  Default value: <Settings_2.KeyTone>
+*/
+#define E2P_KEYTONE_2                        VM_E2P_LIB_RECORD_STRUCT( Settings_t, KeyTone, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_MSGTONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   message tone\n
+  Default value: <Settings_2.MsgTone>
+*/
+#define E2P_MSGTONE_2                        VM_E2P_LIB_RECORD_STRUCT( Settings_t, MsgTone, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_AUTOANSWER_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   auto answer\n
+  Default value: <Settings_2.AutoAnswer>
+*/
+#define E2P_AUTOANSWER_2                     VM_E2P_LIB_RECORD_STRUCT( Settings_t, AutoAnswer, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_SPKMIN_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   speakers min level\n
+  Default value: <Settings_2.SpkMin>
+*/
+#define E2P_SPKMIN_2                         VM_E2P_LIB_RECORD_STRUCT( Settings_t, SpkMin, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_SIDETONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   side tone\n
+  Default value: <Settings_2.SideTone>
+*/
+#define E2P_SIDETONE_2                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, SideTone, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_SPKMAX_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   speakers max level\n
+  Default value: <Settings_2.SpkMax>
+*/
+#define E2P_SPKMAX_2                         VM_E2P_LIB_RECORD_STRUCT( Settings_t, SpkMax, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_SPKLEVEL_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   speaker level\n
+  Default value: <Settings_2.SpkLevel>
+*/
+#define E2P_SPKLEVEL_2                       VM_E2P_LIB_RECORD_STRUCT( Settings_t, SpkLevel, Settings_2, sizeof(u8))
+
+/*!
+  \def E2P_STATUS_2
+  Category: Settings\n
+  Description:  this E2P value is included in E2P_SETTINGS_2 \n
+  				b0: Call time \n
+ 				b1: Any key answer \n
+ 				b2: Back light \n
+ 				b3: One minute beep \n
+ 				b4: Auto Redialing \n
+ 				b5: Auto Lock \n
+ 				b6: Error Tone \n
+ 				b7: TX DTMF \n
+				b8-9: Auto Answer \n
+				b10-11: Auto Power \n
+				b12-13: Flash LED \n
+				b14-b15 : Display AOC \n
+				b16: Keylock \n
+				b17: E2prom Mem Access \n
+				b18: Sim card Access \n
+				b19: Sim Locking mode \n
+				b20: Sim Lock off \n
+				b21: Sim presence \n
+				b22: Net Locking mode \n
+				b23: Subnet1 Locking mode \n
+				b24: Subnet2 Locking mode \n
+				b25: Net Lock off \n
+				b26: Subnet Lock off \n
+				b27: Data/Fax mode \n
+				b28: Call type \n
+				b29: ID Restriction \n
+				b30: keylock mode \n
+				b31: Endless Back Ligh\n
+  Default value: <Settings_2.Status>
+*/
+#define E2P_STATUS_2                         VM_E2P_LIB_RECORD_STRUCT( Settings_t, Status, Settings_2, sizeof(u8))
+#else
+/*!
+  \def E2P_SETTINGS2_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   b0: Greeting Status\n
+               b1: default language\n
+               b2: time format\n
+  Default value: <Settings_2.Status2>
+*/
+#define E2P_SETTINGS2_2                      VM_E2P_LIB_RECORD( Settings_2.Status2,                        sizeof(u8))
+
+/*!
+  \def E2P_RINGLEVEL_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   ring tone level \n
+  Default value: <Settings_2.RingLevel>
+*/
+#define E2P_RINGLEVEL_2                      VM_E2P_LIB_RECORD( Settings_2.RingLevel,                      sizeof(u8))
+
+/*!
+  \def E2P_KEYLEVEL_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   key level\n
+  Default value: <Settings_2.KeyLevel>
+*/
+#define E2P_KEYLEVEL_2                       VM_E2P_LIB_RECORD( Settings_2.KeyLevel ,                      sizeof(u8))
+
+/*!
+  \def E2P_RINGTONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   ring tone \n
+  Default value: <Settings_2.RingTone>
+*/
+#define E2P_RINGTONE_2                       VM_E2P_LIB_RECORD( Settings_2.RingTone ,                      sizeof(u8))
+
+/*!
+  \def E2P_KEYTONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   key tone\n
+  Default value: <Settings_2.KeyTone>
+*/
+#define E2P_KEYTONE_2                        VM_E2P_LIB_RECORD( Settings_2.KeyTone  ,                      sizeof(u8))
+
+/*!
+  \def E2P_MSGTONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   message tone\n
+  Default value: <Settings_2.MsgTone>
+*/
+#define E2P_MSGTONE_2                        VM_E2P_LIB_RECORD( Settings_2.MsgTone  ,                      sizeof(u8))
+
+/*!
+  \def E2P_AUTOANSWER_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   auto answer\n
+  Default value: <Settings_2.AutoAnswer>
+*/
+#define E2P_AUTOANSWER_2                     VM_E2P_LIB_RECORD( Settings_2.AutoAnswer,                     sizeof(u8))
+
+/*!
+  \def E2P_SPKMIN_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   speakers min level\n
+  Default value: <Settings_2.SpkMin>
+*/
+#define E2P_SPKMIN_2                         VM_E2P_LIB_RECORD( Settings_2.SpkMin,                         sizeof(u8))
+
+/*!
+  \def E2P_SIDETONE_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   side tone\n
+  Default value: <Settings_2.SideTone>
+*/
+#define E2P_SIDETONE_2                       VM_E2P_LIB_RECORD( Settings_2.SideTone ,                      sizeof(u8))
+
+/*!
+  \def E2P_SPKMAX_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   speakers max level\n
+  Default value: <Settings_2.SpkMax>
+*/
+#define E2P_SPKMAX_2                         VM_E2P_LIB_RECORD( Settings_2.SpkMax,                         sizeof(u8))
+
+/*!
+  \def E2P_SPKLEVEL_2
+  Category: Settings\n
+  Description: this E2P value is included in E2P_SETTINGS_2 \n
+  			   speaker level\n
+  Default value: <Settings_2.SpkLevel>
+*/
+#define E2P_SPKLEVEL_2                       VM_E2P_LIB_RECORD( Settings_2.SpkLevel,                       sizeof(u8))
+
+/*!
+  \def E2P_STATUS_2
+  Category: Settings\n
+  Description:  this E2P value is included in E2P_SETTINGS_2 \n
+  				b0: Call time \n
+ 				b1: Any key answer \n
+ 				b2: Back light \n
+ 				b3: One minute beep \n
+ 				b4: Auto Redialing \n
+ 				b5: Auto Lock \n
+ 				b6: Error Tone \n
+ 				b7: TX DTMF \n
+				b8-9: Auto Answer \n
+				b10-11: Auto Power \n
+				b12-13: Flash LED \n
+				b14-b15 : Display AOC \n
+				b16: Keylock \n
+				b17: E2prom Mem Access \n
+				b18: Sim card Access \n
+				b19: Sim Locking mode \n
+				b20: Sim Lock off \n
+				b21: Sim presence \n
+				b22: Net Locking mode \n
+				b23: Subnet1 Locking mode \n
+				b24: Subnet2 Locking mode \n
+				b25: Net Lock off \n
+				b26: Subnet Lock off \n
+				b27: Data/Fax mode \n
+				b28: Call type \n
+				b29: ID Restriction \n
+				b30: keylock mode \n
+				b31: Endless Back Ligh\n
+  Default value: <Settings_2.Status>
+*/
+#define E2P_STATUS_2                         VM_E2P_LIB_RECORD( Settings_2.Status,                         sizeof(u32))
+#endif
+/*!
+  \def E2P_MODEM_2
+  Category: ATI/V24\n
+  Description: data rate for data call\n
+  Default value: <Modem_2>
+*/
+#define E2P_MODEM_2                          VM_E2P_LIB_RECORD( Modem_2,                                   sizeof(u8))
+
+/*!
+  \def E2P_NEWMSGIND_2
+  Category: SMS\n
+  Description: Procedure for message reception from network. Related to AT+CNMI.\n
+  Default value: <NewMsgInd_2>
+*/
+#define E2P_NEWMSGIND_2                      VM_E2P_LIB_RECORD( NewMsgInd_2,                               sizeof(u8))
+
+/*!
+  \def E2P_ADRSC_2
+  Category: SMS\n
+  Description: Store SMS service center number\n
+  Default value: <AdrSC_2>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_ADRSC_2                          VM_E2P_LIB_RECORD( AdrSC_2,                                sizeof(AdrSC_t))
+#else
+#define E2P_ADRSC_2                          VM_E2P_LIB_RECORD( AdrSC_2[0],                                sizeof(AdrSC_t))
+#endif
+/*!
+  \def E2P_SMSCB_CUSTOM_FLAGS_2
+  Category: SMS\n
+  Description:  Store SMS-CB activation type. Deactivated/List Activated/All Activated\n
+  Default value: <SmsCbCustomFlags_2>
+*/
+//#define E2P_SMSCB_CUSTOM_FLAGS_2             VM_E2P_LIB_RECORD( SmsCbCustomFlags_2,                        sizeof(u8))
+
+/*!
+  \def E2P_VOICEMAIL_2
+  Category: SMS\n
+  Description: Store SMS voicemail number\n
+  Default value: <VoiceMail_2>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_VOICEMAIL_2                      VM_E2P_LIB_RECORD( VoiceMail_2,                            sizeof(VoiceMail_t))
+#else
+#define E2P_VOICEMAIL_2                      VM_E2P_LIB_RECORD( VoiceMail_2[0],                            sizeof(VoiceMail_t))
+#endif
+/*!
+  \def E2P_NET_ATTEMPT_2
+  Category: Lock\n
+  Description: Attempt Ntlock attempt counter\n
+  Default value: <NetAttempt_2>
+*/
+#define E2P_NET_ATTEMPT_2                    VM_E2P_LIB_RECORD( NetAttempt_2,                              sizeof(u8))
+
+/*!
+  \def E2P_AOCCCM_2
+  Category: AOC\n
+  Description: Current call meter\n
+  Default value: <AoCCcm_2>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_AOCCCM_2                         VM_E2P_LIB_RECORD( AoCCcm_2,                               sizeof(u8)*E2P_DIM_AOCCCM)
+#else
+#define E2P_AOCCCM_2                         VM_E2P_LIB_RECORD( AoCCcm_2[0],                               sizeof(u8)*E2P_DIM_AOCCCM)
+#endif
+/*!
+  \def E2P_STACKMODE_2
+  Category: ATI/V24\n
+  Description: stack mode, 0 -> phone mode (RF + SIM up), 1 -> airplace mode (SIM up), and 2 -> emergency mode (RF up)\n
+  Default value: <StackMode_2>
+*/
+#define E2P_STACKMODE_2                      VM_E2P_LIB_RECORD( StackMode_2,                               sizeof(u8))
+/*!
+  \def E2P_SMFO_2
+  Category: SMS\n
+  Description: Store First byte of SMS-Deliver, SMS-Submit or SMS-Status-Report\n
+  Default value: <SmFo_2>
+*/
+#define E2P_SMFO_2                           VM_E2P_LIB_RECORD( SmFo_2,                                    sizeof(u8))
+
+/*!
+  \def E2P_CUGINFO_2
+  Category: Call\n
+  Description: cug related information\n
+  			   1. MML_CALL_CUG_CUR_INDEX_MASK 0x0F\n
+    			  Mask used to get the CUG current index\n
+			   2. MML_CALL_CUG_ENABLE_STATUS_BIT 0x10\n
+    			  Mask used to get the CUG enable status bit\n
+			   3. MML_CALL_CUG_OA_SUPPR_STATUS_BIT 0x20\n
+			      Mask used to get the CUG outgoing access suppress status bit\n
+			   4. MML_CALL_CUG_PREF_SUPPR_STATUS_BIT 0x40\n
+			      Mask used to get the CUG preferential suppress status bit\n
+			   5. MML_CALL_CUG_INVOKE_INDEX_PRES_BIT 0x01\n
+			      Mask to encode the CUG index presence bit in the\n
+			      invoke parameter of the CC_SETUP_REQ\n
+			   6. MML_CALL_CUG_INVOKE_PREF_SUPPR_BIT 0x02\n
+			      Mask to encode the CUG preferential suppress status\n
+			      bit in the invoke parameter of the CC_SETUP_REQ\n
+			   7. MML_CALL_CUG_INVOKE_OA_SUPPR_BIT 0x04\n
+			      Mask to encode the CUG outgoing access suppress\n
+			      status bit in the invoke parameter of the CC_SETUP_REQ\n
+  Default value: <CugInfo_2>
+*/
+#define E2P_CUGINFO_2                        VM_E2P_LIB_RECORD( CugInfo_2,                                 sizeof(u8))
+
+/*!
+  \def E2P_CUGINDEX_2
+  Category: Call\n
+  Description: cug index\n
+			   max value: I_MML_CALL_CUG_MAX_INDEX_VALUE 0x7FFF\n
+  Default value: <CugIndex_2>
+*/
+#ifdef __E2P_INDEX_SYM__
+#define E2P_CUGINDEX_2                       VM_E2P_LIB_RECORD( CugIndex_2,                             sizeof(CugIndex_t)*E2P_NB_MAX_CUG_INDEX)
+#else
+#define E2P_CUGINDEX_2                       VM_E2P_LIB_RECORD( CugIndex_2[0],                             sizeof(CugIndex_t)*E2P_NB_MAX_CUG_INDEX)
+#endif
+/*!
+  \def E2P_BEARTYPEPREF_2
+  Category: PS\n
+  Description: Bearer (data or voice ) type preferred\n
+  Default value: <BearTypePref_2>
+*/
+#define E2P_BEARTYPEPREF_2                   VM_E2P_LIB_RECORD( BearTypePref_2 ,                           sizeof(u8))
+
+/*!
+  \def E2P_ATMODE_2
+  Category: ATI/V24\n
+  Description: 8 bits\n
+			   1/2 (LSB): status, set DTR signal, 0 -> DTR signal is ignored, 1 -> modem switches from data to command mode when DTR switch from ON to OFF, 2 -> upon DTR switch from ON to OFF, the call is release\n
+			   3: call type, voice if 0\n
+			   4: RI mod, 0 -> up-down signal sent when receiving incoming call, 1 -> RI sent when specific event happen\n
+			   5:  \n
+			   6: RI mode packet, make RI during sleep if 1\n
+			   7: voice mail mode, disable voice mail number if 0\n
+			   8: wloc mode, location info, 0 -> stop automatic shot, 1 -> one shot, 2 -> automatic shot, and 3 -> configure dump value\n
+  Default value: <AtMode_2>
+*/
+#define E2P_ATMODE_2                         VM_E2P_LIB_RECORD( AtMode_2,                                  sizeof(u8))
+
+/*!
+  \def E2P_STLKACTSTATUS_2
+  Category: STK\n
+  Description: STLK is activated or not (1: activated/ 0: deactivated)\n
+  Default value: <StlkActivStatus_2>
+*/
+#define E2P_STLKACTSTATUS_2                  VM_E2P_LIB_RECORD( StlkActivStatus_2,                         sizeof(u8 ))
+
+/*!
+  \def E2P_CAP_MEM_2
+  Category: SMS\n
+  Description: Store the flag which records if SIM memory capacity is exceeded\n
+  Default value: <Cap_mem_2>
+*/
+#define E2P_CAP_MEM_2                        VM_E2P_LIB_RECORD( Cap_mem_2 ,                                sizeof(u8))
+
+/*!
+  \def E2P_TP_MR_2
+  Category: SMS\n
+  Description: Store SMS TP-MR (message reference)\n
+  Default value: <Tp_Mr_2>
+*/
+#define E2P_TP_MR_2                          VM_E2P_LIB_RECORD( Tp_Mr_2   ,                                sizeof(u8))
+
+/*!
+  \def E2P_ATCPHSFTR_2
+  Category: SMS\n
+  Description: Store CPHS feature\n
+  Default value: <AtCphsFtr_2>
+*/
+#define E2P_ATCPHSFTR_2                      VM_E2P_LIB_RECORD( AtCphsFtr_2,                               sizeof(u8))
+
+/*!
+  \def E2P_STATUSREPORT_2
+  Category: SMS\n
+  Description: Store Status-Report setting\n
+  Default value: <StatusReport_2>
+*/
+#define E2P_STATUSREPORT_2                   VM_E2P_LIB_RECORD( StatusReport_2,                            sizeof(u8))
+
+/*!
+  \def E2P_WLOC_PERIOD_2
+  Category: Settings\n
+  Description:  time period for the command WLOC\n
+  Default value: <WlocPeriod_2>
+*/
+#define E2P_WLOC_PERIOD_2                    VM_E2P_LIB_RECORD( WlocPeriod_2,                              sizeof(u8))
+
+/*!
+  \def E2P_WLOC_CONFIG_2
+  Category: Settings\n
+  Description:  configuration for the command WLOC\n
+  Default value: <WlocConfig_2>
+*/
+#define E2P_WLOC_CONFIG_2                    VM_E2P_LIB_RECORD( WlocConfig_2,                              sizeof(u8))
+
+/*!
+  \def E2P_ATVOICESPEECHVERSION_2
+  Category: PS\n
+  Description: Preferred rate for MT voice call\n
+  Default value: <AtVoiceSpeechVersion_2>
+*/
+#define E2P_ATVOICESPEECHVERSION_2           VM_E2P_LIB_RECORD( AtVoiceSpeechVersion_2,                    sizeof(u8))
+
+/*!
+  \def E2P_PLMNONS_2
+  Category: MML\n
+  Description: BitField for configuration of operator name service\n
+  Default value: <PlmnOns_2>
+*/
+#define E2P_PLMNONS_2                        VM_E2P_LIB_RECORD( PlmnOns_2,                                 sizeof(u8))
+
+/*!
+  \def E2P_RIPULSEEVENTS_2
+  Category: MISC\n
+  Description: Setting of each event or unsolicited indication to indicate that if they need the electrical pulse on the Ring Indicator signal\n
+  Default value: <RIPulseEvents_2>
+*/
+#define E2P_RIPULSEEVENTS_2                  VM_E2P_LIB_RECORD( RIPulseEvents_2,                           sizeof(u32))
+
+/*!
+  \def E2P_GPS_UNSOLICITED_MANAGEMENT_2
+  Category: ATI/V24\n
+  Description: port for GPS, not used\n
+  Default value: <GpsUnsolManagement_2>
+*/
+//#define E2P_GPS_UNSOLICITED_MANAGEMENT_2     VM_E2P_LIB_RECORD( GpsUnsolManagement_2,                      sizeof(u32))
+
+/*!
+  \def E2P_BAND_2
+  Category: MML\n
+  Description: band in use\n
+  Default value: <Band_2>
+*/
+#define E2P_BAND_2                           VM_E2P_LIB_RECORD( Band_2,                                    sizeof(u8))
+#ifdef __E2P_INDEX_SYM__
+/*!
+  \def E2P_ADNCHECKSUM_2
+  Category: PHB\n
+  Description: ADN checksum used in ATI\n
+  Default value: <AdnCkecksum_2>
+*/
+#define E2P_ADNCHECKSUM_2                    VM_E2P_LIB_RECORD( AdnCkecksum_2,                          sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_FDNCHECKSUM_2
+  Category: PHB\n
+  Description: FDN checksum used in ATI\n
+  Default value: <FdnCkecksum_2>
+*/
+#define E2P_FDNCHECKSUM_2                    VM_E2P_LIB_RECORD( FdnCkecksum_2,                          sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_MSISDNCHECKSUM_2
+  Category: PHB\n
+  Description: MSISDN checksum used in ATI\n
+  Default value: <MsisdnCkecksum_2>
+*/
+#define E2P_MSISDNCHECKSUM_2                 VM_E2P_LIB_RECORD( MsisdnCkecksum_2,                       sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_LNDCHECKSUM_2
+  Category: PHB\n
+  Description: LND checksum used in ATI\n
+  Default value: <LndCkecksum_2>
+*/
+#define E2P_LNDCHECKSUM_2                    VM_E2P_LIB_RECORD( LndCkecksum_2,                          sizeof(u8)* E2P_DIM_CHECKSUM )
+#else
+/*!
+  \def E2P_ADNCHECKSUM_2
+  Category: PHB\n
+  Description: ADN checksum used in ATI\n
+  Default value: <AdnCkecksum_2>
+*/
+#define E2P_ADNCHECKSUM_2                    VM_E2P_LIB_RECORD( AdnCkecksum_2[0],                          sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_FDNCHECKSUM_2
+  Category: PHB\n
+  Description: FDN checksum used in ATI\n
+  Default value: <FdnCkecksum_2>
+*/
+#define E2P_FDNCHECKSUM_2                    VM_E2P_LIB_RECORD( FdnCkecksum_2[0],                          sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_MSISDNCHECKSUM_2
+  Category: PHB\n
+  Description: MSISDN checksum used in ATI\n
+  Default value: <MsisdnCkecksum_2>
+*/
+#define E2P_MSISDNCHECKSUM_2                 VM_E2P_LIB_RECORD( MsisdnCkecksum_2[0],                       sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_LNDCHECKSUM_2
+  Category: PHB\n
+  Description: LND checksum used in ATI\n
+  Default value: <LndCkecksum_2>
+*/
+#define E2P_LNDCHECKSUM_2                    VM_E2P_LIB_RECORD( LndCkecksum_2[0],                          sizeof(u8)* E2P_DIM_CHECKSUM )
+#endif
+/*!
+  \def E2P_PHBADNCHECKSUM_2
+  Category: PHB\n
+  Description: ADN checksum used in MML\n
+  Default value: <PhbAdnChecksum_2>
+*/
+//#define E2P_PHBADNCHECKSUM_2                 VM_E2P_LIB_RECORD( PhbAdnChecksum_2[0],                       sizeof(u8)* E2P_DIM_CHECKSUM )
+
+/*!
+  \def E2P_ADNNEEDRELOAD_2
+  Category: PHB\n
+  Description: Whether we need to use AT+CPBR to request ADN records and store as FLASH objects (1: need/ 0: no need)\n
+  Default value: <AdnNeedReload_2>
+*/
+//#define E2P_ADNNEEDRELOAD_2                  VM_E2P_LIB_RECORD( AdnNeedReload_2,                           sizeof(u8))
+
+/*!
+  \def E2P_ADNNEEDSYNCTOMT_2
+  Category: PHB\n
+  Description: Whether we need to update ADN FLASH object Id into MT sort list (1: need/ 0: no need)\n
+  Default value: <AdnNeedSyncToMT_2>
+*/
+//#define E2P_ADNNEEDSYNCTOMT_2                VM_E2P_LIB_RECORD( AdnNeedSyncToMT_2,                         sizeof(u8))
+
+
+/* For Backup E2P */
+/*!
+  \def E2P_SETTINGS_2_BK
+  Category: MISC\n
+  Description: Settings for Volume&Sound\n
+  Default value: <Settings_2_BK>
+*/
+//#define E2P_SETTINGS_2_BK                    VM_E2P_LIB_RECORD( Settings_2_BK,                             sizeof(Settings_t))
+
+/*!
+  \def E2P_NETMODE_2_BK
+  Category: MISC\n
+  Description: Network selection mode\n
+  Default value: <E2pNetMode_2_BK>
+*/
+//#define E2P_NETMODE_2_BK                     VM_E2P_LIB_RECORD( E2pNetMode_2_BK,                           sizeof(u8))
+
+/*!
+  \def E2P_STATUSREPORT_2_BK
+  Category: MISC\n
+  Description: SMS Status Report parameters\n
+  Default value: <StatusReport_2_BK>
+*/
+//#define E2P_STATUSREPORT_2_BK                VM_E2P_LIB_RECORD( StatusReport_2_BK,                         sizeof(u8))
+
+#endif
+
+
+/*!
+  \def E2P_COMPLARELENGTH
+  Category: PHB\n
+  Description: The length of digits we have to compare between the phone numbers for searching contacts in phonebook\n
+  Default value: <CompareLength>
+*/
+#define E2P_COMPLARELENGTH                 VM_E2P_LIB_RECORD( CompareLength,                           sizeof(u8))
+
+#ifdef __MSTAR_DUAL_SIM_E2P__ /* CR-39401. Duplicate E2P_COMMONGPRSSETTINGS. */
+/*!
+  \def E2P_COMMONGPRSSETTINGS_2
+  Category: GPRS\n
+  Description:  GPRS common setting (1 byte)\n
+				bit 1: GPRS attach status\n
+				bit 2~3: GPRS class\n
+				bit 4~5: GPRS SERVSMS status\n
+				bit 6: GPRS PDP init status\n
+				bit 7: GPRS PPP silent\n
+				bit 8: GPRS slow connect\n
+  Default value: <CommonGprsSettings_2>
+*/
+//#define E2P_COMMONGPRSSETTINGS_2            VM_E2P_LIB_RECORD( CommonGprsSettings_2,                     sizeof(u8))
+#endif
+
+
+#ifndef __NAND__
+/*++++++++++ Lib RO +++++++++++++++++*/
+#define E2P_LASTCALLTIME                   VM_E2P_LIB_RECORD( LastCallTime  ,                          sizeof(u32))
+#define E2P_TOTALCALLTIME                  VM_E2P_LIB_RECORD( TotalCallTime ,                          sizeof(u32))
+#ifdef __E2P_INDEX_SYM__
+#define E2P_LOCKPWD                        VM_E2P_LIB_RECORD( LockPwd,                              sizeof(LockPwd_t))
+#else
+#define E2P_LOCKPWD                        VM_E2P_LIB_RECORD( LockPwd[0],                              sizeof(LockPwd_t))
+#endif
+#define E2P_SMSCONVTAB                     VM_E2P_LIB_RECORD( SmsConvTab,                              sizeof(u8))
+#define E2P_LANGUAGE                       VM_E2P_LIB_RECORD( Language,                                sizeof(u8))
+#ifdef __E2P_INDEX_SYM__
+#define E2P_GREETING                       VM_E2P_LIB_RECORD( Greeting,                             sizeof(Greet_t))
+#else
+#define E2P_GREETING                       VM_E2P_LIB_RECORD( Greeting[0],                             sizeof(Greet_t))
+#endif
+#define E2P_SMSCB_CUSTOM_FLAGS             VM_E2P_LIB_RECORD( SmsCbCustomFlags,                        sizeof(u8))
+#ifdef __E2P_INDEX_SYM__
+#define E2P_NETSTR                         VM_E2P_LIB_RECORD( NetStr,                               sizeof(NetStr_t))
+#else
+#define E2P_NETSTR                         VM_E2P_LIB_RECORD( NetStr[0],                               sizeof(NetStr_t))
+#endif
+#define E2P_PRODTESTRES                    VM_E2P_LIB_RECORD( ProdTestRes,                             sizeof(u32))
+#ifdef __E2P_INDEX_SYM__
+#define E2P_GREETING2                      VM_E2P_LIB_RECORD( PadCGLGreeting2,                      sizeof(Greet2_t) )
+#else
+#define E2P_GREETING2                      VM_E2P_LIB_RECORD( PadCGLGreeting2[0],                      sizeof(Greet2_t) )
+#endif
+#define E2P_SETTINGSEXT                    VM_E2P_LIB_RECORD( SettingsExt ,                            sizeof(SettingsExt_t))
+#ifdef __E2P_INDEX_SYM__
+#define E2P_STATUSEXT                      VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, Status, SettingsExt, sizeof(u8))
+#define E2P_BACKLIGHTLENGTH                VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, BacklightLength, SettingsExt, sizeof(u8))
+#define E2P_ONEBEEPDELAY                   VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, OneBeepDelay, SettingsExt, sizeof(u8)))
+#define E2P_STATUSEXT2                     VM_E2P_LIB_RECORD_STRUCT( SettingsExt_t, Status2, SettingsExt, sizeof(u8))
+#else
+#define E2P_STATUSEXT                      VM_E2P_LIB_RECORD( SettingsExt.Status,                      sizeof(u8))
+#define E2P_BACKLIGHTLENGTH                VM_E2P_LIB_RECORD( SettingsExt.BacklightLength,             sizeof(u8))
+#define E2P_ONEBEEPDELAY                   VM_E2P_LIB_RECORD( SettingsExt.OneBeepDelay,                sizeof(u8))
+#define E2P_STATUSEXT2                     VM_E2P_LIB_RECORD( SettingsExt.Status2,                     sizeof(u8))
+#endif
+#define E2P_SETTING_MODE                   VM_E2P_LIB_RECORD( SettingMode,                             sizeof(u8))
+#define E2P_TERMPROFILELEN                 VM_E2P_LIB_RECORD( TerminalProfileLength,                   sizeof(u8))
+#define E2P_RINGLEVELAUX                   VM_E2P_LIB_RECORD( PadCGLRingLevelAux,                      sizeof(u8))
+#define E2P_CUSTOMERKEY                    VM_E2P_LIB_RECORD( CustomerKey,                             sizeof(u32))
+#ifdef __E2P_INDEX_SYM__
+#define E2P_CUSTOMLABEL                    VM_E2P_LIB_RECORD( CustomLabel,                          sizeof(CustomLabel_t))
+#else
+#define E2P_CUSTOMLABEL                    VM_E2P_LIB_RECORD( CustomLabel[0],                          sizeof(CustomLabel_t))
+#endif
+#define E2P_UART                           VM_E2P_LIB_RECORD( Uart,                                    sizeof(u8))
+#define E2P_VMLNBMAXASECLIENT              VM_E2P_LIB_RECORD( VmlNbMaxASEClient,                       sizeof(u8))
+#define E2P_ATDATARATE                     VM_E2P_LIB_RECORD( AtDataRate,                              sizeof(u8))
+#ifdef __E2P_INDEX_SYM__
+#define E2P_MMTECC                         VM_E2P_LIB_RECORD( Mmt_Ecc,                              E2P_DIM_MMT_ECC*3)
+#else
+#define E2P_MMTECC                         VM_E2P_LIB_RECORD( Mmt_Ecc[0],                              E2P_DIM_MMT_ECC*3)
+#endif
+#define E2P_MSGWAIT_GROUP                  VM_E2P_LIB_RECORD( message_waiting_group,                   sizeof(Message_waiting_group_t))
+#define E2P_GPS_UNSOLICITED_MANAGEMENT     VM_E2P_LIB_RECORD( GpsUnsolManagement,                      sizeof(u32))
+#define E2P_LLCSETTINGS                    VM_E2P_LIB_RECORD( LlcSettings,                             sizeof(u8))
+#define E2P_REGCONTROLMODE                 VM_E2P_LIB_RECORD( RegControlMode,                          sizeof(u8))
+#define E2P_OPENATSTARTADDRESS             VM_E2P_LIB_RECORD( OatStartAddr,                            sizeof(u32)  )
+#ifdef __E2P_INDEX_SYM__
+#define E2P_PHBADNCHECKSUM                 VM_E2P_LIB_RECORD( PhbAdnChecksum,                       sizeof(u8)* E2P_DIM_CHECKSUM )
+#else
+#define E2P_PHBADNCHECKSUM                 VM_E2P_LIB_RECORD( PhbAdnChecksum[0],                       sizeof(u8)* E2P_DIM_CHECKSUM )
+#endif
+#define E2P_ADNNEEDRELOAD                  VM_E2P_LIB_RECORD( AdnNeedReload,                           sizeof(u8))
+#define E2P_ADNNEEDSYNCTOMT                VM_E2P_LIB_RECORD( AdnNeedSyncToMT,                         sizeof(u8))
+#define E2P_SETTINGS_BK                    VM_E2P_LIB_RECORD( Settings_BK,                             sizeof(Settings_t))
+#define E2P_STATUSREPORT_BK                VM_E2P_LIB_RECORD( StatusReport_BK,                         sizeof(u8))
+#define E2P_NETMODE_BK                     VM_E2P_LIB_RECORD( E2pNetMode_BK,                           sizeof(u8))
+#ifdef __MSTAR_DUAL_SIM_E2P__
+  #define E2P_SMSCB_CUSTOM_FLAGS_2           VM_E2P_LIB_RECORD( SmsCbCustomFlags_2,                      sizeof(u8))
+  #define E2P_GPS_UNSOLICITED_MANAGEMENT_2   VM_E2P_LIB_RECORD( GpsUnsolManagement_2,                    sizeof(u32))
+#ifdef __E2P_INDEX_SYM__  
+  #define E2P_PHBADNCHECKSUM_2			   VM_E2P_LIB_RECORD( PhbAdnChecksum_2,					   sizeof(u8)* E2P_DIM_CHECKSUM )
+#else
+  #define E2P_PHBADNCHECKSUM_2               VM_E2P_LIB_RECORD( PhbAdnChecksum_2[0],                     sizeof(u8)* E2P_DIM_CHECKSUM )
+#endif  
+  #define E2P_ADNNEEDRELOAD_2                VM_E2P_LIB_RECORD( AdnNeedReload_2,                         sizeof(u8))
+  #define E2P_ADNNEEDSYNCTOMT_2              VM_E2P_LIB_RECORD( AdnNeedSyncToMT_2,                       sizeof(u8))
+  #define E2P_SETTINGS_2_BK                  VM_E2P_LIB_RECORD( Settings_2_BK,                           sizeof(Settings_t))
+  #define E2P_STATUSREPORT_2_BK              VM_E2P_LIB_RECORD( StatusReport_2_BK,                       sizeof(u8))
+  #define E2P_NETMODE_2_BK                   VM_E2P_LIB_RECORD( E2pNetMode_2_BK,                         sizeof(u8))
+#define E2P_COMMONGPRSSETTINGS_2            VM_E2P_LIB_RECORD( CommonGprsSettings_2,                     sizeof(u8))
+#endif
+/*----------- Lib RO ---------------*/
+#endif //__NAND__
+
+#endif  /* __VM_E2P_LIB_HO__  */
+

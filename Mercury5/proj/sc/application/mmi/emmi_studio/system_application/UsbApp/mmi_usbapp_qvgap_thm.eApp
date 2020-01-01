@@ -1,0 +1,71 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="USB_WND_CONNECT_MENU" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="MenuWdg" ClsID="CLSID_NUMERIC_POPUPSELECTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<Property Id="PROP_MENU_WDG_HIGHLIGHTED_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="6af9e" />
+				<Model ClsID="CLSID_NUMERIC_POPUPSELECTWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="SK_SELECT" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_OK" />
+						<SoftKey Type="RIGHT_SK" Value="SK_BACK" />
+						<Binary Value="MNU_USB_MASS_STORAGE" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id=" TXT_LIL_N_MASS_STORAGE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="SK_SELECT" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_OK" />
+						<SoftKey Type="RIGHT_SK" Value="SK_BACK" />
+						<Binary Value="MNU_USB_MODEM       " />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id=" TXT_LIL_N_MODEM       " />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="SK_SELECT" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_OK" />
+						<SoftKey Type="RIGHT_SK" Value="SK_BACK" />
+						<Binary Value="MNU_USB_WEBCAM      " />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id=" TXT_LIL_N_WEBCAM      " />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="SK_SELECT" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_OK" />
+						<SoftKey Type="RIGHT_SK" Value="SK_BACK" />
+						<Binary Value="MNU_USB_PC_SYNC_TOOL" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id=" TXT_LIL_N_PC_SYNC_TOOL" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="dd0c2" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="195" />
+		<InternProp Id="LAYOUT_POS_Y" Value="85" />
+		<Property Id="PROP_TITLE_WDG_VISIBLE" Value="FALSE" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_USBAPP" />
+</UiRoot>

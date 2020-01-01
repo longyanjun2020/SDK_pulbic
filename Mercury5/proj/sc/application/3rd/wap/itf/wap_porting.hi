@@ -1,0 +1,81 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// ("MStar Confidential Information") by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+#ifndef    __WAP_PORTING_HI__ //to prevent from re-including
+#define    __WAP_PORTING_HI__
+#ifdef     __WAP_MMI_CDWAP__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// include kernel header files
+#include "ncc_types.h"
+#include "ncccfg.h"
+#include "ncciflayer.h"
+#include "ncclayout.h"
+#include "nccsa.h"
+#include "ncccache.h"
+#include "nccport_os.h"
+#include "nccport_browser_agent.h"
+#include "ven_sdk.h"
+#include "ven_wlan.h"
+#include "ms_defs.h"
+#include "wap_comm.hi"
+#include "wap_define.hi"
+#include "wap_display.hi"
+#include "wap_config.hi"
+#include "wap_action.hi"
+
+
+//event between wap & mmi task
+
+typedef enum
+{
+    REQ_WAP_CACHE_CLEAR = WAP_EVT_CACHE_BASE,       /**< Clear all files in cache */
+    RSQ_WAP_CACHE_CLEAR,                            /**< Response to  REQ_WAP_CACHE_CLEAR */
+}WAP_CACHE_EVENT;
+
+/*------------------------------------------------------------------------------------------------------------------------  */
+/* MESSAGE TYPE                     |                            RETURNED VALUE [Include WAP_ERROR_SUCCESS ]                */
+/*------------------------------------------------------------------------------------------------------------------------  */
+/* RSQ_WAP_CACHE_CLEAR              | WAP_ERROR_UNKNOWN                                                                     */
+
+
+/**
+ * Get Browser Globle Datalink
+ * \return Datalink ID
+ */
+#ifdef __WLAN_MMI__
+u32 NCCGetBrowserDownloadBufferSize(void);
+#endif
+
+void        WapMsgParser(u32 dwHandle,void *pData);
+WapErrCode_e WapRelease(void);
+WapErrCode_e WapInitialize(void);
+
+/**
+ * Check & return whether browser kernel is active
+ * \return TRUE when browser kernel is initialized & active; else FALSE
+ */
+boolean      WapIsWapActivated(void);
+u8*         WapGetExtension(const u8* pMime);
+#ifdef __cplusplus
+}
+#endif
+
+#endif  //__WAP_MMI_CDWAP__
+#endif  //__MMS_PORTING_HI__

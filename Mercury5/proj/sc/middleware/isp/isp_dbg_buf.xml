@@ -1,0 +1,1310 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ISP_DBG_ITEM Author="Smart Camera ISP" Version="4.5">
+
+        <VERSION>
+             <DBG_ITEM Name="DBG_VERSION_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_VERSION_VENDOR"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_VERSION_MAJOR"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_VERSION_MINOR"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_VERSION_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+        </VERSION>
+        <AE>
+             <DBG_ITEM Name="DBG_AE_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_HIST_TYPE"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="2" />
+             <DBG_ITEM Name="DBG_AE_CALI_AVOFFSET"  Type="eDBG_ITEM_TYPE_S32" M="1" N="1" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_CALI_BVOFFSET"  Type="eDBG_ITEM_TYPE_S32" M="1" N="1" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_CALI_ISO100GAIN"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_CALI_MINISO"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_ISO"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_LVX10"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="200" />
+             <DBG_ITEM Name="DBG_AE_AV"  Type="eDBG_ITEM_TYPE_S32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="10" i4Min="10" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_TV"  Type="eDBG_ITEM_TYPE_S32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="1" i4Min="1" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_BV"  Type="eDBG_ITEM_TYPE_S32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="40" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_ASV"  Type="eDBG_ITEM_TYPE_S32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="1024" i4Min="1024" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_DSV"  Type="eDBG_ITEM_TYPE_S32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="1024" i4Min="1024" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_CUR_AVGY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="512" />
+             <DBG_ITEM Name="DBG_AE_CUR_WY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="512" />
+             <DBG_ITEM Name="DBG_AE_IS_STABLE"  Type="eDBG_ITEM_TYPE_U8" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_AE_DEFAULT_TARGET"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_TARGET_LUT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_TARGET_LUT_Y"  Type="eDBG_ITEM_TYPE_S32" M="16" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_TARGET_LUT_X"  Type="eDBG_ITEM_TYPE_S32" M="16" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_INIT_SHUTTER"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_INIT_GAIN"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1024" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_INIT_FNUM"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_MIN_FPS"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="4" i4Max="480" />
+             <DBG_ITEM Name="DBG_AE_FPS_CTRL"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" />
+             <DBG_ITEM Name="DBG_AE_SHUTTER_COMP_GAIN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_AE_SCENE_MODE"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_SCENE"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_METERING_TYPE"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_FLICKER_MODE"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_FLICKER"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_EVCOMP_GRAD"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_EVCOMP"  Type="eDBG_ITEM_TYPE_S32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_CONV_RATIO_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="1" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_CONV_RATIO_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="1" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_CONV_RATIO_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_CONV_INTO_STABLE_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_CONV_OUT_STABLE_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_WIN_X_NUM"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="1" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_WIN_Y_NUM"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="1" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_EXPO_TBL_NUM"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_EXPO_TBL"  Type="eDBG_ITEM_TYPE_U32" M="4" N="16" d4Value="0" i4Min="1" i4Max="32" />
+             <DBG_ITEM Name="DBG_AE_HDR_SHORT_EXPO_TBL_NUM"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_HDR_SHORT_EXPO_TBL"  Type="eDBG_ITEM_TYPE_U32" M="4" N="16" d4Value="0" i4Min="1" i4Max="32" />             
+             <DBG_ITEM Name="DBG_AE_WEIGHTING_TBL"  Type="eDBG_ITEM_TYPE_U32" M="32" N="96" d4Value="0" i4Min="0" i4Max="512" />
+
+             <DBG_ITEM Name="DBG_AE_CUR_FPS"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_CONV_RATIO_FINAL"  Type="eDBG_ITEM_TYPE_U16" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+
+             <DBG_ITEM Name="DBG_AE_DR_BT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_DR_BT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_DR_BT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_DR_DT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_DR_DT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_DR_DT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_DR_BT_SORTY_WT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_DR_DT_SORTY_WT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_DR_BT_FINAL_PCENT"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_DR_DT_FINAL_PCENT"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_DR_BT_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="512" />
+             <DBG_ITEM Name="DBG_AE_DR_DT_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="512" />
+             <DBG_ITEM Name="DBG_AE_DR_BT_BLOCK_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_DR_DT_BLOCK_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_DR"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="4177920" />
+
+             <DBG_ITEM Name="DBG_AE_STRATEGY"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" />
+             <DBG_ITEM Name="DBG_AE_STRATEGY_WEIGHTING"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_STRATEGY_UPPER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_STRATEGY_UPPER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_STRATEGY_UPPER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_STRATEGY_LOWER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_STRATEGY_LOWER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_STRATEGY_LOWER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_ENABLE_STRETCH"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+
+             <DBG_ITEM Name="DBG_AE_STGY_BT_PCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="4177920" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_STS_PCENT"  Type="eDBG_ITEM_TYPE_U32" M="8" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_STS_TARGET"  Type="eDBG_ITEM_TYPE_U32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_STGY_BT_STS_FINALTARGET"  Type="eDBG_ITEM_TYPE_U32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_PCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="4177920" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_TARGETBYBV_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_TARGETBYBV_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_TARGETBYBV_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_BLKYWGHT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_BLKYWGHT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_BLKYWGHT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_SORTY_WT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_FINAL_PCENT"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_FINAL_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_BLOCK_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_BT_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_PCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_FINAL_PCENT"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_FINAL_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_MT_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+
+             <DBG_ITEM Name="DBG_AE_STGY_DT_PCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_STS_PCENT"  Type="eDBG_ITEM_TYPE_U32" M="8" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_STS_TARGET"  Type="eDBG_ITEM_TYPE_U32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_STGY_DT_STS_FINALTARGET"  Type="eDBG_ITEM_TYPE_U32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_PCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_SORTY_WT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_FINAL_PCENT"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_FINAL_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_BLOCK_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_Y"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+             <DBG_ITEM Name="DBG_AE_MAIN_DT_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+
+             <DBG_ITEM Name="DBG_AE_MAIN_FINAL_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="2550" />
+
+             <DBG_ITEM Name="DBG_AE_ENABLE_BACKLIGHT"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_AE_ENABLE_CENTEROVEREXP"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_AE_FGWIN_RATIO"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="1024" />
+
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_HIST_PCENT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_HIST_WGHT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_HIST_PCENT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_HIST_WGHT"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="1024" />
+
+             <DBG_ITEM Name="DBG_AE_FGBG_BACKLIGHT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BACKLIGHT_PROB_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BACKLIGHT_PROB_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_CENTEROVEREXP_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_FGBG_CENTEROVEREXP_PROB_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_CENTEROVEREXP_PROB_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+
+             <DBG_ITEM Name="DBG_AE_FGBG_BACKLIGHT_FINAL_PROB"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_FGBG_CENTEROVEREXP_FINAL_PROB"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_DIFF"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_DIFF"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_HISTY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_HISTY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_BLKY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_BLKY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_FGY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_FGY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_BGY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_BGY"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_BL_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+             <DBG_ITEM Name="DBG_AE_FGBG_COE_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="0xffffff" />
+
+             <DBG_ITEM Name="DBG_AE_FINAL_SCENE_TARGET"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+
+             <DBG_ITEM Name="DBG_AE_HIST_STS"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="128" N="1" d4Value="0" i4Min="0" i4Max="34560" />
+
+             <DBG_ITEM Name="DBG_AE_ENABLE_WDR"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_BLKPCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_BLKPCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_BLKPCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_BLKWGHT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_BLKWGHT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_BLKWGHT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_SKIPPCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_SKIPPCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_SKIPPCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_PCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_DEFTARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_DEFTARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_DEFTARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_UPPER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_UPPER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_UPPER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BT_LOWER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_LOWER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_BT_LOWER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_DT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_DT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_DT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_DT_UPPER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_DT_UPPER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_DT_UPPER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_DT_LOWER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_DT_LOWER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_DT_LOWER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_MT_PCENT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_MT_PCENT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_MT_PCENT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_MT_TARGET_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_MT_TARGET_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1000" />
+             <DBG_ITEM Name="DBG_AE_WDR_MT_TARGET_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_BLENDOPT"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_AE_WDR_MAXDTRATIO"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="8192" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_TARGETBYFIX_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_TARGETBYFIX_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_WDR_TARGETBYFIX_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-81920" i4Max="360448" />
+
+             <DBG_ITEM Name="DBG_AE_WDR_TARGETBYFLAT_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" />
+             <DBG_ITEM Name="DBG_AE_WDR_TARGETBYFLAT_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AE_WDR_TARGETBYFLAT_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="1024" i4Min="1024" i4Max="8192" />
+             <DBG_ITEM Name="DBG_AE_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+        </AE>
+        <AWB>
+             <DBG_ITEM Name="DBG_AWB_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AWB_CALI_PREGAIN"  Type="eDBG_ITEM_TYPE_U16" M="9" N="1" d4Value="0" i4Min="0" i4Max="8192" />
+             <DBG_ITEM Name="DBG_AWB_LIGHT_EXTRA"  Type="eDBG_ITEM_TYPE_S32" M="8" N="8" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AWB_LIGHT_CT"  Type="eDBG_ITEM_TYPE_S32" M="8" N="10" d4Value="0" i4Min="-0xffff" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AWB_COLOR_TEMP"  Type="eDBG_ITEM_TYPE_U16" M="10" N="1" d4Value="0" i4Min="0" i4Max="50000" />
+             <DBG_ITEM Name="DBG_AWB_LIGHT_WEIGHT"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_DEFAULT_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_PERFER_R_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_PERFER_B_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_PRESET_GAIN"  Type="eDBG_ITEM_TYPE_U16" M="2" N="9" d4Value="0" i4Min="0" i4Max="8192" />
+             <DBG_ITEM Name="DBG_AWB_PURECOLOR_CFG"  Type="eDBG_ITEM_TYPE_U16" M="12" N="8" d4Value="0" i4Min="0" i4Max="1024" />
+
+             <DBG_ITEM Name="DBG_AWB_LIGHT_START"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="64" />
+             <DBG_ITEM Name="DBG_AWB_LIGHT_END"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="64" />
+             <DBG_ITEM Name="DBG_AWB_LUM_MAX"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_LUM_MIN"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_COUNT_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="5760" />
+             <DBG_ITEM Name="DBG_AWB_SPEED"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_CONV_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_CONV_OUT_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_AREA_USER_MAX"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_AREA_SCALE_MAX"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_MIX_THIRD_THD"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_LOW_LUX_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="170" />
+             <DBG_ITEM Name="DBG_AWB_LOW_LUX_BLK_X"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="4" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_LOW_LUX_BLK_Y"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="2" i4Max="255" />
+
+             <DBG_ITEM Name="DBG_AWB_STATISTICS_W"  Type="eDBG_ITEM_TYPE_U16" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+             <DBG_ITEM Name="DBG_AWB_STATISTICS_H"  Type="eDBG_ITEM_TYPE_U16" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" />
+
+             <DBG_ITEM Name="DBG_AWB_IMAGE_GAIN"  Type="eDBG_ITEM_TYPE_U32" Attr=" eDBG_ITEM_TYPE_TMPVALUE" M="4" N="1" d4Value="1024" i4Min="0" i4Max="8191" />
+             <DBG_ITEM Name="DBG_AWB_GAIN"  Type="eDBG_ITEM_TYPE_U16" Attr=" eDBG_ITEM_TYPE_TMPVALUE" M="2" N="10" d4Value="0" i4Min="0" i4Max="8192" />
+             <DBG_ITEM Name="DBG_AWB_SPC"  Type="eDBG_ITEM_TYPE_U8" Attr=" eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_FIRST_LIGHT"  Type="eDBG_ITEM_TYPE_U8" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_SECOND_LIGHT"  Type="eDBG_ITEM_TYPE_U8" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_PRE_FIRST_LIGHT"  Type="eDBG_ITEM_TYPE_U8" Attr=" eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_PRE_SECOND_LIGHT"  Type="eDBG_ITEM_TYPE_U8" Attr=" eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+             <DBG_ITEM Name="DBG_AWB_LVVALUE"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="240" />
+
+             <DBG_ITEM Name="DBG_AWB_MODE_CONTROL"  Type="eDBG_ITEM_TYPE_U16" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" />
+
+             <DBG_ITEM Name="DBG_AWB_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+        </AWB>
+        <AF>
+             <DBG_ITEM Name="DBG_AF_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_AF_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+        </AF>
+        <EIS>
+             <DBG_ITEM Name="DBG_EIS_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_EIS_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+        </EIS>
+        <IQ>
+             <DBG_ITEM Name="DBG_IQ_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+             <DBG_ITEM Name="DBG_IQ_VERSION"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_COMMAND" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+
+             <DBG_ITEM Name="DBG_IQ_INFO_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_INFO_CHIP_VER"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_HEX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_INFO_IRISO_TBL"  Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="1" i4Min="0" i4Max="15" />
+             <DBG_ITEM Name="DBG_IQ_INFO_GAIN_TBL0"  Type="eDBG_ITEM_TYPE_U32" M="16" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_INFO_BLK_TBL0"  Type="eDBG_ITEM_TYPE_U8" M="16" N="52" d4Value="1" i4Min="0" i4Max="9" />
+             <DBG_ITEM Name="DBG_IQ_INFO_GAIN_TBL1"  Type="eDBG_ITEM_TYPE_U32" M="16" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_INFO_BLK_TBL1"  Type="eDBG_ITEM_TYPE_U8" M="16" N="52" d4Value="1" i4Min="0" i4Max="9" />
+             <DBG_ITEM Name="DBG_IQ_INFO_EXTEND_ISO_IND"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_INFO_ISO_IND"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_INFO_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+
+             <!-- i3 end-->
+             <!-- DECOMP -->
+             <DBG_ITEM Name="DBG_IQ_DECOMP_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="9" Offset="96" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R0_F0"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="98" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R0_F1"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="9" Offset="100" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R0_F2"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="102" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R1_F0"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="104" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R1_F1"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="9" Offset="106" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R1_F2"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="108" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R2_F0"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="110" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R2_F1"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="9" Offset="112" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R2_F2"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="114" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R3_F0"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="116" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R3_F1"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="9" Offset="118" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_R3_F2"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="120" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_RANGE0"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="122" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_RANGE1"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="124" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_RANGE2"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="126" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_DECOMP_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- FPN -->
+             <DBG_ITEM Name="DBG_IQ_FPN_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FPN_EN"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="4" Offset="128" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_FPN_ROI_X"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="4" Offset="130" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_ROI_Y"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="4" Offset="132" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_WIDTH"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="4" Offset="134" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_HEIGHT"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="4" Offset="136" Mask="0x001F" />
+             <DBG_ITEM Name="DBG_IQ_FPN_PRE_OFFSET"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="32767" Bank="4" Offset="138" Mask="0x7FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_PRE_OFFSET_SIGN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="4" Offset="138" Mask="0x8000" />
+             <DBG_ITEM Name="DBG_IQ_FPN_DIFF_TH"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="4" Offset="140" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_CMP_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="4" Offset="142" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_FRAME_NUM"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="4" Offset="144" Mask="0x001F" />
+             <DBG_ITEM Name="DBG_IQ_FPN_SW_OFFSET_EN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="4" Offset="128" Mask="0x8" />
+             <DBG_ITEM Name="DBG_IQ_FPN_SW_TABLE" Type="eDBG_ITEM_TYPE_U16" M="2816" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_SW_CMP_RATIO" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- FPN_P1 -->
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_EN"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_ROI_X"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="2" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_ROI_Y"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="4" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_WIDTH"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="6" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_HEIGHT"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="11" Offset="0" Mask="0x01F0" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_PRE_OFFSET"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="32767" Bank="11" Offset="8" Mask="0x7FFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_PRE_OFFSET_SIGN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="8" Mask="0x8000" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_DIFF_TH"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="11" Offset="10" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_CMP_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="12" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_FRAME_NUM"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="11" Offset="0" Mask="0x7C00" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_SW_OFFSET_EN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="0" Mask="0x8" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_SW_TABLE" Type="eDBG_ITEM_TYPE_U16" M="2816" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_SW_CMP_RATIO" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_FPN_P1_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- OBC -->
+             <DBG_ITEM Name="DBG_IQ_OBC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_OBC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="0" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_OBC_R_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="1" Offset="206" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_GR_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="1" Offset="196" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_GB_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="1" Offset="210" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_B_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="1" Offset="198" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_R_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="1" Offset="212" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_GR_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="1" Offset="214" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_GB_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="1" Offset="216" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_B_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="1" Offset="218" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_DITHER_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="8" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_OBC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- OBC_P1 -->
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="48" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_R_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="32" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_GR_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="34" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_GB_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="36" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_B_OFST" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="38" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_R_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="11" Offset="40" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_GR_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="11" Offset="42" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_GB_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="11" Offset="44" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_B_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="11" Offset="46" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_DITHER_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="48" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_OBC_P1_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- Gama16to16_ISP -->
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="10" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_LUT_R" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_LUT_G" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_LUT_B" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_MAX_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="10" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_MAX_DATA" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="1" Offset="12" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_16to16_ISP_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- GamaC2C_P1_ISP -->
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="52" Mask="0x1000" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_LUT_R" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_LUT_G" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_LUT_B" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_MAX_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="52" Mask="0x2000" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_MAX_DATA" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="52" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2C_P1_ISP_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- LSC -->
+             <DBG_ITEM Name="DBG_IQ_LSC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LSC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="2" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_LSC_GLB_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="208" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_CENTER_X" Type="eDBG_ITEM_TYPE_U16" M="1" N="3" d4Value="0" i4Min="0" i4Max="4095" Bank="1" Offset="2" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_CENTER_Y" Type="eDBG_ITEM_TYPE_U16" M="1" N="3" d4Value="0" i4Min="0" i4Max="4095" Bank="1" Offset="4" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_SHIFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="31" Bank="1" Offset="6" Mask="0x1F" />
+             <DBG_ITEM Name="DBG_IQ_LSC_DITH_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="8" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_LSC_R_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U8" M="32" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="32" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_G_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U8" M="32" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="64" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_B_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U8" M="32" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="96" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- LSC_P1 -->
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="90" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_GLB_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="11" Offset="98" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_CENTER_X" Type="eDBG_ITEM_TYPE_U16" M="1" N="3" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="92" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_CENTER_Y" Type="eDBG_ITEM_TYPE_U16" M="1" N="3" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="94" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_SHIFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="31" Bank="11" Offset="96" Mask="0x1F" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_DITH_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="90" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_R_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U8" M="32" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="11" Offset="100" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_G_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U8" M="32" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="11" Offset="132" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_B_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U8" M="32" N="3" d4Value="0" i4Min="0" i4Max="255" Bank="11" Offset="164" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_LSC_P1_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- ALSC -->
+             <DBG_ITEM Name="DBG_IQ_ALSC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="1" Bank="3" Offset="64" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_DITHER_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="3" Offset="64" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_X_BLK_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="3" Offset="64" Mask="0x30" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_Y_BLK_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="3" Offset="64" Mask="0xC0" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_DBG_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="7" Bank="3" Offset="64" Mask="0x700" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_DBG_SHIFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="3" Offset="64" Mask="0x1800" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_OFFSETX" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="3" Offset="66" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_OFFSETY" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="3" Offset="68" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_SCALEX" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="86" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_SCALEY" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="88" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_CCT_THR" Type="eDBG_ITEM_TYPE_U16" M="1" N="3" d4Value="0" i4Min="0" i4Max="10000" Bank="255" Offset="0" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_R_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U16" M="4209" N="3" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_G_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U16" M="4209" N="3" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_B_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U16" M="4209" N="3" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- ALSC_P1 -->
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="3" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="196" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_DITHER_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="196" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_X_BLK_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="11" Offset="196" Mask="0x30" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_Y_BLK_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="11" Offset="196" Mask="0xC0" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_DBG_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="7" Bank="11" Offset="196" Mask="0x700" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_DBG_SHIFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="11" Offset="196" Mask="0x1800" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_OFFSETX" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="198" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_OFFSETY" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="200" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_SCALEX" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="86" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_SCALEY" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="88" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_CCT_THR" Type="eDBG_ITEM_TYPE_U16" M="1" N="3" d4Value="0" i4Min="0" i4Max="10000" Bank="255" Offset="0" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_R_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U16" M="4209" N="3" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_G_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U16" M="4209" N="3" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_B_GAIN_TABLE" Type="eDBG_ITEM_TYPE_U16" M="4209" N="3" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ALSC_P1_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- HDR -->
+             <DBG_ITEM Name="DBG_IQ_HDR_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_HDR_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="10" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_HDR_STITCH_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="10" Offset="0" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_HDR_MAPPING_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="10" Offset="0" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_HDR_RATIO_VS"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="10" Offset="2" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_TH1"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="10" Offset="4" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_TH2"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="10" Offset="6" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_UVTBL_X"  Type="eDBG_ITEM_TYPE_U8" M="8" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="10" Offset="8" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_HDR_UVTBL_Y"  Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="8191" Bank="10" Offset="12" Mask="0x1FFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_VS_NR_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="10" Offset="30" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_HDR_VAR_TH"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="10" Offset="30" Mask="0x1FC" />
+             <DBG_ITEM Name="DBG_IQ_HDR_VAR_CNT"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="10" Offset="30" Mask="0xE00" />
+             <DBG_ITEM Name="DBG_IQ_HDR_EDGE_TH1"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="10" Offset="32" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_EDGE_TH2"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="16383" Bank="10" Offset="34" Mask="0x3FFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_RATIO_VS_128"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="511" Bank="10" Offset="36" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_DYN_RATIO_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="10" Offset="40" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_HDR_DYN_RATIO_Y_RGB"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="10" Offset="40" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_HDR_UPPER_BND"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="10" Offset="40" Mask="0x0C" />
+             <DBG_ITEM Name="DBG_IQ_HDR_LOWER_BND"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="10" Offset="40" Mask="0x30" />
+             <DBG_ITEM Name="DBG_IQ_HDR_DYN_RATIO_SEL"  Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="10" Offset="40" Mask="0x40" />
+             <DBG_ITEM Name="DBG_IQ_HDR_RATIO_GAIN"  Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="10" Offset="42" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_SW_RATIO_GAIN"  Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="10" Offset="74" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_MAX_IN"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="10" Offset="108" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_GAMA_X"  Type="eDBG_ITEM_TYPE_U8" M="22" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="10" Offset="112" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_HDR_GAMA_Y"  Type="eDBG_ITEM_TYPE_U16" M="23" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="10" Offset="134" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_HIST_SHFT"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="10" Offset="224" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- Gama16to10_ISP -->
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_GAIN_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="9" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_GBL_SMOOTH_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="9" Offset="0" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_GAIN_BASE"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="9" Offset="0" Mask="0x3C" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_GAIN_L"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="2" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_GAIN_H"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="4" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_OFFSET_R"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="6" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_OFFSET_G"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="8" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_OFFSET_B"  Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="10" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_CURVE_LUT"  Type="eDBG_ITEM_TYPE_U16" M="21" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="9" Offset="22" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_HDR_16to10_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- DPC -->
+             <DBG_ITEM Name="DBG_IQ_DPC_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DPC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_DPC_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="2" Offset="0" Mask="0x06" />
+             <DBG_ITEM Name="DBG_IQ_DPC_AWBG_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="0" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_DPC_EDGE_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="0" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_DPC_LIGHT_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="0" Mask="0x20" />
+             <DBG_ITEM Name="DBG_IQ_DPC_DARK_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="0" Mask="0x40" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_R" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="2" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_GR" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="4" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_GB" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="6" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_B" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="8" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_LR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_LGR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_LGB_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_LB_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_MODE_LOFF" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_DR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x100" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_DGR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x200" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_DGB_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x400" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_DB_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x800" />
+             <DBG_ITEM Name="DBG_IQ_DPC_CLUSTER_MODE_DOFF" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="10" Mask="0x1000" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_SEL" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="2" Offset="12" Mask="0x03" />
+             <DBG_ITEM Name="DBG_IQ_DPC_LIGHT_TH_ADJ" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="12" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_DPC_DARK_TH_ADJ" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="12" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_LIGHT_SRC" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="2" Offset="14" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_LIGHT_BASE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="2" Offset="14" Mask="0xF0" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_DARK_SRC" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="2" Offset="14" Mask="0x0F00" />
+             <DBG_ITEM Name="DBG_IQ_DPC_TH_DARK_BASE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="2" Offset="14" Mask="0xF000" />
+             <DBG_ITEM Name="DBG_IQ_DPC_NEI_SMOOTH" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="8" Bank="2" Offset="16" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_NEI_DELTA_TH" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="18" Mask="0x0FFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_NEI_DELTA_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="8" Bank="2" Offset="20" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DPC_NEI_DELTA_GAIN" Type="eDBG_ITEM_TYPE_U8" M="6" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="2" Offset="26" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_LR" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="32" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_LGR" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="34" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_LGB" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="36" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_LB" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="38" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_LOFF" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="40" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_DR" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="42" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_DGR" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="44" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_DGB" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="46" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_DB" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="48" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_COLOR_RATIO_DOFF" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="50" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_LIGHT_TH_ADD" Type="eDBG_ITEM_TYPE_U8" M="32" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="2" Offset="52" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_DARK_TH_ADD" Type="eDBG_ITEM_TYPE_U8" M="32" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="2" Offset="84" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="160" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_R_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="160" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_GR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="160" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_GB_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="160" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_B_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="160" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_1x3_MODE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="160" Mask="0x20" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_LUMTBL_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="12" Bank="2" Offset="162" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_LUMTBL_L" Type="eDBG_ITEM_TYPE_U16" M="6" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="166" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_LUMTBL_D" Type="eDBG_ITEM_TYPE_U16" M="6" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="178" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_SORT_LUMTBL_S" Type="eDBG_ITEM_TYPE_U16" M="6" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="2" Offset="190" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_DPC_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- GE -->
+             <DBG_ITEM Name="DBG_IQ_GE_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="128" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_GE_DIFF_TH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="1" Offset="128" Mask="0x3FF0" />
+             <DBG_ITEM Name="DBG_IQ_GE_DIFF_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="1" Offset="136" Mask="0x07" />
+             <DBG_ITEM Name="DBG_IQ_GE_DIFF_STEP2" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="1" Offset="136" Mask="0x700" />
+             <DBG_ITEM Name="DBG_IQ_GE_DIFF_TH2" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="1" Offset="138" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_GE_DIFF_MAX" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="1" Offset="140" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_GE_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- ANTICT -->
+             <DBG_ITEM Name="DBG_IQ_ANTICT_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ANTICT_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="142" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_ANTICT_TH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="144" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ANTICT_SFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="1" Offset="144" Mask="0xFF00" />
+             <DBG_ITEM Name="DBG_IQ_ANTICT_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- RGBIR -->
+             <DBG_ITEM Name="DBG_IQ_RGBIR_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="8" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_MODE4x4" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="8" Offset="0" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="8" Offset="0" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_OFFSET_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="8" Offset="0" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_HIST_IR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="8" Offset="0" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_IMONITOR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="8" Offset="0" Mask="0x20" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_OFT_RATIO_BY_Y" Type="eDBG_ITEM_TYPE_U8" M="5" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="8" Offset="8" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_OFT_R_RATIO_BY_Y" Type="eDBG_ITEM_TYPE_U16" M="6" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="8" Offset="12" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_OFT_G_RATIO_BY_Y" Type="eDBG_ITEM_TYPE_U16" M="6" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="8" Offset="24" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_OFT_B_RATIO_BY_Y" Type="eDBG_ITEM_TYPE_U16" M="6" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="8" Offset="36" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_DUMMY" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="8" Offset="48" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_OFT_CMP_RATIO" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="8" Offset="50" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_DIR_SCALER" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="16" Bank="8" Offset="50" Mask="0xF000" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_2x2_G_LOC" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="5" Offset="2" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_RGBIR_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- SpikeNR -->
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="242" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_DIST_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="9" Offset="164" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_NR_COEF" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="242" Mask="0xF00" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_P_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="244" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_P_THRD_1" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="1" Offset="244" Mask="0x1F00" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_P_THRD_2" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="246" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_P_THRD_3" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="246" Mask="0xFF00" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_D_11_21_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="1" Offset="248" Mask="0x07" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_D_31_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="1" Offset="248" Mask="0x70" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_YP_22_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="1" Offset="248" Mask="0x700" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_ORIENT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="7" Bank="9" Offset="164" Mask="0x1C" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_OFFSET_X" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="8191" Bank="9" Offset="166" Mask="0x1FFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_OFFSET_Y" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="8191" Bank="9" Offset="168" Mask="0x1FFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_CEN_X" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="8191" Bank="9" Offset="170" Mask="0x1FFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_CEN_Y" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="8191" Bank="9" Offset="172" Mask="0x1FFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_RATE_X" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="9" Offset="174" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_RATE_Y" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="9" Offset="174" Mask="0xFF00" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_DIST_SFT" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="9" Offset="176" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_DIST_LUT" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="9" Offset="182" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_SpikeNR_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- SDC -->
+             <DBG_ITEM Name="DBG_IQ_SDC_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_SDC_EN"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="180" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_SDC_TBL"  Type="eDBG_ITEM_TYPE_U32" M="1024" N="1" d4Value="0" i4Min="0" i4Max="0xFFFFFFFF" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_SDC_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- BSNR -->
+             <DBG_ITEM Name="DBG_IQ_BSNR_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="224" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_DIST_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="9" Offset="164" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_ALPHA_STEP_R" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="1" Offset="162" Mask="0xE0" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_ALPHA_STEP_G" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="1" Offset="226" Mask="0xE0" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_ALPHA_STEP_B" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="1" Offset="162" Mask="0xE000" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_STD_LOW_THRD_R" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="160" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_STD_LOW_THRD_G" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="224" Mask="0xFF00" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_STD_LOW_THRD_B" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="1" Offset="160" Mask="0xFF00" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_STRENGTH_GAIN_R" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="162" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_STRENGTH_GAIN_G" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="226" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_STRENGTH_GAIN_B" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="162" Mask="0xF00" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_TABLE_R" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="10" i4Min="0" i4Max="15" Bank="1" Offset="164" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_TABLE_G" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="10" i4Min="0" i4Max="15" Bank="1" Offset="228" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_TABLE_B" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="10" i4Min="0" i4Max="15" Bank="1" Offset="172" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_BSNR_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- NM -->
+             <DBG_ITEM Name="DBG_IQ_NM_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_NM_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="1" Offset="236" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_NM_GAIN_R" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="1" Offset="192" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NM_GAIN_G" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="1" Offset="238" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NM_GAIN_B" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="1" Offset="192" Mask="0x3F00" />
+             <DBG_ITEM Name="DBG_IQ_NM_MAX_THRD_R" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="194" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_NM_MAX_THRD_G" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="240" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_NM_MAX_THRD_B" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="194" Mask="0xF00" />
+             <DBG_ITEM Name="DBG_IQ_NM_MIN_THRD_R" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="194" Mask="0xF0" />
+             <DBG_ITEM Name="DBG_IQ_NM_MIN_THRD_G" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="240" Mask="0xF0" />
+             <DBG_ITEM Name="DBG_IQ_NM_MIN_THRD_B" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="1" Offset="194" Mask="0xF000" />
+             <DBG_ITEM Name="DBG_IQ_NM_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- Demosaic -->
+             <DBG_ITEM Name="DBG_IQ_DM_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DM_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="224" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_DM_CFAI_BYPASS" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="224" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_DM_DVH_SLOPE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="0" Offset="226" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DM_DVH_THRD" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="0" Offset="226" Mask="0xF00" />
+             <DBG_ITEM Name="DBG_IQ_DM_CPXWEI_SLOPE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="0" Offset="228" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DM_CPXWEI_THRD" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="0" Offset="228" Mask="0xFF00" />
+             <DBG_ITEM Name="DBG_IQ_DM_NB_SLOPE_M" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="0" Offset="230" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_DM_NB_SLOPE_S" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="0" Offset="230" Mask="0xF00" />
+             <DBG_ITEM Name="DBG_IQ_DM_NB_EDGE_ADAPT_OFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="127" Bank="0" Offset="234" Mask="0x7F" />
+             <DBG_ITEM Name="DBG_IQ_DM_NB_CROSSCHK_OFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="127" Bank="0" Offset="234" Mask="0x7F00" />
+             <DBG_ITEM Name="DBG_IQ_DM_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- PostDN -->
+             <DBG_ITEM Name="DBG_IQ_PostDN_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_PostDN_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="224" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_PostDN_G_RATIO" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="0" Offset="224" Mask="0x7000" />
+             <DBG_ITEM Name="DBG_IQ_PostDN_RB_RATIO" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="0" Offset="224" Mask="0x700" />
+             <DBG_ITEM Name="DBG_IQ_PostDN_GAVG_REF_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="224" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_PostDN_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- FalseColor -->
+             <DBG_ITEM Name="DBG_IQ_FalseColor_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FalseColor_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="232" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_FalseColor_R_RATIO" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="0" Offset="232" Mask="0x700" />
+             <DBG_ITEM Name="DBG_IQ_FalseColor_B_RATIO" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="0" Offset="232" Mask="0x7000" />
+             <DBG_ITEM Name="DBG_IQ_FalseColor_COLOR_RATIO" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="0" Offset="232" Mask="0x70" />
+             <DBG_ITEM Name="DBG_IQ_FalseColor_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- GamaA2A_ISP -->
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="140" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_LUT_R" Type="eDBG_ITEM_TYPE_U16" M="256" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_LUT_G" Type="eDBG_ITEM_TYPE_U16" M="256" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_LUT_B" Type="eDBG_ITEM_TYPE_U16" M="256" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_MAX_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="0" Offset="140" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_MAX_DATA" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="0" Offset="140" Mask="0xFFC" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2A_ISP_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- MSCNR -->
+             <DBG_ITEM Name="DBG_IQ_MCNR_START"  Type="eDBG_ITEM_TYPE_MAX"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="255"  Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_PATH_EN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_EN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NORM_MVSAD"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="74"  i4Min="0"  i4Max="127" Bank="29"  Offset="5" Mask="0x7f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MOVINGW_GAIN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16" d4Value="10"  i4Min="0"  i4Max="31" Bank="29"  Offset="6" Mask="0x1f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_CONFIRMW_GAIN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16" d4Value="8" i4Min="0"  i4Max="31" Bank="29"  Offset="7" Mask="0x1f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_EDGE_GAIN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16" d4Value="10"  i4Min="0"  i4Max="31" Bank="29"  Offset="8" Mask="0x1f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_EDGE_MAXSAD_GAIN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="8" i4Min="0"  i4Max="15" Bank="29"  Offset="9" Mask="0x0f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_EDGE_MAXSAD_SR_SEL"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="10" Mask="0x80" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_VSAD_SEL" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="3"  Bank="29"  Offset="11" Mask="0x03" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_HSAD_SEL" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="0" i4Min="0"  i4Max="5"  Bank="29"  Offset="12" Mask="0x70" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_BLKSIZE_MV0DIFF_C" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="0" i4Min="0"  i4Max="2"  Bank="29"  Offset="13" Mask="0x03" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_CSAD_MAX_EN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="14" Mask="0x80" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_NORM_MV0DIFF_Y"  Type="eDBG_ITEM_TYPE_U16"  M="1"  N="1"  d4Value="111"  i4Min="0"  i4Max="2047"  Bank="29"  Offset="15" Mask="0x7ff"  />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_NORM_MV0DIFF_C"  Type="eDBG_ITEM_TYPE_U16"  M="1"  N="1"  d4Value="168"  i4Min="0"  i4Max="1023"  Bank="29"  Offset="17" Mask="0x7ff"  />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_DNRY_PN_EN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="19" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_NORM_MV0DIFF_PN"  Type="eDBG_ITEM_TYPE_U16"  M="1"  N="1"  d4Value="84"  i4Min="0"  i4Max="1023"  Bank="29"  Offset="20" Mask="0x3ff"  />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_DNRY_PN_OFFSET"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="64"  i4Min="0"  i4Max="255" Bank="29"  Offset="22" Mask="0xff" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_DNRY_PN_GAIN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="128"  i4Min="0"  i4Max="255" Bank="29"  Offset="23" Mask="0xff" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_DNRY_PN_REDUCE_OFFSET" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="128"  i4Min="0"  i4Max="255" Bank="29"  Offset="24" Mask="0xff" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_NR_DNRY_PN_REDUCE_GAIN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="4" i4Min="0"  i4Max="15" Bank="29"  Offset="25" Mask="0x0f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MVDNRLUT_Y" Type="eDBG_ITEM_TYPE_U8"  M="16" N="16" d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="26" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MVDNRLUT_C" Type="eDBG_ITEM_TYPE_U8"  M="16" N="16" d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="42" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MVDNRGAIN_Y"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16"  d4Value="1" i4Min="0"  i4Max="15" Bank="29"  Offset="58" Mask="0x0f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MVDNRGAIN_C"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16"  d4Value="1" i4Min="0"  i4Max="15" Bank="29"  Offset="59" Mask="0x0f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MOVINGW_OFFSET"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16"  d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="60" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MOVINGW_GAIN2"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16"  d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="61" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_EN_Y"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="62" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_EN_C"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="63" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_EN_HISTIIR" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="64" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_DITH_EN_Y" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="65" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_DITH_EN_C" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="66" Mask="0x20" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_DITH_EN_HISTIIR"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="67" Mask="0x40" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_TH" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="15" Bank="29"  Offset="68" Mask="0x1f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_STICKY_SOLVER_TH_HISTIIR" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="69" Mask="0x1f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_HISTALPHA_FAST"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="7" i4Min="0"  i4Max="7"  Bank="29"  Offset="70" Mask="0x07" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_HSITALPHA"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="3" i4Min="0"  i4Max="7"  Bank="29"  Offset="71" Mask="0x70" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_HISTMOV_EN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="72" Mask="0x80" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_HSITALPHA_LOW_THRD"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="2" i4Min="0"  i4Max="15" Bank="29"  Offset="73" Mask="0x0f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_LUMA_ADPT_EN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="0" i4Min="0"  i4Max="1"  Bank="29"  Offset="74" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MAXMOT_Y_EN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="0" i4Min="0"  i4Max="1"  Bank="29"  Offset="75" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MAXMOT_C_EN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="0" i4Min="0"  i4Max="1"  Bank="29"  Offset="76" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MV0CONF_GAIN" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="4" i4Min="0"  i4Max="15" Bank="29"  Offset="77" Mask="0xf0" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_LUMA_ADPT_GAIN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="0" i4Min="0"  i4Max="255" Bank="29"  Offset="78" Mask="0xff" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_DNRY_GAIN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16" d4Value="26"  i4Min="0"  i4Max="255" Bank="29"  Offset="79" Mask="0xff" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_DNRC_GAIN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="16" d4Value="32"  i4Min="0"  i4Max="255" Bank="29"  Offset="80" Mask="0xff" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_ENHW_SEL" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="29"  Offset="81" Mask="0x80" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MV0CONF_GAIN_ENH" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="4" i4Min="0"  i4Max="15" Bank="29"  Offset="82" Mask="0x0f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_DNRY_GAIN_ENH"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="255" Bank="29"  Offset="83" Mask="0xff" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MV0W_OFFSET" Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="0" i4Min="0"  i4Max="15" Bank="29"  Offset="84" Mask="0x0f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_MV0W_GAIN"  Type="eDBG_ITEM_TYPE_U8"  M="1"  N="1"  d4Value="8" i4Min="0"  i4Max="15" Bank="29"  Offset="85" Mask="0xf0" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_DNRLUT_Y" Type="eDBG_ITEM_TYPE_U8"  M="16" N="16" d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="86" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_DNRLUT_C" Type="eDBG_ITEM_TYPE_U8"  M="16" N="16" d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="102" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_LUMALUT_Y"  Type="eDBG_ITEM_TYPE_U8"  M="8"  N="16" d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="118" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_LUMALUT_C"  Type="eDBG_ITEM_TYPE_U8"  M="8"  N="16" d4Value="1" i4Min="0"  i4Max="63" Bank="29"  Offset="126" Mask="0x3f" />
+             <DBG_ITEM Name="DBG_IQ_MCNR_END" Type="eDBG_ITEM_TYPE_MAX"  M="1"  N="1"  d4Value="1" i4Min="0"  i4Max="1"  Bank="255"  Offset="0" Mask="0x00" />
+             <!-- NLM -->
+             <DBG_ITEM Name="DBG_IQ_NLM_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_NLM_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_NLM_HISTIIR_ADAP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_NLM_HISTIIR_ADAP_RATIO" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_DSW_OFFSET" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="14" Mask="0x1F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_DSW_SHIFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="15" Mask="0x60" />
+             <DBG_ITEM Name="DBG_IQ_NLM_DSW_RATIO" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="13" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_DSW_ADAP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="5" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_NLM_DSW_LPF_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="6" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_NLM_AVG_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_NLM_LUMA_ADAP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="4" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_NLM_LUMA_ADAP_GAIN_LUT" Type="eDBG_ITEM_TYPE_U8" M="64" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="48" Mask="0x1F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_REGION_ADAP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="7" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_NLM_REGION_ADAP_SIZE_CONFIG" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="8" Mask="0x20" />
+             <DBG_ITEM Name="DBG_IQ_NLM_SAD_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="12" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_SAD_SHIFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="11" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_DIST_WEIGHT_7X7" Type="eDBG_ITEM_TYPE_U8" M="9" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="128" Mask="0x1F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_WEIGHT_LUT" Type="eDBG_ITEM_TYPE_U8" M="32" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="16" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_POST_LUMA_ADAP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="4" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_NLM_POST_LUMA_ADAP_GAIN_LUT0" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="48" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_POST_LUMA_ADAP_GAIN_LUT0_MOTION" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_NLM_FIN_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="10" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_FIN_GAIN_MOTION" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_NLM_MAIN_SNR_LUT" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x1F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_WB_SNR_LUT" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x1F" />
+             <DBG_ITEM Name="DBG_IQ_NLM_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- XNR -->
+             <DBG_ITEM Name="DBG_IQ_XNR_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_XNR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="7" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_XNR_LPF_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="7" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_XNR_H_DN_SEL" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="7" Offset="2" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_XNR_DW_WINDOW" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="7" Offset="3" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_XNR_DW_TH_U" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="7" Offset="5" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_DW_TH_V" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="7" Offset="6" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_DW_TH_BND_U" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="7" Offset="7" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_DW_TH_BND_V" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="7" Offset="8" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="2" Bank="7" Offset="4" Mask="0x03" />
+             <DBG_ITEM Name="DBG_IQ_XNR_MEAN_YTH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="7" Offset="9" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_MEAN_UTH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="7" Offset="10" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_MEAN_VTH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="7" Offset="11" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_DUV_LW" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="7" Offset="18" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_DUV_GAP" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="7" Offset="20" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_XNR_MED_YTH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="7" Offset="12" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_MED_UTH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="7" Offset="14" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_MED_VTH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="7" Offset="16" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_XNR_CBCR_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="7" Offset="23" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_XNR_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- LDC -->
+             <DBG_ITEM Name="DBG_IQ_LDC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LDC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_LDC_422TO444MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="2" Bank="255" Offset="0" Mask="0x03" />
+             <DBG_ITEM Name="DBG_IQ_LDC_444TO422MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="2" Bank="255" Offset="0" Mask="0x1C" />
+             <DBG_ITEM Name="DBG_IQ_LDC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- GAMA_A2C_SC -->
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_LUT_R" Type="eDBG_ITEM_TYPE_U16" M="256" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_LUT_G" Type="eDBG_ITEM_TYPE_U16" M="256" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_LUT_B" Type="eDBG_ITEM_TYPE_U16" M="256" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_MAX_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_MAX_DATA" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="11" Offset="2" Mask="0x3FFC" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_DITHER_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="4" Mask="0x40" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_A2C_SC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- CCM -->
+             <DBG_ITEM Name="DBG_IQ_CCM_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_CCM_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_CCM_COEFF" Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="8191" Bank="11" Offset="12" Mask="0x1FFF" />
+             <DBG_ITEM Name="DBG_IQ_CCM_SAT_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_CCM_CCT_THR" Type="eDBG_ITEM_TYPE_U16" M="16" N="1" d4Value="0" i4Min="0" i4Max="10000" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_CCM_KEEP_HUE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="30" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_CCM_HUE_TH" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="11" Offset="31" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_CCM_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- HSV -->
+             <DBG_ITEM Name="DBG_IQ_HSV_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_HSV_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="10" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_HSV_HUE" Type="eDBG_ITEM_TYPE_U8" M="24" N="16" d4Value="1" i4Min="0" i4Max="255" Bank="10" Offset="1" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_HSV_SAT" Type="eDBG_ITEM_TYPE_U8" M="24" N="16" d4Value="1" i4Min="0" i4Max="255" Bank="10" Offset="25" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_HSV_ADJ" Type="eDBG_ITEM_TYPE_U8" M="24" N="1" d4Value="1" i4Min="0" i4Max="255" Bank="10" Offset="49" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_HSV_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- GAMAC2A_SC -->
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_LUT_R" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_LUT_G" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_LUT_B" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_MAX_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_MAX_DATA" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="11" Offset="2" Mask="0xFFC" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_DITHER_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="11" Offset="4" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_GAMA_C2A_SC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- R2Y -->
+             <DBG_ITEM Name="DBG_IQ_R2Y_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_R2Y_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="12" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_R2Y_COEFF" Type="eDBG_ITEM_TYPE_U16" M="9" N="1" d4Value="0" i4Min="0" i4Max="8191" Bank="12" Offset="12" Mask="0x1FFF" />
+             <DBG_ITEM Name="DBG_IQ_R2Y_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- TwoDPK -->
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_AC_YEE_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_H_LPF_COEF" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_V_LPF_COEF_1" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_V_LPF_COEF_2" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_OSD_SHARPNESS_CTRL" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_OSD_SHARPNESS_SEP_HV_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_OSD_SHARPNESS_CTRL_H" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_OSD_SHARPNESS_CTRL_V" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_OSD_SHARPNESS_CTRL_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_OSD_SHARPNESS_CTRL_H_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_OSD_SHARPNESS_CTRL_V_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_ALPHA_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_PEAKING_TERM_SELECT" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_OVER_LIMIT" Type="eDBG_ITEM_TYPE_U16" M="8" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_UNDER_LIMIT" Type="eDBG_ITEM_TYPE_U16" M="8" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_COEF_STEP" Type="eDBG_ITEM_TYPE_U8" M="12" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_CORING_THRD" Type="eDBG_ITEM_TYPE_U8" M="12" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_COEF" Type="eDBG_ITEM_TYPE_U16" M="12" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_ADAPTIVE_EN" Type="eDBG_ITEM_TYPE_U8" M="12" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_PEAKING_EN" Type="eDBG_ITEM_TYPE_U8" M="12" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_LOW_DIFF_THRD" Type="eDBG_ITEM_TYPE_U8" M="12" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_BAND_ADAPTIVE_GAIN_STEP" Type="eDBG_ITEM_TYPE_U8" M="12" N="16" d4Value="0" i4Min="0" i4Max="7" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_VER_LUT" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_HOR_LUT" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_DIA_LUT" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_COLOR_PEAKING_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_COLOR_CORING_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_THRD_2" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_THRD_1" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_THRD_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_ADP_Y_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_ADP_Y_ALPHA_LPF_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_Y_LOW_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_ADP_Y_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_CORING_ADP_Y_ALPHA_LUT" Type="eDBG_ITEM_TYPE_U8" M="8" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_ADP_Y_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_ADP_Y_ALPHA_LPF_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_Y_LOW_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_ADP_Y_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_ADP_Y_ALPHA_LUT" Type="eDBG_ITEM_TYPE_U8" M="8" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_TwoDPK_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- LCE -->
+             <DBG_ITEM Name="DBG_IQ_LCE_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_Y_AVE_SEL" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_STD_TH1" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_STD_SLOP1" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_STD_TH2" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_STD_SLOP2" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_GAIN_MIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_GAIN_MAX" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_GAIN_COMPLEX" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_DSW_MINSADGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_DSW_THRD" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_DSW_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_SODC_ALPHA_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_SODC_SLOP" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_SODC_LOW_TH" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_SODC_LOW_ALPHA" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_DITHER_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_COLOR_ALPHA_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_3CURVE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_CURVE" Type="eDBG_ITEM_TYPE_U16" M="4" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_CURVE_LUT1" Type="eDBG_ITEM_TYPE_U16" M="16" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_CURVE_LUT2" Type="eDBG_ITEM_TYPE_U16" M="16" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_CURVE_LUT3" Type="eDBG_ITEM_TYPE_U16" M="16" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_DIFF_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_COLOR_G_STRENGTH_LCE" Type="eDBG_ITEM_TYPE_U8" M="4" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_COLOR_G_SELECT_LCE" Type="eDBG_ITEM_TYPE_U16" M="4" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_LCE_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- DLC -->
+             <DBG_ITEM Name="DBG_IQ_DLC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_LEVEL_CTRL_BY_AE"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_LEVEL_MIN_MAX"  Type="eDBG_ITEM_TYPE_U8" M="2" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_CURVE_FIT_VAR_PW_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_CURVE_FIT_VAR_CP" Type="eDBG_ITEM_TYPE_U16" M="64" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_CURVE_FIT_TABLE" Type="eDBG_ITEM_TYPE_S16" M="66" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_IN_Y_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_IN_Y_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_IN_C_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_IN_C_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_OUT_Y_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_OUT_Y_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_OUT_C_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="2047" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_OUT_C_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_DLC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- UVC -->
+             <DBG_ITEM Name="DBG_IQ_UVC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOCATE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_RGB_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_DLC_FULLRANGE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_WHITE_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_WHITE_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_BLACK_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_BLACK_STEP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_GAIN_LOW" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_GAIN_MED" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_GAIN_HIGH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_ADAPTIVE_LUMA_Y_INPUT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_Y_SAT_PROT_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_SAT_PROT_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_SAT_PROT_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_SAT_MIN_STRENGTH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_SAT_PROT_SLOPE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_Y_PROT_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_Y_SEL" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_Y_PROT_THRD" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_Y_MIN_STRENGTH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LOW_Y_PROT_SLOPE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_LPF_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_GAIN_HIGH_LIMIT" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_GAIN_LOW_LIMIT" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_UVC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- IHC -->
+             <DBG_ITEM Name="DBG_IQ_IHC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_CBCR_TO_UV" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_HUE_USER_COLOR" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_Y_MODE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_Y_MODE_DIFF_COLOR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_HUE_USER_COLOR_0" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_HUE_USER_COLOR_1" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_HUE_USER_COLOR_2" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- ICC -->
+             <DBG_ITEM Name="DBG_IQ_ICC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_Y_MODE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_Y_MODE_DIFF_COLOR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SIGN_SA_USER" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_STEP_SA_USER" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_COMMON_MINUS_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SA_USER_COLOR" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SA_USER_COLOR_0" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SA_USER_COLOR_1" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SA_USER_COLOR_2" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SIGN_SA_USER_0" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SIGN_SA_USER_1" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SIGN_SA_USER_2" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="65535" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_SA_MIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ICC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- IBC -->
+             <DBG_ITEM Name="DBG_IQ_IBC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IBC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IBC_WEIGHT_Y_MIN_LIMIT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IBC_WEIGHT_C_MIN_LIMIT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IBC_YCOLOR_ADJ" Type="eDBG_ITEM_TYPE_U8" M="16" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IBC_CORING_THRD" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IBC_Y_ADJUST_LPF_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IBC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- IHCICC -->
+             <DBG_ITEM Name="DBG_IQ_IHCICC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_Y_0" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_Y_1" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_Y_2" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_Y_3" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_COLOR_Y_0" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_COLOR_Y_1" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_COLOR_Y_2" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_COLOR_Y_3" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_IHCICC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- FCC -->
+             <DBG_ITEM Name="DBG_IQ_FCC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_FR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_WIN1_DARK_MODE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_9T_FIRST_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_BDRY_DIST" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_WINEN" Type="eDBG_ITEM_TYPE_U8" M="9" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_WINCRDOWN" Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_WINCRUP" Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_WINCBDOWN" Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_WINCBUP" Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_WINGAIN" Type="eDBG_ITEM_TYPE_U8" M="9" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_CBTAR" Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_CRTAR" Type="eDBG_ITEM_TYPE_U16" M="9" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_ADP_Y_WIN_EN" Type="eDBG_ITEM_TYPE_U8" M="4" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_ADP_Y_WIN_NUM" Type="eDBG_ITEM_TYPE_U8" M="4" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_ADP_Y_LUT_WIN0" Type="eDBG_ITEM_TYPE_U8" M="17" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_ADP_Y_LUT_WIN1" Type="eDBG_ITEM_TYPE_U8" M="17" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_ADP_Y_LUT_WIN2" Type="eDBG_ITEM_TYPE_U8" M="17" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_ADP_Y_LUT_WIN3" Type="eDBG_ITEM_TYPE_U8" M="17" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_CB_T1_Y" Type="eDBG_ITEM_TYPE_U16" M="5" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_CR_T1_Y" Type="eDBG_ITEM_TYPE_U16" M="5" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_FCC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- ACK -->
+             <DBG_ITEM Name="DBG_IQ_ACK_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_C_COMP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_C_RANGE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="3" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_C_THRD" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_LIMIT" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_Y_SLOP" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="31" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_Y_THRD" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_OFFSET" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="15" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_MAIN_Y_SWITCH_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_U_SWITCH_COEF" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_V_SWITCH_COEF" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="63" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_CLAMP_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_CB_MAX_CLAMP" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_CB_MIN_CLAMP" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_CR_MAX_CLAMP" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_CR_MIN_CLAMP" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_Y_MAX_CLAMP" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_Y_MIN_CLAMP" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACK_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- YEE -->
+             <DBG_ITEM Name="DBG_IQ_YEE_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_EE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="28" Offset="71" Mask="0x04" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="28" Offset="70" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_YEE_Y_CLIP" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="28" Offset="55" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_DIR_THL" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="57" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_DIR_THW" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="28" Offset="58" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_DIR_THW" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="28" Offset="51" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_COF_DIR" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="53" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_COF_ALL" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="54" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_COR_PGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="59" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_COR_MGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="60" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_SCL_PGAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="28" Offset="61" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_SCL_MGAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="28" Offset="63" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_COF_ALL" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="28" Offset="65" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_COF_DIR" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="28" Offset="67" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_DTL_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="28" Offset="69" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_YEE_DTL_THL" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="4095" Bank="28" Offset="73" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_DTL_THW" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="28" Offset="75" Mask="0xF0" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EDGE_LV_BASE" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="4" Bank="28" Offset="72" Mask="0x70" />
+             <DBG_ITEM Name="DBG_IQ_YEE_COR_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="0" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_COR_P" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="5" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_COR_M" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="11" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_SCALE_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="17" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_SCALE_P" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="22" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_SCALE_M" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="28" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_ETC_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="34" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_ETC_P" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="39" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_ETC_M" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="45" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_DG_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="28" Offset="77" Mask="0x08" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_DIST_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="93" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_DIST_LUT_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="98" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_EE_VGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="89" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_EE_HGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="90" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_EE_NGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="91" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_EE_ZGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="92" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_YNR_EE_OPT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="3" Bank="28" Offset="78" Mask="0x30" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_HPF_ENG_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="63" Bank="28" Offset="104" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_BPF_ENG_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="63" Bank="28" Offset="105" Mask="0x3F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_SFT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="110" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_SBL_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="111" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_SBL_LUT_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="116" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_COR_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="122" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_COR_LUT_P" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="127" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_COR_LUT_N" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="133" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_SCA_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="139" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_SCA_LUT_P" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="144" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_SCA_LUT_N" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="150" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_GBL_PGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="106" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_GBL_NGAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="107" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_WA_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="108" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_WB_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="28" Offset="109" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_WA_CLIP_P" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="2047" Bank="28" Offset="156" Mask="0x7FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_WA_CLIP_M" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="2047" Bank="28" Offset="158" Mask="0x7FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_WB_CLIP_P" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="2047" Bank="28" Offset="160" Mask="0x7FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_EYEE_WB_CLIP_M" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="2047" Bank="28" Offset="162" Mask="0x7FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_Y2ES_EDGE_LMPT" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="28" Offset="164" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_Y2ES_EDGE_LMPM" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="4095" Bank="28" Offset="166" Mask="0xFFF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_OVERSHOOT_TH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="26" Offset="206" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_UNDERSHOOT_TH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="26" Offset="208" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YEE_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- ACLUT -->
+             <DBG_ITEM Name="DBG_IQ_ACLUT_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ACLUT_SRC_SEL" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="2" Bank="2" Offset="64" Mask="0x03" />
+             <DBG_ITEM Name="DBG_IQ_ACLUT_2DPK_LUT" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="2" Offset="32" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_ACLUT_2DPK_BASE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="66" Mask="0x30" />
+             <DBG_ITEM Name="DBG_IQ_ACLUT_YEE_LUT" Type="eDBG_ITEM_TYPE_U16" M="16" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="2" Offset="0" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_ACLUT_YEE_BASE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="2" Offset="65" Mask="0x0C" />
+             <DBG_ITEM Name="DBG_IQ_ACLUT_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- WDR_GBL -->
+             <DBG_ITEM Name="DBG_IQ_WDR_GBL_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_SMOOTH_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_BASE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="12" Bank="27" Offset="2" Mask="0x3C" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_LW" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="3" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_HI" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="5" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_WEIGHT" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="27" Offset="7" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_CURVE_X" Type="eDBG_ITEM_TYPE_U8" M="20" N="1" d4Value="0" i4Min="0" i4Max="255" Bank="27" Offset="8" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GAIN_CURVE" Type="eDBG_ITEM_TYPE_U16" M="21" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="28" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GBL_UVTBL0_X" Type="eDBG_ITEM_TYPE_U8" M="8" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="70" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GBL_UVTBL0_Y" Type="eDBG_ITEM_TYPE_U16" M="9" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="78" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GBL_UVTBL1_X" Type="eDBG_ITEM_TYPE_U8" M="8" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="96" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GBL_UVTBL1_Y" Type="eDBG_ITEM_TYPE_U16" M="9" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="104" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GBL_CBCR_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="122" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_WDR_GBL_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- WDR_LOC -->
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_DIFF_Y_SEL" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_DIFF_Y_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_DIFF_Y_X" Type="eDBG_ITEM_TYPE_U8" M="9" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="2" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_DIFF_Y_LUT" Type="eDBG_ITEM_TYPE_U8" M="10" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="11" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="27" Offset="21" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_WIN_WIDTH" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8191" Bank="27" Offset="23" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_WIN_HEIGHT" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="8191" Bank="27" Offset="25" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_VALID_X" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="27" Offset="27" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_VALID_Y" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="27" Offset="28" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_CNT_CUR0" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="27" Offset="29" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_CNT_CUR1" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="27" Offset="31" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_CNT_CUR2" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="27" Offset="33" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_CNT_CUR3" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="27" Offset="35" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_BIN_CUR_0" Type="eDBG_ITEM_TYPE_U16" M="5" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="27" Offset="37" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_BIN_CUR_1" Type="eDBG_ITEM_TYPE_U16" M="5" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="27" Offset="47" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_BIN_CUR_2" Type="eDBG_ITEM_TYPE_U16" M="5" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="27" Offset="57" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_BIN_CUR_3" Type="eDBG_ITEM_TYPE_U16" M="5" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="27" Offset="67" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_TMP_MAX_SHADE_GAIN" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="77" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_GAIN_HI" Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="79" Mask="0x1FFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_GAIN_L" Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="82" Mask="0x1FFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_HE_GAIN_WEIGHT" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="27" Offset="85" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_UVTBL0_X" Type="eDBG_ITEM_TYPE_U8" M="8" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="27" Offset="87" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_UVTBL0_Y" Type="eDBG_ITEM_TYPE_U16" M="9" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="95" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_UVTBL1_X" Type="eDBG_ITEM_TYPE_U8" M="8" N="1" d4Value="0" i4Min="0" i4Max="15" Bank="27" Offset="113" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_UVTBL1_Y" Type="eDBG_ITEM_TYPE_U16" M="9" N="1" d4Value="0" i4Min="0" i4Max="65535" Bank="27" Offset="121" Mask="0xFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_CBCR_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="27" Offset="22" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_GAIN_TBL" Type="eDBG_ITEM_TYPE_U32" M="324" N="1" d4Value="1024" i4Min="1024" i4Max="65535" Bank="255" Offset="0" Mask="0xFFFFFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_TAR_TBL" Type="eDBG_ITEM_TYPE_U32" M="324" N="1" d4Value="1024" i4Min="1024" i4Max="65535" Bank="255" Offset="0" Mask="0xFFFFFFFF" />
+             <DBG_ITEM Name="DBG_IQ_WDR_LOC_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- ADJUV -->
+             <DBG_ITEM Name="DBG_IQ_ADJUV_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_YUV_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="6" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_UV_BY_Y_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="6" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_UV_BY_S_OPT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="2" Bank="6" Offset="2" Mask="0x0C" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_Y_OPT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="6" Offset="3" Mask="0x10" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_YUV_OPT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="2" Bank="6" Offset="4" Mask="0x60" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_YUV_IN_SIGH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="6" Offset="5" Mask="0x80" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_UV_BY_Y_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="8" Bank="6" Offset="6" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_UV_BY_UV_SHT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="8" Bank="6" Offset="11" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_YUV_Y_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="8" Bank="6" Offset="16" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_YUV_UV_SFT_X" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="8" Bank="6" Offset="21" Mask="0x0F" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_U_BY_Y_TBL_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="6" Offset="26" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_V_BY_Y_TBL_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="6" Offset="32" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_U_BY_UV_TBL_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="6" Offset="38" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_V_BY_UV_TBL_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="6" Offset="44" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_YUV_Y_TBL_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="6" Offset="50" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_YUV_UV_TBL_Y" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="6" Offset="56" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_CORING_UV_BY_UV" Type="eDBG_ITEM_TYPE_U8" M="6" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="6" Offset="62" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_ADJUV_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- MXNR -->
+             <DBG_ITEM Name="DBG_IQ_MXNR_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="5" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_IN_SIGH" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="5" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_MATCH_CNT" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="5" Offset="2" Mask="0x7F" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_UTH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="5" Offset="4" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_VTH" Type="eDBG_ITEM_TYPE_U16" M="1" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="5" Offset="6" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_CNT_TH" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="255" Bank="5" Offset="3" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_WEI_Y" Type="eDBG_ITEM_TYPE_U16" M="6" N="16" d4Value="0" i4Min="0" i4Max="511" Bank="5" Offset="8" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_MXNR_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- YUVGAMA -->
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_CBCR_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_LUT_Y" Type="eDBG_ITEM_TYPE_U16" M="256" N="16" d4Value="0" i4Min="0" i4Max="1023" Bank="255" Offset="0" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_LUT_U" Type="eDBG_ITEM_TYPE_U16" M="128" N="16" d4Value="0" i4Min="0" i4Max="511" Bank="255" Offset="0" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_LUT_V" Type="eDBG_ITEM_TYPE_U16" M="128" N="16" d4Value="0" i4Min="0" i4Max="511" Bank="255" Offset="0" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_MAX_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="2" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_MAX_Y" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1023" Bank="26" Offset="3" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_MAX_U" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="26" Offset="5" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_MAX_V" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="511" Bank="26" Offset="7" Mask="0x1FF" />
+             <DBG_ITEM Name="DBG_IQ_YUVGAMA_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- YCUVM10 -->
+             <DBG_ITEM Name="DBG_IQ_YCUVM10_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_YC10_BYPASS_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_YC10_CBCR_MODE" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_YC10_GAIN" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="26" Offset="3" Mask="0x7F" />
+             <DBG_ITEM Name="DBG_IQ_YC10_OFFSET" Type="eDBG_ITEM_TYPE_U8" M="1" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="26" Offset="2" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_UVM10_M" Type="eDBG_ITEM_TYPE_U8" M="4" N="16" d4Value="0" i4Min="0" i4Max="127" Bank="26" Offset="4" Mask="0xFF" />
+             <DBG_ITEM Name="DBG_IQ_YCUVM10_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <!-- COLORTRANS -->
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_MIX_EN" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="0" Mask="0x01" />
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_PREOFFSET" Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="1" Mask="0x02" />
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_M" Type="eDBG_ITEM_TYPE_S16" M="9" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="2" Mask="0x3FF" />
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_Y_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="20" Mask="0x7FF" />
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_U_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="22" Mask="0x7FF" />
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_V_OFFSET" Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Bank="26" Offset="24" Mask="0x7FF" />
+             <DBG_ITEM Name="DBG_IQ_COLORTRANS_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Bank="255" Offset="0" Mask="0x00" />
+
+             <!-- i3 end-->
+
+             <DBG_ITEM Name="DBG_IQ_TC_INFO_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_TC_EN" Type="eDBG_ITEM_TYPE_U8" M="16" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_TC_GAIN" Type="eDBG_ITEM_TYPE_U32" M="16" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_TC_TEMPTURE" Type="eDBG_ITEM_TYPE_U8" M="16" N="1" d4Value="1" i4Min="0" i4Max="200" />
+             <DBG_ITEM Name="DBG_IQ_TC_SATURATION" Type="eDBG_ITEM_TYPE_U8" M="16" N="1" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_OB" Type="eDBG_ITEM_TYPE_U8" M="16" N="1" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_CROSSTALK" Type="eDBG_ITEM_TYPE_U8" M="16" N="1" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_DYNAMICDP" Type="eDBG_ITEM_TYPE_U8" M="16" N="1" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_NR3D" Type="eDBG_ITEM_TYPE_U8" M="16" N="1" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_NR2D" Type="eDBG_ITEM_TYPE_U8" M="2" N="16" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_SHARPNESS" Type="eDBG_ITEM_TYPE_U8" M="3" N="16" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_COLORTONE" Type="eDBG_ITEM_TYPE_U8" M="3" N="16" d4Value="1" i4Min="0" i4Max="100" />
+             <DBG_ITEM Name="DBG_IQ_TC_INFO_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+
+             <DBG_ITEM Name="DBG_IQ_ITP_START" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_DECOMP" Type="eDBG_ITEM_TYPE_U8" M="17" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_FPN" Type="eDBG_ITEM_TYPE_U8" M="14" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_FPN_P1" Type="eDBG_ITEM_TYPE_U8" M="14" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_OBC" Type="eDBG_ITEM_TYPE_U8" M="11" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_OBC_P1" Type="eDBG_ITEM_TYPE_U8" M="11" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_GAMA_16to16_ISP" Type="eDBG_ITEM_TYPE_U8" M="7" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_GAMA_C2C_P1_ISP" Type="eDBG_ITEM_TYPE_U8" M="7" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_LSC" Type="eDBG_ITEM_TYPE_U8" M="10" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_LSC_P1" Type="eDBG_ITEM_TYPE_U8" M="10" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_ALSC" Type="eDBG_ITEM_TYPE_U8" M="15" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_ALSC_P1" Type="eDBG_ITEM_TYPE_U8" M="15" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_HDR" Type="eDBG_ITEM_TYPE_U8" M="26" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_HDR_16to10" Type="eDBG_ITEM_TYPE_U8" M="10" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_DPC" Type="eDBG_ITEM_TYPE_U8" M="54" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_GE" Type="eDBG_ITEM_TYPE_U8" M="7" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_ANTICT" Type="eDBG_ITEM_TYPE_U8" M="4" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_RGBIR" Type="eDBG_ITEM_TYPE_U8" M="15" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_SpikeNR" Type="eDBG_ITEM_TYPE_U8" M="20" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_SDC" Type="eDBG_ITEM_TYPE_U8" M="3" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_BSNR" Type="eDBG_ITEM_TYPE_U8" M="15" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_NM" Type="eDBG_ITEM_TYPE_U8" M="11" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_DM" Type="eDBG_ITEM_TYPE_U8" M="11" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_PostDN" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_FalseColor" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_GAMA_A2A_ISP" Type="eDBG_ITEM_TYPE_U8" M="7" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_MCNR" Type="eDBG_ITEM_TYPE_U8" M="55" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_NLM" Type="eDBG_ITEM_TYPE_U8" M="25" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_XNR" Type="eDBG_ITEM_TYPE_U8" M="19" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_LDC" Type="eDBG_ITEM_TYPE_U8" M="4" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_GAMA_A2C_SC" Type="eDBG_ITEM_TYPE_U8" M="8" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_CCM" Type="eDBG_ITEM_TYPE_U8" M="7" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_HSV" Type="eDBG_ITEM_TYPE_U8" M="5" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_GAMA_C2A_SC" Type="eDBG_ITEM_TYPE_U8" M="8" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_R2Y" Type="eDBG_ITEM_TYPE_U8" M="3" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_TwoDPK" Type="eDBG_ITEM_TYPE_U8" M="42" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_LCE" Type="eDBG_ITEM_TYPE_U8" M="27" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_DLC" Type="eDBG_ITEM_TYPE_U8" M="13" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_UVC" Type="eDBG_ITEM_TYPE_U8" M="27" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_IHC" Type="eDBG_ITEM_TYPE_U8" M="9" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_ICC" Type="eDBG_ITEM_TYPE_U8" M="15" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_IBC" Type="eDBG_ITEM_TYPE_U8" M="7" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_FCC" Type="eDBG_ITEM_TYPE_U8" M="22" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_ACK" Type="eDBG_ITEM_TYPE_U8" M="19" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_YEE" Type="eDBG_ITEM_TYPE_U8" M="59" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_ACLUT" Type="eDBG_ITEM_TYPE_U8" M="6" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_WDR_GBL" Type="eDBG_ITEM_TYPE_U8" M="14" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_WDR_LOC" Type="eDBG_ITEM_TYPE_U8" M="25" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_ADJUV" Type="eDBG_ITEM_TYPE_U8" M="18" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_MXNR" Type="eDBG_ITEM_TYPE_U8" M="8" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_YUVGAMA" Type="eDBG_ITEM_TYPE_U8" M="10" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_YCUVM10" Type="eDBG_ITEM_TYPE_U8" M="6" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_COLORTRANS" Type="eDBG_ITEM_TYPE_U8" M="7" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_TEMPTURE" Type="eDBG_ITEM_TYPE_U8" M="12" N="1" d4Value="0" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_ITP_END" Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" />
+             <DBG_ITEM Name="DBG_IQ_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" />
+        </IQ>
+</ISP_DBG_ITEM>

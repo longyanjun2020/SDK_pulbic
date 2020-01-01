@@ -1,0 +1,229 @@
+//==============================================================================
+//
+//  File        : sys_task_cpub.c
+//  Description : Main entry function for CPU_B
+//  Author      : Chiket Lin
+//  Revision    : 1.0
+//
+//==============================================================================
+
+#include <stdio.h>
+#include <stdarg.h>
+#include "includes_fw.h"
+#include "config_fw.h"
+
+#include "mmpf_pll.h"
+#include "cpucomm.h"
+#include "cpucomm_bus.h"
+#include "dualcpu_sysflag.h"
+#include "cpub_task_cfg.h"
+
+
+/** @addtogroup MMPF_SYS
+@{
+*/
+
+//==============================================================================
+//
+//                              VARIABLES
+//
+//==============================================================================
+
+// Task CpuBSysStartup Stack
+OS_STK CpubStartupStk[TASK_B_SYS_STK_SIZE];
+
+
+//==============================================================================
+//
+//                              FUNCTION PROTOTYPES
+//
+//==============================================================================
+
+
+//==============================================================================
+//
+//                              FUNCTIONS
+//
+//==============================================================================
+//------------------------------------------------------------------------------
+//  Function    : __UartWrite
+//  Description : Low level UART function for debug
+//------------------------------------------------------------------------------
+void __UartWrite( const char *pWrite_Str )
+{
+#if 0
+    MMP_ULONG   txcnt;
+    AITPS_UARTB pUART = AITC_BASE_UARTB;
+    AITPS_US    pUS = &pUART->UART_0;
+
+    unsigned long ulLength = strlen(pWrite_Str);
+
+    while (ulLength) {
+        txcnt = (pUS->US_FSR & US_TX_FIFO_UNWR_MASK) >> 8;
+
+        if (txcnt) {
+            pUS->US_TXPR = *pWrite_Str++;
+
+            ulLength --;
+        }
+    }
+#endif    
+}
+
+//------------------------------------------------------------------------------
+//  Function    : printc
+//  Description : this is a print function for CPU B with uC/OS2
+//------------------------------------------------------------------------------
+void printc( char* szFormat, ... )
+{
+    va_list arg_list;
+
+	// Output buffer to UART 
+	char  szOutput[64];
+
+	va_start(arg_list, szFormat);
+	vsnprintf(szOutput, 64-1, szFormat, arg_list);
+    va_end(arg_list);
+
+    __UartWrite(szOutput);
+}
+
+
+//------------------------------------------------------------------------------
+//  Function    : CpuBSysStartup
+//  Description : This is the SYS startup task
+//------------------------------------------------------------------------------
+#if 1
+void CpuBSysStartup(void *p_arg)
+{
+    AITPS_CORE  pCORE = AITC_BASE_CORE;
+
+    // Initial CpuComm services for in CPU B
+    if( CpuComm_Init() != CPU_COMM_ERR_NONE )
+    {
+        __UartWrite( "Comm Failed\r\n" );
+
+        // Disable clk of CPU B
+        pCORE->CORE_B_CFG |= CPU_RST_EN;
+
+        return;
+    }
+
+    CpuComm_Start();
+
+    // CPU B trigger a flag to notify CPU A that the init is done
+    DualCpu_SysFlag_CpuBInitDone();
+
+    // Wait terminate flag from CPU A
+    DualCpu_SysFlag_WaitTerminateCmd();
+
+    // Destroy CpuComm service on CPU B
+    CpuComm_Destroy();
+
+    // Disable clk of CPU B
+    pCORE->CORE_B_CFG |= CPU_RST_EN;
+}
+#else
+#include "CpuIrqTest.c"
+
+void CpuB_SysStartup(void)
+{
+    __TriggerCpuATest();
+}
+#endif
+
+
+//------------------------------------------------------------------------------
+//  Function    : main
+//  Description : This is the standard entry point for C and CRT
+//                initialization is done before calling main()
+//------------------------------------------------------------------------------
+int main (void)
+{
+    MMPF_TASK_CFG   task_cfg;
+
+    // Init PLL variable only
+    MMPF_PLL_Initialize();
+
+    // Init MMU
+    MMPF_MMU_Initialize((MMP_ULONG *)MMU_TRANSLATION_TABLE_ADDR,(MMP_ULONG *)MMU_COARSEPAGE_TABLE_ADDR);
+
+    // Init BSP functions
+    MMPF_BSP_Initialize();
+
+    // Init OS wrapper
+    MMPF_OS_Initialize();
+
+    // init timer handler
+    MMPF_BSP_InitializeTimer();
+
+    // User specified data
+    // Task Table Initialization
+    //[TODO] It can do initialization at CRT if CRT exists.
+    task_cfg.ubPriority = TASK_B_SYS_PRIO;
+    task_cfg.pbos = (MMP_ULONG)&CpubStartupStk[0];
+    task_cfg.ptos = (MMP_ULONG)&CpubStartupStk[TASK_B_SYS_STK_SIZE-1];
+    MMPF_OS_CreateTask(CpuBSysStartup, &task_cfg, (void *)0);
+
+    MMPF_OS_StartTask();                                    // Start multitasking (i.e. give control to uC/OS-II)
+}
+
+//------------------------------------------------------------------------------
+//  Function    : __initial_stackheap
+//  Description : This is the default stack/heap initialization function
+//------------------------------------------------------------------------------
+#pragma import (__use_no_semihosting_swi)
+
+#include <rt_misc.h>
+
+extern unsigned int Load$$TCM_END$$Base;
+extern unsigned int Image$$ALL_DRAM$$ZI$$Limit;
+
+__value_in_regs struct __initial_stackheap
+__user_initial_stackheap(unsigned R0, unsigned SP, unsigned R2, unsigned SL)
+{
+    struct __initial_stackheap config;
+
+    config.stack_base = (unsigned int)&Load$$TCM_END$$Base; // the end address of TCM
+    config.heap_base = (unsigned int)&Image$$ALL_DRAM$$ZI$$Limit;
+
+    return config;
+}
+
+void _sys_exit(int return_code)
+{
+
+}
+
+void _ttywrch(int ch)
+{
+
+}
+
+void __assert(const char *expr, const char *file, int line)
+{
+}
+
+
+// Becase CPU B can't use UART via mmpf_uart.c directly, create temp functions here
+void RTNA_DBG_Str(MMP_ULONG level, const char *str)
+{
+    // __UartWrite( str );
+}
+
+void RTNA_DBG_Byte(MMP_ULONG level, MMP_UBYTE val)
+{
+    //
+}
+
+void RTNA_DBG_Long(MMP_ULONG level, MMP_ULONG val)
+{
+    //
+}
+
+void RTNA_DBG_Dec(MMP_ULONG level, MMP_ULONG val)
+{
+
+}
+
+/// @}

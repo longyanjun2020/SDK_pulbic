@@ -1,0 +1,243 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_ctrl.ht                                                   */
+/*--------------------------------------------------------------------------*/
+/* Scope    : structures for the signal controller                          */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 08/01/04 |  MSE   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_ctrl.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.9            | Resolution for 29537: Sleep mode im
+ *          |        |                | plementation (adaptation for MUX as
+ *          |        |                |  well as multi-Uart)  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.7            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 17.06.05 | pmr    | 1.6            | Resolution for 29035: Flow control 
+ *          |        |                | methods (RX/TX) aren't stored in E2
+ *          |        |                | P after an AT&W command  .         
+ *----------+--------+----------------+-------------------------------------
+ * 01.04.05 | pmr    | 1.5            | Resolution for 28181: [V24]: v24 fo
+ *          |        |                | r X55 WP3 fixed  .                 
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.4            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.3            | Resolution for 27895: Bluetooth SIL
+ *          |        |                |  - V24 integration  .              
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+
+#ifndef __SYS_V24_CTRL_HT__
+#define __SYS_V24_CTRL_HT__
+
+#include "sys_v24_uart.ht"
+
+
+typedef struct
+{
+  u32   UartMsr;
+  u32   TxBarringStatus;
+  u32   TxFlowControlMethod;
+  u32   RxFlowControlMethod;
+}v24_MsrState_t;
+
+typedef struct
+{
+  u8    LogiMsr;
+  bool  LogiFC;
+}v24_LogiSigState_t;
+
+typedef struct
+{
+  u8                  NbOverruns;
+  bool                UartRxBreak;
+  v24_TxBreakState_t  UartTxBreakState;
+}v24_LsrState_t;
+
+typedef struct
+{
+  v24_DTR_Mode_t  v24_DtrMode;
+  v24_DSR_Mode_t  v24_DsrMode;
+  v24_DCD_Mode_t  v24_DcdMode;
+}v24_DcdDtrDsrMode_t;
+
+
+typedef struct
+{
+  bool Activated;     // For physical / logical switching
+
+  u32  Port;          // routage port
+  u32  CrossPort;     // Port masked with V24_PORT_MASK (mux,rel,pal) for cross table with id
+  u8   PhysicalPort;  // Physical Port 1,2,3
+  u8   LogicalPort;   // 1,2,3 or 4 
+  
+  u8   HubLayer;      // Hub  layer registered or not
+  u8   HapcLayer;     // Hapc layer registered or not
+  u8   MuxLayer;      // Mux  layer registered or not
+  u8   RelLayer;      // Rel  layer registered or not
+  u8   PalLayer;      // Pal  layer registered or not
+
+  u8   DataLayer;     // Data layer registered or not
+  u8   AtLayer;       // At   layer registered or not
+
+} v24_CtrlRegisterLayerMatrix_t;
+
+
+typedef struct
+{
+  u8                             NbPortRegistered;
+  u8                             NbLogicalPortRegistered[V24_PHY_CHANNEL_MAX];
+
+  v24_CtrlRegisterLayerMatrix_t  Matrix[V24_MAX_PORT_CONNECTED];
+  
+} v24_CtrlRegisterLayerContext_t;
+
+
+typedef enum
+{
+  V24_CTRL_LAYER_PAL           = 1,
+  V24_CTRL_LAYER_REL           = 2,
+  V24_CTRL_LAYER_MUX_STARTSTOP = 3,
+  V24_CTRL_LAYER_MUX           = 4,
+  V24_CTRL_LAYER_HAPC          = 5,
+  V24_CTRL_LAYER_HUB           = 6,
+  V24_CTRL_LAYER_DATA          = 7,
+  V24_CTRL_LAYER_AT            = 8,
+  V24_CTRL_LAYER_DEFAULT       = 9,
+  V24_CTRL_LAYER_REL_STARTSTOP = 10,
+  V24_CTRL_LAYER_MAX_ID        = 11
+
+} v24_CtrlRegisterLayerType_e;
+
+
+typedef enum
+{
+  V24_SET_SIG_DTR,                // Set output DTR
+  V24_SET_SIG_DCD,                // Set output DCD
+  V24_SET_SIG_RI,                 // Set output RI
+  V24_PULSE_SIG_RI,               // Set output RI PULSE
+  V24_PULSE_SIG_RI_WIDTH,         // Resize the RI pulse width
+  V24_SET_SIG_BREAK,              //
+  V24_SET_SIG_RXTXFC_METHOD, 
+  V24_SET_SIG_RX_FC,
+  V24_SET_SIG_SPEED,              // Set the Speed rate
+  V24_SET_SIG_FRAMING,            // Set the framing type
+  V24_SET_SIG_RX_MAX_FRAME_SIZE,
+  V24_SET_ALL_V24SIG,
+  V24_SET_SIG_SLEEP_MODE          // Order Port to enter Sleep Mode
+}
+ev24_SetSig_t;
+
+typedef enum
+{
+  V24_IND_TX_FC,               // Ind on RTS (Flow control on/off)
+  V24_IND_DSR,                 // Ind on DSR change 
+  V24_IND_PARITY_ERROR,        // Ind on parity error (not used yet)
+  V24_IND_FRAMING_ERROR,       // Ind on framing error (not used yet)
+  V24_IND_BREAK,               // Ind on break interrupt
+  V24_IND_TX_MAX_FRAME_SIZE,   // Ind on max frame size (not used yet)
+  V24_IND_SLEEP_MODE_READY,    // Ind on Sleep Mode Ready
+  V24_IND_SLEEP_MODE_PROTO_WAKEUP  // Protocol BT/MUX wakeup frame
+}
+ev24_EventInd_t;
+
+
+
+typedef enum
+{
+  V24_PROTO_WAKEUP_NONE,
+  V24_PROTO_WAKEUP_START,    //  
+  V24_PROTO_WAKEUP_END       // Protocol WakeUp procedure completed
+}
+ev24_ProtoWakeUpState_e;
+
+
+typedef enum
+{
+  V24_GET_SIG_CTS,
+  V24_GET_SIG_DSR,
+  V24_GET_SIG_SPEED,
+  V24_GET_SIG_FRAMING,
+  V24_GET_SIG_FC_METHOD
+}
+ev24_LayerSigGet_t;
+
+//V24 upper layer give some data to send over ...
+typedef TxPal_status_e ( *v24_LayerSendBlock_t )(v24_TxBlock_t *Block, void* context); 
+
+//Lower Layer give received data from its Layer to uppe layer
+typedef u16 ( *v24_LayerReadData_t )( u8 *Buf, u16 PurgeIndex, u16 FillIndex, void* context); 
+
+typedef void (*v24_LayerSetSig_t)  ( ev24_SetSig_t SetSig_type, u32 Param, void* context );
+// param u32 to be mapped on specific type depending on SetSig_type
+
+typedef void (*v24_LayerEventInd_t)( ev24_EventInd_t IndType, u32 Param, void* context);
+// Return Value u32 is to be mapped on specific type depending on IndType
+
+typedef u32  (*v24_LayerGetSig_t)( ev24_LayerSigGet_t GetType, void* context);
+// Return Value u32 is to be mapped on specific type depending on IndType
+
+typedef void (*v24_LayerDestructor_t)( void* context );
+
+typedef enum
+{
+  V24_LAYER_SEND_BLOCK,
+  V24_LAYER_READ_DATA,
+  V24_LAYER_SET_SIG,
+  V24_LAYER_EVENT_IND,
+  V24_LAYER_GET_SIG,
+  V24_LAYER_DESTRUCTOR,
+  V24_LAYER_SERVICES_MAX
+}
+ev24_CtrlServices_t;
+  
+typedef struct 
+{
+  v24_LayerSendBlock_t  v24_LayerSendBlock;
+  v24_LayerReadData_t   v24_LayerReadBlock;
+  v24_LayerSetSig_t     v24_LayerSetSig;
+  v24_LayerEventInd_t   v24_LayerEventInd;
+  v24_LayerGetSig_t     v24_LayerGetSig;
+  v24_LayerDestructor_t v24_LayerDestructor;
+}
+v24_CtrlServices_t;
+
+#endif
+

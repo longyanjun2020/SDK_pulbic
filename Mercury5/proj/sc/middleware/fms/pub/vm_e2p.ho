@@ -1,0 +1,212 @@
+/**
+ * \page EEPROM Pseudo EEPROM Public Interface
+ * 
+ *
+ * \section intro_sec Introduction
+ *
+ * This document describes the Pseudo EEPROM Public Interface
+ *
+ *  <hr>
+ * \section SectionMMI2EEPROM 1. Application/Middleware to EEPROM Interface
+ *
+ * \li \ref vm_e2pRead
+ * \li \ref vm_e2pWrite
+ * \li \ref vm_e2pRestore
+ * \li \ref vm_e2pBuildCustomerMirror
+ * \li \ref vm_e2pSaveOneParameter
+ * \li \ref vm_e2pSaveParameters
+ * \li \ref vm_e2pAddParamToContainer
+ * \li \ref vm_e2pSetProtection
+ * \li \ref vm_e2pUnsetProtection
+ *
+ *  <hr>
+ * \section Usage 2. Usage
+ *
+ * \subsection ReadWrite 2.1. Read/Write
+ *
+ *  The client can either call \ref vm_e2pRead or \ref vm_e2pWrite to read or write one EEPROM parameter.
+ *  The two first arguments of these functions are the address and the size (in bytes) of the parameter to Read or Write.
+ *  But in fact, the client must use a defined macro instead of these parameters. The list of macros can be found in:
+ *  \li vm_e2p_lib.ho: for middleware parameters: for example, if the client wants to read the parameter \a E2P_MICGAIN
+ *                     he should call \ref vm_e2pRead(\a E2P_MICGAIN, &MicGain);
+ *  \li vm_e2p_stack.ho: for stack parameters that can be Read Only or Modified (depending of the stack permission) by the Middleware 
+ *                     or the Application : 
+ *                     for example, if the client wants to read the parameter \a VM_E2P_V24_SPEED
+ *                     he should call \ref vm_e2pRead(\a VM_E2P_V24_SPEED, &V24Speed);
+ *  \li wmh_e2p_stack.ho: for stack parameters that can be Read Only or Modified (depending of the stack permission) by the Middleware only: 
+ *                     for example, if the middleware wants to read the parameter \a VM_E2P_CUSTOMER_FEATURES
+ *                     he should call \ref vm_e2pRead(\a VM_E2P_CUSTOMER_FEATURES, &MicGain);
+ *
+ * \subsection Mirroring 2.2. Mirroring
+ *
+ *  There are two available mirrors for EEPROM parameters. The first one, called Factory Mirror, is build automatically by the stack at
+ *  the first startup of the handset after having downloaded the stack parameters. The second One, called Customer Mirror, can be build 
+ *  on Application demand (by \ref vm_e2pBuildCustomerMirror)
+ *
+ *  If the client wants to update the customer (if it already exists) and the factory mirrors, he can either call \ref vm_e2pSaveOneParameter
+ *  for all the parameters he wants to update, or do as in the following example (for 2 parameters called \a E2P_DUMMY1 and \a E2P_DUMMY2): \n
+ *    \ref VM_E2P_PARAMETER_LIST (2, params); \n
+ *    \ref vm_e2pAddParamToContainer (E2P_DUMMY1, &params); \n
+ *    \ref vm_e2pAddParamToContainer (E2P_DUMMY2, &params); \n
+ *    \ref vm_e2pSaveParameters (&params); \n
+ *
+ *  If the client wants to delete the Customer mirror in order to use the Factory mirror, he can call \ref vm_e2pRestore
+ *   
+ * \subsection Protection 2.3. Protection
+ *
+ *  Some critical Stack EEPROM parameters are protected. Which means that by default they can only be read. Before over-writing them, 
+ *  the client must call \ref vm_e2pUnsetProtection. Then he can use \ref vm_e2pWrite. Atfer modification, the client should call 
+ *  \ref vm_e2pSetProtection. If this way of operating is not followed, at the next start-up the Pseudo-EEPROM checksum won't be good, 
+ *  so the factory mirror will be restored
+ *
+ *  <hr>
+ *  \section Notes 3. Notes
+ *
+ * 
+ *   
+ */
+
+
+/*!
+ * \file  vm_e2p.ho
+ * \brief Application/Middleware to pseudo EEPROM
+ *
+ *  This file defines the Pseudo EEPROM public interface that is offered to the Application and to the Middleware.
+ *
+ *  The interface allows to :
+ *   \li read and write pseudo EEPROM parameters
+ *   \li save pseudo EEPROM parameters in factory or customer mirrors.
+ *   \li create a customer mirror
+ *   \li protect and unprotect some critical EEPROM parameters when they need to be modified
+ *
+ */
+ 
+/**
+ * \addtogroup API
+ * @{
+ */
+
+#ifndef __VM_E2P_HO__
+#define __VM_E2P_HO__     
+
+#include "vm_types.ht"
+#include "mdl_vm_e2p.h"
+
+/****************************************************************************/
+/* SOME DEFINITIONS...                                                      */
+/****************************************************************************/
+//#define __E2P_INDEX_SYM__
+/* macro with funny spelling */
+#if defined (__E2P_INDEX_SYM__) && defined(__TARGET__)
+#define AREA_MASK 0xFFFF0000
+#define E2P_READ_ALLOWED   0x2
+#define E2P_WRITE_ALLOWED  0x4
+
+/* Added mar 15 jui 2003 10:26:15 CEST */
+#define E2P_SAVE_ALLOWED   0x8 /* means that the parameter can be saved in the mirrors */
+
+typedef struct
+{
+  u32 u32_Address;
+  u16 u16_RedundantSize;
+  /*u16*/u32 u16_Offset;
+  u16 u16_Size;
+  u16 u16_Rights;
+} EepromParameter_t;
+#endif
+#ifdef __E2P_INDEX_SYM__
+
+#ifdef __TARGET__
+#define E2P_EXT_SYMBOL(value)	  (u32)((u8 *)&E2P_SYM_## value)
+#else
+#define E2P_EXT_SYMBOL(value)	  (u32)(E2P_SYM_## value)
+#endif
+#endif
+#define VM_E2P_ADRESS(_AREA_ ,_AREA_STRUCT_, _FIELD_)   (u32) (((u8*)&(((_AREA_STRUCT_ *) _AREA_)->_FIELD_))-((u8*)0))
+
+/* masks */
+#define VM_E2P_STACK_FOR_CUST_AREA     0x09000000  ///< Stack EEPROM parameters that can be accessed by the Application
+#define VM_E2P_LIB_AREA                0x0A000000  ///< Middleware EEPROM parameters
+#define VM_E2P_APPL_AREA               0x0B000000  ///< Application EEPROM parameters
+
+/* max sizes */
+#ifndef __NAND__
+#define VM_E2P_STACK_MAX_SIZE          0x19D0
+#define VM_E2P_LIB_MAX_SIZE            0x4B0//0x400(Boundary adjustment) /*   1 Kbytes for LIB */
+#define VM_E2P_APP_MAX_SIZE            0x170//0x200(Boundary adjustment) /* 0,5 Kbytes for APP */
+#else
+#define VM_E2P_STACK_MAX_SIZE          0x5800
+#define VM_E2P_LIB_MAX_SIZE            0x0800//0x400(Boundary adjustment) /*   1 Kbytes for LIB */
+#define VM_E2P_APP_MAX_SIZE            0x0800//0x200(Boundary adjustment) /* 0,5 Kbytes for APP */
+#endif
+
+/****************************************************************************/
+/*     Common DEFINITIONS and STRUCTURES                                       */
+/****************************************************************************/
+#define E2P_DIM_PRODDATA               49
+#define E2P_DIM_GREETING               49
+#define E2P_DIM_GREETING2              21
+#define E2P_DIM_ADRSC                  12
+#define E2P_DIM_LOCKPWD                8
+#define E2P_DIM_FUNCPWD                6
+#define E2P_DIM_VOICEMAIL              12
+#define E2P_DIM_NETLOCK                3
+#define E2P_DIM_RTC_ALARM              6
+#define E2P_DIM_STLK_TERM_PROF         12
+#define E2P_DIM_SURPRISE               9
+#define E2P_DIM_DESKEY                 8
+#define E2P_DIM_CUSTOM_LABEL           4
+
+
+typedef ascii Greet_t                  [E2P_DIM_PRODDATA];
+typedef ascii Greet2_t                 [E2P_DIM_GREETING2];
+typedef ascii Greet3_t                 [E2P_DIM_GREETING];
+typedef u8    AdrSC_t                  [E2P_DIM_ADRSC];
+typedef ascii LockPwd_t                [E2P_DIM_LOCKPWD + 1 ];
+typedef ascii FuncPwd_t                [E2P_DIM_FUNCPWD + 1 ];
+typedef ascii VoiceMail_t              [E2P_DIM_VOICEMAIL];
+typedef u8    E2pLnd_t                 [11];
+typedef u8    MissedIndex_t            [11];
+typedef ascii NetStr_t                 [E2P_DIM_NETLOCK];
+typedef u16   CugIndex_t;
+typedef u8    RtcAlarm_t               [E2P_DIM_RTC_ALARM];
+typedef u8    StlkTermProf_t           [E2P_DIM_STLK_TERM_PROF];
+typedef u8    Surprise_t               [E2P_DIM_SURPRISE];
+typedef ascii DesKey_t                 [E2P_DIM_DESKEY + 1];  /* DES Key */
+typedef ascii CustomLabel_t            [E2P_DIM_CUSTOM_LABEL];
+
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+/****************************************************************************/
+s32 vm_e2pRestore(void);
+s32 vm_e2pBuildCustomerMirror(void);
+s32 vm_e2pSaveParameters(void *i__p_ParameterList);
+
+/**
+ * \def VM_E2P_PARAMETER_LIST(_size, _name)
+ * \brief This macro creates an opaque container used by \ref vm_e2pSaveParameters and 
+ * \ref vm_e2pAddParamToContainer as a list of parameters.
+ * \param _size  number of parameters to save
+ * \param _name  name given to the container
+ *
+ * Example: \n
+ * int foo() { \n
+ *    VM_E2P_PARAMETER_LIST(2, params); \n
+ *    vm_e2pAddParamToContainer(E2P_DUMMY1, &params); \n
+ *    vm_e2pAddParamToContainer(E2P_DUMMY2, &params); \n
+ *    vm_e2pSaveParameters(&params); \n
+ * } \n
+ *
+ */
+#define VM_E2P_PARAMETER_LIST(_size, _name) (struct { u16 foobar[(_size)*2+2]; } _name = { (_size), 0, })
+
+s32 vm_e2pAddParamToContainer(u32 i__u32_Address, u32 i__u32_Size, void *o__p_List);
+
+#endif /* __VM_E2P_HO__*/
+/**
+ *  @}
+ */
+

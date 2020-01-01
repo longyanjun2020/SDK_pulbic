@@ -1,0 +1,28 @@
+#ifndef __SYS_SYS_MMU_H__
+#define __SYS_SYS_MMU_H__
+
+/* MMU */
+#if defined (__RTK_OVER_R2__)
+#define MMU_PAGE_SIZE_BITS       13	/* 13 for 8KB */
+#else
+#define MMU_PAGE_SIZE_BITS       12	/* 12 for 4KB */
+#endif
+#define MMU_PAGE_SIZE_POS        0
+#define MMU_PAGE_SIZE           (1<<MMU_PAGE_SIZE_BITS)
+#define MMU_PAGE_SIZE_MASK      ~((MMU_PAGE_SIZE - 1))
+
+#define MMU_PAGE_ENTRY_BITS    7
+#define MMU_PAGE_ENTRY_POS     MMU_PAGE_SIZE_BITS
+#define MMU_PAGE_ENTRYS            (1<<MMU_PAGE_ENTRY_BITS)
+#define MMU_PAGE_ENTRY_MASK   ((MMU_PAGE_ENTRYS-1)<<MMU_PAGE_ENTRY_POS)
+#define MMU_PAGE_ENTRY(vaddr)  (((vaddr)>>MMU_PAGE_ENTRY_POS)&((1<<MMU_PAGE_ENTRY_BITS)-1))
+
+#define MMU_PAGE_MATCH_BITS   (32-MMU_PAGE_ENTRY_BITS-MMU_PAGE_SIZE_BITS)
+#define MMU_PAGE_MATCH_POS    (MMU_PAGE_ENTRY_POS+MMU_PAGE_ENTRY_BITS)
+#define MMU_PAGE_MATCH_MASK  (((1<<MMU_PAGE_MATCH_BITS)-1)<<MMU_PAGE_MATCH_POS)
+#define MMU_PAGE_MATCH(vaddr) (((vaddr)>>MMU_PAGE_MATCH_POS)&((1<<MMU_PAGE_MATCH_BITS)-1))
+
+#define MMU_PAGE_ADDR(m, v)      (((m)<<MMU_PAGE_MATCH_POS)|((v)&MMU_PAGE_ENTRY_MASK))
+
+#endif //__SYS_SYS_MMU_H__
+

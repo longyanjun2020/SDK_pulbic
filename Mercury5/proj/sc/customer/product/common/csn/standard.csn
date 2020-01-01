@@ -1,0 +1,29 @@
+-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+--  File      : standard.csn
+--  Scope     : CSN.1 compiler standard header file
+--  Important : This software is protected by Copyright and the information
+--              contained herein is confidential. Distribution, reproduction
+--              as well as exploitation and transmission of its contents is
+--              not allowed except if expressly permitted. Infringements
+--              result in damage claims.
+--              Copyright Wavecom SA (c) 1997 - 2004
+--              CSN.1 language is the property of Arguin Communications, Inc
+-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+<nothing>    ::= null;
+<nibble>     ::= <bit( 4 )>;
+<byte>       ::= <bit( 8 )>;
+
+<null octet>     ::= 00000000;
+<non null octet> ::= <octet> - <null octet>;
+
+<Spare Bit>        ::= <bit> = 0;
+<Spare half octet> ::= <Spare Bit> * 4;
+<Spare Bits>       ::= <bit>** = 0**;
+<Spare Padding>    ::= <bit>** = L**;
+
+<error string> ::= <bit>(*) = null;
+<any string>   ::= <bit>**;
+
+

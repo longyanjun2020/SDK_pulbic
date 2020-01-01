@@ -1,0 +1,85 @@
+#ifndef _BEE_HI_
+#define _BEE_HI_
+
+#include "vm_types.ht" // for type u32, s32, u16, u8, bool
+
+#define	BEE_MAX_HDL_EVT_NUM		3
+
+
+typedef enum BeeApId_e
+{
+	BEE_AP_CRASH_NOTIFICATION,
+	BEE_AP_NUM
+}BeeApId_et;
+
+typedef enum BeeConfirmType_e
+{
+	BEE_CONF_YES,
+	BEE_CONF_NO
+}BeeConfirmType_et;
+
+typedef enum BeeExecResult_e
+{
+	BEE_RSLT_OK,
+	BEE_RSLT_FAIL_NOT_RETRY,
+	BEE_RSLT_FAIL_RETRY,
+	BEE_RSLT_NUM
+}BeeExecResult_et;
+
+typedef bool (*bee_CheckCond_pf_t) (void);
+typedef bool (*bee_Exec_pf_t) (void *pvData, u16 u16DataLen);
+typedef void (*bee_Notify_pf_t) (u8 u8Rslt, void *pvData);
+
+//typedef bool (*bee_EvtHdl_pf_t) (u32 u32EvtType, void *pvParam, BeeExecResult_et *peRetry);
+
+typedef struct HookFunc_s
+{
+	bee_CheckCond_pf_t			pfnCheckCond;
+	bee_Exec_pf_t				pfnExec;
+	bee_Notify_pf_t				pfnNotify;
+}HookFunc_st;
+
+typedef struct RetryData_s
+{
+	bool						bNeedRetry;
+	u8							u8RetryTimes;
+	u32							u32TimerID;
+	u32							u32Duration;
+}RetryData_st;
+
+#if 0
+typedef struct EvtHdl_s
+{
+	u32							u32EvtType[BEE_MAX_HDL_EVT_NUM];
+	bee_EvtHdl_pf_t				pfnEvtHdl;
+}EvtHdl_st;
+#endif
+
+typedef enum BeeStateType_e
+{
+	BEE_STATE_TIMER_WAITING,
+	BEE_STATE_RESULT_WAITING,
+	BEE_STATE_PENDING,
+	BEE_STATE_READY,
+	BEE_STATE_NUM
+}BeeStateType_et;
+
+typedef struct ReqItem_s
+{
+			BeeApId_et			eApId;
+			u32					u32SeqId;
+			BeeStateType_et		eState;
+			RetryData_st		sRetry;
+			HookFunc_st			sHookFunc;
+			//bee_EvtHdl_pf_t		sEvtHdl;
+			void				*pvData;
+			u16					u16DataLen;
+	struct	ReqItem_s			*psNext;
+}ReqItem_st;
+
+//void bee_ConfToGo(u8 u8RetryTimes, u32 u32Duration);
+void bee_RegServ(ReqItem_st *psRegServItem);
+//void bee_RegEvCb(u32 u32EvtType, bee_EvtHdl_pf_t pfnHdlCb);
+//void bee_EvHdl(u32 u32EvtType, void *pvData);
+
+#endif

@@ -1,0 +1,3 @@
+replace ./../mak/options_8533c_64yk701.mak TOUCH_SCREEN_SUPPORT off
+replace ./../mak/options_%product_name%.mak SDK_API_WAP_MMS_ONLY_SUPPORT on
+replace ./../mak/options_%product_name%.mak VIDEO_RTSP_STREAMING_SUPPORT off

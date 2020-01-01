@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+MIDlet-Name: Bubble Town
+MIDlet-Version: 2.3.7
+MIDlet-Vendor: Oberon Games
+MIDlet-Icon: /icon.png
+MIDlet-1: Bubble Town,/icon.png,ObrBT
+MIDlet-Data-Size: 4096
+MicroEdition-Profile: MIDP-2.0
+MicroEdition-Configuration: CLDC-1.1
+Ant-Version: Apache Ant 1.7.0
+Created-By: Packager v2.4.2
+MIDlet-Touch-Support: True
+LGE-MIDlet-TargetLCD-Height: 300
+LGE-MIDlet-TargetLCD-Width: 240
+MIDlet-Jar-Size: 317968
+MIDlet-Jar-URL: BubbleTown.jar

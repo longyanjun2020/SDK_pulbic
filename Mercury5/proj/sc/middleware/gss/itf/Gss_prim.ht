@@ -1,0 +1,70 @@
+/**
+ *
+ * @file    gss_prim.ht
+ *
+ * @brief   This module defines the GSS message struct type
+ *
+ * @author  Pauli Leong
+ * @version $Id: gss_prim.ht 14095 2008-09-16 02:25:10Z roger.lai $
+ *
+ */
+#ifndef __GSS_PRIM_HT__
+#define __GSS_PRIM_HT__
+
+
+/*--------------------------------------------------------------------------*/
+/* INCLUDE FILE                                                             */
+/*--------------------------------------------------------------------------*/
+#include "vm_types.ht"
+#include "sys_vm_dbg.ho"
+
+
+/*--------------------------------------------------------------------------*/
+/* PREPROCESSOR CONSTANT DEFINITION                                         */
+/*--------------------------------------------------------------------------*/
+#ifdef DefExtern
+#undef DefExtern
+#endif
+#ifdef __GSS_PARSE__
+#define	DefExtern
+#else
+#define	DefExtern	extern
+#endif
+
+#define  vm_msg_t  vm_msg_t
+
+
+/*--------------------------------------------------------------------------*/
+/* PREPROCESSOR MACRO DEFINITION                                            */
+/*--------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------------*/
+/* TYPE DEFINITION                                                          */
+/*--------------------------------------------------------------------------*/
+typedef struct {
+	union	{
+    u32 gssData;
+	} param;
+} gss_Prim_t;
+
+typedef union {
+    gss_Prim_t          gssPrim;
+} vm_msgBody_t;
+
+#include "vm_msgt.ht"
+
+
+/*--------------------------------------------------------------------------*/
+/* GLOBAL VARIABLE DEFINITION                                               */
+/*--------------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------------------*/
+/* GLOBAL FUNCTION DEFINITION                                               */
+/*--------------------------------------------------------------------------*/
+
+
+#endif /* __GSS_PRIM_HT__ */
+
+

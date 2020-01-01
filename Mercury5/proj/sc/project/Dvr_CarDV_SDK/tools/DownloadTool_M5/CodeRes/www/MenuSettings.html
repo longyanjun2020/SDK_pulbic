@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <!--[if IE 6]>
+    <link rel="stylesheet" href="fix.css" type="text/css" />
+    <![endif]-->
+    <script type="text/javascript">
+
+function loadWiFiCfg(rstr,holder)
+	{
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function()
+	{
+		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			if (holder) {
+				holder(xmlhttp.responseText);
+			} else {
+				document.getElementById("debug").innerHTML=xmlhttp.responseText;
+			}
+		}
+	}
+	xmlhttp.open("GET",rstr,true);
+	xmlhttp.send();
+	}
+
+function queryItem(resp,key)
+{
+	var str=resp;
+	var n=str.split(key+"=");
+	if (n[1] != undefined) {
+		var m = n[1].split("\n");
+		return m[0];
+	} else {
+	document.getElementById("debug").innerHTML="undefined";
+  }
+}
+function get_MenuSettings()
+{
+	var	cfgcmd = "cgi-bin/Config.cgi?action=get&property=Camera.Menu.*";
+	loadWiFiCfg(cfgcmd, MenuSettingHolder);
+}
+function MenuSettingHolder(){
+ queryItem(xmlhttp.responseText,"Camera.Menu.");
+}
+
+function queryItem(resp,key)
+	{
+		var str=resp;
+		var n=str.split(key+"=");
+		if (n[1] != undefined) {
+			var m = n[1].split("\n");
+			return m[0];
+		} else {
+			document.getElementById("debug").innerHTML="undefined";
+		}
+	}
+
+	function ResponseItem(resp)
+	{
+		var str=resp;
+		var n=str.split("0\n");
+		if (n[1] != undefined) {
+			var m = n[1].split("\n");
+			return m[0];
+		} else {
+			document.getElementById("debug").innerHTML="undefined";
+		}
+	}
+	
+function MovieResolutionHolder(){
+ var str = ResponseItem(xmlhttp.responseText);
+		if(str=="OK")
+			alert("Success!");
+}
+function VideoResstateChecker(f) 
+{
+   var checkedButton = "";
+
+   //for (var i in document.netcfgForm.MovieResolution) {
+      if (f.MovieResolution[0].checked==true)
+         checkedButton = f.MovieResolution[0].value;
+	  else if (f.MovieResolution[1].checked==true)
+         checkedButton = f.MovieResolution[1].value;
+	  else
+		 checkedButton = f.MovieResolution[2].value;
+		 
+		 return checkedButton;
+
+   //}
+} 
+
+function ImageResstateChecker(f) 
+{
+   var checkedButton = "";
+		
+      if (f.ImageResolution[0].checked==true)
+         checkedButton = f.ImageResolution[0].value;
+	  else if (f.ImageResolution[1].checked==true)
+         checkedButton = f.ImageResolution[1].value;
+	  else if (f.ImageResolution[2].checked==true)
+         checkedButton = f.ImageResolution[2].value;
+      else if (f.ImageResolution[3].checked==true)
+         checkedButton = f.ImageResolution[3].value;
+	  else if (f.ImageResolution[4].checked==true)
+         checkedButton = f.ImageResolution[4].value;
+	  else 
+         checkedButton = f.ImageResolution[5].value;
+		 
+		 return checkedButton;
+} 
+
+function updateWiFiCfg()
+{
+	var f = document.getElementById("netcfgForm");
+	var	cfgcmd = "cgi-bin/Config.cgi?action=set"
+	
+	cfgcmd += "&property=Videores" +"&value=" + VideoResstateChecker(f);
+	cfgcmd += "&property=Imageres" +"&value=" + ImageResstateChecker(f);
+	loadWiFiCfg(cfgcmd, MovieResolutionHolder);
+}
+</script>
+</head>
+
+ <body>
+	 <img src="AITlogo.jpg" width=320  height=105>
+	 <hr width=320 color=gray size=2 align=left>
+     <h1>WiFi DV Menu Settings</h1>
+	 <font size=4 color="black">
+     <form id="netcfgForm">
+           <tr>	   
+              Movie Resolution</br><input id="MovieResolution" type="radio" name="Videores" value="1080P30fps" >1080P 30fps
+			  <td><input id="MovieResolution" type="radio" name="Videores" value="720P60fps" >720P 60fps</td>
+			  <td><input id="MovieResolution" type="radio" name="Videores" value="720P30fps" checked>720P 30fps</td>   
+		   </tr>
+           <tr>
+              <br>Image Resolution</br><input id="ImageResolution" type="radio" name="Imageres" value="14M" checked>14M
+			  <td><input id="ImageResolution" type="radio" name="Imageres" value="12M"/>12M</td>
+			  <td><input id="ImageResolution" type="radio" name="Imageres" value="8M"/>8M</td>
+			  <td><input id="ImageResolution" type="radio" name="Imageres" value="5M">5M</td>
+			  <td><input id="ImageResolution" type="radio" name="Imageres" value="3M"/>3M</td>
+			  <td><input id="ImageResolution" type="radio" name="Imageres" value="2M"/>2M</td>
+		   </tr>
+           <tr>
+              <br>Motion Detection</br> <input type="radio" name="Motiondet" value="ON">ON
+			  <td><input type="radio" name="Motiondet" value="OFF"/>OFF</td>
+		   </tr>
+           <tr>
+              <br>Flicker</br><input type="radio" name="Flicker" value="50Hz">50Hz
+			  <td><input type="radio" name="Flicker" value="60Hz"/>60Hz</td>
+		   </tr>
+           <tr>
+              <br>White Balance</br><input type="radio" name="AWB" value="auto">Auto
+			  <td><input type="radio" name="AWB" value="daylight"/>Day Light</td>
+			  <td><input type="radio" name="AWB" value="fluorescentlight"/>Fluorescent Light</td>	  
+		   </tr>
+		   <input type="button" id="Submit" value="  Submit  " onclick="updateWiFiCfg()"> <br />
+     </form>
+	</font>
+
+</body>
+</html>

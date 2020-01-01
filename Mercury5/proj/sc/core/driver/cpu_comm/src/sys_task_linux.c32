@@ -1,0 +1,214 @@
+//==============================================================================
+//
+//  File        : sys_task_cpub.c
+//  Description : Main entry function for CPU_B
+//  Author      : Chiket Lin
+//  Revision    : 1.0
+//
+//==============================================================================
+
+#include "includes_fw.h"
+#include "config_fw.h"
+
+#include "mmpf_cpu.h"
+
+
+/** @addtogroup MMPF_SYS
+@{
+*/
+
+//==============================================================================
+//
+//                              Definitions
+//
+//==============================================================================
+#define _STRING(str) #str
+#define STRING(str)  _STRING(str)
+
+#define MACH_TYPE_AT91SAM9X5EK         3373
+
+#define ATAG_NONE	    0x00000000
+#define ATAG_CORE	    0x54410001
+#define ATAG_MEM	    0x54410002
+#define ATAG_CMDLINE	0x54410009
+
+typedef struct _AtagHeader {
+    unsigned long ulSize;
+    unsigned long ulTag;
+} AtagHeader;
+
+typedef struct _AtagCore {
+    unsigned long ulFlags;		/* bit 0 = read-only */
+    unsigned long ulPageSize;
+    unsigned long ulRootDev;
+} AtagCore;
+
+typedef struct _AtagMem {
+    unsigned long ulSize;
+    unsigned long ulStart;	/* physical start address */
+} AtagMem;
+
+typedef void (*LinuxEntryFunc)(unsigned long, unsigned long, unsigned long);
+
+//==============================================================================
+//
+//                              VARIABLES
+//
+//==============================================================================
+#ifdef _USE_INITRD_ // use initrd as root fs
+static char pszLinuxAtagComd[] = "mem="STRING(CPUB_DRAM_SIZE_LINUX)" console=ttyS0,115200 initrd="STRING(CPUB_RDSK_ADDR_LINUX)","STRING(CPUB_RDSK_SIZE_LINUX)" init=/init root=/dev/ram0 mtdparts=spi0.0:1M(boot)ro,2M(kernel)ro,8M(root.ext2)ro,1M(jffs2),-(appfs);";
+#else // use initramfs as root fs
+static char pszLinuxAtagComd[] = "mem="STRING(CPUB_DRAM_SIZE_LINUX)" console=ttyS0,115200 init=/init root=/dev/ram0 mtdparts=spi0.0:1M(boot)ro,2M(kernel)ro,8M(root.ext2)ro,1M(jffs2),-(appfs);";
+#endif
+
+
+//==============================================================================
+//
+//                              FUNCTION PROTOTYPES
+//
+//==============================================================================
+
+
+//==============================================================================
+//
+//                              FUNCTIONS
+//
+//==============================================================================
+//------------------------------------------------------------------------------
+//  Function    : __UartWrite
+//  Description : Low level UART function for debug
+//------------------------------------------------------------------------------
+void __UartWrite( const char *pWrite_Str )
+{
+    MMP_ULONG   txcnt;
+    AITPS_UARTB pUART = AITC_BASE_UARTB;
+    AITPS_US    pUS = &pUART->UART_0;
+
+    unsigned long ulLength = strlen(pWrite_Str);
+
+    while (ulLength) {
+        txcnt = (pUS->US_FSR & US_TX_FIFO_UNWR_MASK) >> 8;
+
+        if (txcnt) {
+            pUS->US_TXPR = *pWrite_Str++;
+
+            ulLength --;
+        }
+    }
+}
+
+//------------------------------------------------------------------------------
+//  Function    : CreateLinuxAtag
+//  Description : Generate ATAG data for Linux
+//------------------------------------------------------------------------------
+static void CreateLinuxAtag( unsigned char *pbyBuffer )
+{
+    AtagHeader  *psHeader;
+    AtagCore    *psCore;
+    AtagMem     *psMem;
+
+    // Clean data
+    memset( pbyBuffer, 0, 0x100 );
+
+    // __UartWrite( pszLinuxAtagComd );
+    // __UartWrite( "cpub...\r\n");
+
+    // ATAG_CORE
+    psHeader = (AtagHeader*)pbyBuffer;
+    psHeader->ulTag  = ATAG_CORE;
+    psHeader->ulSize = ( sizeof(AtagHeader) + sizeof(AtagCore) ) >> 2;
+    psCore = (AtagCore*)(psHeader+1);
+    psCore->ulFlags = psCore->ulPageSize = psCore->ulRootDev = 0;
+
+    // ATAG_CMDLINE
+    psHeader = (AtagHeader*)(psCore+1);
+    psHeader->ulTag  = ATAG_CMDLINE;
+    psHeader->ulSize = ( sizeof(AtagHeader) + sizeof(pszLinuxAtagComd) + 3 ) >> 2;
+    memcpy( (void*)(psHeader+1), pszLinuxAtagComd, sizeof(pszLinuxAtagComd)+1 );
+
+    // ATAG_MEM
+    psHeader = (AtagHeader*)( (unsigned char*)psHeader + (psHeader->ulSize << 2) );
+    psHeader->ulTag  = ATAG_MEM;
+    psHeader->ulSize = ( sizeof(AtagHeader) + sizeof(AtagMem) ) >> 2;
+    psMem = (AtagMem*)(psHeader+1);
+    // Linux use the 32M memory at the bottom of DRAM.
+    psMem->ulStart = CPUB_DRAM_ADDR_LINUX;
+    psMem->ulSize  = CPUB_DRAM_SIZE_LINUX;
+
+    // ATAG_NONE
+    psHeader = (AtagHeader*)(psMem+1);
+    psHeader->ulTag  = ATAG_NONE;
+    psHeader->ulSize = 0;
+
+    // __UartWrite( pszLinuxAtagComd );
+    // __UartWrite( "\r\n" );
+
+}
+
+
+//------------------------------------------------------------------------------
+//  Function    : main
+//  Description : This is the standard entry point for C and CRT
+//                initialization is done before calling main()
+//------------------------------------------------------------------------------
+int main (void)
+{
+    LinuxEntryFunc pfEntryFunc = (LinuxEntryFunc)CPUB_ZIMG_ADDR_LINUX;
+
+    // Prepare ATAG
+    CreateLinuxAtag( (unsigned char*)CPUB_SRAM_ADDR );
+
+#if 0
+    if( ((unsigned long *)CPUB_ZIMG_ADDR_LINUX)[0] == 0xe1a00000 )
+        __UartWrite("Yes, 0xe1a00000\r\n");
+    else
+        __UartWrite("not 0xe1a00000!!\r\n");
+#endif
+
+    // Call Linux bootstrap entry
+    pfEntryFunc( 0, MACH_TYPE_AT91SAM9X5EK, CPUB_SRAM_ADDR );
+}
+
+//------------------------------------------------------------------------------
+//  Function    : __initial_stackheap
+//  Description : This is the default stack/heap initialization function
+//------------------------------------------------------------------------------
+#pragma import (__use_no_semihosting_swi)
+
+#include <rt_misc.h>
+
+extern unsigned int Load$$DTCM_END$$Base;
+extern unsigned int Load$$DTCM_START$$Base;
+
+__value_in_regs struct __initial_stackheap
+__user_initial_stackheap(unsigned R0, unsigned SP, unsigned R2, unsigned SL)
+{
+    struct __initial_stackheap config;
+
+    config.stack_base = (unsigned int)&Load$$DTCM_END$$Base; // the end address of TCM
+    config.heap_base = (unsigned int)&Load$$DTCM_START$$Base;
+
+    return config;
+}
+
+void _sys_exit(int return_code)
+{
+
+}
+
+void _ttywrch(int ch)
+{
+
+}
+
+void __assert(const char *expr, const char *file, int line)
+{
+}
+
+// Put here temporally because print function is not ready
+void ARM_ExceptionHandler(MMP_ULONG exceptID, MMP_ULONG lr)
+{
+}
+
+
+/// @}

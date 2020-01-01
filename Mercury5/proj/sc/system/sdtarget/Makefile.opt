@@ -1,0 +1,98 @@
+# Makefile common definitions
+#
+
+ifeq ($(TARGET), sdtarget)
+REMOVE = --no_remove
+else
+REMOVE = --remove
+endif
+
+ifeq ($(findstring ads,$(ARMHOME)),ads)
+ifeq ($(findstring CYGWIN,$(shell uname)),CYGWIN)
+    ARMTOOLSDIR = /cygdrive/c/program1/ARM/ADsV1_2/bin
+else #cygwin
+    ARMTOOLSDIR = $(ARMHOME)/linux/bin
+endif #cygwin
+    COMPILER_VERSION = ADSV12
+    COMPILER_ARM = ADSV12_arm
+    COMPILER_THUMB = ADSV12_thumb
+    LINKER = ADSV12_link
+else
+ifeq ($(findstring CYGWIN,$(shell uname)),CYGWIN)
+    ARMTOOLSDIR = $${ARMROOT}/RVCT/Programs/2.2/349/win_32-pentium
+else #cygwin	
+    ARMTOOLSDIR = $(ARMHOME)
+endif #cygwin
+    COMPILER_VERSION = RVCTV22
+    COMPILER_ARM = RVCTV22_arm
+    COMPILER_THUMB = RVCTV22_thumb
+    LINKER = RVCTV22_link
+endif
+ARMCC = $(ARMTOOLSDIR)/armcc
+TCC = $(ARMTOOLSDIR)/tcc
+AS = $(ARMTOOLSDIR)/armasm
+AR = $(ARMTOOLSDIR)/armar
+LD = $(ARMTOOLSDIR)/armlink
+FROMELF = $(ARMTOOLSDIR)/fromelf
+AWK = gawk
+
+CC = $(TCC)
+
+
+ifeq ($(findstring ads,$(ARMHOME)),ads)
+CFLAGS = -cpu 5TEJ -apcs /interwork/noswst -g -O2 ${INC_LIST}
+ASFLAGS += -cpu 5TEJ -32 -g -apcs /noswst/interwork ${INC_LIST}
+ARFLAGS = -rc -create -s
+BINFLAGS = -bin
+else
+CFLAGS = --cpu 5TEJ --apcs /interwork/noswst -g -O2 ${INC_LIST}
+ASFLAGS += --cpu 5TEJ --32 -g --apcs /noswst/interwork ${INC_LIST}
+ARFLAGS = -rc --create -s
+BINFLAGS = --bin
+endif
+
+DEPENDENCY_FILE = .depend
+
+# Flags of link edition
+
+ifeq ($(findstring ads,$(ARMHOME)),ads)
+LDFLAGS =       \
+    -entry BinaryEntryPoint         \
+    -map        \
+    -info sizes,veneers,totals,unused   \
+    -verbose    \
+    -xref       \
+    -callgraph
+SCATTER_OPT = -scatter $(SCATTERFILE)
+FEEDBACK_UNUSED = -feedback $(LINKER_UNUSED_TGT)
+else
+LDFLAGS =       \
+    --entry BinaryEntryPoint        \
+    --map       \
+    --info sizes,veneers,totals,unused  \
+    --verbose   \
+    --xref      \
+    --callgraph \
+    $(REMOVE) \
+    --list $(IMAGE).lst
+SCATTER_OPT = --scatter $(SCATTERFILE)
+FEEDBACK_UNUSED = --feedback $(LINKER_UNUSED_TGT)
+endif 
+
+INC_LIST = -Iinclude
+
+VPATH =         \
+    init        \
+    sysdrv      \
+    sysutil     \
+    common      \
+    storage     \
+    fat         \
+    UNFD
+
+ifeq ($(VENDOR), GAX)
+EXTRA_CFLAGS += \
+    -D__S71NS256_USE_128__ \
+    -D__SPANSION512_USE_128__ \
+    -D__S71WS256P_USE_128__ 
+endif

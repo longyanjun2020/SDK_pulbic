@@ -1,0 +1,342 @@
+#!/usr/bin/perl -sw
+use strict;
+use vars qw($h $i $p $o $d $v);
+use lib qw(./tng/build_system/utility/MD4/);
+use Digest::MD4;
+use File::Path qw(mkpath);
+use IPC::Open3;
+
+# cache makedepend's output
+#  1. read makedepend arguments
+#  2. seperate cached files(dependency is already saved in cache) from un-cached ones
+#  3. run makedepend on un-cached ones and update cache
+#  4. output cdep file, including cached & uncached
+
+if(defined($h) || !defined($i) || !defined($o) || !defined($p) || !defined($d)){
+    print <<END;
+Usage: $0 -i FOLDER -p MAKDEP_PATH -o CDEP_FILE -d DEP_CACHE [-h]
+\t-i: opt file for makedepend
+\t-p: path of makedepend program
+\t-o: output cdep file
+\t-d: dep_cache folder
+\t-h: show this usage
+\t-v: verbose
+END
+    exit 0;
+}
+
+# convert .c/.cpp/.S/.asm to object
+sub src2obj{
+    local ($_)=@_;
+    s^\.c(?:pp)?$^\.o^;
+    s^\.S$^\.o^;
+    s^\.asm$^\.o^;
+    return $_;
+}
+
+# get file name
+sub basename{
+    local ($_)=@_;
+    s/.*\///;
+    return $_;
+}
+
+# unique a list
+sub _uniq{
+    my %uniq=();
+    local $_;
+    return grep{
+            !$uniq{$_}++
+        }@_;
+}
+
+# erase front & tailing space
+sub strip{
+    local ($_)=@_;
+    s/^\s+//;
+    s/\s+$//;
+    return $_;
+}
+
+# reorder a dependency chain
+# file_lst_reorder(object file, string of dependent files delimited by space);
+# reorder the main source file to the first one, and sort the following ones
+# ex: 
+# file_lst_reorder(a.c, "b.c h1.h h2.h a.c") -> "a.c b.c h1.h h2.h"
+sub file_lst_reorder{
+    local $_;
+    (my $obj, $_)=@_;
+    my @tmp=split(/\s+/, &strip($_));
+    my @idx;
+
+    my $obj_base=basename($obj);
+    # if the first one is not the desired source file,  swap it to first
+    if($obj_base ne &src2obj(&basename($tmp[0]))){
+        for my $i(1 .. $#tmp){
+            if($obj_base eq &src2obj(&basename($tmp[$i]))){
+                @tmp[0, $i] = @tmp[$i, 0];
+                last;
+            }
+        }
+    }
+
+    # sort the 2nd - last elements
+    @idx = sort {$tmp[$a] cmp $tmp[$b]} (1 .. $#tmp);
+    # re-join them into a string
+    return join(" ", _uniq($tmp[0], @tmp[@idx]));
+}
+
+# retrieve cache content
+# return (hash, file_list) if succeed or emtpy list if fail
+sub cache_entry{
+    my ($file)=@_;
+    local $_;
+    if(-e $file && open my $fin, "<", $file){
+        my $line;
+        while(<$fin>){
+            chomp;
+            s/[\n\r]/ /g;
+            $line .= $_;
+        }
+        close $fin;
+
+        if($line =~ m/^([^:]+):(.*)$/xo){
+            return (&strip($1), &strip($2));
+        }else{
+            return ();
+        }
+    }else{
+        return ();
+    }
+}
+
+# md4 hash wrapper
+# open a number of files to compute MD4
+# return undef if fail, or 1 if succeed
+sub md4_addfiles{
+    my ($ctx, @file) = @_;
+    local $_;
+    for(@file){
+        if( -e $_ ){
+            my $fin;
+            unless(open $fin, "<", $_){
+                warn "$0: md4_addfiles open file[$_] fail: $!\n";
+                return undef;
+            }
+            binmode $fin;
+            $ctx->addfile(*$fin);
+            close $fin;
+        }else{
+            warn "$0: md4_addfiles file[$_] not exist\n";
+            return undef;
+        }
+    }
+    return 1;
+}
+
+# md4 hash wrapper
+# add a number of string to compute MD4
+sub md4_addstrs{
+    my ($ctx, @strs) = @_;
+    $ctx->add(@strs);
+}
+
+# md4 hash wrapper
+# reset MD4 hash
+sub md4_reset{
+    my ($ctx)=@_;
+    $ctx->reset;
+}
+
+# md4 hash wrapper
+# get MD4 digest
+sub md4_digest{
+    return ($_[0]->hexdigest);
+}
+
+# print message if verbose mode is on, for debug use
+sub verbose_print{
+    print @_ if defined $v;
+}
+
+my (
+    $opt_ctx,           # ctx for makedepend bin & options
+    $opt_hash,          # MD4 hash for options(level 1)
+    $curr_ctx,          # current ctx for c/cpp/header files
+    @makdep_opts,       # makedep options(except c/cpp files)
+    @makdep_files,      # input files for makedepend
+    @cached_src,        # soruce files hit in cache
+    @uncached_src,      # source files to run makedepend
+    %cdep,              # dependency output by makedepend
+);
+
+$opt_ctx=Digest::MD4->new;
+$curr_ctx=Digest::MD4->new;
+
+#-----------------------------------------------------
+# generate level 1 hash: makedep program content + -D/-I options
+#-----------------------------------------------------
+
+# add makedepend to avoid any change of makedepend
+die "$0: computing hash fail\n" unless(defined(&md4_addfiles($opt_ctx, $p)));
+# read makedepend arguments
+open my $fin, "<", $i or die "$0: oepn $i fail $!\n";
+
+my $opt_str;
+while(<$fin>){
+    s{[\n\r]}()g;
+    $opt_str .= $_;
+}
+
+# seperate source files from makedepend options
+my @tmp_array=reverse split(/\s+/, $opt_str);
+for my $i (0 .. $#tmp_array){
+    if($tmp_array[$i] =~ m/\.c(?:pp)?$/){
+        #keep their order
+        unshift @makdep_files, $tmp_array[$i];
+    }else{
+        @makdep_opts = reverse @tmp_array[$i .. $#tmp_array];
+        last;
+    }
+}
+
+# only compute hash for -D & -I options
+# sort them to avoid different permutation cause level-1 hash change
+$opt_ctx->add(join(" ", sort grep {/^\-D/ or /^\-I/} @makdep_opts));
+$opt_hash = md4_digest($opt_ctx);
+close $fin;
+
+unless(-d "$d$opt_hash"){
+    # if dependency cache don't exist, all files are cache-miss
+    mkpath "$d$opt_hash";
+    push @uncached_src, @makdep_files;
+}else{
+    for(@makdep_files){
+        if(!-e $_){
+            verbose_print("$0: [$_] don't exist and is skipped\n");
+            next;
+        }
+        my $dep_file="$d$opt_hash/".&basename($_).".dep";
+        if(-e $dep_file){
+            my ($digest, $files)=&cache_entry($dep_file);
+            if(defined $files){
+                &md4_reset($curr_ctx);
+                my @files=split(/\s+/, $files);
+
+                #-----------------------------------------------------
+                # generate level 2 hash: sources & headers
+                #-----------------------------------------------------
+                if(scalar(grep {!-e $_} @files)==0 
+                        and defined(&md4_addfiles($curr_ctx, @files))
+                        and ($digest eq &md4_digest($curr_ctx))){
+                    # cache hit only if
+                    # 1. the files all exist before hash computing
+                    # 2. md4_add_files() don't return undef
+                    # 3. digest match
+
+                    push @cached_src, [$_, $files];
+                    # push current file and its dependent files to cached array
+                    next;
+                }
+            }
+        }
+        # it's cache-miss
+        push @uncached_src, $_;
+    }
+}
+
+# if any file is uncached
+if(scalar(@uncached_src) > 0){
+    {
+        # re-produce the makedepend options
+        open my $fout , ">", $i or die "$0: open $i fail $!\n";
+        print $fout join(" ", (@makdep_opts, @uncached_src))."\n";
+        close $fout;
+    }
+    
+    &verbose_print("$0 run makdep [$o][$opt_hash][@makdep_opts][@uncached_src]\n");
+    # execute makedepend and read its output from pipe
+    #open my $pin , "-|", "$p \@$i" or die "$0: open pipe fail $!\n";
+    my ($out, $err);
+    use Symbol 'gensym'; $err=gensym;
+    my $pid=open3(undef, $out, $err, "$p \@$i");
+
+    # collect makedepend output
+    while(<$out>){
+        chomp;
+        # erase all comments
+        s{\#.*}();
+    
+        # in case the dependency chain is multiple-line format
+        while(s/\\$//){
+            $_.=<$fin>;
+        }
+        s/[\n\r]//g;
+    
+        if(m#^([^:]+):(.*)$#xo){
+            my ($target, $deps) = (&strip($1), &strip($2));
+            if(defined $cdep{$target}){
+                $cdep{$target}[0] .= " $deps";
+            }else{
+                $cdep{$target}[0] = $deps;
+            }
+            # output format:
+            # cdep{object file}[0] = "string of dependent files, seperated by space"
+        }
+    }
+    my $errmsg=<$err>; $errmsg=~ s/[\n\r]//g if(defined($errmsg));
+    close $out; close $err;
+    waitpid($pid, 0);
+    if($?){
+        die "$0: makedepend error msg=\'$errmsg\', exit status=@{[$?>>8]}\n";
+    }
+    
+    # format dependent string & update dependency cache
+    @tmp_array=keys %cdep;
+    for my $obj (@tmp_array){
+        $cdep{$obj}[0] = &file_lst_reorder($obj, $cdep{$obj}[0]);
+        my @deps=split /\s+/, $cdep{$obj}[0];
+        my $target=$obj;
+    
+        # find the full path of the target object file
+        for(grep {/\.c(?:pp)?$/} @deps){
+            if(&src2obj(&basename($_)) eq $target){
+                $target=$_;
+                last;
+            }
+        }
+
+        # update the key of %cdep(object file) to full path
+        $cdep{$target} = delete $cdep{src2obj(basename($target))};
+    
+        # compute MD4 hash
+        &md4_reset($curr_ctx);
+        # compute level-2 hash of updated dependency
+        # die if fail because they should  exist here
+        #  or makedepend would complain & fail first
+        die "$0: computing hash fail, $target: @deps\n" unless(defined(&md4_addfiles($curr_ctx, @deps)));
+        # $cdep{$target} = ("string of dependent files", hash)
+        $cdep{$target}[1] = &md4_digest($curr_ctx);
+    
+        # update dependency cache
+        my $dep_file="$d$opt_hash/".&basename($target).".dep";
+        open my $out, ">", $dep_file or die "$0: open $dep_file fail $!\n";
+        print $out "$cdep{$target}[1]:$cdep{$target}[0]\n";
+        close $out;
+    }
+}
+
+# output dependency(cdep file)
+open my $fout, ">", $o or die "$0: open $o fail $!\n";
+
+# dependency of uncached files
+print $fout map{
+    &src2obj(&basename($_)).": $cdep{$_}[0]\n";
+} keys %cdep;
+
+# dependency of cached files
+print $fout map{
+    &src2obj(&basename($$_[0])).": $$_[1]\n";
+} @cached_src;
+
+close $fout;

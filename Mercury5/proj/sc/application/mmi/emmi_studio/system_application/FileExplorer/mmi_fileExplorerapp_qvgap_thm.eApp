@@ -1,0 +1,191 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="FILEEXPLORERAPP_WND_MEDIALIST_STORAGE_AND_CONTENT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="basecontainer111111" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="59f52714-0296-471f-94ef-6841a8d5132e" />
+			</Widget>
+			<InternProp Id="GUID" Value="bc513a80-6743-43d9-aad6-d2dd56cc9a2f" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+	</Layout>
+	<Layout Id="FILEEXPLORERAPP_WND_PICKER_VIRTUALROOT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="basecontainer11111" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="imgwidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="caf1dea8-b382-4c68-8429-1558f33188e9" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="0" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="0" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="0" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_IMG_WDG_STYLE" Value="0" />
+			</Widget>
+			<Widget Id="menugridwidget" ClsID="CLSID_IMGGRID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="546d4c2a-30e3-42d5-830d-c0608f99d243" />
+			</Widget>
+			<InternProp Id="GUID" Value="a758f0f6-9804-4fb9-85ed-13c83beaeecb" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+	</Layout>
+	<Layout Id="FILEEXPLORERAPP_WND_PICKER_ROOT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="basecontainer1111" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="pickview2menu" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="9dbc1fd4-f40d-43f8-8d4e-e64d43fd110f" />
+			</Widget>
+			<Widget Id="pickviewmenu" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="b648c26f-25db-4db9-b69a-1bba39c489a8" />
+			</Widget>
+			<Widget Id="imgwidget1" ClsID="CLSID_IMAGEWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="d79d515a-0d2a-416a-9050-4c9aa43d71f4" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="0" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="0" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="0" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_IMG_WDG_STYLE" Value="0" />
+			</Widget>
+			<Widget Id="menuwidget1" ClsID="CLSID_IMGGRID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="2ce3c3c8-0538-4e01-a52f-9a40c5082ab8" />
+			</Widget>
+			<Widget Id="pickcontentmenu" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="4f56299c-25bd-460d-8ec8-24d338875b2e" />
+			</Widget>
+			<Widget Id="pickcontentview2menu" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="cbf448b4-7a34-44c6-9eaf-d7a6f2f439a4" />
+			</Widget>
+			<Widget Id="emptyfolderimgwdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="a30f04a8-1637-4337-9cab-fd933ab9bd1b" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="0" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="0" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="0" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_IMG_WDG_STYLE" Value="0" />
+			</Widget>
+			<Widget Id="thmtextwidget" ClsID="CLSID_TEXTWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="59740d2b-107d-4583-a646-139756500bcd" />
+			</Widget>
+			<InternProp Id="GUID" Value="e5aff71e-1425-4910-a26c-c49c57301d0d" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+	</Layout>
+	<Layout Id="FILEEXPLORERAPP_WND_MULTISEL_CONTENT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="basecontainer111" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="multiselmenu" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="70400e9e-12ae-4b79-a00c-e2da8a675879" />
+			</Widget>
+			<Widget Id="multiselthumbimgwdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="0dfdb5c7-1443-4930-bf46-702165888baa" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="0" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="0" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="0" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_IMG_WDG_STYLE" Value="0" />
+			</Widget>
+			<Widget Id="multiselthumbmenuwdg" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="529073e9-4028-45dc-80ce-16b3fa8909d4" />
+			</Widget>
+			<InternProp Id="GUID" Value="96641ba5-3001-4b25-bcbd-df566f0957de" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="741" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+	</Layout>
+	<Layout Id="FILEEXPLORERAPP_WND_SORTBY" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="basecontainer11" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="sortbymenuwdg" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="1d71a6f1-983f-4268-a141-35ab24f65a3f" />
+			</Widget>
+			<InternProp Id="GUID" Value="5d3617da-2939-4e18-a7ce-57a65c7729f2" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="361" />
+	</Layout>
+	<Layout Id="FILEEXPLORERAPP_WND_SELECT_STORAGE" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="basecontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="storagemenuwdg" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="a3758d3c-efea-4ea7-ab1d-4c2d6f6ee2fd" />
+			</Widget>
+			<InternProp Id="GUID" Value="d4f4f779-da05-41dc-a561-b10e3d71356c" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="361" />
+	</Layout>
+	<Layout Id="FILEEXPLORERAPP_WND_CPMV" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="basecontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="destmenuwdg" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="d1af9176-0862-48c2-9d29-9f178682b7d6" />
+			</Widget>
+			<Widget Id="emptyfoldertextwdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="799a2cde-7712-49be-b1cb-5d9ebaf1a2bf" />
+			</Widget>
+			<InternProp Id="GUID" Value="b5a37176-1694-4a87-8805-61a376b4a82d" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="495" />
+		<InternProp Id="LAYOUT_POS_Y" Value="361" />
+	</Layout>
+</UiRoot>

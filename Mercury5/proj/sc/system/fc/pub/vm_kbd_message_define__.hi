@@ -1,0 +1,9 @@
+#ifndef __VM_KBD_MSG_DEF_H__
+#define __VM_KBD_MSG_DEF_H__
+
+VM_MSG_DEF(VM_KBD_DATA_IND = VM_KBD_BASE, void DUMMY)
+VM_MSG_DEF(VM_KBD_HOTKEY_IND, void DUMMY)
+
+
+#endif
+

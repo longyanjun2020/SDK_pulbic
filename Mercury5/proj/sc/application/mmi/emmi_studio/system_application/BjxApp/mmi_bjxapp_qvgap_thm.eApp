@@ -1,0 +1,64 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="BJXAPP_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SurnameGrid" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="BJX_SURNAME_GRID_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="BJX_SURNAME_GRID_X" />
+				<Position Type="Y_POSITION" Value="BJX_SURNAME_GRID_Y+MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="359b3" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_ITEM_WIDTH" Value="BJX_SURNAME_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="BJX_SURNAME_ITEM_HEIGHT" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="BJX_SURNAME_GRID_ROW_GAP" />
+				<Property Id="PROP_WDG_COL_GAP" Value="BJX_SURNAME_GRID_COL_GAP" />
+				<Property Id="PROP_FIXED_NUM" Value="BJX_SURNAME_NUM_COL" />
+			</Widget>
+			<Widget Id="SurnameItem" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_HIGHLIGHT_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_INFO_TEXT" />
+				<InternProp Id="GUID" Value="c97bf" />
+			</Widget>
+			<Widget Id="AlphabetGrid" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="BJX_ALPHABET_GRID_HEIGHT" SizeWidth="BJX_ALPHABET_GRID_WIDTH">
+				<Position Type="X_POSITION" Value="BJX_ALPHABET_GRID_X" />
+				<Position Type="Y_POSITION" Value="BJX_ALPHABET_GRID_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_BORDER_SIZE" Value="1" />
+				<Property Id="PROP_BORDER_COLOR" Value="COLOR_BLACK" />
+				<Property Id="PROP_PADDING_LEFT" Value="1" />
+				<Property Id="PROP_PADDING_RIGHT" Value="1" />
+				<Property Id="PROP_PADDING_TOP" Value="1" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="1" />
+				<InternProp Id="GUID" Value="33764" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_ITEM_WIDTH" Value="BJX_ALPHABET_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="BJX_ALPHABET_ITEM_HEIGHT" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="BJX_ALPHABET_GRID_ROW_GAP" />
+				<Property Id="PROP_WDG_COL_GAP" Value="BJX_ALPHABET_GRID_COL_GAP" />
+				<Property Id="PROP_FIXED_NUM" Value="BJX_ALPHABET_NUM_COL" />
+			</Widget>
+			<Widget Id="AlphabetItem" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_HIGHLIGHT_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_INFO_TEXT" />
+				<InternProp Id="GUID" Value="d5d12" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="7ecf1" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="70" />
+		<InternProp Id="LAYOUT_POS_Y" Value="6" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_OIL2_N_SEARCH_BY_BAIJIAXING&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SWITCH_UP" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<InternProp Id="GUID" Value="c581f" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_BJXAPP" />
+</UiRoot>

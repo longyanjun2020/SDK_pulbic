@@ -1,0 +1,444 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>BTSrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>SERVICE</ApplicationType>
+         <LogLevelName>MMI_LEVEL_BT</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef>#if defined(__BLUETOOTH_MMI__)</Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="BTSrv" id="6333" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="init" id="7300" hasEntry="0" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Off" id="14933" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Read setting</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Initialize" id="21187" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Power on/off bt chip</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Active" id="15546" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Idle">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="Idle" id="3314" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Check if pair req exist</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Searching" id="31518" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Bonding" id="31589" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Setting" id="24367" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="HandleAVRCP" id="18116" hasEntry="1" hasExit="1" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>handle the command</EntryComment>
+              <ExitComment>release resource</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="1844"	from="_Off"  to="_Initialize"  type="Default"	hasCondition="1" hasAction="0">
+				<event>BTSRV_EVT_PowerOnOffReq</event>
+				<condition>if request is power on</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31292"	from="_Initialize"  to="_Initialize"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_EVT_PowerOnOffReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14365"	from="_Initialize"  to="_Initialize"  type="internal"	hasCondition="0" hasAction="1">
+				<event>BTOBEXSRV_EVT_RECV_STATUS_IND</event>
+				<event>MAE_EVT_BT_ACL_LINK_CNF</event>
+				<event>MAE_EVT_BT_ACL_LINK_IND</event>
+				<event>MAE_EVT_BT_AUDIO_LINK_CNF</event>
+				<event>MAE_EVT_BT_POWER_ONOFF_CNF</event>
+				<event>MAE_EVT_BT_SET_DISCOVERY_CNF</event>
+				<event>MAE_EVT_BT_SET_LOCAL_NAME_CNF</event>
+				<condition></condition>
+				<action>Set discoverable status and name</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19572"	from="_Initialize"  to="_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_IEVT_GotoActive</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19491"	from="_Initialize"  to="_Off"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_IEVT_GotoOff</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24122"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_CHIP_RESET_IND</event>
+				<condition></condition>
+				<action>reset: power on if off, power off if on</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29017"	from="_Active"  to="_Initialize"  type="Default"	hasCondition="1" hasAction="0">
+				<event>BTSRV_EVT_PowerOnOffReq</event>
+				<condition>if request is power off or reset HW</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5440"	from="_Active"  to="_Active"  type="internal"	hasCondition="0" hasAction="1">
+				<event>BTOBEXSRV_EVT_IMPORT_STATUS_IND</event>
+				<event>BTOBEXSRV_EVT_RECV_REQ_IND</event>
+				<event>BTOBEXSRV_EVT_RECV_STATUS_IND</event>
+				<event>BTOBEXSRV_EVT_SEND_STATUS_IND</event>
+				<event>BTOBEXSRV_EVT_TRANS_INTERACTIVE_IND</event>
+				<event>BTOBEXSRV_EVT_TRANS_PROGRESS_IND</event>
+				<condition></condition>
+				<action>send notify to listeners</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28901"	from="_Active_Idle"  to="_Active_Searching"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_EVT_InquiryReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7865"	from="_Active_Searching"  to="_Active_Searching"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_INQUIRY_IND</event>
+				<condition></condition>
+				<action>Send indication</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2431"	from="_Active_Searching"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_INQUIRY_CNF</event>
+				<condition></condition>
+				<action>Send confirm</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5910"	from="_Active_Idle"  to="_Active_Bonding"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_EVT_PairReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3314"	from="_Active_Idle"  to="_Active_Bonding"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_PIN_CODE_IND</event>
+				<condition></condition>
+				<action>Start BT Notify and send indication</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8682"	from="_Active_Bonding"  to="_Active_Bonding"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_PIN_CODE_IND</event>
+				<event>MAE_EVT_BT_ACL_LINK_CNF</event>
+				<event>MAE_EVT_BT_ACL_LINK_IND</event>
+				<event>MAE_EVT_BT_NAME_QUERY_CNF</event>
+				<condition></condition>
+				<action>Send indication</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="23693"	from="_Active_Bonding"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_PAIR_DONE_IND</event>
+				<condition></condition>
+				<action>Send pair done indication</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1795"	from="_Active_Idle"  to="_Active_Setting"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_EVT_DeleteDeviceReq</event>
+				<event>BTSRV_EVT_SetLocalNameReq</event>
+				<event>BTSRV_EVT_SetDiscoveryReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31555"	from="_Active_Setting"  to="_Active_Setting"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_DELETE_DEVICE_CNF</event>
+				<event>MAE_EVT_BT_SET_LOCAL_NAME_CNF</event>
+				<event>MAE_EVT_BT_SET_DISCOVERY_CNF</event>
+				<condition></condition>
+				<action>Update file</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6126"	from="_Active_Setting"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>BTSRV_IEVT_Success</event>
+				<event>BTSRV_IEVT_Fail</event>
+				<condition></condition>
+				<action>Send success confirm</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1060"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>BTSRV_IEVT_tmrRing</event>
+				<event>MAE_EVT_BT_AUDIO_ATCMD_IND</event>
+				<event>MAE_EVT_BT_AUDIO_VOL_IND</event>
+				<condition></condition>
+				<action>update audio status and send indication</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26886"	from="_Active"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_IEVT_GotoIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8859"	from="_Active"  to="_Active"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_AUDIO_ATCMD_REQ</event>
+				<condition></condition>
+				<action>parse the atcmd and invoke the func.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27709"	from="_Active"  to="_Active"  type="internal"	hasCondition="1" hasAction="1">
+				<event>BTSRV_IEVT_A2dpStopCnf</event>
+				<event>MAE_EVT_BT_A2DP_LINK_CNF</event>
+				<event>MAE_EVT_BT_A2DP_LINK_IND</event>
+				<event>MAE_EVT_BT_SDP_SERVICE_CNF</event>
+				<condition>now is not handling poweroff req</condition>
+				<action>connect or disconnect bt/ad2p link</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27467"	from="_Active_Idle"  to="_Active_HandleAVRCP"  type="default"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_BT_AVRCP_ACTION_IND</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2393"	from="_Active_HandleAVRCP"  to="_Active_HandleAVRCP"  type="internal"	hasCondition="0" hasAction="1">
+				<event>BTSRV_EVT_AvrcpCmdCnf</event>
+				<condition></condition>
+				<action>send cnf to BT</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21905"	from="_Active"  to="_Active"  type="internal"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_BT_ACL_LINK_CNF</event>
+				<event>MAE_EVT_BT_ACL_LINK_IND</event>
+				<event>MAE_EVT_BT_AUDIO_CALL_CNF</event>
+				<event>MAE_EVT_BT_AUDIO_CALL_IND</event>
+				<event>MAE_EVT_BT_AUDIO_LINK_CNF</event>
+				<event>MAE_EVT_BT_AUDIO_LINK_IND</event>
+				<condition>now is not handling poweroff req</condition>
+				<action>update audio status</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5861"	from="_Initialize"  to="_Initialize"  type="internal"	hasCondition="0" hasAction="1">
+				<event>BTSRV_IEVT_A2dpStopCnf</event>
+				<event>MAE_EVT_BT_A2DP_LINK_CNF</event>
+				<event>MAE_EVT_BT_A2DP_LINK_IND</event>
+				<event>MAE_EVT_BT_SDP_SERVICE_CNF</event>
+				<condition></condition>
+				<action>a2dp action</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9351"	from="_init"  to="_Off"  type="default"	hasCondition="0" hasAction="0">
+				<event>BTSRV_IEVT_Start</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="Success" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Fail" type="internal">
+				<comment></comment>
+			</event>
+			<event name="tmrRing" type="internal">
+				<comment></comment>
+			</event>
+			<event name="GotoOff" type="internal">
+				<comment></comment>
+			</event>
+			<event name="GotoActive" type="internal">
+				<comment></comment>
+			</event>
+			<event name="PowerOnOffReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="PowerOnOffCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="InquiryReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="InquiryInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="InquiryCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="NameQueryCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="DeleteDeviceReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="DeleteDeviceCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetLocalNameReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetLocalNameCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetDiscoveryReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="SetDiscoveryCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="PairReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="PinCodeInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="PairDoneInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioLinkReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioLinkCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioLinkInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioCallReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioCallInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioCallCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ATA" type="external">
+				<comment></comment>
+			</event>
+			<event name="ATD" type="external">
+				<comment></comment>
+			</event>
+			<event name="ATCHUP" type="external">
+				<comment></comment>
+			</event>
+			<event name="ATCHLD" type="external">
+				<comment></comment>
+			</event>
+			<event name="AudioVolumeInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="RecvFileInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ImportFileInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendFileInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="TransProgressInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChipResetInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="Ready" type="external">
+				<comment></comment>
+			</event>
+			<event name="GotoIdle" type="internal">
+				<comment></comment>
+			</event>
+			<event name="PhonePowerOffCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="TransInteractiveInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="A2dpStatusInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="AvrcpCmdReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="AvrcpCmdCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="A2dpStopCnf" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SDPSerivecnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="A2dpLinkcnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="RecvReqInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="Start" type="internal">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="RegisterNotification" id="15664" RetType="MAE_Ret"	Param1="void *pInstance" Param2="BTSRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeRegisterNotification" id="2391" RetType="MAE_Ret"	Param1="void *pInstance" Param2="BTSRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="PowerOnOffReq" id="7416" RetType="MAE_Ret"	Param1="BTSRV_PowerAction_e action" Param2="BTSRV_POWER_ONOFF_CAUSE_e cause"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="InquiryReq" id="8930" RetType="MAE_Ret"	Param1="BTSRV_InquiryAction_e action" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="PairReq" id="21991" RetType="MAE_Ret"	Param1="BTSRV_DevInfo_t* pDev" Param2="BTSRV_ACLLinkAction_e eAction"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="PinCodeRsp" id="21872" RetType="MAE_Ret"	Param1="MAE_WChar* PinCode" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteDeviceReq" id="21410" RetType="MAE_Ret"	Param1="u8 u8Item" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetLocalNameReq" id="2796" RetType="MAE_Ret"	Param1="MAE_WChar* name" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetDiscoveryReq" id="22681" RetType="MAE_Ret"	Param1="BTSRV_Discoverable_e discoverable" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AudioLinkReq" id="32109" RetType="MAE_Ret"	Param1="BTSRV_AudioLink_e link" Param2="u8 u8Item"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AudioCallReq" id="10948" RetType="MAE_Ret"	Param1="BTSRV_AudioCallType_e call" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetActiveMode" id="30602" RetType="BTSRV_Mode_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetPairDeviceNum" id="7171" RetType="u8"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetPairDeviceInfo" id="30077" RetType="BTSRV_DevInfo_t *"	Param1="u8 u8Item" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetPowerOnOffStataus" id="23894" RetType="BTSRV_PowerAction_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetLocalName" id="28377" RetType="MAE_WChar *"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetDiscoveryStatus" id="26501" RetType="BTSRV_Discoverable_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetAudioStatus" id="23949" RetType="BTSRV_AudioLink_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetPairDeviceInfo" id="9190" RetType="MAE_Ret"	Param1="u8 u8Item" Param2="BTSRV_DevInfo_t *pInfo"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AudioRingStart" id="260" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AudioRingStop" id="25386" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetPairListIndexByAddr" id="14209" RetType="u8"	Param1="u8 *Addr" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AudioMuteReq" id="4173" RetType="MAE_Ret"	Param1="BTSRV_AudioMuteType_e mute" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AudioCallStatus" id="11858" RetType="MAE_Ret"	Param1="BTSRV_AudioCallStatus_e status" Param2="u8* CallerID"	Param3="u8 Type" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AudioVolumeReq" id="25451" RetType="MAE_Ret"	Param1="MediaToneVolumneLevel volume" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ClearBTNotifyPointer" id="31934" RetType="void"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Start" id="27297" RetType="void"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

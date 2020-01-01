@@ -1,0 +1,92 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File    :   v24_mux.ht                                                   */
+/*                                                                          */
+/* Scope   :                                                                */
+/*                                                                          */
+/* Content :                                                                */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author |        Modification                                  */
+/*----------+--------+------------------------------------------------------*/
+/* 30/09/04 |  APH   | Creation                                             */
+/****************************************************************************/
+
+
+#ifndef __SYS_V24_MUX_HT__
+#define __SYS_V24_MUX_HT__
+
+#include "stdcomp.h"
+#include "stdlib.hp"
+#include "sys_v24_ctrl.hc"
+#include "v24.hi"
+
+typedef struct
+{
+  u32                     _v24_MuxPort;
+
+  // Optimisation:
+  // -------------
+
+  // DATA Rx/Tx function ctxt
+  void*                     _v24_LowerLayerCtxt;
+  void*                     _v24_UpperLayerCtxt;
+
+
+  // This is because MUX is an EL
+  void*                     _v24_AssociatedMuxDlcCtxt;
+  u32                       _v24_AssociatedCtrlPortId;
+
+
+  // ID of Lower/Upper layer
+  eLayerId_t                _v24_LowerLayerId;
+  eLayerId_t                _v24_UpperLayerId;
+
+  // APH tracker 28431, framing / speed set for DLC
+  v24_Rate_t                _v24_MuxRate;
+  v24_Framing_t             _v24_MuxFraming;
+  v24_FlowControl_t         _v24_MuxTxFlowCtrlMethod;
+  v24_FlowControl_t         _v24_MuxRxFlowCtrlMethod;
+
+  u8                        _v24_MuxAutobaudRate;
+}
+v24_MuxContext_t;
+
+
+#define V24_MUX_CONTEXT                v24_MuxContext                    
+#define v24_MuxPort                    V24_MUX_CONTEXT->_v24_MuxPort
+
+
+#define v24_MuxLowerLayerId            V24_MUX_CONTEXT->_v24_LowerLayerId
+#define v24_MuxUpperLayerId            V24_MUX_CONTEXT->_v24_UpperLayerId
+#define v24_MuxLowerLayerCtxt          V24_MUX_CONTEXT->_v24_LowerLayerCtxt
+#define v24_MuxUpperLayerCtxt          V24_MUX_CONTEXT->_v24_UpperLayerCtxt
+#define v24_AssociatedMuxDlcCtxt       V24_MUX_CONTEXT->_v24_AssociatedMuxDlcCtxt
+#define v24_AssociatedCtrlPortId       V24_MUX_CONTEXT->_v24_AssociatedCtrlPortId
+
+#define V24_MUX_SESSION_CONTEXT        v24_MuxSessionContext
+#define v24_MuxSessionPort             V24_MUX_SESSION_CONTEXT->_v24_MuxPort
+#define v24_MuxSessionLowerLayerId     V24_MUX_SESSION_CONTEXT->_v24_LowerLayerId
+#define v24_MuxSessionUpperLayerId     V24_MUX_SESSION_CONTEXT->_v24_UpperLayerId
+#define v24_MuxSessionLowerLayerCtxt   V24_MUX_SESSION_CONTEXT->_v24_LowerLayerCtxt
+#define v24_MuxSessionUpperLayerCtxt   V24_MUX_SESSION_CONTEXT->_v24_UpperLayerCtxt
+
+#define v24_AssociatedMuxDlcCtxt       V24_MUX_CONTEXT->_v24_AssociatedMuxDlcCtxt
+#define v24_AssociatedCtrlPortId        V24_MUX_CONTEXT->_v24_AssociatedCtrlPortId
+
+// APH tracker 28431, framing / speed set for DLC
+#define v24_MuxRate                    V24_MUX_CONTEXT->_v24_MuxRate
+#define v24_MuxFraming                 V24_MUX_CONTEXT->_v24_MuxFraming
+#define v24_MuxTxFlowCtrlMethod        V24_MUX_CONTEXT->_v24_MuxTxFlowCtrlMethod
+#define v24_MuxRxFlowCtrlMethod        V24_MUX_CONTEXT->_v24_MuxRxFlowCtrlMethod
+
+#define v24_MuxAutobaudRate            V24_MUX_CONTEXT->_v24_MuxAutobaudRate
+#endif /*__SYS_V24_MUX_HT__*/

@@ -1,0 +1,74 @@
+SHELL=/bin/bash
+TOP=./
+CONFIG_MAK=$(TOP)config.mak
+LINT_MAK=$(TNG)lint.mak
+LINT=1
+
+include $(CONFIG_MAK)
+COMPILER=$(COMPILER_ARM)
+LOG_FILE=$(BUILD)/$(PRODUCT)/log
+
+ifdef MULTIJOB
+MAKER_MULTI = -j $(MULTIJOB)
+else
+MAKER_MULTI = -j 1
+endif
+
+#overwrite first make rule.
+all: lint
+
+
+include $(TNG)product.mak
+include $(MAK)options_$(PRODUCT).mak
+
+#
+# if $UPDATED_DETECTION) = 1, include $(UPDATED_LIB_LST) to get $(LST_UPDATED_LIB)
+#
+ifeq "$(UPDATED_DETECTION)" "1"
+include $(UPDATED_LIB_LST)
+endif
+
+#Retrieve products list in sc/product
+LIST_OF_PRODUCTS=$(filter-out common,$(notdir $(wildcard sc/product/*)))
+
+#lint folder 
+LINTPRODUCT_SC=$(PRODUCT_SC)
+LINTPRODUCT_SC+=$(PRODUCT_SC_MMI) $(PRODUCT_LIB_MMI)
+LINTPRODUCT_SC+=$(PRODUCT_SC_MDL) $(PRODUCT_LIB_MDL)
+LINTPRODUCT_SC+=$(PRODUCT_SC_3RD) $(PRODUCT_LIB_3RD)
+LINTPRODUCT_SC+=$(PRODUCT_SC_DRV) $(PRODUCT_LIB_DRV)
+LINTPRODUCT_SC+=$(PRODUCT_SC_SYS) $(PRODUCT_LIB_SYS)
+LINTPRODUCT_SC+=$(PRODUCT_LIB)
+
+#
+# if $UPDATED_DETECTION) = 1, overwrite $(LINTPRODUCT_SC) as $(LST_UPDATED_LIB)
+#
+LINTPRODUCT_SC:=$(if $(filter 1, $(UPDATED_DETECTION)), $(LST_UPDATED_LIB), $(LINTPRODUCT_SC))
+
+-include $(TNG)lint/NoLint.mak
+LINTPRODUCT_SC:=$(filter-out $(NOLINT_LIST), $(LINTPRODUCT_SC))
+
+#lint make rule.
+lint: workspace $(LINTPRODUCT_SC) 
+
+	$(DEBUG) Starting Lint=$(LINT)
+#	$(DEBUG) Starting Lint=$(LINT) TMP=$(TMP) DFLAGS=$(DFLAGS) CSRC=$(PATH_C) CINC=$(PATH_H) INC=$(INC)
+#	$(DEBUG) LIBS=$(LIBS) LIBS_MMI=$(LIBS_MMI) PRODUCT_SC=$(PRODUCT_SC)
+#	$(TNG_MAKE) -f $(PRODUCT_MAK) libs $(LOG_LINE)
+	$(DEBUG) done Lint
+
+$(LINTPRODUCT_SC): 
+ifeq "$(PER_FILE)" "1"
+	@$(TNG)/lint/lint_per_file.pl   -i./lintUnits.opt   -o./CL_LIST.mak
+endif
+
+	$(DEBUG) Starting Run Lint.mak Var=$@, Multi=$(MAKER_MULTI)
+ifeq "$(OSTYPE)" "Win32"
+	$(MAKE) $(MAKER_MULTI) -f  $(LINT_MAK) TARGET=$@  1>>$(LOG_FILE)
+else
+	$(TNG_MAKE) -f $(LINT_MAK) TARGET=$@  $(LOG_LINE)
+endif	
+	$(DEBUG) done  Run Lint.mak Var=$@
+
+$(NOLINT_LIST):
+	@echo we do not check $@\.lib in lint process

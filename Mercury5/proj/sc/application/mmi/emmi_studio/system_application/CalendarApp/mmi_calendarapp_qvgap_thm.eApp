@@ -1,0 +1,608 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CALENDAR_WND_MONTHLY_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="MonthlyGridBgImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CALENDARAPP_MONTHLY_GRID_BG_IMAGE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_MONTHLY_GRID_BG_IMAGE_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_MONTHLY_GRID_BG_IMAGE_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="92d94" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALENDAR_IMG_MONTH_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PreviousMonthButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CALENDARAPP_SWITCH_BUTTON_HEIGHT" SizeWidth="CALENDARAPP_SWITCH_BUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_SWITCH_PREVIOUS_BUTTON_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_SWITCH_PREVIOUS_BUTTON_Y_POSITION" />
+				<InternProp Id="GUID" Value="1f903" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CALENDAR_IMG_PREVIOUS_UNPRESSED" />
+						<Image Id="CALENDAR_IMG_PREVIOUS_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="FocusDayTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_FOCUS_DAY_TEXT_HEIGHT" SizeWidth="CALENDARAPP_FOCUS_DAY_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_FOCUS_DAY_TEXT_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_FOCUS_DAY_TEXT_Y_POSITION" />
+				<InternProp Id="GUID" Value="0f514" />
+			</Widget>
+			<Widget Id="NextMonthButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CALENDARAPP_SWITCH_BUTTON_HEIGHT" SizeWidth="CALENDARAPP_SWITCH_BUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_SWITCH_NEXT_BUTTON_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_SWITCH_NEXT_BUTTON_Y_POSITION" />
+				<InternProp Id="GUID" Value="53979" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CALENDAR_IMG_NEXT_UNPRESSED" />
+						<Image Id="CALENDAR_IMG_NEXT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="LunarInfoTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_LUNAR_INFO_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_LUNAR_INFO_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_LUNAR_INFO_Y_POSITION" />
+				<InternProp Id="GUID" Value="cbef5" />
+			</Widget>
+			<Widget Id="WeekTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="852b4" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_WEEK" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WeekDayListWdg" ClsID="CLSID_HORZ_MENUWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="5406b" />
+				<Property Id="PROP_ITEM_WIDTH" Value="(u16)CALENDARAPP_WEEK_DAY_LIST_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="(u16)CALENDARAPP_WEEK_DAY_LIST_ITEM_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+			</Widget>
+			<Widget Id="WeekNumListWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="2a332" />
+				<Property Id="PROP_ITEM_WIDTH" Value="(u16)CALENDARAPP_WEEK_NUM_LIST_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="(u16)CALENDARAPP_WEEK_NUM_LIST_ITEM_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Widget Id="MonthlyGridGridWdg" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="e44ba" />
+				<Property Id="PROP_ITEM_WIDTH" Value="(u16)CALENDARAPP_MONTHLY_GRID_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="(u16)CALENDARAPP_MONTHLY_GRID_ITEM_HEIGHT" />
+				<Property Id="PROP_FIXED_NUM" Value="(u16)CALENDARAPP_MONTHLY_GRID_DIMENSION" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Widget Id="PreviewCountTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_PREVIEW_LINE_HEIGHT" SizeWidth="CALENDARAPP_PREVIEW_LINE_COUNT_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_PREVIEW_LINE_EVENT_WIDTH" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="08aeb" />
+			</Widget>
+			<InternProp Id="GUID" Value="5e6c3" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="GUID" Value="3dacc" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CALENDAR_WND_WEEKLY_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="TimeSlotBgImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CALENDARAPP_WEEKLY_TIME_SLOT_BG_IMAGE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_WEEKLY_TIME_SLOT_BG_IMAGE_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_WEEKLY_TIME_SLOT_BG_IMAGE_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="ae020" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALENDAR_IMG_WEEK_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PreviousWeekButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CALENDARAPP_SWITCH_BUTTON_HEIGHT" SizeWidth="CALENDARAPP_SWITCH_BUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_SWITCH_PREVIOUS_BUTTON_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_SWITCH_PREVIOUS_BUTTON_Y_POSITION" />
+				<InternProp Id="GUID" Value="b12bc" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CALENDAR_IMG_PREVIOUS_UNPRESSED" />
+						<Image Id="CALENDAR_IMG_PREVIOUS_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WeeklyFocusDayTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_FOCUS_DAY_TEXT_HEIGHT" SizeWidth="CALENDARAPP_FOCUS_DAY_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_FOCUS_DAY_TEXT_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_FOCUS_DAY_TEXT_Y_POSITION" />
+				<InternProp Id="GUID" Value="43f56" />
+			</Widget>
+			<Widget Id="NextWeekButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CALENDARAPP_SWITCH_BUTTON_HEIGHT" SizeWidth="CALENDARAPP_SWITCH_BUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_SWITCH_NEXT_BUTTON_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_SWITCH_NEXT_BUTTON_Y_POSITION" />
+				<InternProp Id="GUID" Value="95fe0" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CALENDAR_IMG_NEXT_UNPRESSED" />
+						<Image Id="CALENDAR_IMG_NEXT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WeeklyLunarInfoTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_LUNAR_INFO_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_LUNAR_INFO_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_LUNAR_INFO_Y_POSITION" />
+				<InternProp Id="GUID" Value="9079f" />
+			</Widget>
+			<Widget Id="TimeSlotListWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="CALENDARAPP_WEEKLY_TIME_SLOT_LIST_HEIGHT" SizeWidth="CALENDARAPP_WEEKLY_TIME_SLOT_LIST_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_WEEKLY_TIME_SLOT_LIST_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_WEEKLY_TIME_SLOT_LIST_Y_POSITION" />
+				<InternProp Id="GUID" Value="1f03f" />
+				<Property Id="PROP_ITEM_WIDTH" Value="(u16)CALENDARAPP_WEEKLY_TIME_SLOT_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="(u16)CALENDARAPP_WEEKLY_TIME_SLOT_ITEM_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Widget Id="WeeklyDayMenuWdg" ClsID="CLSID_HORZ_MENUWIDGET" SizeHeight="CALENDARAPP_WEEKLY_WEEK_DAY_LIST_HEIGHT" SizeWidth="CALENDARAPP_WEEKLY_WEEK_DAY_LIST_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_WEEKLY_WEEK_DAY_LIST_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_WEEKLY_WEEK_DAY_LIST_Y_POSITION" />
+				<InternProp Id="GUID" Value="3998e" />
+				<Property Id="PROP_ITEM_WIDTH" Value="(u16)CALENDARAPP_WEEKLY_WEEK_DAY_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="(u16)CALENDARAPP_WEEKLY_WEEK_DAY_ITEM_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+			</Widget>
+			<Widget Id="WeeklyPreviewCountTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_PREVIEW_LINE_HEIGHT" SizeWidth="CALENDARAPP_PREVIEW_LINE_COUNT_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_PREVIEW_LINE_EVENT_WIDTH" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="8ec19" />
+			</Widget>
+			<InternProp Id="GUID" Value="c1e8e" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="1013" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_EXIT" />
+		<InternProp Id="GUID" Value="67ef9" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CALENDAR_WND_DAILY_VIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="DailyTimeSlotBgImageWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CALENDARAPP_DAILY_TIME_SLOT_BG_IMAGE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_DAILY_TIME_SLOT_BG_IMAGE_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_DAILY_TIME_SLOT_BG_IMAGE_Y_POSITION" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="7c495" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CALENDAR_IMG_DAY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PreviousDayButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CALENDARAPP_SWITCH_BUTTON_HEIGHT" SizeWidth="CALENDARAPP_SWITCH_BUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_SWITCH_PREVIOUS_BUTTON_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_SWITCH_PREVIOUS_BUTTON_Y_POSITION" />
+				<InternProp Id="GUID" Value="f1f3c" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CALENDAR_IMG_PREVIOUS_UNPRESSED" />
+						<Image Id="CALENDAR_IMG_PREVIOUS_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DailyFocusDayTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_FOCUS_DAY_TEXT_HEIGHT" SizeWidth="CALENDARAPP_FOCUS_DAY_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_FOCUS_DAY_TEXT_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_FOCUS_DAY_TEXT_Y_POSITION" />
+				<InternProp Id="GUID" Value="1fca6" />
+			</Widget>
+			<Widget Id="NextDayButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CALENDARAPP_SWITCH_BUTTON_HEIGHT" SizeWidth="CALENDARAPP_SWITCH_BUTTON_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_SWITCH_NEXT_BUTTON_X_POSITION" />
+				<Position Type="Y_POSITION" Value="CALENDARAPP_SWITCH_NEXT_BUTTON_Y_POSITION" />
+				<InternProp Id="GUID" Value="bd281" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CALENDAR_IMG_NEXT_UNPRESSED" />
+						<Image Id="CALENDAR_IMG_NEXT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DailyPreviewCountTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALENDARAPP_PREVIEW_LINE_HEIGHT" SizeWidth="CALENDARAPP_PREVIEW_LINE_COUNT_WIDTH">
+				<Position Type="X_POSITION" Value="CALENDARAPP_PREVIEW_LINE_EVENT_WIDTH" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="092de" />
+			</Widget>
+			<Widget Id="DailyTimeSlotListWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="CALENDARAPP_DAILY_TIME_SLOT_LIST_HEIGHT" SizeWidth="CALENDARAPP_DAILY_TIME_SLOT_LIST_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="d0da4" />
+				<Property Id="PROP_ITEM_WIDTH" Value="(u16)CALENDARAPP_DAILY_TIME_SLOT_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="(u16)CALENDARAPP_DAILY_TIME_SLOT_ITEM_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="b96d6" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="761" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<InternProp Id="GUID" Value="17d65" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CALENDAR_WND_EDIT_EVENT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="EditSubjectWdg" ClsID="CLSID_DOUBLE_TEXT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="b6d43" />
+				<Model ClsID="CLSID_DOUBLE_TEXT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_SUBJECT" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditLocationWdg" ClsID="CLSID_DOUBLE_TEXT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="1c94a" />
+				<Model ClsID="CLSID_DOUBLE_TEXT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_LOCATION" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditRepeatWdg" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="47142" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_LIL_N_REPEAT" />
+						<Struct>
+							<String Id="TXT_LIL_N_OFF" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_DAILY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_WEEKLY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_MONTHLY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_YEARLY" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditStarDatetWdg" ClsID="CLSID_TEXT_DATE_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="a0f6d" />
+				<Model ClsID="CLSID_TEXT_DATE_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_STARTDATE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditStartTimeWdg" ClsID="CLSID_TEXT_TIME_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="54908" />
+				<Model ClsID="CLSID_TEXT_TIME_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_STARTTIME" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditEndDateWdg" ClsID="CLSID_TEXT_DATE_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="a4ff3" />
+				<Model ClsID="CLSID_TEXT_DATE_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_ENDDATE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditEndTimeWdg" ClsID="CLSID_TEXT_TIME_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="cc4c5" />
+				<Model ClsID="CLSID_TEXT_TIME_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_ENDTIME" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditDescriptionWdg" ClsID="CLSID_DOUBLE_TEXT_WIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="1c012" />
+				<Model ClsID="CLSID_DOUBLE_TEXT_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_DESCRIPTION" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="EditAlarmWdg" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="c4f68" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_LIL_N_ALARM" />
+						<Struct>
+							<String Id="TXT_LIL_N_OFF" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_IMMEDIATE" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_FIVEMIN" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_TENMIN" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_FIFTEENMIN" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_THIRTYMIN" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_ONEHOUR" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_ONEDAY" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="1a0b6" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SAVE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="GUID" Value="f56d0" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CALENDAR_WND_SETTINGS" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="DefaultViewWdg" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="a6f06" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_LIL_N_DEFAULT_VIEW" />
+						<Struct>
+							<String Id="TXT_OIL1_N_MONTHLY_VIEW" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_OIL1_N_WEEKLY_VIEW" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="WeekStartDayWdg" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="dd51d" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_LIL_N_WEEK_START_DAY" />
+						<Struct>
+							<String Id="TXT_LIL_N_SUNDAY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_MONDAY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_TUESDAY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_WEDNESDAY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_THURSDAY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_FRIDAY" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_SATURDAY" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="d9e11" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_SETTINGS&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_CHANGE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<InternProp Id="GUID" Value="c1a2b" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CALENDAR_WND_VIEW_EVENT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ViewSubjectWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="d8e16" />
+			</Widget>
+			<Widget Id="ViewLocationWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="43bb8" />
+			</Widget>
+			<Widget Id="ViewRepeatWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="34839" />
+			</Widget>
+			<Widget Id="ViewStartDateWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="e6675" />
+			</Widget>
+			<Widget Id="ViewStartTimeWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="35aee" />
+			</Widget>
+			<Widget Id="ViewEndDateWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="d131e" />
+			</Widget>
+			<Widget Id="ViewEndTimeWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="e2788" />
+			</Widget>
+			<Widget Id="ViweAlarmWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="a439f" />
+			</Widget>
+			<Widget Id="ViewDescriptionWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE|LAYOUT_BREAKONWORD" />
+				<InternProp Id="GUID" Value="e442c" />
+			</Widget>
+			<Widget Id="ViewPortWdg" ClsID="CLSID_VIEWPORTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_VIEWPORT_WDG_PANSTEP" Value="10" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="87265" />
+			</Widget>
+			<InternProp Id="GUID" Value="5e66f" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_VIEW_DETAILS&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLOSE" />
+		<InternProp Id="GUID" Value="4e8ac" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CALENDARAPP" />
+</UiRoot>

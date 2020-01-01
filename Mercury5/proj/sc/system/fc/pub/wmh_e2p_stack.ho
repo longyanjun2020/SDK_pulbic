@@ -1,0 +1,72 @@
+/****************************************************************************/
+/*  File    : wmh_e2p_stack.ho                                              */
+/*--------------------------------------------------------------------------*/
+/*  Description:  hidden stack e2p parameters for cutomer                   */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __WMH_E2P_STACK_HO__
+#define __WMH_E2P_STACK_HO__
+
+#include "wmh_e2p.ho"
+#include "vm_e2p_stack.ho"
+
+
+/****************************************************************************/
+/*  E2P Mask For Hidden Customer parameters fields                          */
+/****************************************************************************/
+/****************************************************************************/
+typedef struct
+{
+#ifdef __MOKA_DESCR_EEPROM__
+	u8                     vm_EnabledFtr[6];
+#else
+	u8                     vm_EnabledFtr[8];
+#endif
+	u32		               vm_CustomerFeatures;
+	vm_KeySignature_t      vm_SignatureForCustomerFeatures;
+	u8                     Padding[2];
+} vm_E2pHiddenStackForCustomer_t;
+
+
+/* Wa means warning, the parameter will be suppressed from this structure  */
+/* it will be set by a specifific interface in the future */
+/* R and W are the rights to read and write the parameters */
+
+/*
+**   ------------------------------------------------------------------------
+**     DEFINE LOGICAL NAMES FOR EEPROM RECORDS
+**   ------------------------------------------------------------------------
+*/
+
+#ifndef __MCP_WITHOUT_NOR__
+#define VM_E2P_HIDDEN_STACK_FOR_CUST_ADRESS(_FIELD_)    VM_E2P_ADRESS (VM_E2P_HIDDEN_STACK_FOR_CUST_AREA, vm_E2pHiddenStackForCustomer_t , _FIELD_ )
+#define VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD(_X_,_Y_)    VM_E2P_HIDDEN_STACK_FOR_CUST_ADRESS (_X_ ), _Y_
+
+
+#ifdef __MOKA_DESCR_EEPROM__
+#define VM_E2P_ENABLEDFTR                  VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( vm_EnabledFtr[0],                sizeof(u8)*6)
+#else
+#define VM_E2P_ENABLEDFTR                  VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( vm_EnabledFtr[0],                sizeof(u8)*8)
+#endif
+#define VM_E2P_CUSTOMER_FEATURES           VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( vm_CustomerFeatures,             sizeof(u32))
+#define VM_E2P_SIGNATURE_CUSTOMER_FEATURES VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( vm_SignatureForCustomerFeatures[0], sizeof(vm_KeySignature_t))
+
+#else // __MCP_WITHOUT_NOR__
+
+#define VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD(_NAME_,_SIZE_)  _NAME_, 0, _SIZE_
+
+
+#ifdef __MOKA_DESCR_EEPROM__
+#define VM_E2P_ENABLEDFTR                  VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( "EnabledFtr",                sizeof(u8)*6)
+#else
+#define VM_E2P_ENABLEDFTR                  VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( "EnabledFtr",                sizeof(u8)*8)
+#endif
+#define VM_E2P_CUSTOMER_FEATURES           VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( "CustomerFeatures",             sizeof(u32))
+#define VM_E2P_SIGNATURE_CUSTOMER_FEATURES VM_E2P_HIDDEN_STACK_FOR_CUST_RECORD( "SignatureForCustomerFeatures", sizeof(vm_KeySignature_t))
+
+#endif // __MCP_WITHOUT_NOR__
+
+#endif //__WMH_E2P_STACK_HO__

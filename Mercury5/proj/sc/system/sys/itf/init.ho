@@ -1,0 +1,6 @@
+#ifndef __INIT_HO__
+#define __INIT_HO__
+
+#include "sys_sys_init.h"
+
+#endif /* __INIT_HO__ */

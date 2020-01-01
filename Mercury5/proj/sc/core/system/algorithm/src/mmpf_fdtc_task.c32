@@ -1,0 +1,52 @@
+//==============================================================================
+//
+//  File        : mmpf_fdtc_task.c32
+//  Description : Face detection function
+//  Author      : Rogers Chen
+//  Revision    : 1.0
+//
+//==============================================================================
+
+#include "includes_fw.h"
+#include "lib_retina.h"
+#include "config_fw.h"
+
+#if ((DSC_R_EN)||(VIDEO_R_EN))&&(SUPPORT_MDTC)
+
+//==============================================================================
+//
+//                              VARIABLES
+//
+//==============================================================================
+
+/** @addtogroup MMPF_Sensor
+@{
+*/
+
+MMPF_OS_FLAGID 	FDTC_Flag;
+
+OS_STK      	FDTC_Task_Stk[TASK_FDTC_STK_SIZE];
+
+//==============================================================================
+//
+//                              FUNCTION PROTOTYPES
+//
+//==============================================================================
+
+extern void FDTC_Task(void);
+
+//------------------------------------------------------------------------------
+//  Function    : MMPF_FDTC_TaskHandler
+//  Description : This is the SYS startup task
+//------------------------------------------------------------------------------
+void MMPF_FDTC_TaskHandler(void *p_arg)
+{
+    FDTC_Flag = MMPF_OS_CreateEventFlagGrp(0);
+
+    if (FDTC_Flag >= MMPF_OS_CREATE_FLAG_EXCEED_MAX) {
+    	RTNA_DBG_Str(0, "Error:FDTC_Flag Failed\r\n");
+    }
+    FDTC_Task();
+} 
+#endif
+/// @}

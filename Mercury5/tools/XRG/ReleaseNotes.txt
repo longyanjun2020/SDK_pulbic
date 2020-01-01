@@ -1,0 +1,564 @@
+================================
+== EMMI RESOURCE GENERATOR    ==
+================================
+== XRG TOOL : Version History ==
+================================
+Version: 0.5.4.8 (Sep. 29th, 2009)
+New features:
+		- Font support BDF.
+		- Support auto update DTD for VDF building.
+		- Support duplicate resource ID checking.
+		- Support version control.
+
+Bug fix:
+		- Fixed crash issue of string label preview, if non-exist layout reside in it.
+		- Fixed issue of report.
+		- Fixed issue of character merge function fail, if merged character is after first row of font bitmap.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 0.5.4.9 (Oct. 15th, 2009)
+New features:
+		- Support customize RAI size for WPB.
+
+Bug fix:
+		- Remove temporary .w file after build process.
+
+Version: 0.5.5.0 (Oct. 30th, 2009)
+New features:
+		- Support customized BDF to BDF2MBF.
+
+Bug fix:
+		- Remove middle files after build process.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 0.5.5.1 (Nov. 5th, 2009)
+New features:
+		- Disable configure function of output path in delta project. (Use output path of Base project.)
+		- Disable drag & drop function of assigned font list in Font Type manager.
+		- Use relative path in VDF build.
+Bug fix:
+		- Fixed issue of string label preview. (THAI composed characters error.)
+		- Fixed issue of loading delta image item which has disabled records. (It causes XRG crash.)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 0.5.5.2 (Nov. 14th, 2009)
+New features:
+		- Support LoadConverter arguments in INI.
+		- LoadConverter support version verification.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++		
+Version: 0.5.5.3 (Nov. 27th, 2009)
+New features:
+		- Setting support compile option on struct or struct member. (#ifdef #endif or #ifndef #endif only, not support #else.)
+		- Support predefine image/melody HASH and predefine image/melody URL.
+		- Support image raw-data. (LIB)
+		- Support XBMP raw-data. (LIB)
+Bug fix:
+		- Set first record as default entry point for search. (String Table)
+		- Disable rename command of context menus. (PLMN/Font/IME/Handwriting)
+		- Remove linking assert if not find NIC information in local PC.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++		
+Version: 0.5.6.0 (Dec. 4th, 2009)
+New features:
+		- Support Boot resource.
+
+Version: 0.5.6.1 (Dec. 9th, 2009)
+New features:
+		- Support XMMIStudio Build. Xframe --> cus.
+		- support VDF single build.
+Bug fix:
+		- Export functions must include XRG_config.ini, option.rte.2005, and CompilerOptionReadMe.txt fils.
+		- Fixed issue of XRG crash by input a over length string in String-Table. (Max stirng length: 1000)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++		
+Version: 0.5.6.2 (Dec. 18th, 2009)
+New features:
+		- XRG UI support Image raw-data option.
+		- Image CUS format support 4 or 8 Bytes alignment for G3D.
+		- New MIME types for raw-data resource.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                
+Version: 0.5.6.3 (Dec. 25th, 2009)
+New features:
+		- If label string over 4096 characters, only the 0th to 32th characters can previewed in XRG.
+Bug fix:
+		- Limit the max string length to 128 characters.
+		- Limit the max length of label string to 4096 characters.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                
+Version: 0.5.6.4 (Jan. 7th, 2010)
+New features:
+		- Support FTG (Free-Type Glyph) and MVF (MStar Vector Font).
+Bug fix:
+		- Remove XMMI studio path from project input.
+		- Fixed issue of export Base project function. (Lack xframe files for XMMI studio build.)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++		
+Version: 0.5.6.5 (Jan. 22th, 2010)
+New features:
+		- Support export xmmi studio sln file for VDF.
+		- Image CUS format support 4 or 8 Bytes alignment for G3D. (Can configure it in INI file.)
+		- The filter also support search function in String-Table.
+		- Improve edit function of compile option in String-Table, Image and melody.
+Bug fix:
+		- XRG crash when add invalid vdf file.
+		- XRG crash when execute report summary function.
+		- XRG forzen when add boolean array in setting.
+		- Length limition of menu ID edit control.
+		- Font type error when add new layout in String-Table.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 0.5.6.6 (Feb. 10th, 2010)
+New features:
+		- Support TTF font.
+Bug fix:
+		- Fixed issue of VDD export base function. (Export XMMIStudio Enable Flag.)
+		- Fixed sync command issue of setting. (Setting value sync in struct arrary.)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 0.5.6.7 (Mar. 5th, 2010)
+New features:
+		- New Image CUS format for support dynamic load mechanism.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 0.5.6.8 (Mar. 10th, 2010)
+New features:
+		- String-Table XMLs can be saved as unicode format.
+		- Enable/Disable Setting category by XRG INI configuration.
+Bug fix:
+		- Fixed issue of image group id conversion. (The character '-' is converted to '_'.)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 0.5.6.9 (Mar. 18th, 2010)
+New features:
+		- Null sting records don't be saved in XML files.
+		- Enable/Disable Setting category by XRG INI configuration.
+		- Smart build enhancement. (Version verification)
+Bug fix:
+		- Fixed issue of new line symbol conversion in String-Table. (Unicode format)
+		- Fixed issue of modify flag update in String-Table. (Tab select change)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.0.1 (May 3rd, 2010)
+New features:
+		- Support resource generation by application.
+		- Support multi-theme.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.1.0 (May 21th, 2010)
+Bug fix:
+		- XRG crash when edit string-label.
+		- Font preview fail when bitmap file is read-only.
+		- XRG crash when add multi-resource of Image and Melody.
+		- Customize process fail.
+		- Customize process: Environment variable error.
+		- Build all resource with no language pack. (for release process)
+
+New features:
+		- Resource ID is composed of ape num id, resource type and resource id.
+		- Remove Theme type from Image and Melody.
+		- Rename Theme to RS.
+		- Predefine resource can only be created in Common project.
+		- Create resource path folder when add a new application project.
+		- Rename Base to default and Delta to theme name.
+		- Delete resource path folder after application project is deleted by user.
+		- Post error message for dealing with read-only file.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.2.0 (May 26th, 2010)
+Bug fix:
+		- Customization AP not auto remove resource category when parent AP remove resource category.
+		- XRG copies melody file to customization theme resource folder fail when it executes add command.
+		- XRG buffer overflow when edit Compile option.
+		- Remove invalid context menu of image/melody/RS records.
+
+New features:
+		- Support CSV and Excel import/export.
+		- Support group id and angle field theme CUS.
+		- Support Theme Group Manager.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.3.0 (May 28th, 2010)
+Bug fix:
+		- MDI update after stirng-label import.
+		- Remove system theme from Theme Group Manager.
+		- Theme Name Text ID build update.
+		- Fixed smart build fail. (default theme update)
+		- New language category with starting code.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++		
+Version: 1.0.3.1 (May 29th, 2010)
+Bug fix:
+		- [BUILD] Fixed Text ID error predefine resource.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.4.0 (June 15th, 2010)
+New features:
+		- Support global search.
+		- Support the location of duplicate ID when add one string-label.
+		- Supoort media resource directory setup.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.4.1 (June 29th, 2010)
+Bug fix:
+		- [BUILD] Fixed issue of customize build.		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.5.0 (July 1st, 2010)
+New features:
+		- Support Theme Pack.
+Bug fix:
+		- Customization build.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.6.0 (July 9th, 2010)
+Bug fix:
+		- If there is no theme pack file in the Theme Pack List, the rename must be disabled.
+		- Create one theme pack fail if the Theme Pack List is empty.
+		- If user delete one customize record, String display incorrect.
+		- CUS file name incorrect if XRG build CUS without theme pack.
+		- File location is incorrect after user change active theme.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.6.1 (July 11th, 2010)
+Bug fix:
+		- When user adds theme packs, XRG creates path folder for theme pack files.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.7.0 (July 23th, 2010)
+New features:
+		- Support string-table path configuration.
+		- Support 3rd category.
+		- Support .fnt file type for font.
+		- Support NULL resource by INI configuration.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.7.1 (July 30th, 2010)
+New features:
+		- Remove string-table path configuration.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.7.2 (Aug. 11th, 2010)
+Bug fix:
+		- While set one customize theme as active theme, the RS of customize app doesn't generate in CUS.
+
+New features:
+		- Report enhancement.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.7.3 (Aug. 13th, 2010)
+Bug fix:
+		- Fix issue of 3rd new functions.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.7.4 (Aug. 18th, 2010)
+New features:
+		- Trun on/off 3rd and Theme Pack functions by INI configuration.
+Bug fix:
+		- RS new functions.
+		- Configure customize processes fail of Customize ResGroup.
+		- File location is incorrect after create 3rd party item.
+		- Some words display incorrect when create 3rd party item.
+		- Compile option buffer overflow.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.8.3 (Sep. 9th, 2010)
+New features:
+		- language pack location with product information
+		- build app by compile option.
+		- XRG Language Pack Converter 
+Bug fix:
+		- 119838: [Bug][VT][A]播放列表呈碟片狀態時，進入任意列表，手机重啟
+		- 在編譯版本的時候 在工程目錄下 生成一個以工程第一個字母命名的空目錄
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.8.5 (Oct. 28th, 2010)
+New features:
+		N/A
+Bug fix:
+		- [XRG][Image/Melody][UI] 1. predefine to system type bug / 2. add theme type for image
+		- Add new ISO639 language
+		- [XRG][Image/Melody/Boot][Lib]1. Ignore disable by compile option resource file check.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.8.6 (Oct. 31th, 2010)
+New features:
+		- Add RS global setting
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.0.9.1 (Nov. 02th, 2010)
+New features:
+		[XRG][Boot][Lib] 1. aligment for each row/ 2. add padding by using 1st pixel of a boot logo
+		[XRG][Image/Melody/Boot][Lib]1. Ignore disable by compile option resource file check.
+		[XRG][Lang][Lib] 1. Add new ISO639 language
+		[XRG][Image][UI] 1. ignore delta image extesion check
+Bug fix:
+		[XRG][Image/Melody][UI] 1. predefine to system type bug / 2. add theme type for image
+PR:
+		0118761: [Bug][VT][A]MS reset when use handwrite to input text under Hindi input method
+		0119816: predefine image/melody enhancement
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.1 (Dec. 3th, 2010)
+New Architecture:
+		1.	只需維護一份control file (XML file)
+		2.	只需維護一份RS file
+		3.	各專案同ID的image/melody/boot logo檔案 可用複雜的巨集包覆
+		4.	針對language pack可依照不同的專案建成該專案所需要的內容 放在資源壓縮包內
+		5.	下載resource時 時間將大為減少
+New features:
+		1. [XRG][Common][Lib] For language_Code function, use the ini file to get it.
+		2. [XRG][RS][Lib] move global include file/path setting before normal include file/path
+		3. [XRG][Common][Lib] use commonap_resource_H.tmp while creating ap_resource.h
+		4. In the language pack management, users can see the [font type] easily.
+Bug fix:
+		N/A
+PR:
+		[Tool_PR 0128024]: The folder name that contents space is not allowed to be used in XRG
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.2 (Nov. 13th, 2010)
+New features:
+		[XRG][Common][Lib] customize theme與繼承於base theme的compile option邏輯以 && 方式做判斷
+Bug fix:
+		[XRG][LanguagePack][UI] For this version, the bug which when user select language from language pack mgr and then system will save the font type into .ini file.
+PR:
+		0124140: [SQA][UT][A]PC will show debug error message when image list no item then edit compile options.
+		0124177: [SQA][UT][A]There is no item in image list, delete function is not disable.
+		0124118: [SQA][UT][A]Theme pack setting will be saved success when solution file is read-only.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.3 (Nov. 14th, 2010)
+New features:
+		N/A
+Bug fix:
+		[XRG][Common][Lib] fix compile option valide expression issue
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.4 (Nov. 15th, 2010)
+New features:
+		[XRG][RS][Lib] use option.h instead of appending compile options to solve "path too long" issue
+Bug fix:
+		N/A
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.6 (Feb. 11th, 2011)
+New features:
+		1. Parsing compiler option file (option.h/global_header.h) to get compiler option list. This feature can be on/off in XRG.ini file.
+Bug fix:
+		1. [XRG][Font][UI] When users try to change the Fonts format(Fixed, Proportional), the font xml files have two different formats for fixed(0x1 and 0x01). So, for this version, I changed the function of DWToHexStr(StringUtlLib.cpp) and made the fixed format just use 0x01.
+		2. [XRG][Image][UI]For this PR, users found if they try to use the function of the multi image addition, the wrong fold location is provided by the system.
+		3. [XRG][Image|Melody][UI] For the last version, when XRG try to build the CUS file, there are some paremeters changed by space checking will make the building fail. So, the checking mathods are fixed.
+		4. [XRG][FONT][UI] When the users add a new ap and then try to add a string table in order to indentify specific string, the system will create the language xml files. However these files will be created as ascii format. So, for this version, the XRG will create different format depends on XRG.INI file.
+		5. [XRG][Image][Lib] fix "cus data length miss match." issue solution
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.7 (Feb. 16th, 2011)
+New features:
+		1. For windows version > 5 (get UAC), use user define temp file name (in XRG.ini) to make temp executable file name.
+Bug fix:
+		N/A
+PR:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.8 (Feb. 24th, 2011)
+New features:
+		N/A
+Bug fix:
+		1. Fix [image_list] cus data length miss match. issue.
+		2. [XRG][CUSSize]Fix cussize report error.
+		3. [XRG][Project][Lib] fix single lang pack build issue
+		4. [XRG][Project][Lib] change compiler header file open privilege
+PR:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.1.9 (Mar. 1th, 2011)
+New features:
+		1. Add import string table Excel log feature.
+Bug fix:
+		N/A
+PR:
+		N/A				
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.2.1.1 (Jan. 14th, 2011)
+New features:
+		[XRG][MultiTheme Feature][RS][Lib] add "add compile option" for each RS feature
+		[XRG][MultiTheme Feature][Common][Lib] FEATURE->SORT_RESOURCE in XRG.ini (1: sort, 0: not sort)
+		[XRG][MultiTheme Feature][Common][Lib] 1. FILE->MMI_MAE_CUSTOMIZATION in XRG.ini (build CUS version from mmi_mae_customization.h)/2. use GUID for theme name id (system: 0x00000000, default: 0x00000001)
+		[XRG][MultiTheme Feature][Solution][Lib] use #pragma pack(push,1) to fix struct alignment issue
+		[XRG][MultiTheme Feature][Project] not build/link RS if none
+		[XRG][MultiTheme Feature][ResGroup] theme name id not refer to string table instead of GUID
+		[XRG][MultiTheme Feature][Project] not count null delta RS
+Bug fix:
+		[XRG][Font][UI] When users try to change the Fonts format(Fixed, Proportional), the font xml files have two different formats for fixed(0x1 and 0x01). So, for this version, I changed the function of DWToHexStr(StringUtlLib.cpp) and made the fixed format just use 0x01.
+		[XRG][Image][UI]For this PR, users found if they try to use the function of the multi image addition, the wrong fold location is provided by the system. So, for this version I change the XRGNewMultiImageDlg.cpp (_InitialTreeList())make the application provides the right file location.
+		[XRG][Image|Melody][UI] For the last version, when XRG try to build the CUS file, there are some paremeters changed by space checking will make the building fail. So, the checking mathods are fixed.
+		[XRG][Font][UI] When the users add a new ap and then try to add a string table in order to indentify specific string, the system will create the language xml files. However these files will be created as ascii format. So, for this version, the XRG will create different format depends on XRG.INI file.
+		[XRG][Image][Lib] fix "cus data length miss match." issue solution
+		[XRG][UI][FONT] For latest version, users cant remove Fonts fron Language Pack. So, the bug already fixed.
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.2.1.2 (Jan. 18th, 2011)
+New features:
+		N/A
+Bug fix:
+		[XRG][Common][Lib] fix console mode condition & fix load fail in while infinite loop
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.3.0.1 (Mar. 28th, 2011) support multh-theme ini switch on/off
+New features:
+		1. [XRG][RS][Lib] For windows version > 5 (get UAC), use user define temp file name (in XRG.ini) to make temp executable file name.
+		2. [XRG][Common][Lib] Parsing compiler option file (option.h/global_header.h) to get compiler option list. This feature can be on/off in XRG.ini file. sync with //Tools/SDKTool/Branches/XRG_v1.1.1.1/ CL#89346
+		3. [XRG][Image/Melody][UI] add theme type for image/melody multiple add function
+		4. [XRG]For this version, the system will move LangPack.ini to "\build" file and rename to "TP_DefaultLangPackXXX.readme".
+		5. [XRG]For this version, the system will move XRGConsoleXXXXX.log to "\build".
+		6. [XRG][Import/Export Excel] For this function, the system will log the import process information and check the error status.
+		7. [XRG]Move LangPackXXX.ini to /build and then delete the old *.readme file.
+		8. [XRG][Doc] update user guide for v2.04
+		9. [XRG][Import/Export Excel] Fix the error which imports excel files is not correct.
+		10. [XRG][MultiTheme Feature][Solution] Support multi-theme switch (XRG.ini [FEATURE-->MULTI_THEME=1/0])
+		11. [XRG][Font/Lang][Lib] compress font/lang category to reduce CUS size (XRG.ini control [use compiler option to check])
+		12. [XRG][LangPack][UI/Lib]  use __IME_SMART_SETTING__ to on/off IME smart input (now off)
+		13. [XRG][Image/Melody/Boot][Lib/UI] fix customization media file with different file extesion issue
+Bug fix:
+		1. [XRG][Project][Lib] fix single lang pack build issue
+		2. [XRG][Project][Lib] change compiler header file open privilege
+		3. [XRG][Image][Lib] mark useless image size check
+		4. [XRG][Lang][Lib] fix add string category for new AP issue
+PR:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.3.0.2 (Apr. 6th, 2011)
+New features:
+		1. Turn on __IME_SMART_SETTING__ compiler option.
+		2. [XRG][IME]For IME smart input filter un-action bug.
+Bug fix:
+		N/A
+PR:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.3.0.3 (Apr. 12th, 2011)
+New features:
+		1. [XRG][Solution][Lib] put active theme to default theme in build list
+Bug fix:
+		1. [XRG][CUSReport] Fix the error of CUSReport function. In this version, the header size will not be negative.
+		2. [XRG][CUSSize Report] Fix the CUSSize report bug. In the original version,the function of font compressioning will make cussize report error, so at the moment the problem was fixed.
+		3. [XRG][Image][Lib] add new image build fail issue by using UI
+PR:
+		N/A		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.4.0.1 (Apr. 28th, 2011)
+New features:
+		1. [XRG][Build][Lib] use XRG2Console to build (switch in XRG.ini)
+Bug fix:
+		N/A
+PR:
+		N/A				
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.4.0.2 (May. 5th, 2011)
+New features:
+		1. [XRG2] Append data fix.It includes that XRG_UI and XRGConsole.
+Bug fix:
+		N/A
+PR:
+		N/A	
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.5.0.1 (Jun. 9th, 2011)
+New features:
+		1. [XRG][Load][Lib] XML load performance enhancement
+		2. [XRG][Common][Lib] allow special char for complex compiler option
+		3. [XRG][Solution][UI/Lib] Add a new edit box for RSSetting in the Solution Setting menu.
+		4. [XRG]Implement the function in the IMAGE category. So, in the future, in the image_list.xml will not provide path tag. [XRG] Image load/save/build function change. For this function, users hope we can provide a XML tag which supports directory path structure.
+Bug fix:
+		1. [XRG][String Table] Import/export bug fix. Add a checking rule in the rule2 import.
+PR:
+		N/A	
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.6.0.1 (Jul. 28th, 2011)
+New features:
+		1. Image group for dymanic load
+Bug fix:
+		N/A
+CR:
+		1. 0174180: [CR] AP Resource support sub group
+PR:		
+		1. 0183304: [XRG][SQA][UT][A] XRG will be closed after open Theme Pack Manager.
+		2. 0183298: [XRG][SQA][UT][A] PC will show Runtime Error after assign compile options in 3rd party list then save all.
+		3. 0183033: [XRG][SQA][UT][A] PC will show debug error message when add customization image.			
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.6.0.2
+Version: 1.6.0.2 (Sep. 5th, 2011)
+New features:
+		1. [XRG][UI][RS] 0158637: [XRG] customization theme 新增的RS , 自動以default 的設定為主
+		2. [XRG][UI] 0184575: [XRG] XRG 支援不能移除 default_L 的防呆功能。
+		3. [XRG][Image/Melody][UI] 0188757: Melody supports AAC format. (image/melody support format @ ini file)
+		4. [XRG][All][UI] 0191529: [Tool Improvement] XRG partial build an AP (e.x. -ap Common AlarmApp)
+		5. [XRG][Lang][UI] 0192114: [Tool Improvement] XRG phase out string layout id (reserve "LIL" for later use)
+ 
+Bug fix:
+		1. [XRG][Font][UI] 0183193: [XRG][SQA][UT][A] The message "Cannot open file" will pop up twice after delete font type.
+		2. [XRG][Image][UI] When update AP's image type group, the function identifies delta option has a bug. So this version fixed it.
+		3. [XRG][Common][Lib] extend convert string buffer length (issue from: MSZ Bill)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.7.0.1
+Version: 1.7.0.1 (Oct. 6th, 2011)
+New features:
+		1. [XRG][Lang][UI] 0191528: [Tool Improvement] XRG batch add string id
+		2. [XRG][Font][UI] 0197140: [XRG] .ftg 和 .mvf 從 New font 的過程中拿掉
+		3. [XRG2][UI/Lib][PLMN ]0197059: [XRG] PLMN allows empty for long/short name 
+		4. [XRG][Project][UI] 0198647: [Tool Improvement] XRG被compiler option包掉的resource以明顯圖示區分 
+		5. [XRG][Common/Image][UI] 0198647: [Tool Improvement] XRG被compiler option包掉的resource以明顯圖示區分 
+		6. [XRG][Melody/Lang][UI] 0198647: [Tool Improvement] XRG被compiler option包掉的resource以明顯圖示區分 
+		
+Bug fix:
+		1. [XRG][Common][Lib] extend XRG_OUT_BUFF struct menber size to fix worldwide language number issue		
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.7.0.2	
+Version: 1.7.0.2 (Dec. 12th, 2011)
+New features:
+		N/A		
+Bug fix:
+		1. [XRG][RS][UI] fix RS UI crash issue
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.7.0.3
+Version: 1.7.0.3 (Jan. 2th, 2012)
+New features:
+		1.[XRG][Language][UI] Disable the "String ID Layout" Function.
+		2.[XRG][UI] Change the loading procedure. When the project is loading, all xmls will be changed to writable. 
+
+Bug fix:
+		1.[XRG][Common][UI] fix root node action crash
+		2.[XRG][Lang][UI] Fix the error which the font preview window can not show result.
+		3.[XRG][Image][UI] fix new image category with 0 image type issue
+		4.[XRG][UI] CL:215401 and CL:215299, the error of the project setting dialog fix.
+		5.[XRG][UI] Fix the PR of 215401. All buttons are not works in Settings page.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.7.1.1
+Version: 1.7.1.1 (Mar. 5th, 2012)
+New features:
+		1.[XRG][KMXFont][UI] add "<category type="kmxfont">.\project\KMXFonts</category>" to global.xml		
+Bug fix:
+		1. [XRG][Sol][UI] fix save langpack list count incorrect issue
+		2. Merge //Tools/SDKTool/XRG2/
+			 CL#184879
+			 [XRG][RS][UI] fix RS UI crash issue
+			 CL#185591
+			 [XRG][Common][UI] fix root node action crash
+			 CL#187523
+			 [XRG][Language][UI] Disable the "String ID Layout" Function.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.7.1.2
+Version: 1.7.1.2 (Mar. 13th, 2012)
+New features:
+		1. [XRG][LangPack][UI] add gating rule
+					Vector font的language pack中的 顯示語言 一定要搭配至少一個vector font 字型黨
+					Vector font字型黨至少要assign一個language
+		2. [XRG][IME][UI] compiler option __IME_SMART_SETTING__ off
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.8.0.1
+Version: 1.8.0.1 (Mar. 21th, 2012)
+New features:
+		1. [KMXFont UI][XRG][KMXFont][UI] load cate & item
+		2. [KMXFont UI][XRG][KMXFont][UI] add item form & add item dialog
+		3. [KMXFont UI][XRG][KMXFont][UI] modify add file scenario
+		4. [KMXFont UI][XRG][KMXFont][UI] KMXFont category/item UI operation
+		5. [KMXFont UI][XRG][KMXFont][UI] KMXFont category/item UI operation
+		6. [KMXFont UI][XRG][Langpack][UI] Langpack manager for KMXFont
+		7. [MultiTheme][XRG][All][UI] not save portable theme related tag
+		8. [KMXFont UI][XRG][Langpack][UI] new KMXFont ID gating rule
+		9. [XRG][ResGroup][UI] load/save theme color
+		10 [KMXFont UI][XRG][KMXFont][UI] new/modify KMXFont file type change (.h -> .bdf)
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.8.0.2
+Version: 1.8.0.2 (Mar. 30th, 2012)
+New features:
+		N/A
+Bug fix:
+		1. [XRG][LangPack][UI] 0234172: [XRG][SQA][UT][A] The warning message "Language pack name existed already!" always pops up when edit language pack name.
+		2. [KMXFont UI][XRG][Langpack][UI]
+				0234157: [XRG][SQA][UT][A] Language pack can't be deleted.
+				0234167: [XRG][SQA][UT][A] Some items will be changed to "unchecked" after add language pack.
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[XRG UI] Release v1.8.0.3
+Version: 1.8.0.3 (May. 14th, 2012)
+New features:
+		1. [XRG][3rd][UI] support new format 3rd
+Bug fix:
+		1. [XRG][Image/Melody/Boot][UI] fix compiler option && issue

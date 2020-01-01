@@ -1,0 +1,292 @@
+/****************************************************************************/
+/* File     : v24_uart.ht                                                   */
+/*--------------------------------------------------------------------------*/
+/* Scope    : interface with the multiplexer                                */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+#ifndef __SYS_V24_UART_HT__
+#define __SYS_V24_UART_HT__
+
+//#include "kernel.h"
+#include "sys_v24.ht"
+#include "drv_vm_io_types.h"
+
+#define INTERRUPT
+typedef void INTERRUPT  (* v24_Isr_t )          ( void );
+
+#if defined(linux)
+#define __packed
+#endif
+
+#ifdef __AUTOBAUD__
+typedef enum            /* Order of items must _not_ be changed */
+{
+   AB_START,
+   AB_STOP,
+   AB_DISABLED
+} v24_AutoBaud_t;
+#endif
+
+/***************************************************************************/
+/*           Structure of request and response for RS232 calibration                                         */
+/***************************************************************************/
+/*******************************Request*************************************/
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+  u8 Values;      // Bitmap; values to be given to output DTR, RTS 0 or 1
+  u16 Duration;   // only for RTS in n*4,6ms
+} v24_Rs232CtrlReq_t;
+
+/*******************************Response*************************************/
+typedef struct
+{
+  u8 Crt;
+} v24_Rs232Rsp_t;
+
+typedef struct
+{
+  u8 Crt;
+  u8 Values;        // Bitmap; value read on CTS and DSR
+} v24_Rs232CtrlRsp_t;
+
+typedef enum
+{
+   V24_NO_BREAK,
+   V24_STOP_BREAK,
+   V24_BREAK_STOPPED
+}
+v24_TxBreakState_t;
+
+typedef void (*v24_SetUartFct_t) (bool);
+typedef bool (*v24_GetUartFct_t) (void);
+
+typedef struct
+{
+  u32                       _v24_UartPort;
+
+  u32              _v24_SignalsAllocated;//bitfield containing v24 signals to allocate.
+  void *                  _v24_OUart;  
+
+  u16                     _v24_PowerDownMask;
+  u16                     _v24_SysRegUartClk;
+  v24_Isr_t               _v24_Isr;
+  v24_Isr_t               _v24_FormerIsr;
+
+  u32                     _v24_Mask;//an u8 should be enough but nevermind for the moment
+
+  u8                      _v24_UartRxFifo[ V24_RX_IT_BUF_LEN ];
+
+  v24_RxItIdx_t           _v24_UartRxFifoPurgeIndex;
+  v24_RxItIdx_t           _v24_UartRxFifoFillIndex;
+  v24_RxItIdx_t           _v24_UartRxFifoLen;
+  u16                     _v24_UartTxDataLen;
+
+
+#ifdef __V24_IT_TRACES__
+  u32                     _v24_NbRxBytes;
+  u32                     _v24_NbTxBytes;
+  u32                     _v24_NbParityError;
+  u32                     _v24_NbFramingError;
+#endif // __V24_IT_TRACES__
+
+  u8*                     _v24_UartTxDataPtr;
+
+
+  u8                      _v24_NbOverruns;
+  u8                      _v24_NbRxBufOverflows;
+  v24_FlowControl_t       _v24_UartTxFlowCtrlMethod;
+  v24_FlowControl_t       _v24_UartRxFlowCtrlMethod;
+
+// v24_TxBreakState_t      _v24_UartTxBreakState;
+
+  bool                    _v24_UartTxItRunning;//used for Uart and USB to amorce the IT mechanism.
+  bool                    _v24_UartTxBarred;/*should be present in each layer that can create/forward data*/
+  bool                    _v24_UartRxBarred;/*should be present in each layer that can receive data.*/
+  bool                    _v24_UartRxBreak;
+  /*
+  Should be in Uart contexts... since Usb does not manage any autobaud
+  BEGIN
+  */
+#ifdef __AUTOBAUD__
+  u16              _v24_AtLength;//?checker
+  u16              _v24_NbAutoBaudFailures;
+
+  v24_AutoBaud_t   _v24_AutoBaud;
+  v24_Rate_t       _v24_UserRate;
+  u8               _v24_NbFint1Chars;
+  bool             _v24_IsABRunning;
+#endif
+
+  v24_Rate_t       _v24_UartSerialRate;
+  v24_Framing_t    _v24_UartSerialFraming;
+  u8               _v24_UartSignal; /* bit field providing MSR and MSC status */
+
+  // APH:   v24_TmCallBack_t _v24_TmCallBack;
+  bool             _v24_TxDataToSend;
+  bool             _v24_RiPulseOnSleep; //only used by UARTs ?
+  u16              _v24_RiPulseWidth;
+
+
+  v24_CtrlSigTxSet_t       _v24_UartSetRtsPtr;
+  v24_CtrlSigTxSet_t       _v24_UartSetDtrPtr;
+  v24_CtrlSigTxSet_t       _v24_UartSetRiPtr;
+  v24_CtrlSigTxSet_t       _v24_UartSetDcdPtr;
+  v24_CtrlSigTxSet_t       _v24_UartSetBreakPtr;
+  v24_CtrlSigTxSet_t       _v24_UartSetPulseRiPtr;
+
+  // TBD -- PMR
+  v24_CtrlOtherTxSet_t     _v24_UartSetOtherPtr;
+
+  v24_CtrlSigRxGet_t       _v24_UartGetCtsPtr;
+  v24_CtrlSigRxGet_t       _v24_UartGetDsrPtr;
+  v24_CtrlSigGet_t         _v24_UartGetPtr;
+
+#ifdef __AUTOBAUD__
+ u8*               _v24_AB_StringComplement;
+ bool              _v24_UartActiveSchedIdle;
+#endif
+
+
+  // Auto RTS/CTS implementation
+  bool             _v24_IsAutoRtsCtsRunning;
+
+  // software flow control implementation
+  #ifdef __V24_SOFT_FC__
+  u8                          _v24_SoftFCSoftFIFORx[V24_UART_SOFTFIFO_SIZE];
+  v24_RxItIdx_t         _v24_SoftFCSoftFIFORxFillIdx;
+  v24_RxItIdx_t         _v24_SoftFCSoftFIFORxPurgeIdx;
+  u8                          _v24_SoftFCSoftFIFOTx[V24_UART_FIFO_LEN];
+  v24_RxItIdx_t         _v24_SoftFCSoftFIFOTxFillIdx;
+  v24_RxItIdx_t         _v24_SoftFCSoftFIFOTxPurgeIdx;
+  bool                        _v24_SoftFCEscCharReceived;    //1:received 0:not received
+  bool                        _v24_SoftFCEscCharToSend;    //1:current char to be escaped and send  0:current char not to be escaped and send
+  bool                        _v24_SoftFCRecvXoffXonStatus; //1:Xon is received 0:Xoff is received
+  bool                        _v24_SoftFCSendXoffXonStatus; //1:Xon is sent 0:Xoff is sent
+  u8                           _v24_SoftFCSendXoffXon; //0: no need to send 0x11:send Xon 0x13:send Xoff
+  #ifdef __V24_SOFT_FC_TRACE__
+  u32                         _v24_SoftFCNbRxBytes;
+  u32                         _v24_SoftFCNbTxBytes;
+  #endif
+  #endif
+
+   bool            _v24_IsUsingThisUART;
+   bool            _v24_AutoRtsOn;  //1: recv'ing, 0: recv'ing stops
+
+  /*
+  Should be in Uart contexts... since Usb does not manage any autobaud
+  END
+  */
+
+}
+v24_UartContext_t;
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Access macros                                   */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+#define V24_UARTCONTEXT                   v24_UartContext
+
+#define v24_UartPort                      V24_UARTCONTEXT->_v24_UartPort
+#define v24_OUart                         V24_UARTCONTEXT->_v24_OUart
+#define v24_PowerDownMask                 V24_UARTCONTEXT->_v24_PowerDownMask
+#define v24_SysRegUartClk                 V24_UARTCONTEXT->_v24_SysRegUartClk
+#define v24_Isr                           V24_UARTCONTEXT->_v24_Isr
+#define v24_FormerIsr                     V24_UARTCONTEXT->_v24_FormerIsr
+#define v24_Mask                          V24_UARTCONTEXT->_v24_Mask
+#define v24_UartRxFifo                    V24_UARTCONTEXT->_v24_UartRxFifo
+#define v24_UartRxFifoPurgeIndex          V24_UARTCONTEXT->_v24_UartRxFifoPurgeIndex
+#define v24_UartRxFifoFillIndex           V24_UARTCONTEXT->_v24_UartRxFifoFillIndex
+#define v24_UartRxFifoLendex              V24_UARTCONTEXT->_v24_UartRxFifoLen
+#define v24_NbOverruns                    V24_UARTCONTEXT->_v24_NbOverruns
+#define v24_NbRxBufOverflows              V24_UARTCONTEXT->_v24_NbRxBufOverflows
+
+#ifdef __V24_IT_TRACES__
+#define v24_NbRxBytes                     V24_UARTCONTEXT->_v24_NbRxBytes
+#define v24_NbTxBytes                     V24_UARTCONTEXT->_v24_NbTxBytes
+#define v24_NbParityError                 V24_UARTCONTEXT->_v24_NbParityError
+#define v24_NbFramingError                V24_UARTCONTEXT->_v24_NbFramingError
+#endif // __V24_IT_TRACES__
+
+#define v24_UartTxDataPtr                 V24_UARTCONTEXT->_v24_UartTxDataPtr
+#define v24_UartTxDataLen                 V24_UARTCONTEXT->_v24_UartTxDataLen
+#define v24_UartTxItRunning               V24_UARTCONTEXT->_v24_UartTxItRunning
+#define v24_UartRxFlowCtrlMethod          V24_UARTCONTEXT->_v24_UartRxFlowCtrlMethod
+#define v24_UartTxFlowCtrlMethod          V24_UARTCONTEXT->_v24_UartTxFlowCtrlMethod
+// #define v24_UartTxBreakState              V24_UARTCONTEXT->_v24_UartTxBreakState
+#define v24_UartTxBarred                  V24_UARTCONTEXT->_v24_UartTxBarred
+#define v24_UartRxBarred                  V24_UARTCONTEXT->_v24_UartRxBarred
+#define v24_UartRxBreak                   V24_UARTCONTEXT->_v24_UartRxBreak
+#ifdef __AUTOBAUD__
+#define v24_AutoBaud                      V24_UARTCONTEXT->_v24_AutoBaud
+#define v24_UserRate                      V24_UARTCONTEXT->_v24_UserRate
+#define v24_AtLength                      V24_UARTCONTEXT->_v24_AtLength
+#define v24_NbFint1Chars                  V24_UARTCONTEXT->_v24_NbFint1Chars
+#define v24_NbAutoBaudFailures            V24_UARTCONTEXT->_v24_NbAutoBaudFailures
+#endif
+
+#define v24_RelayRestoreRxITs             V24_UARTCONTEXT->_v24_RelayRestoreRxITs
+#define v24_SignalsAllocated              V24_UARTCONTEXT->_v24_SignalsAllocated
+
+#define v24_UartSignal                    V24_UARTCONTEXT->_v24_UartSignal
+#define v24_UartSerialRate                V24_UARTCONTEXT->_v24_UartSerialRate
+#define v24_UartSerialFraming             V24_UARTCONTEXT->_v24_UartSerialFraming
+
+#define v24_RxRtkSched                    V24_UARTCONTEXT->_v24_RxRtkSched
+// APH #define v24_TmCallBack                    V24_UARTCONTEXT->_v24_TmCallBack
+#define v24_TxDataToSend                  V24_UARTCONTEXT->_v24_TxDataToSend
+
+#define v24_RiPulseWidth                  V24_UARTCONTEXT->_v24_RiPulseWidth
+#define v24_RiPulseOnSleep                V24_UARTCONTEXT->_v24_RiPulseOnSleep
+
+#ifdef __AUTOBAUD__
+#define v24_AB_StringComplement           V24_UARTCONTEXT->_v24_AB_StringComplement
+#define v24_UartActiveSchedIdle           V24_UARTCONTEXT->_v24_UartActiveSchedIdle
+#endif
+
+#define v24_UartSetRtsPtr               V24_UARTCONTEXT->_v24_UartSetRtsPtr
+#define v24_UartSetDtrPtr               V24_UARTCONTEXT->_v24_UartSetDtrPtr
+#define v24_UartSetRiPtr                V24_UARTCONTEXT->_v24_UartSetRiPtr
+#define v24_UartSetDcdPtr               V24_UARTCONTEXT->_v24_UartSetDcdPtr
+#define v24_UartSetBreakPtr             V24_UARTCONTEXT->_v24_UartSetBreakPtr
+#define v24_UartSetPulseRiPtr           V24_UARTCONTEXT->_v24_UartSetPulseRiPtr
+#define v24_UartSetOtherPtr             V24_UARTCONTEXT->_v24_UartSetOtherPtr
+#define v24_UartGetCtsPtr               V24_UARTCONTEXT->_v24_UartGetCtsPtr
+#define v24_UartGetDsrPtr               V24_UARTCONTEXT->_v24_UartGetDsrPtr
+#define v24_UartGetPtr                  V24_UARTCONTEXT->_v24_UartGetPtr
+
+#define v24_IsABRunning                 V24_UARTCONTEXT->_v24_IsABRunning
+
+// Auto RTS/CTS implementation
+#define v24_IsAutoRtsCtsRunning       V24_UARTCONTEXT->_v24_IsAutoRtsCtsRunning
+
+  // software flow control implementation
+#ifdef __V24_SOFT_FC__
+#define v24_SoftFCSoftFIFORx                         V24_UARTCONTEXT->_v24_SoftFCSoftFIFORx
+#define v24_SoftFCSoftFIFORxFillIdx               V24_UARTCONTEXT->_v24_SoftFCSoftFIFORxFillIdx
+#define v24_SoftFCSoftFIFORxPurgeIdx           V24_UARTCONTEXT->_v24_SoftFCSoftFIFORxPurgeIdx
+#define v24_SoftFCSoftFIFOTx                         V24_UARTCONTEXT->_v24_SoftFCSoftFIFOTx
+#define v24_SoftFCSoftFIFOTxFillIdx               V24_UARTCONTEXT->_v24_SoftFCSoftFIFOTxFillIdx
+#define v24_SoftFCSoftFIFOTxPurgeIdx           V24_UARTCONTEXT->_v24_SoftFCSoftFIFOTxPurgeIdx
+#define v24_SoftFCEscCharReceived           V24_UARTCONTEXT->_v24_SoftFCEscCharReceived
+#define v24_SoftFCEscCharToSend              V24_UARTCONTEXT->_v24_SoftFCEscCharToSend
+#define v24_SoftFCRecvXoffXonStatus         V24_UARTCONTEXT->_v24_SoftFCRecvXoffXonStatus
+#define v24_SoftFCSendXoffXonStatus        V24_UARTCONTEXT->_v24_SoftFCSendXoffXonStatus
+#define v24_SoftFCSendXoffXon                   V24_UARTCONTEXT->_v24_SoftFCSendXoffXon
+#ifdef __V24_SOFT_FC_TRACE__
+#define v24_SoftFCNbRxBytes                       V24_UARTCONTEXT->_v24_SoftFCNbRxBytes
+#define v24_SoftFCNbTxBytes                       V24_UARTCONTEXT->_v24_SoftFCNbTxBytes
+#endif
+#endif
+
+#define v24_IsUsingThisUART                       V24_UARTCONTEXT->_v24_IsUsingThisUART
+#define v24_AutoRtsOn                                  V24_UARTCONTEXT->_v24_AutoRtsOn
+
+#endif //__SYS_V24_UART_HT__
+

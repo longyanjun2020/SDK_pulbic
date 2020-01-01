@@ -1,0 +1,88 @@
+/****************************************************************************/
+/* File :   SYS_FCM.HI                                                      */
+/*--------------------------------------------------------------------------*/
+/* Scope:   Flow Control Manager.                                           */
+/*                                                                          */
+/* Interface for FCM access                                                 */
+/*--------------------------------------------------------------------------*/
+/* Date     |   Author  | Modification                                      */
+/*----------+-----------+---------------------------------------------------*/
+/* 19/09/00 |    FGA    | Creation                                          */
+/*----------+-----------+---------------------------------------------------*/
+/* 31/05/01 |    FGA    | Changed fcm_DataBlock type (more headroom for v24)*/
+/*          |           | fcm_Open (added MaxPacketSize) +fcm_Openflowind   */
+/****************************************************************************/
+/****************************************************************************
+ $LogWavecom: G:\projet\gsm\pvcsarch\archives\sys\itf\sys_fcm.hi-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 08.04.05 | jlo    | 1.8.1.1        | Resolution for 28269: [WP3] Deliver
+ *          |        |                | y of SYS  .                        
+ *----------+--------+----------------+-------------------------------------
+ * 03.12.03 | jlo    | 1.9            | .  Resolution for 17407: Flex integ
+ *          |        |                | ration                             
+ *----------+--------+----------------+-------------------------------------
+ * 10.09.03 | jlo    | 1.8            | .  Resolution for 14902: Cleaning O
+ *          |        |                | SS (for SYS EL)                    
+ *----------+--------+----------------+-------------------------------------
+ * 10.07.03 | jsu    | 1.7            | New traces for FCM  Resolution for 
+ *          |        |                | 12629: New traces for FCM          
+ *----------+--------+----------------+-------------------------------------
+ * 03.06.03 | jlo    | 1.6            | .  Resolution for 9036: FCM: new fu
+ *          |        |                | nction to query queue state        
+ *----------+--------+----------------+-------------------------------------
+ * 07.05.03 | apa    | 1.5            | .  Resolution for 9720: FCM [SYS]: 
+ *          |        |                | dual port code must be protected wi
+ *          |        |                | th compile flags                   
+ *----------+--------+----------------+-------------------------------------
+ * 23.04.03 | fga    | 1.4            | adde dual_port and usb_cdc compile 
+ *          |        |                | flags  Resolution for 9720: FCM [SY
+ *          |        |                | S]: dual port code must be protecte
+ *          |        |                | d with compile flags               
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.03 | fga    | 1.3            | added new flow id for USB  Resoluti
+ *          |        |                | on for 8974: SYS: FCM needs new flo
+ *          |        |                | w identifiers for USB              
+ *----------+--------+----------------+-------------------------------------
+ * 30.01.03 | fga    | 1.2            | modified due to hidden OpenMMI API 
+ *          |        |                | in wmh_sys.ho                      
+ *----------+--------+----------------+-------------------------------------
+ * 27.01.03 | fga    | 1.1            | added double-uart flow identifers  
+ *----------+--------+----------------+-------------------------------------
+ * 02.10.02 | ddo    | 1.0            | Initial revision.                  
+ *----------+--------+----------------+-------------------------------------
+ *
+ *   Rev 1.7   Jun 14 2002 11:55:54   ddo
+ *New identifiers for open-at over gprs.
+ *Must include the right sys_fcm.c rev 1.15
+ *
+ *   Rev 1.6   Mar 21 2002 17:31:18   pci
+ *Modified the name of FCM flux:
+ *FCM_SNDCP_TO_LLC_NSAPIX (4)  => FCM_SNDCP_TO_LLC
+ *FCM_LLC_TO_RLU_RPX (4) => FCM_LLC_TO_RLU
+ *
+ *   Rev 1.5   Feb 04 2002 16:15:06   rdo
+ *Added #define to old enum items to maintain compatibility with old FCM interface.
+ *
+ *   Rev 1.4   Feb 04 2002 14:22:26   rdo
+ *RDO on behalf of FGA: changed name of a PPS enum items.
+ *
+ *   Rev 1.3   Aug 31 2001 10:25:38   ddo
+ *Add deport functions and structure modifications for remote (LHO)
+ *
+ *   Rev 1.2   Jul 20 2001 10:38:20   ddo
+ *FGA:
+ *- Add FCM_OPEN_AT_TO_V24 and FCM_V24_TO_OPEN_AT in  fcm_FlowId_t
+ *- change fcm_ReleaseData prototype
+ *
+ *   Rev 1.1   Jun 06 2001 17:17:34   ddo
+ *sys_fcm.hi : modif sur prototype de fonction fcm_Open par ajout MaxPacketSize modif du type fcm_DataBlock_t (extension des octets de reserve pour header V24 en mode HAPC)
+****************************************************************************/
+
+#ifndef __SYS_FCM_HI__
+#define __SYS_FCM_HI__
+
+#include "sys_sys_fcm.h"
+
+#endif /* __SYS_FCM_HI__ */

@@ -1,0 +1,20 @@
+Setup Release Machine
+
+
+1. Add "#code release machine commands" in the last line of C:/cygwin/home/%username%/.bashrc.
+	%username% is the windows login account when install cygwin
+
+Release Codes
+1. Export files from http://svn_tp/svn/MAE/mainline/proj/tng/auto_release to folder "A"
+	
+2. Replace "%user_name%" in auto_release.bat by the windows login account when install cygwin
+
+3. Fill "CurrentDirectory" in ReleaseConfigurations.txt by the folder you want to export codes
+
+4. Fill "SvnUserName" and "SvnPassword" by SVN login account and password
+
+5. Launch windows console mode
+
+6. Enter folder "A"
+
+7. Execute auto_release.bat

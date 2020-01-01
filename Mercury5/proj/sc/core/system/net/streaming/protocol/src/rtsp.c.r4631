@@ -1,0 +1,865 @@
+/*
+*********************************************************************************************************
+*                         AIT Multimedia Network Streaming Server
+*                     (c) Copyright 2012, Alpha Imaging Technology Corp.
+*               All rights reserved. Protected by international copyright laws.
+*********************************************************************************************************
+*
+* Description: 
+*
+*/
+#ifdef STRUCT_SESSION_PROPERTY
+#error "How come can STRUCT_SESSION_PROPERTY be defined !!!"
+#endif
+#define STRUCT_SESSION_PROPERTY   struct rtsp_session_t  rtsp
+#include "inc/includes.h"
+#include "inc/amn_sysobjs.h"
+#include "inc/rtp.h"
+#include "inc/net_serv.h"
+#include "netapp.h"
+#include "mmp_lib.h"
+#include "etharp.h"
+#ifdef __AMN_OS_LINUX__
+#define nhw_set_status(s)
+#endif
+#include <stdlib.h>
+
+//*******************************************************************************************************
+struct rtsp_conn {
+	struct {
+		struct rtp_endpoint *ep;
+		int rtcp;
+	} ichan[MAX_INTERLEAVE_CHANNELS];
+};
+
+// 0: not run RTCP. the seek in PLAY will work
+// 1: run RTCP. the video or audio may be freezed(muted) a while at 40~ second of streaming!!
+#define ENABLE_SEEK (0)
+
+//*******************************************************************************************************
+#define RTSP_HEADER_LEN   512
+#define RTSP_SDP_LEN      2048    // 8192
+
+static char* __resp_CSeq( struct resp_message_t *resp, int LineNo )
+{
+	if (!resp->cseq) {
+		osal_dprint(WARN, "RTSP CSeq is NULL @Line %d", LineNo);
+		return "";
+	}
+	return resp->cseq->value.buf;
+}
+
+#ifdef __AMN_OS_LINUX__
+#define send_RTSP_response( resp, code, reason, fmt, ... ) do { \
+	http_MakeMessage( &(resp)->headers, 1, 0, "r" "ssc" fmt "c", \
+			code, reason, \
+			"CSeq: ", __resp_CSeq(resp, __LINE__), \
+			##__VA_ARGS__ ); \
+	tcp_send_message( resp ); \
+} while (0)
+
+#define send_RTSP_response1( resp, code, reason )  send_RTSP_response( resp, code, reason, "" ) 
+
+#define send_RTSP_response2( resp, code, reason, fmt, ... ) do { \
+	http_MakeMessage( &(resp)->headers, 1, 0, "r" "ssc" "sdc" fmt "c", \
+			code, reason, \
+			"CSeq: ", __resp_CSeq(resp, __LINE__), \
+			"Content-Length: ", (resp)->content_len, \
+			##__VA_ARGS__ ); \
+	tcp_send_message( resp ); \
+} while (0)
+
+#else // __AMN_OS_LINUX__
+
+//Set 1 to use centralized function to check extra error and reduce some code size.
+#define USE_RTSP_RESP_FUNC 1
+
+#if USE_RTSP_RESP_FUNC
+static void send_rtsp_response(struct resp_message_t *resp, int code, char* reason, const char* fmt, int dbgLine, ...)
+{
+    va_list arg_list;
+    int result;
+	#define MAX_RTSP_RESP_ARGC 8
+    int argc = 0;
+    int i = 0;
+    int argv[MAX_RTSP_RESP_ARGC]; //for type s and d only
+
+	va_start(arg_list, dbgLine);
+
+	while (fmt[i] != '\0') {
+		if (fmt[i] == 's' || fmt[i] == 'd') {
+			argc++;
+			if (argc == MAX_RTSP_RESP_ARGC + 3) {
+				osal_dprint(ERR, "RTSP arguments of response overflow @line %d %s", dbgLine, fmt);
+				return;
+			}
+			if (argc >= 3) { //skip first ssc
+				argv[argc - 3] = va_arg(arg_list, int);
+			}
+		}
+		i++;
+	}
+    va_end( arg_list );
+    //osal_dprint(INFO, "line %d, %d args \"%s\"", dbgLine, argc-2, fmt);
+
+	result = http_MakeMessage( &(resp)->headers, 1, 0, fmt,
+			code, reason,
+			"CSeq: ", __resp_CSeq(resp, dbgLine),
+            argv[0], argv[1], argv[2], argv[3], argv[4], argv[5], argv[6], argv[7]);
+
+    if (UPNP_E_OUTOF_MEMORY != result) {
+    	tcp_send_message( resp );
+    	membuffer_destroy(&(resp)->headers);
+	}
+}
+#define send_RTSP_response( resp, code, reason, fmt, ... ) do { \
+	send_rtsp_response( resp, code, reason, "r" "ssc" fmt "c", \
+			__LINE__, __VA_ARGS__ ); \
+} while (0)
+#else
+#define send_RTSP_response( resp, code, reason, fmt, ... ) do { \
+	http_MakeMessage( &(resp)->headers, 1, 0, "r" "ssc" fmt "c", \
+			code, reason, \
+			"CSeq: ", __resp_CSeq(resp, __LINE__), \
+			__VA_ARGS__ ); \
+	tcp_send_message( resp ); \
+	membuffer_destroy(&(resp)->headers); \
+} while (0)
+#endif
+
+#if USE_RTSP_RESP_FUNC
+#define send_RTSP_response1( resp, code, reason) do { \
+	send_rtsp_response( resp, code, reason, "r" "sscc", \
+			__LINE__); \
+} while (0)
+#else
+#define send_RTSP_response1( resp, code, reason ) do { \
+	http_MakeMessage( &(resp)->headers, 1, 0, "r" "sscc", \
+			code, reason, \
+			"CSeq: ", __resp_CSeq(resp, __LINE__) ); \
+	tcp_send_message( resp ); \
+	membuffer_destroy(&(resp)->headers); \
+} while (0)
+#endif
+
+#if USE_RTSP_RESP_FUNC
+#define send_RTSP_response2( resp, code, reason, fmt, ... ) do { \
+	send_rtsp_response( resp, code, reason, "r" "ssc" "sdc" fmt "c", \
+			__LINE__,\
+			"Content-Length: ", (resp)->content_len, \
+			__VA_ARGS__);\
+} while (0)
+#else
+#define send_RTSP_response2( resp, code, reason, fmt, ... ) do { \
+	http_MakeMessage( &(resp)->headers, 1, 0, "r" "ssc" "sdc" fmt "c", \
+			code, reason, \
+			"CSeq: ", __resp_CSeq(resp, __LINE__), \
+			"Content-Length: ", (resp)->content_len, \
+			__VA_ARGS__ ); \
+	tcp_send_message( resp ); \
+	membuffer_destroy(&(resp)->headers); \
+} while (0)
+#endif
+
+int http_MakeMessage(membuffer *buf, int http_major_version,
+	int http_minor_version, const char *fmt, ...);
+#endif // __AMN_OS_LINUX__
+
+
+//*******************************************************************************************************
+static char *get_local_path( char *path )
+{
+	char *c;
+	static char *root = "/";
+
+	if( strncasecmp( path, "rtsp://", 7 ) ) return NULL;
+	for( c = path + 7; *c != '/'; ++c ) if( *c == 0 ) return root;
+	return c;
+}
+
+struct snkNode_liveRTSP *find_rtsp_location( char *uri, char *base, int *track )
+{
+	char *path, *c, *end;
+	int len;
+
+	if( ( path = get_local_path( uri ) ) == NULL) return NULL;
+	len = strlen( path );
+
+	if( track ) {
+		*track = -1;
+		if( ( c = strrchr( path, '/' ) ) != NULL && strncmp( c, "/track", 6 ) == 0) {
+			*track = strtol( c + 6, &end, 10 );
+			if( ! *end ) len -= strlen( c );
+		}
+	}
+
+	if( len > 1 && path[len - 1] == '/' ) --len;
+
+	if( base ) {
+		if (len >= MAX_RTSP_PATH) {
+			osal_dprint(WARN, "RTSP URI path too long (%d): %s", len, path);
+			len = MAX_RTSP_PATH;
+		}
+		strncpy( base, path, len );
+		base[len] = 0;
+	}
+	osal_dprint(DEBUG, "base=%s  path=%s  len=%d  track=%d  ", base, path, len, (track ? *track : 99999) );
+
+	return (struct snkNode_liveRTSP *) node_find_name(AMMO_TYPE__NODE_SINK,path,len);
+}
+
+void rtsp_conn_disconnect( struct resp_message_t *c )
+{
+	struct rtsp_conn *rc = (struct rtsp_conn *)c->proto_state;
+	int i;
+
+	for( i = 0; i < MAX_INTERLEAVE_CHANNELS; ++i )
+		if( rc->ichan[i].ep && ! rc->ichan[i].rtcp )
+			session_destroy( rc->ichan[i].ep->session, "RTSP-DISCONN" );
+	osal_free( rc );
+}
+
+void interleave_disconnect( struct resp_message_t *c, int chan )
+{
+	struct rtsp_conn *rc = (struct rtsp_conn *)c->proto_state;
+
+	rc->ichan[chan].ep = NULL;
+}
+
+int interleave_recv( struct resp_message_t *c, int chan, char *d, int len )
+{
+	struct rtsp_conn *rc = (struct rtsp_conn *)c->proto_state;
+
+	if( chan >= MAX_INTERLEAVE_CHANNELS || ! rc->ichan[chan].ep ) return -1;
+	if( rc->ichan[chan].rtcp )
+		interleave_recv_rtcp( rc->ichan[chan].ep, d, len );
+	return 0;
+}
+
+int interleave_send( struct resp_message_t *c, int chan, struct iovec *v, int count )
+{
+	char head[4];
+	int len = 0, i;
+
+	int timeout = 0;
+	for( i = 0; i < count; ++i ) len += v[i].iov_len;
+	head[0] = '$';
+	head[1] = chan;
+	PUT_16( head + 2, len );
+	
+	if(http_SendMessage( &c->info, &timeout, "b", head, 4 ) != 0){
+		osal_dprint(ERR, "http_SendMessage error socket = %d", c->info.socket );
+		return -1;
+	}
+	
+	for( i = 0; i < count; ++i ){	// TODO: ERROR HANDLE
+		if(http_SendMessage( &c->info, &timeout, "b", v[i].iov_base, v[i].iov_len) != 0){
+			osal_dprint(ERR, "http_SendMessage error socket = %d", c->info.socket );
+			return -1;
+		}
+	}
+	return 0;
+}
+
+static int rtsp_verify_auth( struct resp_message_t *resp, char *realm, char *username, char *password )
+{
+	char nonce[32+4];
+	int stale;
+
+	int ret = check_digest_response( resp, realm, username, password );
+	if( ret > 0 ) return 0;
+
+	// add_digest_challenge( req->resp, realm, ret == 0 ? 1 : 0 );
+	create_digest_nonce( nonce );
+
+	/* LIVE.COM expects the challenge in exactly this format */
+	stale = (ret == 0 ? 1 : 0);
+	send_RTSP_response( resp, 401, "Unauthorized", "ssssssc",
+			"WWW-Authenticate: Digest realm=\"", realm,
+					"\", nonce=\"", nonce, "\"", (stale ? ", stale=true" : "") );
+	return -2;
+}
+
+//*******************************************************************************************************
+int prepare_RTSP_response(struct resp_message_t *resp)
+{
+	//-----------------------------------------------------------//
+	// performs: sort of constructor for struct resp_message_t
+	//-----------------------------------------------------------//
+	resp->persistant = 1;    // Keep connection until TEARDOWN
+
+	prepare_response( resp );
+
+	// COPY of control sequence from request to response
+	resp->cseq = httpmsg_find_hdr_str( resp->req, "CSeq" );
+	if (!resp->cseq) {
+		osal_dprint(WARN, "RTSP can't find CSeq");
+		send_RTSP_response1( resp, 404, "Not Found" );
+		return -3;
+	}
+	return 0;
+}
+
+//*******************************************************************************************************
+extern int transcoding;
+int rtsp_handle_OPTIONS( struct resp_message_t *resp )
+{
+	int		icfg, val;
+
+	if (check_working_rtsp_session(inet_ntoa(conn_foreign_addr(resp))) == 0) {
+		// Currently, there is a RTSP session running
+		send_RTSP_response1( resp, 503, "Service Unavailable" );
+		return 0;
+	}
+	icfg = ncfg_get(NCFG_RTSP_KEEPALIVE, &val);
+	/*
+	 * VLC(live555) will check the Option - GET_PARAMTETER
+	 * to decide to run KeepAlive or not
+	 */
+	if (icfg >= 0 && val != 0) {
+		// enable GET_PARAMETER to send KeepAlive
+		send_RTSP_response( resp, 200, "OK", "ssc",
+			"Public: ", "DESCRIBE, SETUP, TEARDOWN, PLAY, PAUSE, GET_PARAMETER" );
+	} else {
+		// disable GET_PARAMETER and not to send KeepAlive
+		printc(">>>> Disable KeepAlive %d\r\n", val);
+		send_RTSP_response( resp, 200, "OK", "ssc",
+			"Public: ", "DESCRIBE, SETUP, TEARDOWN, PLAY, PAUSE" );
+	}
+	return 0;
+}
+
+#define USE_ONE_SESSION 1
+int rtsp_handle_DESCRIBE( struct resp_message_t *resp )
+{
+	char path[MAX_RTSP_PATH];
+	struct snkNode_liveRTSP *loc;
+	struct amn_session_t *sess;
+	struct rtsp_session_t *rtsp_sess;
+	struct ammo_rtsp *ammo_rtsp = NULL;
+	int ret;
+	ncam_val_t valueDuration = {VALUE_TYPE_INT, NCS_FILE_DURATION_UNDEFINED};
+	int	aval = 1;
+
+	if (transcoding) {
+		send_RTSP_response( resp, 455, "Method Not Valid in This State", "sc",
+			"under transcoding." );
+		return 0;
+	}
+
+	osal_dprint(DEBUG, "DESCRIBE URL: '%s'", resp->req->urlbuf );
+	loc = find_rtsp_location( resp->req->urlbuf, path, NULL );
+	if (loc != NULL) {
+		if (strstr(path, "liveRTSP") != NULL) {
+			aval = ncam_is_streamable(0 /* liveRTSP */);
+		} else {
+			aval = ncam_is_streamable(1 /* txRTSP */);
+		}
+    	ammo_rtsp = get_ammo_rtsp(loc);
+	}
+	// If Camera is in HDMI not allow to call RTSP
+	if( IS_CAMERA_IN_HDMI() ||
+		aval == 0   ||
+		loc == NULL ||
+        ammo_rtsp == NULL ||
+		((sess = liveRTSP_open( path, loc, inet_ntoa(conn_foreign_addr(resp)))) == NULL )) {
+		send_RTSP_response1( resp, 404, "Not Found" );
+		printc("ERROR %s %d NOT FOUND a:%d l:%d r:%d s:%d\n", __func__, __LINE__,
+				aval, loc != NULL, ammo_rtsp != NULL, sess != NULL);
+		return -4;
+	}
+	rtsp_sess = cast_protocol_data(sess, rtsp_session_t);
+	sess->data = resp;
+	sprintf( rtsp_sess->addr, "%s", inet_ntoa(conn_foreign_addr(resp)) );
+printd(BG_RED("addr:")"%s\r\n", inet_ntoa(conn_foreign_addr(resp)));
+	ret = liveRTSP_describe(sess, loc, path);
+	if (0 != ret) {
+		session_destroy( sess, "desc-ERR" );
+		return ret;
+	}
+
+
+	if( ammo_rtsp->realm[0] && rtsp_verify_auth( resp, ammo_rtsp->realm, ammo_rtsp->username, ammo_rtsp->password ) < 0 ) {
+		// send_RTSP_response1( resp, ???, "#$%^^%%^" );
+		ns_set_streaming_status(NETAPP_STREAM_RTSP_ERR);
+		session_destroy( sess, "DESC_AUTH-ERR" );
+		return -5;
+	}
+
+	resp->content = osal_bgmalloc(RTSP_SDP_LEN);
+	resp->content_len = RTSP_SDP_LEN - 2;
+	if (resp->content) {
+		if( liveRTSP_get_sdp( sess, resp->content, &resp->content_len, resp->req->urlbuf, valueDuration.v.i32 ) > 0 ) {
+			send_RTSP_response2( resp, 200, "OK", "sssc" "ssc",
+					"Content-Base: ", resp->req->urlbuf, "/",
+					"Content-Type: ", "application/sdp");
+			ret = 0;
+		}
+		else {
+			send_RTSP_response1( resp, 404, "Not Found" );
+			ret = -6;
+	    }
+		osal_bgfree(resp->content);
+	}
+
+#if USE_ONE_SESSION == 0
+	session_destroy( sess, "DESCRIBE-END" );//?? why do this ??, Canlet, Ans: the session is a temp to build sdp.
+#endif
+
+	return ret;
+}
+
+static int rtsp_udp_setup( struct amn_session_t *s, int track, struct resp_message_t *resp, char *t, char *trans )
+{
+	char *p, *end;
+	int cport, server_port;
+	struct rtsp_session_t *rtsp_sess = cast_protocol_data(s, rtsp_session_t);
+
+	if( ( p = strstr( t, "client_port" ) ) == NULL ||
+		*(p + 11) != '=' )
+		return -7;
+	cport = strtol( p + 12, &end, 10 );
+	if( end == p + 12 ) return -8;
+	osal_dprint(DEBUG, "client requested UDP port %d", cport );
+
+	rtsp_sess->kal.b_rtsptcp = 0;
+conn_foreign_addr(resp).s_addr |= 0xFF000000;
+printd(BG_RED("addr:%X, cport:%d sport:%d ")" "__MODULE__"\r\n", conn_foreign_addr(resp).s_addr, cport, server_port);
+	if( connect_udp_endpoint( rtsp_sess->ep[track], conn_foreign_addr(resp), cport, &server_port ) < 0 )
+		return -9;
+
+	osal_dprint(VERBOSE, "our port is %d, client port is %d", server_port, cport );
+
+	sprintf( trans, "RTP/AVP;unicast;client_port=%d-%d;server_port=%d-%d",
+		cport, cport + 1, server_port, server_port + 1 );
+	return 0;
+}
+
+static int rtsp_interleave_setup( struct amn_session_t *s, int track, struct resp_message_t *resp, char *t, char *trans )
+{
+	struct rtsp_conn *rc = (struct rtsp_conn *)resp->proto_state;
+	char *p, *end;
+	int rtp_chan = -1, rtcp_chan = -1, i;
+	struct rtsp_session_t *rtsp_sess = cast_protocol_data(s, rtsp_session_t);
+
+	if( ( p = strstr( t, "interleaved" ) ) != NULL)
+	{
+		if( *(p + 11) != '=' ) return -10;
+		rtp_chan = strtol( p + 12, &end, 10 );
+		rtcp_chan = rtp_chan + 1; // XXX make better parser
+		if( end == p + 12 ) return -11;
+		if( rtp_chan < 0 || rtcp_chan < 0 ||
+				rtp_chan >= MAX_INTERLEAVE_CHANNELS ||
+				rtcp_chan >= MAX_INTERLEAVE_CHANNELS )
+			return -12;
+
+		osal_dprint(VERBOSE, "requested interleave channels %d-%d", rtp_chan, rtcp_chan );
+		if( rc && ( rc->ichan[rtp_chan].ep || rc->ichan[rtcp_chan].ep ) )
+			return -13;
+	} else {
+		osal_dprint(VERBOSE, "requested any interleave channel" );
+		if( rc ) {
+			for( i = 0; i < MAX_INTERLEAVE_CHANNELS; i += 2 )
+				if( ! rc->ichan[i].ep && ! rc->ichan[i + 1].ep )
+					break;
+			if( i >= MAX_INTERLEAVE_CHANNELS ) return -14;
+			rtp_chan = i;
+			rtcp_chan = i + 1;
+		} else {
+			rtp_chan = 0;
+			rtcp_chan = 1;
+		}
+	}
+
+	if( ! rc ) {
+		rc = (struct rtsp_conn *)osal_zmalloc( sizeof( struct rtsp_conn ) );
+		if( ! rc ) {
+			osal_dprint(ERR,
+				"out of memory on osal_zmalloc rtsp_conn" );
+			return -15;
+		}
+		for( i = 0; i < MAX_INTERLEAVE_CHANNELS; ++i )
+			rc->ichan[i].ep = NULL;
+		resp->proto_state = rc;
+	}
+
+	rc->ichan[rtp_chan].ep = rtsp_sess->ep[track];
+	rc->ichan[rtp_chan].rtcp = 0;
+	rc->ichan[rtcp_chan].ep = rtsp_sess->ep[track];
+	rc->ichan[rtcp_chan].rtcp = 1;
+	
+	rtsp_sess->kal.b_rtsptcp = 1;
+
+	connect_interleaved_endpoint( rtsp_sess->ep[track], resp, rtp_chan, rtcp_chan );
+
+	sprintf( trans, "RTP/AVP/TCP;unicast;interleaved=%d-%d",
+			rtp_chan, rtcp_chan );
+	return 0;
+}
+
+int rtsp_handle_SETUP( struct resp_message_t *resp )
+{
+	http_header_t *sess_hdr, *transp_hdr;
+	char *t, path[MAX_RTSP_PATH], trans[80];
+	int track=0, ret, new_setup;
+	struct amn_session_t *s;
+	struct snkNode_liveRTSP *loc;
+	struct ammo_rtsp *ammo_rtsp;
+	struct rtsp_session_t *rtsp_sess;
+
+	if ((loc = find_rtsp_location(resp->req->urlbuf, path, &track)) == NULL ||
+		track < 0 || track >= MAX_TRACKS) {
+		send_RTSP_response1( resp, 404, "Not Found" );
+		return -16;
+	}
+
+	ammo_rtsp = get_ammo_rtsp(loc);
+	if (ammo_rtsp == NULL) {
+		send_RTSP_response( resp, 455, "Method Not Valid in This State", "sc",
+			"under transcoding." );
+		return 0;
+	}
+
+	if( ammo_rtsp->realm[0] && rtsp_verify_auth( resp, ammo_rtsp->realm, ammo_rtsp->username, ammo_rtsp->password ) < 0 )
+		return -17;
+
+	transp_hdr = httpmsg_find_hdr_str( resp->req, "Transport" );
+	if (!transp_hdr) {
+		// XXX better error reply
+		send_RTSP_response1( resp, 461, "Unspecified Transport" );
+		return -18;
+	}
+	t = transp_hdr->value.buf;
+
+	new_setup = 0;
+	sess_hdr = httpmsg_find_hdr_str( resp->req, "Session" );
+	if (!sess_hdr) {
+#if USE_ONE_SESSION == 1
+		int i;
+		struct amn_session_t *search;
+    	s = NULL;
+		for (i = 0; ; i++) {
+			// find exist session for RTSP
+			search = session_search_owner(loc, i);
+			if (!search)
+				break;
+			rtsp_sess = cast_protocol_data(search, rtsp_session_t);
+			// check the session of foreign address is used
+			if (strcmp(rtsp_sess->addr, inet_ntoa(conn_foreign_addr(resp))) == 0) {
+				//printc(FG_RED("%s %d: found Old session %s\r\n"), __func__, __LINE__, search->id);
+				s = search;
+			}
+		}
+
+    	if (s == NULL) {
+			printc(FG_RED("%s %d: did not find Old session\n"), __func__, __LINE__);
+			send_RTSP_response1( resp, 404, "Not Found" );
+			return -19;
+    	}
+#else
+		if( ( s = liveRTSP_open( path, loc, inet_ntoa(conn_foreign_addr(resp))) ) == NULL) {
+			send_RTSP_response1( resp, 404, "Not Found" );
+			return -19;
+		}
+#endif
+		new_setup = 1;
+	}
+	else if( ( s = session_search_id( sess_hdr->value.buf ) ) == NULL) {
+		send_RTSP_response1( resp, 454, "Session Not Found" );
+		return -20;
+	}
+
+	rtsp_sess = cast_protocol_data(s, rtsp_session_t);
+	if( rtsp_sess->ep[track] ) {
+		// XXX better error reply
+		send_RTSP_response1( resp, 461, "Unsupported Transport" );
+		return -21;
+	}
+
+	if( liveRTSP_setup( s, track ) < 0 ) {
+		send_RTSP_response1( resp, 404, "Not Found" );
+		if (new_setup)  session_destroy( s, "SETUP-ERR" );
+		return -22;
+	}
+
+	osal_dprint(DEBUG, "setting up RTP (%s)", t );
+
+	if( ! strncasecmp( t, "RTP/AVP/TCP", 11 ) ) {
+		printc("\n USE TCP \n");
+		ret = rtsp_interleave_setup( s, track, resp, t, trans );
+		if (track == 0 /*video*/)
+			aitstreamer_reset_report(OSAL_TXF_RESET_TCP);
+	}
+	else if( ( ! strncasecmp( t, "RTP/AVP", 7 ) && t[7] != '/' ) || ! strncasecmp( t, "RTP/AVP/UDP", 11 ) ) {
+		ret = rtsp_udp_setup( s, track, resp, t, trans );
+		if (track == 0 /*video*/)
+			aitstreamer_reset_report(OSAL_TXF_RESET_UDP);
+	} else
+		ret = -1;
+
+	if( ret < 0 ) {
+		session_destroy( s, "SETUP-ERR 2" );
+		send_RTSP_response1( resp, 461, "Unsupported Transport" );
+	}
+	else {
+		int		icfg, val;
+		icfg = ncfg_get(NCFG_RTSP_KEEPALIVE, &val);
+		if (icfg < 0 || val < 10) val = 10;	// it is not good for timeout too small!
+		send_RTSP_response( resp, 200, "OK", "sssdc" "ssc",
+				"Session: ", s->id,	"; timeout = ", val,
+				"Transport: ", trans);
+		ret = 0;
+	}
+	
+	//Assign s->data in order to do "session_event_teardown_resp(resp)"
+	if(ret == 0 && s->data == NULL)
+		s->data = resp;
+		
+	ns_set_streaming_status((ret == 0)? NETAPP_STREAM_NONE : NETAPP_STREAM_RTSP_ERR);
+	return ret;
+}
+
+int rtsp_handle_PLAY( struct resp_message_t *resp )
+{
+	struct eth_addr* ethaddr_ret;
+  	ip_addr_t* ipaddr_ret;
+  	struct sockaddr_in in4;
+	http_header_t *sess_hdr;
+	http_header_t *range_hdr;
+	struct amn_session_t *s;
+	float fStart;
+	int have_start = 0, i, p, ret;
+	char *RTPInfo_hval, npt_hval[20];
+	short bResume = 0, bSeek = 0, bClose = 0;
+	int time = -1;
+	int bPausing = 0;
+	const int tolerance = 300;
+	unsigned int last_sent_time;
+	struct rtsp_session_t *rtsp_sess;
+
+	sess_hdr = httpmsg_find_hdr_str( resp->req, "Session" );
+	if (!sess_hdr || (s = session_search_id(sess_hdr->value.buf)) == NULL) {
+		send_RTSP_response1( resp, 454, "Session Not Found" );
+		ns_set_streaming_status(NETAPP_STREAM_RTSP_ERR);
+		return -23;
+	}
+	rtsp_sess = cast_protocol_data(s, rtsp_session_t);
+
+	range_hdr = httpmsg_find_hdr_str( resp->req, "Range" );
+	//note that now %lf does not work, need to use %f instead
+	if (range_hdr && sscanf( range_hdr->value.buf, "npt=%f-", &fStart ) == 1) {
+		have_start = 1;
+		time = fStart * 1000.0;
+		osal_dprint(VERBOSE, "starting streaming for session %s at position %d", range_hdr->value.buf, time );
+	} else
+		osal_dprint(VERBOSE, "starting streaming for session %s", s->id );
+
+	bPausing = liveRTSP_is_pausing(s);
+	last_sent_time = snkRTSP_get_last_sent_time(s);
+	osal_dprint(INFO, "node::sent_time:%d", last_sent_time);
+	if (((time - last_sent_time) > -tolerance) && ((time - last_sent_time) < tolerance)) {
+		bClose = 1;
+	}
+
+	if (bPausing) {
+		if (have_start) {
+			if (bClose) {
+				bResume = 1;
+			} else {
+				bSeek = 1;
+			}
+		} else {
+			bResume = 1;
+		}
+	} else {
+		if (have_start) {
+			if (time > 0) {
+				bSeek = 1; //seek start
+			}
+		}
+	}
+	if (bResume) {
+		if (liveRTSP_resume(s) == 0) {
+			/*  The timer now uses the current streaming timer. Which would be faster (later) then current buffered frame
+			 *  time stamp. However the units of time stamps for audio and video are different.
+			 *  To avoid complex calculation and this value is for client player UI, thus the current time are used for an
+			 *  approximation time.
+			 */
+			fStart = (double)ncam_get_streaming_timer() / 1000.0;
+		}
+	}
+
+	if (!bResume) {
+		osal_dprint(INFO, "RTSP: node=%s from %s:%d, FD=%d", cast_SnkNode(s->owner)->name,
+				inet_ntoa(conn_foreign_addr(resp)), ntohs(conn_foreign_port(resp)), resp->info.socket );
+		liveRTSP_play( s, have_start ? &fStart : NULL );
+	}
+
+	if(( have_start && fStart >= 0.0) || bResume) {
+		ncam_val_t valueDuration = {VALUE_TYPE_INT, NCS_FILE_DURATION_UNDEFINED};
+
+		if (!bResume) {
+			osal_dprint(DEBUG, "RTSP seek to: %.4f", fStart );
+			if (!ncam_get_setting(NCS_FILE_DURATION, &valueDuration)) {
+				return -123;
+			}
+		}
+
+		if (valueDuration.v.i32 == NCS_FILE_DURATION_UNDEFINED) {
+			sprintf( npt_hval, "npt=%d.%03d-", ((int)fStart), ((int)(fStart * 1000)) % 1000);
+		} else {
+			unsigned int duration = valueDuration.v.i32;
+			sprintf( npt_hval, "npt=%d.%03d-%d.%03d",
+					((int)fStart), ((int)(fStart * 1000)) % 1000,
+					duration / 1000, duration % 1000);
+		}
+
+		RTPInfo_hval = osal_bgmalloc(RTSP_HEADER_LEN);
+		p = 0;
+		for( i = 0; i < MAX_TRACKS; ++i ) {
+			char slash[] = "/";
+			unsigned int rtp_time;
+
+			if( ! rtsp_sess->ep[i] ) continue;
+			if (resp->req->urlbuf[strlen(resp->req->urlbuf)-1] == '/') {
+				slash[0] = '\0';
+			}
+			// TODO: if not run rtcp, the seek in playback will not work
+			//       if run rtcp, the video or audio may be freezed(muted) a while at 40~ second of streaming!!
+			rtsp_sess->ep[i]->force_rtcp = ENABLE_SEEK;
+			rtp_time = 0;
+			#if ENABLE_SEEK //report up coming EP time
+			rtp_time = fStart * 1000.0;
+			if (liveRTSP_get_ep_time(s, i, &rtp_time)) {
+				osal_dprint(WARN, "Unable to get EP time");
+			}
+			#endif
+			ret = snprintf( RTPInfo_hval + p, RTSP_HEADER_LEN - p, "url=%s%strack%d;seq=%d;rtptime=%u,",
+				resp->req->urlbuf, slash, i, rtsp_sess->ep[i]->seqnum, rtp_time);
+			if( ret >= RTSP_HEADER_LEN - p ) {
+				p = -1;
+				break;
+			}
+			p += ret;
+		}
+		if( p > 0 ) 
+			RTPInfo_hval[p - 1] = 0; /* Kill last comma */
+
+		send_RTSP_response( resp, 200, "OK", "ssc" "ssc" "ssc" ,
+				"Session: ", s->id,
+				"Range: ", npt_hval,
+				"RTP-Info: ", RTPInfo_hval);
+		osal_bgfree(RTPInfo_hval);
+	}
+	else
+		send_RTSP_response( resp, 200, "OK", "ssc",
+				"Session: ", s->id );
+	
+	memcpy(&in4,&resp->foreign_sockaddr,sizeof(struct sockaddr_in));
+	if(etharp_find_addr(NULL, (ip_addr_t*)&in4.sin_addr, &ethaddr_ret, &ipaddr_ret) < 0)
+		printc(FG_RED("find mac for streaming error\n"));
+	else
+		nhw_set_streaming_mac(ethaddr_ret->addr);
+		
+	ns_set_streaming_status(NETAPP_STREAM_PLAY);
+
+	return 0;
+}
+
+int rtsp_handle_PAUSE( struct resp_message_t *resp )
+{
+	http_header_t *sess_hdr;
+	struct amn_session_t *s;
+
+	sess_hdr = httpmsg_find_hdr_str( resp->req, "Session" );
+	if (!sess_hdr || (s = session_search_id(sess_hdr->value.buf)) == NULL) {
+		send_RTSP_response1( resp, 454, "Session Not Found" );
+		return -24;
+	}
+
+	if (0 != liveRTSP_pause(s)) {
+		send_RTSP_response1( resp, 500, "Internal Server Error" );
+		return -25;
+	}
+	send_RTSP_response( resp, 200, "OK", "ssc",
+			"Session: ", s->id );
+	return 0;
+}
+
+int rtsp_handle_TEARDOWN( struct resp_message_t *resp )
+{
+	http_header_t *sess_hdr;
+	struct snkNode_liveRTSP *loc;
+	struct amn_session_t *s;
+	int track;
+
+	if( ( loc = find_rtsp_location( resp->req->urlbuf, NULL, &track ) ) == NULL || track >= MAX_TRACKS ) {
+		send_RTSP_response1( resp, 404, "Not Found" );
+		return -26;
+	}
+
+	sess_hdr = httpmsg_find_hdr_str( resp->req, "Session" );
+	if (!sess_hdr || (s = session_search_id(sess_hdr->value.buf)) == NULL) {
+		send_RTSP_response1( resp, 454, "Session Not Found" );
+		return -27;
+	}
+	osal_dprint(VERBOSE, "tearing down %s in session %s", resp->req->urlbuf, s->id );
+
+	send_RTSP_response( resp, 200, "OK", "ssc",
+			"Session: ", s->id );
+
+	/* This might destroy the session, so do it after creating the reply */
+	osal_dprint(INFO, "RTSP: node=%s from %s:%d, FD=%d", cast_SnkNode(s->owner)->name,
+			inet_ntoa(conn_foreign_addr(resp)), ntohs(conn_foreign_port(resp)), resp->info.socket );
+	session_destroy( s, "TEAR-END" );
+	ns_set_streaming_status(NETAPP_STREAM_TEARDOWN);
+	return 0;
+}
+
+int rtsp_handle_GET_PARAMETER( struct resp_message_t *resp )
+{
+	http_header_t *sess_hdr;
+	struct amn_session_t *s;
+	struct rtsp_session_t *rtsp_sess;
+
+	sess_hdr = httpmsg_find_hdr_str( resp->req, "Session" );
+	if (!sess_hdr || (s = session_search_id(sess_hdr->value.buf)) == NULL) {
+		send_RTSP_response1( resp, 454, "Session Not Found" );
+		return -27;
+	}
+	rtsp_sess = cast_protocol_data(s, rtsp_session_t);
+
+	if (resp->content_len == 0) {
+		// content length is 0, it is for keep alive
+		rtsp_keepalive(&(rtsp_sess->kal));
+		send_RTSP_response( resp, 200, "OK", "ssc",
+									"Session: ", s->id );
+		return 0;
+	}
+	return rtsp_handle_unknown( resp );
+}
+
+int rtsp_handle_SET_PARAMETER( struct resp_message_t *resp )
+{
+	return rtsp_handle_unknown( resp );
+}
+
+int rtsp_handle_unknown( struct resp_message_t *resp )
+{
+	send_RTSP_response1( resp, 501, "Not Implemented" );
+	return -28;
+}
+
+#if 0
+int rtsp_udp_simple_setup(struct rtsp_session_t *rtsp_sess, int track, unsigned short port)
+{
+
+	rtsp_sess->kal.b_rtsptcp = 0;
+	//rtsp_sess->addr
+	/*
+	if( connect_udp_endpoint( rtsp_sess->ep[track], conn_foreign_addr(resp), cport, &server_port ) < 0 )
+		return -9;
+	*/
+	return -1;
+}
+#endif

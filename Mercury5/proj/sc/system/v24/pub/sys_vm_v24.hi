@@ -1,0 +1,365 @@
+/**
+ * \page V24 Public Interface
+ * 
+ *
+ * \section intro_sec Introduction
+ *
+ * This document describes V24 Public Interface. This service can be used by the 
+ * Application or the Middleware to get information and configure Serial ports or USB port
+ * (in Communication Device Class).
+ *
+ *  <hr>
+ * \section SectionMMI2V24 1. Application/Middleware to V24 Interface
+ *
+ * \li \ref vm_v24_RequestExt    
+ * \li \ref vm_v24_SetSerialStateExt 
+ *
+ *  <hr>
+ * \section Usage 2. Usage
+ *
+ * \subsection Intro 2.1. Introduction
+ *
+ *  This service is intended to control V24 ports, and get information from these ports.
+ * V24 has been created for UART port management, but has been extended to USB CDC port and
+ * Virtual ports
+ *  
+ * \subsection GetInfo 2.2. Getting information from V24
+ *
+ *  One only function is provided by this interface. The function \ref vm_v24_RequestExt is 
+ * a "ioctl" type of function. The first parameter (constant to take in \ref vm_v24_GetInfoRequest enumeration) 
+ * gives the type of request, the second one the buffer that will contain the requested information, and the third 
+ * the port concerned by the request.
+ *  
+ * \subsection SendCommand 2.2. Sending commands to V24
+ *
+ *  Two function is provided by this interface. 
+ * \li The function \ref vm_v24_RequestExt is a "ioctl" type of function. The first parameter (constant to  
+ * take in \ref vm_v24_CommandRequest enumeration) gives the type of command, the second one the buffer 
+ * that will contain the parameters of the command (for example the desired UART speed), and the third 
+ * the port concerned by the request.
+ *  
+ * \li The function \ref vm_v24_SetSerialStateExt is a also "ioctl" type of function. The first parameter 
+ * (constant to take in vm_v24_SerialReq_t enumeration) contains the type of command, the second tells V24
+ * whether the state of the port should be written in EEPROM or not, and the third the port concerned by 
+ * the request.
+ * 
+ *  <hr>
+ *  \section Notes 3. Notes
+ *
+ * 
+ *   
+ */
+
+
+/*!
+ * \file  vm_v24.hi
+ * \brief Application/Middleware to V24 Public Interface
+ *
+ *  This file defines the V24 public interface that is offered to the Application and to the Middleware.
+ *
+ *  The interface allows to :
+ *   \li request information from V24 about ports (UART, USB)
+ *   \li send command to V24 about ports (UART, USB)
+ *
+ */
+
+#ifndef __SYS_VM_V24_HI__
+#define __SYS_VM_V24_HI__
+
+#include "vm_types.ht"
+
+/**
+  * \brief	for \ref VM_V24_SET_LENGTH and \ref VM_V24_GET_LENGTH macros
+  *
+  */
+#define VM_V24_LENGTH( x )          ((x) & 0x03)
+/**
+  * \brief	for \ref VM_V24_SET_PARITY and \ref VM_V24_GET_PARITY macros
+  *
+  */
+#define VM_V24_PARITY( x )          (((x) & 0x07) << 2)
+/**
+  * \brief	for \ref VM_V24_SET_STOP_BIT and \ref VM_V24_GET_STOP_BIT macros
+  *
+  */
+#define VM_V24_STOP_BIT( x )        (((x) & 0x01) << 5)
+
+
+/**
+ * \brief	for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+#define VM_V24_SET_LENGTH( x, v )   x = (((x) & ~0x03) | VM_V24_LENGTH(v))
+/**
+ * \brief	for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+#define VM_V24_SET_PARITY( x, v )   x = (((x) & ~(0x7 << 2)) | VM_V24_PARITY(v))
+/**
+ * \brief	for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+#define VM_V24_SET_STOP_BIT( x, v ) x = (((x) & ~(0x01 << 5)) | VM_V24_STOP_BIT(v))
+
+/**
+ * \brief	for \ref VM_V24_GET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+#define VM_V24_GET_LENGTH( x )      ((x) & 0x03)
+/**
+ * \brief	for \ref VM_V24_GET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+#define VM_V24_GET_PARITY( x )      (((x) >> 2) & 0x07)
+/**
+ * \brief	for \ref VM_V24_GET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+#define VM_V24_GET_STOP_BIT( x )    (((x) >> 5) & 0x01)
+
+/**
+ * \brief	for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+#define VM_V24_FRAMING( l, p, s )   (VM_V24_LENGTH(l) | VM_V24_PARITY(p) | VM_V24_STOP_BIT(s))
+
+#define VM_V24_UNDEFINED_FRAMING     0xff	///< framing used at starup of the port 
+
+/**
+ * \brief list of possible character length for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+typedef enum 
+{  
+   VM_V24_5BIT_LENGTH,  ///< 5 bits per char
+   VM_V24_6BIT_LENGTH,  ///< 6 bits per char   
+   VM_V24_7BIT_LENGTH,  ///< 7 bits per char
+   VM_V24_8BIT_LENGTH   ///< 8 bits per char
+} vm_v24_SerialLength_t;
+
+/**
+ * \brief list of possible parity checking for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+typedef enum
+{
+   VM_V24_NO_PARITY,                                ///< no parity checking
+   VM_V24_ODD_PARITY,                               ///< odd parity
+   VM_V24_EVEN_PARITY,                              ///< even parity
+   VM_V24_SPACE_PARITY = VM_V24_EVEN_PARITY | 0x04, ///< space parity
+   VM_V24_MARK_PARITY  = VM_V24_ODD_PARITY  | 0x04  ///< mark parity
+} vm_v24_SerialParity_t;   
+
+/**
+ * \brief list of possible stop bit configuration for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+ *
+ */
+typedef enum
+{
+   VM_V24_1STOP_BIT,    ///< 1 stop bit
+   VM_V24_2STOP_BIT     ///< 2 stop bits
+} vm_v24_SerialStop_t;
+
+
+typedef u8 vm_v24_Framing_t; ///< framing type for \ref VM_V24_SET_FRAMING request of \ref vm_v24_RequestExt
+
+/**
+ * \brief list of possible UART speeds for \ref VM_V24_SET_SPEED request of \ref vm_v24_RequestExt
+ *
+ */
+typedef enum
+{
+   VM_V24_1200,         ///< 1200 bauds
+   VM_V24_2400,         ///< 2400 bauds
+   VM_V24_4800,         ///< 4800 bauds
+   VM_V24_9600,         ///< 9600 bauds
+   VM_V24_19200,        ///< 19200 bauds
+   VM_V24_38400,        ///< 38400 bauds
+   VM_V24_57600,        ///< 57600 bauds
+   VM_V24_115200,       ///< 115200 bauds
+   VM_V24_300,          ///< 300 bauds
+   VM_V24_600,          ///< 600 bauds
+   VM_V24_230400,       ///< 230400 bauds
+   VM_V24_460800,       ///< 460800 bauds
+   VM_V24_921600,       ///< 921600 bauds
+   VM_V24_UNDEFINED_RATE,   ///< undefined baudrate
+#ifdef __DOWNLOADER__
+   VM_OV13_V24_NB_RATES,
+   VM_OV13_V24_SET_AUTOBAUD = 0x80,
+   VM_V24_SET_AUTOBAUD /* to active autobauding */
+#else
+   VM_V24_SET_AUTOBAUD ///<  to active autobauding 
+#endif
+} 
+vm_v24_Rate_t;
+
+/**
+ * \brief list of available ports
+ *
+ */
+typedef enum
+{
+   VM_V24_NO_UART,
+   VM_V24_UART1,
+   VM_V24_UART2,
+   VM_V24_USB,
+#if defined(__V24_COMPOSITE_USB___)
+   VM_V24_USB2,  //add one for usb composite
+#endif
+   VM_V24_ALL_UART
+} vm_v24_UartUsed_e;
+
+typedef u32 vm_v24_UartUsed_t; ///< bit field representing all ports (physical and virtual)
+
+/**
+ * \brief list of "get information" request types for \ref vm_v24_RequestExt
+ *
+ */
+typedef enum
+{
+  VM_V24_GET_PORT,  ///< get port used
+  VM_V24_GET_ECHO,  ///< to know whether AT commans generate echo or not
+  VM_V24_GET_SPEED, ///< get UART port speed
+  VM_V24_GET_FRAMING, ///< get framing used for UART port
+  VM_V24_LAST_OPEN_GET_REQ
+} vm_v24_GetInfoRequest;
+
+/**
+ * \brief maximum number of "get information" request types
+ *
+ */
+#define VM_MAX_GET_REQ  0x20
+
+/**
+ * \brief list of "set command" request types for \ref vm_v24_RequestExt
+ *
+ */
+typedef enum
+{
+  VM_V24_RESUME = VM_MAX_GET_REQ,   ///< resume previously suspended port
+  VM_V24_SAVE_PROFILE,              ///< save profile in EEPROM
+  VM_V24_SET_SPEED,                 ///< set UART port speed
+  VM_V24_SET_FRAMING,               ///< set framing used for UART port
+  /* New requests for the multi ports (UARTs and USB)*/
+  VM_V24_SETUP_PORT,                ///< setup port (activate)
+  VM_V24_STOP_PORT,                 ///< stop port (deactivate)
+  VM_V24_RELEASE_RI_DCD,            ///< release RI and DCD signals
+  VM_V24_RI_PULSE_ON_SLEEP,         ///< make RI signal pulse during sleep
+  VM_V24_RI_PULSE_WIDTH,            ///< set RI signal pulse width (duration)
+  VM_V24_SET_AT_MBOX,               ///< send AT command to Master or Slave
+  
+  VM_V24_LAST_OPEN_SET_REQ
+} vm_v24_CommandRequest;
+
+typedef u8 vm_v24_Req_t; ///< type of request for \ref vm_v24_RequestExt
+
+/**
+ * \brief list of request types for \ref vm_v24_SetSerialStateExt
+ *
+ */
+typedef enum
+{
+    VM_V24_SET_OFF,  ///< deactivate serial port
+    VM_V24_SET_ON,   ///< activate serial port
+    VM_V24_TOGGLE    ///< make serial port toggle (inverse state: from on to off or off to on)
+} vm_v24_SerialReq_t;
+
+/**
+ * \brief list of signals to allocate and deallocate with \ref VM_V24_SETUP_PORT request 
+ * of \ref vm_v24_RequestExt
+ *
+ */
+typedef enum 
+{
+    VM_V24_SIGNAL_RX,  ///< Rxd (from PC to BaseBand) pin
+    VM_V24_SIGNAL_TX,  ///< Txd (from BaseBand to PC) pin
+    VM_V24_SIGNAL_RTS, ///< RTS (Ready To Send) pin
+    VM_V24_SIGNAL_CTS, ///< CTS (Clear To Send) pin
+    VM_V24_SIGNAL_DTR, ///< DTR pin
+    VM_V24_SIGNAL_DSR, ///< DSR pin
+    VM_V24_SIGNAL_RI,  ///< Ring Indicator pin
+    VM_V24_SIGNAL_DCD, ///< DCD pin
+    VM_V24_SIGNAL_BRK, ///< Break pin (fake signal
+    VM_V24_SIGNAL_LAST ///< last signal
+} 
+vm_v24_Signal_t;
+
+
+/**
+ * \brief list of possible AT unsolicited responses
+ *
+ */
+typedef enum 
+{
+    VM_V24_RING,        ///< Ringing 
+    VM_V24_SMSPP,       ///< SMS PP
+    VM_V24_SMSCB,       ///< SMS CB
+    VM_V24_INFO,        ///< Info
+    VM_V24_CREG,        ///< CREG      
+    VM_V24_MISC,        ///< Miscellaneous      
+    VM_V24_AOC,         ///< CC AOC message
+    VM_V24_KEYB,        ///< Keyboard data indication      
+    VM_V24_CSQ,         ///< CSQ       
+    VM_V24_NO_CARRIER,  ///< NO CARRIER
+    VM_V24_STLK,        ///< SIM toolkit     
+    VM_V24_WIND,        ///< WIND      
+    VM_V24_CALA,        ///< CALA      
+    VM_V24_BATT,        ///< Battery      
+    VM_V24_WLOC,        ///< WLOC      
+    VM_V24_OPENAT,      ///< OPENAT    
+    VM_V24_WODI,        ///< WODI      
+    VM_V24_CGREG,       ///< CGREG     
+    VM_V24_CGEREP,      ///< CGEREP    
+    VM_V24_CSSN,        ///< CSSN      
+    VM_V24_CUSD,        ///< CUSD      
+    VM_V24_BT,          ///< Bluetooth        
+    VM_V24_CLAV,        ///< CLAV       
+    VM_V24_WCME,        ///< WCME
+    VM_V24_WSMC         ///< WSMC
+} 
+vm_v24_AtRspClass_t;
+
+
+typedef enum
+{
+  V24_DUOSTATUS_READ = 1
+  ,V24_SPEED_READ
+  ,V24_UART2_SPEED_READ
+  ,V24_USB_SPEED_READ
+  ,V24_FRAMING_READ
+  ,V24_UART2_FRAMING_READ
+  ,V24_USB_FRAMING_READ
+  ,V24_OPTIONS_READ
+  ,V24_UART2_OPTIONS_READ
+  ,V24_USB_OPTIONS_READ
+  ,V24_EXTOPTIONS_READ
+  ,V24_UART2_EXTOPTIONS_READ
+  ,V24_USB_EXTOPTIONS_READ
+  ,V24_SERIALON_READ  
+  ,V24_NOMINALMODE_READ
+  ,V24_SIGNAL_FOR_USB_READ
+  ,V24_DUOSTATUS_WRITE = 64
+  ,V24_SPEED_WRITE
+  ,V24_UART2_SPEED_WRITE
+  ,V24_USB_SPEED_WRITE
+  ,V24_FRAMING_WRITE
+  ,V24_UART2_FRAMING_WRITE
+  ,V24_USB_FRAMING_WRITE
+  ,V24_OPTIONS_WRITE
+  ,V24_UART2_OPTIONS_WRITE
+  ,V24_USB_OPTIONS_WRITE
+  ,V24_EXTOPTIONS_WRITE
+  ,V24_UART2_EXTOPTIONS_WRITE
+  ,V24_USB_EXTOPTIONS_WRITE
+  ,V24_SERIALON_WRITE
+  ,V24_NOMINALMODE_WRITE
+  ,V24_SIGNAL_FOR_USB_WRITE
+} v24E2pType_e;
+
+extern s32 v24_E2pAccessWrapper(v24E2pType_e v24E2pType, void* o__p_Buffer);
+extern u32 vm_v24_RequestExt ( vm_v24_Req_t Req, u32 Arg, u32 Uart ) ;
+extern u8  vm_v24_SetSerialStateExt( vm_v24_SerialReq_t Req, bool SaveInE2prom, u32 Uart );
+
+
+#endif /* __SYS_VM_V24_HI__ */
+

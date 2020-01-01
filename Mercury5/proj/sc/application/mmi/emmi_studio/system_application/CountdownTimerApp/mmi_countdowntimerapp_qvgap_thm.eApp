@@ -1,0 +1,87 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="COUNTDOWNTIMER_WND_SETTIME" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="SetTimeWdg" ClsID="CLSID_FCTIME_WIDGET" SizeHeight="FC_TIME_WDG_HEIGHT" SizeWidth="FC_TIME_WDG_WIDTH">
+				<Position Type="X_POSITION" Value="COUNTDOWN_TIMER_SETTIMER_XPOS" />
+				<Position Type="Y_POSITION" Value="COUNTDOWN_TIMER_SETTIMER_YPOS" />
+				<Property Id="PROP_FCTIME_WDG_STYLE" Value="FCTIME_STYLE_COUNTDOWNTIME" />
+				<InternProp Id="GUID" Value="04a4a" />
+				<Model ClsID="CLSID_FCTIME_WIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="HourTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="COUNTDOWN_TIMER_HOUR_TEXT_HEIGHT" SizeWidth="COUNTDOWN_TIMER_HOUR_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="COUNTDOWN_TIMER_HOUR_TEXT_XPOS" />
+				<Position Type="Y_POSITION" Value="COUNTDOWN_TIMER_HOUR_TEXT_YPOS" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_TOP|ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_BLACK" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<InternProp Id="GUID" Value="f6150" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_HOUR" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MinTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="COUNTDOWN_TIMER_MIN_TEXT_HEIGHT" SizeWidth="COUNTDOWN_TIMER_MIN_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="COUNTDOWN_TIMER_MIN_TEXT_XPOS" />
+				<Position Type="Y_POSITION" Value="COUNTDOWN_TIMER_MIN_TEXT_YPOS" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_TOP|ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_BLACK" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<InternProp Id="GUID" Value="52cdb" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_MIN" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SecTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="COUNTDOWN_TIMER_SEC_TEXT_HEIGHT" SizeWidth="COUNTDOWN_TIMER_SEC_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="COUNTDOWN_TIMER_SEC_TEXT_XPOS" />
+				<Position Type="Y_POSITION" Value="COUNTDOWN_TIMER_SEC_TEXT_YPOS" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_TOP|ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_BLACK" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<InternProp Id="GUID" Value="ed879" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_SEC" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="af8ce" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="3" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_COUNTDOWN_TIMER&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="COUNTDOWNTIMER_WND_COUNTDOWN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="TextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_LCD_ONELINE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="COUNTDOWN_TIMER_RUNNING_TIME_XPOS" />
+				<Position Type="Y_POSITION" Value="COUNTDOWN_TIMER_RUNNING_TIME_YPOS" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NUM_LARGE" />
+				<InternProp Id="GUID" Value="953f9" />
+			</Widget>
+			<InternProp Id="GUID" Value="915a9" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="249" />
+		<InternProp Id="LAYOUT_POS_Y" Value="3" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_COUNTDOWN_TIMER&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_COUNTDOWNTIMER" />
+</UiRoot>

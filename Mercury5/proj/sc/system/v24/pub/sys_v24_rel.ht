@@ -1,0 +1,39 @@
+/****************************************************************************/
+/* File    :   v24_rel.ht                                                   */
+/*                                                                          */
+/* Scope   :  Types used in V24 Relay layer.                                */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __SYS_V24_REL_HT__
+#define __SYS_V24_REL_HT__
+
+#include "sys_v24.ht"
+#include "sys_v24_ctrl.hc"
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Access macros                                   */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+typedef struct
+{
+  u32                     _v24_RelPort;
+  void*                   _wbt_ConnectCtx;//identifies uniquely the BT connection
+  void*                   _UpperLayerContext;
+  u16                     _MTU;
+  u8                      _MaxCFC;
+  eLayerId_t              _UpperLayerId;
+}
+v24_RelContext_t;
+
+#define V24_REL_CONTEXT              v24_RelContext
+
+#define v24_RelPort                  V24_REL_CONTEXT->_v24_RelPort
+#define v24_RelUpperLayerContext     V24_REL_CONTEXT->_UpperLayerContext
+#define v24_RelUpperLayerId          V24_REL_CONTEXT->_UpperLayerId
+#define v24_Rel_wbtConnectCtx        V24_REL_CONTEXT->_wbt_ConnectCtx
+#define v24_Rel_MTU                  V24_REL_CONTEXT->_MTU 
+#define v24_Rel_MaxCFC               V24_REL_CONTEXT->_MaxCFC 
+
+#endif //__SYS_V24_REL_HT__
+

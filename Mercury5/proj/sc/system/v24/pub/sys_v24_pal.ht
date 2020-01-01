@@ -1,0 +1,184 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_pal.ht                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Types used in V24 Physical Abstraction Layer.                 */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 10/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_pal.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 13.02.06 | aph    | 1.7            | Resolution for 33006: [V24] Auto RT
+ *          |        |                | S/CTS implementation  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.6            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 01.07.05 | pmr    | 1.5            | Resolution for 29258: Internal stru
+ *          |        |                | ctures alignment in order to reduce
+ *          |        |                |  consumed memory  .                
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.4            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.3            | Resolution for 27932: V24 autobaudi
+ *          |        |                | ng  sets  reliable  .              
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_PAL_HT__
+#define __SYS_V24_PAL_HT__
+
+#include "sys_v24.ht"
+
+#include "sys_v24_ctrl.hc"
+#include "sys_v24_uart.ht"
+
+//
+// Size of interrupt receive buffer (buffer shared between idle-task V.24
+// and uart interrupts).
+// WARNING: when setting the receive interrupt buffer size higher 
+// than 256 (e.g. 512) make sure to either enlarge the receive data 
+// buffer or lower the flow control threshold of this buffer.
+// Indeed the maximum threshold works out at the length of the data 
+// buffer minus that of the interrupt buffer.
+// For instance, given a 512-byte interrupt buffer and a 1024-byte 
+// receive data buffer, the absolute maximum threshold is 512. 
+// A 384-byte threshold works fine.
+//
+
+// APH: redefinition
+//#ifdef __DOWNLOADER__
+//#define V24_RX_IT_BUF_LEN     512   /* must be a power of 2 */
+//#else
+//#define V24_RX_IT_BUF_LEN     256   /* must be a power of 2 */
+//#endif
+//
+// If the amount of free room in the interrupt receive buffer drops
+// below the hereafter threshold (after reading out uart fifo under
+// interrupt) then flow control is invoked.
+// In theory the lowest safe value is 32 bytes (assuming PC's uart fifo
+// size is 16 bytes), however in practice overflows are experienced.
+// A 64-byte threshold allow us a sensible safety margin.
+//
+// APH: redefinition in v24.ht
+//#define V24_RX_IT_FC_THRES    64    /* no need to be a power of 2 */
+
+//
+// Size of interrupt transmit buffer.
+// Note: this buffer is not a circular buffer, therefore the length can 
+// be of any value (no need to be a power of 2).
+//
+// 384 is the lowest length to use 128-byte frames in IRDA mode (remember
+// the transparency scheme can double the frame length plus the hundred of
+// 0xFFs to deal with the turn-around time of the PC led).
+// Should the IRDA frame length be cut back to 64 bytes, a buffer length
+// of 256 bytes is suitable.
+// 
+
+#define V24_TX_MAX_NB_BUFFER        16 /* 3*5 frames with header, data and tail or 12 data frames*/
+
+#define V24_TX_PAL_BLOCK_QUEUE_MOD  0x0f
+#define V24_TX_PAL_BLOCK_QUEUE_MAX  V24_TX_PAL_BLOCK_QUEUE_MOD+1 
+
+
+//functions called from PAL but defined in lower layers.
+typedef void (*v24_PalSetRegister_t)  ( u32, u32 );
+typedef u32  (*v24_PalGetRegister_t)  ( u32 );
+
+//Context of the Of the PAL for each physical port.
+
+typedef struct 
+{
+  v24_UartContext_t    *_v24_PtrToUartCtxt;
+
+
+  bool                 _v24_CanTxData;//should be present in each layer that can create/forward data
+  bool                 _v24_CanRxData;//should be present in each layer that can receive data.
+  u8                   _v24_PhyTxBarred; /* bit field */
+  u8                   _v24_PhyRxBarred; /* bit field */
+
+  u8                   _v24_LogiRxBarred; /* bit field */
+  u8                   _v24_PalTxQueuePurgeIdx;
+  u8                   _v24_PalTxQueueFillIdx;
+  u8                   _v24_ExecutiveMode;
+
+  v24_TxPalUartBlock_t _v24_PalTxQueue[V24_TX_PAL_BLOCK_QUEUE_MAX];
+
+  void                *_v24_PalUpperLayerCtx;
+  eLayerId_t           _v24_PalUpperLayerId;
+}
+v24_PalContext_t;
+
+
+//functions for setting signals in the Uart or in USB.
+typedef void (*v24_SetPalFct_t) (bool);
+
+
+// DEBUG
+typedef struct
+{
+  u32 TxBarringState;
+  u32 TxBarringValue;
+}
+v24_PalBarrCtxt_t;
+
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Access macros                                   */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+#define V24_PALCONTEXT            v24_PalContext
+                                               
+#define v24_PalCanTxData          V24_PALCONTEXT->_v24_CanTxData
+#define v24_PalCanRxData          V24_PALCONTEXT->_v24_CanRxData
+
+#define v24_PhyTxBarred           V24_PALCONTEXT->_v24_PhyTxBarred
+#define v24_PhyRxBarred           V24_PALCONTEXT->_v24_PhyRxBarred
+#define v24_LogiRxBarred          V24_PALCONTEXT->_v24_LogiRxBarred
+
+#define v24_PtrToUartCtxt         V24_PALCONTEXT->_v24_PtrToUartCtxt
+
+#define v24_PalUpperLayerId       V24_PALCONTEXT->_v24_PalUpperLayerId
+#define v24_PalUpperLayerCtx      V24_PALCONTEXT->_v24_PalUpperLayerCtx
+
+#define v24_PalTxQueue            V24_PALCONTEXT->_v24_PalTxQueue
+#define v24_PalTxQueuePurgeIdx    V24_PALCONTEXT->_v24_PalTxQueuePurgeIdx
+#define v24_PalTxQueueFillIdx     V24_PALCONTEXT->_v24_PalTxQueueFillIdx
+
+#define v24_ExecutiveMode         V24_PALCONTEXT->_v24_ExecutiveMode
+
+#endif

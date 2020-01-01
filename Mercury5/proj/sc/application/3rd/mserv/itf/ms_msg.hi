@@ -1,0 +1,176 @@
+/****************************************************************************/
+/*  File    : ms_msg.hi                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Mservices messages definition                                 */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/****************************************************************************/
+/*
+* --------------------------------------------------------------------------
+*  Date     | Author | Revision       | Description
+* ----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __MS_MSG_HI__
+#define __MS_MSG_HI__
+
+#ifdef __MSERVICES__
+#include "vm_msgof.hc"
+#include "vm_osdef.hc"
+#include "sys_rtk_vmoshi.h"
+#include "ms_prim.hc"
+#include "vm_kbd.h"
+#include "mdl_keypad_pub.h"
+#include "ms_stmsg.hi" /* Mservices messges structures definition */
+#include "ms_socket_protocol_msg_def.h" /// define the message struct for protocol layer
+#include "mms_pars.h"	/* CDMMS messges structures definition */
+#if defined(__MMS_MMI_CDMMS__) && defined(__WAP_MMI_CDWAP__) && defined(__WAP_MMI_OTA_PROV__)
+#include "ms_prov.h"
+#endif
+/* ---------------------------------------------------------------------------- */
+/*                        - Definition of the Body_t union -                    */
+/* ---------------------------------------------------------------------------- */
+
+#define MS_SOCKET_PROTOCOL_MSG_DEF(TYPE, NAME) TYPE NAME;
+
+typedef union
+{
+    /* Mservices field */
+    iMserv_Mic_StartReq_t  Mserv_MicStartReq;
+    iMserv_Mic_StopReq_t   Mserv_MicStopReq;
+    
+    
+    iMserv_Mic_StartCnf_t  Mserv_MicStartCnf;
+    iMserv_Mic_StopInd_t   Mserv_MicStopInd;
+    
+   	vm_osTimerMsgBody_t   vm_osTimerMsgBody;
+    
+    iMserv_Mic_PushReq_t	  Mserv_MicPushInd;	
+    iMserv_Mic_PushSlReq_t Mserv_MicPushSlconnected;
+    iMserv_Mic_PushSiReq_t Mserv_MicPushSIconnected;
+    
+    iMserv_Mic_OutgoingCallInd_t Mserv_MicOutgoingCallInd;
+    
+    iMserv_Mic_SwitchToCsdReq_t Mserv_Mic_SwitchToCsdReq;
+    iMserv_Mic_SwitchToCsdRsp_t Mserv_Mic_SwitchToCsdRsp;
+    
+    /* wtai message */
+    
+    iMserv_Mic_BrowseAgainReq_t Mserv_MicBrowseAgainReq;
+    iMserv_Mic_ClrMemReq_t   Mserv_MicClearMemReq;
+    
+    /* Keyboard field */
+    /*KbdInd_t*/VKEYCODE                   KbdInd;
+
+    /// add new message in file "ms_socket_protocol_msg_def.h"
+    /// message type for protocol layer begin
+    MS_SOCKET_PROTOCOL_CMN_MSG_COL
+#ifdef __WLAN_IP_SUPPORT__ 
+    MS_SOCKET_PROTOCOL_WIFI_MSG_COL
+#endif /* __WLAN_IP_SUPPORT__ */    
+    /// message type for protocol layer end
+
+    /* Editor messages*/
+    iMserv_Gle_EditorInfo_t                Mserv_EditorOpenReq;
+    iMserv_Gle_EditorData_t          Mserv_EditorData;
+    
+    iMserv_Mic_OutgoingCallInd_t  Mserv_SuspendedMicInd;
+    iMserv_Mic_SendDtmfGprs_t     Mserv_MicSendDtmfGprs;
+    /* dialog box message */
+    iMserv_Mic_PwdDialogInfo_t	Mserv_PwdDialogOpenReq;
+    iMserv_Mic_PwdDialogData_t   Mserv_PwdDialogData;
+    iMserv_Mic_DialogPromptInfo_t	Mserv_DialogPromptReq;
+    iMserv_Mic_DialogPromptData_t   Mserv_DialogPromptData;
+    
+#ifdef __SYNCML__
+    iMserv_Syncml_StartReq_t	Mserv_Syncml_StartReq;
+    iMserv_Syncml_StartRsp_t	Mserv_Syncml_StartRsp;
+    iMserv_Syncml_SyncReq_t		Mserv_Syncml_SyncReq;
+    iMserv_Syncml_SyncRsp_t         Mserv_Syncml_SyncRsp;
+    iMserv_Syncml_StatusInd_t	Mserv_Syncml_StatusInd;
+    iMserv_Syncml_SessionDoneInd_t	Mserv_Syncml_SessionDoneInd;
+#endif /* __SYNCML__ */
+
+    iMserv_Mic_StoreCustoSettings_t   Mserv_Mic_StoreCustoSettings;
+    
+    /* network test */
+    iMserv_Mic_StartTest_t iMserv_Mic_StartTest;
+    
+    /* Push Message */
+    iMserv_PushIndication_t Mserv_PushIndication;
+    iMserv_PushResponse_t   Mserv_PushResponse;
+
+    /* 3rd party application */
+    iMserv_StartApplication_Req_t Mserv_StartApplication;
+    iMserv_StopApplication_Req_t  Mserv_StopApplication;
+
+    iWAP_Start_Req_t Mserv_WAPStartReq;
+    
+    iMMS_Start_Req_t Mserv_MMSStartReq;
+
+    iMserv_CreateDataLink_Rsp_t Mserv_CreateDataLink_Rsp;
+
+    MMS_SaveMmsReq_t									MmsSaveMmsReq;
+    MMS_MoveMmsReq_t									MmsMoveMmsReq;
+    MMS_GetMmsReceiverListReq_t                         MmsGetMmsReceiverListReq;
+    MMS_GetMmsSenderAddrReq_t                           MmsGetMmsSenderAddrReq;
+    T_MmsFs_headInfo                                    *pMmsFsHeadInfo;
+    MMS_GetMmsItemInfoReq_t                             MmsGetMmsItemInfoReq;
+    MMS_GetMmsSubjectInfoReq_t                          MmsGetMmsSubjectInfoReq;
+    MMS_GetMmsStatusInfoReq_t                           MmsGetMmsStatusInfoReq;
+    MMS_GetMmsAllSlidesReq_t                            MmsGetMmsAllSlidesReq;
+    MMS_Slide_Cntx                                      *pSlideCntx;
+    MMS_GetAttachCntxReq_t                              MmsGetAttachCntxReq;
+    MMS_SendMmsByBoxReq_t                               MmsSendMmsByBoxReq;
+    MMS_RecvMmsBodyReq_t                                MmsRecvMmsBodyReq;
+    MMS_DelMmsByIdReq_t                                 MmsDelMmsByIdReq;
+    MMS_DelMmsByBoxReq_t                                MmsDelMmsByBoxReq;
+    MMS_GET_SLIDES                                      *pMmsGetSlides;
+    MMS_NewMmsNote_t                                    MmsNewNote;
+    MMS_RetrvCdMmsReq_t                                 MmsRetrvCdMmsReq;
+    MMS_GetMmsAllAttachesReq_t                          MmsGetMmsAllAttachesReq;
+    MMS_SendNotiRespReq_t                               MmsSendNotiRespReq;
+#ifdef __MMS_READ_REPORT__
+    MMS_SendReadReplyReq_t                              MmsSendReadReplyReq;
+#endif
+#ifdef __MMS_MMI_CDMMS_STORAGE_SWITCH__
+    MMS_GetRawItemReq_t                                 MmsGetRawItemReq;
+    MMS_SaveRawItemReq_t                                MmsSaveRawItemReq;
+#endif
+    MMS_BootupCnf_t                                     MmsBootupCnf;
+    MMS_SaveMmsCnf_t                                    MmsSaveMmsCnf;
+    MMS_MoveMmsCnf_t                                    MmsMoveMmsCnf;
+    MMS_GetMmsReceiverListCnf_t                         MmsRecvListCnf;
+    MMS_GetMmsSenderAddrCnf_t                           MmsSenderAddrCnf;
+    MMS_GetMmsItemInfoCnf_t                             MmsItemInfoCnf;
+    MMS_GetMmsSubjectInfoCnf_t                          MmsSubjectInfoCnf;   
+    MMS_GetMmsStatusInfoCnf_t                           MmsStatusInfoCnf;
+    MMS_GetMmsAllSlidesCnf_t                            MmsAllSlidesCnf;
+    MMS_SendMmsByBoxCnf_t                               MmsSendByBoxCnf;
+    MMS_TransCancelCnf_t                                MmsTransCancelCnf;
+    MMS_RecvMmsBodyCnf_t                                MmsRecvBodyCnf;
+    MMS_DelMmsByIdCnf_t                                 MmsDelByIdCnf;
+    MMS_DelMmsByBoxCnf_t                                MmsDelByBoxCnf;
+    MMS_NewMmsNoteCnf_t                                 MmsNewNoteCnf;
+    MMS_RetrvCdMmsCnf_t                                 MmsRetrvCdMmsCnf;
+    MMS_GetMmsAllAttachesCnf_t                          MmsAllAttachesCnf;
+    MMS_SendNotiRespCnf_t                               MmsSendNotiRespCnf;
+#ifdef __MMS_READ_REPORT__
+    MMS_SendReadReplyCnf_t                              MmsSendReadReplyCnf;
+#endif
+    MMS_SetStorePathInd_t                               MmsSetStorePathInd;
+#ifdef __MMS_MMI_CDMMS_STORAGE_SWITCH__
+    MMS_GetRawItemCnf_t                                 MmsGetRawItemCnf;
+    MMS_SaveRawItemCnf_t                                MmsSaveRawItemCnf;
+#endif
+#if defined(__MMS_MMI_CDMMS__) && defined(__WAP_MMI_CDWAP__) && defined(__WAP_MMI_OTA_PROV__)
+    PROV_VerifyOTAPWReq_t                               ProvVerifyOTAPWReq;
+    PROV_SetReadFlagReq_t                               ProvSetReadFlagReq;
+    PROV_VerifyOTAPWCnf_t                               ProvVerifyOTAPWCnf;
+#endif
+}vm_msgBody_t;
+
+#endif
+#endif
+

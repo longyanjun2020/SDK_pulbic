@@ -1,0 +1,131 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+//**************************************************************************//
+/**
+ *   @file    mux_v24.hi   
+ *
+ *@b Purpose:     
+ *            Interfaces for v24_mux.c layer
+ *            
+ *--------------------------------------------------------------------------  
+ *@b Content:     
+ *                           
+ *                                                                         
+ *--------------------------------------------------------------------------
+ * @date      03/11/2003
+ * @author    MSE
+ *
+ *@b Historical:
+ ***************************************************************************
+ *   Date:      Author: Note:
+ *
+ *@n 03/11/2003 MSE     Creation
+ *@n 06/12/2004 APH     MUX integration
+ *
+ */
+//**************************************************************************//
+
+
+#ifndef __MUX_V24_HI__
+#define __MUX_V24_HI__
+
+#include "sys_v24_mux.hi"  // v24_MuxInitSetup_t
+
+/**
+ * Same as v24_TimerReq_t in v24.ht
+ */
+typedef struct
+{
+
+  u8  Index;
+  u8  TimerId;    
+
+} 
+mux_TimerReq_t;
+
+
+/* mux_itf.c */
+void mux_Itf_Init(void);
+void mux_Itf_Start(void);
+void mux_Itf_Stop(void);
+void mux_Itf_OpenDlcReq(void);
+void mux_Itf_CloseDlcReq(void);
+void mux_Itf_OpenDlcCnf(void);
+void mux_Itf_CloseDlcCnf(void);
+void mux_Itf_Timer(void);
+void mux_Itf_Release(u8 *Buffer, u32 Port);
+
+void mux_Itf_Sleep(u32 Port);
+void mux_Itf_WakeUp(u32 Port);
+
+#if !defined (__SDK_SIMULATION__)
+
+/**
+ * Structure in v24_mux.hi
+ * Called by V24 init in order to map MUX functions in V24
+ */
+static const v24_MuxInitSetup_t mux_InitPtr = {
+       mux_Itf_Init,
+       mux_Itf_Timer,
+       mux_Itf_Start,
+			 mux_Itf_Stop,
+			 mux_Itf_OpenDlcReq,
+			 mux_Itf_OpenDlcCnf,
+			 mux_Itf_CloseDlcReq,
+       mux_Itf_CloseDlcCnf,
+       mux_Itf_Release
+};
+
+#endif
+
+
+
+
+/**
+ * structure for DLC registration to pass and retrieve data
+ */
+typedef struct
+{
+  void * AssociatedDlcCtxt;          ///< MUX to V24 Dlc context passed to register
+  void * AssociatedV24MuxCtxt;       ///< v24 to MUX associated MUX ctxt passed after reg
+  u32    AssociatedV24PortIdHandler; ///< v24 to MUX assocaited handler passed after reg
+
+} mux_MuxReg_struct_t;
+
+
+u16 mux_MuxRxDataPtr(u8 *Ptr, u16 PurgeIndex, u16 FillIndex, u32 Port, u16 FifoModulo);
+TxPal_status_e  mux_MuxTxDataPtr(v24_TxBlock_t *BlockPtr, void* Context);
+
+void mux_MuxTxSetRtsPtr(bool On, void* Context);
+void mux_MuxTxSetDtrPtr(bool On, void* Context);
+void mux_MuxTxSetRiPtr(bool On, void* Context);
+void mux_MuxTxSetDcdPtr(bool On, void* Context);
+void mux_MuxTxSetBrkPtr(bool On, void* Context);
+void mux_MuxTxSetPulseRiPtr(bool On, void* Context);
+
+void mux_MuxTxSetRxFcPtr(bool On, void* Context);
+
+void mux_MuxRxIndCtsPtr(bool On, void* Context);
+void mux_MuxRxIndDsrPtr(bool On, void* Context);
+void mux_MuxRxIndTxFcPtr(bool On, void* Context);
+void mux_MuxRxIndRiPtr(bool On, void* Context);
+void mux_MuxRxIndDcdPtr(bool On, void* Context);
+
+
+bool mux_MuxTxGetCtsPtr(void* Context);
+bool mux_MuxTxGetDsrPtr(void* Context);
+
+
+void mux_Ctrl_SetSpeed(u8 Param, u32 Port);
+void mux_Ctrl_SetFraming(u8 Param, u32 Port);
+
+
+#endif // __MUX_V24_HI__

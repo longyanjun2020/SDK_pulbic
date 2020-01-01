@@ -1,0 +1,151 @@
+[Startup]
+Perform Get Infos=0
+Send Flow Enable=0
+Flow Description=Flow ID
+Flow Data Structure=
+Flow ID=0x00000000
+
+[Path]
+Archive Full Path Name=.\316d_32_128_msw.zip
+Diagnose Tips Full Path Name=
+Diagnose Tips Zipped=1
+Diagnose Tips Archive Name=DiagnoseTips.ini
+Watches Tips Full Path Name=
+Watches Tips Zipped=1
+Watches Tips Archive Name=MokaWatches.ini
+Remote Defs Full Path Name=
+Remote Defs Zipped=1
+Remote Defs Archive Name=RemoteDefs.ini
+Remote Traces Full Path Name=
+Remote Traces Zipped=1
+Remote Traces Archive Name=remtrace.csv
+Symbols Full Path Name=symbols
+Symbols Zipped=1
+Symbols Archive Name=symbols
+E2p Full Path Name=
+E2p Zipped=1
+E2p Archive Name=e2p.h
+E2p CSN1 Decoding Full Path Name=
+E2p CSN1 Decoding Zipped=0
+E2p CSN1 Decoding Archive Name=
+Registers Full Path Name=
+Registers Zipped=0
+Registers Archive Name=
+Features Full Path Name=
+Features Zipped=1
+Features Archive Name=vm_ftr.ho
+Backtraces Full Path Name=backtraces.axf
+Backtraces Zipped=1
+Backtraces Archive Name=backtraces.axf
+Csn1 Files Directory=
+MsgId Full Path Name=316d_32_128_msw.msg
+MsgId Zipped=1
+MsgId Archive Name=316d_32_128_msw.msg
+Msm Register Full Path Name=.\MsmRegister.lst
+Msm Register Zipped=1
+Msm Register Archive Name=MsmRegister.lst
+RAI ID Mapping Full Path Name=.\xmmi_rai_id.mae
+RAI ID Mapping Zipped=1
+RAI ID Mapping Archive Name=xmmi_rai_id.mae
+Trace Level Full Path Name=.\Trace_Level\
+Trace Level Zipped=1
+Trace Level Archive Name=Trace_Level\
+
+[Ext Path]
+ExpTyp Full Path Name=
+ExpTyp Zipped=1
+ExpTyp Archive Name=exceptionType.ini
+ArmMode Full Path Name=
+ArmMode Zipped=1
+ArmMode Archive Name=armMode.ini
+PwrOnCause Full Path Name=
+PwrOnCause Zipped=1
+PwrOnCause Archive Name=powerOnCause.ini
+TaskState Full Path Name=
+TaskState Zipped=1
+TaskState Archive Name=TaskState.ini
+MAE_CLSID Full Path Name=
+MAE_CLSID Zipped=1
+MAE_CLSID Archive Name=316d_32_128_msw.clsid.mae
+MAE_STAID Full Path Name=
+MAE_STAID Zipped=1
+MAE_STAID Archive Name=316d_32_128_msw.stateid.mae
+MAE_EVTID Full Path Name=
+MAE_EVTID Zipped=1
+MAE_EVTID Archive Name=316d_32_128_msw.eventid.mae
+MAE_MODID Full Path Name=
+MAE_MODID Zipped=1
+MAE_MODID Archive Name=316d_32_128_msw.modeid.mae
+MAE_TRNID Full Path Name=
+MAE_TRNID Zipped=1
+MAE_TRNID Archive Name=316d_32_128_msw.transid.mae
+
+[Tools]
+Shortcut Number=2
+Description #0=Terminal Emulator
+Path #0=C:\Program Files\MStar\DevelopmentToolkit\Inca.exe
+Description #1=Ceti
+Path #1=C:\Program Files\MStar\Ceti\Ceti.exe
+
+[Miscellaneous]
+Serial Rate Number=3
+Serial Rate #0=460800
+Serial Rate #1=115200
+Serial Rate #2=9600
+Watch Data Color=0x0000FFFF
+Watch Label Color=0x0000D000
+Watch Background Color=0x00000000
+ScrollAutoStopDisable=1
+Comment=
+Auto Max Baudrate Enable=1
+Auto Max Baudrate Number=3
+Auto Max Baudrate #0=921600
+Auto Max Baudrate #1=460800
+Auto Max Baudrate #2=230400
+
+[Menu]
+Overwrite Target Buffer=0
+Normal Watch Dump Type=1
+Interlayer MSG Decode=0
+Eeprom Visu Little Endian=0
+
+[Client Windows]
+Number=2
+
+[Client Window #0]
+Client ID=TRACE
+Visu Type=0
+File Prefix=Trace
+File Extension=txt
+File Path=C:\Program Files\MStar\DevelopmentToolkit\Traces
+Dump=0
+Time Marker=0
+Client WindowID=59425
+Font=F3FFFFFF0000000000000000000000009001000000000000030201314C756369646120436F6E736F6C650000C9F74000010000006F4C4A00F8E84C00
+
+[Client Window #1]
+Client ID=WATCH
+Visu Type=1
+File Prefix=Watch
+File Extension=txt
+File Path=C:\Program Files\MStar\DevelopmentToolkit\Watch
+Dump=0
+Time Marker=0
+Client WindowID=59426
+Font=000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+[Chart]
+Pool_0=1
+Pool_1=1
+Pool_2=1
+Pool_3=1
+Pool_4=1
+Pool_5=1
+Chart Type=0
+Time Interval=5
+
+[Protocol]
+Use New HAPC Protocol=1
+
+[Binary]
+Date=102918-07:46:31 PM

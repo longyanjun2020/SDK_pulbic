@@ -1,0 +1,247 @@
+#
+# Makefile bootrom
+#
+
+ifndef TARGET
+TARGET = wintarget
+endif
+
+ifndef CHIP
+CHIP = b5
+endif
+
+ifndef CHIPVER
+CHIPVER = 1
+endif
+
+PN := MSW8522
+TOOLS_DIR = tools
+OUT_DIR = out_$(CHIP)/$(TARGET)
+DEP_DIR = dep_$(CHIP)/$(TARGET)
+LINKER_UNUSED_TGT = $(OUT_DIR)/unused.txt
+IMAGE = $(OUT_DIR)/$(TARGET)
+
+ifeq ($(TARGET), sdtarget)
+HAL = b5
+endif
+
+export WINTARGET_DIR = wintarget
+
+ifeq ($(TARGET), wintarget)
+LINKER_UNUSED_SRC = $(WINTARGET_DIR)/unused.txt
+SCATTERFILE = scatter-emi.desc
+EXTRA_OBJS = $(MSTARLIB)/emi_init.o $(MSTARLIB)/veneer.o \
+             $(MSTARLIB)/importsym_b5.def
+EXTRA_CFLAGS = \
+	-D__DEBUG_ON__ \
+	-D__WINTARGET__ \
+	-D__DOWNLOADER_V24__ \
+	-D__USE_SERIAL_NUMBERS__ \
+	-D__DOWNLOADER__ \
+	-D__UART2_DEBUG__ \
+	-D__B2__ \
+	-D__$(PN)__ \
+	-D__SPI__ \
+	-D__VER_UNFD_FTL__ \
+        -D__B3_UPLOAD_NEW__ \
+	-D__B3_RESTORE__ \
+	-D__NEW_NOR_ARCH__ \
+	-D__M18_MCP_SUPPORT__ \
+	-D__PASSIVE_DOWNLOAD__ \
+	-D__MSW8533X_NEW_EMI_PROTOCOL__ \
+	--apcs /ropi/rwpi --lower_ropi
+
+ASFLAGS += \
+	--PD "__WINTARGET__ SETL {TRUE}" \
+	--PD "__G1__ SETL {FALSE}" \
+	--PD "__B2__ SETL {TRUE}" \
+	--apcs /ropi/rwpi
+
+endif
+
+ifeq ($(TARGET), sdtarget)
+LINKER_UNUSED_SRC = $(WINTARGET_DIR)/unused.txt
+SCATTERFILE = scatter-emi_$(FLASH).desc
+EXTRA_OBJS = \
+	$(MSTARLIB)/emi_init.o \
+	$(MSTARLIB)/veneer_sd.o \
+	$(MSTARLIB)/importsym_sd.def
+
+EXTRA_CFLAGS = \
+	-D__DEBUG_ON__ \
+	-D__WINTARGET__ \
+        -D__SDTARGET__ \
+	-D__DOWNLOADER_V24__ \
+	-D__USE_SERIAL_NUMBERS__ \
+	-D__DOWNLOADER__ \
+	-D__UART2_DEBUG__ \
+	-D__B2__ \
+	-D__$(PN)__ \
+	-D__SPI__ \
+	-D__VER_UNFD_FTL__ \
+        -D__B3_UPLOAD_NEW__ \
+	-D__B3_RESTORE__ \
+	-D__NEW_NOR_ARCH__ \
+	-D__M18_MCP_SUPPORT__ \
+	-D__PASSIVE_DOWNLOAD__ \
+	-D__MSW8533X_NEW_EMI_PROTOCOL__
+
+ASFLAGS += \
+	--PD "__WINTARGET__ SETL {TRUE}" \
+	--PD "__G1__ SETL {FALSE}" \
+	--PD "__B2__ SETL {TRUE}"
+
+endif
+
+EXTRA_OBJS += $(MSTARLIB)/main.o
+
+ifndef SCATTERFILE
+SCATTERFILE = scatter-iram_b5.desc
+endif
+
+include Makefile.opt
+
+ASFLAGS += --PD "__B1__ SETL {FALSE}" -I$(OUT_DIR)
+CFLAGS += $(EXTRA_CFLAGS) -D__CHIPVER__=$(CHIPVER)
+PP_OPT_TARGET += $(EXTRA_CFLAGS)
+
+ifeq ($(FPGA), TRUE)
+ASFLAGS += --PD "__FPGA_MODE__ SETL {TRUE}"
+CFLAGS += -D__FPGA_MODE__
+endif
+
+ifeq ($(ASICSIM), TRUE)
+ASFLAGS += --PD "__ASIC_SIM__ SETL {TRUE}"
+CFLAGS += -D__ASIC_SIM__
+endif
+
+ifeq ($(TARGET), sdtarget)
+all: dep $(IMAGE).dir $(LINKER_UNUSED_TGT) $(IMAGE).bin unused_file
+else
+all: $(IMAGE).dir $(LINKER_UNUSED_TGT) $(IMAGE).bin unused_file
+endif
+	@echo "In order to generate text bin file use the gen_txt_bin.sh command"
+	@echo "Don't forget to modify the number version!"
+
+$(IMAGE).dir:
+	@mkdir -p $(OUT_DIR)
+
+$(LINKER_UNUSED_TGT): $(LINKER_UNUSED_SRC)
+	@cp -af $< $@
+	@chmod +w $@
+
+.PHONY: unused_file
+unused_file:
+	@-cp -af $(LINKER_UNUSED_TGT) $(LINKER_UNUSED_SRC)
+
+LIB_LIST = \
+  $(MSTARLIB)/sysdrv.a \
+  $(MSTARLIB)/sysutil.a \
+  $(MSTARLIB)/common.a \
+  $(MSTARLIB)/storage.a \
+	$(MSTARLIB)/fat.a \
+	$(MSTARLIB)/unfd.a \
+	$(MSTARLIB)/usbotg.a \
+	$(MSTARLIB)/dwldrv.a \
+	$(MSTARLIB)/flash.a \
+	$(MSTARLIB)/nand.a \
+	$(MSTARLIB)/sig_ta.lib \
+	$(MSTARLIB)/src.a \
+	$(MSTARLIB)/usb.a \
+	$(MSTARLIB)/zlib.a
+	
+#include sysdrv/sysdrv.mak
+#include sysutil/sysutil.mak
+#include common/common.mak
+#include storage/storage.mak
+#include fat/fat.mak
+#include UNFD/UNFD.mak
+#include usb/usbotg.mak
+#include dwldrv/dwldrv.mak
+
+include $(WINTARGET_DIR)/mak/customer.mak
+include $(WINTARGET_DIR)/version_b5.mak
+include $(WINTARGET_DIR)/mak/swversion.mak
+ifeq ($(TARGET), sdtarget)
+include lcd/lcd.mak
+include lcd/lcdcust.mak
+include lcd/lcdhal.mak
+include backlight/backlight.mak
+include backlight/backlightcust.mak
+include backlight/backlighthal.mak
+endif
+INC_LIST += -I$(WINTARGET_DIR)/inc
+INC_LIST += -I$(WINTARGET_DIR)/drivers/flash/inc
+INC_LIST += -I$(WINTARGET_DIR)/drivers/flash/itf
+
+dep: depdir depfiles
+
+depdir:
+	@mkdir -p $(sort $(dir $(DEPFILES)))
+
+ifeq ($(TARGET), sdtarget)
+depfiles: $(DEPFILES)
+endif
+
+$(IMAGE).bin: $(IMAGE).axf
+	@echo "Creating $@ from $< using options '$(BINFLAGS)'"
+	$(FROMELF) $(BINFLAGS) -o $@ $<
+	@echo $$(basename $@) = $$(ls -g $@ | awk '{print $$4}') BYTES
+
+	@cp -af $@ $(OUT_DIR)/lock_MSW853xb.bin
+	@cp -af $@ $(OUT_DIR)/lock_MSW853xb.wt
+	#@$(TOOLS_DIR)/LoadConverter.exe -t $(OUT_DIR)/lock_MSW853xb.wt -dv $(DWLWIN_VER) -wv $(WINTARGET)
+ifeq ($(TARGET), sdtarget)
+	@cp $(OUT_DIR)/lock_MSW853xb.bin ./SDTARGET_$(CHIP).BIN
+endif
+
+#
+# about the link edition:
+# the presence of isr.o is mandatory, because one can not make a
+# reference to a member of an archive in the scatter file to precise which section will be the
+# first in the binary
+#
+
+.PHONY: $(IMAGE).axf
+$(IMAGE).axf: $(MSTARLIB)/arm.inc $(EXTRA_OBJS) $(LIB_LIST)
+	@echo "----> Linking application"
+	$(LD) -o $@ $(EXTRA_OBJS) $(LIB_LIST) \
+        $(LDFLAGS) $(SCATTER_OPT) $(FEEDBACK_UNUSED) \
+        2> $(IMAGE).log --symdefs $(IMAGE).def
+	$(FROMELF) -s -o $(IMAGE).sym $@
+	$(FROMELF) -c -o $(IMAGE).dis $@
+	@cp -a $@ $(TARGET).axf
+
+$(OUT_DIR)/%.o: %.c
+	@echo "----> Compiling $<..."
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(FEEDBACK_UNUSED) -c $< -o $@
+
+$(OUT_DIR)/%.o: %.s
+	@echo "----> Assembling $<..."
+	$(AS) $(ASFLAGS) -o $@ $<
+
+$(OUT_DIR)/%.o: %.asm
+	@echo "----> Assembling $<..."
+	$(AS) $(ASFLAGS) -o $@ $<
+
+$(DEP_DIR)/%.d: %.c
+	$(CC) -M $(PP_OPT_TARGET) -I. $(INC_LIST) $(DEP_INC) $< \
+    | sed 's#\($(notdir $*)\)\.o[ :]*#$(OUT_DIR)/$*.o $(DEP_DIR)/$*.d: #g' > $@
+	sed -i '/.*:.*:.*/ s#\([^:]\):\s*\(.*\)#\1: $$(shell cygpath -u "\2")#' $@
+
+$(DEP_DIR)/%.d: %.cpp
+	$(CC) -M $(PP_OPT_TARGET) -I. $(INC_LIST) $(DEP_INC) $< \
+    | sed 's#\($(notdir $*)\)\.o[ :]*#$(OUT_DIR)/$*.o $(DEP_DIR)/$*.d: #g' > $@
+	sed -i '/.*:.*:.*/ s#\([^:]\):\s*\(.*\)#\1: $$(shell cygpath -u "\2")#' $@
+
+$(DEP_DIR)/%.d: %.s
+	@$(AWK) -vEntry=$(basename $<) 'BEGIN{DepFile=Entry; gsub(/.s$$/, ".o", Entry); gsub(/.s$$/, ".d", DepFile); printf("%s.s %s: ", Entry, DepFile)} END{print ""} /INCLUDE/{printf ("%s ", $$2)}' $< > $@
+
+.PHONY: clean
+clean:
+	rm -f $(OUT_DIR)/*.o $(OUT_DIR)/*.lib $(OUT_DIR)/*.axf $(OUT_DIR)/*.bin $(OUT_DIR)/*.wt $(OUT_DIR)/*.log $(OUT_DIR)/*.a
+
+
+ifeq (, $(findstring clean, $(MAKECMDGOALS)))
+include $(foreach i,$(sort $(dir $(DEPFILES))),$(wildcard $i/*.d))
+endif

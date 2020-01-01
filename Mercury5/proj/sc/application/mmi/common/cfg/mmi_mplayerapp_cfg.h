@@ -1,0 +1,34 @@
+
+#ifndef __MMI_MPLAYER_CFG__H__
+#define __MMI_MPLAYER_CFG__H__
+
+enum
+{
+    MMI_MPLAYER_Spectrum_ON=0,
+    MMI_MPLAYER_Spectrum_OFF=1,
+    MMI_MPLAYER_Spectrum_NO=2
+};
+typedef u8 MPlayer_Spectrum_e;
+
+// Not Allow Mater Reset
+#define CONFIG_NAMR_MPLAYER_M3U_BASEFOLDER CONFIG_DEFINE(CFGIT_MPLAYER_M3U_BASEFOLDER, MAE_WChar, 30, \
+{L"fs:/PHON/My Playlist/"})
+#define CONFIG_NAMR_MPLAYER_M3U_FOLDER CONFIG_DEFINE(CFGIT_MPLAYER_M3U_FOLDER, MAE_WChar, 30, \
+{L"fs:/CARD/My Playlist/"})
+
+// Allow Mater Reset
+#define CONFIG_AMR_MPLAYER_SPECTRUM CONFIG_DEFINE(CFGIT_MPLAYER_SPECTRUM_MODE, MPlayer_Spectrum_e, 1, MMI_MPLAYER_Spectrum_OFF)
+
+#define MPLAYER_NAMR_ALL_CONFIG \
+                CONFIG_NAMR_MPLAYER_M3U_BASEFOLDER \
+                CONFIG_NAMR_MPLAYER_M3U_FOLDER
+
+#ifdef __LANTERN_BY_AUDIO__
+#define MPLAYERAPP_AMR_ALL_CONFIG \
+            CONFIG_AMR_MPLAYER_SPECTRUM
+#else
+#define MPLAYERAPP_AMR_ALL_CONFIG
+#endif
+
+#endif //__MMI_MPLAYER_CFG__H__
+

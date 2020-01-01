@@ -1,0 +1,140 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright VMTS S.A. (c) 2001
+*/
+
+/****************************************************************************/
+/*  File    : vm_app.ho                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Description: APPLICATION MANDATORY API,                                 */
+/*            contains the mandatory set of function that the customer      */
+/*            application must provide                                      */
+/*                                                                          */
+/*                                                                          */
+/*  History    :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author     | Err  |  Modification                             */
+/*----------+------------+------+-------------------------------------------*/
+/****************************************************************************/
+        
+#ifndef __VM_APP_HO__
+#define __VM_APP_HO__                                                        
+
+#include "vm_types.ht"
+#include "vm_osdef.hc"
+
+
+/****************************************************************************/
+/*  APPLICATION mandatory constants                                         */
+/****************************************************************************/
+/****************************************************************************/
+
+typedef enum
+{
+    VM_APM_POWER_ON,
+    VM_APM_REBOOT_FROM_EXCEPTION 
+} vm_apmInitType_e;
+
+/* Number max of GPIO to configure */
+#define VM_MAX_GPIO_CONFIG 3
+
+/* Order in tab of USB functionnalites */
+#define VM_USB_DETECT         0
+#define VM_USB_SOFT_CONNECT   1
+#define VM_USB_CHARGE_BATTERY 2
+
+/****************************************************************************/
+/*  APPLICATION mandatory structure                                         */
+/****************************************************************************/
+/****************************************************************************/
+
+/* variables used to set the customer task parameters */
+typedef struct
+{
+    u32         *pCustomStack;                       /* Stack pointer           */
+    void        (*AppliInit) (vm_apmInitType_e );    /* Initialisation function */
+    void        (*AppliParser) (vm_msg_t * ); /* Parser function         */
+    u16         CustomStackSize;                     /* Stack Size              */
+    u16         Priority;
+    char        TaskName[8];
+#if defined(__TIME_SLICE_SCHEDULE__)
+    u32         TimeSliceMax;
+    u32         TimeSliceLeft;
+#endif
+} vm_apmOneTask_t;
+
+typedef struct
+{
+	u32         Priority;	
+	u32         StackSize;                     /* Stack Size              */
+	u32         *pStackTop;                       /* Stack pointer           */
+	void        (*AppliInit) (void * );    /* Initialisation function */
+	void        (*AppliParser) (vm_msg_t * ); /* Parser function         */
+	void        *pInitArgs;   // input argument for Initialisation function
+	u8          TaskId;   //will be filled an ID if successfully created, otherwise *TaskId=NULL
+	void        *Reserve; //reserve for future usage
+	char        TaskName[8];
+} vm_DynamicTask_t;
+
+
+/* variables used to set the GPIO config used by USB for the moment */
+typedef struct
+{
+    u32         GpioLabel; /* Label gpio defined in Single structure     */  
+    u32         MuxType;         /* Mux type defined for this gpio             */
+    u32         Direction;       /* Direction of GPIO                          */
+    u32         InitState;       /* Init state for this GPIO => transistor off */
+                                 /* P-Channel => high state for soft connect   */
+                                 /* N-Channel => low state for soft connect    */
+} vm_apmGpioConfig_t;
+
+/****************************************************************************/
+/*  APPLICATION mandatory variables                                         */
+/****************************************************************************/
+/****************************************************************************/
+
+/* Number of customer tasks */
+extern const u8 vm_apmNbApplicationTasks;
+/* Customer task parameters */
+extern vm_apmOneTask_t  vm_apmTasks[];
+
+/* Number of Gpio TO configure */
+extern const u8 vm_apmNbGpioToConfig;
+/* Gpio Config settings for USB */
+/* order is important => 0 FOR DEVICE DETECT; 1 FOR SOFT CONNECT; 2 FOR CHARGE BATTERY */
+extern const vm_apmGpioConfig_t vm_apmGpioConfig[];
+
+/****************************************************************************/
+/*  APPLICATION mandatory functions                                         */
+/****************************************************************************/
+/****************************************************************************/
+
+//
+// maxwell, 2006-02-26
+// HGU - deprecated : all initialisations should be done
+// in the cus_Main function
+void vm_apmInitProc ( void );
+
+/**!
+ *   \brief called once from ati_FullInit() through Mdl Task init\n
+ *   to register all specific Customer capabilities
+ ****/
+#if defined (__MSTAR_DUAL_SIM__) && defined (__MSTAR_DUAL_SIM_REDUCE_CODE__) && !defined(__SDK_SIMULATION__)
+    void vm_apmCusCapaInitProc( u8 ModuleId );
+#else
+#ifndef __DUPLICATE_TASK__
+void vm_apmCusCapaInitProc( void );
+#else
+void vm_apmCusCapaInitProc_2( void );
+#endif
+#endif
+
+extern void cus_Main(void);
+
+#endif  /* __VM_APP_HO__ */
+
+

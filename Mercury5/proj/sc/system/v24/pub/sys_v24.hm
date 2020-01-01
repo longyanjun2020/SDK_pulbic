@@ -1,0 +1,423 @@
+/**
+ * \file v24.hm
+ * \brief Defines and macros of the V.24 serial link handler
+*/
+
+#ifndef __SYS_V24_HUB_HM__
+#define __SYS_V24_HUB_HM__
+
+#include "sys_v24.hc"
+#include "v24.hi"
+#include "sys_traces.ho"
+#include "sys_sys_init.h"
+
+#ifndef _strlen
+#define _strlen( ptr )  strlen( (char *)ptr ) /* to remove const qualifier */
+#endif
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          V.24 defines                                    */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+#define _V24                           _DATA ///< trace class
+
+/*
+** Lengths of interrupt intermediate buffers are defined in v24.ht 
+*/
+#define V24_RX_IT_BUF_MOD              ( V24_RX_IT_BUF_LEN - 1 )   ///< Intermediate RX buffer modulo
+
+#if !defined(__V24_SOFT_FC__)
+#define V24_IT_MASK                    ( UART_IER_RX_IT  | UART_IER_TX_IT  |\
+                                         UART_IER_LSR_IT | UART_IER_MSR_IT )
+#else
+#if !defined(__V24_SOFT_FC_XAUTO_MODE__)
+#define V24_IT_MASK                    ( UART_IER_RX_IT  | UART_IER_TX_IT  |\
+                                         UART_IER_LSR_IT | UART_IER_MSR_IT )
+#else
+#define V24_IT_MASK                    ( UART_IER_RX_IT  | UART_IER_TX_IT  |\
+                                                        UART_RX_XOFF_INT_MASK |\
+                                         UART_IER_LSR_IT | UART_IER_MSR_IT )
+#endif
+#endif
+
+#define V24_ISR_MASK		               0x1FF
+
+#define V24_HAPC_BIT_FILED		           (24)
+#define V24_HAPC_MODE_IN_NOMINAL_FILED     (04)
+
+#define V24_DEFAULT_SPEED              V24_9600
+
+#define V24_UART_FIFO_LEN              16
+
+
+#define V24_8N1_FRAMING                V24_FRAMING( V24_8BIT_LENGTH, V24_NO_PARITY, V24_1STOP_BIT )
+#define V24_DEFAULT_FRAMING            V24_8N1_FRAMING
+
+/**
+ * \brief Autobaud requires different Baud rates to work on each platform :
+ * OneC 1.2 : 57600
+ * OneC 1.3,swift : whatever divisor is, Uart works as if divisor is 0 or 1,
+ * so max rate must be considered
+ * What 2,3,5 : Divisor must be set to 0 or 1, so speed is 115200 with
+ * a 1,8 MHz Uart clock
+ */
+
+
+#define V24_DEFAULT_AUTOBAUD_SPEED 	   V24_57600
+
+
+#define V24_GET_ROOM( purge, fill, len_minus_one )\
+   ( ((purge) - (fill) - 1) & (len_minus_one) )
+
+#define V24_INC_IDX( idx, mod )        idx = ((idx) + 1) & (mod)
+#define V24_DEC_IDX( idx, mod )        idx = ((idx) - 1) & (mod)
+
+/**
+ * \brief defines pertaining to flow control from host
+*/
+#define V24_TB_CTS_OFF                 ( 1 << 0 )
+#define V24_TB_XOFF                    ( 1 << 1 )
+#define V24_TB_RELAY                    ( 1 << 6 ) /* bit set when BT or IRDA running */
+#define V24_TB_CTS_IN_USE              ( 1 << 7 ) /* not a barring cond */
+
+#define V24_TB_MASK                    ( V24_TB_CTS_OFF | V24_TB_XOFF )
+
+#define V24_IS_UART_TX_ALLOWED( x )    (((x) & V24_TB_RELAY) ||\
+                                        ((x) & V24_TB_MASK) == 0 )
+/**
+ * \brief defines pertaining to flow control from local
+*/
+#define V24_RB_SUSPENDED               ( 1 << 0 )
+#define V24_RB_DATA_FC_ON              ( 1 << 1 )
+#define V24_RB_PWDN_32K                ( 1 << 2 ) 
+#define V24_PHY_FC_ON		               ( 1 << 4 )	
+#define V24_RB_XON_MASK                ( 1 << 5 ) /* not a barring cond */
+#define V24_RB_XOFF_MASK               ( 1 << 6 ) /* not a barring cond */
+#define V24_RB_CHANGE                  ( 1 << 7 ) /* not a barring cond */
+
+#define V24_RB_COND_MASK               ( V24_RB_DATA_FC_ON | V24_RB_SUSPENDED | V24_RB_PWDN_32K | V24_PHY_FC_ON)
+
+// #define V24_RB_PHY_MASK					       ( V24_RB_SUSPENDED | V24_RB_PWDN_32K | V24_PHY_FC_ON)
+#define V24_RB_PHY_MASK					       ( V24_PHY_FC_ON )
+
+#define V24_RB_LOGI_MASK				       ( V24_RB_DATA_FC_ON )
+
+/**
+ * \brief Software flow control stuff
+*/
+#define V24_XON                         0x11
+#define V24_XOFF                        0x13
+#ifdef __V24_SOFT_FC__
+#define V24_SW_FC_NOT_SEND_XOFFXON       0
+#define V24_SW_FC_SENT_XON               1
+#define V24_SW_FC_SENT_XOFF              0
+#define V24_SW_FC_RECV_XON               1
+#define V24_SW_FC_RECV_XOFF              0
+#define V24_SW_FC_ESCPE_CHAR             0x1B
+#define V24_SW_FC_CODE_CHAR              0x20
+#define V24_SW_FC_SOFTFCFIFO_MOD         ( V24_UART_SOFTFIFO_SIZE - 1 )   ///< Intermediate RX buffer modulo
+#define V24_SW_FC_SOFTFIFO_MAX_READ      V24_UART_SOFTFIFO_SIZE/4
+#endif
+
+/**
+ * \brief First four defines must match the format of the UART MSR
+*/
+#define V24_MSR_DCD_BIT                 0x80
+#define V24_MSR_RI_BIT                  0x40
+#define V24_MSR_DSR_BIT                 0x20
+#define V24_MSR_CTS_BIT                 0x10
+#define V24_MSR_BRK_BIT                 0x08
+#define V24_MSR_X_BIT                   0x04
+
+
+#define V24_TRANSPARENT_BUFFER_LEN      16
+#define V24_TRANSPARENT_BUFFER_MOD      (V24_TRANSPARENT_BUFFER_LEN - 1)
+
+#define V24_LOOPBACK_BUFFER_LEN         256
+#define V24_LOOPBACK_BUFFER_MOD         (V24_LOOPBACK_BUFFER_LEN - 1)
+
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Data Rx drivers                                 */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+// Open v24
+#define V24_RX_CUS_BUF_LENGTH           16 
+#define V24_RX_CUS_MOD                  (V24_RX_CUS_BUF_LENGTH - 1) 
+
+#define V24_RX_CUS_HYS                  4
+#define V24_RX_CUS_THRES                ( V24_RX_CUS_BUF_LENGTH >> 1 )
+
+#define V24_RX_CUS_FC_OFF_THRES         ( V24_RX_CUS_THRES - V24_RX_CUS_HYS )
+#define V24_RX_CUS_FC_ON_THRES          ( V24_RX_CUS_THRES + 2 )
+
+#define V24_RX_MSG_MAX_SIZE             124
+// End Open v24
+
+#define V24_ESC_CHAR                    '+'   /* can be changed */
+
+#define V24_INC_RX_DATA_IDX( i )        i = (i + 1) & V24_RX_DATA_MOD
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Data Tx drivers                                 */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+#define V24_TX_DATA_BUF_LENGTH               1024 /* must be a power of 2 */
+#define V24_TX_DATA_MOD                      ( V24_TX_DATA_BUF_LENGTH - 1 )
+
+#define V24_TX_DATA_BUF_FC_ON_THRES          ( V24_TX_DATA_BUF_LENGTH >> 1 )
+
+// Open v24
+#define V24_TX_CUS_BUF_LENGTH                16
+#define V24_TX_CUS_MOD                       (V24_TX_CUS_BUF_LENGTH - 1)
+
+//previous : #define V24_TX_CUS_BUF_FC_ON_THRES           2
+//SOL : 
+#define V24_TX_CUS_BUF_FC_ON_THRES           ( V24_TX_CUS_BUF_LENGTH >> 1 )
+// End Open v24
+
+#define V24_INC_TX_DATA_IDX( i )             i = (i + 1) & V24_TX_DATA_MOD
+
+/**
+ * \brief For info packet buffer (only in user mode)
+*/
+#define V24_TX_INFO_PAC_BUF_LEN              32 /* must be a power of 2 */
+#define V24_TX_INFO_MOD                      ( V24_TX_INFO_PAC_BUF_LEN - 1 )
+
+#define V24_INC_TX_INFO_PACKET_IDX( i, l )   i = ( i + (l) ) & V24_TX_INFO_MOD
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          AT commands drivers                             */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+//
+// It's worth noting that maximum length of AT command is 352 characters:
+// PDU SMS are 176-bytes long maximum. But the IRA encoding of those SMS 
+// over the V.24 interface results in sending twice more data.
+// (IRA encoding rule: <xy> => <0x><0y> where x,y = 0...9, A...F).
+//
+
+#define V24_INC_AT_TX_IDX( i, mod )    i = (i + 1) & ( mod )
+
+#define V24_END_OF_AT_BIT              0x01
+#define V24_REJECT_CHAR_BIT            0x02
+#define V24_AT_ERROR_BIT               0x04
+
+#define V24_IS_REJECTED( res )         ( res & V24_REJECT_CHAR_BIT )
+#define V24_IS_END_OF_AT( res )        ( res & V24_END_OF_AT_BIT )
+#define V24_IS_AT_ERROR( res )         ( res & V24_AT_ERROR_BIT )
+
+
+/**
+ * \brief Defines the max number of rejected char modem receives before noticing to
+ * ATI that serial speeds on PC and modem may not match.
+ */
+#define V24_NB_REJECTED_CHARS          8 /* must be a power of 2 */
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                     Common to signalling drivers                         */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/**
+ * \brief Values of the bit field returned by transmit drivers
+ * in case of autobaud only.
+ * WARNING: there is a value defined in v24.ht, which is shared between
+ * V24 and IRDA. Check consistency when one of them is altered.
+*/
+#define V24_AUTOBAUD_BIT               (1 <<  9)
+#define V24_RESTORE_RATE_BIT           (1 << 10)
+#define V24_FULL_STORE_BIT             (1 << 11) 
+#define V24_FULL_STORE_LENGTH          16 /* length associated to last bit is in upper 16 bits */
+#define V24_CONTINUE_BIT               (1 << 12)
+#define V24_SPECIAL_BIT                (1 << 13)
+#define V24_STOP_POLLING_BIT2          (1 << 14)
+
+/**
+ * \brief Bit field returned by the autobaud treatment of hereabove bit field.
+*/
+#define V24_ENTER_SPECIAL_BIT          (1 << 0)
+#define V24_ENTER_NORMAL_BIT           (1 << 1)
+#define V24_STOP_POLLING_BIT           (1 << 2)
+
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          UART macros                                     */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/**
+* \brief The V.24 handler accesses V.24 signals through following set of macros.
+** NB : the "UartId" parameter for signal function pointer is not significative
+** Its aim is to check the prototype function called
+*/
+
+                                     
+
+
+// GET Signals MACRO
+/*** CTS ***/
+#define V24_IS_CTS_ON( V24_UartContext )   \
+        (*v24_UartGetCtsPtr) (V24_UartContext);
+       
+#define V24_IS_CTS_OFF( v24_UartContext )        (!V24_IS_CTS_ON(v24_UartContext ))
+
+/*** DSR ***/
+#define V24_IS_DSR_ON( v24_UartContext )    \
+        (*v24_UartGetDsrPtr) (v24_UartContext)
+        
+#define V24_IS_DSR_OFF( v24_UartContext )        (!V24_IS_DSR_ON( v24_UartContext ))
+
+// SET Signals MACRO
+/*** RTS ***/
+#define V24_SET_PHY_RTS_ON( v24_UartContext )  \
+       (*v24_UartSetRtsPtr) (v24_UartContext, TRUE)
+       
+#define V24_SET_PHY_RTS_OFF( v24_UartContext ) \
+       (*v24_UartSetRtsPtr) ( v24_UartContext, FALSE)
+
+/*** DTR ***/
+#define V24_SET_DTR_ON( v24_UartContext )      \
+       (*v24_UartSetDtrPtr) ( v24_UartContext, TRUE)
+       
+#define V24_SET_DTR_OFF( v24_UartContext )     \
+       (*v24_UartSetDtrPtr) (v24_UartContext,  FALSE)
+
+/*** DCD ***/
+#define V24_SET_DCD_ON( v24_UartContext )      \
+      (*v24_UartSetDcdPtr) ( v24_UartContext, TRUE)
+      
+#define V24_SET_DCD_OFF( v24_UartContext )     \
+      (*v24_UartSetDcdPtr) (v24_UartContext,  FALSE)
+
+/*** RI ***/
+#define V24_SET_RI_ON( v24_UartContext )       \
+      (*v24_UartSetRiPtr) (v24_UartContext, TRUE)
+
+#define V24_SET_RI_OFF( v24_UartContext )      \
+      (*v24_UartSetRiPtr) (v24_UartContext,  FALSE)
+      
+
+
+/***************************************************************************/
+/*           Rs232 Calibration  parameters                                 */
+/***************************************************************************/
+#define V24_RS232           0x00
+#define V24_RS232_CTRL      0x14
+
+#define V24_RS232_REQ       (V24_RS232      | TYP_REQ)
+#define V24_RS232_CTRL_REQ  (V24_RS232_CTRL | TYP_REQ)
+
+#define V24_RS232_RSP       (V24_RS232      | TYP_RSP)
+#define V24_RS232_CTRL_RSP  (V24_RS232_CTRL | TYP_RSP)
+
+#define V24_DTR_BIT_POS     0
+#define V24_RTS_BIT_POS     3
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*              New macros to implement the second uart and usb             */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+#define V24_IS_TRUE(uart_bitfield, uartmask)    (uart_bitfield & (uartmask))
+#if defined(__V24_COMPOSITE_USB___)
+#define V24_SET_TRUE(uart_bitfield, uartmask)   uart_bitfield |=  (V24_UART1_MASK | V24_UART2_MASK | V24_USB_MASK | V24_USB2_MASK | V24_HAPC_MASK) & (uartmask)
+#define V24_SET_FALSE(uart_bitfield, uartmask)  uart_bitfield &= ( (~V24_UART1_MASK) & (~V24_UART2_MASK) & (~V24_USB_MASK) & (~V24_USB2_MASK) & (~V24_HAPC_MASK) ) | (~(uartmask))
+#define V24_ENUM_CTX(uartcontext)               ((uartcontext == v24_Uart1Context) ? V24_UART1 : \
+                                                ((uartcontext == v24_Uart2Context) ? V24_UART2 : \
+                                                ((uartcontext == v24_UsbWOFContext) ? V24_USB : V24_USB2)) )
+#else
+#define V24_SET_TRUE(uart_bitfield, uartmask)   uart_bitfield |=  (V24_UART1_MASK | V24_UART2_MASK | V24_USB_MASK ) & (uartmask)
+#define V24_SET_FALSE(uart_bitfield, uartmask)  uart_bitfield &= ( (~V24_UART1_MASK) & (~V24_UART2_MASK) & (~V24_USB_MASK) ) | (~(uartmask))
+#define V24_ENUM_CTX(uartcontext)               ((uartcontext == v24_Uart1Context) ? V24_UART1 : \
+                                                ((uartcontext == v24_Uart2Context) ? V24_UART2 : \
+                                                V24_USB) )
+#endif
+
+
+
+#if defined(__V24_COMPOSITE_USB___)  	
+#define V24_PALPORT_TO_BITFILED(Port) ( ((Port & V24_PAL_MASK)==V24_UART1) ? V24_UART1_MASK : \
+                                        ((Port & V24_PAL_MASK)==V24_UART2) ? V24_UART2_MASK : \
+                                        ((Port & V24_PAL_MASK)==V24_USB) ? V24_USB_MASK : \
+                                        ((Port & V24_PAL_MASK)==V24_USB2) ? V24_USB2_MASK : 0x80 )
+#define V24_IS_INIT_FLOW_ID(HapcFlowId)   ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) == INFO_INIT) 
+#define V24_NOT_TRACE_FLOW_ID(HapcFlowId)  ( ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) != INFO_TRACE) && \
+                                             ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) != INFO_GENIE_TRACE) && \
+                                             ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) != INFO_DUMP) && \
+                                             ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) != INFO_WATCH) && \
+                                             ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) != INFO_COMPACT_WATCH) )
+#define V24_IS_TRACE_FLOW_ID(HapcFlowId)  ( ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) == INFO_TRACE) || \
+                                            ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) == INFO_GENIE_TRACE) || \
+                                            ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) == INFO_DUMP) || \
+                                            ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) == INFO_WATCH) || \
+                                            ((HapcFlowId & (~HAPC_HEADER_NOT_FINISHED)) == INFO_COMPACT_WATCH) )
+                                            
+#define V24_IS_CMD_SESSION(Port)    ( (V24_IS_TRUE(v24_HubPortInWMMUX, V24_PALPORT_TO_BITFILED(Port))) && \
+                                      (!V24_IS_TRUE(v24_HubPortInWMMUX, (V24_PALPORT_TO_BITFILED(Port)<<V24_HAPC_BIT_FILED))) )
+#define V24_IS_TRACE_SESSION(Port)  ( (V24_IS_TRUE(v24_HubPortInWMMUX, V24_PALPORT_TO_BITFILED(Port))) && \
+                                      (V24_IS_TRUE(v24_HubPortInWMMUX, (V24_PALPORT_TO_BITFILED(Port)<<V24_HAPC_BIT_FILED))) )
+//For UART, CMD port can be a trace port                                 
+#define V24_NO_TRACE_SESSION        ( (!V24_IS_CMD_SESSION(V24_UART1)) && \
+                                      (!V24_IS_CMD_SESSION(V24_UART2)) && \
+                                      (!V24_IS_TRACE_SESSION(V24_USB)) && \
+                                      (!V24_IS_TRACE_SESSION(V24_USB2)) )
+#define V24_NO_CMD_SESSION          ( (!V24_IS_CMD_SESSION(V24_UART1)) && \
+                                      (!V24_IS_CMD_SESSION(V24_UART2)) && \
+                                      (!V24_IS_CMD_SESSION(V24_USB)) && \
+                                      (!V24_IS_CMD_SESSION(V24_USB2)) )
+#define V24_NO_USB_TRACE_SESSION    ( (!V24_IS_TRACE_SESSION(V24_USB)) && (!V24_IS_TRACE_SESSION(V24_USB2)) )
+#define V24_NO_USB_CMD_SESSION      ( (!V24_IS_CMD_SESSION(V24_USB)) && (!V24_IS_CMD_SESSION(V24_USB2)) )
+#else
+#define V24_IS_TRACE_SESSION(Port)  ( v24_HubPortInWMMUX == (u32)(Port & V24_PORT_MASK) )
+#endif
+#define V24_SET_HAPC_MODE(Port, Mode)  { Port &= (u32)(~V24_HAPC_MASK); Port |= (((u32)Mode) << V24_HAPC_BIT_FILED);  }
+#define V24_GET_HAPC_MODE(Port)        ((Port & V24_HAPC_MASK) >> V24_HAPC_BIT_FILED)
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          V24 driver traces macros                        */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+
+// TRACES levels variables
+// -----------------------
+
+// _DEV 1 to 8 levels attributed for V24
+//#define _V24_TRACE_FLAG         ( 0x8000000 | _DEV  )  // APH , no rem trace
+#define _V24_TRACE_FLAG         _DEV  // APH , rem trace
+
+// V24 Errors
+#define V24_TRACE_ID_ERR        ( _V24_TRACE_FLAG | LEVEL_1 ) 
+#define V24_TRACE_ID_ERR_WARN   ( V24_TRACE_ID_ERR | WARNING) 
+#define V24_TRACE_ID_ERR_FATAL  ( V24_TRACE_ID_ERR | FATAL ) 
+#define V24_TRACE_ID_ERR_STORE  ( V24_TRACE_ID_ERR | STORE ) 
+
+// System or external functions
+#define V24_TRACE_ID_SYS        ( _V24_TRACE_FLAG | LEVEL_0 )
+#define V24_TRACE_ID_IO         ( _V24_TRACE_FLAG | LEVEL_0 )
+
+// IRQ traces
+#define V24_TRACE_ID_IRQ        ( _V24_TRACE_FLAG | LEVEL_1 )
+
+// Autobaud/ auto Rts/Cts, 32K  traces
+#define V24_TRACE_ID_MISC       ( _V24_TRACE_FLAG | LEVEL_2 )
+
+// Signals traces
+#define V24_TRACE_ID_SIG        ( _V24_TRACE_FLAG | LEVEL_3 )
+
+// Requests / Msg traces
+#define V24_TRACE_ID_REQ        ( _V24_TRACE_FLAG | LEVEL_4 )
+
+// Main passage traces
+#define V24_TRACE_ID_V24        ( _V24_TRACE_FLAG | LEVEL_5 )
+
+// Rx data traces
+#define V24_TRACE_ID_RX         ( _V24_TRACE_FLAG | LEVEL_6 )
+
+// Tx data traces
+#define V24_TRACE_ID_TX         ( _V24_TRACE_FLAG | LEVEL_7 )
+
+
+
+
+/* CTS bit in pseudo MSR regitration */
+#define REG_IS_CTS_ON( reg_msr, available )   \
+                      ((available==FALSE )?TRUE:( reg_msr & 0x01 ))
+
+/* DSR bit in pseudo MSR regitration */                      
+#define REG_IS_DSR_ON( reg_msr )  ( (reg_msr) & 0x02 )                      
+
+
+#endif /* __SYS_V24_HUB_HM__ */
+

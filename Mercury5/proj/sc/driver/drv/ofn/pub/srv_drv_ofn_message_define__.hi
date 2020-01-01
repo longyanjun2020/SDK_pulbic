@@ -1,0 +1,10 @@
+#ifndef __SRV_DRV_OFN_MSG_DEF_H__
+#define __SRV_DRV_OFN_MSG_DEF_H__
+
+
+VM_MSG_DEF(OFN_MSG=(VM_CUS1_BASE + 0x0120), void DUMMY)
+VM_MSG_DEF(OFN_POLLING_TIMER, void DUMMY)
+
+
+
+#endif

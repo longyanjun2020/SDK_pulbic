@@ -1,0 +1,544 @@
+/****************************************************************************/
+/*  $Workfile::   fms_flat.ho                                             $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Flash Memory Services - Flat volumes management               */
+/*                                    Enhanced linear storage               */
+/*            Internal definitions and declarations.                        */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   0.6  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   kod    $         |     $Date::   20 Dec 2005 15:57:32 $     */
+/****************************************************************************
+ *   $Log:   U:/projet/gsm/pvcsarch/archives/fms/inc/fms_flat.ho-arc  $
+ *
+ *   Rev 0.6   20 Dec 2005 15:57:32   kod
+ *Resolution for 31268: WP 6.2 : Module blocked when selecting "Erase Open At" in DwlWin
+ *Version v1a28.
+ *
+ *   Rev 0.5   16 Sep 2005 15:38:40   kod
+ *Resolution for 30293: AD volume state says 'ready' when the volume is dirty
+ *Version v1a21.
+ *
+ *   Rev 0.4   24 Nov 2004 15:52:56   kod
+ *Resolution for 26275: Two allocations with undefined size are allowed
+ *Resolution for 26611: [FMS] Xmodem downloader needs some FMS modifications
+ *Version v1a18
+ *
+ *   Rev 0.3   08 Apr 2003 12:00:00   kod
+ *New fields for unique IDs management.
+ *Resolution for 9255: FMS' Applications&Data interface changes
+ *
+ *   Rev 0.2   26 Mar 2003 10:23:32   kod
+ *Second release.
+ *Works with DwlWin.
+ *
+ *   Rev 0.1   25 Feb 2003 11:44:32   kod
+ *Initial release for integration
+ ****************************************************************************/
+
+
+#ifndef __FMS_FLAT_HO__
+#define __FMS_FLAT_HO__
+
+/****************************************************************************/
+/* INTERNAL STRUCTURES                                                      */
+/****************************************************************************/
+
+/* Record related */
+
+typedef struct fms_FlatRecordHeader_s
+{
+   u32   u32_CellSize;        /* Allocated size */
+   u32   u32_Identifier;      /* Record identifier */
+   u32   u32_DataSize;        /* Size of the contents */
+
+   u32   b2_LinkState:2;     /* 11 : not allocated,
+                              10/01 : being allocated,
+                              00 : allocated */
+   u32   b2_AllocState:2;    /* 11 : next field unavailable,
+                              10/01 : next set, size unset,
+                              00: next and size set */
+
+   u32   b2_DeletionState:2; /* 11 : not deleted, <11 : deleted */
+   u32   b2_UpdateState:2;    /* 11: not updated, 10/01: being updated,
+                               * 00: updated (must be deleted then ) */
+
+} fms_FlatRecordHeader_t;
+
+/* Volume related */
+
+typedef struct
+{
+   u32 u32_VolumeTag;         /* Volume unique identifier */
+   u32 u32_SelfAddress;       /* SelfAddress == &(VolumeHeader.SelfAddress) */
+} fms_FlatVolumeHeader_t;
+
+typedef enum
+{
+   FMS_FLAT_VOLUME_IDLE,
+   FMS_FLAT_VOLUME_PACKETWRITING,
+   FMS_FLAT_VOLUME_COMPACTION,
+   FMS_FLAT_VOLUME_DIRTYTAIL,
+   FMS_FLAT_VOLUME_NEEDS_FORMAT,
+   FMS_FLAT_VOLUME_FORMAT_RUNNING
+} fms_FlatVolumeState_e;
+
+
+typedef struct
+{
+   u32   u32_Origin;                   /* Origin of the volume */
+   u32   u32_VolumeTop;                /* End of the volume */
+   u32   u32_DeletedSpace;             /* Amount of discarded memory */
+   u8    u8_NumberOfSectors;           /* Number of allocated flash sectors */
+   fms_FlatRecordHeader_t *ps_FreeRec; /* Address of the first free location */
+   u8    u8_Semaphore;                 /* Semaphore to use */
+   fms_FlatVolumeState_e   e_State;    /* State of the volume */
+
+   u32   b_InitDone:1;                 /* TRUE when volume has been
+                                          initialised */
+   u32   b_RecoveryNeeded:1;           /* TRUE if a recovery is needed to
+                                          complete the initialisation */
+   u32   b_EraseAllowed:1;             /* TRUE if records can be individually
+                                          erased */
+   u32   b_ReadOnly:1;                 /* TRUE if no record can be written or
+                                          erased */
+   u32   b_UnlimitedAllocation:1;      /* TRUE if Create() can be called with an
+                                          undefined size */
+   u32   b_Recompactable:1;            /* TRUE if a recompaction can be
+                                          performed over the volume */
+   u32   b_AutoRecoverRecompaction:1;  /* TRUE if an interrupted recompaction
+                                          must be finished during init */
+   u32   b_UniqueIdents:1;             /* TRUE if cell's ids are unique */
+   u32   b_UpdateAllowed:1;            /* TRUE if cell with unique ids may be
+                                          updated */
+   u32   b_NeedsFullTrailCheck:1;      /* TRUE if the volume's trailing free
+                                          space has to be thoroughly checked */
+} fms_FlatVolumeDesc_t;
+
+
+/* Record related */
+
+typedef struct
+{
+   fms_FlatVolumeDesc_t    *ps_Volume;       /* Referring volume */
+   fms_FlatRecordHeader_t  *ps_Header;       /* Pointer to the record header */
+   u32                     u32_Highwater;    /* Number of written bytes */
+   u32                     u32_Maxsize;      /* Max number of bytes */
+   u32                     u32ChunkSize;
+   u32                     u32ChunkSizeChksum;
+} fms_FlatRecordDesc_t;
+
+
+/* Query structures */
+
+typedef struct
+{
+   u32   u32_Identifier;      /* Identifier of the record      */
+   u32   u32_DataSize;        /* Contents size                 */
+   void  *p_Data;             /* Pointer to contents           */
+   u32   u32_Remaining;       /* Remaining trailing free space */
+   bool  b_Finalised;         /* TRUE if the record has been
+                                 finalized                     */
+   bool  b_BeingWritten;      /* TRUE if the record has been
+                                 properly setup to allow write
+                                 ops */
+   bool  b_Erased;            /* TRUE if the record has been
+                                 deleted */
+   bool  b_Broken;            /* TRUE if the record is damaged */
+} fms_FlatRecordInfo_t;
+
+
+typedef struct
+{
+   u32 u32_MemFree;
+   u32 u32_MemDeleted;
+   u32 u32_MemTotal;
+   u16 u16_ObjectsNumber;
+   u16 u16_DeletedObjects;
+   bool  b_NeedRecovery;
+} fms_FlatVolumeInfo_t;
+
+/* Browsing structure */
+
+typedef struct
+{
+   u32 u32_MinIdent;
+   u32 u32_MaxIdent;
+   fms_FlatRecordHeader_t *ps_Header;
+   fms_FlatVolumeDesc_t *ps_Volume;
+} fms_FlatBrowse_t;
+
+/* Format operation related */
+/**
+ * @brief Operation modes for fms_FlatFormatVolumeEx function
+ */
+typedef enum
+{
+   FMS_FLAT_FORMAT_INIT,
+   FMS_FLAT_FORMAT_CONTINUE,
+   FMS_FLAT_FORMAT_ABORT
+} fms_FlatFormatMode_e;
+
+/****************************************************************************/
+/* INTERNAL FUNCTIONS                                                       */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: fms_FlatFindInit                                              */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Sets up the given record descriptor and browse info structure */
+/*            before calling fms_FlatFindNext to actually browse the        */
+/*            volume and find the wanted records.                           */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Volume      | X |   |   |  Volume the record belongs to           */
+/*  i__u32_MinIdent   | X |   |   |  Min value for wanted record's ident    */
+/*  i__u32_MaxIdent   | X |   |   |  Max value for wanted record's ident    */
+/*  o__ps_Browse      |   | X |   |  Browse information                     */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatFindInit(fms_FlatVolumeDesc_t *i__ps_Volume,
+                     u32 i__u32_MinIdent,
+                     u32 i__u32_MaxIdent,
+                     fms_FlatBrowse_t *io__ps_Browse);
+
+
+/****************************************************************************/
+/*  Function: fms_FlatFindNext                                              */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Sets up the descriptor to access the following record         */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  o__ps_Record      |   | X |   |  Record descriptor to set               */
+/*  io__ps_Browse     | X | X |   |  Browse information                     */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatFindNext(fms_FlatRecordDesc_t *o__ps_Record, fms_FlatBrowse_t *io__ps_Browse);
+
+
+/****************************************************************************/
+/*  Function: fms_FlatAllocate                                              */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Creates a new record and allocates space for it               */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Ident      | X |   |   |  Identifier of the new record           */
+/*  i__u32_Size       | X |   |   |  Size to allocate or FMS_UNDEFINED      */
+/*  io__ps_Volume     | X | X |   |  Volume the record belongs to           */
+/*  io__ps_Record     | X | X |   |  Record descriptor to update            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatAllocate(u32 i__u32_Ident, u32 i__u32_Size,
+                     fms_FlatVolumeDesc_t *io__ps_Volume,
+                     fms_FlatRecordDesc_t *io__ps_Record);
+
+/****************************************************************************/
+/*  Function: fms_FlatUpdate                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Updates an existing cell or create a new one                  */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Ident      | X |   |   |  Identifier of the new record           */
+/*  i__u32_Size       | X |   |   |  Size to allocate or FMS_UNDEFINED      */
+/*  io__ps_Volume     | X | X |   |  Volume the record belongs to           */
+/*  io__ps_Record     | X | X |   |  Record descriptor to update            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatUpdate(u32 i__u32_Ident, u32 i__u32_Size,
+                     fms_FlatVolumeDesc_t *io__ps_Volume,
+                     fms_FlatRecordDesc_t *io__ps_Record);
+
+/****************************************************************************/
+/*  Function: fms_FlatFinalize                                              */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Finalizes the construction of a record                        */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Record     | X | X |   |  Record descriptor to update            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatFinalize(fms_FlatRecordDesc_t *io__ps_Record);
+
+
+/****************************************************************************/
+/*  Function: fms_FlatResume                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Kind of "re-opening" of a record, if its track has been lost  */
+/*            because of a power-down.                                      */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Record     | X | X |   |  Record descriptor to use               */
+/*                    |   |   |   |  (initialised by FindFirst or FindNext) */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatResume(fms_FlatRecordDesc_t *io__ps_Record);
+
+/****************************************************************************/
+/*  Function: fms_FlatDelete                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Mark a record as deleted                                      */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Record      | X | X |   |  Record descriptor to update            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatDelete(fms_FlatRecordDesc_t *io__ps_Record);
+
+/****************************************************************************/
+/*  Function: fms_FlatWrite                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Writes data into a record under construction                  */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Record     | X | X |   | Record descriptor to use                */
+/*  i__u32_Length     | X |   |   | Number of bytes to write                */
+/*  i__p_Buffer       | X |   |   | Source buffer                           */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatWrite(fms_FlatRecordDesc_t *io__ps_Record, u32 i__u32_Length,
+      void *i__p_Buffer);
+
+
+/****************************************************************************/
+/*  Function: fms_FlatInfo                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Gets information about a record                               */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Record      | X |   |   |  Record descriptor                      */
+/*  io__ps_Query      | X | X |   |  Query structure to update              */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatInfo(fms_FlatRecordDesc_t *i__ps_Record,
+      fms_FlatRecordInfo_t *io__ps_Query);
+
+
+/****************************************************************************/
+/*  Function: fms_FlatStats                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Gets information about the flat volume                        */
+/*            (available space, free space, deleted space, number of        */
+/*             records, ...)                                                */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Volume      | X |   |   |  Volume descriptor to query             */
+/*  o__ps_VolumeInfo  |   | X |   |  Query structure to fill                */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatStats(fms_FlatVolumeDesc_t *i__ps_Volume, fms_FlatVolumeInfo_t *o__ps_VolumeInfo);
+
+
+/****************************************************************************/
+/*  INITIALISATION                                                          */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: fms_FlatFormatVolume                                          */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Formats a volume, wiping out any contents.                    */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : void                                                        */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Volume     | X | X |   |  Volume descriptor                      */
+/*  i__u32_Tag        | X |   |   |  Volume tag                             */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+#define fms_FlatFormatVolume(volume, tag) \
+    fms_FlatFormatVolumeCheck(volume, tag, TRUE)
+void fms_FlatFormatVolumeCheck(fms_FlatVolumeDesc_t *io__ps_Volume, u32 i__u32_Tag, u32 check);
+
+/****************************************************************************/
+/*  Function: fms_FlatVolumeInit                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Initialises a flat volume.                                    */
+/*            The fields "Origin", "VolumeTop", "NumberOfSectors" and       */
+/*            all the boolean fields must be initialised.                   */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Volume     | X |   |   |  Volume descriptor to use               */
+/*  i__u32_Tag        | X |   |   |  Volume tag                             */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatVolumeInit(fms_FlatVolumeDesc_t *io__ps_Volume, u32 i__u32_Tag);
+
+
+/****************************************************************************/
+/*  SPARE SECTOR SETUP                                                      */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: fms_FlatJournalSetSpare                                       */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Initialises the journal and spare sector management           */
+/*            information.                                                  */
+/*                                                                          */
+/*  Return    :  n/a                                                        */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_SpareAddr  | X |   |   |  Address of the spare sector            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+void fms_FlatJournalSetSpare(u32 i__u32_SpareAddr);
+
+
+/****************************************************************************/
+/* RECOMPACTION                                                             */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/*  Function: fms_FlatRecompactInit                                         */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Initialises the recompaction process.                         */
+/*            Builds the recompaction journal.                              */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Volume     | X | X |   |  Volume descriptor                      */
+/*                    |   |   |   |                                         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatRecompactInit(fms_FlatVolumeDesc_t *io__ps_Volume);
+
+
+
+/****************************************************************************/
+/*  Function: fms_FlatRecompactProgress                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Step by step flat volume recompaction process execution.      */
+/*            The journal must be created before the first call.            */
+/*            Returns a progress percentage.                                */
+/*            Must be called until it returns 100.                          */
+/*                                                                          */
+/*  Return    : (s32) Percentage                                            */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  fms_s_FlatJournalCtx  |   | X |                                         */
+/*  io__ps_Volume     | X | X |   |  Volume descriptor                      */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatRecompactProgress(fms_FlatVolumeDesc_t *io__ps_Volume);
+
+
+/**
+ * @brief Step by step volume format operation
+ *
+ * The passed handle is a pointer to a u32 integer
+ * which is modified by the function; the same pointer must
+ * be used for every call to the function during the
+ * format process.
+ *
+ * The operation must be initiated by a call with the mode
+ * parameter set to FMS_FLAT_FORMAT_INIT. Then the process
+ * is run one more step by each following call using the
+ * mode FMS_FLAT_FORMAT_CONTINUE.
+ *
+ * The format process is complete when the progress indicator
+ * has been set to a value of 100 by the function call.
+ *
+ * A call with mode FMS_FLAT_FORMAT_ABORT will abort the
+ * format process; the volume will afterwards needs a
+ * whole format operation to be useable, unless the aborted
+ * format operation has actually over before the call.
+ *
+ * @param io__ps_Volume Flat volume descriptor
+ * @param i__u32_Tag Volume tag to write in its header
+ * @param i__e_Mode Format modes (see fms_FlatFormatMode_e)
+ * @param io__pu32_Handle Format handle
+ * @param o__pu32_Progress Progress percentage indicator (if non-null pointer)
+ *
+ * @return FMS_OK or error code
+ */
+s32 fms_FlatFormatVolumeEx(fms_FlatVolumeDesc_t *io__ps_Volume,
+      u32 i__u32_Tag,
+      fms_FlatFormatMode_e i__e_Mode,
+      u32 *io__pu32_Handle,
+      u32 *o__pu32_Progress);
+
+#ifdef __M18_MCP_SUPPORT__
+s32 fms_FlatFlush(void);
+#endif
+
+#endif /* ! defined __FMS_FLAT_HO__ */

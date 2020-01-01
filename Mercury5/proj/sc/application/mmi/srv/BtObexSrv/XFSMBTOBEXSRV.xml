@@ -1,0 +1,236 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>BTOBEXSrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>SERVICE</ApplicationType>
+         <LogLevelName>MMI_LEVEL_BT</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef>#if defined(__BLUETOOTH_OBEX_MMI__)</Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="BTOBEXSrv" id="9175" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Init" id="21187" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>set callback function</EntryComment>
+          <ExitComment>exit</ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Active" id="15546" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="Idle">
+          <EntryComment>entry</EntryComment>
+          <ExitComment>exit</ExitComment>
+          <ModeComment></ModeComment>
+              <node name="Idle" id="3314" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>entry</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Sending" id="31518" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="ConnOBEXLink">
+              <EntryComment>reg MAE_MSG_BASE_MMI</EntryComment>
+              <ExitComment>dereg MAE_MSG_BASE_MMI</ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="ConnOBEXLink" id="29452" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Sending" DefaultChild="">
+                  <EntryComment>send connect OBEX link req</EntryComment>
+                  <ExitComment>exit</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="SendingFile" id="13286" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Sending" DefaultChild="">
+                  <EntryComment>send sending req</EntryComment>
+                  <ExitComment>exit</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+              <node name="Receiving" id="31589" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="ReceivingFile">
+              <EntryComment>send receiving req</EntryComment>
+              <ExitComment>exit</ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="ReceivingFile" id="18595" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Receiving" DefaultChild="">
+                  <EntryComment>send receiving req</EntryComment>
+                  <ExitComment>exit</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ImportFile" id="20870" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_Receiving" DefaultChild="">
+                  <EntryComment>launch notify app to check if want to import</EntryComment>
+                  <ExitComment>exit</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="31680"	from="_BTOBEXSrv"  to="_BTOBEXSrv"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>BTSRV_EVT_PowerOnOffCnf</event>
+				<condition></condition>
+				<action>clear the falg:bIsSetRecvCB</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6242"	from="_Init"  to="_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTOBEXSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18907"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_OBEX_TRANS_STATUS_IND</event>
+				<condition></condition>
+				<action>notify BTSRV_MASK_TRANS_STATUS</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="107"	from="_Active"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTOBEXSRV_IEVT_TO_IDLE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7241"	from="_Active_Idle"  to="_Active_Sending"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTOBEXSRV_IEVT_TO_SENDING</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17614"	from="_Active_Idle"  to="_Active_Receiving"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_BT_OBEX_RECEIVE_IND</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8545"	from="_Active_Sending_ConnOBEXLink"  to="_Active_Sending_ConnOBEXLink"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_ACL_LINK_CNF</event>
+				<event>MAE_EVT_BT_ACL_LINK_IND</event>
+				<event>MAE_EVT_BT_INQUIRY_CNF</event>
+				<event>MAE_EVT_BT_OBEX_LINK_CNF</event>
+				<condition></condition>
+				<action>check the result</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20058"	from="_Active_Sending_ConnOBEXLink"  to="_Active_Sending_SendingFile"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTOBEXSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24990"	from="_Active_Sending_SendingFile"  to="_Active_Sending_SendingFile"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_OBEX_LINK_CNF</event>
+				<event>MAE_EVT_BT_OBEX_SEND_CNF</event>
+				<condition></condition>
+				<action>check the result</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="32588"	from="_Active_Sending_SendingFile"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTOBEXSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18405"	from="_Active_Receiving"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTOBEXSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24390"	from="_Active_Receiving_ReceivingFile"  to="_Active_Receiving_ReceivingFile"  type="internal"	hasCondition="0" hasAction="1">
+				<event>BTOBEXSRV_IEVT_ACCEPT</event>
+				<event>BTOBEXSRV_IEVT_DENY</event>
+				<event>MAE_EVT_BT_NAME_QUERY_CNF</event>
+				<event>MAE_EVT_BT_OBEX_FILE_WRITE_IND</event>
+				<event>MAE_EVT_BT_OBEX_RECEIVE_CNF</event>
+				<event>MAE_EVT_BT_OBEX_RECEIVE_IND</event>
+				<condition></condition>
+				<action>check the result</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31448"	from="_Active_Receiving_ReceivingFile"  to="_Active_Receiving_ImportFile"  type="Default"	hasCondition="0" hasAction="0">
+				<event>BTOBEXSRV_IEVT_TO_IMPORT</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4984"	from="_Active_Receiving_ImportFile"  to="_Active_Receiving_ImportFile"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>PHBSRV_EVT_EXPORT_IMPORT_SUCCESS</event>
+				<event>PHBSRV_EVT_EXPORT_IMPORT_ERROR</event>
+				<event>BTOBEXSRV_IEVT_ACCEPT</event>
+				<event>BTOBEXSRV_IEVT_DENY</event>
+				<event>CALENDARAPP_EVT_ImportvCalendar</event>
+				<condition></condition>
+				<action>notify the import result</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10493"	from="_Active_Receiving_ReceivingFile"  to="_Active_Receiving_ReceivingFile"  type="internal"	hasCondition="0" hasAction="1">
+				<event>BTOBEXSRV_IEVT_TRANS_INTERACTIVE_CNF</event>
+				<condition></condition>
+				<action>check authorization or send query name req</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="13251"	from="_Active_Sending"  to="_Active_Sending"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_BT_OBEX_RECEIVE_IND</event>
+				<condition></condition>
+				<action>cancel the receiving request</action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="FINISH" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_SENDING" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_RECEIVING" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ACCEPT" type="internal">
+				<comment></comment>
+			</event>
+			<event name="DENY" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_IDLE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_IMPORT" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TRANS_PROGRESS_IND" type="external">
+				<comment></comment>
+			</event>
+			<event name="SEND_STATUS_IND" type="external">
+				<comment></comment>
+			</event>
+			<event name="RECV_STATUS_IND" type="external">
+				<comment></comment>
+			</event>
+			<event name="IMPORT_STATUS_IND" type="external">
+				<comment></comment>
+			</event>
+			<event name="TRANS_INTERACTIVE_IND" type="external">
+				<comment></comment>
+			</event>
+			<event name="TRANS_INTERACTIVE_CNF" type="internal">
+				<comment></comment>
+			</event>
+			<event name="RECV_REQ_IND" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="RegisterNotification" id="28040" RetType="MAE_Ret"	Param1="void *pInstance" Param2="BTSRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeRegisterNotification" id="21831" RetType="MAE_Ret"	Param1="void *pInstance" Param2="BTSRV_NOTIFY_MASK_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SendFileReq" id="18258" RetType="MAE_Ret"	Param1="u8 *pAddr" Param2="MAE_WChar *pwFileName"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AbortTransFile" id="32287" RetType="void"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AcceptRsp" id="6809" RetType="void"	Param1="boolean bIsAccept" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsReceiving" id="19133" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

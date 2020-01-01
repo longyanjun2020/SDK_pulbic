@@ -1,0 +1,53 @@
+WConfSetupFlashLoading
+0
+WConfigSetupData
+13           IncCallPictureId
+0            IdlePictureId
+0x00341001   PowerOnRingId
+0x00341002   PowerOffRingId
+7            PowerOnPictureId
+4            PowerOffPictureId
+0x00341003   SmsPPRingId
+0x00341003   SmsCBRingId
+0x00340001   CalendarEventRingId
+0x00340001   AlarmEventRingId
+WWeeklyAlarm
+127 0 0
+WContrastDual
+42
+WAnalogClock
+0
+WUSB_Mode
+1
+WBacklight_Level
+15
+WBacklight_Dual_Level
+15
+WDateFormat
+7
+WContrast
+0
+WPadCGLGreeting2_mmi
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+WPadCGLRingLevelAux_mmi
+0

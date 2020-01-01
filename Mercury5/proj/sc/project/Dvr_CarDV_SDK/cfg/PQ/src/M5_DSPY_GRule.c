@@ -1,0 +1,25 @@
+
+#if PQ_GRULE_UFSC_DYNAMIC_CONTRAST_ENABLE
+ unsigned char MST_GRule_DYNAMIC_CONTRAST_IP_Index_DSPY[PQ_GRULE_DYNAMIC_CONTRAST_IP_NUM_DSPY]=
+{
+    PQ_IP_VIP_DLC_DSPY,
+};
+#endif
+
+
+#if PQ_GRULE_UFSC_DYNAMIC_CONTRAST_ENABLE
+ unsigned char MST_GRule_DYNAMIC_CONTRAST_DSPY[QM_INPUTTYPE_NUM_DSPY][PQ_GRULE_DYNAMIC_CONTRAST_NUM_DSPY][PQ_GRULE_DYNAMIC_CONTRAST_IP_NUM_DSPY]=
+{
+    #if PQ_QM_ISP
+    {//FHD_YUV422, 0
+        {//Off
+            PQ_IP_VIP_DLC_OFF_DSPY,
+        },
+        {//On
+            PQ_IP_VIP_DLC_OFF_DSPY,
+        },
+    },
+    #endif
+};
+#endif
+

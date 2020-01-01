@@ -1,0 +1,11 @@
+#<SYMDEFS># ARM Linker
+0x08000000 D stack_limit
+0x08002000 D hal_isr_handlers
+0x08002100 D hal_isr_data
+0x08002200 D sym_ptrusbStruct
+0x08002204 D sym_ptrDwldPath
+0x08002208 D sym_ptrNandOps
+0x0800220c D sym_usbDrvFuncTab
+0x08002210 D sym_scsiCmdFuncTab
+0x08002218 D sym_diskCmdFuncTab
+0x08002300 D sym_debug_uart

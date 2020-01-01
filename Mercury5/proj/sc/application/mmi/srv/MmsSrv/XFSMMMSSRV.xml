@@ -1,0 +1,271 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>mms</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>SERVICE</ApplicationType>
+         <LogLevelName>MMI_LEVEL_MESSAGE</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef>#if defined(__MMS_MMI_CDMMS__)</Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="MMS" id="25733" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Idle">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Idle" id="16913" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>msg resend if needed</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Active" id="28624" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="CheckQueue">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="CheckQueue" id="30683" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>sequentially handle all workitems in WaitingQueue</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Sending" id="29229" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>make SendReq to MMSTransSrv</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Retrieving" id="17071" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>make RetrieveReq to MMSTransSrv</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="SendingNotiResp" id="31460" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>make SendNotiRespReq to MMSTransSrv</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+          <node name="Suspend" id="27780" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Service is Suspend</EntryComment>
+          <ExitComment>Service is Resumed</ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="25236"	from="_MMS"  to="_MMS"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_TERMINATE</event>
+				<condition></condition>
+				<action>handle MAE events</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15543"	from="_MMS"  to="_MMS"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MMSRV_EVT_GPRSAttachCnf</event>
+				<event>MMSTRANSSRV_EVT_GET_ITEMINFO_CNF</event>
+				<event>MMSTRANSSRV_EVT_GET_SENDER_CNF</event>
+				<event>MMSTRANSSRV_EVT_NEW_MMS_NOTIFY_CNF</event>
+				<event>MMSTRANSSRV_EVT_RECV_MAIL_CNF</event>
+				<event>MMSTRANSSRV_EVT_RETRV_CDMMS_CNF</event>
+				<event>MMSTRANSSRV_EVT_SEND_BYBOX_CNF</event>
+				<event>MMSTRANSSRV_EVT_SEND_MMS_NOTIFY_RSP_CNF</event>
+				<event>MMSTRANSSRV_EVT_TRANS_CANCEL_CNF</event>
+				<event>PHBSRV_EVT_PhonebookReady</event>
+				<event>SMI_EVT_DelMsgNotify</event>
+				<event>SMI_EVT_InitReady</event>
+				<event>SMI_EVT_UpdateMsgHeaderNotify</event>
+				<condition></condition>
+				<action>handle service events</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17459"	from="_Idle"  to="_Active"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_ACTIVE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="32309"	from="_Idle"  to="_Suspend"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_SUSPEND</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17917"	from="_Active"  to="_Active_CheckQueue"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_ACTIVE_CHECKQUEUE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21805"	from="_Active"  to="_Active_Retrieving"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_ACTIVE_RETRIEVING</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16160"	from="_Active"  to="_Active_Sending"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_ACTIVE_SENDING</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31285"	from="_Suspend"  to="_Active"  type="default"	hasCondition="0" hasAction="1">
+				<event>MMS_IEVT_ACTIVE</event>
+				<condition></condition>
+				<action>go back to Active if the size of WaitingQueue is larger then zero</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19242"	from="_Suspend"  to="_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>MMS_IEVT_IDLE</event>
+				<condition></condition>
+				<action>go back to Idle if the size of WaitingQueue is zero</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6068"	from="_Active"  to="_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_IDLE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2289"	from="_Active_CheckQueue"  to="_Active_CheckQueue"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_ACTIVE_CHECKQUEUE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6831"	from="_Active"  to="_Suspend"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_SUSPEND</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31911"	from="_Active"  to="_Active_SendingNotiResp"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMS_IEVT_ACTIVE_SENDING_NOTI_RESP</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="ACTIVE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ACTIVE_CHECKQUEUE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ACTIVE_RETRIEVING" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ACTIVE_SENDING" type="internal">
+				<comment></comment>
+			</event>
+			<event name="IDLE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SUSPEND" type="internal">
+				<comment></comment>
+			</event>
+			<event name="CancelFailed" type="external">
+				<comment></comment>
+			</event>
+			<event name="CancelRetrieving" type="external">
+				<comment></comment>
+			</event>
+			<event name="CancelSending" type="external">
+				<comment></comment>
+			</event>
+			<event name="CancelSuccess" type="external">
+				<comment></comment>
+			</event>
+			<event name="NewMessageReceivedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="NewNotifyReceivedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrieveFailed" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrieveMessage" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrieveSuccess" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrievingDoneInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrievingStartInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendFailed" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendingDoneInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendingStartInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendMessage" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendSuccess" type="external">
+				<comment></comment>
+			</event>
+			<event name="SendFailedCountInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="RetrieveFailedCountInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ServiceReadyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ServiceNotReadyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ServiceSuspendInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ServiceResumedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="NewMessageDownloadedInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="MessageReSyncStartInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="MessageReSyncEndInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="ACTIVE_SENDING_NOTI_RESP" type="internal">
+				<comment></comment>
+			</event>
+			<event name="DeliveryReportInd" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="CancelRetrieving" id="19150" RetType="MAE_Ret"	Param1="u16 nMsgId" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Cancel the retrieve request of specified message id.&#13;&#10;This is an asynchronous method. So, if the return value is #MAE_RET_SUCCESS, the processed result&#13;&#10;will be sent to the registered listener later. In order to receive the processed result, the caller&#13;&#10;should register a listener via the method IMMS_Register_Notification with mask value&#13;&#10;#MMS_NOTIFY_MASK_RETRIEVE first.&#13;&#10;&#13;&#10;@param nMsgId&#13;&#10;       The message id for this request.&#13;&#10;@return&#13;&#10;       Return the result of method call.&#13;&#10;@result&#13;&#10;       #MMS_EVT_CancelSuccess&#13;&#10;           The retrieve request has been canceled successfully.&#13;&#10;       #MMS_EVT_CancelFailed&#13;&#10;           The retrieve request has been canceled unsuccessfully.&#13;&#10;       &#9;    &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CancelSending" id="23337" RetType="MAE_Ret"	Param1="u16 nMsgId" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Cancel the send request of specified message id.&#13;&#10;This is an asynchronous method. So, if the return value is #MAE_RET_SUCCESS, the processed result&#13;&#10;will be sent to the registered listener later. In order to receive the processed result, the caller&#13;&#10;should register a listener via the method IMMS_Register_Notification with mask value&#13;&#10;#MMS_NOTIFY_MASK_SEND first.&#13;&#10;&#13;&#10;@param nMsgId&#13;&#10;       The message id for this request.&#13;&#10;@return&#13;&#10;       Return the result of method call.&#13;&#10;@result&#13;&#10;       #MMS_EVT_CancelSuccess&#13;&#10;           The send request has been canceled successfully.&#13;&#10;       #MMS_EVT_CancelFailed&#13;&#10;           The send request has been canceled unsuccessfully.&#13;&#10;            &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Deregister_Notification" id="31868" RetType="MAE_Ret"	Param1="void* pInst" Param2="MMS_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Remove the listener associated with the specified instance.&#13;&#10;&#13;&#10;@param pInst&#13;&#10;        A pointer to a specified instance.&#13;&#10;@param mask&#13;&#10;       This value is used for un-defining event filter rules. The mask value is composited by following&#13;&#10;       #MMS_NOTIFY_MASK_SEND&#13;&#10;           Bit mask for the event of sending state.&#13;&#10;       #MMS_NOTIFY_MASK_RETRIEVE&#13;&#10;           Bit mask for the event of retrieving state.&#13;&#10;       #MMS_NOTIFY_MASK_NEW_RECEIVED_IND&#13;&#10;           Bit mask for the indication of new received state.&#13;&#10;       #MMS_NOTIFY_MASK_SEND_IND&#13;&#10;           Bit mask for the indication of sending state.&#13;&#10;       #MMS_NOTIFY_MASK_RETRIEVE_IND&#13;&#10;           Bit mask for the indication of retrieving state.&#13;&#10;@return&#13;&#10;       Return the result of method call.&#13;&#10;            &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetCurrentMessageID" id="30205" RetType="u16"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;@return&#13;&#10;       Return the id of current handling message. If no message is handling, then the value MMS_INVALID_ID will be returned.       &#9;&#9;&#9;&#13;&#10;            &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsActive" id="32536" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;@return&#13;&#10;       Return the result of method call. If the MMS Service is active then return TRUE else return FALSE.&#9;&#9;&#9;&#13;&#10;            &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryMessageStatus" id="8480" RetType="MMS_Message_Status_e"	Param1="u16 nMsgId" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;@param nMsgId&#13;&#10;       The message id for this request.&#13;&#10;@return&#13;&#10;       Return the message status of specified id. One of following values is returned as status.&#13;&#10;       #MMS_MSG_STATUS_NOT_FOUND&#13;&#10;           The message of specified id is not in queue.&#13;&#10;       #MMS_MSG_STATUS_SENDING&#13;&#10;           The message of specified id is sending.&#13;&#10;       #MMS_MSG_STATUS_RETRIEVING&#13;&#10;           The message of specified id is retrieving.&#13;&#10;       #MMS_MSG_STATUS_QUEUED_FOR_SENDING&#13;&#10;           The message of specified id is queued for sending.&#13;&#10;       #MMS_MSG_STATUS_QUEUED_FOR_RETRIEVING&#13;&#10;           The message of specified id is queued for retrieving.&#13;&#10;            &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Register_Notification" id="31642" RetType="MAE_Ret"	Param1="void* pInst" Param2="MMS_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Add the listener associated with the specified instance.&#13;&#10;&#13;&#10;@param pInst&#13;&#10;        A pointer to a specified instance.&#13;&#10;@param mask&#13;&#10;       This value is used for defining event filter rules. The mask value is composited by following&#13;&#10;       #MMS_NOTIFY_MASK_SEND&#13;&#10;           Bit mask for the event of sending state.&#13;&#10;       #MMS_NOTIFY_MASK_RETRIEVE&#13;&#10;           Bit mask for the event of retrieving state.&#13;&#10;       #MMS_NOTIFY_MASK_NEW_RECEIVED_IND&#13;&#10;           Bit mask for the indication of new received state.&#13;&#10;       #MMS_NOTIFY_MASK_SEND_IND&#13;&#10;           Bit mask for the indication of sending state.&#13;&#10;       #MMS_NOTIFY_MASK_RETRIEVE_IND&#13;&#10;           Bit mask for the indication of retrieving state.&#13;&#10;@return&#13;&#10;       Return the result of method call.&#9;&#9;&#9;&#13;&#10;</function>
+			<function name="RetrieveMessage" id="30023" RetType="MAE_Ret"	Param1="u16 nMsgId" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Request to retrieve a message by a specified id.&#13;&#10;This is an asynchronous method. So, if the return value is #MAE_RET_SUCCESS, the processed result&#13;&#10;will be sent to the registered listener later. In order to receive the processed result, the caller&#13;&#10;should register a listener via the method IMMS_Register_Notification with mask value&#13;&#10;#MMS_NOTIFY_MASK_RETRIEVE first.&#13;&#10;&#13;&#10;@param nMsgId&#13;&#10;       The message id for this request.&#13;&#10;@return&#13;&#10;       Return the result of method call.&#13;&#10;@result&#13;&#10;       #MMS_EVT_RetrieveSuccess&#13;&#10;       &#13;&#10;       #MMS_EVT_RetrieveFailed&#13;&#10;       &#13;&#10;            &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SendMessage" id="24272" RetType="MAE_Ret"	Param1="u16 nMsgId" Param2="u8 nModId"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Request to send a message by a specified id.&#13;&#10;This is an asynchronous method. So, if the return value is #MAE_RET_SUCCESS, the processed result&#13;&#10;will be sent to the registered listener later. In order to receive the processed result, the caller&#13;&#10;should register a listener via the method IMMS_Register_Notification with mask value&#13;&#10;#MMS_NOTIFY_MASK_SEND first.&#13;&#10;&#13;&#10;@param nMsgId&#13;&#10;       The message id for this request.&#13;&#10;@return&#13;&#10;       Return the result of method call.&#13;&#10;@result&#13;&#10;       #MMS_EVT_SendMessage&#13;&#10;&#13;&#10;       #MMS_EVT_SendFailed&#13;&#10;&#13;&#10;            &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsServiceReady" id="3869" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;@return&#13;&#10;       Return the result of method call. If the MMS Service is ready for using then return TRUE else return FALSE.&#13;&#10;       During the time all trans-requests will not be allowed.&#13;&#10;</function>
+			<function name="ServiceSuspend" id="22360" RetType="void"	Param1="void* pUsrData" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Request to suspend the MMS service for network resource control.&#13;&#10;This is an asynchronous method. So, The processed result will be sent to the registered listener later.&#13;&#10;In order to receive the processed result, the caller should register a listener via the method&#13;&#10;IMMS_Register_Notification with mask value #MMS_NOTIFY_MASK_SERVICE_STATUS_IND first.&#13;&#10;&#13;&#10;@param pUsrData&#13;&#10;       The instance pointer of requestor.&#13;&#10;@result&#13;&#10;       After service is suspended, MMS_EVT_ServiceSuspendInd will send to requestor.&#13;&#10;       The requestor MUST to wait until MMS_EVT_ServiceSuspendInd received.&#13;&#10;</function>
+			<function name="ServiceResume" id="22439" RetType="void"	Param1="void* pUsrData" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;Request to resume the MMS service for network resource control.&#13;&#10;This is an asynchronous method. So, The processed result will be sent to the registered listener later.&#13;&#10;In order to receive the processed result, the caller should register a listener via the method&#13;&#10;IMMS_Register_Notification with mask value #MMS_NOTIFY_MASK_SERVICE_STATUS_IND first.&#13;&#10;&#13;&#10;@param pUsrData&#13;&#10;       The instance pointer of requestor.&#13;&#10;@result&#13;&#10;       After service is resumed, MMS_EVT_ServiceResumedInd will send to requestor.&#13;&#10;       The requestor NO NEED to wait until MMS_EVT_ServiceResumedInd received.&#13;&#10;</function>
+			<function name="IsReloading" id="22477" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#13;&#10;@return&#13;&#10;       Return the result of method call. If the MMS Service is busy reloading messages for each mailbox then return TRUE else return FALSE.&#13;&#10;       During the time all trans-requests will not be allowed.&#13;&#10;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

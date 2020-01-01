@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<emi_mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xc22537</nDeviceFullId>
+		<nFlashName>MACRONIX_MX25U6435E/F</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x80</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x8</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0xfff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xC4</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Macronix_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x68</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=MACRONIXSPIINIT> -->
+			<pSPICmdByp>0x68</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=MACRONIXSPICMDBYP> -->
+			<nCMDStatus2>0x2B</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x2B> -->
+			<nCMDSuspend>0xB0</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0xB0> -->
+			<nCMDResume >0x30</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x30> -->
+			<nSuspendBit>MACRONIX_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=MACRONIX_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>30</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=30> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xef4017</nDeviceFullId>
+		<nFlashName>WINBOND_W25Q64CV</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x80</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x8</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0xfff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xC0</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Winbond_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x66</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=WINBONDSPIINIT> -->
+			<pSPICmdByp>0x66</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=WINBONDSPICMDBYP> -->
+			<nCMDStatus2>0x35</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x35> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7A</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7A> -->
+			<nSuspendBit>WINBOND_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=WINBOND_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>50</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=50> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xef4018</nDeviceFullId>
+		<nFlashName>WINBOND_W25Q128BV</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x100</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x10</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x10</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0x1fff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xC0</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Winbond_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x66</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=WINBONDSPIINIT> -->
+			<pSPICmdByp>0x66</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=WINBONDSPICMDBYP> -->
+			<nCMDStatus2>0x35</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x35> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7A</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7A> -->
+			<nSuspendBit>WINBOND_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=WINBOND_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>50</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=50> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xef6017</nDeviceFullId>
+		<nFlashName>WINBOND_W25Q64DW</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x80</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x8</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0xfff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xC0</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Winbond_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x66</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=WINBONDSPIINIT> -->
+			<pSPICmdByp>0x66</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=WINBONDSPICMDBYP> -->
+			<nCMDStatus2>0x35</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x35> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7A</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7A> -->
+			<nSuspendBit>WINBOND_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=WINBOND_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>50</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=50> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0x8c4117</nDeviceFullId>
+		<nFlashName>ESMT_F25L64QA</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x80</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x8</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0xfff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xDC</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_ESMT_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x6a</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=ESMTSPIINIT> -->
+			<pSPICmdByp>0x6a</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=ESMTSPICMDBYP> -->
+			<nCMDStatus2>0x35</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x35> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7A</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7A> -->
+			<nSuspendBit>0x01</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=0x01> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>50</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=50> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0x2ccb17</nDeviceFullId>
+		<nFlashName>MICRON_N25W064A11E</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x80</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x10</nShiftedSize>
+			<nNumber>0x7f</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x10</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0x7ff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xD0</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Micron_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x65</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=MICRONSPIINIT> -->
+			<pSPICmdByp>0x65</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=MICRONSPICMDBYP> -->
+			<nCMDStatus2>0x70</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x70> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7A</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7A> -->
+			<nSuspendBit>MICRON_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=MICRON_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>50</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=50> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0x2ccb18</nDeviceFullId>
+		<nFlashName>MICRON_N25W128A11E</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x100</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x10</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x10</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0x1fff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xD0</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Micron_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x65</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=MICRONSPIINIT> -->
+			<pSPICmdByp>0x65</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=MICRONSPICMDBYP> -->
+			<nCMDStatus2>0x70</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x70> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7A</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7A> -->
+			<nSuspendBit>MICRON_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=MICRON_SUSPEND_BIT> -->
+			<R_CSZ>40</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=40> -->
+			<W_CSZ>50</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=50> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0x1c3817</nDeviceFullId>
+		<nFlashName>EONSI_EN25S64</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x80</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x8</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0xfff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xD8</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_EONSI_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x69</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=EONSPIINIT> -->
+			<pSPICmdByp>0x69</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=EONSPICMDBYP> -->
+			<nCMDStatus2>0x09</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x09> -->
+			<nCMDSuspend>0xb0</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0xb0> -->
+			<nCMDResume >0x30</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x30> -->
+			<nSuspendBit>EON_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=EON_SUSPEND_BIT> -->
+			<R_CSZ>40</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=40> -->
+			<W_CSZ>40</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=40> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xc86018</nDeviceFullId>
+		<nFlashName>GIGADEVICE_GD25LQ128</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x100</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x10</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x10</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0x1fff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xD4</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Gigadevice_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x67</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=GIGADEVICESPIINIT> -->
+			<pSPICmdByp>0x67</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=GIGADEVICESPICMDBYP> -->
+			<nCMDStatus2>0x35</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x35> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7a</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7a> -->
+			<nSuspendBit>GIGADEVICE_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=GIGADEVICE_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>30</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=30> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xc22018</nDeviceFullId>
+		<nFlashName>MACRONIX_MX25L12833E</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x100</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x10</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x10</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0x1fff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xC4</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Macronix_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x68</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=MACRONIXSPIINIT> -->
+			<pSPICmdByp>0x68</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=MACRONIXSPICMDBYP> -->
+			<nCMDStatus2>0x2b</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x2b> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7a</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7a> -->
+			<nSuspendBit>MACRONIX_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=MACRONIX_SUSPEND_BIT> -->
+			<R_CSZ>20</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=20> -->
+			<W_CSZ>50</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=50> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xc22538</nDeviceFullId>
+		<nFlashName>MACRONIX_MX25U12835F</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x100</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0x10</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x10</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0x1fff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xC4</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Macronix_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x68</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=MACRONIXSPIINIT> -->
+			<pSPICmdByp>0x68</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=MACRONIXSPICMDBYP> -->
+			<nCMDStatus2>0x2b</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x2b> -->
+			<nCMDSuspend>0xb0</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0xb0> -->
+			<nCMDResume >0x30</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x30> -->
+			<nSuspendBit>MACRONIX_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=MACRONIX_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>30</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=30> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+<mcpConfig_t>
+	<Identifier>
+		<!--- <CHIP_TYPE=MSW8532> -->
+		<nMagic>0xBABE</nMagic>
+		<nDeviceFullId>0xc86017</nDeviceFullId>
+		<nFlashName>GIGADEVICE_GD25LQ64</nFlashName>
+		<nFeatures>1</nFeatures>
+		<nFlashType>0x00000000</nFlashType>
+		<nDeviceSecondID>0</nDeviceSecondID>
+		<nSecondIDMask>0</nSecondIDMask>
+	</Identifier>
+	<Geometry>
+		<nDeviceSize>0x80</nDeviceSize>
+		<nPad>0x00000000</nPad>
+		<nRegionNumber>0x2</nRegionNumber>
+		<nAsRegions>
+			<nShiftedSize>0xf</nShiftedSize>
+			<nNumber>0xff</nNumber>
+		</nAsRegions>
+		<nAsRegions>
+			<nShiftedSize>0xc</nShiftedSize>
+			<nNumber>0x8</nNumber>
+		</nAsRegions>
+	</Geometry>
+	<Bank>
+		<nBankNumber>0x1</nBankNumber>
+		<nBankAddresses>0xfff</nBankAddresses>
+	</Bank>
+	<CommandSets>
+		<nCommandSetsIndex>0xD4</nCommandSetsIndex>	<!--- <CMD_SET_IDX=SPI_Gigadevice_Buffer_Program> -->
+		<ndummyArray>0</ndummyArray>
+	</CommandSets>
+	<ndummy0>0</ndummy0>
+	<ndummy1>0</ndummy1>
+	<emi_params>
+		<emi_NorBasicConfig_t>
+			<eOpMode>SPINOR_SPI</eOpMode>		<!--- u32 eOpMode;        // OP_MODE		<OP_MODE=SPINOR_SPI> -->
+			<eFunc>SPINOR_FUNC_NORMAL</eFunc>		<!--- u32 eFunc;         // EFUN		<EFUN=SPINOR_FUNC_NORMAL> -->
+			<eBusClock>SPINOR_77MHz</eBusClock>		<!--- u32 eBusClock;      // BUS_CLK		<BUS_CLK=SPINOR_77MHz> -->
+			<pSPIInit>0x67</pSPIInit>		<!--- u32 pSPIInit;     // SPIINIT		<SPIINITS=GIGADEVICESPIINIT> -->
+			<pSPICmdByp>0x67</pSPICmdByp>		<!--- u32 pSPICmdByp;        // CMD_BYP		<CMD_BYPS=GIGADEVICESPICMDBYP> -->
+			<nCMDStatus2>0x35</nCMDStatus2>		<!--- u32 nCMDStatus2;         // CMD_STA		<CMD_STA=0x35> -->
+			<nCMDSuspend>0x75</nCMDSuspend>		<!--- u32 nCMDSuspend;            // CMD_SUS		<CMD_SUS=0x75> -->
+			<nCMDResume >0x7a</nCMDResume >		<!--- u32 nCMDResume;            // CMD_RES		<CMD_RES=0x7a> -->
+			<nSuspendBit>GIGADEVICE_SUSPEND_BIT</nSuspendBit>		<!--- u32 nSuspendBit;          // SUS_BIT	<SUS_BIT=GIGADEVICE_SUSPEND_BIT> -->
+			<R_CSZ>30</R_CSZ>		<!--- u32 R_CSZ;            // R_CSZ		<R_CSZ=30> -->
+			<W_CSZ>30</W_CSZ>		<!--- u32 W_CSZ;            // W_CSZ		<W_CSZ=30> -->
+			<nDriving>0</nDriving>		<!--- u32 nDriving;            // nDRV		<nDRV=0> -->
+			<nDummyClock>6</nDummyClock>		<!--- u32 nDummyClock;            // DUMMY_CLK		<DUMMY_CLK=6> -->
+		</emi_NorBasicConfig_t>
+	</emi_params>
+</mcpConfig_t>
+</emi_mcpConfig_t>
+

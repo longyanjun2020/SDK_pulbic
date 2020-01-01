@@ -1,0 +1,9 @@
+MIDlet-1: mujMail,/icons/logo.png,MujMail
+MIDlet-Info-URL: www.mujMail.org
+MIDlet-Jar-Size: 113781
+MIDlet-Jar-URL: mujMail.jar
+MIDlet-Name: mujMail
+MIDlet-Vendor: Students of www.mff.cuni.cz
+MIDlet-Version: 1.07.02
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-1.0

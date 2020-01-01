@@ -1,0 +1,35 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Name>mae_widget_def</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>f85e003c-f0af-4a1b-ab54-041cda3e8945</ProjectGuid>
+    <AssemblyName>WidgetDefault</AssemblyName>
+    <RootNamespace>WidgetDefault</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>DEFWIDGET</PrjType>
+    <OutputPath>..\..\widgets</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <IgnoreID>IMG_NULL_ID;TXT_NULL_ID</IgnoreID>
+    <PrjType>DEFWIDGET</PrjType>
+    <OutputPath>..\..\widgets</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="mae_widget_def_qvgap_thm.eApp">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <!--
+	To modify your build process, add your task inside one of the targets below and uncomment it. 
+		
+	<Target Name="BeforeClean"></Target>
+	<Target Name="AfterClean"></Target>
+	<Target Name="BeforeRebuild"></Target>
+	<Target Name="AfterRebuild"></Target>
+	<Target Name="BeforeDeploy"></Target>
+	<Target Name="AfterDeploy"></Target>
+	-->
+</Project>

@@ -1,0 +1,210 @@
+/****************************************************************************/
+/*  File    : SYS.HO                                                        */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : System utilities interface                                    */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Changes    :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author  | Modification                                        */
+/*----------+---------+-----------------------------------------------------*/
+/* 09/04/97 |   PGU   | - Creation                                          */
+/*----------+---------+-----------------------------------------------------*/
+/* 12/12/98 |   PGU   | - Add sys_CustomFreeGpio                            */
+/*----------+---------+-----------------------------------------------------*/
+/* 05/01/99 |   PGU   | - Add sys_DelayWatchDogReset                        */
+/*----------+---------+-----------------------------------------------------*/
+/* 30/12/99 |   PBA   | - Add downloader macros and WriteErrorPattern proto */
+/*----------+---------+-----------------------------------------------------*/
+/* 15.02.00 |   ADA   | - Macro for memory protection.                      */
+/*----------+---------+-----------------------------------------------------*/
+/* 06.03.00 |   ADA   | - Adds Extended capability stuff...                 */
+/*----------+---------+-----------------------------------------------------*/
+/* 23.03.00 |   ADA   | - SYS_IS_ACTIVATE() return boolean.                 */
+/*          |         | - EXT_CAP_BATT_ENABLE                               */
+/*----------+---------+-----------------------------------------------------*/
+/* 03/05/00 |   FRK   | - update for TOOLS team                             */
+/*----------+---------+-----------------------------------------------------*/
+/* 10/08/00 |   PBA   | - add wavecom RAM memory space                      */
+/*----------+---------+-----------------------------------------------------*/
+/* 10/08/00 |   PBA   | - add CUSTOMER_TASK_START_ADDRESS macro             */
+/*----------+---------+-----------------------------------------------------*/
+/* 10/08/00 |   PBA   | - add CUSTOMER_RAM_SIZE                             */
+/*----------+---------+-----------------------------------------------------*/
+/* 25/08/00 |   PBA   | - CUSTOMER_RAM_SIZE with OPEN_MMI flag              */
+/*----------+---------+-----------------------------------------------------*/
+/* 31/08/00 |   JMH   | - sys_CustomRomSize is no more a constant           */
+/*----------+---------+-----------------------------------------------------*/
+/* 07/12/00 |   LHO   | - add sys_CustomerWDogRst                           */
+/*----------+---------+-----------------------------------------------------*/
+/* 12/12/00 |   LHO   | - CUSTOMER_RAM_SIZE only used if __OPEN_MMI__ set   */
+/*----------+---------+-----------------------------------------------------*/
+/* 09/01/01 |   DDO   | - sys_RAMOffset definition                          */
+/*----------+---------+-----------------------------------------------------*/
+/* 14/01/02 |   MTH   | - WHAT2 adaptation                                  */
+/****************************************************************************/
+
+#ifndef __SYS_HO__
+#define __SYS_HO__
+
+#include "stdcomp.h"
+#include "msgtyp.ht"
+#include "msgofs.hc"
+#include "sys_gpio.hp"
+
+#include "kernel.h"
+
+#ifdef __SYS_VAR__
+#define DefExtern
+#else
+#define DefExtern extern
+#endif
+
+/* --------------------------- RAM area macros  --------------------------- */
+
+DefExtern u32 sys_RAMOffset;
+
+#define CUSTOMER_TASK_START_ADDRESS      0x00180000
+#define CUSTOMER_RAM_SIZE                0x00008000 /* 32 k */
+
+/* --------------------------- Stack back trace --------------------------- */
+
+#define SYS_RUN_TIME_ERROR      0
+#define SYS_WATCH_DOG_ANALYSIS  1
+#define SYS_WATCH_DOG_EXTRACT   2
+#define SYS_BACK_TRACE_MAX      15
+#define SYS_BACK_TRACE_PATTERN  0x01060B00
+#define SYS_DATATION_PATTERN    0x02070C01
+#define SYS_MSG_DUMP_PATTERN    0x03080D02
+#define SYS_INFO_HWL_PATTERN    0x04090E03
+
+#define DUMP_MEASUREMENT_REPORT (u16) (DUMP_BASE + 0x15)
+
+typedef struct
+        {
+          u32      TraceType;
+          Header_t Header;
+        } sys_DumpMsg_t;
+
+void sys_DumpMsg (u8 *Msg, s16 TypMsg, u8 Size);
+
+DefExtern u32 sys_ExpectedWDogRst;
+DefExtern u32 sys_CustomerWDogRst;
+
+
+/*----------- Memory protection macros --------------------------------*/
+
+DefExtern u8  sys_MemProtectCtrl [4];
+
+
+#define MEM_PROT_READ     (0x0001 << 0)
+#define MEM_PROT_WRITE    (0x0001 << 1)
+#define MEM_PROT_USER     (0x0000 << 2)
+#define MEM_PROT_NONUSER  (0x0001 << 2)
+#define MEM_PROT_ABORT    (0x0000 << 3)
+#define MEM_PROT_BRKPT    (0x0001 << 3)
+
+#define SYS_MEM_PROT_SUSPEND(Space) 
+#define SYS_MEM_PROT_RESTORE(Space) 
+
+#define SYS_MEM_PROT_FLASH_SPACE    0
+#define SYS_MEM_PROT_RTK_AREA_SPACE 1
+#define SYS_MEM_PROT_WAVECOM_RAM    2
+#define SYS_MEM_PROT_FREE_SPACE2    3
+
+/*----------- ExtendedCapability management ---------------------------*/
+
+#define EXT_CAP_SIM5V_EXT          (1<<0)
+#define EXT_CAP_TXP_FOI_BIAS       (1<<1)
+#define EXT_CAP_DYN_LNA_PAR        (1<<2)
+#define EXT_CAP_MIRROR             (1<<3)
+#define EXT_CAP_GAIN_MIC_ONEC_V11  (1<<4)
+#define EXT_CAP_IMMEDIAT_SUSP      (1<<5)
+#define EXT_CAP_BATT_ENABLE        (1<<6)
+#define EXT_CAP_GET_ABNORMAL_RST   (1<<7)
+#define EXT_CAP_SIM_SHIFT_POLARITY (1<<8)
+
+DefExtern u32                     sys_ExtendedCapability;
+
+#define SYS_IS_ACTIVATED(x)       ((sys_ExtendedCapability & x) != FALSE)
+
+/* ---------------------- downloader macros -------------------------- */
+
+#define Dwl_Version  0x00000020
+#define ErrorPattern 0x00000028
+
+/* ---------------------- user defined variables -------------------------- */
+
+extern u32  sys_CustomRomSize;
+extern const bool sys_CustomEnableWatchDog;
+extern const bool sys_CustomEnableBootPower;
+extern const bool sys_CustomEnableExtInt;
+extern const u32  sys_CustomGpioDirection;          /*** a verifier MTH ***/
+extern const u8   sys_CustomFreeGpio[MAX_FREE_IO];
+extern const u32 sys_CustomGpioDefaultState;
+extern const u16 sys_CustomGpioMux1;
+extern const u16 sys_CustomGpioMux2;
+extern const u16 sys_CustomGpioMux3;
+extern const bool sys_open_mmi_def;
+
+/* ---------------------- usable functions -------------------------- */
+
+void sys_BackTrace ( u8 State );
+void sys_WriteErrorPattern ( void );
+void sys_StatusRegister ( void );
+void sys_InitE2pErrorStack (void);
+void sys_E2pErrorStackAnalysis (void);
+void sys_StoreBackTraceInE2p (u32 *BackLink);
+void sys_StoreErrorInE2p (u32 Ident, u32 Address, u8 *StackAfter);
+void sys_FatalErrorHandler(void);
+void sys_StoreTraceBufferInFlash (void);
+void sys_GetTraceBufferInFlash (u8 Error);
+u8   sys_WatchDogRstOccured (void);
+u8   sys_Random (u8 Max);
+void sys_DelayWatchDogReset(void);
+
+/* -------------------- to be provided by user ------------------------ */
+
+void sys_CustomIdleProc ( void );
+void sys_CustomIdleStart ( void );
+void sys_CustomInitProc ( int argc, char **argv );
+void sys_CustomFrameIntProc ( u16 NbSleepedFrames );
+void sys_CustomInitWatches ( void );
+void sys_CustomOrgCall ( u8 NbKey, u8 *KeySequence );
+
+#ifdef __BORLANDC__
+void sys_ExitFunction (u8 ExitCode);
+#endif
+
+#if defined (REMOTETASKS) && defined (__cplusplus)
+extern "C" void sys_ExitFunction (u8 ExitCode);
+#endif
+
+/* -------------------- Wait loop macros ---- -------------------------- */
+// RTC step is 30.5us
+// So unit choosen is us
+// be carefull : value must be up to 30us 
+#ifdef __NEW_WAITING_LOOP__
+#ifdef __TARGET__
+#ifndef __thumb
+#define SYS_DELAY(T)          do { u32 rtcTimeOut=T*100/92;  while(rtcTimeOut--);} while(0)
+#define SYS_DELAYCOND(Cond,T) do { u32 rtcTimeOut=T*100/92;  while(rtcTimeOut-- && Cond);} while(0)
+#else //!__thumb
+#define SYS_DELAY(T)          do { u32 rtcTimeOut=T*100/46; while(rtcTimeOut--);} while(0)
+#define SYS_DELAYCOND(Cond,T) do { u32 rtcTimeOut=T*100/46;  while(rtcTimeOut-- && Cond);} while(0)
+#endif // __thumb
+#else //__TARGET__
+#define SYS_DELAY(T)          do { u32 rtcTimeOut=T*1000; while(rtcTimeOut--);} while(0)
+#define SYS_DELAYCOND(Cond,T) do { u32 rtcTimeOut=T*1000;  while(rtcTimeOut-- && Cond);} while(0)
+#endif //__TARGET__
+#endif //__NEW__WAITING_LOOP__
+
+
+#undef DefExtern
+#endif /* __SYS_HO__ */
+
+

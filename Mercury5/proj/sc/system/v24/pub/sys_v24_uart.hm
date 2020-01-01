@@ -1,0 +1,358 @@
+/**
+ * \file v24_uart.hm
+ * \brief Macros to access the VL16C550 uart registers
+*/
+
+#ifndef __SYS_V24_UART_HM__
+#define __SYS_V24_UART_HM__
+
+#include "comdefs.hc"   /* Common define flags */
+#include "v24.hi"
+
+#include "sys_v24_usb.hi"
+#include "drv_io_chip_pub_types.h"
+#include "drv_io_chip_pub_api.h"
+
+
+#define UART_BREAK_DETECTED         UART_BREAK_DETECTED_MASK
+#define UART_OVERRUN_ERROR          UART_OVERRUN_ERROR_MASK
+#define UART_PARITY_ERROR           UART_PARITY_ERROR_MASK
+#define UART_FRAMING_ERROR          UART_FRAMING_ERROR_MASK
+
+#define uart_WriteChar(Uart, a)                        \
+	do { \
+		(Uart)->u32_DLL_THR_RBR = (a); \
+	} while (0)
+
+/**
+ * \brief Reads a character from UART. Here is data read from hardware.
+ */
+#define uart_ReadChar(Uart)           ( Uart ->u32_DLL_THR_RBR )
+#define uart_ReadMCR(Uart)            (Uart ->u32_MCR)
+#define uart_ReadLCR(Uart)            ( Uart ->u32_LCR )
+#define uart_WriteMCR(Uart, a)       (Uart->u32_MCR = (a))
+#define uart_WriteIER(Uart, a)       (Uart->u32_DLH_IER = (a))
+#define uart_ReadIER(Uart)           ( Uart ->u32_DLH_IER )
+#define uart_ReadMSR(Uart)           ((Uart == NULL) ? V24_USB_READ_MSR() : (Uart ->u32_MSR ) )
+/**
+ * \brief Writes Line Control Register
+ */
+#define uart_WriteLCR(Uart, a)        do { Uart->u32_LCR = (a); } while (0)
+
+#define uart_WriteLSB(Uart, a)                        \
+	do { \
+		(Uart)->u32_DLL_THR_RBR = (a); \
+	} while (0)
+
+#define uart_WriteMSB(Uart, a)                        \
+	do { \
+		(Uart)->u32_DLH_IER = (a); \
+	} while (0)
+
+#define uart_ReadLSB(Uart)           ( Uart->u32_DLL_THR_RBR &0xFF)
+#define uart_ReadMSB(Uart)           ( Uart->u32_DLH_IER &0xFF )
+/**
+ * \brief Writes into FIFO Control Register
+ */
+#define uart_WriteFCR(Uart, a)        do { Uart->u32_IIR_FCR = (a); } while (0)
+#define uart_ReadLSR(Uart)            (  Uart ->u32_LSR )
+#define UART_ACK_IT(a, b)
+
+#define uart_ReadIIR(Uart)            ( Uart ->u32_IIR_FCR )
+#define uart_WriteIIR_Mask(Uart, a)   (Uart->u32_DLH_IER = (a))
+#define uart_ReadIIR_Mask(Uart)       ( Uart ->u32_DLH_IER )
+#define uart_ReadIIR_Raw(Uart)
+#define uart_WriteIIR_Clear(Uart, a)
+
+#if defined(__V24_SOFT_FC__) && defined(__V24_SOFT_FC_XAUTO_MODE__)
+/**
+ * \brief XAUTO_MODE setting
+ */
+#define uart_WriteEFR(Uart, a)
+#define uart_ReadEFR(Uart)
+#define uart_WriteXON1(Uart, a)
+#define uart_WriteXOFF1(Uart, a)
+#define uart_ReadEFSS(Uart)
+#define uart_WriteEFSC(Uart, a)
+
+#define UART_IER_RXXOFF_IT
+#endif
+
+#define UART_IER_RX_IT              UART_IER_RDICTI
+#define UART_IER_TX_IT              (UART_IER_THRI|UART_IER_PTHRI)
+#define UART_IER_LSR_IT             UART_IER_RLSI
+#define UART_IER_MSR_IT             UART_IER_MSI
+
+#define UART_SET_IT_MASK( Uart, m ) if (Uart != NULL) { uart_WriteIIR_Mask( Uart, m ); }
+#define UART_SET_IT_SRC( Uart, m )  if (Uart != NULL) { Uart->u32_DLH_IER |= (m)  ;}
+#define UART_CLR_IT_SRC( Uart, m )  if (Uart != NULL) { Uart->u32_DLH_IER &= ~(m);}
+
+#define UART_FREQUENCY_SELECTOR_BIT      0x00 //does not exist on WHAT : divisor = 7.05
+					 //Set here rather than in what.h because it has no meaning for What or Swift
+
+#define FIFO_ENABLE                 UART_FCR_FIFO_ENABLE
+#define RESET_RCV                   UART_FCR_CLEAR_RCVR
+#define RESET_XMT                   UART_FCR_CLEAR_XMIT
+
+
+#define RCV_LVL_0                  UART_FCR_TRIGGER_RX_L0 | FIFO_ENABLE
+#define RCV_LVL_1                  UART_FCR_TRIGGER_RX_L1 | FIFO_ENABLE
+#define RCV_LVL_2                  UART_FCR_TRIGGER_RX_L2 | FIFO_ENABLE
+#define RCV_LVL_3                  UART_FCR_TRIGGER_RX_L3 | FIFO_ENABLE
+
+
+// RCV_LVL_10 used for 460800 uart speed
+// RCV_LVL_16 used for 115200 uart speed
+
+#define UART_TRIGGER_LEVEL          RCV_LVL_3
+
+
+
+#define UART_RX_FIFO_NOT_EMPTY( OUart )  ( (OUart == NULL) ? V24_USB_ENDPOINT_RX_NOT_EMPTY() : (uart_ReadUSR(OUart) & UART_USR_RXFIFO_NOT_EMPTY) )
+#define UART_RX_FIFO_EMPTY(OUart)        ( (OUart == NULL) ? V24_USB_ENDPOINT_RX_EMPTY() :( ~(uart_ReadUSR(OUart)) & UART_USR_RXFIFO_NOT_EMPTY ) )
+
+/* only for target to gain speed */
+#define UART__RX_FIFO_NOT_EMPTY( Uart )   (  uart_ReadUSR(OUart) & UART_USR_RXFIFO_NOT_EMPTY )
+#define UART__READ_CHAR( u )           (  u->u32_DLL_THR_RBR )
+
+/*
+** following macro tests transmit register empty bit. If so it means that
+** fifo (or transmit holding reg) is also empty.
+*/
+#define UART_TX_FIFO_EMPTY( OUart )        ( (OUart == NULL) ? V24_USB_ENDPOINT_TX_EMPTY() : (uart_ReadUSR( OUart ) & UART_USR_TXFIFO_EMPTY) )
+#define UART_TX_HOLD_REG_EMPTY( OUart )    ( uart_ReadLSR( OUart ) & UART_LSR_THRE )
+
+#define UART_CLR_RX_FIFO( OUart, lvl ) uart_WriteFCR( OUart, RESET_RCV | (lvl) )
+#define UART_CLR_TX_FIFO( OUart, lvl ) uart_WriteFCR( OUart, RESET_XMT | (lvl) )
+
+/*
+** CAUTION: following two macro clear also the trigger level
+*/
+#define UART_ENABLE_FIFOs( OUart )  if (OUart != NULL) {uart_WriteFCR( OUart, FIFO_ENABLE | RESET_RCV | RESET_XMT );}
+#define UART_RESET_FIFOs( OUart )   UART_ENABLE_FIFOs( OUart )
+
+#define UART_SET_TRIGGER_LVL( OUart,lvl ) if (OUart != NULL) {uart_WriteFCR( OUart, RESET_RCV | RESET_XMT | (lvl) );}
+
+#define GET_MSR( OUart)             uart_ReadMSR( OUart )
+
+
+/*
+** GETTING MACRO
+*/
+#define UART_IS_CTS_ON( OUart , available ) UART__IS_CTS_ON((hal_uart_ReadMSR( OUart )), available)
+
+#define UART_IS_CTS_OFF( OUart, available ) ( !( UART__IS_CTS_ON((hal_uart_ReadMSR( OUart )), available) ) )
+
+#define UART_IS_DSR_ON( OUart )             UART__IS_DSR_ON( hal_uart_ReadMSR( OUart ) )
+
+#define UART_IS_DSR_OFF( OUart )               ( ! UART_IS_DSR_ON( OUart ) )
+
+/****/
+
+#define UART_SET_RTS_ON(OUart)                                   \
+{                                                                \
+ if ( OUart != NULL)  /* FOR UART 1 OR 2 */                      \
+ {                                                               \
+  uart_WriteMCR( OUart, uart_ReadMCR(OUart) |  UART_MCR_RTS );\
+ }                                                               \
+}
+#define UART_SET_RTS_OFF(OUart)                                  \
+{                                                                \
+ if ( OUart != NULL)  /* FOR UART 1 OR 2 */                      \
+ {                                                               \
+  uart_WriteMCR( OUart, uart_ReadMCR(OUart) & ~UART_MCR_RTS ); \
+ }                                                               \
+}
+
+#define UART_SET_DTR_ON(OUart)                                   \
+{                                                                \
+ if ( OUart != NULL)  /* FOR UART 1 OR 2 */                      \
+ {                                                               \
+  uart_WriteMCR( OUart, uart_ReadMCR(OUart) |  UART_MCR_DTR );\
+ }                                                               \
+ else /* FOR USB */                                              \
+ {                                                               \
+  V24_USB_SET_DTR_ON();                                          \
+ }                                                               \
+}
+#define UART_SET_DTR_OFF(OUart)                                  \
+{                                                                \
+ if ( OUart != NULL)  /* FOR UART 1 OR 2 */                      \
+ {                                                               \
+  uart_WriteMCR( OUart, uart_ReadMCR(OUart) & ~UART_MCR_DTR );\
+ }                                                               \
+ else /* FOR USB */                                              \
+  {                                                              \
+  V24_USB_SET_DTR_OFF();                                         \
+ }                                                               \
+}
+
+#define UART_SET_AUTO_RTS_CTS( OUart )   hal_uart_WriteMCR( OUart, hal_uart_ReadMCR( OUart ) | UART_MCR_AFCE )
+#define UART_SET_NORM_RTS_CTS( OUart )   hal_uart_WriteMCR( OUart, hal_uart_ReadMCR( OUart ) & ~UART_MCR_AFCE )
+
+
+
+#define UART_IS_CTS_CHANGE( msr, available )      ((available==FALSE)?(FALSE):( ((msr) & UART_MSR_DCTS)?TRUE:FALSE ))
+#define UART_IS_DSR_CHANGE( msr )      ( ((msr) & UART_MSR_DDSR)?TRUE:FALSE )
+
+#define UART__IS_CTS_ON( msr, available )   \
+                       (available==FALSE )?TRUE:( ((msr) & UART_MSR_CTS_COMP)?TRUE:FALSE )
+
+#define UART__IS_DSR_ON( msr )         (( (msr) & UART_MSR_DSR_COMP )?TRUE:FALSE)
+
+#define UART_CLEAR_CHANGE_BITS( OUart) (void)GET_MSR( OUart )
+
+#ifdef __V24_SOFT_FC__
+#define UART1_IS_V24_HARD                                           (v24_Uart1Context && (v24_Uart1Context->_v24_UartRxFlowCtrlMethod == V24_HARD))
+#define UART1_IS_V24_SOFT                                            (v24_Uart1Context && (v24_Uart1Context->_v24_UartRxFlowCtrlMethod == V24_SOFT))
+#define UART2_IS_V24_HARD                                           (v24_Uart2Context && (v24_Uart2Context->_v24_UartRxFlowCtrlMethod == V24_HARD))
+#define UART2_IS_V24_SOFT                                            (v24_Uart2Context && (v24_Uart2Context->_v24_UartRxFlowCtrlMethod == V24_SOFT))
+#define UART_SEDN_XOFF(OUart)                                      uart_WriteChar(OUart, V24_XOFF)
+#define UART_SEDN_XON(OUart)                                        uart_WriteChar(OUart, V24_XON)
+
+#ifdef __V24_SOFT_FC_XAUTO_MODE__
+#define UART_SET_XAUTO_MODE_1( OUart )
+#define UART_SET_XAUTO_MODE_DISABLED( OUart )
+
+#define UART_SET_XON1_CHAR(OUart)
+#define UART_RESET_XON1_CHAR(OUart)
+
+#define UART_SET_XOFF1_CHAR(OUart)
+#define UART_RESET_XOFF1_CHAR(OUart)
+
+#define UART_CLEAR_XOFF_STATUS( OUart )
+
+#define UART_IS_XOFF_RECEIVED( efss )
+#endif
+#endif
+
+/*
+** Setting DCD/RI to ON is achieved by setting a GPIO to OFF (0 Volt) in order
+** to comply with the Kernel UART logic, ie bits DTR/RTS set to 1 (ON) in MCR
+** register yield 0 Volt on the UART output (conversely bits set to 0 (OFF)
+** yield 5 Volts).
+*/
+
+
+#define UART_SET_DCD_ON(OUart)  if (OUart == HAL_UART_GET_OBJ(HAL_UART1)) {} \
+                                      else if (OUart == NULL) { V24_USB_SET_DCD_ON(); }
+
+#define UART_SET_DCD_OFF(OUart) if (OUart == HAL_UART_GET_OBJ(HAL_UART1)) {} \
+                                      else if (OUart == NULL) { V24_USB_SET_DCD_OFF(); }
+
+#define UART_SET_RI_ON(OUart)   if (OUart == HAL_UART_GET_OBJ(HAL_UART1)) {} \
+                                      else if (OUart == NULL) { V24_USB_SET_RI_ON(); }
+
+#define UART_SET_RI_OFF(OUart)  if (OUart == HAL_UART_GET_OBJ(HAL_UART1)) {} \
+                                      else if (OUart == NULL) { V24_USB_SET_RI_OFF(); }
+
+
+#define UART1_POWER_DOWN_MASK       1 ///< not yet used and defined
+#define UART2_POWER_DOWN_MASK       1 ///< not yet used and defined
+
+
+#define V24_ENABLE_IRQ_ON_ITC(Enable, V24MaskParam) \
+do { \
+    if (Enable) \
+    { \
+        switch (V24MaskParam) \
+        { \
+        case V24_UART1_MASK: \
+            hal_uart_int_unmask(HAL_UART1); \
+            break; \
+        case V24_UART2_MASK: \
+            hal_uart_int_unmask(HAL_UART2); \
+            break; \
+        default: \
+            break; \
+        } \
+    } \
+    else \
+    { \
+        switch (V24MaskParam) \
+        { \
+        case V24_UART1_MASK: \
+            hal_uart_int_mask(HAL_UART1); \
+            break; \
+        case V24_UART2_MASK: \
+            hal_uart_int_mask(HAL_UART2); \
+            break; \
+        default: \
+            break; \
+        } \
+    } \
+} while (0)
+
+#define UART_POWER_UP_UART(PowerDownMask, V24MaskParam) \
+{                                                         \
+ if ( PowerDownMask != 0)  /* TRUE UART */                \
+ {                                                        \
+        V24_ENABLE_IRQ_ON_ITC(TRUE, V24MaskParam); \
+ }                                                        \
+ else  /* POWER UP FOR USB */                             \
+ {                                                        \
+  V24_USB_POWER_UP_USB();                                 \
+ }                                                        \
+}
+
+#define UART_POWER_DOWN_UART(PowerDownMask, V24MaskParam) \
+{                                                         \
+ if ( PowerDownMask != 0)  /* TRUE UART */                \
+ {                                                        \
+         V24_ENABLE_IRQ_ON_ITC(FALSE, V24MaskParam); \
+ }                                                        \
+ else  /* POWER DOWN FOR USB */                           \
+ {                                                        \
+  V24_USB_POWER_DOWN_USB();                               \
+ }                                                        \
+}
+
+#define UART_CLEAR_IIR( Uart )      //uart_WriteIIR_Clear(Uart,0)
+
+#define UART_GET_IT_SOURCE(OUart)   ( uart_ReadIIR( OUart ) & 0x0F )
+#define UART_IS_IT_PENDING(s)       ( (s == UART_IIR_NO_INT)? FALSE:TRUE )
+#define UART_IS_RX_FIFO_FULL_IT(s)  ( s & (UART_IIR_RDI | UART_IIR_RX_TIMEOUT) )
+#define UART_RX_FULL                (UART_IIR_RDI | UART_IIR_RX_TIMEOUT)
+#define UART_TX_EMPTY               (UART_IIR_THRI)
+#define UART_MSR_EVENT              (UART_IIR_MSI)
+#define UART_LSR_EVENT              (UART_IIR_RLSI)
+
+#if defined(__V24_SOFT_FC__) && defined(__V24_SOFT_FC_XAUTO_MODE__)
+#define UART_RXXOFF_EVENT
+#endif
+
+#define UART_IS_BREAK( lsr )        ( lsr & UART_LSR_BI )
+#define UART_IS_OVERRUN( lsr )      ( lsr & UART_LSR_OE )
+#define UART_IS_PARITY( lsr )       ( lsr & UART_LSR_PE )
+#define UART_IS_FRAMING( lsr )      ( lsr & UART_LSR_FE )
+
+#define UART_START_BREAK(OUart)     if (OUart != NULL) { uart_WriteLCR( OUart, uart_ReadLCR(OUart) |  UART_LCR_SBC); }
+#define UART_STOP_BREAK(OUart)      if (OUart != NULL) { uart_WriteLCR( OUart, uart_ReadLCR(OUart) & ~UART_LCR_SBC); }
+
+#if __FIXME__
+#define INIT_TXD2_RXD2_DIRECTION()    { OGpio->Direction |= GPIO_DIR_GPIO3_INPUT;\
+                                        OGpio->Mux1 |= GPIO_MUX_GPIO3_RXD2;\
+					OGpio->Mux1 |= GPIO_MUX_GPO1_TXD2; }
+#define DISABLE_TXD2_RXD2_DIRECTION() { OGpio->Direction &= ~GPIO_DIR_GPIO3_INPUT;\
+                                        OGpio->Mux1 &= ~GPIO_MUX_GPIO3_RXD2;\
+					OGpio->Mux1 &= ~GPIO_MUX_GPO1_TXD2; }
+
+#define INIT_RTS2_DIRECTION()         OGpio->Mux1 |= GPIO_MUX_GPO2_RTS2;
+
+#define DISABLE_RTS2_DIRECTION()      OGpio->Mux1 &= ~GPIO_MUX_GPO2_RTS2;
+
+#define INIT_CTS2_DIRECTION()         { OGpio->Direction |= GPIO_DIR_GPIO19_INPUT;\
+                                      OGpio->Mux2 |= GPIO_MUX_GPIO19_CTS2; }
+#define DISABLE_CTS2_DIRECTION()      { OGpio->Direction &= ~GPIO_DIR_GPIO19_INPUT;\
+                                      OGpio->Mux2 &= ~GPIO_MUX_GPIO19_CTS2; }
+#else
+#define INIT_TXD2_RXD2_DIRECTION()
+#define DISABLE_TXD2_RXD2_DIRECTION()
+#define INIT_RTS2_DIRECTION()
+#define DISABLE_RTS2_DIRECTION()
+#define INIT_CTS2_DIRECTION()
+#define DISABLE_CTS2_DIRECTION()
+#endif
+
+
+#endif /* __SYS_V24_UART_HM__ */

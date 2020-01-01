@@ -1,0 +1,4 @@
+# The releaseFiles will keep these files in release package, and will be parsed by keepUnusedFiles.pl
+
+sc/system/CheckSize
+sc/application/sys/sqlite/src/

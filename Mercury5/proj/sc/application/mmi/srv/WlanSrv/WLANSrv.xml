@@ -1,0 +1,239 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>WLANSrv</name>
+         <version>1007</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_WLAN</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef>#if defined(__WLAN_MMI__)</Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="WLANSrv" id="1001" hasEntry="0" hasExit="0" hasMethod="0" FullPath="" DefaultChild="Off">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Off" id="17698" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment>Power off mode</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Initialize" id="17724" hasEntry="1" hasExit="0" hasMethod="" FullPath="" DefaultChild="">
+          <EntryComment>Power on/off WLAN</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Active" id="17737" hasEntry="0" hasExit="0" hasMethod="" FullPath="" DefaultChild="Idle">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="Idle" id="17753" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>Check if there is any previous connect request</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Searching" id="17766" hasEntry="0" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Connecting" id="17783" hasEntry="0" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="24977"	from="_Off"  to="_Initialize"  type="default"	hasCondition="0" hasAction="0">
+				<event>WLANSRV_IEVT_PowerOnOffReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="30810"	from="_Initialize"  to="_Initialize"  type="internal"	hasCondition="0" hasAction="1">
+				<event>CORESRV_EVT_BACKLIGHT_ON</event>
+				<event>MAE_EVT_WLAN_DELETE_FIFO_CNF</event>
+				<event>MAE_EVT_WLAN_DISCONNECT_CNF</event>
+				<event>MAE_EVT_WLAN_INIT_FIFO_CNF</event>
+				<event>MAE_EVT_WLAN_POWER_ONOFF_CNF</event>
+				<event>MAE_EVT_WLAN_SET_BTSTATUS_CNF</event>
+				<event>MAE_EVT_WLAN_SET_CONFIG_CNF</event>
+				<event>MAE_EVT_WLAN_STATUS_UPDATE_IND</event>
+				<condition></condition>
+				<action>Handle event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18571"	from="_Initialize"  to="_Active"  type="default"	hasCondition="0" hasAction="0">
+				<event>WLANSRV_IEVT_GotoActive</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="23626"	from="_Active"  to="_Initialize"  type="default"	hasCondition="0" hasAction="0">
+				<event>WLANSRV_IEVT_PowerOnOffReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9542"	from="_Initialize"  to="_Off"  type="default"	hasCondition="0" hasAction="0">
+				<event>WLANSRV_IEVT_GotoOff</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31497"	from="_Active_Idle"  to="_Active_Searching"  type="default"	hasCondition="0" hasAction="0">
+				<event>WLANSRV_IEVT_ScanReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="32680"	from="_Active_Searching"  to="_Active_Searching"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_WLAN_START_SCAN_CNF</event>
+				<event>MAE_EVT_WLAN_STOP_SCAN_CNF</event>
+				<condition></condition>
+				<action>Handle event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28978"	from="_Active_Searching"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_WLAN_SCAN_DONE_IND</event>
+				<event>WLANSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action>Handle event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="12227"	from="_Active_Idle"  to="_Active_Connecting"  type="default"	hasCondition="0" hasAction="0">
+				<event>WLANSRV_IEVT_ConnectReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8127"	from="_Active_Connecting"  to="_Active_Connecting"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_WLAN_CONNECT_CNF</event>
+				<event>MAE_EVT_WLAN_DISCONNECT_CNF</event>
+				<condition></condition>
+				<action>Handle connect confirm</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8918"	from="_Active"  to="_Active"  type="internal"	hasCondition="0" hasAction="1">
+				<event>BTOBEXSRV_EVT_RECV_STATUS_IND</event>
+				<event>BTOBEXSRV_EVT_SEND_STATUS_IND</event>
+				<event>BTSRV_EVT_A2dpStatusInd</event>
+				<event>BTSRV_EVT_AudioCallPktTypeInd</event>
+				<event>BTSRV_EVT_AudioLinkCnf</event>
+				<event>BTSRV_EVT_AudioLinkInd</event>
+				<event>BTSRV_EVT_InquiryCnf</event>
+				<event>BTSRV_EVT_InquiryReq</event>
+				<event>BTSRV_EVT_PairDoneInd</event>
+				<event>BTSRV_EVT_PairReq</event>
+				<event>BTSRV_EVT_PairReqInd</event>
+				<event>BTSRV_EVT_PowerOnOffCnf</event>
+				<event>CORESRV_EVT_BACKLIGHT_OFF</event>
+				<event>CORESRV_EVT_BACKLIGHT_ON</event>
+				<event>MAE_EVT_WLAN_SCAN_DONE_IND</event>
+				<event>MAE_EVT_WLAN_STATUS_UPDATE_IND</event>
+				<condition></condition>
+				<action>Handle event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14824"	from="_Active_Connecting"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>WLANSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15789"	from="_Off"  to="_Off"  type="internal"	hasCondition="0" hasAction="1">
+				<event>CORESRV_EVT_BACKLIGHT_ON</event>
+				<condition></condition>
+				<action>If the power saving mechanism is enabled, the backlight on will trigger the powering on sequence.</action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="PowerOnOffReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="GotoActive" type="internal">
+				<comment></comment>
+			</event>
+			<event name="GotoOff" type="internal">
+				<comment></comment>
+			</event>
+			<event name="PowerOnOffCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SearchInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SearchCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ConnectReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ConnectCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ScanReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="StartScanCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="StopScanCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ScanDoneInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="BackToIdle" type="internal">
+				<comment></comment>
+			</event>
+			<event name="StatusUpdateInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="DisconnectCnf" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="PowerOnOffReq" id="2267" RetType="MAE_Ret"	Param1="WLANSRV_PowerAction_e eAction" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetPowerOnOffStatus" id="12174" RetType="WLANSRV_PowerStatus_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="RegisterNotification" id="25259" RetType="MAE_Ret"	Param1="void *pInstance" Param2="WLANSRV_Notify_Mask_e eMask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="DeRegisterNotification" id="25429" RetType="MAE_Ret"	Param1="void *pInstance" Param2="WLANSRV_Notify_Mask_e eMask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetWLANAvailabilitySetting" id="10653" RetType="WLANSRV_ShowWLAN_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetScanNetworkSetting" id="14620" RetType="WLANSRV_ScanNetwork_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="SetWLANAvailability" id="11291" RetType="MAE_Ret"	Param1="WLANSRV_ShowWLAN_e eSetting" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="SetScanNetwork" id="11713" RetType="MAE_Ret"	Param1="WLANSRV_ScanNetwork_e eSetting" Param2="boolean bSmartTimer"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="ScanReq" id="21685" RetType="MAE_Ret"	Param1="WLANSRV_ScanAction_e eAction" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetConnectAPInfo" id="18451" RetType="WLANSRV_ConnectedAPInfo_t *"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetConnectStatus" id="5313" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetActiveMode" id="26980" RetType="WLANSRV_Mode_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="CheckIfEverConnected" id="31411" RetType="u8"	Param1="WLANSRV_DeviceInfo_t *pConnectDeviceInfo" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetAPKey" id="32528" RetType="u8 *"	Param1="u8 nIdx" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="ConnectReq" id="12358" RetType="MAE_Ret"	Param1="WLANSRV_ConnectAction_e eAction" Param2="WLANSRV_DeviceInfo_t *pDeviceInfo"	Param3="WLANSRV_StaticIP_t *pIPInfo" Param4="u8 *pKey"	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="SetFilterAP" id="2589" RetType="void"	Param1="u8 *pFilterBSSID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="CleanFilterAP" id="19020" RetType="void"	Param1="u8 *pFilterBSSID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="CheckIfEverFiltered" id="3050" RetType="boolean"	Param1="u8 *pFilterBSSID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetMACAddr" id="4060" RetType="u8*"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetScanAPList" id="9913" RetType="ABL_WiFiScanResultData_t *"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetAPIPInfo" id="25744" RetType="WLANSRV_StaticIP_t *"	Param1="u8 nIdx" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="AutoConnectReq" id="13402" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="ForcedConnectReq" id="32328" RetType="MAE_Ret"	Param1="WLANSRV_DeviceInfo_t *pDeviceInfo" Param2="WLANSRV_StaticIP_t *pIPInfo"	Param3="u8 *pKey" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="NeglectAirplaneMode" id="3390" RetType="void"	Param1="boolean bNeglect" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="IsNeglectAirplaneMode" id="20603" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="SetPowerSavingTimer" id="8348" RetType="MAE_Ret"	Param1="u32 u32Second" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetPowerSavingTimer" id="8420" RetType="u32"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

@@ -1,0 +1,321 @@
+/****************************************************************************/
+/*  $Workfile::   fms_flat_internal.ho                                    $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Flash Memory Services - Flat volumes management               */
+/*                                    Enhanced linear storage               */
+/*            Internal definitions and declarations.                        */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   0.5  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   kod    $         |     $Date::   16 Sep 2005 15:38:40 $     */
+/****************************************************************************
+ *   $Log:   U:/projet/gsm/pvcsarch/archives/fms/inc/fms_flat_internal.ho-arc  $
+ *
+ *   Rev 0.5   16 Sep 2005 15:38:40   kod
+ *Resolution for 30293: AD volume state says 'ready' when the volume is dirty
+ *Version v1a21.
+ *
+ *   Rev 0.4   24 Nov 2004 15:52:56   kod
+ *Resolution for 26275: Two allocations with undefined size are allowed
+ *Resolution for 26611: [FMS] Xmodem downloader needs some FMS modifications
+ *Version v1a18
+ *
+ *   Rev 0.3   18 Apr 2003 12:00:00   kod
+ *Fixed recompaction process.
+ *Fixed open cells allocations.
+ *Fixed power-loss recovery issues.
+ *Resolution for 9577: FMS' Applications&Data maintenance                           
+ *
+ *   Rev 0.2   08 Apr 2003 12:00:00   kod
+ *New fields for unique IDs management.
+ *Resolution for 9255: FMS' Applications&Data interface changes     
+ *
+ *   Rev 0.1   25 Feb 2003 11:44:32   kod
+ *Initial release for integration
+ ****************************************************************************/
+
+
+
+#ifndef _7928732d4555377e03731666abe2907e_FMS_FLAT_INTERNAL_HO
+#define _7928732d4555377e03731666abe2907e_FMS_FLAT_INTERNAL_HO
+
+/****************************************************************************/
+/* UTILITIES                                                                */
+/****************************************************************************/
+
+#define FMS_FLAT_NEXT_HEADERPTR(_X_) ((fms_FlatRecordHeader_t*)((u32)(_X_) + (_X_)->u32_CellSize))
+
+#define FMS_FLAT_BITPAIR_SET     3
+#define FMS_FLAT_BITPAIR_CLEAR   0
+
+/****************************************************************************/
+/*  INTERNAL PURPOSES STRUCTURES                                            */
+/****************************************************************************/
+
+/* XXX WARNING XXX
+ * Synchronise the following with fms_FlatRecordHeader_t
+ * if the latter ever changes */
+
+/* Structures used to modify record state
+ * with fewer stack space */
+
+
+typedef struct
+{
+   u32   b2_LinkState:2;
+   u32   b2_AllocState:2;
+   u32   b2_DeletionState:2;
+   u32   b2_UpdateState:2;
+} fms_FlatRecordStateBitmap_t;
+
+typedef struct
+{
+   u32 u32_CellSize;
+   u32 u32_Identifier;
+   u32 u32_DataSize;
+   fms_FlatRecordStateBitmap_t s_Status;
+} fms_FlatRecordHeaderDetailed_t;
+
+
+
+/****************************************************************************/
+/* STRUCTURES USED IN RECOMPACTION PROCESS                                  */
+/****************************************************************************/
+
+/* The following constant is used to "xor" the fields FirstRecOffset,
+ * and SrcOffset so that an actual zero offset is stored as a non-null
+ * value, whereas a null value means that the offset is irrelevant */
+#define FMS_FLAT_SCRAMBLER 0x800000
+
+typedef struct
+{
+   u32   b28_SrcOffset:28;
+   u32   b2_PackingFlag:2;
+   u32   b2_EraseSrcFlag:2;
+   u32   b28_HeadLength:28;
+   u32   b2_CopyBackFlag:2;
+   u32   b2_ReadyFlag:2;
+   u32   u32_FirstRecOffset;
+} fms_FlatJournalItem_t;
+
+/*
+ * Move operations' information structure
+ */
+
+typedef struct
+{
+   fms_FlatRecordHeader_t  *ps_Original;  /* Original record to copy */
+   fms_FlatRecordHeader_t  *ps_Target;    /* Final new location of the record */
+   u32                     u32_CellSize;  /* CellSize (output param) */
+   u32                     u32_DataSize;  /* DataSize (output param) */
+} fms_FlatMoveInfo_t;
+
+
+/*
+ * Journal execution states
+ */
+typedef enum
+{
+   FMS_FLAT_JOURNAL_SETUP,
+   FMS_FLAT_JOURNAL_IDLE,
+   FMS_FLAT_JOURNAL_PACKING,
+   FMS_FLAT_JOURNAL_ERASESOURCE,
+   FMS_FLAT_JOURNAL_COPYINGBACK,
+   FMS_FLAT_JOURNAL_READY,
+   FMS_FLAT_JOURNAL_COMPLETING,
+   FMS_FLAT_JOURNAL_OVER
+} fms_FlatJournalRunningState_e;
+
+
+/* 
+ * Journal construction and execution context descriptor 
+ */
+
+typedef struct
+{
+   fms_FlatVolumeDesc_t *ps_Volume;       /* Involved volume */
+
+   fms_FlatJournalItem_t *ps_Journal;     /* Journal in memory */
+
+   u32 u32_LowerBound;                    /* Lower bound of the sector
+                                             being scanned */
+   u32 u32_NextBound;                     /* Next sector */
+
+   u32 u32_SrcOffset;                     /* Info for next
+                                             journal item */
+   u32 u32_HeadLength;
+   u32 u32_FirstRecOffset;
+
+   u8  u8_CurrentJournalIndex;            /* Index of the current journal
+                                             item */
+
+   fms_FlatJournalRunningState_e e_State; /* State of the running process */
+
+} fms_FlatJournalCtx_t;
+
+/*
+ * The "info for next journal item" needs some explanation:
+ *
+ * The compaction of a sector has 2 phases:
+ * 1) The remaining trailing data, from a record too long to fit 
+ *    in a previous sector, is copied at the beginning of the current
+ *    sector.
+ *    If HeadLength is not null,
+ *    HeadLength bytes are copied from SrcOffset into the sector
+ *
+ * 2) The records are copied into the sector, until it's filled up.
+ *    The first copied record's address is FirstRecOffset
+ *    If FirstRecOffset is null, no record is copied.
+ *
+ */
+
+
+/* State of the journal,
+ * tracking the use of the spare sector */
+typedef struct
+{
+   u32   u32_SpareSector;
+   u32   u32_JournalAddress;
+   bool  b_Initialised;
+   u8    u8_State;
+   bool  b_JournalErased;
+} fms_FlatCompactionState_t;
+
+#define FMS_FLAT_JOURNAL_E2PCTX_IDLE      0
+#define FMS_FLAT_JOURNAL_E2PCTX_WRITING   1
+#define FMS_FLAT_JOURNAL_E2PCTX_RUNNING   2
+#define FMS_FLAT_JOURNAL_E2PCTX_COPYBACK  3
+#define FMS_FLAT_JOURNAL_E2PCTX_WIPING    4
+
+/****************************************************************************/
+/*   INTERNAL PURPOSE FUNCTIONS                                             */
+/****************************************************************************/
+/****************************************************************************/
+/*  UTILITIES FOR COMPACTION PROCESSES                                      */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/*  Function: fms_FlatCreateJournal                                         */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Creates a compaction journal in flash.                        */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : void                                                        */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Volume      | X |   |   |  Volume descriptor to use               */
+/*  i__ps_Data        | X |   |   |  Data to dump                           */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+void fms_FlatCreateJournal(fms_FlatVolumeDesc_t *i__ps_Volume, void *i__ps_Data);
+
+/****************************************************************************/
+/*  Function:  fms_FlatQueryForMoveRecord                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Computes the fields CellSize and DataSize of the supplied    */
+/*             move information structure. The fields Original and Target   */
+/*             must be filled par the caller.                               */
+/*             The function computes the cell size of the target record.    */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Query      | X | X |   |  Input/output parameters                */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatQueryForMoveRecord(fms_FlatMoveInfo_t *io__ps_Query);
+
+
+/****************************************************************************/
+/*  Function: fms_FlatMoveRecord                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Creates a copy of the supplied record header                  */
+/*            Calls fms_FlatQueryForMoveRecord to fill the info structure.  */
+/*            Used in compaction process.                                   */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Query      | X | X |   |  Input/output parameters                */
+/*  i__s32_SpareOffset| X |   |   |  Offset from final target to spare      */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatMoveRecord(fms_FlatMoveInfo_t *io__ps_Query, s32 i__s32_SpareOffset);
+
+
+/****************************************************************************/
+/*  INITIALISATION                                                          */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: fms_FlatVolumeInitStats                                       */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Sets up the statistic data about a flat volume:               */
+/*                 DeletedSpace                                             */
+/*                 FreeRec                                                  */
+/*                 State -> IDLE, PACKETWRITING or DIRTY                    */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Volume     | X |   |   |  Volume descriptor to use               */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_FlatVolumeInitStats(fms_FlatVolumeDesc_t *io__ps_Volume);
+
+/****************************************************************************/
+/*  Function: fms_FlatJournalRecover                                        */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Updates the information in the supplied volume descriptor     */
+/*            in order to resume an interrupted recompaction.               */
+/*                                                                          */
+/*  Return    : void                                                        */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Volume     | X | X |   |  Volume descriptor                      */
+/*                    |   |   |   |                                         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+void fms_FlatJournalRecover(fms_FlatVolumeDesc_t *io__ps_Volume);
+
+
+/** 
+ * @brief Checks the integrity of the free space in a volume
+ *
+ * The function checks that all the data in [DataEnd;VolumeEnd[
+ * are equal to FF. This ensures that the free space in a volume 
+ * is actually erased and can safely be used for cell allocations.
+ * 
+ * @param i_u32_EndOfData End of the occupied space in a volume
+ * @param i_u32_EndOfVolume End of the volume
+ * 
+ * @warning i_u32_EndOfData must be dividable by 4
+ * @warning i_u32_EndOfVolume must be dividable by 16
+ * 
+ * @return TRUE if all the free space is set to FF
+ */
+bool fms_FlatFastCheckTail(u32 i_u32_EndOfData, u32 i_u32_EndOfVolume);
+
+#endif /* ! _7928732d4555377e03731666abe2907e_FMS_FLAT_INTERNAL_HO  */

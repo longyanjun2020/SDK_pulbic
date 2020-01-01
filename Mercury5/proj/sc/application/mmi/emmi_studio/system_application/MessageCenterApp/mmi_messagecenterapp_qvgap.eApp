@@ -1,0 +1,309 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="MCA_WND_MAINMENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget3" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NUMERIC" />
+				<InternProp Id="GUID" Value="2527d" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="d776ca89-af53-4d0e-9f66-796acdc1485d" />
+		</Widget>
+		<InternProp Id="GUID" Value="e02229a7-e236-4ca3-857a-51bdc1b63b53" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmMainMenuWdg" />
+	</Layout>
+	<Layout Id="MCA_WND_NEWMSGMENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="AbsContainerControl2" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget2" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NUMERIC" />
+				<InternProp Id="GUID" Value="b90e8" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MSG_MCA_SMS" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_SMS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MSG_MCA_MMS" />
+						<Struct>
+							<Image Id="IMG_NULL_ID" />
+							<String Id="TXT_LIL_N_MMS" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="71dde316-c4cc-4550-8129-c8c18d4aea72" />
+		</Widget>
+		<InternProp Id="GUID" Value="55d5814e-a992-45c8-942e-5a94f89a39a7" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmNewMsgMenuWdg" />
+	</Layout>
+	<Layout Id="MCA_WND_LISTMENU" ClsID="CLSID_VTMTABMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMTABMENU" FileLocation="CLSID_VTMTABMENU">
+		<Widget Id="AbsContainerControl4" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="tabmenu_widget" ClsID="CLSID_TABMENU_WIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_TABMENU_WIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="90e07" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="SMS_IMG_TAB_INBOX" />
+						<String Id="TXT_NULL_ID" />
+						<Binary Value="WDG_MENU_TYPE_NORMAL" />
+						<Binary Value="WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT" />
+						<Binary Value="WDG_MENU_CHECK_STYLE_NONE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+					<ModelItem>
+						<Image Id="0" />
+						<String Id="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="229c825c-a43f-4ff1-aa80-81c0ddb11f0b" />
+		</Widget>
+		<InternProp Id="GUID" Value="8eed8e5b-d865-495b-848f-7060b0c03d09" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmOneSimTabWdg" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_SIM_MESSAGE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="MCA_WND_SETTINGMENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="AbsContainerControl6" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget1" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<InternProp Id="GUID" Value="27420" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MSG_SET_SMS" />
+						<Struct />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="TXT_NULL_ID" />
+						<SoftKey Type="0" Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DEFAULT_SK" />
+						<Struct />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="TXT_LIL_N_MMS" />
+						<SoftKey Type="0" Value="TXT_NULL_ID" />
+						<SoftKey Type="0" Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DEFAULT_SK" />
+						<Struct />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MNU_MSG_SET_CELL_BROADCAST" />
+						<SoftKey Type="0" Value="TXT_LIL_N_CELL_BROADCAST" />
+						<SoftKey Type="0" Value="TXT_NULL_ID" />
+						<SoftKey Type="0" Value="MENUMODEL_ITEM_VISABLE" />
+						<Binary Value="DEFAULT_SK" />
+						<Struct />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="0de40213-8e51-48b3-a0be-c252d8a7c0b6" />
+		</Widget>
+		<InternProp Id="GUID" Value="07d9a86d-2697-4689-a2d8-f9774b8a8fd5" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmSettingMenuWdg" />
+	</Layout>
+	<Layout Id="MCA_WND_MEMSTATUS" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="MemViewportWdg" ClsID="CLSID_VIEWPORTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="7f9ed49c-da94-4f4c-ae35-198a6e27ea8e" />
+				<Property Id="PROP_VIEWPORT_WDG_PANSTEP" Value="10" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+			</Widget>
+			<Widget Id="PhoneMsgSmsTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="bdddb3b6-defe-47a5-b026-7fc3c8688e2a" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_SMS_PHONE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PhoneMsgMmsTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="a86748bf-7e13-426a-b587-9ea912233f03" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_MMS_PHONE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PhoneMsgCBTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="7d70974d-b8c7-44ba-87e4-bde7966871ca" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_CB_PHONE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PhoneMsgWAPTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="3c7a343a-7c16-4f8f-ae0c-fb003aab387e" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_WAP_PUSH_PHONE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SimMsgTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="975b45d2-1dc6-4fdb-9a57-039748b92c7c" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_SIM_MESSAGE_MEMORY" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SimMsgSingleTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="3fd31c95-def1-4ea2-b01e-3b7093eef400" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LTL_N_SMS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SimMsgMasterTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="15944b79-4520-4501-9f44-ab0669469742" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_SMS_MASTER_SIM" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SimMsgSlaveTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="02b4b979-2bde-45a3-b924-687e10492e52" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_SMS_SLAVE_SIM" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MobileMemTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="4ad3720f-ce81-490b-82e4-c15f2f139979" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_PHONE_MEMORY" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MobileUsedTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="84a548e5-2b76-47af-bfd4-5d535a6ce12e" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_USED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MobileAvailableTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="771f0958-83a7-4306-9786-08210357a173" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_AVAILABLE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MobileTotalTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="61a97b7b-bdcf-4cd4-b895-47ac96c7cccb" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_TOTAL" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="c2cd4dc1-5ce7-45c6-a3e9-e3fcbf04f68c" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_MEMORY_STATUS&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLOSE" />
+	</Layout>
+	<Layout Id="MCA_WND_DUALSIMMENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="AbsContainerControl8" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="b6490" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="6822a079-5c03-456b-87da-9b4ba9eba47b" />
+		</Widget>
+		<InternProp Id="GUID" Value="45f04eb4-a81e-4949-9006-20a34e4f0781" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmLoadDualSimMenu" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_MCA" />
+</UiRoot>

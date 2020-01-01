@@ -1,0 +1,101 @@
+/****************************************************************************/
+/*  $Workfile::   fms.hi                                                  $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services - Public interface                     */
+/*                                                                          */
+/*  Contents:  Includes fms_e2p.hi     -> EEPROM                            */
+/*                      fms_bin.hi     -> Binaries management               */
+/*                      fms_rai.h      -> Random Access Items               */
+/*                      fms_ad.hi      -> Applications&Data                 */
+/****************************************************************************/
+
+
+
+#ifndef __FMS_HI__
+#define __FMS_HI__
+
+/* Error codes */
+
+#define FMS_OK             0
+#define FMS_DELAYED        0x1   /* Returned by fms_XXX_Erase when erasure is suspended */
+
+#define FMS_BAD            0xFFFFFFFF
+#define FMS_UNDEFINED      0xFFFFFFFF
+
+#define FMS_BAD_ARGS       0xFFFFFFFE
+#define FMS_BAD_FUNCTION   0xFFFFFFFD
+#define FMS_FORBIDDEN      0xFFFFFFFC
+#define FMS_HW_ERROR       0xFFFFFFFB
+#define FMS_SEQUENCE_ERROR 0xFFFFFFFA
+#define FMS_OVERFLOW       0xFFFFFFF9
+#define FMS_CMD_FAILED     0xFFFFFFF8
+#define FMS_TIMEOUT        0xFFFFFFF7
+#define FMS_REACHED_END    0xFFFFFFF6
+#define FMS_NOT_AVAILABLE  0xFFFFFFF5
+#define FMS_DAMAGED        0xFFFFFFF4
+#define FMS_CLEANING_REQD  0xFFFFFFF3
+#define FMS_CMD_FAILED2    0xFFFFFFF2
+#define FMS_NO_CHANGE      0xFFFFFFF1 // no change when trying to change an eeprom parameter
+
+/*
+ * EEPROM simulation
+ *
+ * fms_E2pRead
+ * fms_E2pReadMirror
+ * fms_E2pWrite
+ * fms_E2pBuildWmMirror
+ * fms_E2pBuildCustomMirror
+ * fms_E2pRestoreWavecomMirror
+ * fms_E2pSaveParameters
+ * fms_E2pSaveOneParameter
+ * fms_E2pAddParamToContainer
+ * fms_E2pSetProtection
+ * fms_E2pUnsetProtection
+ */
+#include "fms_e2p.hi"
+
+/*
+ * Binary information
+ *
+ * fms_BinGetOrigin
+ * fms_BinGetSize
+ * fms_BinGetChecksum
+ * fms_BinDestroy
+ */
+#include "fms_bin.hi"
+
+
+/*
+ * Random Access Items
+ * fms_rai_read
+ * fms_rai_write
+ * fms_rai_delete
+ * fms_rai_info
+ * fms_rai_find_init
+ * fms_rai_find_next
+ * fms_rai_stats
+ * fms_rai_gc_init
+ * fms_rai_gc
+ */
+#include "fms_rai.h"
+
+/*
+ * Applications&Data
+ *
+ * fms_AdAllocate
+ * fms_AdWrite
+ * fms_AdResume
+ * fms_AdFinalise
+ * fms_AdFindInit
+ * fms_AdFindNext
+ * fms_AdInfo
+ * fms_AdStats
+ * fms_AdDelete
+ * fms_AdFormat
+ * fms_AdRecompactInit
+ * fms_AdRecompact
+ */
+#include "fms_ad.hi"
+
+
+#endif /* ! __FMS_HI__   */

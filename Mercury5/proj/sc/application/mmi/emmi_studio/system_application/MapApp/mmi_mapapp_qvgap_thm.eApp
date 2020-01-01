@@ -1,0 +1,1001 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="MAP_WND_SELECT_CARD" ClsID="CLSID_VTMSIMSELECTION" LayoutType="VT_NORMAL" InheritID="CLSID_VTMSIMSELECTION" FileLocation="CLSID_VTMSIMSELECTION">
+		<Widget Id="abscontainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="44f84" />
+				<InternProp Id="VtmWidgetName" Value="menuwidget" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="5e4eb" />
+		</Widget>
+		<InternProp Id="GUID" Value="d296fbeb-6005-464e-a6f1-085b595c30ea" />
+		<InternProp Id="LAYOUT_POS_X" Value="761" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmSimSelect" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_TTL_N_SIM&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_LOGO" ClsID="CLSID_VTMIMG" LayoutType="VT_NORMAL" InheritID="CLSID_VTMIMG" FileLocation="CLSID_VTMIMG">
+		<Widget Id="abscontainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="imagewidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="a090d" />
+				<InternProp Id="VtmWidgetName" Value="imagewidget" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="MAPVIEW_IMG_POWER_ON" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="b9d71" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmImgLogo" />
+		<InternProp Id="GUID" Value="42711" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_OPTION_MY_FAVORITE" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget3" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="c09b8" />
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget3" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_VIEWONMAP" />
+						<String Id="TXT_LIL_N_MAP_VIEWONMAP" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_EDIT" />
+						<String Id="TXT_LIL_N_MAP_EDIT" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_MARK" />
+						<String Id="TXT_LIL_N_MAP_MARK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_MARKALL" />
+						<String Id="TXT_LIL_N_MAP_MARKALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_UNMARK" />
+						<String Id="TXT_LIL_N_MAP_UNMARK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_UNMARKALL" />
+						<String Id="TXT_LIL_N_MAP_UNMARKALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_DELETE" />
+						<String Id="TXT_LIL_N_MAP_DELETE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_POI" />
+						<String Id="TXT_LIL_N_MAP_POI" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_OPT_MYLOCATION" />
+						<String Id="TXT_LIL_N_MAP_MYLOCATION" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="19fec" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmMyFavorite" />
+		<InternProp Id="GUID" Value="2f095" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_OPTION_MAPVIEW" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget2" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="89b3f" />
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget2" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_CALL" />
+						<String Id="TXT_LIL_N_MAP_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_IP_CALL" />
+						<String Id="TXT_LIL_N_MAP_IP_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_VIEW" />
+						<String Id="TXT_LIL_N_MAP_VIEW" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_LBS" />
+						<String Id="TXT_LIL_N_MAP_LBS" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_POI_NEARBY" />
+						<String Id="TXT_LIL_N_MAP_POINEARBY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_SEARCH_POI" />
+						<String Id="TXT_LIL_N_MAP_SEARCHPOI" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_HISTORY" />
+						<String Id="TXT_LIL_N_MAP_HISTORY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_MY_FAVORITE" />
+						<String Id="TXT_LIL_N_MAP_MYFAVORITE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_ADDTOFAVORITE" />
+						<String Id="TXT_LIL_N_MAP_ADDTOFAVORITE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_SEND" />
+						<String Id="TXT_LIL_N_MAP_SEND" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_WHERE_AM_I" />
+						<String Id="TXT_LIL_N_MAP_WHEREAMI" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_MAPAPP_SETTINGS" />
+						<String Id="TXT_LIL_N_MAP_SETTING" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="83601" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<InternProp Id="VtmId" Value="vtmMapView" />
+		<InternProp Id="GUID" Value="d8700" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_KEYWORD_INPUT" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget11" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="1f22f" />
+				<InternProp Id="VtmWidgetName" Value="optionmenuwidget11" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_COMMON_TEXT_SAVE" />
+						<String Id="TXT_LSK_N_OK" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_COMMON_TEXT_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+			<InternProp Id="GUID" Value="9d470" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="1013" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmKeyword" />
+		<InternProp Id="GUID" Value="154ec" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_DATALIST" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer111" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="DataListMenu" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<InternProp Id="GUID" Value="267b5" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="ed63d" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="761" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_LOCATION&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="7ea37" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_MULTI_FIELD_INPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer11" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="FieldMenu" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGETEXT_SPACETEXT" />
+				<InternProp Id="GUID" Value="baa37" />
+			</Widget>
+			<InternProp Id="GUID" Value="e6c33" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_LOCATION&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="b66e2" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_THUMB_POI" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ThumbImgGrid" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_BG_COLOR" Value="RGBCOLOR_BLACK" />
+				<Property Id="PROP_PADDING_LEFT" Value="MAIN_THUMBNAIL_LEFT_PADDING" />
+				<Property Id="PROP_PADDING_RIGHT" Value="MAIN_THUMBNAIL_RIGHT_PADDING" />
+				<Property Id="PROP_PADDING_TOP" Value="MAIN_THUMBNAIL_TOP_PADDING" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="MAIN_THUMBNAIL_BOTTOM_PADDING" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<InternProp Id="GUID" Value="8286a" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="MAIN_THUMBNAIL_ITEM_ROW_GAP" />
+				<Property Id="PROP_WDG_COL_GAP" Value="MAIN_THUMBNAIL_ITEM_COL_GAP" />
+				<Model ClsID="CLSID_GRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_BEIJING" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_BEIJING" />
+							<String Id="TXT_LIL_N_DISTRICT_BEIJING" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_TIANJIN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_TIANJIN" />
+							<String Id="TXT_LIL_N_DISTRICT_TIANJIN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HEBEI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_HEBEI" />
+							<String Id="TXT_LIL_N_DISTRICT_HEBEI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SHANXI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_SHANXI" />
+							<String Id="TXT_LIL_N_DISTRICT_SHANXI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_NEIMONGOL" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_INNER_MONGOLIA" />
+							<String Id="TXT_LIL_N_DISTRICT_NEIMONGOL" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_LIAONING" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_LIAONING" />
+							<String Id="TXT_LIL_N_DISTRICT_LIAONING" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_JILIN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_JILIN" />
+							<String Id="TXT_LIL_N_DISTRICT_JILIN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HEILONGJIANG" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_HEILONGJIANG" />
+							<String Id="TXT_LIL_N_DISTRICT_HEILONGJIANG" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SHANGHAI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_SHANGHAI" />
+							<String Id="TXT_LIL_N_DISTRICT_SHANGHAI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_JIANGSU" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_JIANGSU" />
+							<String Id="TXT_LIL_N_DISTRICT_JIANGSU" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_ZHEJIANG" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_ZHEJIANG" />
+							<String Id="TXT_LIL_N_DISTRICT_ZHEJIANG" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_ANHUI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_ANHUI" />
+							<String Id="TXT_LIL_N_DISTRICT_ANHUI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_FUJIAN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_FUJIAN" />
+							<String Id="TXT_LIL_N_DISTRICT_FUJIAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_JIANGXI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_JIANGXI" />
+							<String Id="TXT_LIL_N_DISTRICT_JIANGXI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SHANDONG" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_SHANDONG" />
+							<String Id="TXT_LIL_N_DISTRICT_SHANDONG" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HENAN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_HENAN" />
+							<String Id="TXT_LIL_N_DISTRICT_HENAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HUBEI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_HUBEI" />
+							<String Id="TXT_LIL_N_DISTRICT_HUBEI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HUNAN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_HUNAN_BRANCH" />
+							<String Id="TXT_LIL_N_DISTRICT_HUNAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_GUANGDONG" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_GUANGDONG" />
+							<String Id="TXT_LIL_N_DISTRICT_GUANGDONG" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_GUANGXI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_GUANGXI" />
+							<String Id="TXT_LIL_N_DISTRICT_GUANGXI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HAINAN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_HAINAN" />
+							<String Id="TXT_LIL_N_DISTRICT_HAINAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_CHONGQING" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_CHONGQING" />
+							<String Id="TXT_LIL_N_DISTRICT_CHONGQING" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SICHUAN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_SICHUAN" />
+							<String Id="TXT_LIL_N_DISTRICT_SICHUAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_GUIZHOU" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_GUIZHOU" />
+							<String Id="TXT_LIL_N_DISTRICT_GUIZHOU" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_YUNNAN" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_YUNNAN" />
+							<String Id="TXT_LIL_N_DISTRICT_YUNNAN" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_TIBET" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_TIBET" />
+							<String Id="TXT_LIL_N_DISTRICT_TIBET" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SHAANXI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_SHAANXI" />
+							<String Id="TXT_LIL_N_DISTRICT_SHAANXI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_GANSU" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_GANS" />
+							<String Id="TXT_LIL_N_DISTRICT_GANSU" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_QINGHAI" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_QINGHAI" />
+							<String Id="TXT_LIL_N_DISTRICT_QINGHAI" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_NINGXIA" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_NINGXIA" />
+							<String Id="TXT_LIL_N_DISTRICT_NINGXIA" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_XINJIANG" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_XINJIANG" />
+							<String Id="TXT_LIL_N_DISTRICT_XINJIANG" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HONGKONG" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_HONG_KONG" />
+							<String Id="TXT_LIL_N_DISTRICT_HONGKONG" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_MACAU" />
+						<Struct>
+							<Image Id="MAPVIEW_IMG_AREA_MACAO" />
+							<String Id="TXT_LIL_N_DISTRICT_MACAU" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="e4be9" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="08500" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="MAP_WND_MAPVIEW" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="OptionMenuWidgetControl" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="03fbc" />
+				<InternProp Id="VtmWidgetName" Value="OptionMenuWidgetControl" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_CALL" />
+						<String Id="MAPVIEW_IMG_OPTIONS_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_IP_CALL" />
+						<String Id="MAPVIEW_IMG_OPTIONS_IP_CALL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_VIEW" />
+						<String Id="MAPVIEW_IMG_OPTIONS_VIEW_DETAIL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_LBS" />
+						<String Id="MAPVIEW_IMG_OPTIONS_SERVICE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_POI_NEARBY" />
+						<String Id="MAPVIEW_IMG_OPTIONS_POI_NEARBY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SEARCH_POI" />
+						<String Id="MAPVIEW_IMG_OPTIONS_SEARCH_POI" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SEARCH_LIST" />
+						<String Id="MAPVIEW_IMG_OPTIONS_SEARCH_LIST" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_HISTORY" />
+						<String Id="MAPVIEW_IMG_OPTIONS_HISTORY" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_MY_FAVORITE" />
+						<String Id="MAPVIEW_IMG_OPTIONS_MY_FAVORITE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_ADDTOFAVORITE" />
+						<String Id="MAPVIEW_IMG_OPTIONS_ADD_FAVORITE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SEND" />
+						<String Id="MAPVIEW_IMG_OPTIONS_SEND" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_WHERE_AM_I" />
+						<String Id="MAPVIEW_IMG_OPTIONS_MY_LOCATION" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_SETTINGS" />
+						<String Id="MAPVIEW_IMG_OPTIONS_SETTINGS" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="MNU_MAPAPP_ABOUT" />
+						<String Id="MAPVIEW_IMG_OPTIONS_ABOUT" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Widget Id="ImgTitleBar" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAPVIEW_TITLE_BAR_HEIGHT" SizeWidth="MAPVIEW_TITLE_BAR_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_TITLE_BAR_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_TITLE_BAR_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="9bb67" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LIST_TITLE_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextTitleBar" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAPVIEW_TITLE_BAR_HEIGHT" SizeWidth="MAPVIEW_TITLE_BAR_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_TITLE_BAR_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_TITLE_BAR_Y" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_OUTLINE" />
+				<Property Id="PROP_WDG_TEXT_OUTLINE_COLOR" Value="CALENDAR_COLOR_HIGHLIGHT_BORDER" />
+				<InternProp Id="GUID" Value="a7f66" />
+			</Widget>
+			<Widget Id="ImgCenterFocus" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAPVIEW_ICON_CENTER_FOCUS_HEIGHT" SizeWidth="MAPVIEW_ICON_CENTER_FOCUS_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_CENTER_FOCUS_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_CENTER_FOCUS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="19636" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MAPVIEW_IMG_MAP_CENTER" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ImgZoom" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAPVIEW_ICON_ZOOM_HEIGHT" SizeWidth="MAPVIEW_ICON_ZOOM_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_ZOOM_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_ZOOM_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="8e248" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MAPVIEW_IMG_ZOOM_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ImgZoomStatus" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAPVIEW_ICON_ZOOM_STATUS_HEIGHT" SizeWidth="MAPVIEW_ICON_ZOOM_STATUS_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_ZOOM_STATUS_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_ZOOM_STATUS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="bd1cf" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MAPVIEW_IMG_ZOOM_STATUS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZoomIn" ClsID="CLSID_BUTTONWIDGET" SizeHeight="MAPVIEW_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="MAPVIEW_ICON_ZOOM_PRESS_UNPRESS_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_ZOOM_IN_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_ZOOM_IN_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="a58ce" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ZoomOut" ClsID="CLSID_BUTTONWIDGET" SizeHeight="MAPVIEW_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="MAPVIEW_ICON_ZOOM_PRESS_UNPRESS_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_ZOOM_OUT_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_ZOOM_OUT_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="8c2e5" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="Settings" ClsID="CLSID_MENUWIDGET" SizeHeight="MAPVIEW_SETTING_MENU_HEIGHT" SizeWidth="MAPVIEW_SETTING_MENU_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_SETTING_MENU_X_POS" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_SETTING_MENU_Y_POS" />
+				<Property Id="PROP_MENU_WDG_BG_IMAGE_ID" Value="MAPVIEW_IMG_OPTIONS_BG" />
+				<InternProp Id="GUID" Value="0b0ad" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Widget Id="ImgNotice" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAPVIEW_FOCUS_MODE_TEXT_HEIGHT" SizeWidth="MAPVIEW_FOCUS_MODE_TEXT_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_FOCUS_MODE_TEXT_BG_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_FOCUS_MODE_TEXT_BG_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="488bc" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="MAPVIEW_IMG_NOTICE_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="FocusMode" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAPVIEW_FOCUS_MODE_TEXT_HEIGHT" SizeWidth="MAPVIEW_FOCUS_MODE_TEXT_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_FOCUS_MODE_TEXT_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_FOCUS_MODE_TEXT_Y" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="CALENDAR_COLOR_DAY_TEXT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="FONT_CAT_SUPERSMALL" />
+				<InternProp Id="GUID" Value="a9267" />
+			</Widget>
+			<Widget Id="PrevMode" ClsID="CLSID_BUTTONWIDGET" SizeHeight="MAPVIEW_SWITCH_BUTTON_HEIGHT" SizeWidth="MAPVIEW_SWITCH_BUTTON_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_SWITCH_PREVIOUS_BUTTON_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_SWITCH_PREVIOUS_BUTTON_Y" />
+				<InternProp Id="GUID" Value="85bef" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="NextMode" ClsID="CLSID_BUTTONWIDGET" SizeHeight="MAPVIEW_SWITCH_BUTTON_HEIGHT" SizeWidth="MAPVIEW_SWITCH_BUTTON_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_SWITCH_NEXT_BUTTON_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_SWITCH_NEXT_BUTTON_Y" />
+				<InternProp Id="GUID" Value="16ec9" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="LeftArrow" ClsID="CLSID_BUTTONWIDGET" SizeHeight="MAPVIEW_ICON_SERVICE_LEFT_ARROW_HEIGHT" SizeWidth="MAPVIEW_ICON_SERVICE_LEFT_ARROW_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_SERVICE_LEFT_ARROW_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_SERVICE_LEFT_ARROW_Y" />
+				<InternProp Id="GUID" Value="1b43e" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="RightArrow" ClsID="CLSID_BUTTONWIDGET" SizeHeight="MAPVIEW_ICON_SERVICE_RIGHT_ARROW_HEIGHT" SizeWidth="MAPVIEW_ICON_SERVICE_RIGHT_ARROW_WIDTH" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="MAPVIEW_POS_SERVICE_RIGHT_ARROW_X" />
+				<Position Type="Y_POSITION" Value="MAPVIEW_POS_SERVICE_RIGHT_ARROW_Y" />
+				<InternProp Id="GUID" Value="d1d61" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="f2005" />
+		</Widget>
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="GUID" Value="a05cb" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="vtmOptionSetting" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_MAPAPP" />
+</UiRoot>

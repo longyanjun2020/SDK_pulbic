@@ -1,0 +1,298 @@
+<XFSM>
+	<header>
+		<Category>Application</Category>
+		<XFSMVer>001</XFSMVer>
+	</header>
+	<data>
+		<application>
+			<info>
+				<name>sssrv</name>
+				<version>1200</version>
+				<FileType>MMI</FileType>
+				<ApplicationType>Service</ApplicationType>
+				<LogLevelName>MMI_LEVEL_SS</LogLevelName>
+				<HasFSM>1</HasFSM>
+			</info>
+			<modetree>
+				<noderoot name="SsSrv" id="30679" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+					<EntryComment></EntryComment>
+					<ExitComment></ExitComment>
+					<node name="Init" id="25626" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+						<EntryComment>Initialization</EntryComment>
+						<ExitComment></ExitComment>
+					</node>
+					<node name="Active" id="27900" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Idle">
+						<EntryComment></EntryComment>
+						<ExitComment></ExitComment>
+						<node name="Idle" id="9698" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Entry</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="CallBarring" id="10649" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send call barring request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="CallDivert" id="7471" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send call divert request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="CallWaiting" id="11856" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send call waiting request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="UserGroup" id="32524" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send user group request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="AoC" id="9921" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send Aoc request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="ACM" id="22417" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send ACM request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="AMM" id="3279" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send AMM request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="PUC" id="4598" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send APUC request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="USSD" id="26907" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send USSD request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="BarringPwdChange" id="8787" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send change barring password request</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+						<node name="LineIdentity" id="22546" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+							<EntryComment>Send caller identity related request.</EntryComment>
+							<ExitComment></ExitComment>
+						</node>
+					</node>
+				</noderoot>
+			</modetree>
+			<transitionlist>
+				<transition enable="1" id="627" from="_Init" to="_Active_Idle" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_IEVT_Initial_Done</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="30236" from="_Active_Idle" to="_Active_Idle" type="Internal" hasCondition="0" hasAction="1">
+					<event>SSSRV_EVT_CheckWaitingQueue</event>
+					<condition></condition>
+					<action>if Waiting Queue is not empty get first item to process.</action>
+				</transition>
+				<transition enable="1" id="1632" from="_Active" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>SSSRV_IEVT_ActionCancel</event>
+					<condition></condition>
+					<action>Return to Idle Mode</action>
+				</transition>
+				<transition enable="1" id="29543" from="_Active" to="_Active" type="Internal" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_USSD_NOT</event>
+					<condition></condition>
+					<action>Start USSD AP to show notice form network.</action>
+				</transition>
+				<transition enable="1" id="18814" from="_Active" to="_Active" type="Internal" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_USSD_IND</event>
+					<condition></condition>
+					<action>Start USSD AP to show notice form network.</action>
+				</transition>
+				<transition enable="1" id="29668" from="_Active_Idle" to="_Active_CallBarring" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_CBXReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="24399" from="_Active_CallBarring" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_CBX_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_CBXCnf</action>
+				</transition>
+				<transition enable="1" id="8612" from="_Active_Idle" to="_Active_CallDivert" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_CFXReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="5804" from="_Active_CallDivert" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_CFX_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_CFXCnf</action>
+				</transition>
+				<transition enable="1" id="11614" from="_Active_Idle" to="_Active_CallWaiting" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_CWXReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="4067" from="_Active_CallWaiting" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_CWX_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_CWXCnf</action>
+				</transition>
+				<transition enable="1" id="10480" from="_Active_Idle" to="_Active_USSD" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_USSDReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="26094" from="_Active_USSD" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_USSD_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_USSDCnf</action>
+				</transition>
+				<transition enable="1" id="8742" from="_Active_USSD" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_USSD_IND</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_USSDInd</action>
+				</transition>
+				<transition enable="1" id="30522" from="_Active_USSD" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_USSD_ERR</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_USSDErr</action>
+				</transition>
+				<transition enable="1" id="21103" from="_Active" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>SSSRV_EVT_USSDRel</event>
+					<condition></condition>
+					<action>Send USSD cancel request to RIL </action>
+				</transition>
+				<transition enable="1" id="3335" from="_Active_Idle" to="_Active_BarringPwdChange" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_PWDReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="28930" from="_Active_BarringPwdChange" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_PWD_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_PWDCnf</action>
+				</transition>
+				<transition enable="1" id="18917" from="_Active_Idle" to="_Active_UserGroup" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_SetCUGReq</event>
+					<event>SSSRV_EVT_QueCUGReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="6633" from="_Active_UserGroup" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_SET_CUG_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_SetCUGCnf</action>
+				</transition>
+				<transition enable="1" id="15972" from="_Active_UserGroup" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_QUE_CUG_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_QueCUGCnf</action>
+				</transition>
+				<transition enable="1" id="23969" from="_Active_Idle" to="_Active_AoC" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_SetAOCReq</event>
+					<event>SSSRV_EVT_QueAOCReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="18619" from="_Active_AoC" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_SET_AOC_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_SetAOCCnf</action>
+				</transition>
+				<transition enable="1" id="26586" from="_Active_AoC" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_QUE_AOC_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_QueAOCCnf</action>
+				</transition>
+				<transition enable="1" id="4075" from="_Active_Idle" to="_Active_ACM" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_ACMReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="14375" from="_Active_ACM" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_ACM_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_ACMCnf</action>
+				</transition>
+				<transition enable="1" id="16474" from="_Active_Idle" to="_Active_AMM" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_AMMReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="27321" from="_Active_AMM" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_AMM_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_AMMCnf</action>
+				</transition>
+				<transition enable="1" id="17002" from="_Active_Idle" to="_Active_PUC" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_PUCReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="14376" from="_Active_PUC" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_PUC_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_PUCCnf</action>
+				</transition>
+				<transition enable="1" id="28922" from="_Active_Idle" to="_Active_LineIdentity" type="Default" hasCondition="0" hasAction="0">
+					<event>SSSRV_EVT_CLXReq</event>
+					<condition></condition>
+					<action></action>
+				</transition>
+				<transition enable="1" id="12906" from="_Active_LineIdentity" to="_Active_Idle" type="Default" hasCondition="0" hasAction="1">
+					<event>MAE_EVT_SS_CLX_CNF</event>
+					<condition></condition>
+					<action>Post SSSRV_EVT_CLX_CNF</action>
+				</transition>
+			</transitionlist>
+			<eventlist>
+				<event name="Initial_Done" type="internal"></event>
+				<event name="ActionCancel" type="internal"></event>
+				<event name="CFXReq" type="external"></event>
+				<event name="CFXCnf" type="external"></event>
+				<event name="CBXReq" type="external"></event>
+				<event name="CBXCnf" type="external"></event>
+				<event name="CWXReq" type="external"></event>
+				<event name="CWXCnf" type="external"></event>
+				<event name="CLXReq" type="external"></event>
+				<event name="CLXCnf" type="external"></event>
+				<event name="USSDReq" type="external"></event>
+				<event name="USSDCnf" type="external"></event>
+				<event name="USSDInd" type="external"></event>
+				<event name="USSDErr" type="external"></event>
+				<event name="USSDNot" type="external"></event>
+				<event name="USSDRel" type="external"></event>
+				<event name="PWDReq" type="external"></event>
+				<event name="PWDCnf" type="external"></event>
+				<event name="CSSI_Not" type="external"></event>
+				<event name="CheckWaitingQueue" type="external"></event>
+				<event name="SetCUGReq" type="external"></event>
+				<event name="SetCUGCnf" type="external"></event>
+				<event name="QueCUGReq" type="external"></event>
+				<event name="QueCUGCnf" type="external"></event>
+				<event name="SetAOCReq" type="external"></event>
+				<event name="SetAOCCnf" type="external"></event>
+				<event name="QueAOCReq" type="external"></event>
+				<event name="QueAOCCnf" type="external"></event>
+				<event name="ACMReq" type="external"></event>
+				<event name="ACMCnf" type="external"></event>
+				<event name="AMMReq" type="external"></event>
+				<event name="AMMCnf" type="external"></event>
+				<event name="PUCReq" type="external"></event>
+				<event name="PUCCnf" type="external"></event>
+			</eventlist>
+			<functionlist>
+				<function name="GetSSServiceStatus" id="12317" RetType="MMI_SSSRV_Status_e" Param1="" Param2="" Param3="" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to get SS Service status&#13;&#10;Parameter: None&#13;&#10;Return: MMI_SSSRV_Status_e&#13;&#10;</function>
+				<function name="CallDivertReq" id="28035" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_CallDivertReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to activate, deactivate, query and erase call divert setting.&#13;&#10;Parameter: &#13;&#10;&lt;pCaller&gt;: the caller instance ID.&#13;&#10;&lt;pRegData&gt;: call divert request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="CallBarringReq" id="18420" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_CallBarringReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to change call barring setting.&#13;&#10;Parameter: &#13;&#10;&lt;pCaller&gt;: the caller instance ID.&#13;&#10;&lt;pRegData&gt;: change barring request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="ChangeBarringPwdReq" id="26516" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_ChangeBarringPwdReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to change barring network code.&#13;&#10;Parameter: &#13;&#10;&lt;pCaller&gt;: the caller instance ID.&#13;&#10;&lt;pRegData&gt;: change barring password request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="CallWaitingReq" id="17517" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_CallWaitingReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to change call waiting setting.&#13;&#10;Parameter: &#13;&#10;&lt;pCaller&gt;: the caller instance ID.&#13;&#10;&lt;pRegData&gt;: call waiting request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="USSDReq" id="8852" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_USSDReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to send a USSD string to network.&#13;&#10;Parameter: &#13;&#10;&lt;pCaller&gt;: the caller instance ID.&#13;&#10;&lt;pRegData&gt;: USSD request data.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="USSDCancelReq" id="13214" RetType="MAE_Ret" Param1="void* pCaller" Param2="u8 u8DualID" Param3="" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to cancle current USSD request.&#13;&#10;Parameter:&#13;&#10;&lt;pCaller&gt;: the caller instance ID. &#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="SetUserGroupReq" id="26239" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_UserGroupReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to set closed user group.&#13;&#10;Parameter: &lt;pRegData&gt;: user group request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="QueryUserGroupReq" id="25200" RetType="MAE_Ret" Param1="void* pCaller" Param2="u8 u8DualID" Param3="" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to query closed user group info.&#13;&#10;Parameter: &#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="SetAoCReq" id="22418" RetType="MAE_Ret" Param1="void* pCaller" Param2="MMI_SSSRV_AOC_ReqType_e  eReqType" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to set AoC information.&#13;&#10;Parameter: &lt;eRegType&gt;: requested operation.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="QueryAoCReq" id="17838" RetType="MAE_Ret" Param1="void* pCaller" Param2="u8 u8DualID" Param3="" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to query current AoC setting.&#13;&#10;Parameter: &#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="ACMReq" id="31563" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_ACMReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to set and query the Advice Of Charge for Accumulated Call Meter (ACM) value in SIM file.&#13;&#10;Parameter: &lt;pRegData&gt;: ACM request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="ACMMaxReq" id="8805" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_ACMMaxReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to set and query the Advice Of Charge related to Accumulated Call Meter maximum value in SIM file.&#13;&#10;Parameter: &lt;pRegData&gt;: ACMMax request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="PUCReq" id="32038" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_PUCReq_t *pReqData" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8="">Purpose: The external interface is provided to set and query price per unit and currency setting in SIM file.&#13;&#10;Parameter: &lt;pRegData&gt;: PUC request data.&#13;&#10;&lt;u8DualID&gt;: DualSIM ID.&#13;&#10;Return: MAE_Ret&#13;&#10;</function>
+				<function name="ActionCancelReq" id="1506" RetType="MAE_Ret" Param1="void* pCaller" Param2="SSSRV_REQUEST_TYPE_e    eReqType" Param3="" Param4="" Param5="" Param6="" Param7="" Param8=""></function>
+				<function name="LineIdentityQueryReq" id="2141" RetType="MAE_Ret" Param1="void* pCaller" Param2="MMI_SSSRV_CI_ReqType_e eCIType" Param3="u8 u8DualID" Param4="" Param5="" Param6="" Param7="" Param8=""></function>
+			</functionlist>
+		</application>
+	</data>
+</XFSM>

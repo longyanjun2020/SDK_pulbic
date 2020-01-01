@@ -1,0 +1,288 @@
+/*
+ * Copyright 2002-2003 Aplix Corporation. All rights reserved.
+ */
+
+#ifndef KJAVA_OLD_CONST_HEADER
+#define KJAVA_OLD_CONST_HEADER
+
+#include <kjava_action.h>
+#include <kjava_sys.h>
+#include <kjava_sys_core.h>
+#include <kjava_sys_device.h>
+#include <kjava_sys_fs.h>
+#include <kjava_sys_gfx.h>
+
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+/**
+ *  @file kjava_deprecated.h
+ *  AJSCv1.2 compatible
+ */
+ 
+/** @addtogroup deprecated_ksi_ksi
+ *  @{ 
+ */
+ 
+
+
+/** 
+ * @addtogroup kjava_action_const kjava_action.h
+ * @{
+ */
+/** @deprecated Modified to #KJAVA_ACTION_BUFFER_LENGTH */
+#define MAX_KJAVA_ACTION_BUFFER_LENGTH KJAVA_ACTION_BUFFER_LENGTH
+/** @} */
+
+/** 
+ * @addtogroup kjava_sys_const kjava_sys.h
+ * @{
+ */
+/** @deprecated Modified to 0 */
+#define PLATFORM_MAIN_THREAD       (KJAVA_USER_THREAD)
+/** @deprecated Modified to #KJAVA_AMS_THREAD */
+#define PLATFORM_AMS_THREAD        (KJAVA_AMS_THREAD)
+/** @deprecated Modified to #KJAVA_USER_THREAD + 1 */
+#define PLATFORM_KVC_THREAD        (KJAVA_USER_THREAD+1)
+/** @deprecated Modified to #KJAVA_KVE_THREAD */
+#define PLATFORM_KVE_THREAD        (KJAVA_KVE_THREAD)
+/** @deprecated Modified to #KJAVA_USER_THREAD + 2 */
+#define PLATFORM_SMS_THREAD        (KJAVA_USER_THREAD+2)
+/** @deprecated Modified to #KJAVA_NET_THREAD */
+#define PLATFORM_KR1_THREAD        (KJAVA_NET_THREAD)
+/** @deprecated Modified to #KJAVA_USER_THREAD + 3 */
+#define PLATFORM_KR2_THREAD        (KJAVA_USER_THREAD+3)
+/** @deprecated Modified to #KJAVA_USER_THREAD + 4 */
+#define PLATFORM_KR3_THREAD        (KJAVA_USER_THREAD+4)
+/** @deprecated Modified to 8 */
+#define _TOTAL_KJAVA_THREAD_COUNT  (8)
+
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER */
+#define KJAVA_ACTION_TYPE_JVM_GENERAL      (KJAVA_ACTION_TYPE_USER)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_START_VM */
+#define KJAVA_ACTION_TYPE_JVM_StartReq     (KJAVA_ACTION_TYPE_START_VM)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 1 */
+#define KJAVA_ACTION_TYPE_JVM_SuspendReq   (KJAVA_ACTION_TYPE_USER + 1)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_RESUME_VM */
+#define KJAVA_ACTION_TYPE_JVM_ResumeReq    (KJAVA_ACTION_TYPE_RESUME_VM)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 2 */
+#define KJAVA_ACTION_TYPE_JVM_TerminateReq (KJAVA_ACTION_TYPE_USER + 2)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 3 */
+#define KJAVA_ACTION_TYPE_JVM_EventNotify  (KJAVA_ACTION_TYPE_USER + 3)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 4 */
+#define KJAVA_ACTION_TYPE_JVM_EventConfirm (KJAVA_ACTION_TYPE_USER + 4)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 5 */
+#define KJAVA_ACTION_TYPE_KVE_Resumed      (KJAVA_ACTION_TYPE_USER + 5)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 6 */
+#define KJAVA_ACTION_TYPE_KVE_End          (KJAVA_ACTION_TYPE_USER + 6)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 7 */
+#define KJAVA_ACTION_TYPE_WMA_REQ          (KJAVA_ACTION_TYPE_USER + 7)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 8 */
+#define KJAVA_ACTION_TYPE_WMA_IND          (KJAVA_ACTION_TYPE_USER + 8)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 9 */
+#define KJAVA_ACTION_TYPE_WMA_TEST         (KJAVA_ACTION_TYPE_USER + 9)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 10 */
+#define KJAVA_ACTION_TYPE_WMA_TEST_CLIENT  (KJAVA_ACTION_TYPE_USER + 10)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 11 */
+#define KJAVA_ACTION_TYPE_WMA_TEST_SERVER  (KJAVA_ACTION_TYPE_USER + 11)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 12 */
+#define KJAVA_ACTION_TYPE_HTTP_INIT        (KJAVA_ACTION_TYPE_USER + 12)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 13 */
+#define KJAVA_ACTION_TYPE_HTTP_PROCESS     (KJAVA_ACTION_TYPE_USER + 13)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 14 */
+#define KJAVA_ACTION_TYPE_HTTP_FINI        (KJAVA_ACTION_TYPE_USER + 14)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 15 */
+#define KJAVA_ACTION_TYPE_HTTP_TEST        (KJAVA_ACTION_TYPE_USER + 15)
+/** @deprecated Modified to #KJAVA_ACTION_TYPE_USER + 16 */
+#define KJAVA_ACTION_TYPE_NET_GENERIC      (KJAVA_ACTION_TYPE_USER + 16)
+/** @deprecated Modified to 22 */
+#define KJAVA_ACTION_TYPE_Num              (21)
+/** @} */
+
+/** 
+ * @addtogroup kjava_sys_core_const kjava_sys_core.h
+ * @{
+ */
+/** @deprecated Modified to #KJAVA_EVENT_OK */
+#define CONST_KJAVA_EVENT_OK                      (KJAVA_EVENT_OK)
+/** @deprecated Modified to #KJAVA_EVENT_TIMEOUT */
+#define CONST_KJAVA_EVENT_TIMEOUT                 (KJAVA_EVENT_TIMEOUT)
+/** @deprecated Modified to #KJAVA_EXTAPP_UNSUPPORTED_CONNECTION */
+#define CONST_KJAVA_EXTAPP_UNSUPPORTED_CONNECTION (KJAVA_EXTAPP_UNSUPPORTED_CONNECTION)
+/** @deprecated Modified to #KJAVA_EXTAPP_CONNECT_IMMEDIATE */
+#define CONST_KJAVA_EXTAPP_CONNECT_IMMEDIATE      (KJAVA_EXTAPP_CONNECT_IMMEDIATE)
+/** @deprecated Modified to #KJAVA_EXTAPP_CONNECT_LATER */
+#define CONST_KJAVA_EXTAPP_CONNECT_LATER          (KJAVA_EXTAPP_CONNECT_LATER)
+/** @deprecated Modified to #KJAVA_SECTION_VM_BUILTIN_RAM_CODE */
+#define CONST_KJAVA_SECTION_VM_BUILTIN_RAM_CODE   (KJAVA_SECTION_VM_BUILTIN_RAM_CODE)
+/** @deprecated Modified to #KJAVA_SECTION_VM_BUILTIN_RAM */
+#define CONST_KJAVA_SECTION_VM_BUILTIN_RAM        (KJAVA_SECTION_VM_BUILTIN_RAM)
+/** @deprecated Modified to #KJAVA_SECTION_VM_RAM */
+#define CONST_KJAVA_SECTION_VM_RAM                (KJAVA_SECTION_VM_RAM)
+/** @deprecated Modified to #KJAVA_SECTION_JBLEND_RAM */
+#define CONST_KJAVA_SECTION_JBLEND_RAM            (KJAVA_SECTION_JBLEND_RAM)
+/** @} */
+ 
+/** 
+ * @addtogroup kjava_sys_device_const kjava_sys_device.h
+ * @{
+ */
+/** @deprecated Modified to #KJAVA_DEVICE_ALERT_TYPE_ALARM */
+#define CONST_KJAVA_DEVICE_ALERT_TYPE_ALARM   (KJAVA_DEVICE_ALERT_TYPE_ALARM)
+/** @deprecated Modified to #KJAVA_DEVICE_ALERT_TYPE_CONFIRM */
+#define CONST_KJAVA_DEVICE_ALERT_TYPE_CONFIRM (KJAVA_DEVICE_ALERT_TYPE_CONFIRM)
+/** @deprecated Modified to #KJAVA_DEVICE_ALERT_TYPE_ERROR */
+#define CONST_KJAVA_DEVICE_ALERT_TYPE_ERROR   (KJAVA_DEVICE_ALERT_TYPE_ERROR)
+/** @deprecated Modified to #KJAVA_DEVICE_ALERT_TYPE_INFO */
+#define CONST_KJAVA_DEVICE_ALERT_TYPE_INFO    (KJAVA_DEVICE_ALERT_TYPE_INFO)
+/** @deprecated Modified to #KJAVA_DEVICE_ALERT_TYPE_WARNING */
+#define CONST_KJAVA_DEVICE_ALERT_TYPE_WARNING (KJAVA_DEVICE_ALERT_TYPE_WARNING)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_GAME_A */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_GAME_A (KJAVA_DEVICE_GAME_ACTION_GAME_A)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_GAME_B */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_GAME_B (KJAVA_DEVICE_GAME_ACTION_GAME_B)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_GAME_C */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_GAME_C (KJAVA_DEVICE_GAME_ACTION_GAME_C)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_GAME_D */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_GAME_D (KJAVA_DEVICE_GAME_ACTION_GAME_D)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_LEFT */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_LEFT   (KJAVA_DEVICE_GAME_ACTION_LEFT)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_DOWN */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_DOWN   (KJAVA_DEVICE_GAME_ACTION_DOWN)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_UP */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_UP   (KJAVA_DEVICE_GAME_ACTION_UP)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_RIGHT */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_RIGHT  (KJAVA_DEVICE_GAME_ACTION_RIGHT)
+/** @deprecated Modified to #KJAVA_DEVICE_GAME_ACTION_FIRE */
+#define CONST_KJAVA_DEVICE_GAME_ACTION_FIRE   (KJAVA_DEVICE_GAME_ACTION_FIRE)
+/** @deprecated Modified to #KJAVA_DEVICE_ALERT_TYPE_WARNING */
+#define CONST_KJAVA_DEVICE_ALERT_TYPE_WARNING (KJAVA_DEVICE_ALERT_TYPE_WARNING)
+/** @} */
+
+/** 
+ * @addtogroup kjava_sys_fs_const kjava_sys_fs.h
+ * @{
+ */
+/** @deprecated Modified to #KJAVA_FILE_OPEN_READ */
+#define  CONST_KJAVA_FILE_OPEN_READ (KJAVA_FILE_OPEN_READ)
+/** @deprecated Modified to #KJAVA_FILE_OPEN_WRITE */
+#define  CONST_KJAVA_FILE_OPEN_WRITE (KJAVA_FILE_OPEN_WRITE)  
+/** @deprecated Modified to #KJAVA_FILE_OPEN_RW */
+#define  CONST_KJAVA_FILE_OPEN_RW    (KJAVA_FILE_OPEN_RW)  
+/** @deprecated Modified to #KJAVA_FILE_OPEN_APPEND */
+#define  CONST_KJAVA_FILE_OPEN_APPEND   (KJAVA_FILE_OPEN_APPEND)  
+/** @deprecated Modified to #KJAVA_FILE_OPEN_CREATE */
+#define  CONST_KJAVA_FILE_OPEN_CREATE   (KJAVA_FILE_OPEN_CREATE)  
+/** @deprecated Modified to #KJAVA_FILE_OPEN_TRUNC */
+#define  CONST_KJAVA_FILE_OPEN_TRUNC   (KJAVA_FILE_OPEN_TRUNC)  
+/** @deprecated Modified to #KJAVA_FILE_OPEN_EXCL */
+#define  CONST_KJAVA_FILE_OPEN_EXCL   (KJAVA_FILE_OPEN_EXCL)  
+/** @deprecated Modified to #KJAVA_FILE_SEEK_SET */
+#define  CONST_KJAVA_FILE_SEEK_SET  (KJAVA_FILE_SEEK_SET)  
+/** @deprecated Modified to #KJAVA_FILE_SEEK_CUR */
+#define  CONST_KJAVA_FILE_SEEK_CUR  (KJAVA_FILE_SEEK_CUR)  
+/** @deprecated Modified to #KJAVA_FILE_SEEK_END */
+#define  CONST_KJAVA_FILE_SEEK_END   (KJAVA_FILE_SEEK_END)  
+/** @deprecated Modified to #KJAVA_MAX_AUTHORITY_NAME_LENGTH */
+#define  CONST_KJAVA_MAX_AUTHORITY_NAME_LENGTH (KJAVA_MAX_AUTHORITY_NAME_LENGTH)
+/** @deprecated Modified to #KJAVA_MAX_AUTHORITY_PATH_LENGTH */
+#define  CONST_KJAVA_MAX_AUTHORITY_PATH_LENGTH  (KJAVA_MAX_AUTHORITY_PATH_LENGTH)  
+/** @deprecated Modified to #KJAVA_MAX_PATH_LENGTH */
+#define  CONST_KJAVA_MAX_PATH_LENGTH  (KJAVA_MAX_PATH_LENGTH)  
+/** @deprecated Modified to #KJAVA_MAX_FILE_NAME_LENGTH */
+#define  CONST_KJAVA_MAX_FILE_NAME_LENGTH  (KJAVA_MAX_FILE_NAME_LENGTH)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_NONE */
+#define  CONST_KJAVA_FILE_ERR_NONE  (KJAVA_FILE_ERR_NONE)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_INVALID_URI */
+#define  CONST_KJAVA_FILE_ERR_INVALID_URI (KJAVA_FILE_ERR_INVALID_URI)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_NO_HANDLE */
+#define  CONST_KJAVA_FILE_ERR_NO_HANDLE  (KJAVA_FILE_ERR_NO_HANDLE)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_NOT_SUPPORTED_SCHEME */
+#define  CONST_KJAVA_FILE_ERR_NOT_SUPPORTED_SCHEME (KJAVA_FILE_ERR_NOT_SUPPORTED_SCHEME)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_INVALID_HANDLE */
+#define  CONST_KJAVA_FILE_ERR_INVALID_HANDLE   (KJAVA_FILE_ERR_INVALID_HANDLE)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_INVALID_POSITION */
+#define  CONST_KJAVA_FILE_ERR_INVALID_POSITION   (KJAVA_FILE_ERR_INVALID_POSITION)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_TOO_MANY_FILE_HANDLES */
+#define  CONST_KJAVA_FILE_ERR_TOO_MANY_FILE_HANDLES (KJAVA_FILE_ERR_TOO_MANY_FILE_HANDLES)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_TOO_MANY_DYNAMIC_ROM_FILES */
+#define  CONST_KJAVA_FILE_ERR_TOO_MANY_DYNAMIC_ROM_FILES (KJAVA_FILE_ERR_TOO_MANY_DYNAMIC_ROM_FILES)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_NOT_DIRECTORY */
+#define  CONST_KJAVA_FILE_ERR_NOT_DIRECTORY (KJAVA_FILE_ERR_NOT_DIRECTORY)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_END_OF_FILE */
+#define  CONST_KJAVA_FILE_ERR_END_OF_FILE   (KJAVA_FILE_ERR_END_OF_FILE)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_FILE_ALREADY_EXISTS */
+#define  CONST_KJAVA_FILE_ERR_FILE_ALREADY_EXISTS (KJAVA_FILE_ERR_FILE_ALREADY_EXISTS)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_NOT_SUPPORTED_OP */
+#define  CONST_KJAVA_FILE_ERR_NOT_SUPPORTED_OP (KJAVA_FILE_ERR_NOT_SUPPORTED_OP)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_PERMISSION_DENIED */
+#define  CONST_KJAVA_FILE_ERR_PERMISSION_DENIED (KJAVA_FILE_ERR_PERMISSION_DENIED)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_BAD_FILE_NUMBER */
+#define  CONST_KJAVA_FILE_ERR_BAD_FILE_NUMBER   (KJAVA_FILE_ERR_BAD_FILE_NUMBER)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_MATH_ARGUMENT */
+#define  CONST_KJAVA_FILE_ERR_MATH_ARGUMENT   (KJAVA_FILE_ERR_MATH_ARGUMENT)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_INVALID_ARGUMENT */
+#define  CONST_KJAVA_FILE_ERR_INVALID_ARGUMENT  (KJAVA_FILE_ERR_INVALID_ARGUMENT) 
+/** @deprecated Modified to #KJAVA_FILE_ERR_NOT_ENOUGH_MEMORY */ 
+#define  CONST_KJAVA_FILE_ERR_NOT_ENOUGH_MEMORY  (KJAVA_FILE_ERR_NOT_ENOUGH_MEMORY)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_NOT_ENOUGH_SPACE_ON_DEVICE */
+#define  CONST_KJAVA_FILE_ERR_NOT_ENOUGH_SPACE_ON_DEVICE (KJAVA_FILE_ERR_NOT_ENOUGH_SPACE_ON_DEVICE)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_RANGE_TOO_LARGE */
+#define  CONST_KJAVA_FILE_ERR_RANGE_TOO_LARGE  (KJAVA_FILE_ERR_RANGE_TOO_LARGE)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_FILE_NAME_CONTAINS_ILLEGAL_CHAR */
+#define  CONST_KJAVA_FILE_ERR_FILE_NAME_CONTAINS_ILLEGAL_CHAR  (KJAVA_FILE_ERR_FILE_NAME_CONTAINS_ILLEGAL_CHAR)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_DIRECTORY_NOT_EMPTY */
+#define  CONST_KJAVA_FILE_ERR_DIRECTORY_NOT_EMPTY (KJAVA_FILE_ERR_DIRECTORY_NOT_EMPTY)  
+/** @deprecated Modified to #KJAVA_FILE_ERR_UNKNOWN_CAUSE */
+#define  CONST_KJAVA_FILE_ERR_UNKNOWN_CAUSE (KJAVA_FILE_ERR_UNKNOWN_CAUSE)  
+/** @} */
+
+/** 
+ * @addtogroup kjava_sys_gfx_const kjava_sys_gfx.h
+ * @{
+ */
+/** @deprecated Modified to #KJAVA_FONT_STYLE_PLAIN */
+#define CONST_KJAVA_FONT_STYLE_PLAIN            (KJAVA_FONT_STYLE_PLAIN)
+/** @deprecated Modified to #KJAVA_FONT_STYLE_BOLD */
+#define CONST_KJAVA_FONT_STYLE_BOLD             (KJAVA_FONT_STYLE_BOLD)
+/** @deprecated Modified to #KJAVA_FONT_STYLE_ITALIC */
+#define CONST_KJAVA_FONT_STYLE_ITALIC           (KJAVA_FONT_STYLE_ITALIC)
+/** @deprecated Modified to #KJAVA_FONT_STYLE_UNDERLINE */
+#define CONST_KJAVA_FONT_STYLE_UNDERLINE        (KJAVA_FONT_STYLE_UNDERLINE)
+/** @deprecated Modified to #KJAVA_FONT_FACE_MONOSPACE */
+#define CONST_KJAVA_FONT_FACE_MONOSPACE         (KJAVA_FONT_FACE_MONOSPACE)
+/** @deprecated Modified to #KJAVA_FONT_FACE_PROPORTIONALE */
+#define CONST_KJAVA_FONT_FACE_PROPORTIONALE     (KJAVA_FONT_FACE_PROPORTIONALE)
+/** @deprecated Modified to #KJAVA_FONT_TYPE_DEFAULT */
+#define CONST_KJAVA_FONT_TYPE_DEFAULT           (KJAVA_FONT_TYPE_DEFAULT)
+/** @deprecated Modified to #KJAVA_FONT_TYPE_STATIC_TEXT */
+#define CONST_KJAVA_FONT_TYPE_STATIC_TEXT       (KJAVA_FONT_TYPE_STATIC_TEXT)
+/** @deprecated Modified to #KJAVA_FONT_TYPE_INPUT_TEXT */
+#define CONST_KJAVA_FONT_TYPE_INPUT_TEXT        (KJAVA_FONT_TYPE_INPUT_TEXT)
+/** @deprecated Modified to #KJAVA_FONT_SIZE_SMALL */
+#define CONST_KJAVA_FONT_SIZE_SMALL             (KJAVA_FONT_SIZE_SMALL)
+/** @deprecated Modified to #KJAVA_FONT_SIZE_MEDIUM */
+#define CONST_KJAVA_FONT_SIZE_MEDIUM            (KJAVA_FONT_SIZE_MEDIUM)
+/** @deprecated Modified to #KJAVA_FONT_SIZE_LARGE */
+#define CONST_KJAVA_FONT_SIZE_LARGE             (KJAVA_FONT_SIZE_LARGE)
+/** @deprecated Modified to #KJAVA_VIDEO_SCREEN_NORMAL */
+#define CONST_KJAVA_VIDEO_SCREEN_NORMAL         (KJAVA_VIDEO_SCREEN_NORMAL)
+/** @deprecated Modified to #KJAVA_VIDEO_SCREEN_FULL */
+#define CONST_KJAVA_VIDEO_SCREEN_FULL           (KJAVA_VIDEO_SCREEN_FULL)
+/** @deprecated Modified to #KJAVA_VIDEO_DISPLAYABLE_NULL */
+#define CONST_KJAVA_VIDEO_DISPLAYABLE_NULL      (KJAVA_VIDEO_DISPLAYABLE_NULL)
+/** @deprecated Modified to #KJAVA_VIDEO_DISPLAYABLE_SCREEN */
+#define CONST_KJAVA_VIDEO_DISPLAYABLE_SCREEN    (KJAVA_VIDEO_DISPLAYABLE_SCREEN)
+/** @deprecated Modified to #KJAVA_VIDEO_DISPLAYABLE_CANVAS */
+#define CONST_KJAVA_VIDEO_DISPLAYABLE_CANVAS    (KJAVA_VIDEO_DISPLAYABLE_CANVAS)
+/** @deprecated Modified to #KJAVA_VIDEO_DISPLAYABLE_PERMISSIONDIALOG */
+#define CONST_KJAVA_VIDEO_DISPLAYABLE_PERMISSIONDIALOG (KJAVA_VIDEO_DISPLAYABLE_PERMISSIONDIALOG)
+/** @} */
+/** @} */
+
+#ifdef __cplusplus
+}
+#endif 
+
+#endif /*KJAVA_OLD_CONST_HEADER*/

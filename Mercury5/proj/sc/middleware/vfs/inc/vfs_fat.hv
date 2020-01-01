@@ -1,0 +1,39 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+/****************************************************************************/
+/*  File    : dev_fat.hv                                               		*/
+/*--------------------------------------------------------------------------*/
+/*  Scope   : FAT16 file-system internal variables					      	*/
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 23.12.02 |   NRO  |      |  Creation                                     */
+/*----------+--------+------+-----------------------------------------------*/ 
+/****************************************************************************/
+
+#ifndef __VFS_FAT_HV__
+#define __VFS_FAT_HV__
+
+/*_____ I N C L U D E S ____________________________________________________*/
+#include "vm_types.ht" 
+#include "vfs_fat.hc" 
+#include "vfs_fat.ht" 
+
+extern File_Reference_t file_open[NB_FILES_MAX_OPENED];      /* list of the open files */
+extern u8 free_file_var;					// first free index file to open
+extern u8 gl_buffer[SECTOR_SIZE]; // general purpose buffer
+extern Directory_t* directory; // description of the current directory
+extern File_Reference_t* fat_file_references; /* list of the file in the directory */
+extern bool fat_needs_refresh; // boolean indicating if the FAT content has changed since the last call to fat_sys_get_directory_chain()
+#endif  /* __VFS_FAT_HV__ */
+

@@ -1,0 +1,6 @@
+#ifndef __SYS_HWID_HI__
+#define __SYS_HWID_HI__
+
+#include "sys_sys_hwid.h"
+
+#endif /*  __SYS_HWID_HI__ not defined   */

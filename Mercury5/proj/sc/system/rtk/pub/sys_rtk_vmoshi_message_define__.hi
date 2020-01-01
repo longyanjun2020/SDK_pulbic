@@ -1,0 +1,8 @@
+#ifndef __SYS_RTK_VMOSHI_MSG_DEF_H__
+#define __SYS_RTK_VMOSHI_MSG_DEF_H__
+
+VM_MSG_DEF(VM_OS_TIMER_EXPIRED=(VM_OS_TIMER_BASE + 0x00), void DUMMY)
+
+
+#endif
+

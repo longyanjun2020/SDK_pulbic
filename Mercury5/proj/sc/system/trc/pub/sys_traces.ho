@@ -1,0 +1,423 @@
+/****************************************************************************
+ *
+ *  File :   traces.ho
+ *
+ ****************************************************************************/
+
+#ifndef __SYS_TRACES_HO__
+#define __SYS_TRACES_HO__
+
+
+#ifndef __TARGET__
+#include <stdio.h>
+#if defined (unix) && !defined (LINUX)
+#include <varargs.h>
+#else
+#include <stdarg.h>
+#endif
+#else
+#if !defined( unix ) || defined( LINUX ) || defined(__GNUC__)
+#include <stdarg.h>
+#else
+#include <varargs.h>
+#endif
+#endif
+
+
+#ifndef __STDCOMP_H__
+#include "stdcomp.h"
+#endif
+
+#ifndef __GEMASK_HC__
+#include "vm_gmask.hc"
+#endif
+
+/*========================== general constants ===============================*/
+
+/*
+** =========================================================================
+**     ERROR / TRACE OFFSET DEFINITIONS
+**
+** for TRACE
+**
+**     +---------------------------------------------+
+**     | 1 |  4  |       12      |1|   6   |    8    |
+**     +---------------------------------------------+
+**       ^    ^       ^           ^     ^        ^
+**       |    |       |           |     |        +---- Trace id
+**       |    |       |           |     +------------- Trace level
+**       |    |       |           |
+**       |    |       |           +------------------  Remote Trace
+**       |    |       +-----------------------------------
+**       |    +--------------------------------------- Number of parameter
+**       +-------------------------------------------- Compressed format
+**
+**
+** for ERROR
+**
+**     +---+-----+-----+-+-+-+--------------------+
+**     | 1 |  4  |  3  |1 1 1|    8     |    8    |
+**     +---+-----+-----+-+-+-+--------------------+
+**       ^    ^     ^   ^ ^ ^     ^         ^
+**       |    |     |   | | |     |         +----- Error id
+**       |    |     |   | | |     +--------------- Error code
+**       |    |     |   | | +--------------------- Fatal / Warning
+**       |    |     |   | +----------------------- Eprom save
+**       |    |     |   +------------------------- Copy bit
+**       |    |     +----------------------------- Spare
+**       |    +----------------------------------- Number of parameter
+**       +---------------------------------------- Compressed format
+**
+** =========================================================================
+*/
+
+/*--------------------------- info macro --------------------------------*/
+#define SET_TRACE_INFO(X)   X
+
+#include "sys_vm_dbg.ho"
+#include "vm_types.ht"
+
+/* well, well ... thanks to grouping = last parameter ... */
+#define GET_TRACE_INFO(X)   (GETMSK(X, 0, MASKL8))
+
+/*------------------------------ masks ----------------------------------*/
+
+#define GET_CODE(X)       GETMSK(X, 8, MASKL8)
+#define GET_LEVEL(X)      GETMSK(X, 8, MASKL5)
+#define GET_LEVEL_NO_SHIFT(X)      (X & (MASKL5<<8))
+#define SET_LEVEL(X)      ((u32) ((X & MASKL5) << 8))
+#define SET_CODE(X)       ((u32) ((X & MASKL8) << 8))
+#define GET_IDENT(X)      GETMSK(X, 0, MASKL8)
+#define SET_COORD(X,Y)    (((u32) Y << 20) | ((u32) X << 14))
+#define GET_COORD(X)      ((X >> 14) & 0x3fff)
+#define GET_X(X)          ((u8) (X >> 14) & MASKL6)
+#define GET_Y(X)          ((u8) (X >> 20) & MASKL7)
+#define GET_COMPRESSED(X) GETMSK(X, 31, MASKL1)
+#define GET_SIZE(X)       GETMSK(X, 27, MASKL4)
+#define GET_PARAMETER(X)  (GET_SIZE(X) - 1)          //number of parameters
+
+
+/*--------------------------- trace levels--------------------------------*/
+
+
+#define USER_LEV_0  (1 << 0)
+#define USER_LEV_1  (1 << 1)
+#define USER_LEV_2  (1 << 2)
+#define USER_LEV_3  (1 << 3)
+#define USER_LEV_4  (1 << 4)
+#define USER_LEV_5  (1 << 5)
+#define USER_LEV_6  (1 << 6)
+#define USER_LEV_7  (1 << 7)
+#define USER_LEV_8  (1 << 8)
+#define USER_LEV_9  (1 << 9)
+#define USER_LEV_10 (1 << 10)
+#define USER_LEV_11 (1 << 11)
+#define USER_LEV_12 (1 << 12)
+#define USER_LEV_13 (1 << 13)
+#define USER_LEV_14 (1 << 14)
+#define USER_LEV_15 (1 << 15)
+#define USER_LEV_16 (1 << 16)
+#define USER_LEV_17 (1 << 17)
+#define USER_LEV_18 (1 << 18)
+#define USER_LEV_19 (1 << 19)
+#define USER_LEV_20 (1 << 20)
+#define USER_LEV_21 (1 << 21)
+#define USER_LEV_22 (1 << 22)
+#define USER_LEV_23 (1 << 23)
+#define USER_LEV_24 (1 << 24)
+#define USER_LEV_25 (1 << 25)
+#define USER_LEV_26 (1 << 26)
+#define USER_LEV_27 (1 << 27)
+#define USER_LEV_28 (1 << 28)
+#define USER_LEV_29 (1 << 29)
+#define USER_LEV_30 (1 << 30)
+#define USER_LEV_31 (1UL << 31)
+
+#define NTGT    (u32) 0x2000        /* trace level to specify NOT target */
+
+/*--------------------------- Remote trace on PC ----------------------------*/
+
+#define RM_FLAG               0x4000
+#define RM_STRING(X)          X        /* all strings which are only used in _TRACE via a pointer of character
+                                          can be deported with this macro : then,
+                                          the string of the trace is on the PC and the target only send an ID *//*--------------------- source of trace and errors ---------------------*/
+
+/* diagstate of e2p stack */
+//see in vm_dbg.ho
+
+
+#define EXTENDED2_LAST_SUBPROCESS 0x0B /* number of trace items, change if required */
+
+#ifndef __MSTAR_DUAL_SIM__
+#define GLOBAL_LAST_SUBPROCESS (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + EXTENDED2_LAST_SUBPROCESS + SDK_LAST_SUBPROCESS + MIXED_LAST_SUBPROCESS) /* all trace elements */
+#else
+#ifdef __MSTAR_DUAL_SIM_SIM_DUO__
+#define GLOBAL_LAST_SUBPROCESS (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + EXTENDED2_LAST_SUBPROCESS + DUAL_SIM_EXTENDED_LAST_SUBPROCESS + DUAL_SIM_EXTENDED2_LAST_SUBPROCESS + SDK_LAST_SUBPROCESS + MIXED_LAST_SUBPROCESS) /* all trace elements */
+#else
+#define GLOBAL_LAST_SUBPROCESS (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + EXTENDED2_LAST_SUBPROCESS + DUAL_SIM_EXTENDED_LAST_SUBPROCESS + SDK_LAST_SUBPROCESS + MIXED_LAST_SUBPROCESS) /* all trace elements */
+#endif //__MSTAR_DUAL_SIM_SIM_DUO__
+#endif
+
+
+#define _TASK SET_IDENT(0x20 + GPRS_LAST_SUBPROCESS + EXTENDED2_LAST_SUBPROCESS)   /* Task Number     */
+
+
+
+
+/*---------------------------- variables --------------------------------*/
+
+/* variables for the trace level. Those variables are a bit map of allwed */
+/* levels (32 bits).                                                      */
+/* the special variable diagnose is to allow a general trace level. It    */
+/* is coded as described earlier, but if it is set, the trace is allowed  */
+/* for any requester (at le level specified) whatever the value of the    */
+/* requester variable is.                                                 */
+
+typedef struct
+{
+ char Name[VM_DBG_NB_MAX_CHAR_DIAGNOSE_NAME];
+ u32  Level;
+} Diagnose_t;
+
+typedef struct
+{
+	char	name[8];
+	u32		taskId;
+} Task_t;
+
+typedef struct
+{
+	char	name[12];
+	u32		mboxId;
+} Mbox_t;
+
+extern Diagnose_t Diagnose[];
+extern Task_t			SysTask[];
+extern Mbox_t			SysMBox[];
+extern u8 EnhancedBacktraceEnable;
+extern bool DisableErrorTrace;
+#ifdef __SDK_SIMULATION__
+extern u8 diagnoseSize;
+#endif //__SDK_SIMULATION__
+
+/*=========================== diagnose mode ================================*/
+
+#ifdef __DIAGNOSE__
+
+/* variables for dump */
+extern const char * _empty_;
+#ifndef __SDK_SIMULATION_V2__
+extern const char *_dump_;
+#endif
+extern const char *_dump4_;
+
+/* prototype definitions of trace an error */
+extern void KER_VTRACE     _PROTO((u32, char *, va_list));
+extern void KER_TRACE 		_PROTO((u32, char *, ... ));
+extern void KER_TRACE_IMP     _PROTO((u32, char *, va_list)); //implementation of _TRACE, wrapped by stack
+extern void KER_ERROR_DIAGNOSE_IMP _PROTO((u32, char *, va_list));  //implementation of _ERROR, wrapped by stack
+extern void KER_ERROR_DIAGNOSE _PROTO((u32, char *, ... ));
+extern void KER_VERROR_DIAGNOSE _PROTO((u32, char *, va_list));
+
+#ifdef	__RTK_DIAGNOSE_ENHANCE__
+extern void KER_BACKTRACE_DIAGNOSE		_PROTO((u32, char *, ... ));
+extern void KER_DBGINFO_DIAGNOSE			_PROTO((u32, char *, ... ));
+extern void KER_DBGINFO_DIAGNOSE_IMP		_PROTO((u32, char *, va_list));  //implementation of _DBGINFO, wrapped by stack
+extern void KER_VBACKTRACE_DIAGNOSE	_PROTO((u32, char *, va_list));
+#endif
+
+// ms_dbgTrace is used as trivial, non-critical traces
+// DEBUG HIGH:       all trace/assert API are supported
+// DEBUG LOW :       ms_dbgTrace will be empty
+// CRITICAL ONLY:   Only support _ERROR
+#ifdef __TRIVIAL_TRACES__
+#define ms_dbgTrace(X)    vm_dbgTrace X
+#else
+#define ms_dbgTrace(X)
+#endif
+
+#ifdef __CRITICAL_TRACES_ONLY__
+#define _TRACE(X)
+#else
+#define _TRACE1(X, ...)     KER_TRACE(0|(X), __VA_ARGS__)
+#define _TRACE(X)            _TRACE1 X
+#endif
+
+#ifdef __AUTO_TEST_SCRIPT__
+extern void KER_SETTESTFILTER		_PROTO((u32 * ));
+extern void KER_GETTESTFILTER		_PROTO((u32 * ));
+extern void KER_GETTESTRESPONSE	_PROTO((u32 *, u8 ** ));
+extern void KER_TESTRESPONSE 		_PROTO((u32, char *, ... ));
+extern void KER_TESTKEYRSP 		_PROTO((u16, u16));
+extern void KER_TESTCALIBRATIONRSP _PROTO((u16, u16, u16));
+extern void KER_TESTTOUCHRSP		_PROTO((u16, u16, u16));
+#define _TESTRES(X)            KER_TESTRESPONSE  X
+#define _TESTKEYRSP(X)         KER_TESTKEYRSP  X
+#define _TESTCALIBRATIONRSP(X) KER_TESTCALIBRATIONRSP  X
+#define _TESTTOUCHRSP(X)       KER_TESTTOUCHRSP  X
+#else
+#define _TESTRES(X)
+#define _TESTKEYRSP(X)
+#define _TESTCALIBRATIONRSP(X)
+#define _TESTTOUCHRSP(X)
+#endif // __AUTO_TEST_SCRIPT__
+
+/**
+  *
+  * \brief	Checks if a trace level is active or not
+  * \param	[in]_ID: Trace id (_HWL for example)
+  * \param	[in]_LEV:  Trace level (LEVEL_12 for example)
+  * \return	  0 if not active , !=0 otherwise
+  *
+  */
+#define Trc_isLevelActive(_ID, _LEV) (u32)(Diagnose[_ID].Level & (1L << GET_LEVEL(_LEV)))
+
+/**
+  *
+  * \brief	Activates a trace level (enable sending to the PC)
+  * \param	[in]_ID: Trace id (_HWL for example)
+  * \param	[in]_LEV:  Trace level (LEVEL_12 for example)
+  * \return	  none
+  *
+  */
+#define Trc_activateLevel(_ID, _LEV) (Diagnose[GET_IDENT(_ID)].Level |= (1L << GET_LEVEL(_LEV)))
+#define Trc_activateUsrLevel(_ID, _USER_LEV) (Diagnose[GET_IDENT(_ID)].Level |= (_USER_LEV))
+
+/**
+  *
+  * \brief	Deactivates a trace level (disables sending to the PC)
+  * \param	[in]_ID: Trace id (_HWL for example)
+  * \param	[in]_LEV:  Trace level (LEVEL_12 for example)
+  * \return	  none
+  *
+  */
+#define Trc_deactivateLevel(_ID, _LEV) (Diagnose[GET_IDENT(_ID)].Level &= ~(1L << GET_LEVEL(_LEV)))
+
+
+
+extern s32 trc_setDiagnoseName(u32 i_u32_ID, char *newName);
+extern s32 trc_getDiagnoseName(u32 i_u32_ID, char *presentName);
+
+#if defined (__UPGRADE_HSL_OVER_SHMCONN__)||(__UPGRADE_GENIE_OVER_SHMCONN__)||(__UPGRADE_RAMLOG_OVER_SHMCONN__)
+/**
+ * \fn const s32 trc_AckCircularBuffer(vm_dbgTrcBuffer_t *used_buffer);
+ * \brief This function acknoledge the given buffer, informaing that it has been
+ *        taken into account and can be used by the DBG service.
+ * \param [in] used_buffer: pointer on the buffer that is free to be used again
+ * \return <0 if error,  >=0 otherwise
+ */
+extern s32 trc_AckModemLog(u32 trace_type);
+#endif
+
+#define _ERROR(X)               KER_ERROR_DIAGNOSE_UART (__FUNCTION__, __LINE__)
+
+#ifndef _DBGINFO
+#ifdef __CRITICAL_TRACES_ONLY__
+#define _DBGINFO(X)
+#else // __CRITICAL_TRACES_ONLY__
+#ifndef	__RTK_DIAGNOSE_ENHANCE__
+#define _DBGINFO(X)
+#else
+#define _DBGINFO(X)							KER_DBGINFO_DIAGNOSE X
+#endif
+#endif // __CRITICAL_TRACES_ONLY__
+#endif
+
+#ifndef	__RTK_DIAGNOSE_ENHANCE__
+
+#define _PANIC(s)  { KER_ERROR_DIAGNOSE(0x10000000 |_RTK | FATAL, "["__FILE__ ":%d] backtrace assertion, PANIC: " s " ", __LINE__ ); }
+#define _PANIC_EX(s)  { KER_ERROR_DIAGNOSE(0x10000000 |_RTK | FATAL, "[%d] backtrace assertion, PANIC: " s, __LINE__); }
+#else
+
+#define _PANIC(s)  { vm_dbgError(0x10000000 |_RTK | FATAL, "["__FILE__ ":%d] backtrace assertion, PANIC: " s " ", __LINE__ ); }
+#define _PANIC_EX(s)  { vm_dbgError(0x10000000 |_RTK | FATAL, "[%d] backtrace assertion, PANIC: " s, __LINE__); }
+
+#endif
+
+#ifndef VC_MEM_DBG
+#define _ASSERT(e) if (!(e)){ _PANIC (#e) }
+#define _ASSERT_EX(e) if (!(e)){ _PANIC_EX (#e) }
+#endif
+
+#ifdef __CRITICAL_TRACES_ONLY__
+#define _WARNING(e)
+#else
+#define _WARNING(e) if (!(e)){ KER_ERROR_DIAGNOSE (0x10000000 |_RTK | WARNING, "["__FILE__ ":%d] backtrace assertion, PANIC: " #e " ", __LINE__ ); }
+#endif
+
+/* macro definition to map on trace and error */
+#define _HTRACE(X)
+
+#define DUMP4(_Id_,_Chan_,_Adr_,_Len_) (ascii *) _dump4_, (s32) _Len_, _Adr_, (s32)_Id_, (s32)_Chan_
+#define DUMP2(_Adr_,_Len_)  (ascii *) _dump_, (s32) _Len_, _Adr_
+#define DUMP(_Msg_)         (ascii *) _dump_, (int)(((Header_t *)_Msg_)->Length + sizeof(Header_t)), _Msg_
+
+/* macro to add file name and line number to trace or error */
+#if defined __FILE__ && defined __LINE__
+#define FULL(X)      __FILE__ "[%d]: " X, __LINE__
+#else
+#define FULL(X)      X
+#endif
+
+/* to get just one parameter in error macro */
+#define ERR_S
+#define ERR_E
+
+#else /* !__DIAGNOSE__ */
+
+/*========================== not diagnose mode ===============================*/
+
+extern void KER_ERROR_NO_DIAGNOSE _PROTO((u32, u32));
+
+#ifdef	__RTK_DIAGNOSE_ENHANCE__
+extern void KER_BACKTRACE_DIAGNOSE		_PROTO((u32, char *, ... ));
+extern void KER_DBGINFO_DIAGNOSE			_PROTO((u32, char *, ... ));
+extern void KER_VBACKTRACE_DIAGNOSE	_PROTO((u32, char *, va_list));
+#endif
+
+#define _IS_TRACE_ACTIVE(ID)  0
+
+/* no _TRACE or _FULL macro and _ERROR has just one parameter */
+#define _HTRACE(X)
+#define _TRACE(X)
+#ifndef __DOWNLOADER__
+#define _ERROR(X)               KER_ERROR_NO_DIAGNOSE X
+#ifndef _DBGINFO
+#ifndef	__RTK_DIAGNOSE_ENHANCE__
+#define _DBGINFO(X)
+#else
+#define _DBGINFO(X)							KER_DBGINFO_DIAGNOSE X
+#endif
+#endif
+#else
+#define _ERROR(X)
+#define _DBGINFO(X)
+#endif
+#define FULL(X)                 _empty_
+
+/* to remove the string and the variadic part of _ERROR */
+#define ERR_S (u32) (
+#define ERR_E )
+
+#endif /* __DIAGNOSE__ */
+
+extern s32 trc_dbgScrSubscribe(u8 mailbox);
+
+extern void trc_CustomErrorProcDiag (u32 id);
+extern void trc_CustomErrorProcNoDiag (u32 id);
+
+extern void trc_PurgeQuickTrcBuf(void);
+extern s32 trc_StartFlipFlapTraceBuffering(u8 mailbox);
+extern s32 trc_StopFlipFlapTraceBuffering(bool saveTrc);
+extern s32 trc_AckFlipFlapBuffer(vm_dbgTrcBuffer_t *used_buffer);
+extern s32 trc_StartCircularTraceBuffering(u8 mailbox , bool isAudioDump);
+extern s32 trc_StopCircularTraceBuffering(bool saveTrc);
+extern s32 trc_AckCircularBuffer(vm_dbgTrcBuffer_t *used_buffer);
+extern s32 trc_SetProfileIndicator(u8 indicator);
+extern bool trc_QueryIsActive(void);
+extern void trc_SaveTraceToSD(void);
+//SIM debugging
+extern void trc_SetLevelForSIM(void);
+extern void trc_SetLevelForSIM2(void);
+#endif  /* __SYS_TRACES_HO__ */
+

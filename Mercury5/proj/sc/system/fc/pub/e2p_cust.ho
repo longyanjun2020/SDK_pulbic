@@ -1,0 +1,48 @@
+/****************************************************************************/
+/*  File    : e2p_cust.ho                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : EEPROM handler interface definition                           */
+/*                                                                          */
+/*  Contents:                                                               */
+/****************************************************************************/
+
+
+#ifndef __E2P_CUST_HO__
+#define __E2P_CUST_HO__
+
+#include "stdcomp.h"
+
+#include "vm_e2p.ho"
+
+
+
+#include "e2p_stck.ho"
+#ifdef __E2P_CUST_VAR__
+#define DefExtern
+#else
+#define DefExtern extern
+#endif
+
+
+/*
+ * FCA -> LHO Dependance a retier pour la separation en deux binaires
+ */
+typedef struct Eeprom_s
+{
+   E2pStck_t    GsmStack ;
+   u8 	     	GsmLib[VM_E2P_LIB_MAX_SIZE];
+   u8  	 	GsmApp[VM_E2P_APP_MAX_SIZE];
+
+   u16           NbErrorStored;          /* Number of errors stored.     */
+   u8            pad[2];
+   u32           FirstErrorStored;       /* First Error of the stack.    */
+
+} Eeprom_t;
+
+
+#ifndef __TARGET__
+DefExtern Eeprom_t e2p_Remote;
+#endif
+
+#undef DefExtern
+#endif  /* __E2P_CUST_HO__  */

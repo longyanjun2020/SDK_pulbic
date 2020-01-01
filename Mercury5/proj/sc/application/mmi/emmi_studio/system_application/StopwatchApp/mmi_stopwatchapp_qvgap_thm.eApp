@@ -1,0 +1,33 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="STOPWATCH_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="248" SizeWidth="240">
+			<Widget Id="CountWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="STOPWATCH_COUNT_TEXTWIDGET_HEIGHT" SizeWidth="STOPWATCH_COUNT_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_PADDING_LEFT" Value="STOPWATCH_COUNT_TEXTWIDGET_PADDING_LEFT" />
+				<Property Id="PROP_PADDING_RIGHT" Value="0" />
+				<Property Id="PROP_PADDING_TOP" Value="0" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="0" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NUM_SMALL" />
+				<InternProp Id="GUID" Value="febd8" />
+			</Widget>
+			<Widget Id="MenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="7*MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="2*MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_WDG_FCS_ITEM_BG_IMAGE_ID" Value="IMG_NULL_ID" />
+				<InternProp Id="GUID" Value="a7a2a" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="17721" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="32" />
+		</Widget>
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_STOPWATCH&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_TITLE_WDG_VISIBLE" Value="TRUE" />
+		<InternProp Id="VtmId" Value="MenuWdg" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_STOPWATCHAPP" />
+</UiRoot>

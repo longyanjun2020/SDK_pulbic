@@ -1,0 +1,41 @@
+/******************************************************************************/
+/* SCCS: %Z% Name: %M% Date US: %G% %U% Ver.: %I% */
+/******************************************************************************/
+/****************************************************************************/
+/*  File    : stdmsg.ht                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : GSM project message structure definition                      */
+/*                                                                          */
+/*  Contents: CAUTION every module including this header file should before */
+/*                    define the type Body_t as the union of all the        */
+/*                    expected messages.                                    */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/****************************************************************************/
+
+#ifndef __STDMSG_HT__
+#define __STDMSG_HT__
+
+
+#include "msgtyp.ht"
+
+
+/*
+** ----------------------------------
+**   Inter task primitive structure 
+** ----------------------------------
+*/
+
+typedef struct
+{
+    Header_t  Header;
+    Body_t    Body;
+
+} Msg_t;
+
+
+
+#endif /* __STDMSG_HT__ */
+
+

@@ -1,0 +1,63 @@
+/**
+ * \file vm_stdio.ho
+ * Description : STANDARD IO DEFINITIONS,
+ * contains the string and memory functions and definitions
+*/
+
+
+#ifndef __VM_STDIO_HO__
+#define __VM_STDIO_HO__                                                        
+
+
+#include "vm_types.ht"
+/**
+ * \brief Include files for ARM and VISUAL
+ */
+#include <string.h>
+#include <stdlib.h>
+#include <ctype.h>
+
+#ifndef __SDK_SIMULATION__
+//for ARM cannot include stdio.h because conflict with dev_file.ho
+extern int sprintf(char *s, const char *format, ...);
+extern int sscanf(const char *s, const char *format, ...);
+#else //__SDK_SIMULATION__
+//for Visual keep going with stdio
+#include <stdio.h>
+#endif //__SDK_SIMULATION__
+
+/**
+ * \brief STANDARD LIBRARY management
+ */
+
+ascii *  vm_itoa          ( s32 a, ascii *szBuffer );
+s32      vm_stricmp       ( const ascii * s1, const ascii * s2 );
+s32      vm_strnicmp      ( const ascii * s1, const ascii * s2, u32 n );
+ascii    vm_isascii       ( ascii c);
+
+#define  vm_strcpy        strcpy
+#define  vm_strncpy       strncpy
+#define  vm_strlen        strlen
+#define  vm_strcat        strcat
+#define  vm_strncat       strncat
+#define  vm_memset        memset
+#define  vm_memcpy        memcpy
+#define  vm_memcmp        memcmp
+#define  vm_strcmp        strcmp
+#define  vm_strncmp       strncmp 
+#define  vm_atoi          atoi
+#define  vm_isdigit       isdigit
+#define  vm_strtok        strtok
+#define  vm_strspn        strspn
+#define  vm_strcspn       strcspn
+#define  vm_memmove       memmove
+#define  vm_sprintf       sprintf
+#define  vm_vsprintf      vsprintf
+#define  vm_sscanf        sscanf
+
+#define vm_strchr		strchr
+#define vm_strtol			strtol
+
+#endif  /* __VM_STDIO_HO__ */
+
+

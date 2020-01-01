@@ -1,0 +1,681 @@
+/****************************************************************************/
+/*  File    : REMOTE.HO                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : remote utilities interface                                    */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __REMOTE_HO__
+#define __REMOTE_HO__
+
+#ifdef unix
+#include <stdio.h>
+#endif
+
+#include "stdcomp.h"
+#include "msgtyp.ht"
+#include "remote.hi"
+#include "sys_rm_trc.ho"
+#include "msgofs.hc"
+#include "sys_rtk_ho.h"
+
+
+/* -------------------------------------------------------------------- */
+/* -------------- remote process data structures else than RPC -------- */
+/* -------------------------------------------------------------------- */
+
+/* defines size of arrays of structures ------------------------------- */
+
+/* TargetConfig possible settings */
+#ifndef VM_MSG_DEF
+#define VM_MSG_DEF(_ENUM_, _UNION_)		_ENUM_,
+#endif
+enum{
+#include "remote_message_define__.hi"
+};
+#define OPEN_MMI_CONFIG 1
+
+#define RAD_WIN_DATE 4
+
+#define RAD_PDRX_START   0
+#define RAD_PDRX_STOP    1
+#define RAD_SP1_START    2
+#define RAD_RX_WIN_START 3
+
+#define DEBUG_RTK_STATUS                0x00
+#define DEBUG_E2P_ERROR_STACK_ANALYSIS  0x01
+#define DEBUG_E2P_ERROR_STACK_INIT      0x02
+#define DEBUG_GET_TRACE_BUFFER_IN_FLASH 0x03
+#define DEBUG_ERASE_TRACE_BUFFER_IN_FLASH 0x04
+#define DEBUG_E2P_ERROR_SINGLE_STACK_ANALYSIS   0x05
+
+#define RM_INIT_SEQUENCE_SIZE 8
+
+#define RM_TXBUFFER1_ERROR (1)
+#define RM_BACKTRACE_ENTRY (2)
+
+#define STRING_SIZE_MAX 6  /* size maximum of the string associated to an element of trace  */
+                           /* the value may be changed to any 4*integer+2 value */
+
+
+
+/* data structures ---------------------------------------------------- */
+
+typedef struct
+{
+ s8 RadWinDate [RAD_WIN_DATE];
+} RadWinDate_t;
+
+#ifdef __GNUC__
+struct __packed _ReadWrite_t
+{
+ u32 StartAddr;
+ u16 Length;
+ u8 SenderRights;
+ u8 Pad;
+};
+typedef struct _ReadWrite_t Read_t, Write_t;
+#else
+typedef __packed struct
+{
+ u32 StartAddr;
+ u16 Length;
+ u8 SenderRights;
+ u8 Pad;
+} Read_t, Write_t;
+#endif
+
+typedef struct
+{
+ u32 Addr;
+} ReadRsp_t;
+
+typedef struct
+{
+ u8 Type;
+ u8 Body;
+} rm_DebugMsg_t;
+
+typedef struct
+{
+ u32 Ident;
+ u32 Level;
+} DiagSetMsg_t;
+
+#ifndef __SDK_SIMULATION__
+/* not compiled in remote tasks in order to avoid some warnings */
+typedef struct
+{
+ u32 Nb_Flows;
+ DiagSetMsg_t Flow[];
+} DiagGetMsg_t;
+#endif // __SDK_SIMULATION__
+
+typedef struct
+{
+ u32 Mbx[2];
+ u32 Tasks;
+} RtkState_t;
+
+typedef union
+{
+ Read_t     Read;
+ ReadRsp_t  ReadRsp;
+ Write_t    Write;
+} DiagBody_t;
+
+typedef struct
+{
+ u16 TargetInfo;
+ u16 Length;
+#if defined(__V24_COMPOSITE_USB___)
+ u32 Port;
+#endif
+} DiagHeader_t;
+
+typedef struct
+{
+ Header_t     Header;
+ DiagBody_t   Body;
+} DiagMsg_t;
+
+typedef struct
+{
+ u8 Type;
+ u8 Padding;
+ u16 Length;
+}StatusHeader_t;
+
+typedef struct
+{
+  StatusHeader_t Header;
+  u8 SerialSpeed;
+}StatusSerialSpeed_t;
+
+typedef struct
+{
+ u16 Id;
+ char Name[STRING_SIZE_MAX];
+}StatusElt_t;
+
+typedef struct
+{
+ StatusHeader_t Header;
+ u16 StringSize;
+ u8 NbTasks;
+ u8 NbMbx;
+ u32 NbElts;
+ StatusElt_t Elt[1];
+}StatusRsp_t;
+
+typedef struct
+{
+ u16 Type;
+ u16 Length;
+}GeneHeader_t;
+
+/*------------------------------ for CoolArt auto testing ---------------------------*/
+typedef enum
+{
+  TEST_RES_GRP_0,
+  TEST_RES_GRP_1,
+  TEST_RES_GRP_2,
+  TEST_RES_GRP_3,
+  TEST_RES_GRP_4,
+  TEST_RES_GRP_5,
+  TEST_RES_GRP_6,
+  TEST_RES_GRP_7,
+  TEST_RES_GRP_8,
+  TEST_RES_GRP_9,
+  TEST_RES_GRP_10,
+  TEST_RES_GRP_11,
+  TEST_RES_GRP_12,
+  TEST_RES_GRP_13,
+  TEST_RES_GRP_14,
+  TEST_RES_GRP_15,
+  TEST_RES_GRP_16,
+  TEST_RES_GRP_17,
+  TEST_RES_GRP_18,
+  TEST_RES_GRP_19,
+  TEST_RES_GRP_20,
+  TEST_RES_GRP_21,
+  TEST_RES_GRP_22,
+  TEST_RES_GRP_23,
+  TEST_RES_GRP_24,
+  TEST_RES_GRP_25,
+  TEST_RES_GRP_26,
+  TEST_RES_GRP_27,
+  TEST_RES_GRP_28,
+  TEST_RES_GRP_29,
+  TEST_RES_GRP_30,
+  TEST_RES_GRP_31,
+
+  TEST_RES_GRP_MAX,
+} TestResGrp_e;
+
+typedef enum
+{
+  TEST_RES_LV_0 = (0 << 8),
+  TEST_RES_LV_1 = (1 << 8),
+  TEST_RES_LV_2 = (2 << 8),
+  TEST_RES_LV_3 = (3 << 8),
+  TEST_RES_LV_4 = (4 << 8),
+  TEST_RES_LV_5 = (5 << 8),
+  TEST_RES_LV_6 = (6 << 8),
+  TEST_RES_LV_7 = (7 << 8),
+  TEST_RES_LV_8 = (8 << 8),
+  TEST_RES_LV_9 = (9 << 8),
+  TEST_RES_LV_10 = (10 << 8),
+  TEST_RES_LV_11 = (11 << 8),
+  TEST_RES_LV_12 = (12 << 8),
+  TEST_RES_LV_13 = (13 << 8),
+  TEST_RES_LV_14 = (14 << 8),
+  TEST_RES_LV_15 = (15 << 8),
+  TEST_RES_LV_16 = (16 << 8),
+  TEST_RES_LV_17 = (17 << 8),
+  TEST_RES_LV_18 = (18 << 8),
+  TEST_RES_LV_19 = (19 << 8),
+  TEST_RES_LV_20 = (20 << 8),
+  TEST_RES_LV_21 = (21 << 8),
+  TEST_RES_LV_22 = (22 << 8),
+  TEST_RES_LV_23 = (23 << 8),
+  TEST_RES_LV_24 = (24 << 8),
+  TEST_RES_LV_25 = (25 << 8),
+  TEST_RES_LV_26 = (26 << 8),
+  TEST_RES_LV_27 = (27 << 8),
+  TEST_RES_LV_28 = (28 << 8),
+  TEST_RES_LV_29 = (29 << 8),
+  TEST_RES_LV_30 = (30 << 8),
+  TEST_RES_LV_31 = (31 << 8),
+
+} TestResLv_e;
+
+typedef enum
+{
+  TEST_CMD_GET_RES_BUF,
+  TEST_CMD_SET_RES_FILTER,
+  TEST_CMD_GET_RES_FILTER,
+  TEST_CMD_KEY_RES,
+  TEST_CMD_CALIBRATION_RES,
+  TEST_CMD_TOUCH_RES,
+
+  TEST_CMD_MAX,
+} TestCmd_e;
+
+typedef struct
+{
+  u32 SessionId;
+} GetTestResponse_t;
+
+typedef struct
+{
+  u32 filter[TEST_RES_GRP_MAX];
+} SetTestFilterReq_t;
+
+typedef struct
+{
+  u32 dummy;
+} GetTestFilterReq_t;
+
+typedef union
+{
+  GetTestResponse_t GetTestResponse;
+  SetTestFilterReq_t SetTestFilterReq;
+  GetTestFilterReq_t GetTestFilterReq;
+} TestCmdReqBody;
+
+typedef struct
+{
+  u32 cmdType;
+  TestCmdReqBody body;
+} TestCmdReq;
+
+typedef struct
+{
+  u32 SessionId;
+  u32 length;
+  u8  data[1];
+} ResTestResponse_t;
+
+typedef struct
+{
+  u32 result;
+} SetTestFilterRes_t;
+
+typedef struct
+{
+  u32 result;
+  u32 filter[TEST_RES_GRP_MAX];
+} GetTestFilterRes_t;
+
+typedef struct
+{
+  u16 keyCode;
+  u16 keyPress;
+} KeyResponse_t;
+
+typedef struct
+{
+  u16 press;
+  u16 x;
+  u16 y;
+} CalibrationResponse_t;
+
+typedef struct
+{
+  u16 press;
+  u16 x;
+  u16 y;
+} TouchResponse_t;
+
+typedef union
+{
+  ResTestResponse_t ResTestResponse;
+  SetTestFilterRes_t SetTestFilterRes;
+  GetTestFilterRes_t GetTestFilterRes;
+  KeyResponse_t KeyResponse;
+  CalibrationResponse_t CalibrationResponse;
+  TouchResponse_t TouchResponse;
+} TestCmdResBody;
+
+typedef struct
+{
+  u32 cmdType;
+  TestCmdResBody body;
+} TestCmdRes;
+
+/*------------------------------ for calibration ---------------------------*/
+typedef struct
+{
+  u8 TstNumber;
+  u8 Pad1;
+  u8 Pad2;
+  u8 Pad3;
+  u8 Data;
+  u8 Pad4[3];
+} cal_Tst_t;
+
+#define CAL_TST_OK  0
+#define CAL_TST_KO  1
+
+#define TYP_REQ     0
+#define TYP_RSP     0x80
+
+
+typedef struct
+{
+ StatusHeader_t Header;
+ u8 StackVersion[15] ;
+}StatusVersion_t;
+
+#define RM_STACKVERSION_LENGTH    15
+#define RM_CUSTOMERVERSION_LENGTH 15
+#define RM_SIZE_LENGTH             8
+#define RM_DATE_LENGTH             6
+#define RM_TIME_LENGTH             5
+
+
+typedef struct
+{
+ StatusHeader_t Header;
+ u8 StackVersion[RM_STACKVERSION_LENGTH];
+ u8 CustomerVersion[RM_CUSTOMERVERSION_LENGTH];
+ u8 Size[RM_SIZE_LENGTH];
+ u8 Date[RM_DATE_LENGTH];
+ u8 Time[RM_TIME_LENGTH];
+}StatusInfoVersion_t;
+
+typedef struct
+{
+ StatusHeader_t Header;
+ u32 TargetConfig;
+}StatusConfiguration_t;
+
+typedef struct
+{
+   u8  TypeData [4];
+   u32 Data;
+} MsgTrace_t;
+
+#ifdef __REGISTER_TEST_TOOL__
+typedef struct
+{
+   u8  Function;
+   u8  Type;
+   u16 Padding;
+   u32 Addr;
+   u32 Length;
+   u32 Data;
+} MsgRegister_t;
+#endif
+
+/* -------------------------------------------------------------------- */
+/* -------------- remote process RPC data structures ------------------ */
+/* -------------------------------------------------------------------- */
+
+
+#define MAX_RPC_FRAME_LENGTH 1600
+
+#define RPC2_GET_TYPE(x)        (x & 0x03)
+#define RPC2_GET_ALLOC(x)       (x & 0x04)
+#define RPC2_IS_RETURN_PARAM(x) (x & 0x08)
+#define RPC2_IS_MEM_RELEASE(x)  (x & 0x14)
+#define RPC2_IS_NULL_POINTER(x) (x & 0x20)
+#define RPC2_TYPE_VARIABLE      0x00
+#define RPC2_TYPE_POINTER       0x01
+#define RPC2_STATIC_ALLOC       (0x01 << 2)
+#define RPC2_DYNAMIC_ALLOC      (0x00 << 2)
+#define RPC2_NORMAL_PARAM       (0x00 << 3)
+#define RPC2_RETURN_PARAM       (0x01 << 3)
+#define RPC2_NOT_RELEASE_MEM    (0x01 << 4)
+#define RPC2_RELEASE_MEM        (0x00 << 4)
+#define RPC2_NULL_POINTER       (0x01 << 5)
+
+/* data structures ---------------------------------------------------- */
+
+typedef struct
+{
+ u32 CallIndex;
+ u8  NbParam;
+ u8  SemIndex;
+ u8  Pad[2];
+} RpcHeader_t;
+
+
+typedef struct
+{
+ RpcHeader_t Header;
+ u32         CallParam[4];
+} RpcDown_t;
+
+typedef struct
+{
+ u8  SemIndex;
+ u8  Pad[3];
+ u32 ReturnValue;
+} RpcUp_t;
+
+typedef struct
+{
+ u8  SemIndex;
+ u8  Pad[3];
+ u32 dataLength;
+ u8* pData;
+} Rpc2Up_t;
+
+typedef union
+{
+ u32 VariableData;
+ u8 PointerData[4];
+} Data_t;
+
+
+typedef struct
+{
+ u16 Type;
+ u16 Size;
+ Data_t Data;
+} Rpc2Param_t;
+
+typedef struct
+{
+ RpcHeader_t Header;
+#ifndef __SDK_SIMULATION__
+ Rpc2Param_t Param[];
+#else //__SDK_SIMULATION__
+ Rpc2Param_t *Param;
+#endif //__SDK_SIMULATION__
+} Rpc2Down_t;
+
+typedef union
+{
+ u32 Value;
+ void *Pointer;
+} Param_t;
+
+
+
+/* -------------------------------------------------------------------- */
+/* -------------- remote management ---------------- ------------------ */
+/* -------------------------------------------------------------------- */
+
+
+extern s8 PdRxStart;
+extern s8 PdRxStop;
+extern s8 Sp1Start;
+extern s8 RxWinStart;
+
+extern rtk_Queue_t   rm_Queue;
+extern bool rm_FreeBuffer1;
+extern u8 rm_DisableInBacktrace_b;
+extern u8 rm_BufferTransformResult;
+extern u8 rm_EfatMountResult;
+extern void rm_DisableInBacktraceBitClean(u8 bitfield);
+extern void rm_DisableForBuffAddr(u32 address);
+extern void rm_DisableForBacktrace(void);
+extern void rm_ForceSaveMsg(bool firstTime);
+extern void rm_DisableErrorTrace(bool disable);
+extern u8 rm_BufferTransform(bool firstTime);
+extern void rm_DumpFinalTraceInBacktrace(void);
+
+bool rm_GetRequest(void);
+bool rm_GetRequestExt(u32);
+void rm_Init(void);
+void rm_Status(bool Wait, char *fmt, ...);
+void rm_MbxHook(u8 Mbx, void *p, bool IsLocal);
+void rm_InitTraceDrivers(void);
+// MST add start
+void rm_InitTraceBuffer(void);
+// MST add end
+u32 rm_FastRxTraceDriver(u8*, u32, u8, u32);
+
+bool rm_TxTraceDriver(u8 *, rm_CurrentBlock_t *);
+void rm_HighSpeedUartTimerStart(u32 Port);
+void rm_HighSpeedUartTimerStop(u32 Port);
+u32  rm_FastTxTraceDriver (u8*, u32, u32); // 13/03/02: RDO-APA fast packet trace driver
+bool  rm_TxGetSize(rm_CurrentBlock_t*);
+bool rm_v24HasData2Send(void);
+void *rm_StoreMsgInBufferNoOverwriting(u8 *, u8, s16);
+void *rm_StoreMsgInBufferOverwriting(u8 *, u8, s16);
+void rm_ProdProcess(cal_Tst_t *ProdMsg);
+void rm_ProdSubscribe(u8 mailbox);
+void rm_ProdSendRsp(void* pData, u32 dataSize);
+void *rm_UserSendCalResult (u16 size, u8 TestNumber);
+
+#if defined(__V24_COMPOSITE_USB___)
+extern  void *(*rm_StoreCmdInBuffer)(u8 *, u8, s16);
+void *rm_StoreCmdInBufferNoOverwriting(u8 *Msg, u8 TargetInfo, s16 Size);
+bool rm_v24HasCmd2Send(void);
+bool rm_TxGetCmdSize(rm_CurrentBlock_t * io__ps_CurrentBlock);
+bool rm_TxCmdDriver(u8 * io__pu8_Buffer, rm_CurrentBlock_t * i__ps_CurrentBlock);
+void rm_RecoverV24UserMode(u32 port_bitfield);
+#endif
+
+void rm_ModemLogAntfOn(bool TurnOn);
+#if defined (__UPGRADE_HSL_OVER_SHMCONN__)||(__UPGRADE_GENIE_OVER_SHMCONN__)||(__UPGRADE_RAMLOG_OVER_SHMCONN__)
+/*****************************************************************************
+  Function: rm_ModemGenieLogRelease()
+------------------------------------------------------------------------------
+  Scope   : release the Genie log buffer
+
+  Return  : TRUE if successful, FALSE otherwise
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+void rm_ModemGenieLogRelease(void);
+
+/*****************************************************************************
+  Function: rm_v24HasLog2Send
+------------------------------------------------------------------------------
+  Scope   : Trace TX buffer not empty ?
+
+  Return  : Return FALSE if nothing to be sent
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+bool rm_v24HasLog2Send(void);
+
+/*****************************************************************************
+  Function: rm_ModemGenieLogSeriesFree()
+------------------------------------------------------------------------------
+  Scope   : free memory of rm_ModemGenieLogSeriesFree
+
+  Return  :
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+bool rm_ModemGenieLogSeriesFree(void);
+
+/*****************************************************************************
+  Function: rm_TxGetGenieSize()
+------------------------------------------------------------------------------
+  Scope   : Reserve the next block available, and give the size
+
+  Return  :
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+bool rm_TxGetGenieSize(rm_CurrentBlock_t * io__ps_CurrentBlock);
+
+/*****************************************************************************
+  Function: rm_TxTraceGenieDriver()
+------------------------------------------------------------------------------
+  Scope   : Copy the current block into the input buffer
+
+  Return  : TRUE if data to send, FALSE otherwise
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+bool rm_TxTraceGenieDriver(u8 * io__pu8_Buffer, rm_CurrentBlock_t * i__ps_CurrentBlock);
+
+/*****************************************************************************
+  Function: rm_AckModemLog()
+------------------------------------------------------------------------------
+  Scope   : ack to free memory
+
+  Return  :
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+bool rm_AckModemLog(runtimeTraceType_e type);
+
+/*****************************************************************************
+  Function: rm_ModemLogSend()
+------------------------------------------------------------------------------
+  Scope   : process the modem log
+
+  Return  : TRUE if successful, FALSE otherwise
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+s32 rm_ModemLogSend(u8 *buf_ptr, u32 buf_size, u8 *tail_ptr, runtimeTraceType_e type);
+
+/*****************************************************************************
+  Function: rm_ModemLogCheck()
+------------------------------------------------------------------------------
+  Scope   : check modem log is finish or not , this function shold be called only when modem assert
+
+  Return  : TRUE if log is finished, FALSE otherwise
+------------------------------------------------------------------------------
+  Variable Name     |IN |OUT|GLB|  Use
+--------------------+---+---+---+---------------------------------------------
+******************************************************************************/
+s32 rm_ModemLogCheck(bool go_assert);
+extern void rm_AckModemBuffer(u8 *header_tr, u8 *tail_ptr, runtimeTraceType_e type);
+#endif
+
+extern void *(*rm_StoreMsgInBuffer)(u8 *, u8, s16);
+
+
+#if defined (__SDK_SIMULATION__)
+#ifdef __cplusplus
+extern "C"
+{
+#endif // __cplusplus
+
+void rm_RpcUp(RpcUp_t *);
+void rm_Rpc2Up(Rpc2Down_t *);
+void rm_E2pUp(u8* Result, u16 dataLength);
+
+s32 fms_E2pRead(u32 i__u32_ParamAddr, u32 i__u32_ParamSize, void *o__p_Buffer);
+s32 fms_E2pWrite(u32 i__u32_ParamAddr, u32 i__u32_ParamSize, void *i__p_Buffer);
+
+#ifdef __cplusplus
+}
+#endif // __cplusplus
+
+
+#elif defined(__TARGET__)
+void rm_RpcDown(RpcDown_t *RpcData);
+bool rm_Rpc2Down(Rpc2Down_t *Rpc2Data);
+
+#endif // (__SDK_SIMULATION__)
+
+#endif /* __REMOTE_HO__ */

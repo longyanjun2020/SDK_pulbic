@@ -1,0 +1,122 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_mux.hi                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : interface with the multiplexer                                */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 15/12/03 |  MSE   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/*----------+--------+------------------------------------------------------*/
+/* 08/02/05 |  APH   | Add release function                                 */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\itf\v24_mux.hi-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 07.10.05 | aph    | 1.8            | Resolution for 30133: Swift.h clean
+ *          |        |                |  : V24 part  .                     
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.7            | Resolution for 29537: Sleep mode im
+ *          |        |                | plementation (adaptation for MUX as
+ *          |        |                |  well as multi-Uart)  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.6            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 27.04.05 | aph    | 1.5            | Resolution for 28229: CMUX: CTS sta
+ *          |        |                | tus should be down when connecting 
+ *          |        |                | DCLn  .                            
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.4            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 23.02.05 | aph    | 1.3            | Resolution for 27835: V24 supports 
+ *          |        |                | MUX  .                             
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.2            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.1            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+
+#ifndef __SYS_V24_MUX_HI__
+#define __SYS_V24_MUX_HI__
+
+#include "stdcomp.h"
+
+typedef void  (* v24_mux_Init_t)          ( void );
+typedef void  (* v24_mux_Timer_t)         ( void );
+typedef void  (* v24_mux_Start_t)         ( void );
+typedef void  (* v24_mux_Stop_t)          ( void );
+typedef void  (* v24_mux_OpenDlcReq_t)    ( void );
+typedef void  (* v24_mux_OpenDlcCnf_t)    ( void );
+typedef void  (* v24_mux_CloseDlcReq_t)   ( void );
+typedef void  (* v24_mux_CloseDlcCnf_t)   ( void );
+typedef void  (* v24_mux_Release_t)       ( u8 *, u32 );
+
+
+typedef struct
+{
+   v24_mux_Init_t             _v24_mux_Init;
+   v24_mux_Timer_t            _v24_mux_Timer;  
+   v24_mux_Start_t            _v24_mux_Start;         
+   v24_mux_Stop_t             _v24_mux_Stop;       
+   v24_mux_OpenDlcReq_t       _v24_mux_OpenDlcReq; 
+   v24_mux_OpenDlcCnf_t       _v24_mux_OpenDlcCnf; 
+   v24_mux_CloseDlcReq_t      _v24_mux_CloseDlcReq;
+   v24_mux_CloseDlcCnf_t      _v24_mux_CloseDlcCnf;
+   v24_mux_Release_t          _v24_mux_Release;
+}  
+
+v24_MuxInitSetup_t;
+
+
+typedef enum
+{
+  V24_MUX_IND_TX_FC, // CTS
+  V24_MUX_IND_DSR,
+  V24_MUX_IND_PARITY_ERROR,
+  V24_MUX_IND_FRAMING_ERROR,
+  V24_MUX_IND_BREAK,
+  V24_MUX_IND_TX_MAX_FRAME_SIZE,
+  V24_MUX_IND_RI,
+  V24_MUX_IND_DCD,
+  V24_MUX_IND_SLEEP_MODE_READY,
+  V24_MUX_IND_SLEEP_MODE_PROTO_WAKEUP
+}
+v24_MuxEventInd_t;
+
+extern TxPal_status_e v24_MuxRelTxDataBlock(v24_TxBlock_t *TxBlock, void* LowerContext);
+extern u16  v24_MuxHapcRxDataPtr(u8 *Buf, u16 PurgeIndex, u16 FillIndex, void* Context );
+extern u32 v24_MuxEventInd(v24_MuxEventInd_t EventInd, u32 Arg, void* Context);
+extern void v24_CtrlTestReleaseBlock( v24_TxBlock_t* v24_TxBlock, u8* Purge, u8 Fill, u8 mod );
+#endif
+   

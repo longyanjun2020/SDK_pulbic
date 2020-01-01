@@ -1,0 +1,17 @@
+#ifndef __GSS_MSG_DEF_H__
+#define __GSS_MSG_DEF_H__
+
+/**
+ *  @brief Primitive/Message ID Base Definition
+ *         Please notice there are only 64 unit of ID for each function
+ */
+VM_MSG_DEF(GSS_DEV_BASE=VM_CUS69_BASE, void DUMMY)  /**< DEV task GSS Base ID*/
+
+/**
+ *  @brief MMP GSS System Primitive/Message ID
+ */
+VM_MSG_DEF(GSS_G3D_FRAME_END_IND=(GSS_DEV_BASE+0x01), void DUMMY)  /**< G3D IRQ request */
+
+
+#endif
+

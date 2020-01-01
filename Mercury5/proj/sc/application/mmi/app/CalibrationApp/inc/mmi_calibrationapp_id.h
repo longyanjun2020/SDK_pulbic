@@ -1,0 +1,10 @@
+#ifndef __MMI_CALIBRATIONAPP_ID_H__
+#define __MMI_CALIBRATIONAPP_ID_H__
+
+typedef enum
+{
+    CALIBRATION_WND_SPLASH = WND_ID_APP_BASE,
+    CALIBRATION_WND_INPUT,
+} CalibrationWndId_e;
+
+#endif //__MMI_CALIBRATIONAPP_ID_H__

@@ -1,0 +1,193 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>calllogsrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_CALLLOG</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="calllogsrv" id="22535" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+          <node name="init" id="25384" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>load file and init CB</EntryComment>
+          <ExitComment>fire srv_ready_evt</ExitComment>
+          </node>
+          <node name="idle" id="1574" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>wait for request</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="active" id="6502" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="AddLog">
+          <EntryComment>set busy</EntryComment>
+          <ExitComment></ExitComment>
+              <node name="AddLog" id="5437" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="CheckNewLog">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+                  <node name="CheckNewLog" id="2181" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active_AddLog" DefaultChild="">
+                  <EntryComment>check new or replace log&#13;&#10;</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="AddNewLog" id="31258" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active_AddLog" DefaultChild="">
+                  <EntryComment>write new log to disk</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="ReplaceLog" id="4702" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active_AddLog" DefaultChild="">
+                  <EntryComment>read the log</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+              </node>
+              <node name="ReadFullLog" id="14860" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>read the log</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="DeleteOneLog" id="25174" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>delete one log</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="DeleteAllLogs" id="226" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>delet all logs</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="DeleteAllSIMLogs" id="15114" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>delet all SIM logs</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="ResetCallTimer" id="18513" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>reset timer and write header</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="AddCallDuration" id="22122" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>write call duration</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="7467"	from="_calllogsrv"  to="_calllogsrv"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMReadyInd</event>
+				<condition></condition>
+				<action>get IMSI</action>
+			</transition>
+			<transition enable="1" id="28499"	from="_calllogsrv"  to="_calllogsrv"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMStatusChangeInd</event>
+				<condition></condition>
+				<action>clear IMSI if need</action>
+			</transition>
+			<transition enable="1" id="14987"	from="_init"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_IEVT_READY</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="32403"	from="_idle"  to="_init"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_IEVT_INIT</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="8949"	from="_idle"  to="_active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_IEVT_START</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="30579"	from="_idle"  to="_active_AddLog_CheckNewLog"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_EVT_ADDLOG</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="16626"	from="_idle"  to="_active_ReadFullLog"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_EVT_READLOG</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="12351"	from="_idle"  to="_active_DeleteOneLog"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_EVT_DELETEONELOG</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="26787"	from="_idle"  to="_active_DeleteAllLogs"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_EVT_DELETEALLLOGS</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="27230"	from="_idle"  to="_active_DeleteAllSIMLogs"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_EVT_DELETEALLSIMLOGS</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="29680"	from="_idle"  to="_active_ResetCallTimer"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_EVT_RESETCALLTIMEAC</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="28664"	from="_idle"  to="_active_AddCallDuration"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_EVT_ADDCALLDURATION</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="19763"	from="_active"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_IEVT_END</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="2887"	from="_active"  to="_init"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_IEVT_INIT</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="362"	from="_active_AddLog_CheckNewLog"  to="_active_AddLog_AddNewLog"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_IEVT_NEWLOG</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="13316"	from="_active_AddLog_CheckNewLog"  to="_active_AddLog_ReplaceLog"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CALLLOGSRV_IEVT_REPLACELOG</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="READY" type="internal"></event>
+			<event name="START" type="internal"></event>
+			<event name="INIT" type="internal"></event>
+			<event name="END" type="internal"></event>
+			<event name="NEWLOG" type="internal"></event>
+			<event name="REPLACELOG" type="internal"></event>
+			<event name="ADDLOG" type="external"></event>
+			<event name="READLOG" type="external"></event>
+			<event name="DELETEONELOG" type="external"></event>
+			<event name="DELETEALLLOGS" type="external"></event>
+			<event name="RESETCALLTIMEAC" type="external"></event>
+			<event name="ADDCALLDURATION" type="external"></event>
+			<event name="DELETEALLSIMLOGS" type="external"></event>
+		</eventlist>
+		<functionlist>
+			<function name="AddCallLogReq" id="30312" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to add a call log&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: the datamodel contains Mmi_CallLogSrvAddLogReq_t. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: the datamodel contains Mmi_CallLogSrvAddLogCnf_t. Can be null if  you don&apos;t care the result.&#13;&#10;</function>
+			<function name="ReadSimpLog" id="23141" RetType="MAE_Ret"	Param1="Mmi_CallLogSrvReadSimpLogReq_t *ptReq" Param2="Mmi_CallLogSrvReadSimpLogCnf_t *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get partial data of a call log&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Mmi_CallLogSrvReadSimpLogReq_t structure. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: Mmi_CallLogSrvReadSimpLogCnf_t structure contains the data you want. Cannot be null.</function>
+			<function name="ReadFullLogReq" id="14446" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get the full data of a call log&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: the datamodel contains Mmi_CallLogSrvReadFullLogReq_t. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: the datamodel contains Mmi_CallLogSrvReadFullLogCnf_t. Cannot be null.</function>
+			<function name="DeleteOneLogReq" id="2532" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to delete a call log&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: the datamodel contains Mmi_CallLogSrvDeleteOneLogReq_t. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: the datamodel contains Mmi_CallLogSrvDeleteOneLogCnf_t. Can be null if  you don&apos;t care the result.</function>
+			<function name="DeleteAllLogsReq" id="15483" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to delete all call logs in the same type&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: the datamodel contains Mmi_CallLogSrvDeleteAllLogsReq_t. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: the datamodel contains Mmi_CallLogSrvDeleteAllLogsCnf_t. Can be null if  you don&apos;t care the result.</function>
+			<function name="GetCallTimeAC" id="30711" RetType="MAE_Ret"	Param1="Mmi_CallLogSrvGetCallTimeACReq_t  *ptReq" Param2="Mmi_CallLogSrvGetCallTimeACCnf_t  *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get data of time AC&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Mmi_CallLogSrvGetCallTimeACReq_t structure. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: Mmi_CallLogSrvGetCallTimeACCnf_t structure contains the data you want. Cannot be null.</function>
+			<function name="ResetCallTimeACReq" id="28989" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to reset the time AC&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: the datamodel contains Mmi_CallLogSrvResetCallTimeACReq_t. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: the datamodel contains Mmi_CallLogSrvResetCallTimeACCnf_t. Can be null if  you don&apos;t care the result.</function>
+			<function name="AddMissedCountListener" id="2311" RetType="MAE_Ret"	Param1="ModelListener_t *pMdl" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided for other APs to add a listener to the missed call counter&#13;&#10;Parameter: &#13;&#10;&lt;pMdl&gt;: the model listener</function>
+			<function name="GetLogStatus" id="8419" RetType="MAE_Ret"	Param1="Mmi_CallLogSrvLogStatusReq_t *ptReq" Param2="Mmi_CallLogSrvLogStatusCnf_t *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get the call logs size of any type&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Mmi_CallLogSrvLogStatusReq_t structure. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: Mmi_CallLogSrvLogStatusCnf_t structure contains the data you want. Cannot be null.</function>
+			<function name="AddCallDurationReq" id="1588" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to update the MT/MO/last call time AC&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: the datamodel contains Mmi_CallLogSrvAddCallDurationReq_t. Cannot be null.&#13;&#10;&lt;ptCnf&gt;: the datamodel contains Mmi_CallLogSrvAddCallDurationCnf_t. Can be null.</function>
+			<function name="NotifyMissedCallCountChange" id="30473" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: provide for CC to notify others the missed call count is changed.</function>
+			<function name="DeleteFile" id="18682" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Delete the calllogs&apos; file</function>
+			<function name="GetLastDialedCallLog" id="19334" RetType="MAE_Ret"	Param1="Mmi_CallLogSimpRecord_t *pLog" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get the last dialed call log (sync function)&#13;&#10;Parameter: &#13;&#10;&lt;pLog&gt;: the return result. Cannot be null.&#13;&#10;</function>
+			<function name="ResetMissCallCount" id="23781" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetPrevAddLogType" id="29781" RetType="MAE_Ret"	Param1="MMI_CALLLOG_SIM_TYPE_E *eSIM" Param2="MMI_CALLLOG_TYPE_E *eType"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

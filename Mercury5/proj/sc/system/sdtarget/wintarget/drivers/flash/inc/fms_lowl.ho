@@ -1,0 +1,166 @@
+/****************************************************************************/
+/*  $Workfile::   fms_lowl.ho                                             $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Flash Memory Services - Low level definitions                 */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+
+#ifndef __FMS_LOWL_HO__
+#define __FMS_LOWL_HO__
+
+
+/****************************************************************************/
+/*                        SPECIAL TYPES DEFINITIONS                         */
+/****************************************************************************/
+
+typedef struct
+{
+    fms_ProgramFunc_t pf_Program;
+    fms_EraseFunc_t pf_Erase;
+    fms_SetProtectFunc_t pf_SetProtect;
+    fms_ExtendedCmdFunc_t pf_ExtendedCmd;
+    fms_BufferProgramFunc_t pf_Buffer_Program;
+} fms_ActionsDescriptor_t;
+
+
+typedef struct
+{
+    /* Joined manufacturer code and device code */
+    u32 u32_DeviceFullId;
+
+    /* Supported features */
+    u32 u32_Features;
+
+    /* Device geometry */
+    fms_DeviceGeometry_t *ps_Geometry;
+    fms_BanksDescriptor_t *ps_Banks;
+
+    /* RAM based low-level functions */
+    const fms_ActionsDescriptor_t *ps_Actions;
+} fms_ConstDeviceDescriptor_t;
+
+typedef enum
+{
+    FMS_S_CMDS_Numonyx             = 0x20,
+    FMS_S_CMDS_Numonyx_Buf         = 0x21,
+    FMS_S_CMDS_NumonyxM18_Buf      = 0x25,
+    FMS_S_CMDS_Spansion            = 0x50,
+    FMS_S_CMDS_Spansion_Buf        = 0x51,
+    FMS_S_CMDS_SpansionVS_Buf      = 0x55,
+    FMS_S_CMDS_SamsungA            = 0x60,
+    FMS_S_CMDS_SamsungA_Buf        = 0x61,
+    FMS_S_CMDS_SamsungB            = 0x64,
+    FMS_S_CMDS_SamsungB_Buf        = 0x65,
+    FMS_S_CMDS_Toshiba             = 0x70,
+    FMS_S_CMDS_Toshiba_Buf         = 0x71,
+
+    FMS_S_CMDS_SPI_Winbond_Buf     = 0xC0,
+    FMS_S_CMDS_SPI_Macronix_Buf    = 0xC4,
+    FMS_S_CMDS_SPI_Micron_Buf      = 0xD0,
+    FMS_S_CMDS_SPI_Gigadevice_Buf  = 0xD4,
+    FMS_S_CMDS_SPI_EONSI_Buf       = 0xD8,
+    FMS_S_CMDS_SPI_ESMT_Buf        = 0xDC,
+
+    FMS_S_CMDS_MAXINDEX,
+} FMS_S_COMMANDSETS_E;
+
+typedef struct
+{
+    FMS_S_COMMANDSETS_E fms_enum;
+    const fms_ActionsDescriptor_t *pDescriptors;
+} FMS_S_CMDSETSMAPPING;
+
+typedef struct
+{
+    /* Joined manufacturer code and device code */
+    u32 u32_DeviceFullId;
+
+    /* releated buffer size */
+    u32 u32_WriteBufferSize;
+} fms_WriteBufferDesc_t;
+
+/****************************************************************************/
+/* GEOMETRIES                                                               */
+/****************************************************************************/
+
+/*
+ * Great! We need to more structured types derived from fms_DeviceGeometry_t
+ * because this stupid armcc cannot handle zero-sized arrays properly in
+ * initialisations.
+ */
+
+typedef struct
+{
+    u16 u16_DeviceSize;        /* Device size = u16_DeviceSize * 64 KiB */
+    u8 u8_Pad;
+    u8 u8_RegionNumber;
+    fms_DeviceSectorRegion_t as_Regions[2];
+} fms_TwoRegionGeometry_t;
+
+typedef struct
+{
+    u16 u16_DeviceSize;        /* Device size = u16_DeviceSize * 64 KiB */
+    u8 u8_Pad;
+    u8 u8_RegionNumber;
+    fms_DeviceSectorRegion_t as_Regions[1];
+} fms_OneRegionGeometry_t;
+
+typedef struct
+{
+    u16 u16_DeviceSize;        /* Device size = u16_DeviceSize * 64 KiB */
+    u8 u8_Pad;
+    u8 u8_RegionNumber;
+    fms_DeviceSectorRegion_t as_Regions[3];
+} fms_ThreeRegionGeometry_t;
+
+
+
+/****************************************************************************/
+/* BANK CONFIGURATIONS                                                      */
+/****************************************************************************/
+
+/* Same remark as above... */
+typedef struct
+{
+    u16 u16_BankNumber;
+    u16 au16_BankAddresses[1];   /* Containing last address of the bank /0x1000 */
+} fms_MonoBank_t;
+
+typedef struct
+{
+    u16 u16_BankNumber;
+    u16 au16_BankAddresses[2];
+} fms_BiBank_t;
+
+typedef struct
+{
+    u16 u16_BankNumber;
+    u16 au16_BankAddresses[4];
+} fms_QuadriBank_t;
+
+typedef struct
+{
+    u16 u16_BankNumber;
+    u16 au16_BankAddresses[8];
+} fms_OctoBank_t;
+
+typedef struct
+{
+    u16 u16_BankNumber;
+    u16 au16_BankAddresses[16];
+} fms_16Bank_t;
+
+typedef struct
+{
+    u16 u16_BankNumber;
+    u16 au16_BankAddresses[32];
+} fms_32Bank_t;
+
+
+
+#endif /* __FMS_LOWL_HO__ not defined   */
+

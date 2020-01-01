@@ -1,0 +1,275 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CALCULATOR_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="ResultTextWidget" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALCULATOR_RESULT_TEXTWIDGET_HEIGHT" SizeWidth="CALCULATOR_RESULT_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="CALCULATOR_RESULT_TEXTWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="CALCULATOR_RESULT_TEXTWIDGET_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="(FontCategory_t)FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(WdgAlignment_e)(ALIGN_H_RIGHT|ALIGN_V_MIDDLE)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="(RGBColor_t)CALCULATOR_RESULT_TEXTWIDGET_COLOR" />
+				<InternProp Id="GUID" Value="a3dbf" />
+			</Widget>
+			<Widget Id="Operand1TextWidget" ClsID="CLSID_TEXTWIDGET" SizeHeight="CALCULATOR_OPERAND1_TEXTWIDGET_HEIGHT" SizeWidth="CALCULATOR_OPERAND1_TEXTWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="CALCULATOR_OPERAND1_TEXTWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="CALCULATOR_OPERAND1_TEXTWIDGET_POS_Y" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="(FontCategory_t)FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(WdgAlignment_e)(ALIGN_H_RIGHT|ALIGN_V_MIDDLE)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="(RGBColor_t)CALCULATOR_OPERAND1_TEXTWIDGET_COLOR" />
+				<InternProp Id="GUID" Value="c07b0" />
+			</Widget>
+			<Widget Id="OperatorImageWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CALCULATOR_OPERATOR_IMGWIDGET_HEIGHT" SizeWidth="CALCULATOR_OPERATOR_IMGWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="CALCULATOR_OPERATOR_IMGWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="CALCULATOR_OPERATOR_IMGWIDGET_POS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="275bd" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="OperandListWidget" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="CALCULATOR__OPERANDWIDGET_HEIGHT" SizeWidth="CALCULATOR__OPERANDWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="CALCULATOR__OPERANDWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="CALCULATOR__OPERANDWIDGET_POS_Y" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_BUTTON" />
+				<InternProp Id="GUID" Value="51c50" />
+				<Model ClsID="CLSID_GRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="0" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_1_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="1" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_2_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="2" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_3_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="3" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_4_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="4" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_5_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="5" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_6_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="6" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_7_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="7" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_8_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="8" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_9_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="9" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_DOT_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="10" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_0_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="11" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="TXT_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_PERCENTAGE_PRESSED" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Widget Id="OperandButtonWidget" ClsID="CLSID_BUTTONWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="58141" />
+			</Widget>
+			<Widget Id="OperatorListWidget" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="CALCULATOR__OPERATORWIDGET_HEIGHT" SizeWidth="CALCULATOR__OPERATORWIDGET_WIDTH">
+				<Position Type="X_POSITION" Value="CALCULATOR__OPERATORWIDGET_POS_X" />
+				<Position Type="Y_POSITION" Value="CALCULATOR__OPERATORWIDGET_POS_Y" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_BUTTON" />
+				<InternProp Id="GUID" Value="529c6" />
+				<Model ClsID="CLSID_GRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="0" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_ADDTION_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="1" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_SUBTRACTION_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="2" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_MULTIPLICATION_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="3" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="IMG_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_DIVISION_PRESSED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="4" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+							<Image Id="TXT_NULL_ID" />
+							<Image Id="TOOLS_CALCULATOR_IMG_EQUAL_PRESSED" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Widget Id="OperatorButtonWidget" ClsID="CLSID_BUTTONWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="1d1db" />
+			</Widget>
+			<InternProp Id="GUID" Value="fcf45" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<Property Id="PROP_TITLE_WDG_VISIBLE" Value="FALSE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_PLUSMINUS" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLOSE" />
+		<Property Id="PROP_WDG_BG_POSITION" Value="WDG_BG_POS_WHOLE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CALCULATORAPP" />
+</UiRoot>

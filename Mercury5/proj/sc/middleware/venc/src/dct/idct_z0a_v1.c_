@@ -1,0 +1,756 @@
+/**************************************************************************
+* This software module was originally developed by contributors to the 
+* course of development of the ISO/IEC 23002-2 (Fixed-point 8x8 IDCT and DCT) 
+* standard for reference purposes and its performance may not have been optimized. 
+* This software module is an implementation of one or more tools as specified by 
+* the ISO/IEC 23002-2 standard.
+*
+* ISO/IEC gives You a royalty-free, worldwide, non-exclusive, copyright
+* license to copy, distribute, and make derivative works of this software
+* module or modifications thereof for use in implementations of the ISO/IEC
+* 23002-2 standard in products that satisfy conformance criteria (if any).
+*
+* Those intending to use this software module in products are advised that
+* its use may infringe existing patents. ISO/IEC have no liability for use
+* of this software module or modifications thereof.
+*
+* Copyright is not released for products that do not conform to audiovisual
+* and image-coding related ITU Recommendations and/or ISO/IEC International
+* Standards.
+*
+******** Section to be removed when the standard is published ************
+*
+* Assurance that the originally developed software module can be used
+* (1) in the ISO/IEC 23002-2 standard once the ISO/IEC 23002-2 standard
+*     has been adopted; and
+* (2) to develop the ISO/IEC 23002-2 standard:
+*
+* The original contributors grant ISO/IEC all rights necessary to include 
+* the originally developed software module or modifications thereof in the 
+* ISO/IEC 23002-2 standard and to permit ISO/IEC to offer You a royalty-free, 
+* worldwide, non-exclusive, copyright license to copy, distribute, and make 
+* derivative works for use in implementations of the ISO/IEC 23002-2 standard 
+* in products that satisfy conformance criteria (if any), and to the extent 
+* that such originally developed software module or portions of it are included 
+* in the ISO/IEC 23002-2 standard. To the extent that the original contributors 
+* own patent rights that would be required to make, use, or sell the originally 
+* developed software module or portions thereof included in the ISO/IEC 23002-2 
+* standard in a conforming product, the original contributors will assure the 
+* ISO/IEC that they are willing to negotiate licenses under reasonable and non-
+* discriminatory terms and conditions with applicants throughout the world.
+*
+* ISO/IEC gives You a free license to this software module or modifications
+* thereof for the sole  purpose of developing the ISO/IEC 23002-2 standard.
+*
+******** end of section to be removed when the standard is published *****
+*
+* The original contributors retain full rights to modify and use the code for 
+* their own purposes, assign or donate the code to a third party and to inhibit
+* third parties from using the code for products that do not conform to
+* MPEG-related ITU Recommendations and/or ISO/IEC International Standards.
+*
+* This copyright notice must be included in all copies or derivative works.
+* Copyright (c) ISO/IEC 2007.
+**********************************************************************/
+#include "DCT_IDCT.h"
+#include <stdio.h>
+#ifdef WIN32
+#include <memory.h>
+#else
+#include <fstream>
+using namespace std;
+#endif
+
+
+//#define IDCT_DEBUG
+//#define LESS_IDCT
+//#undef LESS_IDCT
+#ifdef LESS_IDCT
+extern int nzcoef[8];
+#endif
+
+#if defined(WIN32) || defined(WINCE)
+    extern "C" 
+    {
+        extern int16 *InAddr;
+        extern int16 *OutBuf; // for use as difference buffer...  for motion use.
+    };
+#elif defined(_MIPS_)
+    extern int16 *InAddr;
+    extern int16 *OutBuf; // for use as difference buffer...  for motion use.
+#endif
+
+/*
+* Compute products:
+*   y ~ y * 113/128;
+*   z ~ y * 719/4096: 
+*/
+#define pmul_1(y,z)      \
+    do {                   \
+    int y2, y3;          \
+    y2 = (y >> 3) - (y >> 7); \
+    y3 = y2 - (y >> 11); \
+    z  = y2 + (y3 >> 1); \
+    y  = y - y2;         \
+    } while (0)
+
+/*
+* Compute products:
+*   y ~ y * 1533/2048;
+*   z ~ y * 1/2;
+*/
+#define pmul_2(y,z)      \
+    do {                   \
+    int y2;              \
+    y2 = (y >> 9) - y;   \
+    z  = y >> 1;         \
+    y  = (y2 >> 2) - y2; \
+    } while (0)
+
+/*
+* Compute products:
+*   y ~ y * 41/128;
+*   z ~ y * 99/128;
+*/
+#define pmul_3(y,z)      \
+    do {                   \
+    int y2, y3;          \
+    y2 = y + (y >> 5);   \
+    y3 = y2 >> 2;        \
+    y  = y3 + (y >> 4);  \
+    z  = y2 - y3;        \
+    } while (0)
+
+// This is for 4x4 DCT, output y is 0.
+#define pmul_3_0_x(y,z)      \
+    {                   \
+    z  = y + (y >> 5) - ((y + (y >> 5)) >> 2); \
+    }
+// This is for 4x4 DCT, output z is 0.
+#define pmul_3_x_0(y,z)      \
+    {                   \
+    y  = ((y + (y >> 5)) >> 2) + (y >> 4);  \
+    }
+
+/*
+* 2D scaling: 
+*/
+#define A   1024 
+#define B   1138
+#define C   1730 
+#define D   1609 
+#define E   1264 
+#define F   1922 
+#define G   1788 
+#define H   2923 
+#define I   2718 
+#define J   2528
+
+/* 2D scale-factor matrix: */
+static const uint16 idct_scale [4*4] = {
+    A, B, C, D,
+    B, E, F, G,
+    C, F, H, I,
+    D, G, I, J,
+};
+/*
+static const uint16 idct_scale [8*8] = {
+    A, B, C, D, A, D, C, B,
+    B, E, F, G, B, G, F, E,
+    C, F, H, I, C, I, H, F,
+    D, G, I, J, D, J, I, G,
+    A, B, C, D, A, D, C, B,
+    D, G, I, J, D, J, I, G,
+    C, F, H, I, C, I, H, F,
+    B, E, F, G, B, G, F, E
+};
+*/
+
+// mul_id 1  2  3
+// add    4  2  3
+// shift  4  3  3
+
+// row
+// 8+6 mul, 26 add
+// => 8 mul, 44 (26+9*2) add, 20 (10*2) shift
+// col
+// 6 mul, 26 add, 8 shift
+// => 44 (26+9*2) add, 28 (8+10*2) shift 
+
+#if defined(WIN32) || defined(WINCE)
+__forceinline void scaled_1d_idct_row(int16 *in, int32 *out, const uint16 *scale, int row, int is4x4)
+#elif defined(_MIPS_)
+static void scaled_1d_idct_row(int16 *in, int32 *out, const uint16 *scale, int row, int is4x4)
+#endif
+{
+    register int x0, x1, x2, x3, x4, x5, x6, x7;
+    register int xa, xb;
+
+    /* odd coeffs: */
+    x1 = in[1] * scale[1];
+    x3 = in[3] * scale[3];
+    //x5 = in5 * scale[3];
+    //x7 = in7 * scale[1];
+    if (is4x4)
+        x4 = x5 = x6 = x7 = 0;
+    else {
+        x5 = in[5] * scale[3];
+        x7 = in[7] * scale[1];
+        x4 = in[4] * scale[0];
+        x6 = in[6] * scale[2];
+    }
+
+    /* 4th stage: */
+    xa = x1 + x7;
+    xb = x1 - x7;
+
+    /* 3rd stage: */
+    x1 = xa + x3;
+    x3 = xa - x3;
+    x7 = xb + x5;
+    x5 = xb - x5;
+
+    /* 2nd stage: */
+    pmul_1(x3, xa);
+    pmul_1(x5, xb);
+    x3 = x3 - xb;
+    x5 = x5 + xa;
+
+    pmul_2(x1, xa);
+    pmul_2(x7, xb);
+    x1 = x1 + xb;
+    x7 = x7 - xa;
+
+    /* even coeffs: */
+    x0 = in[0] * scale[0];
+    x2 = in[2] * scale[2];
+    //x4 = in4 * scale[0];
+    //x6 = in6 * scale[2];
+    x0 += ((row==0) << 12);
+
+    /* 3rd stage: */
+    pmul_3(x2, xa);
+    pmul_3(x6, xb);
+    x2 = x2 - xb;
+    x6 = x6 + xa;
+
+    xa = x0 + x4;
+    xb = x0 - x4;
+
+    /* 2nd stage: */
+    x0 = xa + x6;
+    x6 = xa - x6;
+    x4 = xb + x2;
+    x2 = xb - x2;
+
+    /* 1st stage: */
+    out[0] = x0 + x1;
+    out[1] = x4 + x5;
+    out[2] = x2 + x3;
+    out[3] = x6 + x7;
+    out[4] = x6 - x7;
+    out[5] = x2 - x3;
+    out[6] = x4 - x5;
+    out[7] = x0 - x1;
+}
+
+#if defined(WIN32) || defined(WINCE)
+__forceinline void scaled_1d_idct_col(int32 *in, uchar *out, int width, int isIntra, int is4x4)
+#elif defined(_MIPS_)
+static void scaled_1d_idct_col(int32 *in, uchar *out, int width, int isIntra, int is4x4)
+#endif
+{
+    register int x0, x1, x2, x3, x4, x5, x6, x7;
+    register int xa, xb;
+    int t0, t1, t2, t3, t4, t5, t6, t7;
+
+    /* odd coeffs: */
+    x1 = in[1*8];
+    x3 = in[3*8];
+    //x5 = in[5*8];
+    //x7 = in[7*8];
+    if (is4x4)
+        x4 = x5 = x6 = x7 = 0;
+    else {
+        x5 = in[5*8];
+        x7 = in[7*8];
+        x4 = in[4*8];
+        x6 = in[6*8];
+    }
+
+    /* 4th stage: */
+    xa = x1 + x7;
+    xb = x1 - x7;
+
+    /* 3rd stage: */
+    x1 = xa + x3;
+    x3 = xa - x3;
+    x7 = xb + x5;
+    x5 = xb - x5;
+
+    /* 2nd stage: */
+    pmul_1(x3, xa);
+    pmul_1(x5, xb);
+    x3 = x3 - xb;
+    x5 = x5 + xa;
+
+    pmul_2(x1, xa);
+    pmul_2(x7, xb);
+    x1 = x1 + xb;
+    x7 = x7 - xa;
+
+    /* even coeffs: */
+    x0 = in[0*8];
+    x2 = in[2*8];
+    //x4 = in[4*8];
+    //x6 = in[6*8];
+
+    /* 3rd stage: */
+    pmul_3(x2, xa);
+    pmul_3(x6, xb);
+    x2 = x2 - xb;
+    x6 = x6 + xa;
+
+    xa = x0 + x4;
+    xb = x0 - x4;
+
+    /* 2nd stage: */
+    x0 = xa + x6;
+    x6 = xa - x6;
+    x4 = xb + x2;
+    x2 = xb - x2;
+
+    /* 1st stage: */
+    t0 = (x0 + x1) >> 13;
+    t1 = (x4 + x5) >> 13;
+    t2 = (x2 + x3) >> 13;
+    t3 = (x6 + x7) >> 13;
+    t4 = (x6 - x7) >> 13;
+    t5 = (x2 - x3) >> 13;
+    t6 = (x4 - x5) >> 13;
+    t7 = (x0 - x1) >> 13;
+
+    if (isIntra==0) {
+        t0 += out[FACTOR_0(width)];
+        t1 += out[FACTOR_1(width)];
+        t2 += out[FACTOR_2(width)];
+        t3 += out[FACTOR_3(width)];
+        t4 += out[FACTOR_4(width)];
+        t5 += out[FACTOR_5(width)];
+        t6 += out[FACTOR_6(width)];
+        t7 += out[FACTOR_7(width)];
+    }
+    out[FACTOR_0(width)] = UCLIPI(t0, 255);
+    out[FACTOR_1(width)] = UCLIPI(t1, 255);
+    out[FACTOR_2(width)] = UCLIPI(t2, 255);
+    out[FACTOR_3(width)] = UCLIPI(t3, 255);
+    out[FACTOR_4(width)] = UCLIPI(t4, 255);
+    out[FACTOR_5(width)] = UCLIPI(t5, 255);
+    out[FACTOR_6(width)] = UCLIPI(t6, 255);
+    out[FACTOR_7(width)] = UCLIPI(t7, 255);
+}
+
+
+
+/*************************
+* 2D 8x8 IDCT:  rows first
+*/
+
+void idct_23002_2_addblock(int16 *P, uchar *Dst, int width, int isIntra, int is4x4, uint32 nDConly, int lpos)
+{
+    int32 block2[8*8];
+    uint32 pack_p;
+    uint32 *lSrc = (uint32*)P;
+    register int i;
+    int32 x0;
+
+    /* multiplier-based scaling:
+    *  - can be moved outside the transform, executed for non-zero coeffs only, 
+    *    or absorbed in quantization step. */
+
+    if (nDConly == 0) {
+        x0 = P[0] * A;
+        x0 += 1 << 12;
+        goto DCONLY_SC;
+     }
+
+    nDConly = 0;
+
+    for (i=7; i>=0; i--) {
+        uint32 nzcount;
+        int32 *ptr_p;
+        int16 *Pt;
+        int32 P2_7;
+        int32 A0, A1;
+        const uint16 *idct_scale_t;
+
+        if (i>lpos) {
+            A0 = 0;
+            goto SET_COEF0;
+        }
+
+        if (is4x4 & (i>=4)) {
+            block2[(i<<3)+0] = block2[(i<<3)+1] = block2[(i<<3)+2] = block2[(i<<3)+3] =
+            block2[(i<<3)+4] = block2[(i<<3)+5] = block2[(i<<3)+6] = block2[(i<<3)+7] = 0;
+            continue;
+        }
+
+        idct_scale_t = &idct_scale[MUX(i<4, i, ((4-i)&3))<<2];
+        ptr_p = (int32*)&P[i<<3];
+        Pt = (int16*)ptr_p;
+
+        A0 = Pt[0];
+        A1 = Pt[1];
+
+        P2_7 = ptr_p[1] | ptr_p[2] | ptr_p[3];
+        nzcount = (A1 | P2_7);
+        nDConly |= nzcount;
+        if (i!=0)
+            nDConly |= A0;
+        if (nzcount != 0) {
+            scaled_1d_idct_row(Pt, block2 + (i<<3), idct_scale_t, i, is4x4);
+        } else {
+            if (A0 != 0) {
+                A0 = A0 * idct_scale_t[0];
+            }
+            A0 += ((i==0) << 12);
+SET_COEF0:
+            block2[(i<<3)+0] = block2[(i<<3)+1] = block2[(i<<3)+2] = block2[(i<<3)+3] =
+            block2[(i<<3)+4] = block2[(i<<3)+5] = block2[(i<<3)+6] = block2[(i<<3)+7] = A0;
+        }
+    }
+
+    if (nDConly == 0) {
+        x0 = block2[0];
+        goto DCONLY_SC;
+    }
+
+    for (i=0; i<8; i++) {
+        scaled_1d_idct_col(&block2[i], Dst, width, isIntra, is4x4);
+        Dst += 1;
+    }
+    return;
+
+DCONLY_SC:
+    x0 = x0>>13;
+    assert((((P[0] * 1024) + (1<<12)) >> 13) == x0);
+    /////////////////// addblock  ///////////////////
+    if (isIntra) {
+        uint32 * lDst = (uint32 *)&Dst[0];
+        int lStride = width >> 2;
+        x0 = UCLIPI(x0, 255);
+        pack_p = make_uint32(x0, x0, x0, x0);
+        for (i = 8; i > 0; i--) {
+            lDst[0] = pack_p;
+            lDst[1] = pack_p;
+            lDst += lStride;
+        }
+    } else {
+        for (i = 8; i > 0; i--) {
+            Dst[0] = UCLIPI(x0 + Dst[0], 255);
+            Dst[1] = UCLIPI(x0 + Dst[1], 255);
+            Dst[2] = UCLIPI(x0 + Dst[2], 255);
+            Dst[3] = UCLIPI(x0 + Dst[3], 255);
+            Dst[4] = UCLIPI(x0 + Dst[4], 255);
+            Dst[5] = UCLIPI(x0 + Dst[5], 255);
+            Dst[6] = UCLIPI(x0 + Dst[6], 255);
+            Dst[7] = UCLIPI(x0 + Dst[7], 255);
+            Dst += width;
+        }
+    }
+}
+
+
+
+/***************** FDCT ************************/
+
+#if defined(WIN32) || defined(WINCE)
+__forceinline void scaled_1d_fdct_row(int16 *in, int *out)
+#elif defined(_MIPS_)
+static void scaled_1d_fdct_row(int16 *in, int *out)
+#endif
+{
+    register int x0, x1, x2, x3, x4, x5, x6, x7;
+    register int xa, xb;
+    
+    /* 1st stage: */
+    x0 = (in[0*8] + in[7*8]) << 7;
+    x1 = (in[0*8] - in[7*8]) << 7;
+    x4 = (in[1*8] + in[6*8]) << 7;
+    x5 = (in[1*8] - in[6*8]) << 7;
+    x2 = (in[2*8] + in[5*8]) << 7;
+    x3 = (in[2*8] - in[5*8]) << 7;
+    x6 = (in[3*8] + in[4*8]) << 7;
+    x7 = (in[3*8] - in[4*8]) << 7;
+    
+    /* odd part: */
+    pmul_1(x3, xa);  
+    pmul_1(x5, xb);  
+    x3 = x3 + xb;
+    x5 = x5 - xa; 
+    
+    pmul_2(x1, xa);  
+    pmul_2(x7, xb);  
+    x1 = x1 - xb; 
+    x7 = x7 + xa;
+    
+    xa = x1 + x3; 
+    x3 = x1 - x3;
+    xb = x7 + x5;
+    x5 = x7 - x5;
+    
+    x1 = xa + xb; 
+    x7 = xa - xb; 
+    
+    /* even part: */
+    xa = x0 + x6;
+    x6 = x0 - x6;
+    xb = x4 + x2;
+    x2 = x4 - x2;
+    
+    x0 = xa + xb; 
+    x4 = xa - xb; 
+    
+    pmul_3(x2, xa);
+    pmul_3(x6, xb);
+    x2 = xb + x2;
+    x6 = x6 - xa;
+    
+    out[0] = x0;
+    out[1] = x1;
+    out[2] = x2;
+    out[3] = x3;
+    out[4] = x4;
+    out[5] = x5;
+    out[6] = x6;
+    out[7] = x7;
+}
+
+
+#if defined(WIN32) || defined(WINCE)
+__forceinline void scaled_1d_fdct_col(int *in, int16 *out, const uint16 *scale)
+#elif defined(_MIPS_)
+static void scaled_1d_fdct_col(int *in, int16 *out, const uint16 *scale)
+#endif
+{
+    register int x0, x1, x2, x3, x4, x5, x6, x7;
+    register int xa, xb;
+    
+    /* 1st stage: */
+    x0 = in[0*8] + in[7*8];
+    x1 = in[0*8] - in[7*8];
+    x4 = in[1*8] + in[6*8];
+    x5 = in[1*8] - in[6*8];
+    x2 = in[2*8] + in[5*8];
+    x3 = in[2*8] - in[5*8];
+    x6 = in[3*8] + in[4*8];
+    x7 = in[3*8] - in[4*8];
+    
+    /* odd part: */
+    pmul_1(x3, xa);  
+    pmul_1(x5, xb);  
+    x3 = x3 + xb;
+    x5 = x5 - xa; 
+    
+    pmul_2(x1, xa);  
+    pmul_2(x7, xb);  
+    x1 = x1 - xb; 
+    x7 = x7 + xa;
+    
+    xa = x1 + x3; 
+    x3 = x1 - x3;
+    xb = x7 + x5;
+    x5 = x7 - x5;
+    
+    x1 = xa + xb; 
+    x7 = xa - xb; 
+    
+    /* even part: */
+    xa = x0 + x6;
+    x6 = x0 - x6;
+    xb = x4 + x2;
+    x2 = x4 - x2;
+    
+    x0 = xa + xb; 
+    x4 = xa - xb; 
+    
+    pmul_3(x2, xa);
+    pmul_3(x6, xb);
+    x2 = xb + x2;
+    x6 = x6 - xa;
+    
+    //        P[i] = (block[i] * idct_scale[i] + 0x7FFFF - (block[i]>>31)) >> 20;
+    out[0] = (x0 * scale[0] + 0x7FFFF - (x0>>31)) >> 20;
+    out[1] = (x1 * scale[1] + 0x7FFFF - (x1>>31)) >> 20;
+    out[2] = (x2 * scale[2] + 0x7FFFF - (x2>>31)) >> 20;
+    out[3] = (x3 * scale[3] + 0x7FFFF - (x3>>31)) >> 20;
+    out[4] = (x4 * scale[0] + 0x7FFFF - (x4>>31)) >> 20;
+    out[5] = (x5 * scale[3] + 0x7FFFF - (x5>>31)) >> 20;
+    out[6] = (x6 * scale[2] + 0x7FFFF - (x6>>31)) >> 20;
+    out[7] = (x7 * scale[1] + 0x7FFFF - (x7>>31)) >> 20;
+}
+
+#if 1
+#if defined(WIN32) || defined(WINCE)
+__forceinline void scaled_1d_fdct4x4_row(int16 *in, int *out)
+#elif defined(_MIPS_)
+static void scaled_1d_fdct4x4_row(int16 *in, int *out)
+#endif
+{
+    register int x0, x1, x2, x3, x4, x5, x6, x7;
+    register int xa, xb;
+
+    /* 1st stage: */
+    x0 = (in[0*8] + in[7*8]) << 7;
+    x1 = (in[0*8] - in[7*8]) << 7;
+    x4 = (in[1*8] + in[6*8]) << 7;
+    x5 = (in[1*8] - in[6*8]) << 7;
+    x2 = (in[2*8] + in[5*8]) << 7;
+    x3 = (in[2*8] - in[5*8]) << 7;
+    x6 = (in[3*8] + in[4*8]) << 7;
+    x7 = (in[3*8] - in[4*8]) << 7;
+
+    /* odd part: */
+    pmul_1(x3, xa);  
+    pmul_1(x5, xb);  
+    x3 = x3 + xb;
+    x5 = x5 - xa; 
+
+    pmul_2(x1, xa);  
+    pmul_2(x7, xb);  
+    x1 = x1 - xb; 
+    x7 = x7 + xa;
+
+    xa = x1 + x3; 
+    x3 = x1 - x3;
+    xb = x7 + x5;
+//     x5 = x7 - x5;
+
+    x1 = xa + xb; 
+//     x7 = xa - xb; 
+
+    /* even part: */
+    xa = x0 + x6;
+    x6 = x0 - x6;
+    xb = x4 + x2;
+    x2 = x4 - x2;
+
+    x0 = xa + xb; 
+//     x4 = xa - xb; 
+
+    pmul_3_x_0(x2, xa);//pmul_3(x2, xa);
+    pmul_3_0_x(x6, xb);//pmul_3(x6, xb);
+    x2 = xb + x2;
+//     x6 = x6 - xa;
+
+    out[0] = x0;
+    out[1] = x1;
+    out[2] = x2;
+    out[3] = x3;
+//     out[4] = x4;
+//     out[5] = x5;
+//     out[6] = x6;
+//     out[7] = x7;
+}
+
+#if defined(WIN32) || defined(WINCE)
+__forceinline void scaled_1d_fdct4x4_col(int *in, int16 *out, const uint16 *scale)
+#elif defined(_MIPS_)
+static void scaled_1d_fdct4x4_col(int *in, int16 *out, const uint16 *scale)
+#endif
+{
+    register int x0, x1, x2, x3, x4, x5, x6, x7;
+    register int xa, xb;
+
+    /* 1st stage: */
+    x0 = in[0*8] + in[7*8];
+    x1 = in[0*8] - in[7*8];
+    x4 = in[1*8] + in[6*8];
+    x5 = in[1*8] - in[6*8];
+    x2 = in[2*8] + in[5*8];
+    x3 = in[2*8] - in[5*8];
+    x6 = in[3*8] + in[4*8];
+    x7 = in[3*8] - in[4*8];
+
+    /* odd part: */
+    pmul_1(x3, xa);  
+    pmul_1(x5, xb);  
+    x3 = x3 + xb;
+    x5 = x5 - xa; 
+
+    pmul_2(x1, xa);  
+    pmul_2(x7, xb);  
+    x1 = x1 - xb; 
+    x7 = x7 + xa;
+
+    xa = x1 + x3; 
+    x3 = x1 - x3;
+    xb = x7 + x5;
+//    x5 = x7 - x5;
+
+    x1 = xa + xb; 
+//    x7 = xa - xb; 
+
+    /* even part: */
+    xa = x0 + x6;
+    x6 = x0 - x6;
+    xb = x4 + x2;
+    x2 = x4 - x2;
+
+    x0 = xa + xb; 
+//    x4 = xa - xb; 
+
+    pmul_3_x_0(x2, xa);//pmul_3(x2, xa);
+    pmul_3_0_x(x6, xb);//pmul_3(x6, xb);
+    x2 = xb + x2;
+//    x6 = x6 - xa;
+
+    //        P[i] = (block[i] * idct_scale[i] + 0x7FFFF - (block[i]>>31)) >> 20;
+    out[0] = (x0 * scale[0] + 0x7FFFF - (x0>>31)) >> 20;
+    out[1] = (x1 * scale[1] + 0x7FFFF - (x1>>31)) >> 20;
+    out[2] = (x2 * scale[2] + 0x7FFFF - (x2>>31)) >> 20;
+    out[3] = (x3 * scale[3] + 0x7FFFF - (x3>>31)) >> 20;
+//     out[4] = (x4 * scale[4] + 0x7FFFF - (x4>>31)) >> 20;
+//     out[5] = (x5 * scale[5] + 0x7FFFF - (x5>>31)) >> 20;
+//     out[6] = (x6 * scale[6] + 0x7FFFF - (x6>>31)) >> 20;
+//     out[7] = (x7 * scale[7] + 0x7FFFF - (x7>>31)) >> 20;
+}
+#endif
+
+void fdct_23002_2(int is4x4)
+{
+    int block2[8*8];
+    register int i;
+    /* load and scale: */
+    //for (i=0; i<64; i++)
+    //    block[i] = P[i] << 7;
+    
+    /* perform  scaled 1D IDCT for rows and columns: */
+    if (is4x4) {
+        for (i=0; i<8; i++)
+            scaled_1d_fdct4x4_row(InAddr + i, block2 + (i<<3));
+        for (i=0; i<4; i++) {
+            scaled_1d_fdct4x4_col(block2 + i, OutBuf + (i<<3), &idct_scale[MUX(i<4, i, ((4-i)&3))<<2]);
+        }
+    }
+    else {
+        for (i=0; i<8; i++)
+            scaled_1d_fdct_row(InAddr + i, block2 + (i<<3));
+        for (i=0; i<8; i++) {
+            scaled_1d_fdct_col(block2 + i, OutBuf + (i<<3), &idct_scale[MUX(i<4, i, ((4-i)&3))<<2]);
+        }
+    }
+    if (is4x4) {
+        uint32 *lBuf = (uint32 *)OutBuf;
+        for (i=0; i<4; i++) {
+            lBuf[2] = lBuf[3] = 0;
+            lBuf += 4;
+        }
+        for (i=0; i<16; i++)
+            lBuf[i] = 0;
+    }
+    
+    /* descale, downshift and store the results: */
+    //for (i=0; i<64; i++) 
+    //    P[i] = (block[i] * idct_scale[i] + 0x7FFFF - (block[i]>>31)) >> 20;
+}

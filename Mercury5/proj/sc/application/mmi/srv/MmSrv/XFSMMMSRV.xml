@@ -1,0 +1,801 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>mmsrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_NETWORK</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="MMSrv" id="4531" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Init" id="19996" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Initialization</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Active" id="5948" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Idle">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="Idle" id="10372" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>MM service is in idle</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="SearchNetwork" id="30638" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send search network request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="RegisterNetwork" id="10100" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send network registration request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="UpdatePreferredList" id="18306" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send update preferred PLMN list to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="QueryPreferredList" id="12200" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send query preferred PLMN list to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="GprsAttach" id="17121" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send GPRS attach/detach request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ChangeBand" id="1418" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send change band request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="QueryBand" id="31089" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send query current band request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ChangeLine" id="18511" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send change active line request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="QueryLine" id="18421" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send query current active line request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="AbortRequest" id="26657" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send abort request to RIL</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="OnLine" id="30507" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Enable network service</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="OffLine" id="23413" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Disable network service</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ChangeWgprs" id="3430" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send WGPRS change request.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="QueryWgprs" id="29072" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>Send WGPRS query request.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="MSClass" id="26496" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Set/Query GPRS MS class</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="GPRSPDPAct" id="19624" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>GPRS PDP activate/deactivate</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="GPRSAddPDPContext" id="479" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Add GPRS PDP  context</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="GPRSDeletePDPContext" id="32243" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Delete GPRS PDP  context</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="GPRSSetQoS" id="24169" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Set QoS setting</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="GPRSQueQoS" id="17443" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Query QoS setting</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="CellInfo" id="5935" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Query cell information</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ChangeNetAccessMode" id="4164" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>Check current Net Access mode setting, update WGPRS setting and do GPRS deatch or attach action.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          <node name="ReadMuserMode" id="14695" hasEntry="1" hasExit="0" hasMethod="" FullPath="_Active" DefaultChild="">
+              <EntryComment>To check the MuserMode is same as E2P modem mode setting or not.&#13;&#10;If yes then jump back to idle If not we have to set modem mode to E2P value</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+          <node name="Exit" id="31609" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="24121"	from="_Init"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_IEVT_InitDone</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25927"	from="_Active_Idle"  to="_Active_Idle"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MMSRV_EVT_CheckWaitingQueue</event>
+				<condition></condition>
+				<action>If Waiting Queue is not empty get first item to process.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3781"	from="_Active_Idle"  to="_Active_SearchNetwork"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_NetworkSearchReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19226"	from="_Active_SearchNetwork"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_NETWORK_SEARCH_CNF</event>
+				<condition></condition>
+				<action>Receive network searching confirmation, send NetworkSearchCnf to AP.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4174"	from="_Active_Idle"  to="_Active_RegisterNetwork"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_NetworkRegReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27945"	from="_Active_RegisterNetwork"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_NETWORK_REG_CNF</event>
+				<condition></condition>
+				<action>Receive network registration confirmation, send NetworkRegCnf to AP.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6501"	from="_Active_Idle"  to="_Active_UpdatePreferredList"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_UpdatePreferredPLMNListReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29428"	from="_Active_UpdatePreferredList"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_UPDATE_PREFERRED_PLMNLIST_CNF</event>
+				<condition></condition>
+				<action>Send update preferred PLMN list confimation to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="22506"	from="_Active_Idle"  to="_Active_QueryPreferredList"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_QueryPreferredPLMNListReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15605"	from="_Active_QueryPreferredList"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_QUERY_PREFERRED_PLMNLIST_CNF</event>
+				<condition></condition>
+				<action>Send query preferred PLMN list confimation to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21572"	from="_Active_Idle"  to="_Active_GprsAttach"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_GPRSAttachReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19573"	from="_Active_GprsAttach"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_GPRS_REG_CNF</event>
+				<condition></condition>
+				<action>Send GPRS attach/detach confirmation to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="22644"	from="_Active_Idle"  to="_Active_ChangeBand"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_ChangeBandReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="32415"	from="_Active_ChangeBand"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_CHANGE_BAND_CNF</event>
+				<condition></condition>
+				<action>Send change band confimation to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="13526"	from="_Active_Idle"  to="_Active_ChangeLine"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_ChangeLineReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="127"	from="_Active_ChangeLine"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_WALS_CNF</event>
+				<condition></condition>
+				<action>Send change line confimation to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7571"	from="_Active"  to="_Active_AbortRequest"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_AbortReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28371"	from="_Active_AbortRequest"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_ABORT_CNF</event>
+				<condition></condition>
+				<action>Send abort action confirmation to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6974"	from="_Active_Idle"  to="_Active_OnLine"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_OnlineReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25795"	from="_Active_OnLine"  to="_Active_OnLine"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PWON_RSP</event>
+				<condition></condition>
+				<action>Check result and netowrk status.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24497"	from="_Active_Idle"  to="_Active_OffLine"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_OfflineReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31046"	from="_Active_OffLine"  to="_Active_OffLine"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PWON_RSP</event>
+				<condition></condition>
+				<action>Check result and netowrk status.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4363"	from="_Active_Idle"  to="_Active_QueryBand"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_QueryBandReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3750"	from="_Active_QueryBand"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_QUERY_BAND_CNF</event>
+				<condition></condition>
+				<action>Save current band setting</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29515"	from="_Active_Idle"  to="_Active_QueryLine"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_QueryLineReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="13142"	from="_Active_QueryLine"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_ALTERNATE_LINE_CNF</event>
+				<condition></condition>
+				<action>Save current line setting</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21448"	from="_Active_Idle"  to="_Active_ChangeWgprs"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_UpdateWgprsReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1131"	from="_Active_ChangeWgprs"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_WGPRS_CNF</event>
+				<condition></condition>
+				<action>Handle WGPRS confirmation.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26345"	from="_Active_Idle"  to="_Active_MSClass"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_MSClassReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3493"	from="_Active_MSClass"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_GPRS_MS_CLASS_CNF</event>
+				<condition></condition>
+				<action>Send set GPRS MS class response</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19173"	from="_Active_Idle"  to="_Active_GPRSPDPAct"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_GPRS_PDPContextActReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="22483"	from="_Active_GPRSPDPAct"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_GPRS_PDP_CONTEXT_ACT_CNF</event>
+				<condition></condition>
+				<action>Send activate/deactive GPRS PDP context response</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24963"	from="_Active_Idle"  to="_Active_GPRSAddPDPContext"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_GPRS_AddPDPContextReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6603"	from="_Active_GPRSAddPDPContext"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_GPRS_ADD_PDP_CONTEXT_CNF</event>
+				<condition></condition>
+				<action>Send define GPRS PDP context response</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24143"	from="_Active_Idle"  to="_Active_GPRSDeletePDPContext"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_GPRS_DeletePDPContextReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31013"	from="_Active_GPRSDeletePDPContext"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_GPRS_DELETE_PDP_CONTEXT_CNF</event>
+				<condition></condition>
+				<action>Send delete GPRS PDP context response</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21348"	from="_Active_Idle"  to="_Active_GPRSSetQoS"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_GPRS_SetQoSReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8692"	from="_Active_GPRSSetQoS"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_GPRS_SET_QOS_CNF</event>
+				<condition></condition>
+				<action>Send set QoS response</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10297"	from="_Active_Idle"  to="_Active_GPRSQueQoS"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_GPRS_QueQoSReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18493"	from="_Active_GPRSQueQoS"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_GPRS_QUQ_QOS_CNF</event>
+				<condition></condition>
+				<action>Send query QoS response</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14953"	from="_Active_Idle"  to="_Active_CellInfo"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_CellInfoReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17553"	from="_Active_CellInfo"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_CELL_INFO_CNF</event>
+				<condition></condition>
+				<action>Send cell info response</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1949"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_NITZ_IND</event>
+				<condition></condition>
+				<action>Update NITZ table and send NITZ indicatiom</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26623"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_SIGNAL_STRENGTH_IND</event>
+				<condition></condition>
+				<action>Send RR signal strength change indication </action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1890"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_MM_NETWORK_LOST_IND</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7743"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_MM_EMERGENCY_CALL_ONLY_IND</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9626"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_NETWORK_REG_IND</event>
+				<condition></condition>
+				<action>Send network registraion information </action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26939"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_GPRS_REG_IND</event>
+				<condition></condition>
+				<action>Send GPRS network registraion information </action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20762"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_WDCI_IND</event>
+				<condition></condition>
+				<action>Send DivertCall status indication</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14530"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_DIVERTED_CALL_CNF</event>
+				<condition></condition>
+				<action>Send DivertCall status indication</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6615"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMReadyInd</event>
+				<event>SIMSRV_EVT_NoSIMInd</event>
+				<condition></condition>
+				<action>Check airplane mode status.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3799"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_READY_IND</event>
+				<condition></condition>
+				<action>Start to query line setting</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="165"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>CCSRV_EVT_RingInd</event>
+				<condition></condition>
+				<action>Cancel request if get CCRingInd.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8013"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_REGISTERED_PLMN_INFO_CNF</event>
+				<condition></condition>
+				<action>Get registered PLMN info.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="23021"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SSSRV_EVT_CFXCnf</event>
+				<condition></condition>
+				<action>Get CFU info.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27671"	from="_Active"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2338"	from="_Active"  to="_Exit"  type="Default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_IEVT_Exit</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4455"	from="_Active_Idle"  to="_Active_ChangeNetAccessMode"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_ChangeNetAccessModeReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4586"	from="_Active_ChangeNetAccessMode"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5017"	from="_Active_ChangeNetAccessMode"  to="_Active_ChangeNetAccessMode"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_WGPRS_CNF</event>
+				<condition></condition>
+				<action>Handle WGPRS confirmation.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="5255"	from="_Active_ChangeNetAccessMode"  to="_Active_ChangeNetAccessMode"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_GPRS_REG_CNF</event>
+				<condition></condition>
+				<action>Handle GPRS attach/deatch confirmation.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29480"	from="_Active_Idle"  to="_Active_QueryWgprs"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_EVT_QueryWgprsReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="30316"	from="_Active_QueryWgprs"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_QUERY_WGPRS_CNF</event>
+				<condition></condition>
+				<action>Handle WGPRS query confirmation.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31717"	from="_Active"  to="_Active"  type="internal"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_CPHS_ALTERNATE_LINE_CNF</event>
+				<condition>Not in QueryLine mode.</condition>
+				<action>Handle query line confirmation.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24537"	from="_Active_OffLine"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24586"	from="_Active_OnLine"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+		<transition enable="1" id="23838"	from="_Active_ChangeBand"  to="_Active_ChangeBand"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_QUERY_BAND_CNF</event>
+				<condition></condition>
+				<action>Continue sending change band req.</action>
+				<comment></comment>
+			</transition>
+		<transition enable="1" id="15854"	from="_Active_Idle"  to="_Active_ReadMuserMode"  type="default"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_MM_MUSERMODE_CNF</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19879"	from="_Active_ReadMuserMode"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>MMSRV_IEVT_BackToIdle</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20267"	from="_Active_ReadMuserMode"  to="_Active_ReadMuserMode"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_MM_QUERY_BAND_CNF</event>
+				<condition></condition>
+				<action>Continue sending change band req.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20741"	from="_Active_ReadMuserMode"  to="_Active_Idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>MAE_EVT_MM_CHANGE_BAND_CNF</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="InitDone" type="internal">
+				<comment></comment>
+			</event>
+			<event name="NetworkActionDone" type="internal">
+				<comment></comment>
+			</event>
+			<event name="BackToIdle" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Exit" type="internal">
+				<comment></comment>
+			</event>
+			<event name="NetworkSearchReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="NetworkSearchCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="NetworkRegReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="NetworkRegCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="CellInfoReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="CellInfoCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="UpdatePreferredPLMNListReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="UpdatePreferredPLMNListCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryPreferredPLMNListReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryPreferredPLMNListCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangeBandReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangeBandCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryBandReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryBandCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangeLineReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangeLineCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryLineReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryLineCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRSAttachReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRSAttachCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="AbortReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="AbortCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="NITZInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="SignalStrengthInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="NetworkKLostInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="EmergencyCallOnlyInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRSRegStatusInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="NetworkRegInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="NetworkTypeInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="OnlineReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="OnlineCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="OfflineReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="OfflineCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="CheckWaitingQueue" type="external">
+				<comment></comment>
+			</event>
+			<event name="LineServiceInd" type="external">
+				<comment></comment>
+			</event>
+			<event name="UpdateWgprsReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="UpdateWgprsCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryWgprsReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="QueryWgprsCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="MSClassReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="MSClassCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_PDPContextActReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_PDPContextActCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_AddPDPContextReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_AddPDPContextCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_DeletePDPContextReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_DeletePDPContextCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_SetQoSReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_SetQoSCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_QueQoSReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="GPRS_QueQoSCnf" type="external">
+				<comment></comment>
+			</event>
+			<event name="SyncAutoTimeZone" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangeNetAccessModeReq" type="external">
+				<comment></comment>
+			</event>
+			<event name="ChangeNetAccessModeCnf" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="RegisterListener" id="18127" RetType="MAE_Ret"	Param1="void* callerID" Param2="u32 mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: The interface is provided APPs to register listener for some significant events for MM Service status&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeregisterListener" id="32738" RetType="MAE_Ret"	Param1="void* callerID" Param2="u32 mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: The interface is provided APPs to register listener for some significant events for MM Service status&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetMMServiceStatus" id="31823" RetType="MMI_MMSRV_Status_e"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get MM Service status&#13;&#10;Parameter: None&#13;&#10;Return: MMSRV_STATUS_e&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="NetworkSearchReq" id="14025" RetType="MAE_Ret"	Param1="void* callerID" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to search available network.&#13;&#10;Parameter: &#13;&#10;&lt;callerID&gt;: the caller instance ID.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="NetworkRegReq" id="424" RetType="MAE_Ret"	Param1="void* callerID" Param2="MMI_MMSRV_RegMode_e  regMode"	Param3="MMI_MMSRV_Oper_Format_e operFormat" Param4="u8* pOper"	Param5="u8 DualMode" Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to register or de-register on PLMN.&#13;&#10;Parameter: &#13;&#10;&lt;callerID&gt;: the caller instance ID.&#13;&#10;&lt;regData&gt;: network registration request data.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="UpdatePreferredListReq" id="7430" RetType="MAE_Ret"	Param1="void* callerID" Param2="u8 index"	Param3="MMI_MMSRV_Oper_Format_e  operFormat" Param4="u8* pOper"	Param5="u8 DualMode" Param6=" "	Param7=" " Param8=" ">Purpose: The external interface is provided to update the preferred PLMN list in EF_PLMNsel SIM file.&#13;&#10;Parameter: &#13;&#10;&lt;callerID&gt;: the caller instance ID.&#13;&#10;&lt;index&gt;: index&#13;&#10;&lt;operFormat&gt;: operator format.&#13;&#10;&lt;pOper&gt;: operator data&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryPreferredListReq" id="8176" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: The external interface is provided to query the preferred PLMN list in EF_PLMNsel SIM file.&#13;&#10;Parameter: &#13;&#10;&lt;pCallerID&gt;: the caller instance ID.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ChangeBandReq" id="16180" RetType="MAE_Ret"	Param1="void* callerID" Param2="MMI_MMSRV_Band_e  bandID"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: The external interface is provided to change call waiting setting.&#13;&#10;Parameter: &#13;&#10;&lt;callerID&gt;: the caller instance ID.&#13;&#10;&lt;bandID&gt;:  band frequency.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ChangeLineReq" id="28816" RetType="MAE_Ret"	Param1="void* callerID" Param2="MMI_MMSRV_Line_Service_e  lineNumber"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to change active line.&#13;&#10;Parameter: &#13;&#10;&lt;callerID&gt;: the caller instance ID.&#13;&#10;&lt;lineNumber&gt;: line number to activate.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GprsAttachReq" id="5505" RetType="MAE_Ret"	Param1="void* callerID" Param2="MMI_MMSRV_GPRS_Reg_e operation"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to attach or detach GPRS network.&#13;&#10;Parameter: &#13;&#10;&lt;callerID&gt;: the caller instance ID.&#13;&#10;&lt;operType&gt;: assign to attach or detach.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="AbortReq" id="17358" RetType="MAE_Ret"	Param1="void* callerID" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to cancel current RIL network request.&#13;&#10;Parameter: &#13;&#10;&lt;callerID&gt;: the caller instance ID..&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryNetworkStatus" id="2918" RetType="MAE_Ret"	Param1="MMSRV_NetworkRegInfo_t* pOut" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get current network registration status.&#13;&#10;Parameter: &#13;&#10;&lt;pOut&gt;: The network registration information output data which is prepared by caller.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="OnlineReq" id="17587" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMI_MMSRV_SearchMode_e  mode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="OfflineReq" id="20746" RetType="MAE_Ret"	Param1="void* pCallerID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to set the MS on offline mode, MM service will camp off network.&#13;&#10;Parameter: &#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryLineReq" id="18806" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to query current MS line service setting.&#13;&#10;Parameter: &lt;callerID&gt;: the caller instance ID. &#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryBandReq" id="12221" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to query current MS band setting.&#13;&#10;Parameter: &lt;pCallerID&gt;: the caller instance ID.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="MSClassReq" id="5907" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_MSClassReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GPRSPDPContextActReq" id="31597" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_GPRSPDPContextActReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GPRSAddPDPContextReq" id="17988" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_GPRSPDPContextAddReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GPRSDeletePDPContextReq" id="9308" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="u8 Cid"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GPRSSetQoSReq" id="22581" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_GPRSQoSSetReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GPRSQueQoSReq" id="14934" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_GPRSQoSQueReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CellInfoReq" id="25062" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_CellInfoReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetLineStatus" id="10661" RetType="MMI_MMSRV_Line_Service_e"	Param1="u8 DualMode" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SyncWithTimezone" id="7954" RetType="MAE_Ret"	Param1="boolean bYesNo" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryNITZNetworkInfo" id="17019" RetType="MAE_Ret"	Param1="u16  mcc" Param2="u16  mnc"	Param3="MMSRV_NITZNetworkInfo_t  *pOut" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to query NITZ network name.&#13;&#10;Parameter: &#13;&#10;&lt;mcc&gt;: mobile country code.&#13;&#10;&lt;mnc&gt;: mobile network code.&#13;&#10;&lt;pOut&gt;: result structure if PLMN record found.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ResetNetworkReq" id="5368" RetType="MAE_Ret"	Param1="void* pCallerID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to set the MS to reset network  , if ms is online , ms will offline then online , or donothing&#13;&#10;Parameter: &#13;&#10;Return: MAE_RETCODE&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryGprsStatus" id="28732" RetType="MAE_Ret"	Param1="MMSRV_GPRSRegInfo_t* pOut" Param2="u8 DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get current GPRS network registration status.&#13;&#10;Parameter: &#13;&#10;&lt;pOut&gt;: The GPRS network registration information output data which is prepared by caller.&#13;&#10;Return: MAE_RETCODE&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SetWgprsReq" id="32479" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_WGPRSReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to set GPRS related initialize settings.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryWgprsReq" id="33456" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMSRV_QueryWGPRSReq_t *pReq"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to query GPRS related initialize settings.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ChangeNetAccessModeReg" id="1160" RetType="MAE_Ret"	Param1="void* pCallerID" Param2="MMI_MMSRV_NetAccess_Mode_e AccessMode"	Param3="u8 DualMode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get current GPRS network registration status.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

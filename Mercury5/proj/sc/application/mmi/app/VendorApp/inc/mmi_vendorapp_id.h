@@ -1,0 +1,60 @@
+#ifndef __MMI_VENDORAPP_ID_H__
+#define __MMI_VENDORAPP_ID_H__
+
+typedef enum VendorWndId_e_
+{
+    VENDOR_WND_BASE = WND_ID_APP_BASE,
+    VENDOR_WND_SUSPEND,
+    VENDOR_WND_MENU,
+    VENDOR_WND_NUMERIC_MENU,
+    VENDOR_WND_TEXTVIEWER,
+    VENDOR_WND_EDITOR,
+	VENDOR_WND_DATE_EDITOR,
+	VENDOR_WND_TIME_EDITOR,
+    VENDOR_WND_EDITOR_OPTION,
+    VENDOR_WND_SELECT_SIM,
+    VENDOR_WND_BGEXIT_SELECT,
+
+} VendorWndId_e;
+
+typedef enum
+{
+    VENDOR_ACTIVE_DUMMYWDG=APP_WDG_START,
+#ifdef __SDK_MMI_DISPLAY_MANAGER__
+    VENDOR_ACTIVE_BMPWDG,
+#endif
+	VENDOR_ACTIVE_SKWDG
+
+} VendorActiveWdgList_e;
+
+typedef enum
+{
+    VENDOR_SUSPEND_BMPWDG=APP_WDG_START
+
+} VendorSuspendWdgList_e;
+
+typedef enum
+{
+    VENDOR_TEXTVIEWER_TITLEWDG=APP_WDG_START,
+    VENDOR_TEXTVIEWER_SCROLLBAR,
+	VENDOR_TEXTVIEWER_VPWDG,
+	VENDOR_TEXTVIEWER_TEXTWDG
+
+} VendorTextViewerWdgList_e;
+
+typedef enum
+{
+	/* Option Menu ID start*/
+	MNU_VENDOR_OPT_EXIT,
+	MNU_VENDOR_OPT_MINIMIZE,
+	/* Option Menu ID end*/
+} VendorOptionText_e;
+
+typedef enum
+{
+	MNU_VENDOR_MAIN = 0,
+	MNU_VENDOR_OPT_INPUT_MENU,
+}VendorMenuId_e;
+
+#endif //__MMI_VENDORAPP_ID_H__
+

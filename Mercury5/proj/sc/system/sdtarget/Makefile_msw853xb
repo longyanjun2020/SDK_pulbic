@@ -1,0 +1,366 @@
+#
+# Makefile bootrom
+#
+
+ifndef TARGET
+TARGET = bootrom
+endif
+
+ifndef CHIP
+CHIP = b5
+endif
+
+ifndef CHIPVER
+CHIPVER = 1
+endif
+
+PN := MSW8522
+TOOLS_DIR = tools
+OUT_DIR = out_$(CHIP)/$(TARGET)
+DEP_DIR = dep_$(CHIP)/$(TARGET)
+LINKER_UNUSED_TGT = $(OUT_DIR)/unused.txt
+IMAGE = $(OUT_DIR)/$(TARGET)
+
+ifeq ($(TARGET), sdtarget)
+HAL = b5
+endif
+
+export WINTARGET_DIR = wintarget
+
+ifeq ($(TARGET), bootrom)
+LINKER_UNUSED_SRC = bootrom/unused.txt
+SCATTERFILE = scatter-rom.desc
+EXTRA_OBJS = $(OUT_DIR)/vectors.o $(OUT_DIR)/rom_init.o
+EXTRA_CFLAGS = -D__BOOTROM__
+ASFLAGS += --PD "__BOOTROM__ SETL {TRUE}"
+endif
+ifeq ($(TARGET), bootstrap)
+LINKER_UNUSED_SRC = bootstrap/unused.txt
+SCATTERFILE = scatter-iram_b5.desc
+EXTRA_OBJS = $(OUT_DIR)/iram_init.o
+EXTRA_CFLAGS = -D__DEBUG_ON__ -D__BOOTSTRAP__ -D__$(PN)__ -D__SPI__
+ASFLAGS += --PD "__BOOTSTRAP__ SETL {TRUE}"
+endif
+ifeq ($(TARGET), sdappram)
+LINKER_UNUSED_SRC = bootstrap/unused.txt
+SCATTERFILE = scatter-iram_b5.desc
+EXTRA_OBJS = \
+	$(OUT_DIR)/iram_init.o \
+	$(OUT_DIR)/veneer_sd.o \
+	$(OUT_DIR)/importsym_sd.def
+EXTRA_CFLAGS = -D__DEBUG_ON__ -D__SDAPPRAM__ -D__$(PN)__ -D__SPI__
+ASFLAGS += --PD "__SDAPPRAM__ SETL {TRUE}"
+endif
+ifeq ($(TARGET), sdapprampi)
+LINKER_UNUSED_SRC = bootstrap/unused.txt
+SCATTERFILE = scatter-irampi.desc
+EXTRA_OBJS = \
+	$(OUT_DIR)/iram_init.o \
+	$(OUT_DIR)/veneer.o \
+	$(OUT_DIR)/veneer_sd.o \
+	$(OUT_DIR)/importsym_b5.def \
+	$(OUT_DIR)/importsym_sd.def
+	
+EXTRA_CFLAGS = \
+	-D__DEBUG_ON__ -D__SDAPPRAM_PI__ -D__$(PN)__ -D__SPI__ \
+	--apcs /ropi/rwpi --lower_ropi
+	
+ASFLAGS += \
+	--PD "__SDAPPRAM_PI__ SETL {TRUE}" \
+	--PD "__APCS_ROPI SETL {TRUE}" \
+	--PD "__APCS_RWPI SETL {TRUE}" \
+	--apcs /ropi/rwpi
+endif
+ifeq ($(TARGET), bootloader)
+LINKER_UNUSED_SRC = bootldr/unused.txt
+SCATTERFILE = scatter-iram_b5.desc
+EXTRA_OBJS = $(OUT_DIR)/iram_init.o
+EXTRA_CFLAGS = -D__BOOTLOADER__ -D__$(PN)__
+ASFLAGS += --PD "__BOOTLOADER__ SETL {TRUE}"
+ifdef UBOOT
+EXTRA_CFLAGS += -D__UBOOT__ -D__DEBUG_ON__
+endif
+ifdef LINUX
+EXTRA_CFLAGS += -D__LINUX__ -D__DEBUG_ON__
+endif
+
+endif
+ifeq ($(TARGET), wintarget)
+LINKER_UNUSED_SRC = $(WINTARGET_DIR)/unused.txt
+SCATTERFILE = scatter-emi.desc
+EXTRA_OBJS = $(OUT_DIR)/emi_init.o $(OUT_DIR)/veneer.o \
+             $(OUT_DIR)/importsym_b5.def
+EXTRA_CFLAGS = \
+	-D__DEBUG_ON__ \
+	-D__WINTARGET__ \
+	-D__DOWNLOADER_V24__ \
+	-D__USE_SERIAL_NUMBERS__ \
+	-D__DOWNLOADER__ \
+	-D__UART2_DEBUG__ \
+	-D__B2__ \
+	-D__$(PN)__ \
+	-D__SPI__ \
+	-D__VER_UNFD_FTL__ \
+        -D__B3_UPLOAD_NEW__ \
+	-D__B3_RESTORE__ \
+	-D__NEW_NOR_ARCH__ \
+	-D__M18_MCP_SUPPORT__ \
+	-D__PASSIVE_DOWNLOAD__ \
+	-D__MSW8533X_NEW_EMI_PROTOCOL__ \
+	--apcs /ropi/rwpi --lower_ropi
+
+ifeq ($(PURPOSE), mcptest)
+EXTRA_CFLAGS += -D__MCP_TEST_ON__
+endif
+
+ASFLAGS += \
+	--PD "__WINTARGET__ SETL {TRUE}" \
+	--PD "__G1__ SETL {FALSE}" \
+	--PD "__B2__ SETL {TRUE}" \
+	--apcs /ropi/rwpi
+
+endif
+
+ifeq ($(TARGET), sdtarget)
+LINKER_UNUSED_SRC = $(WINTARGET_DIR)/unused.txt
+SCATTERFILE = scatter-emi_$(FLASH).desc
+EXTRA_OBJS = \
+	$(OUT_DIR)/emi_init.o \
+	$(OUT_DIR)/veneer_sd.o \
+	$(OUT_DIR)/importsym_sd.def
+	
+EXTRA_CFLAGS = \
+	-D__DEBUG_ON__ \
+	-D__WINTARGET__ \
+	-D__SDTARGET__ \
+	-D__DOWNLOADER_V24__ \
+	-D__USE_SERIAL_NUMBERS__ \
+	-D__DOWNLOADER__ \
+	-D__UART2_DEBUG__ \
+	-D__B2__ \
+	-D__$(PN)__ \
+	-D__SPI__ \
+	-D__VER_UNFD_FTL__ \
+        -D__B3_UPLOAD_NEW__ \
+	-D__B3_RESTORE__ \
+	-D__NEW_NOR_ARCH__ \
+	-D__M18_MCP_SUPPORT__ \
+	-D__PASSIVE_DOWNLOAD__ \
+	-D__MSW8533X_NEW_EMI_PROTOCOL__
+
+ASFLAGS += \
+	--PD "__WINTARGET__ SETL {TRUE}" \
+	--PD "__G1__ SETL {FALSE}" \
+	--PD "__B2__ SETL {TRUE}"
+
+endif
+
+EXTRA_OBJS += $(OUT_DIR)/main.o
+
+ifndef SCATTERFILE
+SCATTERFILE = scatter-iram_b5.desc
+endif
+
+include Makefile.opt
+
+ASFLAGS += --PD "__B1__ SETL {FALSE}" -I$(OUT_DIR)
+CFLAGS += $(EXTRA_CFLAGS) -D__CHIPVER__=$(CHIPVER)
+PP_OPT_TARGET += $(EXTRA_CFLAGS)
+
+ifeq ($(FPGA), TRUE)
+ASFLAGS += --PD "__FPGA_MODE__ SETL {TRUE}"
+CFLAGS += -D__FPGA_MODE__
+endif
+
+ifeq ($(ASICSIM), TRUE)
+ASFLAGS += --PD "__ASIC_SIM__ SETL {TRUE}"
+CFLAGS += -D__ASIC_SIM__
+endif
+
+all: dep $(IMAGE).dir $(LINKER_UNUSED_TGT) $(IMAGE).bin unused_file
+	@echo "In order to generate text bin file use the gen_txt_bin.sh command"
+	@echo "Don't forget to modify the number version!"
+ifeq ($(TARGET), bootstrap)
+	@cp -af $(IMAGE).bin $(IMAGE)_MSW853xb.bst
+	@echo -ne "TARGET_BINARY_INFO:"`wc -c $(IMAGE)_MSW853xb.bst|cut -f1 -d' '` `date +"%m%d%y %H:%M"`"      \000" >> $(IMAGE)_MSW853xb.bst
+
+endif
+ifeq ($(TARGET), sdappram)
+	@$(TOOLS_DIR)/mkimage -a $$(sed -n 's/^[ \t]*IRAM_EXEC[ \t]*//p' $(SCATTERFILE)) \
+                          -d $$(date +%Y/%m/%d) \
+                          -n Bootloader \
+                          -t bootloader \
+                          $(IMAGE).bin &> t.tmp
+	@rm -f t.tmp
+	@cp -af $(IMAGE).img $(IMAGE)_MSW853xb.ldr
+	@printf 'BOOTLOADERv3.03: %6s %s %s   \0' `wc -c $(IMAGE)_MSW853xb.ldr|cut -f1 -d' '` `date +"%m%d%y %H:%M"` >> $(IMAGE)_MSW853xb.ldr
+	@cp $(IMAGE)_MSW853xb.ldr ./SDAPPRAM_MSW853xb.BIN
+endif
+ifeq ($(TARGET), sdapprampi)
+	@$(TOOLS_DIR)/mkimage -a 0x1C00B000 \
+                          -d $$(date +%Y/%m/%d) \
+                          -n Bootloader \
+                          -t bootloader \
+                          $(IMAGE).bin &> t.tmp
+	@rm -f t.tmp
+	@cp -af $(IMAGE).img $(IMAGE)_MSW853xb.ldr
+	@printf 'BOOTLOADERv3.03: %6s %s %s   \0' `wc -c $(IMAGE)_MSW853xb.ldr|cut -f1 -d' '` `date +"%m%d%y %H:%M"` >> $(IMAGE)_MSW853xb.ldr
+	@cp $(IMAGE)_MSW853xb.ldr ./SDAPPRAM_MSW853xb.BIN
+endif
+ifeq ($(TARGET), bootloader)
+	@$(TOOLS_DIR)/mkimage -a $$(sed -n 's/^[ \t]*IRAM_EXEC[ \t]*//p' $(SCATTERFILE)) \
+                          -d $$(date +%Y/%m/%d) \
+                          -n Bootloader \
+                          -t bootloader \
+                          $(IMAGE).bin &> t.tmp
+	@$(TOOLS_DIR)/padbin -a 0x800 -i 0xFF $(IMAGE).img &> t.tmp
+	@rm -f t.tmp
+	@cp -af $(IMAGE).img $(IMAGE)_MSW853xb.ldr
+	@printf 'BOOTLOADERv3.03: %6s %s %s   \0' `wc -c $(IMAGE)_MSW853xb.ldr|cut -f1 -d' '` `date +"%m%d%y %H:%M"` >> $(IMAGE)_MSW853xb.ldr
+endif
+
+$(IMAGE).dir:
+	@mkdir -p $(OUT_DIR)
+
+$(LINKER_UNUSED_TGT): $(LINKER_UNUSED_SRC)
+	@cp -af $< $@
+	@chmod +w $@
+
+.PHONY: unused_file
+unused_file:
+	@-cp -af $(LINKER_UNUSED_TGT) $(LINKER_UNUSED_SRC)
+
+include sysdrv/sysdrv.mak
+include sysutil/sysutil.mak
+include common/common.mak
+include storage/storage.mak
+include fat/fat.mak
+include UNFD/UNFD.mak
+
+ifeq ($(TARGET), bootrom)
+include bootrom/bootrom.mak
+include usb_b4/usbotg.mak
+include testie/testie.mak
+endif
+ifeq ($(TARGET), bootstrap)
+include bootstrap/bootstrap.mak
+include usb_b4/usbotg.mak
+include dwldrv/dwldrv.mak
+endif
+ifneq ($(filter sdappram sdapprampi, $(TARGET)),)
+include bootstrap/bootstrap.mak
+include usb_b4/usbotg.mak
+include dwldrv/dwldrv.mak
+endif
+ifeq ($(TARGET), bootloader)
+include bootldr/bootldr.mak
+endif
+ifeq ($(TARGET), wintarget)
+include usb_b4/usbotg.mak
+include dwldrv/dwldrv.mak
+include $(WINTARGET_DIR)/wintarget.mak
+include $(WINTARGET_DIR)/version_b5.mak
+endif
+ifeq ($(TARGET), sdtarget)
+include usb_b4/usbotg.mak
+include dwldrv/dwldrv.mak
+include $(WINTARGET_DIR)/wintarget.mak
+include $(WINTARGET_DIR)/version_b5.mak
+include lcd/lcd.mak
+include lcd/lcdcust.mak
+include lcd/lcdhal.mak
+include backlight/backlight.mak
+include backlight/backlightcust.mak
+include backlight/backlighthal.mak
+endif
+
+DEPFILES += $(patsubst %.c, $(DEP_DIR)/%.d, $(SRC_LIST)) \
+            $(DEP_DIR)/arm_mkdefs.d $(DEP_DIR)/main.d
+
+dep: depdir depfiles
+
+depdir:
+	@mkdir -p $(sort $(dir $(DEPFILES)))
+
+depfiles: $(DEPFILES)
+
+$(IMAGE).bin: $(IMAGE).axf
+	@echo "Creating $@ from $< using options '$(BINFLAGS)'"
+	$(FROMELF) $(BINFLAGS) -o $@ $<
+	@echo $$(basename $@) = $$(ls -g $@ | awk '{print $$4}') BYTES
+ifeq ($(TARGET), bootrom)
+	@$(TOOLS_DIR)/padbin -a $$(sed -n 's/^ROM.*\(0[xX][0-9A-Fa-f]*\)$$/\1/p' $(SCATTERFILE)) \
+                         -i 0xFF $@ &> t.tmp
+	@$(TOOLS_DIR)/bin2hex $@ $(IMAGE).hex
+	@rm -f t.tmp
+else
+ifeq ($(TARGET), wintarget)
+ifeq ($(PURPOSE), mcptest)
+	@cp -af $@ $(OUT_DIR)/mcptest_MSW853xb.bin
+	@cp -af $@ $(OUT_DIR)/mcptest_MSW853xb.wt
+else
+	@cp -af $@ $(OUT_DIR)/lock_MSW853xb.bin
+	@cp -af $@ $(OUT_DIR)/lock_MSW853xb.wt
+endif
+	#@$(TOOLS_DIR)/LoadConverter.exe -t $(OUT_DIR)/lock_MSW853xb.wt -dv $(DWLWIN_VER) -wv $(WINTARGET)
+endif
+ifeq ($(TARGET), sdtarget)
+	@cp -af $@ $(OUT_DIR)/lock_MSW853xb.bin
+	@cp -af $@ $(OUT_DIR)/lock_MSW853xb.wt
+	#@$(TOOLS_DIR)/LoadConverter.exe -t $(OUT_DIR)/lock_MSW853xb.wt -dv $(DWLWIN_VER) -wv $(WINTARGET)
+	@cp $(OUT_DIR)/lock_MSW853xb.bin ./SDTARGET_$(CHIP).BIN
+endif
+endif
+
+#
+# about the link edition:
+# the presence of isr.o is mandatory, because one can not make a
+# reference to a member of an archive in the scatter file to precise which section will be the
+# first in the binary
+#
+
+.PHONY: $(IMAGE).axf
+$(IMAGE).axf: $(OUT_DIR)/arm.inc $(EXTRA_OBJS) $(LIB_LIST)
+	@echo "----> Linking application"
+	$(LD) -o $@ $(EXTRA_OBJS) $(LIB_LIST) \
+        $(LDFLAGS) $(SCATTER_OPT) $(FEEDBACK_UNUSED) \
+        2> $(IMAGE).log --symdefs $(IMAGE).def
+	$(FROMELF) -s -o $(IMAGE).sym $@
+	$(FROMELF) -c -o $(IMAGE).dis $@
+	@cp -a $@ $(TARGET).axf
+	@echo "INC_LIST += $(INC_LIST)" > $(OUT_DIR)/Inc.mak
+
+$(OUT_DIR)/%.o: %.c
+	@echo "----> Compiling $<..."
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(FEEDBACK_UNUSED) -c $< -o $@
+
+$(OUT_DIR)/%.o: %.s
+	@echo "----> Assembling $<..."
+	$(AS) $(ASFLAGS) -o $@ $<
+
+$(OUT_DIR)/%.o: %.asm
+	@echo "----> Assembling $<..."
+	$(AS) $(ASFLAGS) -o $@ $<
+
+$(DEP_DIR)/%.d: %.c
+	$(CC) -M $(PP_OPT_TARGET) -I. $(INC_LIST) $(DEP_INC) $< \
+    | sed 's#\($(notdir $*)\)\.o[ :]*#$(OUT_DIR)/$*.o $(DEP_DIR)/$*.d: #g' > $@
+	sed -i '/.*:.*:.*/ s#\([^:]\):\s*\(.*\)#\1: $$(shell cygpath -u "\2")#' $@
+
+$(DEP_DIR)/%.d: %.cpp
+	$(CC) -M $(PP_OPT_TARGET) -I. $(INC_LIST) $(DEP_INC) $< \
+    | sed 's#\($(notdir $*)\)\.o[ :]*#$(OUT_DIR)/$*.o $(DEP_DIR)/$*.d: #g' > $@
+	sed -i '/.*:.*:.*/ s#\([^:]\):\s*\(.*\)#\1: $$(shell cygpath -u "\2")#' $@
+
+$(DEP_DIR)/%.d: %.s
+	@$(AWK) -vEntry=$(basename $<) 'BEGIN{DepFile=Entry; gsub(/.s$$/, ".o", Entry); gsub(/.s$$/, ".d", DepFile); printf("%s.s %s: ", Entry, DepFile)} END{print ""} /INCLUDE/{printf ("%s ", $$2)}' $< > $@
+
+.PHONY: clean
+clean:
+	@find . -type f \( -name '*.o' -o -name '*.a' -o -name '*.axf' \
+        -o -name '*.bin' -o -name '*.log' \) -print0 | xargs -0 rm -f
+	@rm -f $(IMAGE).{dis,htm,lst,rom,sym}
+
+ifeq (, $(findstring clean, $(MAKECMDGOALS)))
+include $(foreach i,$(sort $(dir $(DEPFILES))),$(wildcard $i/*.d))
+endif

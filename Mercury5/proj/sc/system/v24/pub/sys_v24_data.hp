@@ -1,0 +1,113 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24data.hp                                                    */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototypes used out V24 data Driver.                          */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 29/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_data.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 12.08.05 | pmr    | 1.10           | Resolution for 29019: Data: CONNECT
+ *          |        |                |  xxxx Message is incomplete when +I
+ *          |        |                | LRR has been enabled  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.9            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.8            | Resolution for 29017: Data: Esc Seq
+ *          |        |                | uence +++ module does not reply.  .
+ *----------+--------+----------------+-------------------------------------
+ * 08.07.05 | pmr    | 1.7            | Resolution for 29155: [CMUX] GPRS t
+ *          |        |                | ransfert not possible with  TMT  . 
+ *----------+--------+----------------+-------------------------------------
+ * 17.06.05 | pmr    | 1.6            | Resolution for 28861: flow fcm not 
+ *          |        |                | closed when port id v24 linked is r
+ *          |        |                | eleased  .                         
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.5            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.4            | Resolution for 27932: V24 autobaudi
+ *          |        |                | ng  sets  reliable  .              
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_DATA_HP__
+#define __SYS_V24_DATA_HP__
+
+#include "sys_v24.ht"
+#include "sys_v24_data.ht"
+
+extern bool          v24_DataRegisterPortExt    ( u32 Port, bool Activate );
+extern void          v24_TxDataDriver           ( u32 Port );
+extern u32           v24_DataGetRequestExt      ( v24_Req_t Req, u32 Arg, u32 Port );
+extern void          v24_ResetDataDrivers       ( bool, u32 );
+extern u16           v24_FastRxDataDriver       ( u8 *Buf, u16 Purge, u16 Fill, u32 Port, v24_RxItIdx_t Modulo );
+extern void          v24_DataRequestExt         ( void );
+extern void          v24_DataReleaseDataSent    ( u8 *Buffer, u32 Port );
+extern bool          v24_DataRegisterCtx        ( bool Activate, u32 Port );
+extern void          v24_DataDestructor         ( void* Context ); // tracker 28861
+
+extern void          v24_CtxFint1EntryHook      ( u32, u32 );
+extern bool          v24_CheckRxDataFC          ( u32 Port );
+
+extern void          v24_TriggerOfflineMode     ( v24_DataCtx_t *v24_DataContext);
+extern bool          v24_TxDataBufEmptyExt      ( u32 Port );
+extern void          v24_DataReleaseBlock       ( u32 Port );
+extern void          v24_DataParseFCM_MessagesExt( void );
+extern bool          v24_IsRxDataFlowCtrlOn(u32 Port);
+#if !defined(__NO_GPRS__)
+extern void          v24_TxDataDriverFunc           ( u32 Port );
+extern void          v24_ResetDataDriversFunc       ( bool, u32 );
+extern u16           v24_FastRxDataDriverFunc       ( u8 *Buf, u16 Purge, u16 Fill, u32 Port, v24_RxItIdx_t Modulo );
+extern void          v24_DataReleaseDataSentFunc    ( u8 *Buffer, u32 Port );
+extern void          v24_DataRequestExtFunc         ( void );
+extern void          v24_DataDestructorFunc         ( void* Context ); 
+extern bool          v24_CheckRxDataFCFunc          ( u32 Port );
+extern void          v24_TriggerOfflineModeFunc     ( v24_DataCtx_t *v24_DataContext);
+extern bool          v24_TxDataBufEmptyExtFunc      ( u32 Port );
+extern void          v24_DataReleaseBlockFunc       ( u32 Port );
+extern void          v24_DataParseFCM_MessagesExtFunc( void );
+extern u32           v24_DataGetRequestExtFunc      ( v24_Req_t Req, u32 Arg, u32 Port );
+extern bool          v24_IsRxDataFlowCtrlOnFunc(u32 Port);
+#endif
+extern void          v24_InitData               ( void );
+
+#endif

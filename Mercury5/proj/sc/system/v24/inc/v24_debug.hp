@@ -1,0 +1,49 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_debug.hp                                                  */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototypes used out of V24 debugging tools                    */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 17/01/05 |  MPR   | Creation                                             */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_debug.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 01.04.05 | pmr    | 1.1            | Resolution for 28181: [V24]: v24 fo
+ *          |        |                | r X55 WP3 fixed  .
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.0            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  Initial revision.
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __V24_DEBUG_HP__
+#define __V24_DEBUG_HP__
+
+#include "sys_v24_at.ht"
+
+void v24_APH_DebugParse ( v24_AtCtx_t *v24_AtContext );
+void v24_PMR_DebugParse ( v24_AtCtx_t *v24_AtContext );
+void v24_WBT_DebugParse ( v24_AtCtx_t *v24_AtContext );
+
+#endif //DEBUG

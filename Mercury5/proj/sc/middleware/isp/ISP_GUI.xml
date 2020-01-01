@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ISP_DBG_ITEM Author="Smart Camera ISP" Version="0.1" Name="iNfinityI1">
+     <TAB Name="AE" Type="API" Size="1" Id="1">
+		<GROUP Name="GUI_AE_Flicker" Id="1">
+		<DBG_ITEM Name="DBG_GUI_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" Text="" GuiType="" Action="" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_METERING_TYPE"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Mertering" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_FLICKER_MODE"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="FlickerMode" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_FLICKER"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Flick" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_EVCOMP_GRAD"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="EvComp Grad" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_EVCOMP"  Type="eDBG_ITEM_TYPE_S32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="EvComp" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		</GROUP>
+
+		<GROUP Name="GUI_AE_Converge" Id="2">
+		<DBG_ITEM Name="DBG_GUI_AE_CONV_RATIO_NUM"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="1024" Text="RatioNum" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_CONV_RATIO_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="1" i4Max="1024" Text="RatioY" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_CONV_RATIO_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="0" i4Max="255" Text="RatioX" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_CONV_INTO_STABLE_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="IntoStableThd" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_CONV_OUT_STABLE_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="OutStableThd" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		</GROUP>
+
+		<GROUP Name="GUI_AE_Win" Id="3">
+		<DBG_ITEM Name="DBG_GUI_AE_WIN_X_NUM"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="32" Text="WinX Num" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_WIN_Y_NUM"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="32" Text="WinY Num" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_EXPO_TBL_NUM"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="1" i4Max="16" Text="ExpoTblNum" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_EXPO_TBL"  Type="eDBG_ITEM_TYPE_U32" M="4" N="16" d4Value="0" i4Min="1" i4Max="32" Text="ExpoTbl" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		</GROUP>
+
+		<GROUP Name="GUI_AE_Strategy" Id="4">
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Strategy" GuiType="NumScroll" Action="RW" Param="" Info="" />
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY_WEIGHTING"  Type="eDBG_ITEM_TYPE_U32" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" Text="Weight" GuiType="NumScroll" Action="RW" Param="" Info="" />
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY_UPPER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" Text="UpperNum" GuiType="NumScroll" Action="RW" Param="" Info="" />
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY_UPPER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffffffff" i4Max="0xffffffff" Text="UpperY" GuiType="DataGrid" Action="RW" Param="" Info="" />
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY_UPPER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffffffff" i4Max="0xffffffff" Text="UpperX" GuiType="DataGrid" Action="RW" Param="" Info="" />
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY_LOWER_NUM"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="16" Text="LowerNum" GuiType="NumScroll" Action="RW" Param="" Info="" />
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY_LOWER_Y"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffffffff" i4Max="0xffffffff" Text="LowerY" GuiType="DataGrid" Action="RW" Param="" Info="" />
+        <DBG_ITEM Name="DBG_GUI_AE_STRATEGY_LOWER_X"  Type="eDBG_ITEM_TYPE_S32" M="8" N="1" d4Value="0" i4Min="-0xffffffff" i4Max="0xffffffff" Text="LowerX" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_ENABLE_STRETCH"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="1" Text="StretchEn" GuiType="CheckBox" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AE_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" Text="" GuiType="" Action="" Param="" Info="" />
+	    </GROUP>
+     </TAB>
+     <TAB Name="AWB" Type="API" Size="1" Id="2">
+		<GROUP Name="GUI_AWB_Light_Source" Id="4">
+		<DBG_ITEM Name="DBG_GUI_AWB_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" Text="" GuiType="" Action="" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_CALI_PREGAIN"  Type="eDBG_ITEM_TYPE_U16" M="9" N="1" d4Value="0" i4Min="0" i4Max="8192" Text="Cali Pregain" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LIGHT"  Type="eDBG_ITEM_TYPE_S32" M="8" N="6" d4Value="0" i4Min="-0xffff" i4Max="0xffff" Text="Light" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LIGHT_EXTRA"  Type="eDBG_ITEM_TYPE_S32" M="8" N="8" d4Value="0" i4Min="-0xffff" i4Max="0xffff" Text="Light Extra" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LIGHT_CT"  Type="eDBG_ITEM_TYPE_S32" M="8" N="10" d4Value="0" i4Min="-0xffff" i4Max="0xffff" Text="Light CT" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_COLOR_TEMP"  Type="eDBG_ITEM_TYPE_U16" M="10" N="1" d4Value="0" i4Min="0" i4Max="50000" Text="Color Temperature" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LIGHT_WEIGHT"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" Text="Light Weight" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_DEFAULT_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" Text="Default Ratio" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_PERFER_R_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" Text="Prefer R" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_PERFER_B_RATIO"  Type="eDBG_ITEM_TYPE_U16" M="18" N="10" d4Value="0" i4Min="0" i4Max="255" Text="Prefer B" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_PRESET_GAIN"  Type="eDBG_ITEM_TYPE_U16" M="2" N="9" d4Value="0" i4Min="0" i4Max="8192" Text="Preset Gain" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_COMP_CFG"  Type="eDBG_ITEM_TYPE_U16" M="2" N="8" d4Value="0" i4Min="0" i4Max="1024" Text="Comp CFG" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_PURECOLOR_CFG"  Type="eDBG_ITEM_TYPE_U16" M="10" N="8" d4Value="0" i4Min="0" i4Max="1024" Text="Purecolor CFG" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		</GROUP>
+		<GROUP Name="GUI_AWB_Light Param" Id="5">
+		<DBG_ITEM Name="DBG_GUI_AWB_LIGHT_START"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="64" Text="Light Start" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LIGHT_END"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="64" Text="Light End" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LUM_MAX"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Lum Max" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LUM_MIN"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Lum Min" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_COUNT_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="5760" Text="Count Treshold" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_SPEED"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Speed" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_CONV_THD"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Converge Threshold" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_AREA_USER_MAX"  Type="eDBG_ITEM_TYPE_U16" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Area User Max" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_AREA_SCALE_MAX"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Area Scale Max" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_MIX_THIRD_THD"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Mix Third Thd" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		</GROUP>
+		<GROUP Name="GUI_AWB Debug" Id="6">
+		<DBG_ITEM Name="DBG_GUI_AWB_STATISTICS_W"  Type="eDBG_ITEM_TYPE_U16" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" Text="Statis W" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_STATISTICS_H"  Type="eDBG_ITEM_TYPE_U16" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="1024" Text="Statis H" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_GAIN"  Type="eDBG_ITEM_TYPE_U16" Attr=" eDBG_ITEM_TYPE_TMPVALUE" M="2" N="10" d4Value="0" i4Min="0" i4Max="8192" Text="Debug Gain" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_SPC"  Type="eDBG_ITEM_TYPE_U8" Attr=" eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="SPC" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_FIRST_LIGHT"  Type="eDBG_ITEM_TYPE_U8" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Fist Light" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_SECOND_LIGHT"  Type="eDBG_ITEM_TYPE_U8" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="255" Text="Second Light" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_LVVALUE"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_TMPVALUE" M="1" N="1" d4Value="0" i4Min="0" i4Max="240" Text="LvValue" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_AWB_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" Text="" GuiType="" Action="" Param="" Info="" />
+	    </GROUP>
+     </TAB>
+	 <TAB Name="IQ" Type="API" Size="1" Id="3">
+		<GROUP Name="GUI_IQ_INFO" Id="7">
+		<DBG_ITEM Name="DBG_GUI_IQ_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="0xffff" Text="" GuiType="" Action="" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_IQ_VERSION"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_COMMAND" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Text="" GuiType="" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_IQ_INFO_START"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Text="" GuiType="" Action="" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_IQ_INFO_CHIP_VER"  Type="eDBG_ITEM_TYPE_U32" Attr="eDBG_ITEM_TYPE_HEX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Text="ChipVer" GuiType="Label" Action="R" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_IQ_INFO_GAIN_TBL"  Type="eDBG_ITEM_TYPE_U32" M="10" N="1" d4Value="1" i4Min="0" i4Max="1" Text="Gain Table" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_IQ_INFO_BLK_TBL"  Type="eDBG_ITEM_TYPE_U8" M="10" N="30" d4Value="1" i4Min="0" i4Max="9" Text="Blk table" GuiType="DataGrid" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_IQ_INFO_ISO_IND"  Type="eDBG_ITEM_TYPE_U8" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Text="ISO Index" GuiType="NumScroll" Action="RW" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_IQ_INFO_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Text="" GuiType="" Action="" Param="" Info="" />
+		<DBG_ITEM Name="DBG_GUI_END"  Type="eDBG_ITEM_TYPE_MAX" M="1" N="1" d4Value="1" i4Min="0" i4Max="1" Text="" GuiType="" Action="" Param="" Info="" />
+
+		</GROUP>
+     </TAB>
+</ISP_DBG_ITEM>

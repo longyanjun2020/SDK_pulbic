@@ -1,0 +1,79 @@
+/****************************************************************************/
+/*  File    : RM_E2P.HT                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Type definitions for RM_TOOLS.C                               */
+/*                                                                          */
+/*  Contents:  E2pMsg_t                                                     */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   3.2  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   lho    $         |     $Date::   Feb 24 2003 15:44:30 $     */
+/****************************************************************************
+ * $LogWavecom: G:\projet\gsm\pvcsarch\archives\trc\inc\rm_e2p.ht-arc $
+ * --------------------------------------------------------------------------
+ *  Date     | Author | Revision       | Description
+ * ----------+--------+----------------+-------------------------------------
+ *  24.02.03 | lho    | 3.2            | the Data field of the E2p2Msg_t str
+ *           |        |                | ucture is put apart for easier size
+ *           |        |                | of  Resolution for 7749: [E2P] A re
+ *           |        |                | set appears when writing in the eep
+ *           |        |                | rom area
+ * ----------+--------+----------------+-------------------------------------
+ *  01.10.02 | ddo    | 3.1            | Add info EEPROM 2
+ * ----------+--------+----------------+-------------------------------------
+ *  30.08.02 | ddo    | 3.0            | integration dev tf V19
+ * ----------+--------+----------------+-------------------------------------
+ *
+ *   Rev 1.0   Jul 05 2001 15:23:04   ddo
+ *Initial revision.
+ ****************************************************************************/
+
+
+
+#ifndef __RM_E2P_HT__
+#define __RM_E2P_HT__
+
+/* INFO_EEPROM --------------------------------------------- */
+
+typedef struct
+{
+ u16 Offset;
+ u16 Length;
+ u8  Ident;
+ u8  Data;
+} E2pMsg_t;
+
+/* INFO_EEPROM2 -------------------------------------------- */
+
+typedef struct
+{
+ u32 Adress;
+ u16 Length;
+ u8  SenderRights; /* parameters area that the MOKA may acces */
+ u8  Request;      /* type of acces requested */
+ u8  Extension[4]; /* available for future evolutions */ /* set to 0 */
+} E2p2MsgHeader_t;
+
+/* INFO_EEPROM 3--------------------------------------------- */
+
+typedef struct
+{
+ u8     Func;
+ u8     Pad[3];
+ u32   Offset;
+ u32   Length;
+ u8    Data;
+} E2p3Msg_t;
+
+
+typedef struct
+{
+ E2p2MsgHeader_t E2p2MsgHeader;
+ u8  Data[1];
+} E2p2Msg_t;
+
+#endif /* __RM_E2P_HT__ not defined   */

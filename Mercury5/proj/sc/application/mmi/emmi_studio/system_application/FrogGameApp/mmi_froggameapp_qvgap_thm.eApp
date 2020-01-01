@@ -1,0 +1,14 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="FROGAPP_WND_MAIN" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<InternProp Id="GUID" Value="4037d" />
+		</Widget>
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="FALSE" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="FALSE" />
+		<InternProp Id="GUID" Value="166c4" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_FROGGAMEAPP" />
+</UiRoot>

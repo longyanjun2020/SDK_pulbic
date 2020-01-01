@@ -1,0 +1,6 @@
+#ifndef __SYS_RAND_HP__
+#define __SYS_RAND_HP__
+
+#include "sys_sys_rand.h"
+
+#endif

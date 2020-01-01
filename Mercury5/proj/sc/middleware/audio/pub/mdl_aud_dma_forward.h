@@ -1,0 +1,18 @@
+#ifndef __MDL_AUD_DMA_FORWARD_H__
+#define __MDL_AUD_DMA_FORWARD_H__
+
+#include "vm_types.ht"
+// mdl_aud_dma_types.h
+typedef struct MdlAudDmaRecSetBufAddr_t_ MdlAudDmaRecSetBufAddr_t;
+typedef struct MdlAudDmaRecSetBufThreshold_t_ MdlAudDmaRecSetBufThreshold_t;
+typedef struct MdlAudDmaRecSetSamplingRate_t_ MdlAudDmaRecSetSamplingRate_t;
+typedef struct MdlAudDmaRecRegCallback_t_ MdlAudDmaRecRegCallback_t;
+typedef struct MdlAudDmaRecGetBufInfo_t_ MdlAudDmaRecGetBufInfo_t;
+typedef struct MdlAudDmaRecReadData_t_ MdlAudDmaRecReadData_t;
+typedef struct MdlAudDmaPlaySetBufAddr_t_ MdlAudDmaPlaySetBufAddr_t;
+typedef struct MdlAudDmaPlaySetBufThreshold_t_ MdlAudDmaPlaySetBufThreshold_t;
+typedef struct MdlAudDmaPlaySetSamplingRate_t_ MdlAudDmaPlaySetSamplingRate_t;
+typedef struct MdlAudDmaPlayRegCallback_t_ MdlAudDmaPlayRegCallback_t;
+typedef struct MdlAudDmaPlayGetBufInfo_t_ MdlAudDmaPlayGetBufInfo_t;
+typedef struct MdlAudDmaPlayWriteData_t_ MdlAudDmaPlayWriteData_t;
+#endif // __MDL_AUD_DMA_FORWARD_H__

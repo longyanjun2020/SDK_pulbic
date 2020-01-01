@@ -1,0 +1,43 @@
+
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FileProspector", "FileProspector\FileProspector.vcproj", "{4DDB6282-27B1-4323-A022-800D5A6918C6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{357AD923-A01B-45B0-8889-ED3D4A52C5A7} = {357AD923-A01B-45B0-8889-ED3D4A52C5A7}
+		{C24A62A9-AB9B-4F98-B0EE-C12FE95ED2B6} = {C24A62A9-AB9B-4F98-B0EE-C12FE95ED2B6}
+		{EE3C09FF-82ED-4E10-A89F-7C180CA2FF5D} = {EE3C09FF-82ED-4E10-A89F-7C180CA2FF5D}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMS", "FMS\FMS.vcproj", "{EE3C09FF-82ED-4E10-A89F-7C180CA2FF5D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FAT", "FAT\FAT.vcproj", "{357AD923-A01B-45B0-8889-ED3D4A52C5A7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VFS", "VFS\VFS.vcproj", "{C24A62A9-AB9B-4F98-B0EE-C12FE95ED2B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DDB6282-27B1-4323-A022-800D5A6918C6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4DDB6282-27B1-4323-A022-800D5A6918C6}.Debug|Win32.Build.0 = Debug|Win32
+		{4DDB6282-27B1-4323-A022-800D5A6918C6}.Release|Win32.ActiveCfg = Release|Win32
+		{4DDB6282-27B1-4323-A022-800D5A6918C6}.Release|Win32.Build.0 = Release|Win32
+		{EE3C09FF-82ED-4E10-A89F-7C180CA2FF5D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EE3C09FF-82ED-4E10-A89F-7C180CA2FF5D}.Debug|Win32.Build.0 = Debug|Win32
+		{EE3C09FF-82ED-4E10-A89F-7C180CA2FF5D}.Release|Win32.ActiveCfg = Release|Win32
+		{EE3C09FF-82ED-4E10-A89F-7C180CA2FF5D}.Release|Win32.Build.0 = Release|Win32
+		{357AD923-A01B-45B0-8889-ED3D4A52C5A7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{357AD923-A01B-45B0-8889-ED3D4A52C5A7}.Debug|Win32.Build.0 = Debug|Win32
+		{357AD923-A01B-45B0-8889-ED3D4A52C5A7}.Release|Win32.ActiveCfg = Release|Win32
+		{357AD923-A01B-45B0-8889-ED3D4A52C5A7}.Release|Win32.Build.0 = Release|Win32
+		{C24A62A9-AB9B-4F98-B0EE-C12FE95ED2B6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C24A62A9-AB9B-4F98-B0EE-C12FE95ED2B6}.Debug|Win32.Build.0 = Debug|Win32
+		{C24A62A9-AB9B-4F98-B0EE-C12FE95ED2B6}.Release|Win32.ActiveCfg = Release|Win32
+		{C24A62A9-AB9B-4F98-B0EE-C12FE95ED2B6}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

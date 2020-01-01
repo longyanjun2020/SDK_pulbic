@@ -1,0 +1,85 @@
+/****************************************************************************/
+/*  $Workfile::   fms_nrai.hi                                              $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services                                        */
+/*             EEPROM simulation - Public header file                       */
+/*  Contents:                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  $Revision::   0.4  $                                                    */
+/*-------------------------------+------------------------------------------*/
+/*  $Author::   kod    $         |     $Date::   24 Nov 2004 15:53:00 $     */
+/****************************************************************************
+ *   $Log:   U:/projet/gsm/pvcsarch/archives/fms/itf/fms_nrai.hi-arc  $
+ *
+ *   Rev 0.1
+ ****************************************************************************/
+
+#ifndef __FMS_NRAI_HI__
+#define __FMS_NRAI_HI__
+
+#include "vm_types.ht"
+#include "osdefs.hc"
+#include "sys_MsWrapper_cus_os_sem.h"
+#include "sys_traces.ho"
+
+/****************************************************************************/
+/* TYPE DEFINITION                                                          */
+/****************************************************************************/
+
+/**
+ *  @brief The sturcture defines the NRAI Status data structure for application layer (MMI).
+ */
+typedef struct {
+	u32									totalSectors;			/**	<O: Total Sectors	*/
+	u16									sectorsPerBlock;	/**	<O: Sectors per Block	*/
+	u16									padding;					/**	<Reserved	*/
+} fms_NraiGetInfoReq_t;
+
+
+/**
+ *  @brief The sturcture defines the NRAI Block Read data structure for application layer (MMI).
+ */
+typedef struct {
+	u32									clusterNo;		/**	<I: Sectors Index	*/
+	u32									clusterSize;	/**	<I: Sector Size	*/
+	u8								*	pData;				/**	<I: Memory Buffer for writting data	*/
+} fms_NraiReadReq_t;
+
+
+/**
+ *  @brief The sturcture defines the NRAI Block Write data structure for application layer (MMI).
+ */
+typedef struct {
+	u32									clusterNo;		/**	<I: Sectors Index	*/
+	u32									clusterSize;	/**	<I: Sector Size	*/
+	u8								*	pData;				/**	<I: Memory Buffer for writting data	*/
+} fms_NraiWriteReq_t;
+
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+/**
+ *	@brief	Used to get volume info of NRAI
+ */
+s32 fms_NraiGetInfo(fms_NraiGetInfoReq_t *pNraiGetInfoReq);
+
+/**
+ *	@brief	Used to read data block from NRAI
+ */
+s32 fms_NraiBlockRead(fms_NraiReadReq_t *pNraiReq);
+
+/**
+ *	@brief	Used to read data block from NRAI
+ */
+s32 fms_NraiBlockWrite(fms_NraiWriteReq_t *pNraiReq);
+
+/**
+ *	@brief	Used to flush NRAI flush buffer
+ */
+s32 fms_NraiFlushBuffer(void);
+
+#endif /* __FMS_NRAI_HI__ not defined  */
+

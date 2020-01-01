@@ -1,0 +1,433 @@
+#ifndef __EMA_MSG_DEF_H__
+#define __EMA_MSG_DEF_H__
+
+/**
+ *  @brief Primitive/Message ID Base Definition
+ *         Please notice there are only 64 unit of ID for each function
+ */
+VM_MSG_DEF(EMA_SYS_BASE=(VM_CUS2_BASE+0x0000), void DUMMY)  /**< MMP System Base ID */
+VM_MSG_DEF(EMA_EFS_BASE=(VM_CUS2_BASE+0x0040), void DUMMY)  /**< File System Base ID */
+VM_MSG_DEF(EMA_CAM_BASE=(VM_CUS2_BASE+0x0080), void DUMMY)  /**< Camera driver Base ID */
+VM_MSG_DEF(EMA_CAM_VC_BASE=(VM_CUS2_BASE+0x00A0), void DUMMY)  /**< Camera Video Chat Base ID */
+VM_MSG_DEF(EMA_GSS_BASE=(VM_CUS2_BASE+0x00C0), void DUMMY)  /**< Graphic Sub-System Base ID */
+VM_MSG_DEF(EMA_IP_BASE=(VM_CUS2_BASE+0x00E0), void DUMMY)  /**< Graphic Sub-System Image-Processing Base ID */
+VM_MSG_DEF(EMA_GSS_RENDER_BASE=(VM_CUS2_BASE+0x00F0), void DUMMY)  /**< Graphic Sub-System Render Base ID */
+VM_MSG_DEF(EMA_AUD_BASE=(VM_CUS2_BASE+0x0100), void DUMMY)  /**< Audio service Base ID */
+VM_MSG_DEF(EMA_AUD_STM_BASE=(VM_CUS2_BASE+0x0120), void DUMMY)  /**< Audio streaming service Base ID */
+VM_MSG_DEF(EMA_AUD_MP_BASE=(VM_CUS2_BASE+0x0130), void DUMMY)  /**< Audio playback service Base ID */
+VM_MSG_DEF(EMA_VDO_BASE=(VM_CUS2_BASE+0x0140), void DUMMY)  /**< Video service Base ID */
+VM_MSG_DEF(EMA_VDO_IPTV_BASE=(VM_CUS2_BASE+0x0160), void DUMMY)  /**< iptv special case service Base ID */
+VM_MSG_DEF(EMA_VDO_SP_BASE=(VM_CUS2_BASE+0x0170), void DUMMY)  /**< Video special case service Base ID */
+VM_MSG_DEF(EMA_USB_BASE=(VM_CUS2_BASE+0x0180), void DUMMY)  /**< USB driver Base ID */
+VM_MSG_DEF(EMA_USB_CDC_BASE=(VM_CUS2_BASE+0x01C0), void DUMMY)  /**< USB CDC driver Base ID */
+VM_MSG_DEF(EMA_TIMER_BASE=(VM_CUS2_BASE+0x0200), void DUMMY)  /**< Timer Base ID */
+VM_MSG_DEF(EMA_USB_MSC_BASE=(VM_CUS2_BASE+0x0240), void DUMMY)  /**< USB MSC driver Base ID */
+VM_MSG_DEF(EMA_ATV_BASE=(VM_CUS2_BASE+0x0280), void DUMMY)  /**< TV service Base ID */
+VM_MSG_DEF(EMA_DTV_BASE=(VM_CUS2_BASE+0x02A0), void DUMMY)  /**< TV service Base ID */
+VM_MSG_DEF(EMA_FMR_BASE=(VM_CUS2_BASE+0x02C0), void DUMMY)  /**< FMR service Base ID */
+VM_MSG_DEF(EMA_GPS_BASE=(VM_CUS2_BASE+0x0300), void DUMMY)  /**< GPS service Base ID */
+VM_MSG_DEF(EMA_E2P_BASE=(VM_CUS2_BASE+0x0340), void DUMMY)  /**< E2P service Base ID */
+VM_MSG_DEF(EMA_TRC_BASE=(VM_CUS2_BASE+0x0380), void DUMMY)  /**< Backtrace service Base ID */
+VM_MSG_DEF(EMA_RFID_BASE=(VM_CUS2_BASE+0x03C0), void DUMMY)  /**< RFID service Base ID */
+VM_MSG_DEF(EMA_NRAI_BASE=(VM_CUS2_BASE+0x0400), void DUMMY)  /**< NRAI service Base ID */
+VM_MSG_DEF(EMA_WIFI_BASE=(VM_CUS2_BASE+0x0440), void DUMMY)  /**< WiFi service Base ID */
+
+/**
+ *  @brief Timer ID Definition
+ */
+#define EMA_CMD_TIMEOUT_TIMERID (EMA_TIMER_BASE+0x00) /**< Timer to detect MMP has no response */
+VM_MSG_DEF(EMA_EFS_NAND_CONTENT_FLUSH_TIMER_ID=(EMA_TIMER_BASE+0x01), void DUMMY) /**< Timer to continue EFS read request */
+VM_MSG_DEF(EMA_SYS_IDLE_TO_LIGHT_SLEEP_TIMERID=(EMA_TIMER_BASE+0x02), void DUMMY) /**< Timer to switch MMP from RUN mode to BYPASS mode */
+VM_MSG_DEF(EMA_SYS_LIGHT_SLEEP_TO_DEEP_SLEEP_TIMERID=(EMA_TIMER_BASE+0x03), void DUMMY) /**< Timer to detect MMP from BYPASS mode to POWERDOWN mode */
+VM_MSG_DEF(EMA_SYS_LOAD_FW_TIMEOUT_TIMERID=(EMA_TIMER_BASE+0x04), void DUMMY) /**< Timer to detect MMP re-load firmware no response */
+VM_MSG_DEF(EMA_SYS_IDLE_TO_SUSPEND_TIMERID=(EMA_TIMER_BASE+0x05), void DUMMY) /**< Timer to switch MMP from RUN mode to SUSPEND mode */
+VM_MSG_DEF(EMA_SYS_PWR_SELF_TEST_TIMERID=(EMA_TIMER_BASE+0x06), void DUMMY) /**< Timer to do MMP power management test */
+#ifdef __EMA_ENHANCEMENT__
+VM_MSG_DEF(EFS_CMD_TIMEOUT_TIMERID=(EMA_TIMER_BASE+0x07), void DUMMY) /**< Timer to detect EFS MMP has no response */
+#else
+VM_MSG_DEF(EFS_CMD_TIMEOUT_TIMERID=EMA_CMD_TIMEOUT_TIMERID, void DUMMY)/**< Timer to detect EFS MMP has no response */
+#endif
+//VM_MSG_DEF(GSS_CMD_TIMEOUT_TIMERID=(EMA_TIMER_BASE+0x08), void DUMMY) /**< Timer to detect GSS MMP has no response */
+
+
+/**
+ *  @brief MMP System Primitive/Message ID
+ */
+VM_MSG_DEF(SYS_ISR_REQ=(EMA_SYS_BASE+0x01), void DUMMY)  /**< System IRQ request */
+VM_MSG_DEF(SYS_SET_DATE_TIME_REQ=(EMA_SYS_BASE+0x02), void DUMMY)  /**< Set Date/Time request */
+VM_MSG_DEF(SYS_REG_DATE_TIME_REQ=(EMA_SYS_BASE+0x03), void DUMMY)  /**< Register Date/Time CB from MMI */
+VM_MSG_DEF(SYS_LOAD_FW_REQ=(EMA_SYS_BASE+0x04), void DUMMY)  /**< Load firmware request */
+VM_MSG_DEF(SYS_QUERY_VER_REQ=(EMA_SYS_BASE+0x05), void DUMMY)  /**< Query MMP HW/SW version request */
+VM_MSG_DEF(SYS_ACTIVE_REQ=(EMA_SYS_BASE+0x06), void DUMMY)  /**< MMP system always active request */
+VM_MSG_DEF(SYS_DEBUG_REQ=(EMA_SYS_BASE+0x07), void DUMMY)  /**< MMP system debug request */
+VM_MSG_DEF(SYS_BIST_REQ=(EMA_SYS_BASE+0x08), void DUMMY)  /**< MMP system bist request */
+VM_MSG_DEF(SYS_COMMON_CNF=(EMA_SYS_BASE+0x09), void DUMMY)  /**< EMA system common confirm */
+VM_MSG_DEF(SYS_REG_NOTIFY_REQ=(EMA_SYS_BASE+0x0A), void DUMMY)  /**< system register notify request */
+VM_MSG_DEF(SYS_SET_PSRAM_SIZE_REQ=(EMA_SYS_BASE+0x0B), void DUMMY)  /**< Inform MMP the size of PSRAM*/
+VM_MSG_DEF(SYS_READ_CUS_REQ=(EMA_SYS_BASE+0x0C), void DUMMY)  /**< system read cus data */
+VM_MSG_DEF(SYS_ENABLE_MMP_TIMEOUT_REQ=(EMA_SYS_BASE+0x0D), void DUMMY)  /**< Set the action for command timeout */
+VM_MSG_DEF(SYS_GET_CAPABILITY_REQ=(EMA_SYS_BASE+0x0E), void DUMMY)  /**< Get MMP capability request */
+VM_MSG_DEF(SYS_MAX_CMD=(EMA_SYS_BASE+0x0F), void DUMMY)  /**< Indication of last EMA system message */
+
+/**
+ *  @brief File System Primitive/Message ID
+ */
+VM_MSG_DEF(EFS_FORMAT_REQ=(EMA_EFS_BASE+0x00), void DUMMY)  /**< Format request */
+VM_MSG_DEF(EFS_READ_FILE_REQ=(EMA_EFS_BASE+0x01), void DUMMY)  /**< Read file request */
+VM_MSG_DEF(EFS_WRITE_FILE_REQ=(EMA_EFS_BASE+0x02), void DUMMY)  /**< Write file request */
+VM_MSG_DEF(EFS_LIST_REQ=(EMA_EFS_BASE+0x03), void DUMMY)  /**< Directory/File List request */
+VM_MSG_DEF(EFS_GET_LIST_BUF_SIZE_REQ=(EMA_EFS_BASE+0x04), void DUMMY)  /**< Get Directory/File List Buffer Size request */
+VM_MSG_DEF(EFS_OPEN_FILE_REQ=(EMA_EFS_BASE+0x05), void DUMMY)  /**< Open file request */
+VM_MSG_DEF(EFS_CLOSE_FILE_REQ=(EMA_EFS_BASE+0x06), void DUMMY)  /**< Close file request */
+VM_MSG_DEF(EFS_MAKE_DIR_REQ=(EMA_EFS_BASE+0x07), void DUMMY)  /**< Make directory request */
+VM_MSG_DEF(EFS_REMOVE_DIR_REQ=(EMA_EFS_BASE+0x08), void DUMMY)  /**< Remove directory request */
+VM_MSG_DEF(EFS_REMOVE_FILE_REQ=(EMA_EFS_BASE+0x09), void DUMMY)  /**< Remove file request */
+VM_MSG_DEF(EFS_RENAME_REQ=(EMA_EFS_BASE+0x0A), void DUMMY)  /**< Rename request */
+VM_MSG_DEF(EFS_SEEK_REQ=(EMA_EFS_BASE+0x0B), void DUMMY)  /**< File seek request */
+VM_MSG_DEF(EFS_TELL_REQ=(EMA_EFS_BASE+0x0C), void DUMMY)  /**< File tell request */
+VM_MSG_DEF(EFS_GET_VOLUME_SPACE_REQ=(EMA_EFS_BASE+0x0D), void DUMMY)  /**< Disk volume query request */
+VM_MSG_DEF(EFS_MEMORYCARD_NOTIFY_REQ=(EMA_EFS_BASE+0x0E), void DUMMY)
+VM_MSG_DEF(EFS_REG_NOTIFY_REQ=(EMA_EFS_BASE+0x0F), void DUMMY)
+
+VM_MSG_DEF(EFS_UNREG_NOTIFY_REQ=(EMA_EFS_BASE+0x10), void DUMMY)
+VM_MSG_DEF(EFS_GET_ATTR_REQ=(EMA_EFS_BASE+0x11), void DUMMY)
+VM_MSG_DEF(EFS_SET_ATTR_REQ=(EMA_EFS_BASE+0x12), void DUMMY)
+VM_MSG_DEF(EFS_GET_DIR_SIZE_REQ=(EMA_EFS_BASE+0x13), void DUMMY)
+VM_MSG_DEF(EFS_GET_RENAME_LEN_REQ=(EMA_EFS_BASE+0x14), void DUMMY)
+VM_MSG_DEF(EFS_TRUNC_FILE_SIZE_REQ=(EMA_EFS_BASE+0x15), void DUMMY)
+VM_MSG_DEF(EFS_TRUNC_OPENED_FILE_SIZE_REQ=(EMA_EFS_BASE+0x16), void DUMMY)
+VM_MSG_DEF(EFS_GET_FILE_INFO_REQ=(EMA_EFS_BASE+0x17), void DUMMY)
+VM_MSG_DEF(EFS_GET_OPENED_FILE_INFO_REQ=(EMA_EFS_BASE+0x18), void DUMMY)
+VM_MSG_DEF(EFS_SD_CARD_CHANGED=(EMA_EFS_BASE+0x19), void DUMMY)
+VM_MSG_DEF(EFS_GET_DIR_CHECKSUM_REQ=(EMA_EFS_BASE+0x1A), void DUMMY)
+VM_MSG_DEF(EFS_GET_CHKSUM_REQ=(EMA_EFS_BASE+0x1B), void DUMMY)
+VM_MSG_DEF(EFS_ABORT_GET_CHKSUM_REQ=(EMA_EFS_BASE+0x1C), void DUMMY)
+VM_MSG_DEF(EFS_QUERY_MOUNT_RESULT=(EMA_EFS_BASE+0x1D), void DUMMY)
+VM_MSG_DEF(EFS_FLUSH_DATA_REQ=(EMA_EFS_BASE+0x1E), void DUMMY)
+VM_MSG_DEF(EFS_GET_FILE_NUM_ASYNC_REQ=(EMA_EFS_BASE+0x1F), void DUMMY)
+
+VM_MSG_DEF(EFS_ABORT_GET_FILE_NUM_REQ=(EMA_EFS_BASE+0x20), void DUMMY)
+VM_MSG_DEF(EFS_GET_INFO_BY_ID_REQ=(EMA_EFS_BASE+0x21), void DUMMY)
+VM_MSG_DEF(EFS_PARTIAL_LIST=(EMA_EFS_BASE+0x22), void DUMMY)
+VM_MSG_DEF(EFS_ASYNC_DELETE_REQ=(EMA_EFS_BASE+0x23), void DUMMY)
+VM_MSG_DEF(EFS_ABORT_ASYNC_DELETE_REQ=(EMA_EFS_BASE+0x24), void DUMMY)
+VM_MSG_DEF(EFS_CHKDSK_REQ=(EMA_EFS_BASE+0x25), void DUMMY)
+VM_MSG_DEF(EFS_ABORT_CHKDSK_REQ=(EMA_EFS_BASE+0x26), void DUMMY)
+
+VM_MSG_DEF(EFS_GET_SERIAL_REQ=(EMA_EFS_BASE+0x27), void DUMMY)
+
+VM_MSG_DEF(EFS_RESERVED_REQUEST_15=(EMA_EFS_BASE+0x28), void DUMMY)
+VM_MSG_DEF(EFS_RESERVED_REQUEST_16=(EMA_EFS_BASE+0x29), void DUMMY)
+VM_MSG_DEF(EFS_RESERVED_REQUEST_17=(EMA_EFS_BASE+0x2A), void DUMMY)
+VM_MSG_DEF(EFS_RESERVED_REQUEST_18=(EMA_EFS_BASE+0x2B), void DUMMY)
+VM_MSG_DEF(EFS_RESERVED_REQUEST_19=(EMA_EFS_BASE+0x2C), void DUMMY)
+VM_MSG_DEF(EFS_RESERVED_REQUEST_20=(EMA_EFS_BASE+0x2C), void DUMMY)
+VM_MSG_DEF(EFS_COMMON_CNF=(EMA_EFS_BASE+0x2E), void DUMMY)  /**< File system common confirm */
+VM_MSG_DEF(EFS_MAX_CMD=(EMA_EFS_BASE+0x2F), void DUMMY)  /**< Indication of last file system message */
+
+/**
+ *  @brief Camera Driver Primitive/Message ID
+ */
+VM_MSG_DEF(CAM_INIT_REQ=(EMA_CAM_BASE+0x00), void DUMMY)  /**< Camera initial request */
+VM_MSG_DEF(CAM_EXIT_REQ=(EMA_CAM_BASE+0x01), void DUMMY)  /**< Camera exit request */
+VM_MSG_DEF(CAM_POWERON_REQ=(EMA_CAM_BASE+0x02), void DUMMY)  /**< Camera preview start request */
+VM_MSG_DEF(CAM_POWEROFF_REQ=(EMA_CAM_BASE+0x03), void DUMMY)  /**< Camera preview stop request */
+VM_MSG_DEF(CAM_SNAPSHOT_REQ=(EMA_CAM_BASE+0x04), void DUMMY)  /**< Camera JPEG capture start request */
+VM_MSG_DEF(CAM_SHOT_STOP_REQ=(EMA_CAM_BASE+0x05), void DUMMY)  /**< Camera JPEG capture stop request */
+VM_MSG_DEF(CAM_SET_AWB_REQ=(EMA_CAM_BASE+0x06), void DUMMY)  /**< Camera set AWB request */
+VM_MSG_DEF(CAM_SET_AE_REQ=(EMA_CAM_BASE+0x07), void DUMMY)  /**< Camera set AE request */
+VM_MSG_DEF(CAM_SET_ZOOM_REQ=(EMA_CAM_BASE+0x08), void DUMMY)  /**< Camera set Digital Zoom request */
+VM_MSG_DEF(CAM_SET_EV_REQ=(EMA_CAM_BASE+0x09), void DUMMY)  /**< Camera set EV value request */
+VM_MSG_DEF(CAM_SET_ANTIFLICKER_REQ=(EMA_CAM_BASE+0x0A), void DUMMY)  /**< Camera set filcker 50/60 Hz request */
+VM_MSG_DEF(CAM_SET_IMGEFFECT_REQ=(EMA_CAM_BASE+0x0B), void DUMMY)  /**< Camera set Image Effect request */
+VM_MSG_DEF(CAM_GET_STATUS_REQ=(EMA_CAM_BASE+0x0C), void DUMMY)  /**< Camera get status request */
+VM_MSG_DEF(CAM_SET_NIGHT_MODE_REQ=(EMA_CAM_BASE+0x0D), void DUMMY)  /**< Camera set night mode request */
+VM_MSG_DEF(CAM_REC_START_REQ=(EMA_CAM_BASE+0x0E), void DUMMY)  /**< Camera video recording start request */
+VM_MSG_DEF(CAM_REC_STOP_REQ=(EMA_CAM_BASE+0x0F), void DUMMY)  /**< Camera video recording stop request */
+VM_MSG_DEF(CAM_SET_MEDIUM_REQ=(EMA_CAM_BASE+0x10), void DUMMY)  /**< Camera set storage path request */
+VM_MSG_DEF(CAM_GET_MEDIUM_REQ=(EMA_CAM_BASE+0x11), void DUMMY)  /**< Camera get storage paht request */
+VM_MSG_DEF(CAM_REG_NOTIFY_REQ=(EMA_CAM_BASE+0x12), void DUMMY)  /**< Camera register capturing and recording notification request */
+VM_MSG_DEF(CAM_SET_SOUND_REQ=(EMA_CAM_BASE+0x13), void DUMMY)  /**< Camera set shutter sound request */
+VM_MSG_DEF(CAM_SET_STICKER_REQ=(EMA_CAM_BASE+0x14), void DUMMY)  /**< Camera set sticker image request */
+VM_MSG_DEF(CAM_REC_STOP_NOTIFY=(EMA_CAM_BASE+0x15), void DUMMY)  /**< Camera video recording stop notification */
+VM_MSG_DEF(CAM_REC_ERROR_NOTIFY=(EMA_CAM_BASE+0x16), void DUMMY)  /**< Camera/Camcorder recording error notification */
+VM_MSG_DEF(CAM_QRC_START_REQ=(EMA_CAM_BASE+0x17), void DUMMY)  /**< Camera QR code decoding start request */
+VM_MSG_DEF(CAM_QRC_STOP_REQ=(EMA_CAM_BASE+0x18), void DUMMY)  /**< Camera QR code decoding stop request */
+VM_MSG_DEF(CAM_GET_QRC_REQ=(EMA_CAM_BASE+0x19), void DUMMY)  /**< Camera get QR code decoding data request */
+VM_MSG_DEF(CAM_GET_IMAGE_REQ=(EMA_CAM_BASE+0x1A), void DUMMY)  /**< Camera get image request */
+VM_MSG_DEF(CAM_COMMON_CNF=(EMA_CAM_BASE+0x1B), void DUMMY)  /**< Camera common confirm */
+VM_MSG_DEF(CAM_REC_SAVE_REQ=(EMA_CAM_BASE+0x1C), void DUMMY)  /**< Camera video recording save request */
+VM_MSG_DEF(CAM_GET_ZOOM_INFO_REQ=(EMA_CAM_BASE+0x1D), void DUMMY)  /**< Camera zoom info request, Cooper add */
+VM_MSG_DEF(CAM_GET_CAPTURE_QUOTA_REQ=(EMA_CAM_BASE+0x1E), void DUMMY)  /**< Camera capture quota remained*/
+VM_MSG_DEF(CAM_MAX_CMD=(EMA_CAM_BASE+0x1F), void DUMMY)  /**< Indication of last camera message */
+
+/**
+ *  @brief Camera Video Chat/Message ID
+ */
+
+VM_MSG_DEF(CAM_VC_OPEN_REQ=(EMA_CAM_VC_BASE+0x00), void DUMMY)  /**< Video Chat init*/
+VM_MSG_DEF(CAM_VC_START_REQ=(EMA_CAM_VC_BASE+0x01), void DUMMY)  /**< Video Chat start preview*/
+VM_MSG_DEF(CAM_VC_GETFRAME_REQ=(EMA_CAM_VC_BASE+0x02), void DUMMY)  /**< Video Chat get frame*/
+VM_MSG_DEF(CAM_VC_CSpaceCoversion_REQ=(EMA_CAM_VC_BASE+0x03), void DUMMY)  /**< Video Chat Color Space Conversion*/
+VM_MSG_DEF(CAM_VC_STOP_REQ=(EMA_CAM_VC_BASE+0x04), void DUMMY)  /**< Video Chat stop preview*/
+VM_MSG_DEF(CAM_VC_CLOSE_REQ=(EMA_CAM_VC_BASE+0x05), void DUMMY)  /**< Video Chat exit*/
+
+
+/**
+ *  @brief Graphic Sub-System Primitive/Message ID
+ */
+VM_MSG_DEF(GSS_DRAW_OSD_BMP_REQ=(EMA_GSS_BASE+0x00), void DUMMY)  /**< Draw OSD bitmap request */
+VM_MSG_DEF(GSS_DISABLE_LAYER_REQ=(EMA_GSS_BASE+0x01), void DUMMY)  /**< Disable layer request */
+VM_MSG_DEF(GSS_INIT_DISPLAY_REQ=(EMA_GSS_BASE+0x02), void DUMMY)  /**< Disable layer request */
+VM_MSG_DEF(GSS_SET_COLOR_DEPTH_REQ=(EMA_GSS_BASE+0x03), void DUMMY)  /**< Set panel color depth request */
+VM_MSG_DEF(GSS_SET_LAYER_PROPERTY_REQ=(EMA_GSS_BASE+0x04), void DUMMY)  /**< Set layer property request */
+VM_MSG_DEF(GSS_SET_DQ_REQ=(EMA_GSS_BASE+0x05), void DUMMY)    /**< GSS set display quality request */
+VM_MSG_DEF(GSS_GET_DQ_REQ=(EMA_GSS_BASE+0x06), void DUMMY)    /**< GSS get display quality request */
+
+
+VM_MSG_DEF(GSS_JPEG_DECODE_REQ=(EMA_IP_BASE+0x00), void DUMMY)    /**< Decode jpeg request */
+VM_MSG_DEF(GSS_GET_PIC_INFO_REQ=(EMA_IP_BASE+0x01), void DUMMY)    /**< Get picture information request */
+VM_MSG_DEF(GSS_PARTIAL_DECODE_REQ=(EMA_IP_BASE+0x02), void DUMMY)    /**< Image (jpeg, bmp, png) partial decode request */
+VM_MSG_DEF(GSS_SET_EXIF_INFO_REQ=(EMA_IP_BASE+0x03), void DUMMY)    /**< Set Jpeg EXIF information request */
+VM_MSG_DEF(GSS_ENCODE_REQ=(EMA_IP_BASE+0x04), void DUMMY)    /**< GSS encode request */
+VM_MSG_DEF(GSS_JPEG_PNG_DECODE_REQ=(EMA_IP_BASE+0x05), void DUMMY)    /**< GSS Jpeg Png Decode */
+VM_MSG_DEF(GSS_GE_REQ=(EMA_IP_BASE+0x06), void DUMMY)    /**< GSS GE scale request*/
+
+
+VM_MSG_DEF(GSS_RENDER_START_REQ=(EMA_GSS_RENDER_BASE+0x00), void DUMMY)  /**< GSS Render start request */
+VM_MSG_DEF(GSS_RENDER_DATA_REQ=(EMA_GSS_RENDER_BASE+0x01), void DUMMY)  /**< GSS Render data request */
+VM_MSG_DEF(GSS_RENDER_STOP_REQ=(EMA_GSS_RENDER_BASE+0x02), void DUMMY)  /**< GSS Render start request */
+VM_MSG_DEF(GSS_RENDER_INPUT_REQ=(EMA_GSS_RENDER_BASE+0x03), void DUMMY)  /**< GSS Render input request */
+VM_MSG_DEF(GSS_RENDER_GET_INFO_REQ=(EMA_GSS_RENDER_BASE+0x04), void DUMMY)  /**< GSS Get info request */
+
+
+/**
+ *  @brief Audio service Primitive/Message ID
+ */
+VM_MSG_DEF(AUD_SET_3D_EFFECT_REQ=(EMA_AUD_BASE+0x00), void DUMMY)  /**< Set 3D effect request */
+VM_MSG_DEF(AUD_SET_EQ_TYPE_REQ=(EMA_AUD_BASE+0x01), void DUMMY)  /**< Set EQ type request */
+VM_MSG_DEF(AUD_SET_PEQ_REQ=(EMA_AUD_BASE+0x02), void DUMMY)  /**< Set PEQ settings request */
+VM_MSG_DEF(AUD_SEND_VOLUME_DPGA_REQ=(EMA_AUD_BASE+0x03), void DUMMY)  /**< Send DPGA value to M2 request */
+VM_MSG_DEF(AUD_CONFIG_USER_PEQ_REQ=(EMA_AUD_BASE+0x04), void DUMMY)  /**< Set user PEQ request */
+VM_MSG_DEF(AUD_SET_BT_CAPABILITY_REQ=(EMA_AUD_BASE+0x05), void DUMMY)  /**< Set BT capability request */
+VM_MSG_DEF(AUD_GET_PEQ_TABLE_ADDR_REQ=(EMA_AUD_BASE+0x06), void DUMMY)  /**< Get Current PEQ table address*/
+VM_MSG_DEF(AUD_SET_PEQ_TABLE_ADDR_REQ=(EMA_AUD_BASE+0x07), void DUMMY)  /**< Set Current PEQ table address*/
+
+VM_MSG_DEF(AUD_REG_NOTIFY_REQ=(EMA_AUD_BASE+0x0A), void DUMMY)  /**< Register audio Playback/Recording notificatoin */
+VM_MSG_DEF(AUD_UNREG_NOTIFY_REQ=(EMA_AUD_BASE+0x0B), void DUMMY)  /**< Un-Register audio Playback/Recording notificatoin */
+VM_MSG_DEF(AUD_NOTIFY_SD_REMOVE=(EMA_AUD_BASE+0x0C), void DUMMY)  /**< SD remove notify */
+VM_MSG_DEF(AUD_REG_A2DP_CB_REQ=(EMA_AUD_BASE+0x0D), void DUMMY)  /**< Register A2DP Playback notificatoin and command callback */
+
+VM_MSG_DEF(AUD_GET_ID3_INFO_REQ=(EMA_AUD_BASE+0x10), void DUMMY)  /**< Get MP3 ID3 tag request */
+VM_MSG_DEF(AUD_GET_LYRICS_INFO_REQ=(EMA_AUD_BASE+0x11), void DUMMY)  /**< Get music lyrics request */
+VM_MSG_DEF(AUD_SET_ID3_INFO_REQ=(EMA_AUD_BASE+0x12), void DUMMY)  /**< Set MP3 ID3 tag request */
+VM_MSG_DEF(AUD_GET_FILE_INFO_REQ=(EMA_AUD_BASE+0x13), void DUMMY)  /**< Get audio file informatoin request */
+VM_MSG_DEF(AUD_GET_STREAM_INFO_REQ=(EMA_AUD_BASE+0x14), void DUMMY)  /**< Get audio memory informatoin request */
+VM_MSG_DEF(AUD_GET_MEMORY_INFO_REQ=(EMA_AUD_BASE+0x15), void DUMMY)  /**< Get audio memory informatoin request */
+
+VM_MSG_DEF(AUD_PLAY_ERROR_NOTIFY=(EMA_AUD_BASE+0x16), void DUMMY)  /**< Play error notification */
+VM_MSG_DEF(AUD_REC_ERROR_NOTIFY=(EMA_AUD_BASE+0x17), void DUMMY)  /**< Record error notification */
+VM_MSG_DEF(AUD_PLAY_END_NOTIFY=(EMA_AUD_BASE+0x18), void DUMMY)  /**< Play end notification */
+
+
+VM_MSG_DEF(AUD_PLAY_STREAM_REQ=(EMA_AUD_STM_BASE+0x00), void DUMMY)  /**< Play streaming request */
+VM_MSG_DEF(AUD_PLAY_ADD_BUFFER_REQ=(EMA_AUD_STM_BASE+0x01), void DUMMY)  /**< Play streaming buffer add request */
+VM_MSG_DEF(AUD_PLAY_STOP_REQ=(EMA_AUD_STM_BASE+0x02), void DUMMY)  /**< Stop audio playback request */
+VM_MSG_DEF(AUD_PLAY_PAUSE_REQ=(EMA_AUD_STM_BASE+0x03), void DUMMY)  /**< Pause control request */
+VM_MSG_DEF(AUD_PLAY_RESUME_REQ=(EMA_AUD_STM_BASE+0x04), void DUMMY)  /**< Resume control request */
+VM_MSG_DEF(AUD_PLAY_MEMORY_REQ=(EMA_AUD_STM_BASE+0x05), void DUMMY)  /**< Play audio request */
+
+
+VM_MSG_DEF(AUD_PLAY_FILE_REQ=(EMA_AUD_MP_BASE+0x00), void DUMMY)  /**< Play audio request */
+VM_MSG_DEF(AUD_PLAY_SET_POSITION_REQ=(EMA_AUD_MP_BASE+0x01), void DUMMY)  /**< Set playback position request */
+VM_MSG_DEF(AUD_PLAY_SET_SPEED_REQ=(EMA_AUD_MP_BASE+0x02), void DUMMY)  /**< Set playback speed request */
+VM_MSG_DEF(AUD_GET_PLAY_POSITION_REQ=(EMA_AUD_MP_BASE+0x03), void DUMMY)  /**< Get audio file playback position */
+
+VM_MSG_DEF(AUD_REC_START_REQ=(EMA_AUD_MP_BASE+0x06), void DUMMY)  /**< Voice recording start request */
+VM_MSG_DEF(AUD_REC_STOP_REQ=(EMA_AUD_MP_BASE+0x07), void DUMMY)  /**< Voice recording stop request */
+VM_MSG_DEF(AUD_REC_SET_MEDIUM_REQ=(EMA_AUD_MP_BASE+0x08), void DUMMY)  /**< Voice recording set storage path request */
+VM_MSG_DEF(AUD_REC_GET_PATH_REQ=(EMA_AUD_MP_BASE+0x09), void DUMMY)  /**< Voice recording set storage path request */
+VM_MSG_DEF(AUD_REC_GET_TIME_INFO_REQ=(EMA_AUD_MP_BASE+0x0A), void DUMMY)  /**< Voice recording get remain time request */
+
+VM_MSG_DEF(AUD_MAX_CMD=(EMA_AUD_MP_BASE+0x0F), void DUMMY)  /**< Indication of last audio message */
+
+/**
+ *  @brief Video service Primitive/Message ID
+ */
+VM_MSG_DEF(VDO_PLAY_FILE_REQ=(EMA_VDO_BASE+0x00), void DUMMY)         /**< Play video request */
+VM_MSG_DEF(VDO_PLAY_PAUSE_REQ=(EMA_VDO_BASE+0x01), void DUMMY)         /**< Play video request (include pause, resume and stop*/
+VM_MSG_DEF(VDO_PLAY_RESUME_REQ=(EMA_VDO_BASE+0x02), void DUMMY)         /**< Play video request (include pause, resume and stop*/
+VM_MSG_DEF(VDO_PLAY_STOP_REQ=(EMA_VDO_BASE+0x03), void DUMMY)         /**< Play video request (include pause, resume and stop*/
+VM_MSG_DEF(VDO_PLAY_SET_POSITION_REQ=(EMA_VDO_BASE+0x04), void DUMMY)         /**< Set video playback position request */
+VM_MSG_DEF(VDO_PLAY_SET_SPEED_REQ=(EMA_VDO_BASE+0x05), void DUMMY)         /**< Set video playback speed request */
+VM_MSG_DEF(VDO_STATUS_NOTIFY=(EMA_VDO_BASE+0x06), void DUMMY)         /**< Video Playback/Recording notificatoin */
+VM_MSG_DEF(VDO_GET_PLAY_POS_REQ=(EMA_VDO_BASE+0x07), void DUMMY)         /**< Get video play file position request , need?*/
+VM_MSG_DEF(VDO_PLAY_FIRST_FRAME_REQ=(EMA_VDO_BASE+0x08), void DUMMY)         /**< Get videoplay first framet*/
+VM_MSG_DEF(VDO_REG_NOTIFY_REQ=(EMA_VDO_BASE+0x09), void DUMMY)         /**< Video register playing notification request */
+VM_MSG_DEF(VDO_DECODE_FIRST_FRAME_REQ=(EMA_VDO_BASE+0x0A), void DUMMY)         /**< Get videoplay first frame decoded 565 format data*/
+VM_MSG_DEF(VDO_RESET_WINDOW_REQ=(EMA_VDO_BASE+0x0B), void DUMMY)         /**< Resetplaying video window */
+VM_MSG_DEF(VDO_PLAY_INIT_REQ=(EMA_VDO_BASE+0x0C), void DUMMY)         /**< Play video init request (reload firmware and for pre-load OSD)*/
+VM_MSG_DEF(VDO_NOTIFY_SD_REMOVE=(EMA_VDO_BASE+0x0D), void DUMMY)         /**< SD remove notify */
+VM_MSG_DEF(VDO_NOTIFY_EMA=(EMA_VDO_BASE+0x0E), void DUMMY)         /**< Video notify EMA message */
+VM_MSG_DEF(VDO_NOTIFY_SEEK_COMPLETE=(EMA_VDO_BASE+0x0F), void DUMMY)         /**< Video notify seek complete EMA message */
+VM_MSG_DEF(VDO_SEEK_CANCEL_REQ=(EMA_VDO_BASE+0x10), void DUMMY)         /**< Seek cancel request */
+VM_MSG_DEF(VDO_SNAP_SHOT_REQ=(EMA_VDO_BASE+0x11), void DUMMY)         /**< Video snap shot request*/
+
+
+VM_MSG_DEF(VDO_PLAY_STREAM_REQ=(EMA_VDO_IPTV_BASE+0x00), void DUMMY)    /**< Play video stream request */
+VM_MSG_DEF(VDO_PLAY_STREAM_INIT_REQ=(EMA_VDO_IPTV_BASE+0x01), void DUMMY)    /**< Play video init request (reload firmware and for pre-load OSD)*/
+
+
+VM_MSG_DEF(VDO_GET_FILE_INFO_REQ=(EMA_VDO_SP_BASE+0x00), void DUMMY) /**< Get video file informatoin request */
+VM_MSG_DEF(VDO_GET_INFO_FROM_MEM_REQ=(EMA_VDO_SP_BASE+0x01), void DUMMY) /**< Get video information from memory request */
+VM_MSG_DEF(VDO_PLAY_MEM_REQ=(EMA_VDO_SP_BASE+0x02), void DUMMY) /**< Play video from memory */
+VM_MSG_DEF(VDO_PLAY_MEM_INIT_REQ=(EMA_VDO_SP_BASE+0x03), void DUMMY) /**< Init Play video from memory */
+VM_MSG_DEF(VDO_DECODE_FIRST_FRAME_MEM_REQ=(EMA_VDO_SP_BASE+0x04), void DUMMY) /**< decode first frame from memory */
+
+/**
+ *  @brief USB driver Primitive/Message ID
+ */
+VM_MSG_DEF(USB_OPEN_REQ=(EMA_USB_BASE+0x00), void DUMMY)     /**< Activate USB device request */
+VM_MSG_DEF(USB_CLOSE_REQ=(EMA_USB_BASE+0x01), void DUMMY)     /**< Deactivate USB device request */
+VM_MSG_DEF(USB_MSC_OPEN_REQ=(EMA_USB_MSC_BASE+0x00), void DUMMY) /**< Activate USB mass storage request */
+VM_MSG_DEF(USB_MSC_CLOSE_REQ=(EMA_USB_MSC_BASE+0x01), void DUMMY) /**< Deactivate USB mass storage request */
+VM_MSG_DEF(USB_CDC_REG_NOTIFY_REQ=(EMA_USB_CDC_BASE+0x00), void DUMMY) /**< Register USB CDC FL notification */
+VM_MSG_DEF(USB_CDC_WRITE_DATA_REQ=(EMA_USB_CDC_BASE+0x01), void DUMMY) /**< Write USB CDC FL data */
+VM_MSG_DEF(USB_CDC_READ_DATA_REQ=(EMA_USB_CDC_BASE+0x02), void DUMMY) /**< Read USB CDC FL data */
+VM_MSG_DEF(USB_ATTACH_REQ=(EMA_USB_CDC_BASE+0x03), void DUMMY) /**< Attach USB service */
+VM_MSG_DEF(USB_CDC_PAUSE_REQ=(EMA_USB_CDC_BASE+0x04), void DUMMY) /**< Pause USB CDC RX data transferring */
+VM_MSG_DEF(USB_CDC_RESUME_REQ=(EMA_USB_CDC_BASE+0x05), void DUMMY) /**< Pause USB CDC RX data transferring */
+VM_MSG_DEF(USB_CDC_OPEN_REQ=(EMA_USB_CDC_BASE+0x06), void DUMMY) /**< Register USB CDC FL notification */
+VM_MSG_DEF(USB_CDC_CLOSE_REQ=(EMA_USB_CDC_BASE+0x07), void DUMMY) /**< Register USB CDC FL notification */
+VM_MSG_DEF(USB_CDC_ADD_DATA_REQ=(EMA_USB_CDC_BASE+0x08), void DUMMY) /**< Add USB CDC FL data */
+VM_MSG_DEF(USB_REG_NOTIFY_REQ=(EMA_USB_CDC_BASE+0x09), void DUMMY) /**< Register USB notification request */
+VM_MSG_DEF(USB_CDC_WRITE_DONE_REQ=(EMA_USB_CDC_BASE+0x0A), void DUMMY) /**< USB CDC Write done callback */
+VM_MSG_DEF(USB_ATTACH_AND_POLLING_REQ=(EMA_USB_CDC_BASE+0x0B), void DUMMY) /**< Attach USB service and M2 start polling VBUS */
+VM_MSG_DEF(USB_STOP_POLLING_REQ=(EMA_USB_CDC_BASE+0x0C), void DUMMY) /**< M2 stop polling VBUS */
+VM_MSG_DEF(USB_ATTACH_AND_OPEN_CDC_REQ=(EMA_USB_CDC_BASE+0x0D), void DUMMY) /**< Attach and open CDC */
+VM_MSG_DEF(USB_COMMON_CNF=(EMA_USB_BASE+0x30), void DUMMY)     /**< USB common confirm */
+
+
+/**
+ *  @brief TV service Primitive/Message ID
+ */
+VM_MSG_DEF(ATV_OPEN_REQ=(EMA_ATV_BASE+0x00), void DUMMY)  /**< TV initial request */
+VM_MSG_DEF(ATV_CLOSE_REQ=(EMA_ATV_BASE+0x01), void DUMMY)  /**< TV close request */
+VM_MSG_DEF(ATV_PREVIEW_REQ=(EMA_ATV_BASE+0x02), void DUMMY)  /**< TV preview request */
+VM_MSG_DEF(ATV_PREVIEW_OFF_REQ=(EMA_ATV_BASE+0x03), void DUMMY)  /**< TV preview OFF request */
+VM_MSG_DEF(ATV_SNAPSHOT_REQ=(EMA_ATV_BASE+0x04), void DUMMY)  /**< TV snapshop request */
+VM_MSG_DEF(ATV_SET_CONFIG_REQ=(EMA_ATV_BASE+0x05), void DUMMY)  /**< TV set config */
+VM_MSG_DEF(ATV_SWITCH_CH_REQ=(EMA_ATV_BASE+0x06), void DUMMY)  /**< TV switch channel */
+VM_MSG_DEF(ATV_SCAN_REQ=(EMA_ATV_BASE+0x07), void DUMMY)  /**< TV scan channel */
+VM_MSG_DEF(ATV_GET_INFO_REQ=(EMA_ATV_BASE+0x08), void DUMMY)  /**< TV get information*/
+VM_MSG_DEF(ATV_REG_NOTIFY_REQ=(EMA_ATV_BASE+0x09), void DUMMY)  /**< TV register notification request */
+VM_MSG_DEF(ATV_SET_SOUND_REQ=(EMA_ATV_BASE+0x0A), void DUMMY)  /**< TV set shutter sound config request */
+VM_MSG_DEF(ATV_GET_FILE_FNAME_REQ=(EMA_ATV_BASE+0x0B), void DUMMY)  /**< TV get captured image file name request */
+VM_MSG_DEF(ATV_RESET_WINDOW_REQ=(EMA_ATV_BASE+0x0C), void DUMMY)  /**< Reset tv windowt */
+VM_MSG_DEF(ATV_GET_EM_INFO_REQ=(EMA_ATV_BASE+0x0D), void DUMMY)  /**< TV get engineer mode information*/
+VM_MSG_DEF(ATV_RECORD_START_REQ=(EMA_ATV_BASE+0x11), void DUMMY)  /**< TV record start */
+VM_MSG_DEF(ATV_RECORD_STOP_REQ=(EMA_ATV_BASE+0x12), void DUMMY)  /**< TV record stop */
+VM_MSG_DEF(ATV_MULTILANGUAGE_REQ=(EMA_ATV_BASE+0x13), void DUMMY)  /**< Tv switch language channel*/
+VM_MSG_DEF(ATV_NOTIFY_EMA=(EMA_ATV_BASE+0x1F), void DUMMY)  /**< TV notify ema request */
+
+VM_MSG_DEF(DTV_CLOSE_REQ=(EMA_DTV_BASE+0x01), void DUMMY)  /**< TV close request */
+VM_MSG_DEF(DTV_CMD_CANCEL_REQ=(EMA_DTV_BASE+0x02), void DUMMY)  /**< TV command cancel request */
+VM_MSG_DEF(DTV_GET_INFO_REQ=(EMA_DTV_BASE+0x03), void DUMMY)  /**< TV get information*/
+VM_MSG_DEF(DTV_GET_FILE_FNAME_REQ=(EMA_DTV_BASE+0x04), void DUMMY)  /**< TV get captured image file name request */
+VM_MSG_DEF(DTV_OPEN_REQ=(EMA_DTV_BASE+0x05), void DUMMY)  /**< TV initial request */
+VM_MSG_DEF(DTV_PAUSE_REQ=(EMA_DTV_BASE+0x06), void DUMMY)  /**< TV pause (time shift) request */
+VM_MSG_DEF(DTV_PRELOAD_REQ=(EMA_DTV_BASE+0x07), void DUMMY)  /**< TV preload request */
+VM_MSG_DEF(DTV_RESUME_REQ=(EMA_DTV_BASE+0x08), void DUMMY)  /**< TV resume(time shift) request */
+VM_MSG_DEF(DTV_REG_NOTIFY_REQ=(EMA_DTV_BASE+0x09), void DUMMY)  /**< TV register notification request */
+VM_MSG_DEF(DTV_RESET_WINDOW_REQ=(EMA_DTV_BASE+0x0A), void DUMMY)  /**< Reset tv windowt */
+VM_MSG_DEF(DTV_RECORD_START_REQ=(EMA_DTV_BASE+0x0B), void DUMMY)  /**< TV record start */
+VM_MSG_DEF(DTV_RECORD_STOP_REQ=(EMA_DTV_BASE+0x0C), void DUMMY)  /**< TV record stop */
+VM_MSG_DEF(DTV_PREVIEW_REQ=(EMA_DTV_BASE+0x0D), void DUMMY)  /**< TV preview request */
+VM_MSG_DEF(DTV_PREVIEW_OFF_REQ=(EMA_DTV_BASE+0x0E), void DUMMY)  /**< TV preview OFF request */
+VM_MSG_DEF(DTV_SWITCH_CH_REQ=(EMA_DTV_BASE+0x0F), void DUMMY)  /**< TV switch channel */
+VM_MSG_DEF(DTV_SET_FREQ_REQ=(EMA_DTV_BASE+0x10), void DUMMY)  /**< DTV set frequency request */
+VM_MSG_DEF(DTV_SCAN_REQ=(EMA_DTV_BASE+0x11), void DUMMY)  /**< DTV scan channel */
+VM_MSG_DEF(DTV_SNAPSHOT_REQ=(EMA_DTV_BASE+0x12), void DUMMY)  /**< TV snapshop (DTV)request */
+VM_MSG_DEF(DTV_SET_CONFIG_REQ=(EMA_DTV_BASE+0x13), void DUMMY)  /**< TV set config */
+VM_MSG_DEF(DTV_TSP_ENABLE_REQ=(EMA_DTV_BASE+0x14), void DUMMY)  /**< TV pause (time shift) enable request */
+VM_MSG_DEF(DTV_TSP_DISABLE_REQ=(EMA_DTV_BASE+0x15), void DUMMY)  /**< TV pause (time shift) disable request */
+VM_MSG_DEF(DTV_MULTILANGUAGE_REQ=(EMA_DTV_BASE+0x16), void DUMMY)  /**< TV switch language channel */
+VM_MSG_DEF(DTV_GET_EM_INFO_REQ=(EMA_DTV_BASE+0x17), void DUMMY)  /**< Get DTV EM information */
+
+VM_MSG_DEF(DTV_NOTIFY_EMA=(EMA_DTV_BASE+0x1F), void DUMMY)  /**< TV notify ema request */
+
+/**
+ *  @brief FMR service Primitive/Message ID
+ */
+VM_MSG_DEF(FMR_ATV_SET_POWER_REQ=(EMA_FMR_BASE+0x00), void DUMMY)  /**< FMR initial request */
+
+/**
+ *  @brief GPS driver Primitive/Message ID
+ */
+VM_MSG_DEF(GPS_OPEN_REQ=(EMA_GPS_BASE+0x00), void DUMMY)      /**< Activate GPS device request */
+VM_MSG_DEF(GPS_START_REQ=(EMA_GPS_BASE+0x01), void DUMMY)      /**< Start receiving data request */
+VM_MSG_DEF(GPS_STOP_REQ=(EMA_GPS_BASE+0x02), void DUMMY)      /**< Stop receiving data request */
+VM_MSG_DEF(GPS_CLOSE_REQ=(EMA_GPS_BASE+0x03), void DUMMY)      /**< Deactivate GPS device request */
+VM_MSG_DEF(GPS_REG_NOTIFY_REQ=(EMA_GPS_BASE+0x04), void DUMMY)      /**< Register GPS notification request */
+VM_MSG_DEF(GPS_READ_DATA_REQ=(EMA_GPS_BASE+0x05), void DUMMY)      /**< Read latest GPS data request */
+VM_MSG_DEF(GPS_IOCTL_REQ=(EMA_GPS_BASE+0x06), void DUMMY)      /**< IOCTL command request */
+VM_MSG_DEF(GPS_PS_MODE_REQ=(EMA_GPS_BASE+0x07), void DUMMY)      /**< Power saving mode change request */
+VM_MSG_DEF(GPS_NMEA_CNF=(EMA_GPS_BASE+0x08), void DUMMY)      /**< Upload GPS NMEA stream */
+
+
+/**
+ *  @brief E2P driver Primitive/Message ID
+ */
+VM_MSG_DEF(E2P_RO_SAVE_REQ=(EMA_E2P_BASE+0x00), void DUMMY)  /**< Save E2P to NAND request */
+VM_MSG_DEF(E2P_RO_LOAD_REQ=(EMA_E2P_BASE+0x01), void DUMMY)  /**< Load E2P from NAND request */
+VM_MSG_DEF(E2P_BACKUP_REQ=(EMA_E2P_BASE+0x02), void DUMMY)  /**< Backup E2P */
+VM_MSG_DEF(E2P_RESTORE_REQ=(EMA_E2P_BASE+0x03), void DUMMY)  /**< Restore E2P */
+VM_MSG_DEF(E2P_RW_SAVE_REQ=(EMA_E2P_BASE+0x04), void DUMMY)  /**< Clean E2P main block request */
+VM_MSG_DEF(E2P_RW_LOAD_REQ=(EMA_E2P_BASE+0x05), void DUMMY)  /**< Clean E2P backup block request */
+VM_MSG_DEF(E2P_EMASTATE_REQ=(EMA_E2P_BASE+0x06), void DUMMY)  /**< Query EMA state request */
+VM_MSG_DEF(E2P_RORW_LOAD_REQ=(EMA_E2P_BASE+0x07), void DUMMY)  /**< Load E2P RO/RW to NAND request */
+/* Async flush e2p feature {Patrick Yang */
+VM_MSG_DEF(E2P_RORW_SAVE_REQ=(EMA_E2P_BASE+0x08), void DUMMY)  /**< Save E2P RO/RW to NAND request */
+/* Async flush e2p feature Patrick Yang} */
+
+/**
+ *  @brief TRC driver Primitive/Message ID
+ */
+VM_MSG_DEF(TRC_INIT_REQ=(EMA_TRC_BASE+0x00), void DUMMY)  /**< Initial backtrace service */
+VM_MSG_DEF(TRC_FINISH_REQ=(EMA_TRC_BASE+0x01), void DUMMY)  /**< Finish backtrace service */
+VM_MSG_DEF(TRC_GET_STATS_REQ=(EMA_TRC_BASE+0x02), void DUMMY)  /**< Get backtrace stats */
+VM_MSG_DEF(TRC_CLEAR_RECORD_REQ=(EMA_TRC_BASE+0x03), void DUMMY)  /**< Clear all backtrace record */
+VM_MSG_DEF(TRC_ADD_RECORD_REQ=(EMA_TRC_BASE+0x04), void DUMMY)  /**< Add one backtrace record */
+VM_MSG_DEF(TRC_WRITE_RECORD_REQ=(EMA_TRC_BASE+0x05), void DUMMY)  /**< Write data to current record */
+VM_MSG_DEF(TRC_CLOSE_RECORD_REQ=(EMA_TRC_BASE+0x06), void DUMMY)  /**< Close current record */
+VM_MSG_DEF(TRC_INIT_FIND_REQ=(EMA_TRC_BASE+0x07), void DUMMY)  /**< Initial record-finding process */
+VM_MSG_DEF(TRC_FIND_NEXT_REQ=(EMA_TRC_BASE+0x08), void DUMMY)  /**< Find next record information */
+VM_MSG_DEF(TRC_FINISH_FIND_REQ=(EMA_TRC_BASE+0x09), void DUMMY)  /**< Finish record-finding process */
+VM_MSG_DEF(TRC_READ_RECORD_REQ=(EMA_TRC_BASE+0x0A), void DUMMY)  /**< Read data from record */
+VM_MSG_DEF(TRC_STORE_RECORD_ASYNC_REQ=(EMA_TRC_BASE+0x0B), void DUMMY)  /**< Asyn-Store data to record */
+
+
+
+/**
+ *  @brief NRAI driver Primitive/Message ID
+ */
+VM_MSG_DEF(NRAI_GET_INFO_REQ=(EMA_NRAI_BASE+0x00), void DUMMY)     /**< Get NRAI Volume Info request */
+VM_MSG_DEF(NRAI_READ_REQ=(EMA_NRAI_BASE+0x01), void DUMMY)     /**< Read NRAI data block request */
+VM_MSG_DEF(NRAI_WRITE_REQ=(EMA_NRAI_BASE+0x02), void DUMMY)     /**< Write NRAI data block request */
+
+
+/**
+ *  @brief WiFi driver Primitive/Message ID
+ */
+VM_MSG_DEF(WIFI_REGCB_REQ=(EMA_WIFI_BASE+0x00), void DUMMY)     /**< WiFi register callback request */
+VM_MSG_DEF(WIFI_SEND_CMD_REQ=(EMA_WIFI_BASE+0x01), void DUMMY)     /**< WiFi send WPA command request */
+VM_MSG_DEF(WIFI_RECV_EVENT_REQ=(EMA_WIFI_BASE+0x02), void DUMMY)     /**< WiFi receive WPA event request */
+VM_MSG_DEF(WIFI_REG_NOTIFY_REQ=(EMA_WIFI_BASE+0x03), void DUMMY)     /**< WiFi notificaiton register */
+VM_MSG_DEF(WIFI_UNREGCB_REQ=(EMA_WIFI_BASE+0x04), void DUMMY)     /**< WiFi unregister callback request */
+VM_MSG_DEF(WIFI_INIT_FIFO_REQ=(EMA_WIFI_BASE+0x05), void DUMMY)     /**< WiFi allocate buffer and init FIFO */
+VM_MSG_DEF(WIFI_DEL_FIFO_REQ=(EMA_WIFI_BASE+0x06), void DUMMY)     /**< WiFi release buffer and delete FIFO */
+VM_MSG_DEF(WIFI_QUERY_QUEUE_ID_REQ=(EMA_WIFI_BASE+0x07), void DUMMY)     /**< WiFi Query queue ID of init FIFO to host driver */
+VM_MSG_DEF(WIFI_START_ENQUEUE_REQ=(EMA_WIFI_BASE+0x08), void DUMMY)     /**< WiFi Start enqueue */
+VM_MSG_DEF(WIFI_STOP_ENQUEUE_REQ=(EMA_WIFI_BASE+0x09), void DUMMY)     /**< WiFi Stop enqueue */
+#endif
+

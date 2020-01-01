@@ -1,0 +1,292 @@
+/**
+ * \file vm_types.ht
+ * Description: STANDARD TYPES DEFINITIONS,
+ * contains the types definitions
+*/
+/****************************************************************************/
+#ifndef __VM_TYPES_HT__
+#define __VM_TYPES_HT__
+
+
+/**
+ * \brief =========================================================================
+ * Portable types
+ * =========================================================================
+*/
+#if defined(__arm) || defined(__aeon__)
+
+typedef unsigned int    Primitive;
+typedef unsigned char   bool;
+typedef unsigned char   u8;
+typedef signed   char   s8;
+typedef          char   ascii;
+typedef unsigned short  u16;
+typedef          short  s16;
+typedef unsigned int    u32;
+typedef          int    s32;
+typedef unsigned long long u64;
+typedef 	 long long s64;
+
+
+/**
+ * \brief Jlo & Fch : Is defined below
+ * #define far
+ * #define near
+ */
+#define huge
+
+#elif (defined __SDK_SIMULATION__)
+
+typedef unsigned long int       Primitive; /* 32 bits */
+typedef unsigned _int8          u8;
+typedef unsigned _int16         u16;
+typedef unsigned _int32         u32;
+typedef unsigned _int64         u64;
+typedef          char           ascii;
+typedef _int8                   s8;
+typedef _int16                  s16;
+typedef _int32                  s32;
+typedef _int64                  s64;
+#define huge
+
+typedef u16   u16Char;
+typedef u8    u8Char;
+
+#ifndef __cplusplus
+typedef unsigned char bool;
+#endif //__cplusplus
+
+#else
+
+/* ERROR */
+
+#endif
+
+/**
+ * \brief =========================================================================
+ * Memory alignment tools
+ * =========================================================================
+*/
+
+typedef struct __alg { char c; void * p; } __alg_t;
+#define ALIGNMENT               (offsetof(__alg_t, p) - 1)
+#define ALIGN(P)                ( (u32) ((char *)(P) + ALIGNMENT) & ~ALIGNMENT)
+
+/**
+ * \brief =========================================================================
+ * ARM Specific Tools
+ * =========================================================================
+*/
+/**
+ * \brief JLO !defined(__STDC__) => defined(__DIALECT_PCC)
+ * Fch __DIALECT_PCC is for Kernigham & Ritchie C
+*/
+#if defined(__DIALECT_PCC) && !defined(__SDK_SIMULATION__)
+
+#define GLOB_DATA_TOP(_Mod_)   typedef struct _Mod_/**/_/**/_Data {
+#define GLOB_DATA(_Typ_,_Nam_) _Typ_  _/**/_Nam_
+#ifdef __arm
+#ifdef __GLOBAL_REG__
+#define ACCESS_TO(_Mod_,_Nam_)   _Mod_/**/_r6->_/**/_Nam_
+#define GLOB_DATA_END(_Mod_)   } _Mod_/**/_Global_t; \
+			       EXT _Mod_/**/_Global_t _Mod_/**/_Global;\
+			       _Mod_/**/_Global_t __global_reg(3) *_Mod_/**/_r6
+#else  // __GLOBAL_REG__
+#define ACCESS_TO(_Mod_,_Nam_) _Mod_/**/_Global._/**/_Nam_
+#define GLOB_DATA_END(_Mod_)   } _Mod_/**/_Global_t; \
+			       EXT _Mod_/**/_Global_t _Mod_/**/_Global;\
+			       EXT _Mod_/**/_Global_t * _Mod_/**/_r6
+#endif // __GLOBAL_REG__
+#else  // __arm
+#define ACCESS_TO(_Mod_,_Nam_) _Mod_/**/_Global._/**/_Nam_
+#define GLOB_DATA_END(_Mod_)   } _Mod_/**/_Global_t; \
+			       EXT _Mod_/**/_Global_t _Mod_/**/_Global;\
+			       EXT _Mod_/**/_Global_t * _Mod_/**/_r6
+#endif // __arm
+
+#else    /* __STDC__ || __SDK_SIMULATION__ */
+
+#define GLOB_DATA_TOP(_Mod_)   typedef struct _Mod_##_##_Data {
+#define GLOB_DATA(_Typ_,_Nam_) _Typ_  _##_Nam_
+
+#ifdef __arm
+
+#ifdef __GLOBAL_REG__
+
+#define ACCESS_TO(_Mod_,_Nam_) ((_Mod_##_Global_t *) _Mod_##_r6)->_##_Nam_
+#define GLOB_DATA_END(_Mod_)   } _Mod_##_Global_t; \
+			       EXT _Mod_##_Global_t _Mod_##_Global;\
+			       EXT _Mod_##_Global_t * _Mod_##_r6
+#else  // __GLOBAL_REG__
+
+#define ACCESS_TO(_Mod_,_Nam_) _Mod_##_Global._##_Nam_
+#define GLOB_DATA_END(_Mod_)   } _Mod_##_Global_t; \
+			       EXT _Mod_##_Global_t _Mod_##_Global;\
+			       EXT _Mod_##_Global_t * _Mod_##_r6
+#endif // __GLOBAL_REG__
+
+#else // __arm
+
+#define ACCESS_TO(_Mod_,_Nam_) _Mod_##_r6->_##_Nam_
+#define GLOB_DATA_END(_Mod_)   } _Mod_##_Global_t; \
+			       EXT _Mod_##_Global_t _Mod_##_Global;\
+			       EXT _Mod_##_Global_t  * _Mod_##_r6
+#endif // __arm
+
+#endif    /* __STDC__ || __SDK_SIMULATION__ */
+
+
+/**
+ * \brief =========================================================================
+ * Basic goodies
+ * =========================================================================
+*/
+
+#define FALSE 0
+#define TRUE  1
+
+#define OK 0
+
+#ifndef __SDK_SIMULATION__
+#define ERROR -1
+#else //__SDK_SIMULATION__
+#ifndef __cplusplus
+#define ERROR -1
+#endif // __cplusplus
+#endif // __SDK_SIMULATION__
+
+/**
+ * \brief =========================================================================
+ * ANSI / NON ANSI compatibility
+ * =========================================================================
+*/
+
+#ifdef __arm
+#if defined (__STDC__)
+#define CAT(X,Y)                X##Y
+#else
+#define CAT(X,Y)                X/**/Y
+#endif
+#else
+#define CAT(X,Y)                X##Y
+#endif
+
+#if defined(__STDC__) || defined(__arm) || defined (__SDK_SIMULATION__)
+
+#ifdef	LINUX
+#ifdef	offsetof
+#undef	offsetof
+#endif  // offsetof
+#endif  // LINUX
+
+#ifndef __cplusplus
+#define offsetof(S,F)           (u32) (((u8*)&(((S *) 0)->F))-((u8*)0))
+#ifndef NULL
+#define NULL                    0 // yfa should be ((void *) 0) !!!
+#endif  // NULL
+#define VOLATILE                volatile
+#define CONST                   const
+#define VOID                    void
+#endif  // __cplusplus
+
+#define USE_PROTOTYPES
+#define _PROTO(X)               X
+#define TOKEN                   CAT(CAT(y,f),__LINE__)
+
+#ifdef INLINING
+#define MEMCPY(Dst,Src,Len)     ( *((struct TOKEN {char xx[Len];} *) Dst) =\
+				  *((struct TOKEN *) Src), Dst )
+#endif  // INLINING
+
+#else /* not ANSI */
+
+#ifndef NULL
+#define NULL                     0
+#endif  // NULL
+#define signed
+#define VOLATILE
+#define volatile
+#define CONST
+#define const
+#define VOID
+#define _PROTO(X)               ( )
+#define offsetof(S,F)           (u32) (((u8*)&(((S *) 0)->F))-((u8*)0))
+
+#endif  // __STDC__ || __arm || __SDK_SIMULATION__
+
+/**
+ * \brief =========================================================================
+ * IBM-PC extended keywords (with Microsoft C compiler V4.0 or above)
+ * =========================================================================
+*/
+
+#ifdef __MSDOS__
+
+#define FAR  _far
+#define NEAR _near
+#define HUGE huge
+
+#else
+
+#ifdef __SDK_SIMULATION__
+#undef FAR
+#undef NEAR
+#endif //__SDK_SIMULATION__
+#define FAR
+#define far
+#define NEAR
+#define near
+#ifdef  LINUX
+#ifdef  HUGE
+#undef  HUGE
+#endif
+#endif
+#define HUGE
+
+
+#endif /*__MSDOS__*/
+
+
+/**
+ * \brief =========================================================================
+ * Various defines
+ * =========================================================================
+*/
+
+#define PNUL     ((void *)0)            /* NULL pointer                     */
+#define PFNUL    ((void far *)0)        /* NULL far pointer                 */
+#define PNIL     ((void *)-1)           /* Negative pointer                 */
+#define PFNIL    ((void far *)-1)       /* Negative far pointer             */
+#define PFCNUL   ((void (*)())0)        /* NULL function pointer            */
+#define PFCNIL   ((void (*)())-1)       /* Negative function pointer        */
+#define PFCFNUL  ((void (far *)())0)    /* NULL far function pointer        */
+#define PFCFNIL  ((void (far *)())-1)   /* Negative far function pointer    */
+
+/**
+ * \brief =========================================================================
+ * RTK unix only
+ * =========================================================================
+*/
+
+#ifdef unix
+
+#define REVERSE_BIT_FIELDS
+#define GO     static int _ini_=0;\
+	       if (!_ini_) _ini_++; else goto NEXT
+#define END    if (_ini_) return
+
+#else
+
+#define GO
+#define END
+
+#endif  /* unix */
+
+/**
+ * \brief message opaque type
+ * \see vm_msgt.ht
+ */
+typedef struct vm_msg vm_msg_t;
+
+
+#endif /* __VM_TYPES_HT__ */

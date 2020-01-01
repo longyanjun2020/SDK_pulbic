@@ -1,0 +1,43 @@
+SHELL=/bin/bash
+TOP=./
+CONFIG_MAK=$(TOP)config.mak
+LINT_MAK=$(TNG)lint.mak
+LINT=1
+
+
+include $(CONFIG_MAK)
+COMPILER=$(COMPILER_ARM)
+LOG_FILE=$(BUILD)/$(PRODUCT)/log
+
+# library rules
+ifeq "$(OSTYPE)" "Win32"
+OPT_GENEXE=$(TNG)GenComOpt.exe
+OPTION_FILE=./MStarStudio_Config/option.rte.2005
+else
+OPT_GENEXE=$(TNG)GenComOpt.exe
+OPTION_FILE=./MStarStudio_Config/option.rte.2005
+endif	
+
+CONVERT_SIMPATH_EXE=$(TNG)ConvertPath.exe
+SIMPATH = simPath.2005
+
+
+include $(COMMON)paths.mak
+include $(COMMON)lib_paths.mak
+
+#overwrite first make rule.
+all: lint simPath
+include $(TNG)product.mak
+
+simPath:
+	@./$(CONVERT_SIMPATH_EXE) $(CURDIR)/MStarStudio_Config/$(SIMPATH) $(CURDIR) $(PATH_PUBLIC_H)
+
+#lint make rule.
+lint:   workspace
+	@echo PRODUCT=$(PRODUCT)
+	@echo OSTYPE=$(OSTYPE)
+	@echo OPTION FILE=$(OPTION_FILE)
+	@echo PP_OPT_COMMON=$(PP_OPT_COMMON)
+	@echo OPTION_FILE=$(OPTION_FILE)	
+	$(OPT_GENEXE) $(OPTION_FILE) $(PP_OPT_COMMON) $(PP_OPT_TARGET)
+	@echo done

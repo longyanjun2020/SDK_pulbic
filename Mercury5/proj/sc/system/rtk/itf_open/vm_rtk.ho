@@ -1,0 +1,24 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+
+/****************************************************************************/
+/*  File    : vm_rtk.ho                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Description:  OS API                                                    */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __VM_RTK_HO__
+#define __VM_RTK_HO__
+
+#include "sys_rtk_vmrtkho.h"
+
+#endif  /* __VM_RTK_HO__ */
+

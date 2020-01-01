@@ -1,0 +1,13 @@
+ApBegin(RS,CLSID_PICPREVIEWAPP)
+
+	WndBegin(PICPREVIEWAPP_WND_MAIN)
+
+        WndSetTitleVisiableRC(FALSE)
+	    WndSetStatusBarVisibleRC(VIEWSB_INVISIABLE)
+        WndSetSoftkeyVisibleRC(VIEWSK_INVISIABLE)
+
+    WndEnd(PICPREVIEWAPP_WND_MAIN)
+
+ApEnd(RS,CLSID_PICPREVIEWAPP)
+
+

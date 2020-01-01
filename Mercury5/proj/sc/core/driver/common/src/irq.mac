@@ -1,0 +1,157 @@
+
+;--------------------------------
+;- ARM Core Mode and Status Bits
+;--------------------------------
+
+ARM_MODE_USER           EQU     0x10
+ARM_MODE_FIQ            EQU     0x11
+ARM_MODE_IRQ            EQU     0x12
+ARM_MODE_SVC            EQU     0x13
+ARM_MODE_ABORT          EQU     0x17
+ARM_MODE_UNDEF          EQU     0x1B
+ARM_MODE_SYS            EQU     0x1F
+
+I_BIT                   EQU     0x80
+F_BIT                   EQU     0x40
+T_BIT                   EQU     0x20
+
+
+NO_INT                  EQU     0xC0            ; Mask used to disable interrupts (Both FIR and IRQ)
+SVC32_MODE              EQU     ARM_MODE_SVC
+FIQ32_MODE              EQU     ARM_MODE_FIQ
+IRQ32_MODE              EQU     ARM_MODE_IRQ
+
+
+;------------------------------------------
+;- AIC User Interface Structure Definition
+;------------------------------------------
+                    ^       0
+AIC_SMR             #       32*4        ;- Source Mode Register
+AIC_SVR             #       32*4        ;- Source Vector Register
+AIC_IVR             #       4           ;- IRQ Vector Register
+AIC_FVR             #       4           ;- FIQ Vector Register
+AIC_ISR             #       4           ;- Interrupt Status Register
+AIC_IPR             #       4           ;- Interrupt Pending Register
+AIC_IMR             #       4           ;- Interrupt Mask Register
+AIC_CISR            #       4           ;- Core Interrupt Status Register
+                    #       4           ;- Reserved 0
+                    #       4           ;- Reserved 1
+AIC_IECR            #       4           ;- Interrupt Enable Command Register
+AIC_IDCR            #       4           ;- Interrupt Disable Command Register
+AIC_ICCR            #       4           ;- Interrupt Clear Command Register
+AIC_ISCR            #       4           ;- Interrupt Set Command Register
+AIC_EOICR           #       4           ;-  of Interrupt Command Register
+AIC_SPU             #       4           ;- Spurious Vector Register
+
+;---------------------------------------------
+;- AIC_SMR[]: Interrupt Source Mode Registers
+;---------------------------------------------
+
+AIC_PRIOR                       EQU     0x07    ;- Priority
+
+AIC_SRCTYPE                     EQU     0x60    ;- Source Type Definition
+AIC_SRCTYPE_INT_LEVEL_SENSITIVE EQU     0x00    ;- Level Sensitive
+AIC_SRCTYPE_INT_EDGE_TRIGGERED  EQU     0x20    ;- Edge Triggered
+AIC_SRCTYPE_EXT_LOW_LEVEL       EQU     0x00    ;- Low Level
+AIC_SRCTYPE_EXT_NEGATIVE_EDGE   EQU     0x20    ;- Negative Edge
+AIC_SRCTYPE_EXT_HIGH_LEVEL      EQU     0x40    ;- High Level
+AIC_SRCTYPE_EXT_POSITIVE_EDGE   EQU     0x60    ;- Positive Edge
+
+;--------------------------------------
+;-  AIC_ISR: Interrupt Status Register
+;--------------------------------------
+
+AIC_IRQID               EQU     0x1F            ;- Current source interrupt
+
+;-------------------------------------------
+;- AIC_CISR: Interrupt Core Status Register
+;-------------------------------------------
+
+AIC_NFIQ                EQU     0x01            ;- Core FIQ Status
+AIC_NIRQ                EQU     0x02            ;- Core IRQ Status
+
+;--------------------------------------------
+;- Advanced Interrupt COntroller BAse Address
+;--------------------------------------------
+
+AIC_BASE                EQU     0xFFFFF000
+
+
+;--------------------------------------------
+;- Define macro for OS_IRQ_ENTRY
+;--------------------------------------------
+
+            MACRO
+$dev_id     OS_IRQ_ENTRY
+
+            STMFD   SP!, {R1-R3}                    ; PUSH WORKING REGISTERS ONTO IRQ STACK
+
+            MOV     R1, SP                          ; Save   IRQ stack pointer
+
+            ADD     SP, SP,#12                      ; Adjust IRQ stack pointer
+
+            SUB     R2, LR,#4                       ; Adjust PC for return address to task
+
+            MRS     R3, SPSR                        ; Copy SPSR (i.e. interrupted task's CPSR) to R3
+
+            MSR     CPSR_c, #(NO_INT | SVC32_MODE)  ; Change to SVC mode
+
+                                                    ; SAVE TASK'S CONTEXT ONTO TASK'S STACK
+            STMFD   SP!, {R2}                       ;    Push task's Return PC
+            STMFD   SP!, {LR}                       ;    Push task's LR
+            STMFD   SP!, {R4-R12}                   ;    Push task's R12-R4
+
+            LDMFD   R1!, {R4-R6}                    ;    Move task's R1-R3 from IRQ stack to SVC stack
+            STMFD   SP!, {R4-R6}
+            STMFD   SP!, {R0}                       ;    Push task's R0    onto task's stack
+            STMFD   SP!, {R3}                       ;    Push task's CPSR (i.e. IRQ's SPSR)
+
+                                                    ; HANDLE NESTING COUNTER
+            LDR     R0, =OSIntNesting               ; OSIntNesting++;
+            LDRB    R1, [R0]
+            ADD     R1, R1,#1
+            STRB    R1, [R0]
+
+            CMP     R1, #1                          ; if (OSIntNesting == 1) {
+            BNE     $dev_id._jmp_1
+
+            LDR     R4, =OSTCBCur                   ;    OSTCBCur->OSTCBStkPtr = SP
+            LDR     R5, [R4]
+            STR     SP, [R5]                        ; }
+
+$dev_id._jmp_1
+            MSR     CPSR_c, #(NO_INT | IRQ32_MODE)  ; Change to IRQ mode (to use the IRQ stack to handle interrupt)
+                                                    ;[jerry] Thumb-2 can't allow immediate value of MSR
+
+            MEND
+
+
+;--------------------------------------------
+;- Define macro for OS_IRQ_EXIT
+;--------------------------------------------
+
+            MACRO
+$dev_id     OS_IRQ_EXIT
+
+            LDR     R4, =AIC_BASE
+            STR     R4, [R4, #AIC_IVR]
+            STR     R4, [R4, #AIC_EOICR]
+
+
+            MSR     CPSR_c, #(NO_INT | SVC32_MODE)  ; Change to SVC mode
+
+            LDR     R0, =OSIntExit                  ; OSIntExit();
+            MOV     LR, PC
+            BX      R0
+
+                                                    ; RESTORE NEW TASK'S CONTEXT
+            LDMFD   SP!, {R4}                       ;    Pop new task's CPSR
+            MSR     SPSR_cxsf, R4
+
+            LDMFD   SP!, {R0-R12,LR,PC}^            ;    Pop new task's context
+
+
+            MEND
+
+			END
+

@@ -1,0 +1,334 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="EVTCENTER_WND_ALL_EVT_SUMMARY" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="ImageWdg01" ClsID="CLSID_IMAGEWIDGET" SizeHeight="EVTCENTERAPP_TEXT_BG_IMG_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_BG_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_01_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_01_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="4c85c" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_NUMBER_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWdg01" ClsID="CLSID_TEXTWIDGET" SizeHeight="EVTCENTERAPP_TEXT_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_01_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_01_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_NORMAL" />
+				<InternProp Id="GUID" Value="48a8d" />
+			</Widget>
+			<Widget Id="ImageWdg02" ClsID="CLSID_IMAGEWIDGET" SizeHeight="EVTCENTERAPP_TEXT_BG_IMG_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_BG_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_02_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_02_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="6e3d8" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_NUMBER_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWdg02" ClsID="CLSID_TEXTWIDGET" SizeHeight="EVTCENTERAPP_TEXT_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_02_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_02_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_H_CENTER|ALIGN_V_MIDDLE)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_NORMAL" />
+				<InternProp Id="GUID" Value="5bedc" />
+			</Widget>
+			<Widget Id="ImageWdg03" ClsID="CLSID_IMAGEWIDGET" SizeHeight="EVTCENTERAPP_TEXT_BG_IMG_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_BG_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_03_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_03_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="6d609" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_NUMBER_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWdg03" ClsID="CLSID_TEXTWIDGET" SizeHeight="EVTCENTERAPP_TEXT_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_03_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_03_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_H_CENTER|ALIGN_V_MIDDLE)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_NORMAL" />
+				<InternProp Id="GUID" Value="59b55" />
+			</Widget>
+			<Widget Id="ImageWdg04" ClsID="CLSID_IMAGEWIDGET" SizeHeight="EVTCENTERAPP_TEXT_BG_IMG_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_BG_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_04_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_04_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="05f92" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_NUMBER_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWdg04" ClsID="CLSID_TEXTWIDGET" SizeHeight="EVTCENTERAPP_TEXT_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_04_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_04_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_H_CENTER|ALIGN_V_MIDDLE)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_NORMAL" />
+				<InternProp Id="GUID" Value="04b43" />
+			</Widget>
+			<Widget Id="ImageWdg05" ClsID="CLSID_IMAGEWIDGET" SizeHeight="EVTCENTERAPP_TEXT_BG_IMG_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_BG_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_05_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_05_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="1eb5c" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_NUMBER_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWdg05" ClsID="CLSID_TEXTWIDGET" SizeHeight="EVTCENTERAPP_TEXT_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_05_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_05_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_H_CENTER|ALIGN_V_MIDDLE)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_NORMAL" />
+				<InternProp Id="GUID" Value="7a516" />
+			</Widget>
+			<Widget Id="ImageWdg06" ClsID="CLSID_IMAGEWIDGET" SizeHeight="EVTCENTERAPP_TEXT_BG_IMG_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_BG_IMG_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_06_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_BG_06_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="83266" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_NUMBER_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="TextWdg06" ClsID="CLSID_TEXTWIDGET" SizeHeight="EVTCENTERAPP_TEXT_HEIGHT" SizeWidth="EVTCENTERAPP_TEXT_WIDTH">
+				<Position Type="X_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_06_X" />
+				<Position Type="Y_POSITION" Value="EVTCENTERAPP_ALLSUMMARY_TEXT_06_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_SUPERSMALL" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="(ALIGN_H_CENTER|ALIGN_V_MIDDLE)" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="COLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_TYPE" Value="FONT_TYPE_NORMAL" />
+				<InternProp Id="GUID" Value="880bc" />
+			</Widget>
+			<Widget Id="AllMenu" ClsID="CLSID_GRID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_PADDING_LEFT" Value="EVTCENTERAPP_GRID_LEFT_PADDING" />
+				<Property Id="PROP_PADDING_RIGHT" Value="EVTCENTERAPP_GRID_RIGHT_PADDING" />
+				<Property Id="PROP_PADDING_TOP" Value="EVTCENTERAPP_GRID_TOP_PADDING" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="EVTCENTERAPP_GRID_BOTTOM_PADDING" />
+				<Property Id="PROP_WDG_BG_IMAGE" Value="COMMON_IMG_SYSTEM_BG" />
+				<Property Id="PROP_MENU_WDG_FCS_ITEM_BG_IMAGE_ID" Value="EVENTCENTER_IMG_PRESSED" />
+				<InternProp Id="GUID" Value="4d2fb" />
+				<Model ClsID="CLSID_GRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_EVTCENTER_MODEL_SMS" />
+						<Struct>
+							<Image Id="EVENTCENTER_IMG_02_UNPRESSED" />
+							<String Id="TXT_LIL_N_MESSAGES" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_EVTCENTER_MODEL_CB" />
+						<Struct>
+							<Image Id="EVENTCENTER_IMG_10_UNPRESSED" />
+							<String Id="TXT_LTL_N_CB" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_EVTCENTER_MODEL_VOICEMAIL" />
+						<Struct>
+							<Image Id="EVENTCENTER_IMG_06_UNPRESSED" />
+							<String Id="TXT_LTL_N_VOICE_MAIL" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_EVTCENTER_MODEL_ALARMCALENDAR" />
+						<Struct>
+							<Image Id="EVENTCENTER_IMG_07_UNPRESSED" />
+							<String Id="TXT_LTL_N_ALARM" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_EVTCENTER_MODEL_BATTERY" />
+						<Struct>
+							<Image Id="EVENTCENTER_IMG_08_UNPRESSED" />
+							<String Id="TXT_LTL_N_BATTERY_RELATED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="MIDDLE_SK" Value="DEFAULT_SK" />
+						<SoftKey Type="RIGHT_SK" Value="DEFAULT_SK" />
+						<Binary Value="MNU_EVTCENTER_MODEL_OTHER" />
+						<Struct>
+							<Image Id="EVENTCENTER_IMG_12_UNPRESSED" />
+							<String Id="TXT_LTL_N_OTHER_EVENT" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="80ab6" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+	</Layout>
+	<Layout Id="EVTCENTER_WND_DETAIL" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240">
+			<Widget Id="DateTimeTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_LCD_TWOLINE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE" />
+				<InternProp Id="GUID" Value="87dcb" />
+			</Widget>
+			<Widget Id="InfoTextWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE" />
+				<InternProp Id="GUID" Value="b9847" />
+			</Widget>
+			<InternProp Id="GUID" Value="c8f8b" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_OIL1_N_VIEW_DETAIL&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+	</Layout>
+	<Layout Id="EVTCENTER_WND_SYS_EVT_OPTION_MENU" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="3de7f" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_EVTCENTER_ITEM_VIEW_DETAIL" />
+						<String Id="TXT_OIL1_N_VIEW_DETAIL" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_EVTCENTER_ITEM_DELETE" />
+						<String Id="TXT_OIL1_N_DELETE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_EVTCENTER_ITEM_DELETE_ALL" />
+						<String Id="TXT_OIL1_N_DELETE_ALL" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="838a6" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="SysEvtOpt" />
+	</Layout>
+	<Layout Id="EVTCENTER_WND_SYS_EVT_SUMMARY" ClsID="CLSID_VTMTABMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMTABMENU" FileLocation="CLSID_VTMTABMENU">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="288" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="tabmenu_widget" ClsID="CLSID_TABMENU_WIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_TABMENU_WIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="28ef7" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_TAB_ALL" />
+						<String Id="TXT_NULL_ID" />
+						<Binary Value="WDG_MENU_TYPE_NORMAL" />
+						<Binary Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+						<Binary Value="WDG_MENU_CHECK_STYLE_NONE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_TAB_ALARM" />
+						<String Id="TXT_NULL_ID" />
+						<Binary Value="WDG_MENU_TYPE_NORMAL" />
+						<Binary Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+						<Binary Value="WDG_MENU_CHECK_STYLE_NONE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_TAB_BATTERY" />
+						<String Id="TXT_NULL_ID" />
+						<Binary Value="WDG_MENU_TYPE_NORMAL" />
+						<Binary Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+						<Binary Value="WDG_MENU_CHECK_STYLE_NONE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+					<ModelItem>
+						<Image Id="EVENTCENTER_IMG_TAB_OTHER" />
+						<String Id="TXT_NULL_ID" />
+						<Binary Value="WDG_MENU_TYPE_NORMAL" />
+						<Binary Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+						<Binary Value="WDG_MENU_CHECK_STYLE_NONE" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="8e538" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+		<InternProp Id="VtmId" Value="SummaryTab" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_TTL_N_ALL&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_EVTCENTERAPP" />
+</UiRoot>

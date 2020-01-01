@@ -1,0 +1,8 @@
+[MODULE] ut_mdl
+
+[DESCRIPTION] "Unit Test Middleware Template"
+
+[EXPORT]
+	UtCaseInit						@0
+	UtCaseParseMsg                  @1
+	UtCaseEnd                       @2

@@ -1,0 +1,80 @@
+=======================
+== EMMI CUS VERIFIER ==
+=======================
+==  Version History  ==
+=======================
+Version: 1.1.0.1 (Mar. 4th, 2011)
+New features:
+		- Support multi-theme feature.
+Bug fix:
+		- N/A
+PR:
+		- N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.0.2 (May. 18th, 2011)
+New features:
+		- Support string compress cus format.
+Bug fix:
+		- N/A
+PR:
+		- N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.1.0.3 (May. 19th, 2011)
+New features:
+		- Support multi-theme/none multi-theme auto switch.
+Bug fix:
+		- N/A
+PR:
+		- N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.2.0.1 (Jun. 1th, 2011)
+New features:
+		- Support string de-compression feeature.
+		- Support crash dump feature.
+Bug fix:
+		- N/A
+PR:
+		- N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.3.0.1 (Jul. 29th, 2011)
+New features:
+		- Support image group for dynamic load format (XRG v2.3.0.1).
+Bug fix:
+		- N/A
+PR:
+		- N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Version: 1.4.0.1 (Oct. 7th, 2011)
+New features:
+		1. Support string item compressed format (XRG v2.4.0.1).
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[CusVerifier] Release v1.5.0.1, (Dec. 14th, 2011)
+New features:
+	1. Add RS size info and change the report format.
+	2. Remove RS loading process and fix the bug which the install images and mp3 file can't be loaded.
+	3. For portable theme version and remove IME loading procedure.
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[CusVerifier] Release v2.1.0.1, (Apr. 3th, 2012)
+New features:
+1. Merge the MMI dll to load a cus.
+2. For this version, the Image Replace, Golden Compare, Change Default Language and  Handwriting Feature Check are removed.
+3. Images have to use a sequence order ID to parse it.
+Bug fix:
+		N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[CusVerifier] Release v2.1.0.2, (Apr. 26th, 2012)
+New features:
+1. Implement more report information.
+Bug fix:
+1. Fix the bug when users open a cus, the image results will be duplicate.
+N/A
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+[CusVerifier] Release v2.1.0.3, (Jun. 19th, 2012)
+New features:
+1. Implement more report information which incliude decompress infomationa and decompress ratio.
+Bug fix:
+N/A

@@ -1,0 +1,112 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_uart.hp                                                   */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototypes used in V24 Uart layer.                            */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 10/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_uart.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.8            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 27.04.05 | aph    | 1.7            | Resolution for 28229: CMUX: CTS sta
+ *          |        |                | tus should be down when connecting 
+ *          |        |                | DCLn  .                            
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.6            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.5            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 08.02.05 | vgo    | 1.3            | .                                  
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+#ifndef __SYS_V24_UART_HP__
+#define __SYS_V24_UART_HP__
+
+#include "sys_v24_uart.ht" 
+#include "sys_v24_pal.ht" 
+
+extern bool          v24_UartAddTxBlockInList      ( u8 *Data, u16 Len, v24_TxBlockReleaseStatus_e *ReleaseStatus, u32 Port );
+extern u32           v24_UartInitExt               ( u32 Uart, u32 Arg );
+extern void          v24_UartStartExt              ( u32 Uart );
+extern void          v24_UartStopExt               ( u32 Uart );
+extern bool          v24_AreUartAndTxBufEmptyExt   ( u32 Port );
+extern void          v24_UartChangeRate            ( v24_Rate_t Rate, v24_UartContext_t *v24_UartContext );
+extern v24_Framing_t v24_UartSetFraming            ( v24_Framing_t Framing, v24_UartContext_t *v24_UartContext );
+extern bool          v24_UartRxDataPending         ( u32 Port );
+
+extern void          v24_UartSetTxDataToSend       ( v24_UartContext_t *v24_UartContext );
+
+extern void          v24_BarOrAllowSendingUponCtsCond ( bool, v24_UartContext_t * );
+#ifdef __V24_SOFT_FC__
+extern void v24_BarOrAllowSendingUponXonCond(bool xon_received, v24_UartContext_t *v24_UartContext);
+#endif
+extern void          v24_UartRegisterCtxt          ( v24_UartContext_t  **UartPtrInPalCtxt, u32 Uart );
+
+extern void          v24_UartSetRtsFct                ( v24_UartContext_t *, bool On ); 
+extern void          v24_UartSetDtrFct                ( v24_UartContext_t *, bool On );
+extern void          v24_UartSetRiFct                 ( v24_UartContext_t *, bool On );
+extern void          v24_UartPulseRiFct               ( v24_UartContext_t *, bool On );
+extern void          v24_UartSetDcdFct                ( v24_UartContext_t *, bool On );
+extern void          v24_UartSetBrkFct                ( v24_UartContext_t *, bool On ); 
+extern bool          v24_UartGetCtsFct                ( v24_UartContext_t * );
+extern bool          v24_UartGetDsrFct                ( v24_UartContext_t * );
+extern void          v24_UartSetOtherFct              ( v24_UartContext_t *, u32, u32 );
+extern void          v24_SetCorkFct                   ( v24_UartContext_t *, bool On );
+extern bool          v24_GetCorkFct                   ( v24_UartContext_t * );
+extern u32           v24_UartGetFct                   ( v24_UartContext_t *, v24_Req_t , u32);
+
+extern void          v24_ClearAllUartAndBuf           ( u32, v24_UartContext_t * );
+extern bool          v24_AreUartAndRxBufEmpty         ( v24_UartContext_t * ); 
+extern bool    v24_CtxAreUartAndTxBufEmpty      ( v24_UartContext_t *v24_UartContext );
+
+#if defined(__AUTOBAUD__) || defined(linux)
+#if !defined(linux)
+extern void    v24_UartSetRate                  ( v24_Rate_t Rate, v24_UartContext_t *v24_UartContext );
+#endif
+static  void    v24_TxUartHandler                ( v24_UartContext_t *v24_UartContext );
+
+#endif   /* defined(__AUTOBAUD__) || defined(linux) */
+
+extern void    v24_DisableUartIT                ( v24_UartContext_t *v24_UartContext );
+
+extern void v24_AutoRtsCtsRearmIrq              ( u32 Port, u8 bSchedBitfield );
+
+#endif //__SYS_V24_UART_HP__

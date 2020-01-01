@@ -1,0 +1,215 @@
+#
+#
+#
+.SILENT:
+
+include version.mak
+
+OUT_DIR = ./out_b2
+MAK_DIR = ./mak
+BASE_DIR=.
+MSTARLIB = MStarLib
+
+ifeq ($(findstring ads,$(ARMHOME)),ads)
+CFLAGS= -li $(CPPFLAGS) -apcs /noswstackcheck/interwork -cpu 5TEJ -fpu none -g -O0 -Ez -Wb
+
+ASFLAGS= \
+	-PD "__G1__ SETL {FALSE}" \
+	-PD "__B2__ SETL {TRUE}" \
+	-apcs /noswstackcheck/interwork -cpu 5TEJ -fpu none -g
+
+AR_OPTIONS = -create
+
+LINK_OPTIONS = \
+    -elf \
+    -map \
+    -info sizes,veneers,totals,unused \
+    -xref \
+    -verbose \
+    -noremove \
+    -scatter $(SCATTER) \
+    -symdefs $(OUT_DIR)/symbolext.txt \
+    -list $(DOWNLOADER).log
+
+FROMELF_OPTIONS = -bin
+
+SIGPATH=drivers/siglib/lib_ads
+
+else
+CFLAGS= --li $(CPPFLAGS) --apcs /noswstackcheck/interwork --cpu 5TEJ --fpu none -g -O0 --c90
+
+ASFLAGS= \
+	--PD "__G1__ SETL {FALSE}" \
+	--PD "__B2__ SETL {TRUE}" \
+	--apcs noswstackcheck --apcs interwork --cpu 5TEJ --fpu none --debug
+
+AR_OPTIONS = --create
+
+LINK_OPTIONS = \
+    --elf \
+    --map \
+    --info sizes \
+    --info unused \
+    --xref \
+    --verbose \
+    --noremove \
+    --scatter $(SCATTER) \
+    --symdefs $(OUT_DIR)/symbolext.txt \
+    --list $(DOWNLOADER).log
+
+FROMELF_OPTIONS = --bin
+
+SIGPATH=drivers/siglib/lib_rvct
+
+endif
+
+# Stuff for shell commands
+GCC=gcc
+AWK=gawk
+TIMEFILE=.source-list
+
+SIGLIB=$(SIGPATH)/sig_ta.lib
+
+#common pathes and defines
+include $(MAK_DIR)/common.mak
+
+DOWNLOADER = $(OUT_DIR)/dwl_b2
+LOCK = $(OUT_DIR)/lock_b2
+SCATTER = $(BASE_DIR)/scatter.dsc
+
+DEPDIR=.dependencies_b2
+
+# Add compilation flags below
+CPPFLAGS=  \
+	-D__DOWNLOADER_V24__\
+	-D__USE_SERIAL_NUMBERS__\
+	-D__DOWNLOADER__ \
+	-D__UART2_DEBUG__ \
+	-D__FMS_NO_E2P_CACHE__ \
+	-D__B2__
+
+
+SRC_LIST = \
+	dwl_initcom.c \
+	dwl_premain.c \
+	dwl_malloc.c \
+	dwl_prg.c \
+	dwl_port.c \
+	dwl_uart.c \
+	dwl_uart2.c \
+	dwl_retarget.c \
+	dwl_cusfiles.c \
+	dwl_upload.c \
+	dwl_frame.c \
+	dwl_binary.c \
+	dwl_config.c \
+	dwl_eeprom.c  \
+	dwl_generalframe.c \
+	dwl_binary_fms.c \
+	dwl_binary_medium.c \
+	dwl_synchro.c \
+	dwl_flash_hooks.c \
+	dwl_nor_fs.c\
+	dwl_rai.c\
+	v2751.c \
+	isr.asm \
+	dwl_boot.asm \
+	dwl_arm.asm \
+	dwl_custom.c \
+	dev_nor.c \
+	arm_copro_s.asm \
+	arm_copro.c
+
+
+#.SILENT:
+
+all: $(DOWNLOADER).dir dep $(DOWNLOADER).bin $(LOCK).bin
+genlib: COPYLIB
+	@echo genlib
+
+$(DOWNLOADER).dir:
+	@test -d $(OUT_DIR) || mkdir $(OUT_DIR)
+
+include $(MAK_DIR)/zlib.mak
+include $(MAK_DIR)/flash.mak
+include $(MAK_DIR)/montage.mak
+include $(MAK_DIR)/athena.mak
+include $(MAK_DIR)/customer.mak
+include $(MAK_DIR)/src.mak
+COPY_LIBS = \
+	$(OUT_DIR)/src.lib \
+	$(OUT_DIR)/zlib.lib \
+	$(OUT_DIR)/flash.lib \
+	$(OUT_DIR)/montage.lib \
+	$(OUT_DIR)/athena.lib \
+	$(OUT_DIR)/dwl_prg.o \
+	$(OUT_DIR)/dwl_initlock.o \
+
+OBJ_LIST=$(patsubst %.c, $(OUT_DIR)/%.o, $(patsubst %.asm, $(OUT_DIR)/%.o, $(SRC_LIST)))
+
+ARM_OBJ_LIST=$(patsubst %.c, $(OUT_DIR)/%.arm.o, $(patsubst %.asm, $(OUT_DIR)/%.arm.o, $(ARM_SRC_LIST)))
+
+DEPFILES+=$(patsubst %.c, $(DEPDIR)/%.d, $(SRC_LIST))
+
+dep: depdir depfiles
+
+depdir:
+	test -d $(DEPDIR) || mkdir $(DEPDIR)
+
+depfiles: $(DEPFILES)
+
+include $(wildcard $(DEPDIR)/*.d)
+
+$(DOWNLOADER).axf: $(ARM_OBJ_LIST) $(LIB_LIST) $(OUT_DIR)/dwl_prg.o
+	@$(LD) ${LINK_OPTIONS}  -o $@ $^ 2> $(DOWNLOADER).log
+
+$(LOCK).axf: $(ARM_OBJ_LIST) $(LIB_LIST) $(OUT_DIR)/dwl_prg.o $(OUT_DIR)/dwl_initlock.o $(SIGLIB)
+	@$(LD) ${LINK_OPTIONS} -keep 'sig*.o' -keep 'dwl_initlock.o' -o $@ $^ 2> $(LOCK).log
+COPYLIB: $(COPY_LIBS)
+	@if [ -e $(MSTARLIB) ];then\
+		echo $(MSTARLIB) folder exists;\
+	else\
+		mkdir $(MSTARLIB);\
+		echo Make $(MSTARLIB) folder;\
+		echo;\
+	fi;
+	cp $(OUT_DIR)/*.lib $(MSTARLIB)/
+	cp $(OUT_DIR)/dwl_prg.o $(MSTARLIB)/
+	cp $(OUT_DIR)/dwl_initlock.o $(MSTARLIB)/
+
+%.bin: %.axf
+	@ $(FROMELF) -c ${FROMELF_OPTIONS} -o $@ $<
+	@ echo $@ "... binary ready"
+	cp $@ $*.wt
+	LoadConverter.exe -t $*.wt -dv $(DWLWIN_VER) -wv $(WINTARGET)
+
+
+$(OUT_DIR)/%.o: %.c
+	$(TCC) ${INC_LIST}  ${PP_OPT_TARGET} ${CFLAGS} -c $< -o $@
+	echo $< ".... OK"
+
+$(OUT_DIR)/%.arm.o: %.c
+	@$(ARMCC) ${INC_LIST}  ${PP_OPT_TARGET} ${CFLAGS} -c $< -o $@
+	@ echo $< ".... OK"
+
+$(OUT_DIR)/%.o: %.asm
+	@$(AS)  ${INC_LIST}  ${ASFLAGS} $< -o $@
+	@ echo $< ".... OK"
+
+%.lst: %.c
+	@ $(TCC) -E $(CPPFLAGS) -o $@ $<
+
+$(DEPDIR)/%.d: %.c
+	@set -e; /usr/bin/gcc -MM   ${PP_OPT_TARGET} ${CPPFLAGS} -I. ${INC_LIST} $< \
+	| sed 's#\($*\)\.o[ :]*#out/\1.o \1.d: #g' > $@
+
+$(DEPDIR)/%.d: %.asm
+	@$(AWK) -vEntry=$(basename $<) 'BEGIN{DepFile=Entry; gsub(/.asm$$/, ".o", Entry); gsub(/.asm$$/, ".d", DepFile); printf("%s.asm %s: ", Entry, DepFile)} END{print ""} /INCLUDE/{printf ("%s ", $$2)}' $< > $@
+
+.PHONY: clean
+clean:
+	rm -f $(OUT_DIR)/*.o $(OUT_DIR)/*.lib $(OUT_DIR)/*.axf $(OUT_DIR)/*.bin $(OUT_DIR)/*.wt $(OUT_DIR)/*.log
+.PHONY: cleanlib
+	rm -f $(MSTARLIB)/*.*
+
+

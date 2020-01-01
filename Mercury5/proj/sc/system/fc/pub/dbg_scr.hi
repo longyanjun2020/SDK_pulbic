@@ -1,0 +1,56 @@
+/*!
+ * \file  dbg_scr.hi
+ * \brief Debug Screen service management
+ *
+ *
+ */
+
+#ifndef __DBG_SCR_HI__
+#define __DBG_SCR_HI__
+
+#include "stdcomp.h"
+#include "msgtyp.ht"
+#include "sys_vm_dbg.ho"
+#include "sys_rtk_ho.h"
+#include "vm_dbg_scr.hi"
+
+enum { DBG_L1C_STATE,     DBG_L1C_EVENT,     	  DBG_L1C_COUNT,
+       DBG_MAIN_ARFCN,    DBG_MAIN_RXL,           DBG_MAIN_RXQ,
+       DBG_MAIN_C1,	  DBG_CIPHER,             DBG_HOPPING,
+       DBG_MA0,           DBG_DSF_RLT,		  DBG_REL_CAUSE,
+       DBG_NB_NEAR,       DBG_NB_FAR,    	  DBG_NB_SYNC,
+       DBG_NEAR0_STATE,	  DBG_NEAR1_STATE,	  DBG_NEAR2_STATE,
+       DBG_NEAR3_STATE,	  DBG_NEAR4_STATE,	  DBG_NEAR5_STATE,
+       DBG_NEAR0_ARFCN,	  DBG_NEAR1_ARFCN,	  DBG_NEAR2_ARFCN,
+       DBG_NEAR3_ARFCN,	  DBG_NEAR4_ARFCN,	  DBG_NEAR5_ARFCN,
+       DBG_NEAR0_RXL,	  DBG_NEAR1_RXL,	  DBG_NEAR2_RXL,
+       DBG_NEAR3_RXL,	  DBG_NEAR4_RXL,	  DBG_NEAR5_RXL,
+       DBG_NEAR0_C1,	  DBG_NEAR1_C1,	  	  DBG_NEAR2_C1,
+       DBG_NEAR3_C1,	  DBG_NEAR4_C1,	  	  DBG_NEAR5_C1,
+       DBG_NEAR0_HANDIC,  DBG_NEAR1_HANDIC,	  DBG_NEAR2_HANDIC,
+       DBG_NEAR3_HANDIC,  DBG_NEAR4_HANDIC,	  DBG_NEAR5_HANDIC,
+       DBG_L3MM_STATE,    DBG_L3MM_UPD,     	  DBG_L3MM_NBFAIL,
+       DBG_L3MM_TIMER,    DBG_L3MM_PROC,          DBG_L3MM_RT3212,
+       DBG_L3MM_ATT,      DBG_L3MM_MCCMNC,        DBG_L3MM_LAC
+     };
+
+#define CLEAR_FIELD	    VM_CLEAR_FIELD
+#define SET_CLEAR_FIELD     VM_SET_CLEAR_FIELD
+
+typedef struct             /*----------------  MMI_DEBUG  ------------------*/
+{                          /*                                               */
+  Header_t Header;         /* RTK header                                    */
+  vm_debugInd_t mmi_DebugInd; 
+} mmi_DebugMsg_t;	       /*	                                            */
+                           /*-----------------------------------------------*/
+
+#ifdef __DBG_SCR__
+#define dbg_AddField(X) __dbg_AddField X
+/* the last parameter must be a 32 bits type, thank's to arm ... */
+void __dbg_AddField _PROTO(( mmi_DebugMsg_t **, bool, u32, ... ));
+#else
+#define dbg_AddField(X)
+#endif
+
+#endif /* __DBG_SCR_HI__ */
+

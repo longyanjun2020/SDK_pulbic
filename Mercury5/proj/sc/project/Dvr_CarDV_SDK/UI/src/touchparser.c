@@ -1,0 +1,235 @@
+/*===========================================================================
+ * Include file 
+ *===========================================================================*/  
+#include "ahc_common.h"
+#include "ahc_general.h"
+#include "ahc_message.h"
+#include "ahc_os.h"
+#include "ahc_display.h"
+#include "ahc_audio.h"
+#include "ahc_capture.h"
+#include "ahc_dcf.h"
+#include "ahc_media.h"
+#include "ahc_video.h"
+#include "ahc_gui.h"
+#include "ahc_motor.h"
+#include "ahc_menu.h"
+#include "ahc_usb.h"
+#include "ahc_parameter.h"
+#include "ahc_general_cardv.h"
+#include "MenuCommon.h"
+#include "MenuTouchButton.h"
+#include "MenuStateMenu.h"
+#include "MenuDrawingFunc.h"
+#include "MenuStateGeneralSettingsMenu.h"
+//#include "mediaplaybackctrl.h"e
+#include "keyparser.h"
+#include "ledcontrol.h"
+#include "IconPosition.h"
+#include "dsc_charger.h"
+
+#include "statecamerafunc.h"
+#include "statevideofunc.h"
+#include "statebrowserfunc.h"
+#include "statemoviepbfunc.h"
+#include "statephotopbfunc.h"
+#include "stateslideshowfunc.h"
+#include "statemsdcfunc.h"
+#include "statehdmifunc.h"
+#include "statetvfunc.h"
+
+
+#if (SUPPORT_TOUCH_PANEL)
+SMENUTOUCHBUTTON VideoMainPage_TouchButton[] =
+{
+    {      POS_BUTTON_MENU ,  5,      TOUCH_PRESS_ID(VIDEO_TOUCH_ID_MENU) ,       TOUCH_MOVE_ID(VIDEO_TOUCH_ID_MENU) ,NULL    		 	 },
+    {POS_BUTTON_MODESWITCH ,  5,      TOUCH_PRESS_ID(VIDEO_TOUCH_ID_MODE) ,       TOUCH_MOVE_ID(VIDEO_TOUCH_ID_MODE)  ,NULL    		 	},
+    {RECT_TOUCH_BUTTON_OK ,  5,      TOUCH_PRESS_ID(VIDEO_TOUCH_ID_REC) ,       TOUCH_MOVE_ID(VIDEO_TOUCH_ID_REC)  ,NULL    		 	},
+
+};
+
+SMENUTOUCHBUTTON VideoCtrlPage_TouchButton[] =
+{
+    {      POS_BUTTON_MENU ,  5,      TOUCH_PRESS_ID(VIDEO_TOUCH_ID_MENU) ,       TOUCH_MOVE_ID(VIDEO_TOUCH_ID_MENU)  ,NULL    		 	},
+    {POS_BUTTON_MODESWITCH ,  5,      TOUCH_PRESS_ID(VIDEO_TOUCH_ID_MODE) ,       TOUCH_MOVE_ID(VIDEO_TOUCH_ID_MODE)  ,NULL    		 	},
+    {RECT_TOUCH_BUTTON_OK ,  5,      TOUCH_PRESS_ID(VIDEO_TOUCH_ID_REC) ,       TOUCH_MOVE_ID(VIDEO_TOUCH_ID_REC)  ,NULL    		 	},
+
+};
+
+SMENUTOUCHBUTTON CaptureMainPage_TouchButton[] =
+{
+    {POS_BUTTON_MENU,       5, TOUCH_PRESS_ID(CAPT_TOUCH_ID_MENU),     TOUCH_MOVE_ID(CAPT_TOUCH_ID_MENU) ,NULL    		 	     },
+    {POS_BUTTON_MODESWITCH, 5, TOUCH_PRESS_ID(CAPT_TOUCH_ID_MODE),     TOUCH_MOVE_ID(CAPT_TOUCH_ID_MODE)  ,NULL    		 	    },
+    {RECT_TOUCH_BUTTON_OK, 5, TOUCH_PRESS_ID(CAPT_TOUCH_ID_CAPT),     TOUCH_MOVE_ID(CAPT_TOUCH_ID_CAPT)  ,NULL    		 	    },
+};
+
+SMENUTOUCHBUTTON CaptureCtrlPage_TouchButton[] =
+{
+    {POS_BUTTON_MENU,       5, TOUCH_PRESS_ID(CAPT_TOUCH_ID_MENU),     TOUCH_MOVE_ID(CAPT_TOUCH_ID_MENU)  ,NULL    		 	    },
+    {POS_BUTTON_MODESWITCH, 5, TOUCH_PRESS_ID(CAPT_TOUCH_ID_MODE),     TOUCH_MOVE_ID(CAPT_TOUCH_ID_MODE)  ,NULL    		 	    },
+    {POS_BUTTON_CAPTURE, 5, TOUCH_PRESS_ID(CAPT_TOUCH_ID_CAPT),     TOUCH_MOVE_ID(CAPT_TOUCH_ID_CAPT) ,NULL    		 	     },
+};
+
+SMENUTOUCHBUTTON Browser_TouchButton[] =
+{
+    {RECT_TOUCH_BUTTON_BRO_MENU,5, TOUCH_PRESS_ID(THUMB_TOUCH_ID_MENU)     ,   TOUCH_MOVE_ID(THUMB_TOUCH_ID_MENU)	 ,NULL    		 	},
+    {POS_BUTTON_MENU_2,  		5, TOUCH_PRESS_ID(THUMB_TOUCH_ID_MODE)     ,   TOUCH_MOVE_ID(THUMB_TOUCH_ID_MODE)	 ,NULL    		 	},
+    {POS_THUMB_PGUP,         	5, TOUCH_PRESS_ID(THUMB_TOUCH_ID_PAGEUP)   ,   TOUCH_MOVE_ID(THUMB_TOUCH_ID_PAGEUP)	 ,NULL  		 	},
+    {POS_THUMB_PGDOWN,       	5, TOUCH_PRESS_ID(THUMB_TOUCH_ID_PAGEDOWN) ,   TOUCH_MOVE_ID(THUMB_TOUCH_ID_PAGEDOWN),NULL 				},
+    {POS_THUMB_FOCUS,        	0, 	NULL									,   NULL								 ,BrowserFunc_Touch },
+    
+};
+
+/* Photo Playback Mode */
+SMENUTOUCHBUTTON JpgPBMainPage_TouchButton[] =
+{
+//    {RECT_SHOW_CTRL_PAGE,  		5,	TOUCH_PRESS_ID(JPGPB_TOUCH_ID_PAGE2),      	TOUCH_MOVE_ID(JPGPB_TOUCH_ID_PAGE2) }
+    {RECT_TOUCH_BUTTON_OK,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_SLIDE),    	TOUCH_MOVE_ID(JPGPB_TOUCH_ID_SLIDE),NULL    		 	 },
+    {RECT_TOUCH_BUTTON_MENU,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_MENU),   		TOUCH_MOVE_ID(JPGPB_TOUCH_ID_MENU) ,NULL    		 	 },
+    {RECT_TOUCH_BUTTON_MODE,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_EXIT),   		TOUCH_MOVE_ID(JPGPB_TOUCH_ID_EXIT) ,NULL    		 	 }
+
+}; 
+
+SMENUTOUCHBUTTON JpgPBCtrlPage_TouchButton[] =
+{
+    {RECT_SHOW_CTRL_PAGE,  		5,	TOUCH_PRESS_ID(JPGPB_TOUCH_ID_PAGE1),      	TOUCH_MOVE_ID(JPGPB_TOUCH_ID_PAGE1),NULL    		 	 },
+    {RECT_TOUCH_BUTTON_UP,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_PREV),    	TOUCH_MOVE_ID(JPGPB_TOUCH_ID_PREV) ,NULL    		 	 },
+    {RECT_TOUCH_BUTTON_DOWN,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_NEXT),    	TOUCH_MOVE_ID(JPGPB_TOUCH_ID_NEXT) ,NULL    		 	 },
+    {RECT_TOUCH_BUTTON_OK,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_SLIDE),    	TOUCH_MOVE_ID(JPGPB_TOUCH_ID_SLIDE),NULL    		 	 },
+    {RECT_TOUCH_BUTTON_MENU,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_MENU),   		TOUCH_MOVE_ID(JPGPB_TOUCH_ID_MENU) ,NULL    		 	 },
+    {RECT_TOUCH_BUTTON_MODE,  	5,  TOUCH_PRESS_ID(JPGPB_TOUCH_ID_EXIT),   		TOUCH_MOVE_ID(JPGPB_TOUCH_ID_EXIT) ,NULL    		 	 }
+}; 
+
+SMENUTOUCHBUTTON MovPBMainPage_TouchButton[] =
+{
+//    {RECT_SHOW_CTRL_PAGE,  		5,	TOUCH_PRESS_ID(MOVPB_TOUCH_ID_PAGE2),      	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_PAGE2) }
+    {RECT_TOUCH_BUTTON_UP,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_BKWD),    	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_BKWD) ,NULL },
+    {RECT_TOUCH_BUTTON_DOWN,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_FRWD),    	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_FRWD) ,NULL },
+    {RECT_TOUCH_BUTTON_OK,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_PLAY),    	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_PLAY) ,NULL },
+
+}; 
+
+SMENUTOUCHBUTTON MovPBCtrlPage_TouchButton[] =
+{
+    {RECT_SHOW_CTRL_PAGE,  		5,	TOUCH_PRESS_ID(MOVPB_TOUCH_ID_PAGE1),      	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_PAGE1),NULL },
+    {RECT_TOUCH_BUTTON_UP,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_BKWD),    	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_BKWD) ,NULL },
+    {RECT_TOUCH_BUTTON_DOWN,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_FRWD),    	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_FRWD) ,NULL },
+    {RECT_TOUCH_BUTTON_OK,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_PLAY),    	TOUCH_MOVE_ID(MOVPB_TOUCH_ID_PLAY) ,NULL },
+    {RECT_TOUCH_BUTTON_MENU,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_MENU),   		TOUCH_MOVE_ID(MOVPB_TOUCH_ID_MENU) ,NULL },
+    {RECT_TOUCH_BUTTON_MODE,  	5,  TOUCH_PRESS_ID(MOVPB_TOUCH_ID_EXIT),   		TOUCH_MOVE_ID(MOVPB_TOUCH_ID_EXIT) ,NULL }
+}; 
+
+SMENUTOUCHBUTTON MainMenu_TouchButton[] =
+{
+    {RECT_TOUCH_BUTTON_MENU_EXIT,	0,   MENU_MENU,		MENU_EXIT_MOVE  	,NULL    	},
+    {POS_MENU_UP,       			0,   MENU_UP,		MENU_UP_MOVE 		,NULL    	},
+    {POS_MENU_DOWN,     			0,   MENU_DOWN,		MENU_DOWN_MOVE 		,NULL    	},
+    {RECT_TOUCH_BUTTON_MENU_LEFT,   0,   MENU_LEFT,		MENU_LEFT_MOVE  	,NULL    	},
+    {RECT_TOUCH_BUTTON_MENU_RIGHT,  0,   MENU_RIGHT,	MENU_RIGHT_MOVE 	,NULL    	},
+    {POS_MAINMENU0,     			0,   NULL,		MENU_MAIN0_MOVE ,MainMenuItem_Touch },
+    {POS_MAINMENU1,     			0,   NULL,		MENU_MAIN1_MOVE ,MainMenuItem_Touch },
+    {POS_MAINMENU2,     			0,   NULL,		MENU_MAIN2_MOVE ,MainMenuItem_Touch },
+};
+
+// 2 Sub Item
+SMENUTOUCHBUTTON SubMenu2_TouchButton[] =
+{
+    {POS_MENU_EXIT,   0,  MENU_MENU,   MENU_RETURN_MOVE,NULL 	},
+    {POS_SUBMENU20,   0,  NULL				,  MENU_SUB20_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU21,   0,  NULL				,  MENU_SUB21_MOVE ,SubMenuItem_Touch},
+};
+
+// 4 Sub Item
+SMENUTOUCHBUTTON SubMenu4_TouchButton[] =
+{
+    {POS_MENU_EXIT,   0,  MENU_MENU,      MENU_RETURN_MOVE ,NULL	},
+    {POS_SUBMENU40,   0,  NULL		,       MENU_SUB40_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU41,   0,  NULL		,       MENU_SUB41_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU42,   0,  NULL		,       MENU_SUB42_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU43,   0,  NULL		,       MENU_SUB43_MOVE ,SubMenuItem_Touch},
+};
+
+// 6 Sub Item
+SMENUTOUCHBUTTON SubMenu6_TouchButton[] =
+{
+    {POS_MENU_EXIT,   0,    MENU_MENU,      MENU_RETURN_MOVE,NULL	},
+    {POS_MENU_UP,     0,    MENU_UP,          MENU_UP_MOVE 	,NULL},
+    {POS_MENU_DOWN,   0,    MENU_DOWN,        MENU_DOWN_MOVE 	,NULL},
+    {POS_SUBMENU60,   0,    NULL		,       MENU_SUB60_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU61,   0,    NULL		,       MENU_SUB61_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU62,   0,    NULL		,       MENU_SUB62_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU63,   0,    NULL		,       MENU_SUB63_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU64,   0,    NULL		,       MENU_SUB64_MOVE ,SubMenuItem_Touch},
+    {POS_SUBMENU65,   0,    NULL		,       MENU_SUB65_MOVE ,SubMenuItem_Touch},
+};
+
+SMENUTOUCHBUTTON MenuConfirm_TouchButton[] =
+{
+    {RECT_TOUCH_BUTTON_MENU_EXIT,   0,  MENU_MENU,  MENU_RETURN_MOVE,NULL  }, 
+    {RECT_TOUCH_BUTTON_MENU_YES,    0,  NULL	,   MENU_YES_MOVE 	,SubMenuComfirm_Touch  },
+    {RECT_TOUCH_BUTTON_MENU_NO,    	0,  NULL	,   MENU_NO_MOVE   	,SubMenuComfirm_Touch  },
+};
+
+//Info Page
+SMENUTOUCHBUTTON MenuInfo_TouchButton[] =
+{
+    {RECT_TOUCH_BUTTON_MENU_EXIT,   0,  MENU_MENU,      MENU_RETURN_MOVE,NULL  },
+};
+
+SMENUTOUCHBUTTON MenuClockSetting_TouchButton[] =
+{
+    {RECT_TOUCH_BUTTON_MENU_EXIT,   	0,  MENU_MENU,     MENU_RETURN_MOVE,NULL },
+    {RECT_TOUCH_BUTTON_CLOCK_UP,       	0,  MENU_UP,         MENU_UP_MOVE ,NULL	},
+    {RECT_TOUCH_BUTTON_CLOCK_DOWN,     	0,  MENU_DOWN,       MENU_DOWN_MOVE ,NULL},
+    {RECT_TOUCH_BUTTON_CLOCK_OK,       	0,  MENU_OK,         MENU_OK_MOVE 	,NULL},
+};
+
+SMENUTOUCHBUTTON Browser_FileEditTouchButton[] =
+{
+    {RECT_MENU_CONFIRM_YES,	5, 	NULL, TOUCH_MOVE_ID(THUMB_TOUCH_ID_EDIT_YES),Browser_FileEdit_Touch },
+    {RECT_MENU_CONFIRM_NO,	5, 	NULL , TOUCH_MOVE_ID(THUMB_TOUCH_ID_EDIT_NO) ,Browser_FileEdit_Touch },
+};
+
+SMENUTOUCHBUTTON MenuEV_TouchButton[] =
+{
+    {POS_MENU_EXIT,           	0,    MENU_MENU,          MENU_EXIT_MOVE 	,NULL	},
+    {RECT_TOUCH_BUTTON_MENU_OK, 0,    MENU_OK,      		MENU_OK_MOVE 	,NULL	},
+    {POS_MENU_EVDECREASE,     	0,    MENU_DOWN,		MENU_DECREASE_MOVE 	,NULL},
+    {POS_MENU_EVINCREASE,     	0,    MENU_UP,		MENU_INCREASE_MOVE 	,NULL},
+};
+
+SMENUTOUCHBUTTON MenuVolume_TouchButton[] =
+{
+    {POS_MENU_EXIT,           	0,    MENU_MENU,          MENU_EXIT_MOVE 	,NULL	}, 
+    {RECT_TOUCH_BUTTON_MENU_OK, 0,    MENU_OK,      		MENU_OK_MOVE 	,NULL	}, 
+    {POS_MENU_EVDECREASE,     	0,    MENU_DOWN,		MENU_DECREASE_MOVE ,NULL	},
+    {POS_MENU_EVINCREASE,     	0,    MENU_UP,		MENU_INCREASE_MOVE ,NULL	},
+};
+
+#ifdef CFG_VIRTUAL_TOUCH
+SMENUTOUCHBUTTON MenuDriverIdSetting_TouchButton[] =
+{
+    {RECT_TOUCH_BUTTON_DRIVEID_EXIT,   0,  MENU_RETURN_PRESS,      MENU_RETURN_MOVE 	},
+    {RECT_TOUCH_BUTTON_DRIVEID_OK,       	0,  MENU_OK_PRESS,         MENU_OK_MOVE 	},
+    {POS_SUBMENU_DRIVEID_00,   0,  MENU_SUB_DRIVEID_00_PRESS,       MENU_SUB_DRIVEID_00_MOVE 	},
+    {POS_SUBMENU_DRIVEID_01,   0,  MENU_SUB_DRIVEID_01_PRESS,       MENU_SUB_DRIVEID_01_MOVE 	},
+    {POS_SUBMENU_DRIVEID_10,   0,  MENU_SUB_DRIVEID_10_PRESS,       MENU_SUB_DRIVEID_10_MOVE 	},
+    {POS_SUBMENU_DRIVEID_11,   0,  MENU_SUB_DRIVEID_11_PRESS,       MENU_SUB_DRIVEID_11_MOVE 	},
+    {POS_SUBMENU_DRIVEID_20,   0,  MENU_SUB_DRIVEID_20_PRESS,       MENU_SUB_DRIVEID_20_MOVE 	},
+    {POS_SUBMENU_DRIVEID_21,   0,  MENU_SUB_DRIVEID_21_PRESS,       MENU_SUB_DRIVEID_21_MOVE 	},
+    {POS_SUBMENU_DRIVEID_30,   0,  MENU_SUB_DRIVEID_30_PRESS,       MENU_SUB_DRIVEID_30_MOVE 	},
+    {POS_SUBMENU_DRIVEID_31,   0,  MENU_SUB_DRIVEID_31_PRESS,       MENU_SUB_DRIVEID_31_MOVE 	},
+    {POS_SUBMENU_DRIVEID_40,   0,  MENU_SUB_DRIVEID_40_PRESS,       MENU_SUB_DRIVEID_40_MOVE 	},
+    {POS_SUBMENU_DRIVEID_41,   0,  MENU_SUB_DRIVEID_41_PRESS,       MENU_SUB_DRIVEID_41_MOVE 	},
+    {POS_SUBMENU_DRIVEID_50,   0,  MENU_SUB_DRIVEID_50_PRESS,       MENU_SUB_DRIVEID_50_MOVE 	},
+    {POS_SUBMENU_DRIVEID_51,   0,  MENU_SUB_DRIVEID_51_PRESS,       MENU_SUB_DRIVEID_51_MOVE 	},
+    {POS_SUBMENU_DRIVEID_60,   0,  MENU_SUB_DRIVEID_60_PRESS,       MENU_SUB_DRIVEID_60_MOVE 	},
+    {POS_SUBMENU_DRIVEID_61,   0,  MENU_SUB_DRIVEID_61_PRESS,       MENU_SUB_DRIVEID_61_MOVE 	},
+    {POS_SUBMENU_DRIVEID_70,   0,  MENU_SUB_DRIVEID_70_PRESS,       MENU_SUB_DRIVEID_70_MOVE 	},
+    {POS_SUBMENU_DRIVEID_71,   0,  MENU_SUB_DRIVEID_71_PRESS,       MENU_SUB_DRIVEID_71_MOVE 	},
+    
+};
+#endif
+#endif
+
+

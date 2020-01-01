@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+  <InternProp Id="AppId" Value="CLSID_MessageTemplateApp" />
+  <Layout Id="WindowControl" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+    <Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" />
+    <Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+  </Layout>
+</UiRoot>

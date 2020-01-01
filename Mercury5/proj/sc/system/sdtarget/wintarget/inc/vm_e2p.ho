@@ -1,0 +1,246 @@
+/****************************************************************************/
+/*  File    : vm_e2p.ho                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Description:  eeprom management                                         */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __VM_E2P_HO__
+#define __VM_E2P_HO__     
+
+#include "vm_types.ht"
+
+
+/****************************************************************************/
+/* SOME DEFINITIONS...                                                      */
+/****************************************************************************/
+
+/* macro with funny spelling */
+#define VM_E2P_ADRESS(_AREA_ ,_AREA_STRUCT_, _FIELD_)   (unsigned) (&(((_AREA_STRUCT_ *) _AREA_)->_FIELD_))
+
+/* masks */
+#define VM_E2P_STACK_FOR_CUST_AREA     0x09000000
+#define VM_E2P_LIB_AREA                0x0A000000
+#define VM_E2P_APPL_AREA               0x0B000000
+
+/* max sizes */
+#define VM_E2P_LIB_MAX_SIZE            0x400      /*   1 Kbytes for LIB */
+#define VM_E2P_APP_MAX_SIZE            0x200      /* 0,5 Kbytes for APP */
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: vm_e2pRead                                                    */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Reads a parameter in the Open E²PROM.                         */
+/*            The Open E²PROM is divided into 3 areas:                      */
+/*               (*) the stack area                                         */
+/*               (*) the lib area                                           */
+/*               (*) the applicative software dedicated area.               */
+/*            The function vm_e2pRead will retrieve data from one of        */
+/*            these areas, depending on the most significant byte of        */
+/*            the given virtual address (see the "masks" above).            */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address    | X |   |   |  Virtual address of the parameter       */
+/*  i__u32_Size       | X |   |   |  Number of bytes to retrieve            */
+/*  o__p_Buffer       |   | X |   |  Output buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+#ifndef __MCP_WITHOUT_NOR__
+s32 vm_e2pRead(u32 i__u32_Address, u32 i__u32_Size, void *o__p_Buffer);
+#else //__MCP_WITHOUT_NOR__
+s32  vm_e2pRead(char* Name, u32 Offset, u32 Size, void *pDest);
+#endif // __MCP_WITHOUT_NOR__
+
+
+/****************************************************************************/
+/*  Function: vm_e2pWrite                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Writes a parameter in the Open E²PROM.                        */
+/*            This is the counterpart of vm_e2pRead.                        */
+/*                                                                          */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address    | X |   |   |  Virtual address of the parameter       */
+/*  i__u32_Size       | X |   |   |  Number of bytes to retrieve            */
+/*  i__p_Buffer       | X |   |   |  Source buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+#ifndef __MCP_WITHOUT_NOR__
+s32 vm_e2pWrite(u32 i__u32_Address, u32 i__u32_Size, const void *i__p_Buffer);
+#else // __MCP_WITHOUT_NOR__
+s32 vm_e2pWrite(char* Name, u32 Offset, u32 i__u32_Size, const void *i__p_Buffer);
+#endif // __MCP_WITHOUT_NOR__
+
+
+
+/****************************************************************************/
+/*  Function: vm_e2pRestore                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Restores the whole E²PROM to the factory state.               */
+/*            This function affects the whole E²PROM and not only the Open  */
+/*            E²PROM.                                                       */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface :  n/a                                                        */
+/****************************************************************************/
+s32 vm_e2pRestore(void);
+
+/* The previous function used to be misspelled */
+#ifdef vm_e2pRestaure
+#undef vm_e2pRestaure
+#define vm_e2pRestaure vm_e2pRestore
+#endif
+
+
+/****************************************************************************/
+/*  Function: vm_e2pBuildCustomerMirror                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Saves the current state of the whole E²PROM in flash memory.  */
+/*            This is the function called by the AT command "AT+WMIR".      */
+/*                                                                          */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+s32 vm_e2pBuildCustomerMirror(void);
+
+
+/****************************************************************************/
+/*  Function: vm_e2pSaveOneParameter                                        */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Saves the given parameter in the Wavecom mirror.              */
+/*            The current value of the parameter will be stored in          */
+/*            flash memory instead of its factory value.                    */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address    | X |   |   |  Virtual address of the parameter       */
+/*  i__u32_Size       | X |   |   |  Number of bytes to save                */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_e2pSaveOneParameter(u32 i__u32_Address, u32 i__u32_Size);
+
+
+/****************************************************************************/
+/*  Function: vm_e2pSaveParameters                                          */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Saves all the parameters pushed in the given parameter list   */
+/*            in the Wavecom mirror.                                        */
+/*            A parameter list is a structure declared by the macro         */
+/*            VM_E2P_PARAMETER_LIST (see beneath).                          */
+/*            Instead of calling repeatedly vm_e2pSaveOneParameter,         */
+/*            calling vm_e2pSaveParameters once will do the same job faster.*/
+/*                                                                          */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__p_ParameterList| X |   |   |  List to save                           */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_e2pSaveParameters(void *i__p_ParameterList);
+
+/*
+ * Macro VM_E2P_PARAMETER_LIST:
+ * This macro creates an opaque container used by vm_e2pSaveParameters and 
+ * vm_e2pAddParamToContainer as a list of parameters.
+ *
+ * Usage: VM_E2P_PARAMETER_LIST(_size, _name)
+ * _size = number of parameters to save
+ * _name = name given to the container
+ *
+ * Example:
+ * int foo() {
+ *    VM_E2P_PARAMETER_LIST(2, params);
+ *    vm_e2pAddParamToContainer(E2P_DUMMY1, &params);
+ *    vm_e2pAddParamToContainer(E2P_DUMMY2, &params);
+ *    vm_e2pSaveParameters(&params);
+ * }
+ *
+ */
+#define VM_E2P_PARAMETER_LIST(_size, _name) struct { u16 foobar[(_size)*2+2]; } _name = { (_size), 0, }
+
+
+/****************************************************************************/
+/*  Function: vm_e2pAddParamToContainer                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Pushes the given parameter in a parameter list.               */
+/*            All the parameters pushed in the list can be saved            */
+/*            in the Wavecom mirror by a single call to vm_e2pSaveParameters*/
+/*                                                                          */
+/*                                                                          */
+/*   WARNING: Trying to overflow the list created by VM_E2P_PARAMETER_LIST  */
+/*            will trigger a fatal error.                                   */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address    | X |   |   |  Virtual address of the parameter       */
+/*  i__u32_Size       | X |   |   |  Number of bytes to save                */
+/*  o__p_List         |   | X |   |  List to update                         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_e2pAddParamToContainer(u32 i__u32_Address, u32 i__u32_Size, void *o__p_List);
+
+
+
+/****************************************************************************/
+/*  Function: vm_e2pSetProtection                                           */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Enables the E²PROM special parameters protection mechanism.   */
+/*            Some parameters of the GSM stack are protected against        */
+/*            any modification when the protection mechanism is active.     */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+s32 vm_e2pSetProtection(void);
+
+
+/****************************************************************************/
+/*  Function: vm_e2pUnsetProtection                                         */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Disables the E²PROM special parameters protection mechanism.  */
+/*            This is required to update some critical parameters.          */
+/*            Do not use unless you know what you are doing!                */
+/*            Do not forget to set back the protection once you've made     */
+/*            your modifications.                                           */
+/*                                                                          */
+/*  Return    : (s32) Returns OK when it succeeds                           */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+s32 vm_e2pUnsetProtection(void);
+
+
+
+
+#endif /* __VM_E2P_HO__*/
+

@@ -1,0 +1,68 @@
+/*!
+ * \file  vm_dbg_scr.hi
+ * \brief Debug Screen service management
+ *
+ *
+ */
+
+#ifndef __VM_DBG_SCR_HI__
+#define __VM_DBG_SCR_HI__
+
+#include "vm_types.ht"
+
+
+#define VM_CLEAR_FIELD	0x8000
+#define VM_SET_CLEAR_FIELD(x) ((x) | VM_CLEAR_FIELD)
+
+#define VM_NO_CHK ((s16) 0xffff)
+
+/**
+ * \brief type of a field in the \ref vm_debugInd_t structure
+ * 
+ */
+typedef struct
+{
+  s32   Val; ///< field value
+  u16   Idx; ///< index of the field 
+  u16   Pad; ///< Force 32 bits alignment
+
+} vm_dbgField_t;
+
+
+/**
+ * \brief type of the body for the message \ref VM_DEBUG_IND
+ * 
+ */
+typedef struct             
+{                          
+  u8    NbField;           ///< Number of fields to refresh           
+  u8    MaxField;	       ///< Currently allocated fields           
+  u8    Pad[ 2 ];          ///< Force 32 bits alignment            
+  vm_dbgField_t Field[1];  ///< 1st field description  
+                           
+} vm_debugInd_t; 
+
+/**
+ * \brief type of the body for the message \ref VM_DEBUG_REQ
+ * 
+ *  Pad is unused
+ */
+typedef struct             
+{                          
+  u32   Pad;               ///< unused field          
+                           
+} vm_debugReq_t; 
+
+typedef struct
+{
+ u8    ScrNum;
+ u16   ScrPos;
+ s16   Min;
+ s16   Max;
+ u8    Len;
+ ascii *Fmt;
+} vm_dbgScr_t;
+
+
+#endif /* __VM_DBG_SCR_HI__ */
+

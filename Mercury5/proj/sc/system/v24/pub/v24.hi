@@ -1,0 +1,11 @@
+/**
+ * \file v24.hi
+ * \brief V.24 Interface header
+ */
+
+#ifndef __V24_HI__
+#define __V24_HI__
+
+#include "sys_v24.hi"
+
+#endif //#endif __V24_HI_

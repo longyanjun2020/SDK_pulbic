@@ -1,0 +1,397 @@
+/****************************************************************************/
+/*  $Workfile::   fms_ad.hi                                               $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services                                        */
+/*             Applications and data storage                                */
+/*                                                                          */
+/*             Flat volume management for the storage of applets,           */
+/*             applications, and non-updatable data.                        */
+/*                                                                          */
+/*             Public interface                                             */
+/*                                                                          */
+/****************************************************************************/
+
+
+
+#ifndef __FMS_AD_HI__
+#define __FMS_AD_HI__
+
+#include "mdl_fms_cus.h"
+
+/****************************************************************************/
+/* TYPE DEFINITIONS                                                         */
+/****************************************************************************/
+
+typedef struct
+{
+   u32 freemem;
+   u32 deletedmem;
+   u32 totalmem;
+   u16 numobjects;
+   u16 numdeleted;
+   bool need_recovery;
+} fms_AdStats_t;
+
+
+/**
+ * @brief Volume state
+ */
+typedef enum
+{
+   FMS_AD_ERROR,     ///< Error, volume does not exist
+   FMS_AD_READY,     ///< Volume is usable
+   FMS_AD_NOTAVAIL,  ///< Volume not available
+   FMS_AD_REPAIR,    ///< Volume under compaction or needing compaction recovery
+   FMS_AD_TO_FORMAT, ///< Volume needs to be formatted to be operational
+   FMS_AD_FORMATTED  ///< Volume undergoing a format operation
+} fms_AdState_e;
+
+/**
+ * @brief Operation modes for fms_AdFormat2 function
+ */
+typedef enum
+{
+   FMS_AD_FORMAT_INIT,        ///< To initialise the format process
+   FMS_AD_FORMAT_CONTINUE,    ///< To actually run the format process
+   FMS_AD_FORMAT_ABORT        ///< To abort the format process
+} fms_AdFormatMode_e;
+
+/****************************************************************************/
+/* VOLUME IOCTL CONTROL CODES                                               */
+/****************************************************************************/
+
+typedef enum
+{
+   FMS_AD_DELETE_ALL_UNCOMPLETE,
+   FMS_AD_GET_FIRSTCELL_CONTENTSPTR
+} fms_AdVolumeCtrlCode_e;  /* see fms_AdVolumeIoControl for more info */
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/*  Function: fms_AdAllocate                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Allocates a new cell in flash memory.                         */
+/*            Initialises the given handle. The size of the cell must be    */
+/*            specified.                                                    */
+/*            Reports an error if a cell already exists with the same       */
+/*            identifier (except in the CUSTO volume)                       */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Identification of the used volume      */
+/*  i__u32_Ident      | X |   |   |  Arbitrary 32-bit identifier            */
+/*  i__u32_Size       | X |   |   |  Size to allocate                       */
+/*  o__ps_Handle      |   | X |   |  Handle to initialise                   */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdAllocate(fms_AdToken_e i__e_Token, u32 i__u32_Ident, u32 i__u32_Size, fms_AdHandle_t *o__ps_Handle);
+
+
+/****************************************************************************/
+/*  Function: fms_AdWrite                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Appends data in an allocated cell.                            */
+/*            The specified handle must have been initialised by            */
+/*            fms_AdAllocate or fms_AdResume.                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to the allocated cell           */
+/*  i__u32_Size       | X |   |   |  Number of bytes to write               */
+/*  i__p_Buffer       | X |   |   |  Source buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdWrite(fms_AdHandle_t *i__ps_Handle, u32 i__u32_Size, void *i__p_Buffer);
+
+
+/****************************************************************************/
+/*  Function: fms_AdResume                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Resumes an interrupted write operation and updates            */
+/*            the specified handle so that data can be appended to          */
+/*            a not yet finalised cell.                                     */
+/*                                                                          */
+/*            The handle to pass must have been initialised by              */
+/*            fms_AdFindFirst/fms_AdFindNext                                */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Handle     | X | X |   |  Handle to the cell to update           */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdResume(fms_AdHandle_t *io__ps_Handle);
+
+
+/****************************************************************************/
+/*  Function: fms_AdFinalise                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Finalises the creation of a new record.                       */
+/*            Once completed, nothing more can be written in the cell       */
+/*            (no possible update).                                         */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to close                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdFinalise(fms_AdHandle_t *i__ps_Handle)   ;
+
+
+/****************************************************************************/
+/*  Function: fms_AdRetrieve                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Searches for the given identifier and initialises             */
+/*            the given handle.                                             */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Identification of the used volume      */
+/*  i__u32_Ident      | X |   |   |  Identifier of the cell to look for     */
+/*  o__ps_Handle      |   | X |   |  Handle to initialise                   */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdRetrieve(fms_AdToken_e i__e_Token, u32 i__u32_Ident, fms_AdHandle_t *o__ps_Handle);
+
+
+s32 fms_AdFindNextByGroup(fms_AdHandle_t *o__ps_Handle, fms_AdIterator_t *io__ps_Browse);
+s32 fms_AdFindNextInAGroup(fms_AdHandle_t *o__ps_Handle, fms_AdIterator_t *io__ps_Browse);
+
+/****************************************************************************/
+/*  Function: fms_AdStats                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Gets global volume information                                */
+/*            (available space, number of records, ...)                     */
+/*                                                                          */
+/*  Return    : FMS_OK or error code                                        */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Identification of the used volume      */
+/*  o__ps_Stats       |   | X |   |  Information structure to fill          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdStats(fms_AdToken_e i__e_Token, fms_AdStats_t *o__ps_Stats);
+
+
+/****************************************************************************/
+/*  Function: fms_AdDelete                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Deletes a record                                              */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to the record to delete         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdDelete(fms_AdHandle_t *i__ps_Handle);
+
+
+/****************************************************************************/
+/*  Function: fms_AdFormat                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Destroys all the stored information.                          */
+/*            Use with care.                                                */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Identification of the used volume      */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdFormat(fms_AdToken_e i__e_Token);
+
+
+/****************************************************************************/
+/*  Function: fms_AdRecompactInit                                           */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Initialises the recompaction process.                         */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK                                                */
+/*                    FMS_FORBIDDEN if the volume cannot be recompacted     */
+/*                    FMS_NOT_AVAILABLE if the volume is unavailable        */
+/*                                   or if a compaction is already running  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Identification of the used volume      */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdRecompactInit(fms_AdToken_e i__e_Token);
+
+
+/****************************************************************************/
+/*  Function: fms_AdRecompact                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Step by step AD volume recompaction.                          */
+/*            The process must have been previously initialised             */
+/*            by a call to fms_AdRecompactInit.                             */
+/*            The function returns a progress percentage                    */
+/*            and must be called until it returns 100.                      */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) Percentage or negative error code                     */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Identification of the used volume      */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdRecompact(fms_AdToken_e i__e_Token);
+
+
+/****************************************************************************/
+/*  Function: fms_AdVolumeState                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Returns the state of the volume                               */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (fms_AdState_e) FMS_AD_READY if the volume is completely    */
+/*                                           initialised                    */
+/*                              FMS_AD_REPAIR if the volume needs a         */
+/*                                            recompaction recovery         */
+/*                              FMS_AD_NOTAVAIL if the volume is unavailable*/
+/*                              FMS_AD_ERROR otherwise                      */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Token of the volume to query           */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+fms_AdState_e fms_AdVolumeState(fms_AdToken_e i__e_Token);
+
+
+/****************************************************************************/
+/* ADDITIONAL SPECIAL COMMANDS                                              */
+/****************************************************************************/
+
+
+
+
+/****************************************************************************/
+/*  Function: fms_AdVolumeIoControl                                         */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Causes the volume to perform the operation corresponding      */
+/*            to the specified control command code.                        */
+/*            Data are passed between the caller and the function           */
+/*            through a generic I/O buffer.                                 */
+/*                                                                          */
+/*            Control codes:                                                */
+/*                                                                          */
+/*              FMS_AD_DELETE_ALL_UNCOMPLETE                                */
+/*                 Deletes all not finalized cells.                         */
+/*                  io__p_Buffer      : ignored                             */
+/*                  i__u32_BufferSize : ignored                             */
+/*                                                                          */
+/*              FMS_AD_GET_FIRSTCELL_CONTENTSPTR                            */
+/*                 Retrieves the address of the contents of the first       */
+/*                 cell, whether this cell exists or not.                   */
+/*                  io__p_Buffer      :  Output pointer to void*            */
+/*                  i__u32_BufferSize :  greater or equal to sizeof(void*)  */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Token        | X |   |   |  Identification of the used volume      */
+/*  i__e_ControlCode  | X |   |   |  Code of the operation to perform       */
+/*  io__p_Buffer      | X | X |   |  Input/output buffer (see above)        */
+/*  i__u32_BufferSize | X |   |   |  Size of the buffer                     */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_AdVolumeIoControl( fms_AdToken_e i__e_Token,
+                           fms_AdVolumeCtrlCode_e i__e_ControlCode,
+                           void *io__p_Buffer,
+                           u32 i__u32_BufferSize);
+
+/****************************************************************************/
+/*                        ADDITIONAL FORMAT COMMAND                         */
+/****************************************************************************/
+
+/**
+ * @brief Step by step volume format operation.
+ *
+ * Formats the specified AD volume.
+ * Use by caution.
+ *
+ * The passed handle is a pointer to a u32 integer
+ * which is modified by the function; the same pointer must
+ * be used for every call to the function during the
+ * format process.
+ *
+ * The operation must be initiated by a call with the mode
+ * parameter set to FMS_AD_FORMAT_INIT. Then the process
+ * is run one more step by each following call using the
+ * mode FMS_AD_FORMAT_CONTINUE.
+ *
+ * The format process is complete when the progress indicator
+ * has been set to a value of 100 by the function call.
+ *
+ * A call with mode FMS_AD_FORMAT_ABORT will abort the
+ * format process; the volume will afterwards needs a
+ * whole format operation to be useable again.
+ *
+ * @note The volume is already unusable after the initialisation
+ *       of the format process (with FMS_AD_FORMAT_INIT mode)
+ *
+ * @param i__e_Token Identification of the volume to format
+ * @param i__e_Mode Format modes (see fms_AdFormatMode_e)
+ * @param[in,out] io__pu32_Handle Format handle
+ * @param[out] o__pu32_Progress Progress percentage indicator (if non-null pointer)
+ *
+ * @return FMS_OK or error code
+ */
+s32 fms_AdFormat2(fms_AdToken_e i__e_Token,
+                  fms_AdFormatMode_e i__e_Mode,
+                  u32 *io__pu32_Handle,
+                  u32 *o__pu32_Progress);
+
+#endif /* ! __FMS_AD_HI__   */

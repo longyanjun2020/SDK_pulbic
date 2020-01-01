@@ -1,0 +1,86 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// (¡§MStar Confidential Information¡¨) by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+#ifndef __WAP_COMM_HI__
+#define __WAP_COMM_HI__
+#ifdef __WAP_MMI_CDWAP__
+
+#include "wap_define.hi"
+#include "mmi_if_def.h"
+#include "mmi_mae_shell.h"
+#include "mmi_mae_event.h"
+#include "ven_prim_msg.h"
+#include "vm_msgt.ht"
+#include "ven_handle.h"
+#include "ven_dbg.h"
+#include "wap_porting.hi"
+
+#define _TRACE_WAP           (VEN_DBG_GROUP_0 | VEN_DBG_LEVEL_17)
+#define _TRACE_WAP_TIMER     (VEN_DBG_GROUP_0 | VEN_DBG_LEVEL_18)
+
+#define WAP_EVENT_PACKAGE_NUMBER    100
+
+typedef void (*PFNWAPMEMFREE)(void* pData);
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+
+
+/**
+ * Wap net library use this function to send response message to MMI
+ *
+ * \param ev          pointer to WapEvent instance.
+ * \return <ul>
+ *          <li>1: Success
+ *          <li>-1: Failure
+ *         </ul>
+ * \ref  WapSendEventToKernel
+ */
+s32		WapSendEventToMMI(WapEvent_t* ev);
+
+/**
+ * Wap adaptation layer message paser handle function 
+ * 
+ * \param dwHandle   task id handle
+ * \param pData     WapEvent instance
+ */
+void WapMsgParser(u32 dwHandle,void *pData);
+/**
+  * Send response message to UI when excute command from UI 
+  *
+  * \param x,      event x element
+  * \param y,      event y element
+  * \param type, event type element
+  * \param pData, event pData element
+  * \param diDataLen, event DataLen element
+  */
+s32 WapSendRsqMessage(u32 nx, u32 ny, u32 type, void* pData, u32 dwDataLen);
+
+void WapCleanEventPackage(void);
+u32 WapGetEventCounts(void);
+s32 WapForceEventToMMI(void);
+
+
+#define WapSendReqMessage WapSendRsqMessage
+#ifdef  __cplusplus
+}       /* end of extern "C" */
+#endif
+
+#endif //#ifdef __WAP_MMI_CDWAP__
+
+#endif //__WAP_COMM_HI__

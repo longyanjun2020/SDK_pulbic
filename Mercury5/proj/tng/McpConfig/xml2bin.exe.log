@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "xml2bin.py", line 798, in <module>
+  File "xml\dom\minidom.pyc", line 1918, in parse
+  File "xml\dom\expatbuilder.pyc", line 922, in parse
+IOError: [Errno 13] Permission denied: './sc/customer/product/common/mcpconfig_xml/'
+Traceback (most recent call last):
+  File "xml2bin.py", line 798, in <module>
+  File "xml\dom\minidom.pyc", line 1918, in parse
+  File "xml\dom\expatbuilder.pyc", line 922, in parse
+IOError: [Errno 13] Permission denied: './sc/customer/product/common/mcpconfig_xml/'

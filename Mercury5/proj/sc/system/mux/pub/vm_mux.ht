@@ -1,0 +1,146 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+//**************************************************************************//
+/**
+ *   @file    vm_mux.ht   
+ *
+ *@b Purpose:     
+ *            AT open ITF structures
+ *            
+ *--------------------------------------------------------------------------  
+ *@b Content:     
+ *            structures               
+ *                                                                         
+ *--------------------------------------------------------------------------
+ * @date      03/11/2003
+ * @author    MSE
+ *
+ *@b Historical:
+ ***************************************************************************
+ *   Date:      Author: Note:
+ *
+ *@n 03/11/2003 MSE     Creation
+ *@n 06/12/2004 APH     MUX integration
+ *
+ */
+//**************************************************************************//
+
+#ifndef __VM_MUX_HT__
+#define __VM_MUX_HT__
+
+/**
+ * VM_MUX_AT_START_REQ_MSG
+ */
+typedef struct
+{  
+  u32  Port;         ///< Physical Port number
+  u16  N1;           ///< Maximum frame size
+  u8   T1;           ///< Acknowledgement timer
+  u8   N2;           ///< Maximum number of retransmission
+  u8   T2;           ///< Response timer for the MUX ctrl channel
+  u8   T3;           ///< Timer for the wake up procedure
+  u8   Role;         ///< Role 
+  u8   Forced;       ///< Case of MUX start forced at reset
+}
+vm_mux_at_start_req_t;
+
+/**
+ * VM_MUX_AT_STOP_REQ_MSG
+ */
+typedef struct
+{ 
+   u32 Port;         ///< Physical Port number
+}
+vm_mux_at_stop_req_t;
+ 
+
+/**
+ * VM_MUX_AT_OPEN_DLC_REQ_MSG 
+ * VM_MUX_AT_CLOSE_DLC_REQ_MSG
+ */
+typedef struct
+{  
+   u32  Port;       ///< Physical/Logical port Id
+   u8   Forced;     ///< Case of MUX dlci open forced at reset
+                    ///< Only for open DLC use
+}
+vm_mux_at_cmd_req_t;
+ 
+
+/**
+ * VM_MUX_AT_OPEN_DLC_CNF_MSG 
+ * VM_MUX_AT_CLOSE_DLC_CNF_MSG
+ */
+typedef struct
+{  
+   u32  Port;       ///< Physical port Id
+   u8   Response;   ///< TRUE or FALSE
+   
+}
+vm_mux_at_cmd_cnf_t;
+ 
+
+/**
+ * VM_MUX_AT_START_RSP_MSG
+ */
+typedef struct
+{
+   u32 Port;        ///< Physical port Id
+   u8 Response;     ///< TRUE or FALSE
+}
+vm_mux_at_start_rsp_t;
+ 
+
+/**
+ * VM_MUX_AT_OPEN_DLC_RSP_MSG 
+ * VM_MUX_AT_CLOSE_DLC_RSP_MSG
+ */
+typedef struct
+{
+   u32 Port;        ///< Physical/Logical port Id
+   u8 Response;     ///< TRUE or FALSE
+}
+vm_mux_at_cmd_rsp_t;
+ 
+
+/**
+ * VM_MUX_AT_STOP_RSP_MSG 
+ */
+typedef struct
+{
+   u32 Port;        ///< Physical port Id
+   u8 Response;     ///< TRUE or FALSE
+}
+vm_mux_at_stop_rsp_t;
+ 
+
+/**
+ * VM_MUX_AT_OPEN_DLC_IND_MSG
+ * VM_MUX_AT_CLOSE_DLC_IND_MSG
+ */
+typedef struct
+{
+   u32 Port;        ///< Physical/Logical port Id
+}
+vm_mux_at_cmd_ind_t;
+ 
+
+/**
+ * VM_MUX_AT_STOP_IND_MSG
+ */
+typedef struct
+{
+   u32 Port;        ///< Physical port Id
+}
+vm_mux_at_stop_ind_t;
+	
+
+#endif /* __MUX_AT_HI__ */

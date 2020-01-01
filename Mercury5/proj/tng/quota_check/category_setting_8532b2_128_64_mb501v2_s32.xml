@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QUOTA Manager="brian.tsui,liming.chen,jack.kuo">
+    <CATEGORY_LIST ROM_LIMIT_SIZE="6583701" RAM_LIMIT_SIZE="789701">  
+      <CATEGORY Name="ARMThumb"         ROM_LIMIT_SIZE="0"          RAM_LIMIT_SIZE="0"          Rule="-1"   ROM_Warning="2048"  RAM_Warning="200" Contact=""/>
+      <CATEGORY Name="Veneer"           ROM_LIMIT_SIZE="0"          RAM_LIMIT_SIZE="0"          Rule="-1"   ROM_Warning="2048"  RAM_Warning="200" Contact=""/>
+      <CATEGORY Name="Padding"          ROM_LIMIT_SIZE="0"          RAM_LIMIT_SIZE="0"          Rule="-1"   ROM_Warning="2048"  RAM_Warning="200" Contact=""/>      
+      <CATEGORY Name="Stack,Stack-MDL"  ROM_LIMIT_SIZE="1747660"    RAM_LIMIT_SIZE="141972"     Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="simon.huang,terry.chiang,ralf.chen,dustin.fan,jy.hsu,cuthbert.kao,allen.lai"/>
+      <CATEGORY Name="BlueTooth"        ROM_LIMIT_SIZE="240817"     RAM_LIMIT_SIZE="51800"      Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="ethan.lai,john.chen"/>
+      <CATEGORY Name="WIFI"             ROM_LIMIT_SIZE="0"          RAM_LIMIT_SIZE="1"          Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="peter-jc.lin,john.chen"/>
+      <CATEGORY Name="MMI,SDK"          ROM_LIMIT_SIZE="2995607"    RAM_LIMIT_SIZE="151657"     Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="christoph.kuo"/>  
+      <CATEGORY Name="Driver"           ROM_LIMIT_SIZE="353020"     RAM_LIMIT_SIZE="137072"     Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="hk.ting,alec.lin,darren-tc.liao,patrick-tf.yang"/>
+      <CATEGORY Name="Middleware"       ROM_LIMIT_SIZE="1033667"    RAM_LIMIT_SIZE="35117"      Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="yishin.tung,nathan.chen"/>
+      <CATEGORY Name="System"           ROM_LIMIT_SIZE="212930"     RAM_LIMIT_SIZE="272082"     Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="hk.ting,alec.lin,ericyk.wu"/>
+      <CATEGORY Name="Email"            ROM_LIMIT_SIZE="0"          RAM_LIMIT_SIZE="0"          Rule="1"    ROM_Warning="2048"  RAM_Warning="200" Contact="christoph.kuo"/>
+    </CATEGORY_LIST>
+    <CUS_LIST ROM_LIMIT_SIZE="772186">
+      <CUS Name="\CommonPortrait\TP_DefaultLangPack0001.cus.NC.CUS" ROM_LIMIT_SIZE="772186" Rule="1" ROM_Warning="2048" Contact="christoph.kuo"/>
+    </CUS_LIST>
+</QUOTA>

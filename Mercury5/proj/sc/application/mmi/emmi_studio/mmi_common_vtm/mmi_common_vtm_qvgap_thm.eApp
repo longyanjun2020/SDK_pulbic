@@ -1,0 +1,536 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CLSID_VTMDATEINPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="FcDateWdg" ClsID="CLSID_FCDATE_WIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="85325" />
+				<Model ClsID="CLSID_FCDATE_WIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="8eb29" />
+		</Widget>
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="LAYOUT_POS_X" Value="16" />
+		<InternProp Id="LAYOUT_POS_Y" Value="22" />
+		<InternProp Id="GUID" Value="7dca1" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMIMG" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Property Id="PROP_WDG_BG_COLOR" Value="RGBCOLOR_BLACK" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<InternProp Id="GUID" Value="15c4e" />
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="a57da" />
+		</Widget>
+		<InternProp Id="GUID" Value="941e1" />
+		<InternProp Id="LAYOUT_POS_X" Value="305" />
+		<InternProp Id="LAYOUT_POS_Y" Value="22" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSB_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<InternProp Id="VtmId" Value="vtm0" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMIMGGRID" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ImgGridWdg" ClsID="CLSID_IMGGRID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="acb3e" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="e2b29" />
+		</Widget>
+		<InternProp Id="GUID" Value="974e7" />
+		<InternProp Id="LAYOUT_POS_X" Value="587" />
+		<InternProp Id="LAYOUT_POS_Y" Value="22" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot; /&gt;" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<InternProp Id="VtmId" Value="vtm2" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMIMGTHUMB" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl6" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ImgThumbWdg" ClsID="CLSID_IMGGRID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT*2" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Property Id="PROP_WDG_BG_COLOR" Value="RGBCOLOR_BLACK" />
+				<InternProp Id="GUID" Value="2c884" />
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="ae0df" />
+		</Widget>
+		<InternProp Id="GUID" Value="69b2b" />
+		<InternProp Id="LAYOUT_POS_X" Value="883" />
+		<InternProp Id="LAYOUT_POS_Y" Value="22" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="VtmId" Value="vtm3" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMINPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl8" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="InputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Property Id="PROP_INPUT_WDG_MAX_BYTE_LENGTH" Value="0" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="0" />
+				<Property Id="PROP_INPUT_WDG_MULTILINE" Value="TRUE" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE" />
+				<Property Id="PROP_ENABLE_SCROLLINDICATOR" Value="SCROLL_STYLE_V_RIGHT" />
+				<Property Id="PROP_ENABLE_SCROLLBAR" Value="SCROLL_STYLE_V_RIGHT" />
+				<InternProp Id="GUID" Value="9396d" />
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="0" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="0" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="1e41c" />
+		</Widget>
+		<InternProp Id="GUID" Value="b8c43490-56bf-4ac6-a003-ab5b648fc180" />
+		<InternProp Id="LAYOUT_POS_X" Value="32" />
+		<InternProp Id="LAYOUT_POS_Y" Value="368" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot; /&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="VtmId" Value="vtm4" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMIPINPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl10" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="IpBgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*2" SizeWidth="MAIN_LCD_WIDTH">
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<InternProp Id="GUID" Value="80886" />
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*7" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LIST_INFO_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="IpWdg" ClsID="CLSID_IPWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH-20">
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="46b5e" />
+				<Position Type="X_POSITION" Value="4" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*7" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="2ba63" />
+		</Widget>
+		<InternProp Id="GUID" Value="cbf55" />
+		<InternProp Id="LAYOUT_POS_X" Value="305" />
+		<InternProp Id="LAYOUT_POS_Y" Value="368" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="VtmId" Value="vtm5" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMMENU" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl12" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="NumericWdg" ClsID="CLSID_NUMERIC_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="0" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="1c53a" />
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="275b9" />
+		</Widget>
+		<InternProp Id="GUID" Value="34db4" />
+		<InternProp Id="LAYOUT_POS_X" Value="587" />
+		<InternProp Id="LAYOUT_POS_Y" Value="375" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot; /&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMOPTIONMENU" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl14" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="OptWdg" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="906dd" />
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="681c7" />
+		</Widget>
+		<InternProp Id="GUID" Value="80fdc" />
+		<InternProp Id="LAYOUT_POS_X" Value="883" />
+		<InternProp Id="LAYOUT_POS_Y" Value="375" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="VtmId" Value="vtm7" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot; /&gt;" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMPOPUPINFO" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl16" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="InfoBgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="POPUPINFO_MAIN_TEXT_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<InternProp Id="GUID" Value="7e6c5" />
+				<Position Type="X_POSITION" Value="POPUPINFO_START_POS_X" />
+				<Position Type="Y_POSITION" Value="POPUPINFO_START_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_SYSTEM_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ThmTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="POPUPINFO_MAIN_TEXT_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Property Id="PROP_WDG_BG_COLOR" Value="RGBCOLOR_WHITE" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_BG_ALIGN" Value="(ALIGN_H_START | ALIGN_V_TOP)" />
+				<Property Id="PROP_TEXT_WDG_LAYOUT_FLAG" Value="LAYOUT_MULTILINE" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_TOP" />
+				<Property Id="PROP_TEXT_WDG_MIN_LINE_HEIGHT" Value="MAIN_SINGLE_LINE_MENU_ITEM_HEIGHT" />
+				<InternProp Id="GUID" Value="e502c" />
+				<Position Type="X_POSITION" Value="POPUPINFO_START_POS_X" />
+				<Position Type="Y_POSITION" Value="POPUPINFO_START_POS_Y+MAIN_TITLE_HEIGHT" />
+			</Widget>
+			<Widget Id="ViewportWdg" ClsID="CLSID_VIEWPORTWIDGET" SizeHeight="POPUPINFO_MAIN_TEXT_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="POPUPINFO_START_POS_X" />
+				<Position Type="Y_POSITION" Value="POPUPINFO_START_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_VIEWPORT_WDG_PANSTEP" Value="MAIN_LCD_ONELINE_HEIGHT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_START|ALIGN_V_TOP" />
+				<Property Id="PROP_ENABLE_SCROLLBAR" Value="SCROLL_STYLE_V_RIGHT" />
+				<InternProp Id="GUID" Value="631d7" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="ea861" />
+		</Widget>
+		<InternProp Id="GUID" Value="68706" />
+		<InternProp Id="LAYOUT_POS_X" Value="32" />
+		<InternProp Id="LAYOUT_POS_Y" Value="723" />
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLOSE" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMPOPUPINPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl18" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="InputBgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*7" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="ba500" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LIST_INFO_BG" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_WDG_BG_COLOR" Value="COMMON_COLOR_POPUP_INPUT_BG" />
+			</Widget>
+			<Widget Id="PopInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="POPUPINPUT_INPUTWDG_WIDTH">
+				<Position Type="X_POSITION" Value="4" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*7" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="0" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_HANDWRITING_ENABLE" Value="FALSE" />
+				<InternProp Id="GUID" Value="b4cf1" />
+				<Property Id="PROP_BORDER_SIZE" Value="1" />
+				<Property Id="PROP_BORDER_COLOR" Value="COLOR_GREY_3" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="8a215" />
+		</Widget>
+		<InternProp Id="GUID" Value="3ae7891b-25cd-4ecd-b3f5-0db1a9fb3efa" />
+		<InternProp Id="LAYOUT_POS_X" Value="309" />
+		<InternProp Id="LAYOUT_POS_Y" Value="723" />
+		<Property Id="PROP_LEFT_SK" Value="DEFAULT_SK" />
+		<Property Id="PROP_MIDDLE_SK" Value="DEFAULT_SK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_EXIT" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMPOPUPPROMPT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl20" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="BgImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*6" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_ENABLE_UPSCALE" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_IMAGE_SCALE_ROTATE" Value="NULL" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="267ab" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="COMMON_IMG_LIST_INFO_BG" />
+					</ModelItem>
+				</Model>
+				<Property Id="PROP_WDG_BG_COLOR" Value="COMMON_COLOR_POPUP_INPUT_BG" />
+			</Widget>
+			<Widget Id="PromptTxt" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="POPUPINPUT_INFO_POS_X" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*7" />
+				<Property Id="PROP_WDG_FONT_CATE" Value="FONT_CAT_NORMAL" />
+				<Property Id="PROP_WDG_TEXT_COLOR" Value="DEF_THM_COMMON_COLOR_LIST_TEXT" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<InternProp Id="GUID" Value="d2bd2" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_DETAIL_NAME" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PromptWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH-20">
+				<Position Type="X_POSITION" Value="4" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*6" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="0" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_NUMERIC" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_HANDWRITING_ENABLE" Value="FALSE" />
+				<InternProp Id="GUID" Value="4b88e" />
+				<Property Id="PROP_BORDER_SIZE" Value="1" />
+				<Property Id="PROP_BORDER_COLOR" Value="COLOR_GREY_3" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="b8cb9" />
+		</Widget>
+		<InternProp Id="GUID" Value="34c231b6-9ea8-472f-a3ae-738517399f9d" />
+		<InternProp Id="LAYOUT_POS_X" Value="587" />
+		<InternProp Id="LAYOUT_POS_Y" Value="723" />
+		<Property Id="PROP_LEFT_SK" Value="DEFAULT_SK" />
+		<Property Id="PROP_MIDDLE_SK" Value="DEFAULT_SK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_EXIT" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMPOPUPSELECT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl22" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SelectWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="c8420" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="81c54" />
+		</Widget>
+		<InternProp Id="GUID" Value="ab230" />
+		<InternProp Id="LAYOUT_POS_X" Value="883" />
+		<InternProp Id="LAYOUT_POS_Y" Value="723" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot; /&gt;" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMPROMPTINPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl24" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="TxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAINVIEW_WIDTH-8">
+				<Position Type="X_POSITION" Value="4" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*3" />
+				<InternProp Id="GUID" Value="c29fe" />
+				<Model ClsID="CLSID_TEXTWIDGET">
+					<ModelItem>
+						<String Id="TXT_PML_N_PAIR_PASSCODE" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PromptInput" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="MAINVIEW_WIDTH-8">
+				<Position Type="X_POSITION" Value="4" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*4" />
+				<Property Id="PROP_INPUT_WDG_PASSWORD_STYLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_NUMERIC" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_DISABLE_SYMBOL_TABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_MULTILINE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_HANDWRITING_ENABLE" Value="FALSE" />
+				<InternProp Id="GUID" Value="4819a" />
+				<Property Id="PROP_INPUT_WDG_IME_ENABLE" Value="0" />
+				<Property Id="PROP_INPUT_WDG_SOFTKEYBOARD_ENABLE" Value="0" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="81965" />
+		</Widget>
+		<InternProp Id="GUID" Value="494bf" />
+		<InternProp Id="LAYOUT_POS_X" Value="32" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1083" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMSIMSELECTION" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl26" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="MenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="93ca1" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="a11a8" />
+		</Widget>
+		<InternProp Id="GUID" Value="3def1" />
+		<InternProp Id="LAYOUT_POS_X" Value="310" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1083" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMTABMENU" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl28" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="TabWdg" ClsID="CLSID_TAB_WIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_TABWDG_MODE" Value="TAB_WDG_MODE_TOP_IMAGE_ONLY" />
+				<InternProp Id="GUID" Value="3c1e6" />
+			</Widget>
+			<Widget Id="TabMenu" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT*2" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT*2" />
+				<InternProp Id="GUID" Value="3ba59" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="b290b" />
+		</Widget>
+		<InternProp Id="GUID" Value="00b7aca9-45c3-4871-a591-bbc403f0f9bd" />
+		<InternProp Id="LAYOUT_POS_X" Value="587" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1083" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMTIMEINPUT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl30" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="FcTimeWdg" ClsID="CLSID_FCTIME_WIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_FCTIME_WDG_STYLE" Value="FCTIME_STYLE_FCTIME" />
+				<InternProp Id="GUID" Value="e7151" />
+				<Model ClsID="CLSID_FCTIME_WIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="1" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+						<Binary Value="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="ba549" />
+		</Widget>
+		<InternProp Id="GUID" Value="85b23" />
+		<InternProp Id="LAYOUT_POS_X" Value="883" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1083" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<Layout Id="CLSID_VTMTXTGRID" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainerControl32" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="TxtGridWdg" ClsID="CLSID_TXTGRID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<InternProp Id="GUID" Value="8d257" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+			</Widget>
+			<InternProp Id="GUID" Value="c4f08" />
+		</Widget>
+		<InternProp Id="GUID" Value="46c360" />
+		<InternProp Id="LAYOUT_POS_X" Value="36" />
+		<InternProp Id="LAYOUT_POS_Y" Value="1444" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SELECT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<Property Id="PROP_VIEW_SB_VISIBLE" Value="VIEWSK_INVISIABLE" />
+		<Property Id="PROP_VIEW_SK_VISIBLE" Value="VIEWSK_VISIABLE" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_VTMAPP" />
+</UiRoot>

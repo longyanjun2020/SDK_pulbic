@@ -1,0 +1,153 @@
+copy ./../sc/application/3rd/ime/my/inc
+copy ./../sc/application/3rd/ime/my/lib
+copy ./../sc/application/3rd/ime/my/rte
+copy ./../sc/application/3rd/ime/my/src/mylang.c
+copy ./../sc/application/3rd/ime/sg
+copy ./../sc/application/3rd/ime/kmx/lib
+copy ./../sc/application/3rd/handwriting/sinovoice/inc/sv_hzrecog.h
+copy ./../sc/application/3rd/handwriting/sinovoice/inc/sv_hzrecog_v4.h
+copy ./../sc/application/3rd/handwriting/sinovoice/inc/sv_hzrecog_v5.h
+copy ./../sc/application/3rd/handwriting/sinovoice/lib/hzrecog_v4_rvct22.lib
+copy ./../sc/application/3rd/handwriting/sinovoice/lib/hzrecog_v5_aeon.lib
+copy ./../sc/application/3rd/handwriting/sinovoice/lib/hzrecog_v5_rvct22.lib
+copy ./../sc/application/3rd/sxmengine/inc/apple_appdata_miniapm.h
+copy ./../sc/application/3rd/sxmengine/inc/leogun.h
+copy ./../sc/application/3rd/sxmengine/inc/svgiv_ta.h
+copy ./../sc/application/3rd/sxmengine/inc/sxm_apple.h
+copy ./../sc/application/3rd/sxmengine/inc/vceres.h
+copy ./../sc/application/3rd/sxmengine/lib/sxm_target.lib
+del ./../sc/application/3rd/java/Oakmont/lib/target/jtwi_184
+del ./../sc/application/3rd/java/Oakmont/lib/target/midp
+del ./../sc/application/3rd/java/Oakmont/lib/win32/jtwi_184
+del ./../sc/application/3rd/java/Oakmont/lib/win32/midp
+move ./../MStarStudio_UP/lib/hzrecog.lib
+move ./../MStarStudio_UP/lib/dnesVs2005.lib
+copy ./../MStarStudio_UP/lib/myapi.lib
+move ./../MStarStudio_UP/lib/SGIME*.lib
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj dnesVs2005.lib  
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/system/global_Res/fonts
+copy ./../sc/customer/default/src/mmi/resource/QCIF_Res/system/global_Res/fonts
+copy ./../sc/customer/default/src/mmi/resource/QCIF_SmallRom_Res/system/global_Res/fonts
+copy ./../sc/customer/default/src/mmi/resource/QQVGA_SmallRom_Res/system/global_Res/fonts
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/system/global_Res/fonts
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_3D_Res/system/global_Res/fonts
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/system/global_Res/fonts
+B3_del ./../sc/application/mdl3g
+B3_del ./../sc/driver/hal/msw8830x
+B3_del ./../sc/application/3rd/3g324m
+B3_del ./../sc/application/3rd/dalvik
+B3_del ./../sc/application/3rd/dm2
+B3_del ./../sc/application/3rd/pthread
+B3_del ./../sc/middleware/vt_mm
+B3_del ./../sc/middleware/vt_task
+B3_del ./../sc/middleware/nes_dlm
+B3_del ./../sc/middleware/venc
+B3_del ./../sc/driver/drv/g3d
+B3_del ./../sc/driver/drv/etmi
+B3_del ./../sc/driver/drv/mfd
+B3_del ./../sc/driver/drv/mbas
+B3_del ./../sc/driver/drv/hwconfig
+B3_del ./../sc/system/r2
+B3_del ./../sc/customer/default/src/mmi/resource/WQVGA_3D_Res
+B3_del ./../sc/customer/product/cust/nvram
+B3_del ./../sc/customer/product/cust/stack
+B3_del ./../sc/customer/product/cust/nandprt/nand_conf_g1.mak
+B3_del ./../sc/customer/product/cust/nandprt/PARTITION_v2_8830nDft.pni
+B3_del ./../sc/customer/product/cust/nandprt/PARTITION_v2_canisV.pni
+B3_del ./../sc/customer/product/cust/nandprt/PARTITION_v2_canisV_nand.pni
+B3_del ./../sc/customer/product/cust/scatter/scatter_8830n.ldi
+B3_del ./../sc/customer/product/cust/scatter/scatter_8830n_dlm.ldi
+B3_del ./../sc/customer/product/cust/scatter/scatter_8830n_emmi_sldlm.ldi
+B3_del ./../../SD_content/G1
+G1_del ./../sc/driver/hal/msw8533x
+G1_del ./../../SD_content/B3
+del ./../sc/driver/hal/msw8573
+del ./../sc/middleware/eml_main
+del ./../MStarStudio_UP/MStarDeveloper/XMMI/debug/SimUTCase
+del ./../sc/application/sys/utility/FileProspector
+del ./../../tng/Lint_Owner.txt
+replace ./../MStarStudio_UP/MStarDeveloper/XMMI/MMI_BuildAll.sln Task_ime.vcproj Task_ime_my.vcproj
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_ARA_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_BEN_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_CN_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_CZE_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_DUT_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_ENG_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_FOREIGN_ENGINE_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_FRE_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_GER_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_GRE_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_HIN_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_IND_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_ITA_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_MAL_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_PER_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_POL_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_POR_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_RUS_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_SPA_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_THA_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_TUR_WIN32.lib  
+replace ./../MStarStudio_UP/MStarKernel/App/XMMI/App_mmi_B3.vcproj SGIME_VIE_WIN32.lib  
+del ./../sc/customer/product/common/e2p/default_calibration_msr7100_CusPA.e2p
+del ./../sc/customer/product/common/e2p/default_calibration_msr7100_cuspa.e2p.tmp
+del ./../sc/customer/product/common/e2p/default_calibration_msr7100_rfmd3159.e2p
+del ./../sc/customer/product/common/e2p/default_calibration_msr7100_rfmd7163.e2p
+del ./../sc/customer/product/common/e2p/default_calibration_msr7100_rfmd7168.e2p
+del ./../sc/customer/product/common/e2p/rfparam_msr7100_CusPA.e2p
+del ./../sc/customer/product/common/e2p/rfparam_msr7100_cuspa.e2p.tmp
+del ./../sc/customer/product/common/e2p/rfparam_msr7100_rfmd3159.e2p
+del ./../sc/customer/product/common/e2p/rfparam_msr7100_rfmd7163.e2p
+del ./../sc/customer/product/common/e2p/rfparam_msr7100_rfmd7168.e2p
+del ./../sc/customer/product/common/e2p/rfparam_msr7100_RPF88144B-01.e2p
+copy ./../sc/customer/product/cust/drv/app_calibration_table/src/BaseTable
+copy ./../sc/customer/product/cust/drv/arp_calibration_table/src/BaseTable
+del ./../sc/customer/product/common/mak/hal/options_summary_ChipSeries.xls
+copy ./../sc/application/mmi/app/FruitSliceGame
+copy ./../sc/application/mmi/app/GogoBoxGame
+copy ./../sc/application/mmi/app/IplayCube
+copy ./../sc/application/mmi/app/LabyrinthGame
+copy ./../sc/application/mmi/app/RubiksCube
+copy ./../sc/application/mmi/app/AngryBird
+copy ./../sc/application/mmi/app/CutRope
+copy ./../sc/application/mmi/app/FishFuryGame
+copy ./../sc/application/mmi/app/VampireGame
+copy ./../sc/application/mmi/app/ZombieGame
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/FruitSliceGame_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/GogoBoxGame_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/IplayCube_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/LabyrinthGame_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/RubiksCube_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/AngryBird_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/CutRope_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/FishFuryGame_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/VampireGame_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default/ZombieGame_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default_L/GogoBoxGame_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default_L/IplayCube_Res
+copy ./../sc/customer/default/src/mmi/resource/HVGA_Res/default_L/RubiksCube_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/FruitSliceGame_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/GogoBoxGame_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/IplayCube_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/LabyrinthGame_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/RubiksCube_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/CutRope_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/FishFuryGame_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/VampireGame_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default/ZombieGame_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default_L/GogoBoxGame_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default_L/IplayCube_Res
+copy ./../sc/customer/default/src/mmi/resource/WQVGA_Res/default_L/RubiksCube_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/FruitSliceGame_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/GogoBoxGame_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/IplayCube_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/LabyrinthGame_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/RubiksCube_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/FishFuryGame_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/VampireGame_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default/ZombieGame_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default_L/GogoBoxGame_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default_L/IplayCube_Res
+copy ./../sc/customer/default/src/mmi/resource/QVGA_Res/default_L/RubiksCube_Res
+del ./../abi_dumps
+del ./../tng/abi

@@ -1,0 +1,213 @@
+/****************************************************************************/
+/*  $Workfile::   fms_ad_volumes.ho                                       $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services                                        */
+/*             Applications and data storage                                */
+/*                                                                          */
+/*             Flat volume management for the storage of applets,           */
+/*             applications, and non-updatable data.                        */
+/*                                                                          */
+/*             Known flat volumes descriptors                               */
+/*                                                                          */
+/****************************************************************************/
+
+
+
+#ifndef _61464b78e770ccb1a739e8461543f44c_INCLUDED_FMS_AD_VOLUMES_HO
+#define _61464b78e770ccb1a739e8461543f44c_INCLUDED_FMS_AD_VOLUMES_HO
+
+
+/****************************************************************************/
+/*  VOLUMES TAGS                                                            */
+/****************************************************************************/
+
+#define FMS_CUSTO_VOLUME_TAG  (0x46535543)
+#define FMS_JAVASTORE_VOLUME_TAG    (0x4A53544F)
+#define FMS_JAVAEXEC_VOLUME_TAG     (0x4A455845)
+#define FMS_DOTA_VOLUME_TAG   (0x41544f44)
+#define FMS_SOUND_VOLUME_TAG  (0x56444e53)
+
+/****************************************************************************/
+/*  SPECIAL MACROS TO TOGGLE BETWEEN RO IN TARGET AND RW IN DOWNLOADER      */
+/****************************************************************************/
+#ifdef __DOWNLOADER__
+#define TRUE_IF_DWL     TRUE
+#define TRUE_UNLESS_DWL FALSE
+#else
+#define TRUE_IF_DWL     FALSE
+#define TRUE_UNLESS_DWL TRUE
+#endif
+
+/****************************************************************************/
+/*  VOLUMES DESCRIPTORS                                                     */
+/****************************************************************************/
+
+FMS_STATIC fms_FlatVolumeDesc_t fms_s_CustoDescriptor =
+{
+   /* Origin            */ 0,
+   /* Volume top        */ 0,
+   /* Deleted space     */ 0,
+   /* Number of sectors */ 0,
+   /* Free rec          */ NULL,
+   /* Semaphore         */ 0,
+   /* State             */ FMS_FLAT_VOLUME_IDLE,
+   /* Init done         */ FALSE,
+   /* Recovery needed   */ FALSE,
+   /* Erase allowed     */ FALSE,
+   /* Read only         */ TRUE_UNLESS_DWL,
+   /* Unlimited alloc   */ FALSE,
+   /* Recompactable     */ FALSE,
+   /* Auto recover      */ FALSE,
+   /* Unique idents     */ FALSE,
+   /* Update allowed    */ FALSE,
+   /* Full trail check  */ FALSE
+};
+
+FMS_STATIC fms_FlatVolumeDesc_t fms_s_JavaStoreVolumeDescriptor =
+{
+   /* Origin            */ 0,
+   /* Volume top        */ 0,
+   /* Deleted space     */ 0,
+   /* Number of sectors */ 0,
+   /* Free rec          */ NULL,
+   /* Semaphore         */ 0,
+   /* State             */ FMS_FLAT_VOLUME_IDLE,
+   /* Init done         */ FALSE,
+   /* Recovery needed   */ FALSE,
+   /* Erase allowed     */ TRUE,
+   /* Read only         */ FALSE,
+   /* Unlimited alloc   */ FALSE,
+   /* Recompactable     */ TRUE,
+   /* Auto recover      */ FALSE,
+   /* Unique idents     */ TRUE,
+   /* Update allowed    */ FALSE,
+   /* Full trail check  */ FALSE
+};
+
+FMS_STATIC fms_FlatVolumeDesc_t fms_s_JavaExecVolumeDescriptor =
+{
+   /* Origin            */ 0,
+   /* Volume top        */ 0,
+   /* Deleted space     */ 0,
+   /* Number of sectors */ 0,
+   /* Free rec          */ NULL,
+   /* Semaphore         */ 0,
+   /* State             */ FMS_FLAT_VOLUME_IDLE,
+   /* Init done         */ FALSE,
+   /* Recovery needed   */ FALSE,
+   /* Erase allowed     */ FALSE,
+   /* Read only         */ FALSE,
+   /* Unlimited alloc   */ FALSE,
+   /* Recompactable     */ FALSE,
+   /* Auto recover      */ FALSE,
+   /* Unique idents     */ TRUE,
+   /* Update allowed    */ FALSE,
+   /* Full trail check  */ FALSE
+};
+
+FMS_STATIC fms_FlatVolumeDesc_t fms_s_SoundVolumeDescriptor =
+{
+   /* Origin            */ 0,
+   /* Volume top        */ 0,
+   /* Deleted space     */ 0,
+   /* Number of sectors */ 0,
+   /* Free rec          */ NULL,
+   /* Semaphore         */ 0,
+   /* State             */ FMS_FLAT_VOLUME_IDLE,
+   /* Init done         */ FALSE,
+   /* Recovery needed   */ FALSE,
+   /* Erase allowed     */ FALSE,
+   /* Read only         */ FALSE,
+   /* Unlimited alloc   */ FALSE,
+   /* Recompactable     */ FALSE,
+   /* Auto recover      */ FALSE,
+   /* Unique idents     */ TRUE,
+   /* Update allowed    */ FALSE,
+   /* Full trail check  */ FALSE
+};
+
+FMS_STATIC fms_FlatVolumeDesc_t fms_s_DotaVolumeDescriptor =
+{
+   /* Origin            */ 0,
+   /* Volume top        */ 0,
+   /* Deleted space     */ 0,
+   /* Number of sectors */ 0,
+   /* Free rec          */ NULL,
+   /* Semaphore         */ 0,
+   /* State             */ FMS_FLAT_VOLUME_IDLE,
+   /* Init done         */ FALSE,
+   /* Recovery needed   */ FALSE,
+   /* Erase allowed     */ TRUE,
+   /* Read only         */ FALSE,
+   /* Unlimited alloc   */ TRUE,
+   /* Recompactable     */ TRUE,
+   /* Auto recover      */ FALSE,
+   /* Unique idents     */ TRUE,
+   /* Update allowed    */ FALSE,
+   /* Full trail check  */ TRUE
+};
+
+/****************************************************************************/
+/* VOLUMES TOKENS                                                           */
+/****************************************************************************/
+
+typedef struct
+{
+   u32                  u32_NotTag;
+   fms_FlatVolumeDesc_t *ps_Volume;
+   fms_AdToken_e        e_Token;
+   bool                 b_NukeOnFailedInit;
+   bool                 b_VariableOrigin;
+} fms_AdTokenLink_t;
+
+FMS_STATIC const fms_AdTokenLink_t fms_as_AdVolumesList[] = 
+{
+   /* Customisation files */
+   {
+      ~FMS_CUSTO_VOLUME_TAG,
+      &fms_s_CustoDescriptor,
+      FMS_CUSTO_VOLUME,
+      /* Nuke if init failed */ TRUE_IF_DWL,
+      /* Variable size       */ TRUE
+   },
+   /* Java applet storage */
+   {
+      ~FMS_JAVASTORE_VOLUME_TAG,
+      &fms_s_JavaStoreVolumeDescriptor,
+      FMS_JAVASTORE_VOLUME,
+      /* Nuke if init failed */ TRUE,
+      /* Variable size       */ FALSE
+   },
+   /* Java applet execution */
+   {
+      ~FMS_JAVAEXEC_VOLUME_TAG,
+      &fms_s_JavaExecVolumeDescriptor,
+      FMS_JAVAEXEC_VOLUME,
+      /* Nuke if init failed */ TRUE,
+      /* Variable size       */ FALSE
+   },
+   /* Dota */
+   {
+      ~FMS_DOTA_VOLUME_TAG,
+      &fms_s_DotaVolumeDescriptor,
+      FMS_DOTA_VOLUME,
+#ifdef __DEFERRED_DOTA_INIT__
+      /* Nuke if init failed */ TRUE_IF_DWL,
+#else
+      /* Nuke if init failed */ TRUE,
+#endif
+      /* Variable size       */ FALSE
+   },
+   /* Sound */
+   {
+      ~FMS_SOUND_VOLUME_TAG,
+      &fms_s_SoundVolumeDescriptor,
+      FMS_SOUND_VOLUME,
+      /* Nuke if init failed */ TRUE,
+      /* Variable size       */ FALSE
+   }
+   
+};
+
+
+#endif /* ! _61464b78e770ccb1a739e8461543f44c_INCLUDED_FMS_AD_VOLUMES_HO   */

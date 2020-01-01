@@ -1,0 +1,112 @@
+/**
+ * \file watch.ho
+ * \brief Watches tools interface file
+*/
+/****************************************************************************/
+#ifndef __WATCH_HO__
+#define __WATCH_HO__
+
+#include "stdcomp.h"
+
+#if defined (__SDK_SIMULATION__) 
+#define __packed
+#elif defined (__GNUC__) && !defined(__packed)
+#define __packed __attribute__((packed))
+#endif //__SDK_SIMULATION__
+
+/**
+ * Watches labels
+ */
+
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+ u8 Pos;
+ u8 Chr [3];
+} WatchDataChr_t;
+
+/**
+ * Watches update information
+ */
+
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+ u8  Pos;
+ u8  Pad;
+ s16 Data;
+} WatchDataInt_t;
+
+/**
+ * Internal watches descriptor
+ */
+
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+ u16            Pad;
+ bool           Enable;
+ u8             NbItem;
+ WatchDataChr_t *WatchTab;
+ s16            *DataTab;
+ s16            *DataUpdateTab;
+} Watches_t;
+
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+ u8 TypData;
+ u8 WatchNum;
+ u8 Pad1;
+ u8 Pad2;
+} WatchMsg_t;
+
+#ifdef __COMPACT_WATCH__
+#ifdef __GNUC__
+typedef struct __packed
+#else
+typedef __packed struct
+#endif
+{
+ u32 Mask;
+ u8 WatchNum;
+ u8 Pad;
+} WatchCompactMsg_t;
+#endif// __COMPACT_WATCH__
+
+#define FIRST_USER_WATCH  4     /* add your own watches starting with this */
+#define NB_MAX_WATCH      8
+#define DATA_CHAR 0
+#define DATA_INT  1
+#define HWLWDEWIN 80     /* Wide of a watch window.         */
+#define NBWTDATA  3*10   /* 5 lines with 10 fields in each. */	
+#define NBMAXWATCH   5   /* Max number of watch windows.    */	
+#define ACTIVEWATCH  1   /* Define an active watch window.  */
+#define PASSIVEWATCH 0   /* Define a passive watch window.  */
+
+
+extern Watches_t Watches[];
+
+#define ControlWatch(WatchNum, Enable) Watches[WatchNum].Enable = Enable
+
+void InitWatchWin      ( u8 WatchNum, u8 NbItem, WatchDataChr_t *WatchTab, s16 *DataTab );
+void UpdtWatchWin      ( void );
+void InitDefaulWatches ( void );
+
+
+#endif /* __WATCH_HO__ */
+
+
+

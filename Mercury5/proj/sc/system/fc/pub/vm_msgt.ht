@@ -1,0 +1,67 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 2001
+*/
+
+/****************************************************************************/
+/*  File    : vm_msgt.ht                                                    */
+/*--------------------------------------------------------------------------*/
+/*  Description:  OPEN-MMI message structure definition                     */
+/*                                                                          */
+/*  Contents: CAUTION every module including this header file should before */
+/*                    define the type vm_Body_t as the union of all the     */
+/*                    expected messages.                                    */
+/*                                                                          */
+/*  History :                                                               */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author     | Err  |  Modification                             */
+/*----------+------------+------+-------------------------------------------*/
+/* 15/09/01 |  ach       |      |  Creation                                 */
+/*----------+------------+------+-------------------------------------------*/
+/*
+$LogWavecom: G:\projet\gsm\pvcsarch\archives\cus-itf\vm_msgt.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 30.06.03 | ddo    | 1.1            | moved to fc/com                    
+ *----------+--------+----------------+-------------------------------------
+ * 01.10.02 | ddo    | 1.0            | Initial revision.                  
+ *----------+--------+----------------+-------------------------------------
+*
+* Add $log tag for comments
+*/
+/****************************************************************************/
+
+#ifndef __VM_MSGT_HT__
+#define __VM_MSGT_HT__                                                        
+
+#include "vm_types.ht"
+
+/*****************************************/
+/*    Message structure                  */
+/*****************************************/
+
+/* Header Part of the message */
+typedef struct  
+{
+    u8  MbxSrc;
+    u8  ModuleID;
+    u16  MbxDst;
+    s16  Length;
+    u16  TypMsg;
+} vm_msgHeader_t;
+
+/* Structure of the Message */
+struct vm_msg
+{ 
+    vm_msgHeader_t   Header; 
+    vm_msgBody_t     Body;   
+};
+
+
+#endif  /* __VM_MSGT_HT__ */
+

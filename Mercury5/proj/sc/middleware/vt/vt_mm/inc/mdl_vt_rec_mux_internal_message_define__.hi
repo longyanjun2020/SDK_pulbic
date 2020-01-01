@@ -1,0 +1,46 @@
+#ifndef __MDL_VT_REC_MUX_INTERNAL_MSG_DEF_H__
+#define __MDL_VT_REC_MUX_INTERNAL_MSG_DEF_H__
+
+VM_MSG_DEF(MDL_VTMUX_MSG_BASE=(VM_CUS67_BASE+ 0x0000), void DUMMY) // Message Base ID
+
+VM_MSG_DEF(MDL_VTMUX_CMD_INIT= MDL_VTMUX_MSG_BASE, void DUMMY)   //0xD400
+VM_MSG_DEF(MDL_VTMUX_CMD_RECORD,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_CMD_STOP,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_CMD_PAUSE,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_CMD_RESUME,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_CMD_SAVE,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_CMD_DISCARD,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_CMD_ABORT,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_CMD_DEINIT,void DUMMY)
+
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE= (MDL_VTMUX_MSG_BASE + 0x0030), void DUMMY)   // General purpose write task response
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_STOPPED,void DUMMY)                                      // Write Task Stopped Successfully
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_PAUSED,void DUMMY)                                       // Write Task Paused Successfully
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_RESUMED,void DUMMY)                                      // Write Task Resumed Successfully
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_START_SAVE,void DUMMY)                                   // Write Task Starts Saving
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_SAVE_DONE,void DUMMY)                                    // Write Task Saves File Done
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_START_DISCARD,void DUMMY)                                // Write Task Starts Discard
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_DISCARD_DONE,void DUMMY)                                 // Write Task Discards Files Done
+VM_MSG_DEF(MDL_VTMUX_RESPONSE_WRITE_ABORT_SAVING,void DUMMY)                                 // Write Task Abort Saving
+
+VM_MSG_DEF(MDL_VTMUX_INTERNAL_WRITE= (MDL_VTMUX_MSG_BASE + 0x0060), void DUMMY)   // Internal Command to Write Task
+VM_MSG_DEF(MDL_VTMUX_INTERNAL_WRITE_SAVE_DONE,void DUMMY)                                    // Write Task Saves File Done
+VM_MSG_DEF(MDL_VTMUX_INTERNAL_WRITE_DISCARD_START,void DUMMY)                                // Write Task Discards Files
+VM_MSG_DEF(MDL_VTMUX_INTERNAL_WRITE_DATA,void DUMMY)			                                // Write Task Write Buffer
+
+VM_MSG_DEF(MDL_VTMUX_MBOX_NONE= (MDL_VTMUX_MSG_BASE + 0x007F), void DUMMY)   // NOTE: this should not be error
+
+VM_MSG_DEF(MDL_VTMUX_ERROR_MASK= (MDL_VTMUX_MSG_BASE + 0x0080), void DUMMY)   // Error Mask
+VM_MSG_DEF(MDL_VTMUX_ERROR_MAIN,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_ERROR_VIDEO,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_ERROR_AUDIO,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_ERROR_WRITE,void DUMMY)
+VM_MSG_DEF(MDL_VTMUX_ERROR_DISK_FULL,void DUMMY)                                             // disk full
+VM_MSG_DEF(MDL_VTMUX_ERROR_MASK_TIMER= (MDL_VTMUX_MSG_BASE + 0x0090), void DUMMY)   // Error Mask for Timer
+VM_MSG_DEF(MDL_VTMUX_BYPASS_CMD= (MDL_VTMUX_MSG_BASE + 0x00A0), void DUMMY)   // Error Mask for Timer
+
+VM_MSG_DEF(MDL_VTMUX_TIMER_BASE=(MDL_VTMUX_ERROR_MASK_TIMER), void DUMMY)
+
+
+#endif
+

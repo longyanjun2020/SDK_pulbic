@@ -1,0 +1,677 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="CONSETTING_WND_MFL" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="BaseContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="AccountNameWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="2*MAIN_TITLE_WIDTH" SizeWidth="MAIN_LCD_WIDTH">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="DBTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="49884" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_ACCOUNT_NAME" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="APNWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="2*MAIN_TITLE_WIDTH" SizeWidth="MAIN_LCD_WIDTH">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="ApnTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="7c1bd" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_APN" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="UserNameWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="2*MAIN_TITLE_WIDTH" SizeWidth="MAIN_LCD_WIDTH">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="UserNameTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="64732" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_USER_NAME" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PasswordWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="2*MAIN_TITLE_WIDTH" SizeWidth="MAIN_LCD_WIDTH">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="PwdTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="bb520" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_PASSWORD" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="AuthTypeWdg" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="2*MAIN_TITLE_WIDTH" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="cc6ce" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_LIL_N_AUTH_TYPE" />
+						<Struct>
+							<String Id="TXT_LIL_N_NORMAL" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_SECURE" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DNSWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="2*MAIN_TITLE_WIDTH" SizeWidth="MAIN_LCD_WIDTH">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="DnsTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="8e456" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_DNS" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ProfileNameWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="0" SizeWidth="0">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="ProfileTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="20f98" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_PROFILE_NAME" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="HomePageWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="0" SizeWidth="0">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="HomePageTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="c60a7" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_HOMEPAGE" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ConnectTypeWdg" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="c7de5" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_LIL_N_CONNECTION_TYPE" />
+						<Struct>
+							<String Id="TXT_LIL_N_CONNECTION_ORIENTED" />
+						</Struct>
+						<Struct>
+							<String Id="TXT_LIL_N_HTTP" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ProxyWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="0" SizeWidth="0">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="ProxyTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="d7669" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_PROXY" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PortWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="0" SizeWidth="0">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="PortTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="58de7" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_PORT" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="DataAccountWdg" ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET" SizeHeight="0" SizeWidth="0">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="c6bb2" />
+				<Model ClsID="CLSID_LINE2INFOPICK_TEXTWIDGET">
+					<ModelItem>
+						<Binary Value="0" />
+						<String Id="TXT_NULL_ID" />
+						<Struct>
+							<String Id="TXT_NULL_ID" />
+						</Struct>
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="MMSCWdg" ClsID="CLSID_TEXT_LINE2INFO_WIDGET" SizeHeight="0" SizeWidth="0">
+				<ComponentWidget WPropertyId="PROP_DOUBLEITEM_WDG_DOWNWIDGET">
+					<InternProp Id="ComponentId" Value="MMSCTxtWdg" />
+					<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				</ComponentWidget>
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="aee62" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_V_MIDDLE|ALIGN_H_CENTER" />
+				<Model ClsID="CLSID_TEXT_LINE2INFO_WIDGET">
+					<ModelItem>
+						<String Id="TXT_LIL_N_MMSC" />
+						<String Id="TXT_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="3c567" />
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="278" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_EDIT_PROFILE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<Property Id="PROP_LEFT_SK" Value="SK_SAVE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CANCEL" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_IP_EDITOR" ClsID="CLSID_VTMIPINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMIPINPUT" FileLocation="CLSID_VTMIPINPUT">
+		<Widget Id="abscontainer14" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="imagewidget4" ClsID="CLSID_IMAGEWIDGET" SizeHeight="POPUPINPUT_MAIN_HEIGHT" SizeWidth="POPUPINPUT_MAIN_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="214f3" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="ipwidgetcontrol1" ClsID="CLSID_IPWIDGET" SizeHeight="POPUPINPUT_INPUTWDG_HEIGHT" SizeWidth="POPUPINPUT_INPUTWDG_WIDTH" InheritID="IPWidgetControl" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="acb1a" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="c30d7" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-54" />
+		<InternProp Id="VtmId" Value="vtmIpEditorInput" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_INPUT_NUMBER" ClsID="CLSID_VTMPOPUPINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPINPUT" FileLocation="CLSID_VTMPOPUPINPUT">
+		<Widget Id="abscontainer13" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="imagewidget3" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="9ecd5" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VtmNumInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="POPUPINPUT_INPUTWDG_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_NUMERIC" />
+				<InternProp Id="GUID" Value="76691" />
+				<InternProp Id="VtmWidgetName" Value="VtmNumInputWdg" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_DISABLE_SYMBOL_TABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_PASSWORD_STYLE" Value="FALSE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="26a0e" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-54" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLEAR" />
+		<InternProp Id="VtmId" Value="tNumbericPopUpInputData" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_INPUT_PASSWORD" ClsID="CLSID_VTMPOPUPINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPINPUT" FileLocation="CLSID_VTMPOPUPINPUT">
+		<Widget Id="abscontainer12" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="imagewidget2" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="67ccc" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VtmPwdInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="POPUPINPUT_INPUTWDG_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_MT_Abc" />
+				<InternProp Id="GUID" Value="ff0aa" />
+				<InternProp Id="VtmWidgetName" Value="VtmPwdInputWdg" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_DISABLE_SYMBOL_TABLE" Value="FALSE" />
+				<Property Id="PROP_INPUT_WDG_PASSWORD_STYLE" Value="TRUE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="07a36" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-54" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLEAR" />
+		<InternProp Id="VtmId" Value="tPasswordPopUpInputData" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_INPUT_DIAL_NUMBER" ClsID="CLSID_VTMPOPUPINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPINPUT" FileLocation="CLSID_VTMPOPUPINPUT">
+		<Widget Id="abscontainer11" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="imagewidget1" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT*3" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_IMAGEWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="45545" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VtmDialingInputWdg" ClsID="CLSID_INPUTWIDGET" SizeHeight="MAIN_TITLE_HEIGHT" SizeWidth="POPUPINPUT_INPUTWDG_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_INPUT_WDG_CURRENT_INPUT_MODE" Value="MAE_INPUTMODE_DIALING" />
+				<InternProp Id="GUID" Value="22e7f" />
+				<InternProp Id="VtmWidgetName" Value="VtmDialingInputWdg" />
+				<Property Id="PROP_INPUT_WDG_CANNOT_SWITCH_INPUT_MODE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_DISABLE_SYMBOL_TABLE" Value="TRUE" />
+				<Property Id="PROP_INPUT_WDG_PASSWORD_STYLE" Value="FALSE" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="2c361" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-386" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLEAR" />
+		<InternProp Id="VtmId" Value="tDialingPopUpInputData" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_LIST_DUAL_SIM_MENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer9" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget8" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="48610" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT_THEMETEXT" />
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="a9af6" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-386" />
+		<InternProp Id="VtmId" Value="tSimSelectionMenuData" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_LIST_MENU" ClsID="CLSID_VTMMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMMENU" FileLocation="CLSID_VTMMENU">
+		<Widget Id="abscontainer8" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget7" ClsID="CLSID_MENUWIDGET" SizeHeight="MAINVIEW_HEIGHT" SizeWidth="MAINVIEW_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<InternProp Id="GUID" Value="e041a" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="MenuType" Value="WDG_MENU_TYPE_NORMAL" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_NONE" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="5506d" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-386" />
+		<InternProp Id="VtmId" Value="tListMenuData" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_NULL_ID&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_RADIO_MENU_GPRS" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer7" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget6" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="2338c" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="GPRS_E_ALWAYS_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_ALWAYS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="GPRS_E_WHEN_NEEDED_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_WHEN_NEEDED" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="9749a" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-718" />
+		<InternProp Id="VtmId" Value="tGPRSMenuData" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_RADIO_MENU_NAP_TYPE" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer6" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget5" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="3995e" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="FALSE" />
+						<Struct>
+							<String Id="TXT_LIL_N_GPRS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="TRUE" />
+						<Struct>
+							<String Id="TXT_LIL_N_CSD" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="c687c" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-718" />
+		<InternProp Id="VtmId" Value="tNAPTypeMenuData" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_RADIO_MENU_LINE_TYPE" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget4" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="1e9d9" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DATA_ACCOUNT_E_CSD_LINE_ANALOGUE_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_ANALOGUE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DATA_ACCOUNT_E_CSD_LINE_ISDN_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_ISDN" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="10d44" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-718" />
+		<InternProp Id="VtmId" Value="tLineTypeMenuData" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_RADIO_MENU_SPEED" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget3" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="ac2f6" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DATA_ACCOUNT_E_CSD_SPEED_4_8_KPBS_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_4_8KBPS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DATA_ACCOUNT_E_CSD_SPEED_9_6_KPBS_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_9_6KBPS" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DATA_ACCOUNT_E_CSD_SPEED_14_4_KPBS_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_14_4KBPS" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="6661c" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-1050" />
+		<InternProp Id="VtmId" Value="pSpeedMenuItem" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_RADIO_MENU_AUTH_TYPE" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget2" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="b81f6" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DATA_ACCOUNT_E_GPRS_AUTH_TYPE_NORMAL_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_NORMAL" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="DATA_ACCOUNT_E_GPRS_AUTH_TYPE_SECURE_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_SECURE" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="2ceff" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-1050" />
+		<InternProp Id="VtmId" Value="tAuthTypeMenuData" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_RADIO_MENU_CON_TYPE" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget1" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="1f86a" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="CONNECTION_TYPE_E_CONNECTION_ORIENTED_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_CONNECTION_ORIENTED" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<SoftKey Type="0" Value="DEFAULT_SK" />
+						<Binary Value="CONNECTION_TYPE_E_HTTP_RS" />
+						<Struct>
+							<String Id="TXT_LIL_N_HTTP" />
+						</Struct>
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="6bf97" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-1050" />
+		<InternProp Id="VtmId" Value="tConnTypeMenuData" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_RADIO_MENU" ClsID="CLSID_VTMPOPUPSELECT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMPOPUPSELECT" FileLocation="CLSID_VTMPOPUPSELECT">
+		<Widget Id="abscontainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="menuwidget" ClsID="CLSID_MENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_MENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<Property Id="PROP_MENU_WDG_ITEM_STYLE" Value="WDG_MENU_CHECK_STYLE_RADIO" />
+				<Property Id="PROP_MENU_WDG_FIRST_ITEM" Value="0" />
+				<InternProp Id="GUID" Value="6a97a" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="bd479" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-1382" />
+		<InternProp Id="VtmId" Value="tDynamicMenuData" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_OPT" ClsID="CLSID_VTMOPTIONMENU" LayoutType="VT_NORMAL" InheritID="CLSID_VTMOPTIONMENU" FileLocation="CLSID_VTMOPTIONMENU">
+		<Widget Id="abscontainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="optionmenuwidget" ClsID="CLSID_OPTIONMENUWIDGET" SizeHeight="MAIN_LCD_HEIGHT-MAIN_TITLE_HEIGHT" SizeWidth="MAIN_LCD_WIDTH" InheritID="CLSID_OPTIONMENUWIDGET" IsVTMWidget="true">
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="9e94d" />
+				<Model ClsID="CLSID_DATAMODEL">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_COMMON_TEXT_SAVE" />
+						<String Id="TXT_OIL1_N_SAVE" />
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD" />
+						<SoftKey Type="0" Value="SK_SELECT" />
+						<SoftKey Type="0" Value="SK_OK" />
+						<SoftKey Type="0" Value="SK_CANCEL" />
+						<Binary Value="MNU_COMMON_TEXT_INPUT_MENU" />
+						<String Id="TXT_OIL1_N_INPUT_MENU" />
+					</MenuItem>
+				</Model>
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="b51cd" />
+		</Widget>
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-1382" />
+		<InternProp Id="VtmId" Value="tOptionMenuData" />
+	</Layout>
+	<Layout Id="CONSETTING_WND_INPUT_TEXT" ClsID="CLSID_VTMINPUT" LayoutType="VT_NORMAL" InheritID="CLSID_VTMINPUT" FileLocation="CLSID_VTMINPUT">
+		<Widget Id="AbsContainerControl" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240" InheritID="CLSID_ABSCONTAINER" IsVTMWidget="true">
+			<Widget Id="InputWidgetControl" ClsID="CLSID_INPUTWIDGET" SizeHeight="ALARMAPP_TEXT_INPUT_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH" InheritID="CLSID_INPUTWIDGET" IsVTMWidget="true">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="14d80" />
+			</Widget>
+			<Position Type="X_POSITION" Value="0" />
+			<Position Type="Y_POSITION" Value="0" />
+			<InternProp Id="GUID" Value="915d2" />
+		</Widget>
+		<InternProp Id="GUID" Value="774c9" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="-1382" />
+		<Property Id="PROP_LEFT_SK" Value="SK_OK_TEXT" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_CLEAR" />
+		<InternProp Id="VtmId" Value="tInputVtmData" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CONSETTINGAPP" />
+</UiRoot>

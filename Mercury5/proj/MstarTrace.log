@@ -1,0 +1,10 @@
+
+Log created at 04:35:46 on 10/13/2016
+04-35-46 drvif_montage.cpp(965) autoBuildProc INFO: Transfer bin file to txt file
+04-35-46 drvif_montage.cpp(966) autoBuildProc >  srcFileName_cp "./sc/customer/product/cust/drv/disptbl/8533d//DT_DEFAULT_8533d_type_1.dat"
+04-35-46 drvif_montage.cpp(967) autoBuildProc >  dstFileName_cp "./sc/driver/drv//lcd/inc/display_table.txt"
+
+Log created at 04:37:52 on 10/13/2016
+04-37-52 drvif_montage.cpp(965) autoBuildProc INFO: Transfer bin file to txt file
+04-37-52 drvif_montage.cpp(966) autoBuildProc >  srcFileName_cp "./sc/customer/product/cust/drv/disptbl/8533x//DT_DEFAULT_8533x_type_1.dat"
+04-37-52 drvif_montage.cpp(967) autoBuildProc >  dstFileName_cp "./sc/driver/drv//lcd/inc/display_table.txt"

@@ -1,0 +1,242 @@
+/****************************************************************************/
+/*  $Workfile::   wmh_bin.hi                                              $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : OMMI interface                                                */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+
+#ifndef _0eb8f1fe6328e955db21046f563d0699_INCLUDED_WMH_BIN_HI
+#define _0eb8f1fe6328e955db21046f563d0699_INCLUDED_WMH_BIN_HI
+
+/****************************************************************************/
+/* SPECIFIC TYPES                                                           */
+/****************************************************************************/
+
+typedef enum
+{
+   VM_FMS_BIN_GSMSTACK,
+   VM_FMS_BIN_OPENAT,
+   VM_FMS_BIN_XMODEM
+} vm_binType_e;
+
+
+typedef struct
+{
+   u32            u32_Origin;
+   u32            u32_HighWater;
+   vm_binType_e  e_Type;
+} vm_binHandle_t;
+
+
+/****************************************************************************/
+/* SOME CONSTANTS ABOUT OPENAT BINARIES...                                  */
+/****************************************************************************/
+
+#define BINARY2_PATTERN_SIZE 4
+#define BINARY2_TYPE_SIZE 4
+#define BINARY2_VERSION_SIZE 8
+#define BINARY2_HEADER_SIZE  (BINARY2_PATTERN_SIZE + BINARY2_TYPE_SIZE + BINARY2_VERSION_SIZE)
+
+/****************************************************************************/
+/* ERROR CODES                                                              */
+/****************************************************************************/
+
+#ifndef VM_FMS_OK
+
+   #define VM_FMS_OK             0         
+   #define VM_FMS_UNDEFINED      0xFFFFFFFF
+   #define VM_FMS_BAD_ARGS       0xFFFFFFFE  /* Bad arguments (null pointer, etc...) */
+   #define VM_FMS_BAD_FUNCTION   0xFFFFFFFD  /* Invalid function call */
+   #define VM_FMS_FORBIDDEN      0xFFFFFFFC  /* Access denied or illegal operation attempt */
+   #define VM_FMS_OVERFLOW       0xFFFFFFF9  /* Overflow (memory exhausted,...) */
+   #define VM_FMS_REACHED_END    0xFFFFFFF6  /* No more elements to enumerate */
+   #define VM_FMS_NOT_AVAILABLE  0xFFFFFFF5  /* Function not available (no initialisation done or operation not supported) */
+
+   /* All other codes are internal or hardware related */
+
+#endif /* VM_FMS_OK not defined */
+
+
+/****************************************************************************/
+/* EXPORTED FUNCTIONS                                                       */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function:  vm_binGetOrigin                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns the origin address in flash memory of the            */
+/*             selected code.                                               */
+/*                                                                          */
+/*  Return    : (s32) Address or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binGetOrigin(vm_binType_e i__e_Type);
+
+
+/****************************************************************************/
+/*  Function:  vm_binGetSize                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns the size of the selected binary                      */
+/*                                                                          */
+/*  Return    : (s32) Address or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binGetSize(vm_binType_e i__e_Type);
+
+
+/****************************************************************************/
+/*  Function: vm_binGetChecksum                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Fills the array given as parameter with the checksum          */
+/*            of the selected binary                                        */
+/*                                                                          */
+/*  Return    :  (s32) VM_FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*  o__pu8_Target     |   | X |   |  Target buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binGetChecksum(vm_binType_e i__e_Type, u8 *o__pu8_Target);
+
+
+/****************************************************************************/
+/*  Function: vm_binDestroy                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Destroy the selected binary                                   */
+/*                                                                          */
+/*  Return    : (s32) VM_FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binDestroy(vm_binType_e i__e_Type);
+
+#ifdef __DOWNLOADER__
+
+
+/****************************************************************************/
+/*  Function: vm_binEraseSector                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Erases the specified sector if it belongs to a set of services*/
+/*            or according to the return value of a given function          */
+/*                                                                          */
+/*  Return    : (s32) Error code                                            */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address    | X |   |   |  Sector address                         */
+/*  i__u32_ServiceMask| X |   |   |  Mask of the services to wipe           */
+/*  i__pf_TestFunc    | X |   |   |  User-supplied function                 */
+/*  i__pf_CallBack    | X |   |   |  User-supplied function to call instead */
+/*                    |   |   |   |  of fms_Erase when address matches      */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binEraseSector(u32 i__u32_Address, u32 i__u32_ServiceMask, s32(*i__pf_TestFunc)(u32), s32(*i__pf_CallBack)(u32)); //noexport
+
+/****************************************************************************/
+/*  Function: vm_binValidate                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Appends a checksum to the binary whose address and size are   */
+/*            given, and registers it with the selected type.               */
+/*                                                                          */
+/*  Return    : (s32) VM_FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*  i__u32_Origin     | X |   |   |  Base address of the binary             */
+/*  i__u32_Size       | X |   |   |  Size of the binary                     */
+/*  o__pu32_Chksum    |   | X |   |  Calculated checksum or NULL            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binValidate(vm_binType_e i__e_Type, u32 i__u32_Origin, u32 i__u32_Size, u32 *o__pu32_Chksum); //noexport
+
+/****************************************************************************/
+/*  Function: vm_binCreate                                                 */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Creates a binary and initialises the supplied handle          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (s32) VM_FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  io__ps_Handle     | X | X |   |  Handle to use                          */
+/*  i__e_Type         | X |   |   |  Selected binary                        */
+/*  i__u32_Origin     | X |   |   |  Address of the binary                  */
+/*  i__u32_Size       | X |   |   |  Size of the binary                     */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binCreate(vm_binHandle_t *io__ps_Handle, vm_binType_e i__e_Type, u32 i__u32_Origin, u32 i__u32_Size); //noexport
+
+/****************************************************************************/
+/*  Function: vm_binWrite                                                  */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Writes a binary through a vm_binHandle_t structure.          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) VM_FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to use                          */
+/*  i__u32_Size       | X |   |   |  Number of bytes to write               */
+/*  i__p_Source       | X |   |   |  Source buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binWrite(vm_binHandle_t *i__ps_Handle, u32 i__u32_Size, void *i__p_Handle); //noexport
+
+/****************************************************************************/
+/*  Function: vm_binFinalize                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Finalizes the creation of a binary                            */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (s32) VM_FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Handle      | X |   |   |  Handle to use                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 vm_binFinalize(vm_binHandle_t *i__ps_Handle); //noexport
+
+
+
+#endif /* __DOWNLOADER__ defined */
+
+
+#endif /* ! _0eb8f1fe6328e955db21046f563d0699_INCLUDED_WMH_BIN_HI   */

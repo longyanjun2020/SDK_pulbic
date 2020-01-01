@@ -1,0 +1,42 @@
+/***************************************************************************/
+/*  File    : FCM.HM                                                   */
+/*-------------------------------------------------------------------------*/
+/*  Scope   :Flow Control Manager                                          */
+/*                                                                         */
+/*  Contents:  Macro definitions                                           */
+/*-------------------------------------------------------------------------*/
+/*   Date   | Author |         Modification                                */
+/*----------+--------+-----------------------------------------------------*/
+/* 13.04.01 | FGA    | Creation                                            */
+/***************************************************************************/
+
+#ifndef _FCM_HM_
+#define _FCM_HM_
+
+#define GET_MSG_PTR( type )\
+   (Msg_t *)MsAllocateMem( sizeof(Header_t) + sizeof(type) )
+
+#define __TRACE(x)    _TRACE(x)
+#define __traces(x)   _TRACE(x)
+
+#define FCM_FILL_TRACE(Trace, Count)\
+{\
+   if ( Count->TrInfo.TraceLevel == ((u32) FCM_LEVEL_DATA_DOWNLINK) )\
+   {\
+      Trace[0] = Count->TrInfo.RxName1;\
+      Trace[1] = Count->TrInfo.RxName2;\
+      Trace[2] = '<';\
+      Trace[3] = Count->TrInfo.TxName1;\
+      Trace[4] = Count->TrInfo.TxName2;\
+   }\
+   else\
+   {\
+      Trace[0] = Count->TrInfo.TxName1;\
+      Trace[1] = Count->TrInfo.TxName2;\
+      Trace[2] = '>';\
+      Trace[3] = Count->TrInfo.RxName1;\
+      Trace[4] = Count->TrInfo.RxName2;\
+   }\
+}
+
+#endif

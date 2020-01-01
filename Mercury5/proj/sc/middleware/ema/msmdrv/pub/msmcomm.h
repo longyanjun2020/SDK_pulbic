@@ -1,0 +1,355 @@
+#if !defined(MSMINTCAUSE_H)
+#define MSMINTCAUSE_H
+
+#include "msmglobal.h"
+#include "msmError.h"
+
+typedef enum MSMIntCause_e_
+{
+    /* Device Command */
+    MSM_INT_DEV_CHIP = 0x00,
+    MSM_INT_DEV_CAM = 0x01,
+    MSM_INT_DEV_AUD = 0x02,
+    MSM_INT_DEV_IP = 0x03,
+    MSM_INT_DEV_DISP = 0x04,
+    MSM_INT_DEV_REC = 0x05,
+    MSM_INT_DEV_USB = 0x06,
+    MSM_INT_DEV_FS = 0x07,
+    MSM_INT_DEV_GE = 0x08,
+    MSM_INT_DEV_MP = 0x09,
+    MSM_INT_DEV_CD = 0x0a,
+    MSM_INT_DEV_GEM = 0x0b,
+    MSM_INT_DEV_EAUD = 0x0c,
+    MSM_INT_DEV_EVDO = 0x0d,
+    MSM_INT_DEV_ND = 0x0e,
+    MSM_INT_DEV_BOUNDARY = 0x0F,
+    MSM_INT_CMD_REDAY = 0x10,
+    MSM_INT_CMD_FETCHED = 0x11,
+    MSM_INT_CMD_RETURN_READY = 0x12,
+    MSM_INT_DATA_READY = 0x13,
+    MSM_INT_OSD_BUFFER_READY = 0x14,
+    MSM_INT_FRAME_BUFFER_READY = 0x15,
+//    MSM_INT_NO_DATA = 0x16,
+    MSM_INT_INITREADY = 0x17,
+    MSM_INT_FETCHED = 0x18,
+    MSM_INT_NOTIFY = 0x19,
+    MSM_INT_USB_PC_CONNECT = 0x1a,
+    MSM_INT_USB_PC_REMOVE = 0x1b,
+    MSM_INT_SD_INSERT = 0x1c,
+    MSM_INT_SD_REMOVE = 0x1d,
+    MSM_INT_PATCHCODE_READY = 0x1e,
+    MSM_INT_ACCEPT_CMD_READY = 0x1f,
+
+    /* Probe */
+    MSM_INT_CHECK_SYSTEM_STATUS = 0x20,
+    MSM_INT_CHECK_ESSENTIALS = 0x16,
+
+    /* USB request */
+    MSM_INT_USB_REQUEST = 0x21,
+
+    /* Direct Write */
+    MSM_INT_DIRECT_WRITE_PCM_VARIABLE = 0x22,       /* M2 -> BB (count variables) */
+    MSM_INT_DIRECT_WRITE_PCM_BUFFER = 0x23,         /* M2 -> BB (buffer start address) */
+    MSM_INT_DIRECT_WRITE_PCM_DONE = 0x24,           /* BB -> M2 (pcm streaming done) */
+    MSM_INT_DIRECT_WRITE_USB_VARIABLE = 0x26,       /* M2 -> BB (count variables) */
+    MSM_INT_DIRECT_WRITE_USB_BUFFER = 0x27,         /* M2 -> BB (buffer start address) */
+    MSM_INT_DIRECT_WRITE_USB_DONE = 0x28,           /* BB -> M2 (usb write done) */
+    MSM_INT_DIRECT_WRITE_DISPLAY_VARIABLE = 0x29,   /* M2 -> BB (count variables) */
+    MSM_INT_DIRECT_WRITE_DISPLAY_BUFFER = 0x2A,     /* M2 -> BB (buffer start address) */
+    MSM_INT_DIRECT_WRITE_DISP_DONE = 0x2B,          /* BB -> M2 (display write done) */
+    MSM_INT_DIRECT_WRITE_DISP_FLIP = 0x2C,          /* BB -> M2 (display flip) */
+    MSM_INT_DIRECT_WRITE_MIDI_VARIABLE = 0x2D,      /* M2 -> BB (midi streaming count variable) */
+    MSM_INT_DIRECT_WRITE_MIDI_TABLE = 0x2E,         /* M2 -> BB (midi RO table address) */
+    MSM_INT_DIRECT_WRITE_MIDI_TABLE_DONE = 0x2F,    /* BB -> M2 (midi write table done) */
+    MSM_INT_DIRECT_WRITE_MIDI_BUFFER = 0x30,        /* M2 -> BB (midi streaming buffer address) */
+    MSM_INT_DIRECT_WRITE_MIDI_BUFFER_DONE = 0x31,   /* BB -> M2 (midi write buffer done) */
+    MSM_INT_DIRECT_WRITE_MP3_VARIABLE = 0x32,       /* M2 -> BB (mp3 streaming count variable) */
+    MSM_INT_DIRECT_WRITE_MP3_BUFFER = 0x33,         /* M2 -> BB (mp3 streaming buffer) */
+    MSM_INT_DIRECT_WRITE_MP3_DONE = 0x34,           /* BB -> M2 (mp3 write done) */
+    MSM_INT_DIRECT_WRITE_IPTV_VARIABLE = 0x35,      /* M2 -> BB (iptv streaming count variable) */
+    MSM_INT_DIRECT_WRITE_IPTV_BUFFER = 0x36,        /* M2 -> BB (iptv streaming buffer) */
+    MSM_INT_DIRECT_WRITE_IPTV_DONE = 0x37,          /* BB -> M2 (iptv write done) */
+    MSM_INT_DIRECT_WRITE_SHUTTER_VARIABLE = 0x38,   /* M2 -> BB (shutter sound streaming count variable) */
+    MSM_INT_DIRECT_WRITE_SHUTTER_BUFFER = 0x39,     /* M2 -> BB (shutter sound streaming buffer) */
+    MSM_INT_DIRECT_WRITE_SHUTTER_DONE = 0x3A,       /* BB -> M2 (shutter sound write done) */
+    MSM_INT_DIRECT_WRITE_FILE_VARIABLE = 0x3B,      /* M2 -> BB (file write variable) */
+    MSM_INT_DIRECT_WRITE_FILE_BUFFER = 0x3C,        /* M2 -> BB (file write buffer) */
+    MSM_INT_DIRECT_WRITE_FILE_DONE = 0x3D,          /* BB -> M2 (file write done) */
+    MSM_INT_DIRECT_WRITE_FILE_LENGTH = 0x3E,        /* M2 -> BB (file length request) */
+    MSM_INT_DIRECT_WRITE_FILE_LENGTH_DONE = 0x3F,   /* BB -> M2 (file length done) */
+
+    /* Display */
+    MSM_INT_DISP_BYPASS_REQUEST = 0x40,
+    MSM_INT_DISP_BYPASS_COLOREXPAND_REQUEST = 0x41,
+    MSM_INT_DISP_BYPASS_CONFIRM = 0x42,
+    MSM_INT_DIRECT_WRITE_JPEG_VARIABLE = 0x43,      /* M2 -> BB (jpeg write variable) */
+    MSM_INT_DIRECT_WRITE_JPEG_BUFFER = 0x44,        /* M2 -> BB (jpeg write buffer) */
+    MSM_INT_DIRECT_WRITE_JPEG_DONE = 0x45,          /* BB -> M2 (jpeg write done) */
+    MSM_INT_JPEG_STREAM_DECODE_COMPLETE = 0x46,     /* M2 -> BB */
+    MSM_INT_DISP_PICTURE_TUNING_ENABLE = 0x47,      /* BB -> M2 */
+    MSM_INT_DISP_PICTURE_TUNING_DISABLE = 0x48,     /* BB -> M2 */
+    MSM_INT_JPEG_FILE_DECODE_COMPLETE = 0x49,       /* M2 -> BB */
+    MSM_INT_OSD_UPDATE_DONE = 0x4A,                 /* B2 -> M3 */
+
+    /* REC (0x50~0x5F) */
+    MSM_INT_RECORD_STATE_CHANGE = 0x50,
+    MSM_INT_RECORD_SAVE_FILE_COMPLETE = 0x51,
+    MSM_INT_RECORD_ERROR = 0x52,
+    MSM_INT_RECORD_POSITION_UPDATE = 0x53,
+    MSM_INT_DIRECT_WRITE_RGB_VARIABLE = 0x54,       /* M2 -> BB (rgb write variable) */
+    MSM_INT_DIRECT_WRITE_RGB_BUFFER = 0x55,         /* M2 -> BB (rgb write buffer) */
+    MSM_INT_DIRECT_WRITE_RGB_DONE = 0x56,           /* BB -> M2 (rgb write done) */
+
+    /* FS (0x60~0x6F) */
+    MSM_INT_FILE_COPY_POSITION_UPDATE = 0x60,
+    MSM_INT_FILE_STATUS_UPDATE = 0x61,
+    MSM_INT_FILE_SAVE_SD_COMPLETE = 0x62,
+    MSM_INT_COPY_STATE_CHANGE = 0x63,
+    MSM_INT_COPY_ERROR = 0x64,
+    MSM_INT_DIRECT_WRITE_DISK_INFO_VARIABLE = 0x65, /* M2 -> BB (disk info write variable) */
+    MSM_INT_DIRECT_WRITE_DISK_INFO_BUFFER = 0x66,   /* M2 -> BB (disk info write buffer) */
+    MSM_INT_DIRECT_WRITE_DISK_INFO_DONE = 0x67,     /* BB -> M2 (disk info write done) */
+    MSM_INT_NAND_MOUNT= 0x68,
+    MSM_INT_NAND_POWER_OFF = 0x69,
+    MSM_INT_SCAN_STATUS_UPDATE = 0x6A,              /* M3 -> BB */
+
+    /* USB (0x70~0x7F) */
+    MSM_INT_USB_SUSPEND = 0x70,
+    MSM_INT_USB_RESUME = 0x71,
+    MSM_INT_USB_VBUS_CONNECT = 0x72,
+    MSM_INT_USB_VBUS_REMOVE = 0x73,
+    MSM_INT_PICTURE_BRIDGE_STATUS_UPDATE = 0x74,        /* M3 -> B2 */
+
+    /* GE (0x80~0x8F) */
+    MSM_INT_VIDEO_CHAT_STATUS_UPDATE = 0x80,            /* M3 <> B2 */
+
+    /* MP (0x90~0x9F) */
+    MSM_INT_PLAY_STATE_CHANGE = 0x90,
+    MSM_INT_PLAY_POSITION_UPDATE = 0x91,
+    MSM_INT_PLAY_ERROR = 0x92,
+    MSM_INT_BITRATE_CHANGE = 0x93,
+    MSM_INT_LYRICS_UPDATE = 0x94,
+    MSM_INT_STREAM_TYPE_INDICATOR = 0x95,
+    MSM_INT_CMMB_STREAM_DECODE_COMPLETE = 0x96,         /* B2 -> M3 */
+    MSM_INT_BLUETOOTH_STREAM_DECODE_COMPLETE = 0x97,    /* M2 -> B1 */
+    MSM_INT_BRIDGE_STATE_CHANGE = 0x98,                 /* M3 -> B2 */
+    MSM_INT_BLUETOOTH_STATUS_UPDATE = 0x99,             /* M2 -> B1 */
+    MSM_INT_BRIDGE_ERROR = 0x9A,                        /* M3 -> B2 */
+    MSM_INT_PLAYBACK_REBUFFER = 0x9C,                   /* M3 -> B2 */
+
+    /* System */
+    MSM_INT_MMP_EXCEPTION = 0xA0,
+    MSM_INT_MMP_CONFIRM = 0xA1,
+    MSM_INT_M2_UNDERFLOW = 0xA2,
+    MSM_INT_BACKTRACE_BUFFER_READY = 0xA3,
+    MSM_INT_HARDWARE_FAILURE = 0xA4,
+    MSM_INT_SYSTEM_SWITCH_AUDIO_AMP = 0xA5,
+    MSM_INT_BASEBAND_EXCEPTION = 0xA6,                  /* BB -> M2 */
+    MSM_INT_SIGNAL_STRENGTH_INDICATOR = 0xA7,           /* M3 -> B2 */
+    MSM_INT_PERIPHERAL_CONTROL = 0xA8,                  /* M3 -> B2 */
+    MSM_INT_SYSTEM_RESOURCE_READY = 0xA9,               /* M3 -> B2 */
+
+    /* CD */
+    MSM_INT_DIRECT_WRITE_CD_VARIABLE = 0xB0,            /* M2 -> BB (CD write variable) */
+    MSM_INT_DIRECT_WRITE_CD_BUFFER = 0xB1,              /* M2 -> BB (CD write buffer) */
+    MSM_INT_DIRECT_WRITE_CD_DONE = 0xB2,                /* BB -> M2 (CD write done) */
+    MSM_INT_DIRECT_WRITE_CD_FIRMWARE = 0xB3,            /* M2 -> BB (CD firmware address) */
+    MSM_INT_DIRECT_WRITE_CD_FIRMWARE_DONE = 0xB4,       /* BB -> M2 (CD write firmware done) */
+    MSM_INT_CD_ACCEPT_CMD_READY = 0xB5,                 /* M2 -> BB (CD ready to accept command) */
+    MSM_INT_TAG_BLOCK_SAVE_COMPLETE = 0xB6,             /* M2 -> BB */
+    MSM_INT_DIRECT_WRITE_AES_VARIABLE = 0xB7,           /* M2 -> BB (en/decryption write variable) */
+    MSM_INT_DIRECT_WRITE_AES_BUFFER = 0xB8,             /* M2 -> BB (en/decryption write buffer) */
+    MSM_INT_DIRECT_WRITE_AES_DONE = 0xB9,               /* BB -> M2 (en/decryption write done) */
+    MSM_INT_CD_FIRMWARE_UPGRADE_DONE = 0xBA,            /* M2 -> BB (CD firmware upgrade done) */
+    MSM_INT_AES_OPERATION_COMPLETE = 0xBB,              /* M2 -> BB */
+
+    /* Dynamic Package */
+    MSM_INT_DIRECT_WRITE_PACKAGE_VARIABLE = 0xC0,       /* M2 -> BB (package load variable) */
+    MSM_INT_DIRECT_WRITE_PACKAGE_SECTION = 0xC1,        /* M2 -> BB (package load starting section id) */
+    MSM_INT_DIRECT_WRITE_PACKAGE_DONE = 0xC2,           /* BB -> M2 (package load done) */
+
+    /* Shared Memory (SHM) */
+    MSM_INT_SHM_SYSTEM_REQUEST = 0xC3,                  /* M3 -> B2 */
+    MSM_INT_SHM_SYSTEM_REQUEST_ACCEPTED = 0xC4,         /* B2 -> M3 */
+    MSM_INT_SHM_COMMAND_REQUEST = 0xC5,                 /* M3 -> B2 */
+    MSM_INT_SHM_COMMAND_REQUEST_ACCEPTED = 0xC6,        /* B2 -> M3 */
+    MSM_INT_SHM_LOW_LEVEL_API_REQUEST = 0xC7,           /* B2 -> M3 */
+    MSM_INT_SHM_SYSTEM_REQUEST_DONE = 0xC8,             /* B2 -> M3 */
+    MSM_INT_SHM_COMMAND_REQUEST_DONE = 0xC9,            /* B2 -> M3 */
+    MSM_INT_SHM_QUEUE_REACH_LOW_WATERMARK = 0xCA,       /* B2 <> M3 */
+    MSM_INT_SHM_QUEUE_REACH_HIGH_WATERMARK = 0xCB,      /* B2 <> M3 */
+    MSM_INT_SHM_FREE_REACH_LOW_WATERMARK = 0xCD,        /* B2 <> M3 */
+    MSM_INT_SHM_FREE_REACH_HIGH_WATERMARK = 0xCE,       /* B2 <> M3 */
+
+    /* GEM */
+    MSM_INT_DIRECT_WRITE_EMU_VARIABLE = 0xD0,           /* M2 -> BB (EMU write variable) */
+    MSM_INT_DIRECT_WRITE_EMU_BUFFER = 0xD1,             /* M2 -> BB (EMU write buffer) */
+    MSM_INT_DIRECT_WRITE_EMU_DONE = 0xD2,               /* BB -> M2 (EMU write done) */
+
+    /* Shared Memory (SHM) */
+    MSM_INT_SHM_DATA_REQUEST = 0xD8,                    /* M3 -> B2 */
+    MSM_INT_SHM_DATA_READY = 0xD9,                      /* B2 -> M3 */
+    MSM_INT_SHM_DATA_DONE = 0xDA,                       /* M3 -> B2 */
+
+    /* ND */
+    MSM_INT_WIFI_WPA_EVENT_NOTIFY = 0xE0,               /* M3 -> B2 */
+    MSM_INT_WIFI_STATUS_UPDATE = 0xE1,                  /* M3 -> B2 */
+
+} MSMIntCause_e;
+
+typedef enum MSMNotification_e_
+{
+    /* System */
+    MSMEVENT_INITREADY = 0x0000,
+    MSMEVENT_ACCEPT_CMD_READY,
+    MSMEVENT_CD_ACCEPT_CMD_READY,
+    MSMEVENT_MCU_RESET,
+    MSMEVENT_COMMAND_ERROR,
+    MSMEVENT_WATCHDOG_TIMEOUT,
+    MSMEVENT_SD_INSERT,
+    MSMEVENT_SD_REMOVE,
+    MSMEVENT_USB_PC_CONNECT,
+    MSMEVENT_USB_PC_REMOVE,
+    MSMEVENT_USB_PC_SUSPEND,
+    MSMEVENT_USB_PC_RESUME,
+    MSMEVENT_USB_REQUEST,
+    MSMEVENT_CMD_ACCEPTED,
+    MSMEVENT_FILE_COPY_POSITION_UPDATE,
+    MSMEVENT_FILE_STATUS_UPDATE,
+    MSMEVENT_FATAL_ERROR,
+    MSMEVENT_UNDERFLOW,
+    MSMEVENT_USB_VBUS_CONNECT,
+    MSMEVENT_USB_VBUS_REMOVE,
+    MSMEVENT_COPY_STATE_CHANGE,
+    MSMEVENT_COPY_ERROR,
+    MSMEVENT_SIGNAL_STRENGTH_INDICATOR,
+    MSMEVENT_CD_FIRMWARE_UPGRADE_DONE,
+    MSMEVENT_HARDWARE_FAILURE,
+    MSMEVENT_FILE_DECODE_COMPLETE,
+    MSMEVENT_SHM_SYSTEM_REQUEST,
+    MSMEVENT_PERIPHERAL_CONTROL,
+    MSMEVENT_NAND_MOUNT,
+    MSMEVENT_NAND_POWER_OFF,
+    MSMEVENT_SHM_QUEUE_REACH_LOW_WATERMARK,
+    MSMEVENT_SHM_QUEUE_REACH_HIGH_WATERMARK,
+    MSMEVENT_SHM_FREE_REACH_LOW_WATERMARK,
+    MSMEVENT_SHM_FREE_REACH_HIGH_WATERMARK,
+    MSMEVENT_WIFI_WPA_EVENT_NOTIFY,
+    MSMEVENT_WIFI_STATUS_UPDATE,
+    MSMEVENT_SHM_DATA_REQUEST,
+    MSMEVENT_SHM_DATA_DONE,
+    MSMEVENT_VIDEO_CHAT_STATUS_UPDATE,
+    MSMEVENT_SCAN_STATUS_UPDATE,
+    MSMEVENT_UNHANDLED_EXCEPTION,
+
+    /* Media Playback */
+    MSMEVENT_PLAY_STATE_CHANGE,
+    MSMEVENT_PLAY_POSITION_UPDATE,
+    MSMEVENT_PLAY_ERROR,
+    MSMEVENT_BITRATE_CHANGE,
+    MSMEVENT_LYRICS_UPDATE,
+    MSMEVENT_BRIDGE_STATE_CHANGE,
+    MSMEVENT_BRIDGE_ERROR,
+    MSMEVENT_BLUETOOTH_STATUS_UPDATE,
+    MSMEVENT_PLAYBACK_REBUFFER,
+    MSMEVENT_STREAM_TYPE_INDICATOR,
+
+    /* Recording */
+    MSMEVENT_RECORD_STATE_CHANGE,
+    MSMEVENT_RECORD_SAVE_FILE_COMPLETE,
+    MSMEVENT_RECORD_ERROR,
+    MSMEVENT_RECORD_POSITION_UPDATE,
+
+    /* Internal Handling */
+    MSMEVENT_OSD_BUFFER_READY,
+    MSMEVENT_FRAME_BUFFER_READY,
+    MSMEVENT_BACKTRACE_BUFFER_READY,
+    MSMEVENT_FILE_SAVE_SD_COMPLETE,
+    MSMEVENT_STREAM_DECODE_COMPLETE,
+    MSMEVENT_TAG_BLOCK_SAVE_COMPLETE,
+    MSMEVENT_AES_OPERATION_COMPLETE,
+    MSMEVENT_DIRECT_WRITE_CONFIG,
+    MSMEVENT_DIRECT_WRITE_VARIABLE,
+    MSMEVENT_DIRECT_WRITE_PARAMETERS,
+    MSMEVENT_DIRECT_WRITE_BUFFER,
+    MSMEVENT_DIRECT_WRITE_SURFACE,
+    MSMEVENT_DIRECT_WRITE_SECTION,
+    MSMEVENT_PROBE_COMPLETE,
+    MSMEVENT_INSPECT_COMPLETE,
+    MSMEVENT_CONFIRM,
+    MSMEVENT_URGENT_READ,
+    MSMEVENT_URGENT_WRITE,
+    MSMEVENT_SYSTEM_SWITCH_AUDIO_AMP,
+    MSMEVENT_SHM_COMMAND_REQUEST,
+
+    MSMEVENT_NUM,
+    MSMEVENT_SYS_CATEGORY,
+    MSMEVENT_PLAYBACK_CATEGORY,
+    MSMEVENT_RECORD_CATEGORY,
+    MSMEVENT_ALL_TYPE,
+    MSMEVENT_INVALID
+
+} MSMNotification_e;
+
+
+typedef enum MSMSystemParameters_e_
+{
+    /* Common */
+    MSM_PARAM_RENDER_FRAME_BUFFER = 0x0,
+    MSM_PARAM_RENDER_OVERLAY_BUFFER = 0x1,
+    MSM_PARAM_DATE_TIME = 0x2,
+    MSM_PARAM_CAMERA_POWER = 0x3,
+    MSM_PARAM_LCM_BYPASS = 0x4,
+    /* Dev */
+    MSM_PARAM_DEV_ENABLE = 0x5,
+    MSM_PARAM_DEV_ITMASK = 0x6,
+    MSM_PARAM_DEV_PROBE = 0x7,
+    MSM_PARAM_DEV_INSPECT = 0x8,
+    MSM_PARAM_DEV_LOOPBACK = 0x9,
+    MSM_PARAM_DRV_READY = 0xa,
+    MSM_PARAM_DEV_INFO = 0xb,
+    MSM_PARAM_DEBUG_MODE = 0xc,
+    MSM_PARAM_DEV_DEBUG_READ = 0xd,
+    MSM_PARAM_DEV_DEBUG_WRITE = 0xe,
+    MSM_PARAM_BASEBAND_EXCEPTION = 0xf,
+    MSM_PARAM_LOW_LEVEL_API_REQUEST = 0x10,
+    MSM_PARAM_DEV_GPIO_CONFIG = 0x11,
+    MSM_PARAM_DEV_GPIO_GET = 0x12,
+    MSM_PARAM_DEV_GPIO_SET = 0x13,
+    MSM_PARAM_FIRE_INTERRUPT = 0x14,
+    MSM_PARAM_VENDOR_READ_COMMAND = 0x15,
+    MSM_PARAM_VENDOR_WRITE_COMMAND = 0x16,
+    MSM_PARAM_SHM_ADDRESS_BB2MMP = 0x17,
+    MSM_PARAM_SHM_ADDRESS_MMP2BB = 0x18,
+    MSM_PARAM_FIFO_BUFFER_ALLOCATE = 0x19,
+    MSM_PARAM_FIFO_BUFFER_ENQUEUE = 0x1a,
+    MSM_PARAM_FIFO_BUFFER_DEQUEUE = 0x1b,
+    MSM_PARAM_FIFO_BUFFER_FREE = 0x1c,
+    MSM_PARAM_FIFO_BUFFER_AVAILABLE = 0x1d,
+    MSM_PARAM_FIFO_BUFFER_COUNT = 0x1f,
+    MSM_PARAM_FIFO_QUEUE_INIT = 0x20,
+    MSM_PARAM_FIFO_QUEUE_CLEAN = 0x21,
+    MSM_PARAM_FIFO_QUEUE_DELETE = 0x22,
+    MSM_PARAM_FIFO_QUEUE_STATUS = 0x23,
+    MSM_PARAM_FIRE_INTERRUPT_EX = 0x24,
+    MSM_PARAM_FIFO_BUFFER_UNLOCK = 0x25,
+    MSM_PARAM_FIFO_BUFFER_STATUS = 0x26,
+    MSM_PARAM_FIFO_BUFFER_LOCK = 0x27,
+    MSM_PARAM_SHM_PROTECTION = 0x28,
+    MSM_PARAM_FEATURE_SWITCH_GET = 0x29,
+    MSM_PARAM_TABLE_ADDRESS_GET = 0x2a,
+    MSM_PARAM_NUM
+
+} MSMSystemParameters_e;
+
+
+typedef struct MSMEvent_s_
+{
+    MSMNotification_e   eventID_e;
+    U32                 eventData_n[2]; /* 64-bit data carried */
+    U32                 userData_n;     /* command channel specific data */
+} MSMEvent_s;
+
+
+
+#endif /* MSMINTCAUSE_H */

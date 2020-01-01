@@ -1,0 +1,28 @@
+/****************************************************************************/
+/*  File    : dwl.hi                                                        */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Constants used during the download process                    */
+/*            Common shared variables                                       */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+
+#ifndef __DWL_HI__
+#define __DWL_HI__
+
+#if defined(__UART2_DEBUG__) || defined(__DCC_DEBUG__) || defined(__DEBUG_ON__)
+#include <stdio.h>
+#include "vm_types.ht"
+extern int diag_printf(const char *fmt, ...);
+#define DWL_DEBUG(...)
+#define DWL_DEBUG1 diag_printf
+#else
+#define DWL_DEBUG(...)
+#endif /* __VA_ARGS__ defined */
+
+#define UartSendTrace(...)
+
+#endif /* __DWL_HI__ not defined */

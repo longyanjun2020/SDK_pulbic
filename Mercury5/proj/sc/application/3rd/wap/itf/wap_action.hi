@@ -1,0 +1,175 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// (¡§MStar Confidential Information¡¨) by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#ifndef __WAP_ACTION_HI__
+#define __WAP_ACTION_HI__
+#ifdef  __WAP_MMI_CDWAP__
+#include "wap_porting.hi"
+
+#ifdef __WLAN_MMI__
+#define WAP_WIFI_MAX_DOWNLOAD_SIZE    (2147483647) /**< File size limitation for downloading file: <2GB */
+#endif /* __WLAN_MMI__ */
+#define WAP_MAX_DOWNLOAD_SIZE    (5 * 1024 * 1024) /**< File size limitation for downloading file: 5MB */
+
+#define WAP_DOWNLOAD_BUFR_SIZE   (32 * 1024)       /**< File downloading buffer */
+#define WAP_DOWNLOAD_BUFR_SIZE_200K  (200 * 1024)  /**< File downloading buffer 200K */
+
+typedef struct {
+    u32    dwSelItems;     /**< all the selected total number */
+    u32    pSelItems[1];   /**< total 'dwSeltems' selected indexs stored in it, pSelItems[0]=index0, pSelItems[1]=index1,...pSelItems[dwSelItems-1]=index_dwSelItem-1 */
+}MultiListData_t;
+
+
+typedef struct {
+    u8*    pMimeType;       /**< MIME type string */
+    s32    diMimeLen;       /**< MIME type string length */
+    u8*    pFileName;       /**< UF8 format file name string */
+    s32    diFileLen;       /**< file name length */
+}FileInfo_t;
+
+//Careful, DO NOT change the REQ/RSQ order. If add new event, please add in front of REQ or RSQ END
+typedef enum
+{
+    REQ_WAP_ACTION_START = WAP_EVT_ACTION_BASE,     /**< Request Event Start */
+    REQ_WAP_ACTION_ACCESSURL,                       /**< Access url, don't get it, pData = url string */
+    REQ_WAP_ACTION_RESUMEURL,
+    REQ_WAP_ACTION_STOPACCESS,                      /**< Stop access operation */
+    REQ_WAP_ACTION_REPAINT,                         /**< Repaint screen page*/
+    REQ_WAP_ACTION_WND_CONVERT,
+    REQ_WAP_ACTION_SCROLLDOWN,                      /**< Scroll down. y = scroll offset */
+    REQ_WAP_ACTION_SCROLLUP,                        /**< Scroll up,   y = scroll offset */
+    REQ_WAP_ACTION_REFRESH,                         /**< Refresh page */
+    REQ_WAP_ACTION_FORWARD,                         /**< Forward page, x = width, y = height */
+    REQ_WAP_ACTION_BACKWARD,                        /**< Back page, x = width, y = height */
+    REQ_WAP_ACTION_SAVEIMAGE,                       /**< Save image, x = index */
+    REQ_WAP_ACTION_CLICKURL,                        /**< Click URL,     x = node index */
+    REQ_WAP_ACTION_COMMITEDITBOX,                   /**< Commit editor data, x = editor index, pData = editor data pointer */
+    REQ_WAP_ACTION_CLICKCHECKBOX,                   /**< Set checkbox to be selected, x = checkbox index, y = 0, clear; y=1, set*/
+    REQ_WAP_ACTION_CLICKRADIOBOX,                   /**< Set radiobox to be selected, x = radiobox index */
+    REQ_WAP_ACTION_CLICKBUTTON,                     /**< Button is be clicked, x = button index */
+    REQ_WAP_ACTION_CLICKSINGLELIST,                 /**< Set single list item to be selected, x = single list index, y = single list item */
+    REQ_WAP_ACTION_CLICKMULTILIST,                  /**< Set multi-list items to be selected, x = multi-list index, pData = MULTILISTDATA instance pointer */
+    REQ_WAP_ACTION_SAVEPAGE,                        /**< Save screen page, pData = file name to be saved */
+    REQ_WAP_ACTION_GETTITLE,                        /**< Get current page title*/
+    REQ_WAP_ACTION_GETURL,                          /**< Get current page url */
+    REQ_WAP_ACTION_CANCELDNLDING,                   /**< Cancel downloading file */
+    REQ_WAP_ACTION_CREATEDATALINK,                  /**< Create socket datalink */
+    REQ_WAP_ACTION_CLOSEDATALINK,                   /**< Close socket datalink */
+    REQ_WAP_ACTION_PAUSE,
+    REQ_WAP_ACTION_GETRECORD,                       /**< Get current record */
+#ifdef __MMI_OMA_DRM_V1__
+    REQ_WAP_ACTION_OMA_DD_CONFIRM,                  /**< Notify WAP TASK the result of oma download, response to RSQ_WAP_ACTION_OMA_DD_CONFIRM*/
+	REQ_WAP_ACTION_OMA_CANCELDNLDING,				/**< Cancel OMA download*/
+#endif
+    REQ_WAP_ACTION_SAVE_RECORD,
+    REQ_WAP_ACTION_CLEAR_CONTEXT,
+#ifdef __STREAMING_MODULE__
+    REQ_WAP_ACTION_DOWNLOAD_HTTP_STREAMING,        /**< Download http streamingh video file without launching video player*/
+    REQ_WAP_ACTION_SAVE_STREAMING_URL_TO_RECORD,    /**< Save URL to record stack (recent page) after CdWapApp is chosen to play streaming, pData = URL */
+#endif
+	REQ_WAP_ACTION_RESTORE_LAST_URL,                /**< Ask for previous URL in the history in MMI to remember for resume use*/
+    REQ_WAP_ACTION_END,                             /**< Request Event End */
+    /*--------------------------------------------------------------------------------------------------------------------------------------------------------*/
+    RSQ_WAP_ACTION_START,                           /**< Response Event Start */
+    RSQ_WAP_ACTION_ACCESSURL,                       /**< Response to REQ_WAP_ACTION_ACCESSURL,          y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_RESUMEURL,
+    RSQ_WAP_ACTION_STOPACCESS,                      /**< Response to REQ_WAP_ACTION_STOPACCESS,         y = WAP_ERROR_SUCCESS*/
+    RSQ_WAP_ACTION_REPAINT,                         /**< Response to REQ_WAP_REPAINT,                   y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_WND_CONVERT,
+
+    RSQ_WAP_ACTION_SCROLLDOWN,                      /**< Response to REQ_WAP_ACTION_SCROLLDOWN,         y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_SCROLLUP,                        /**< Response to REQ_WAP_ACTION_SCROLLDOWN,         y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_REFRESH,                         /**< Response to REQ_WAP_ACTION_REFRESH,            y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_FORWARD,                         /**< Response to REQ_WAP_ACTION_FORWARD,            y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_BACKWARD,                        /**< Response to REQ_WAP_ACTION_BACKWARD,           y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_SAVEIMAGE,                       /**< Response to REQ_WAP_ACTION_SAVEIMAGE,          y = WAP_ERRCODE , pData = filename*/
+
+    RSQ_WAP_ACTION_CLICKURL,                        /**< Response to REQ_WAP_ACTION_CLICKURL,           y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_COMMITEDITBOX,                   /**< Response to REQ_WAP_ACTION_COMMITEDITBOX,      y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_CLICKCHECKBOX,                   /**< Response to REQ_WAP_ACTION_CLICKCHECKBOX,      y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_CLICKRADIOBOX,                   /**< Response to REQ_WAP_ACTION_CLICKRADIOBOX,      y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_CLICKBUTTON,
+    RSQ_WAP_ACTION_CLICKSINGLELIST,                 /**< Response to REQ_WAP_ACTION_CLICKSINGLELIST,    y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_CLICKMULTILIST,                  /**< Response to REQ_WAP_ACTION_CLICKSINGLELIST,    y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_SAVEPAGE,
+    RSQ_WAP_ACTION_GETTITLE,                        /**< Response to REQ_WAP_ACTION_GETTITLE,           y = WAP_ERROR_SUCCESS, pData = title */
+    RSQ_WAP_ACTION_GETURL,                          /**< Response to REQ_WAP_ACTION_GETURL,             y = WAP_ERROR_SUCCESS, pData = url  */
+    RSQ_WAP_ACTION_CANCELDNLDING,                   /**< Response to REQ_WAP_ACTION_CANCELDNLDING,      y = WAP_ERROR_SUCCESS */
+    RSQ_WAP_ACTION_CREATEDATALINK,                  /**< Response to REQ_WAP_ACTION_CREATEDATALINK,     y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_CLOSEDATALINK,                   /**< Response to REQ_WAP_ACTION_CLOSEDATALINK,      y = WAP_ERRCODE */
+    RSQ_WAP_ACTION_PAUSE,
+    RSQ_WAP_ACTION_GETRECORD,                   /**< Response to REQ_WAP_ACTION_GETRECORD,      y = WAP_ERRCODE */
+#ifdef __MMI_OMA_DRM_V1__
+    RSQ_WAP_ACTION_OMA_DD_CONFIRM,                         /**< Notify MMI to show confirm dialog, response to REQ_WAP_ACTION_OMA_DD_CONFIRM*/
+    RSQ_WAP_ACTION_NOTIFY_OMA_DD_STATUS,
+#endif
+#ifdef __STREAMING_MODULE__
+    RSQ_WAP_ACTION_SAVE_STREAMING_URL_TO_RECORD,    /**< Response to REQ_WAP_ACTION_SAVE_STREAMING_URL_TO_RECORD*/
+#endif
+    RSQ_WAP_ACTION_RESTORE_LAST_URL,                /**< After clicking a http streaming video link, restore the last url to be remembered to the previous page link, not the video link itself*/    
+    RSQ_WAP_ACTION_END                              /**< Response Event End */
+}WapActionEvt_e;
+
+/*------------------------------------------------------------------------------------------------------------------------  */
+/* MESSAGE TYPE                     |                            RETURNED VALUE [Include WAP_ERROR_SUCCESS ]                */
+/*------------------------------------------------------------------------------------------------------------------------  */
+/* RSQ_WAP_ACTION_ACCESSURL         | WAP_ERROR_INVALIDURL, WAP_ERROR_TIMER                                                 */
+/* RSQ_WAP_ACTION_REPAINT           | WAP_ERROR_NOTACTIVED,WAP_ERROR_NOTINPAGE                                              */
+/* RSQ_WAP_ACTION_REFRESH           | WAP_ERROR_TIMER, WAP_ERROR_NOTACTIVED                                                 */
+/* RSQ_WAP_ACTION_FORWARD           | WAP_ERROR_TIMER, WAP_ERROR_FIRST,WAP_ERROR_NOTACTIVED                                 */
+/* RSQ_WAP_ACTION_BACKWARD          | WAP_ERROR_TIMER, WAP_ERROR_LAST, WAP_ERROR_NOTACTIVED                                 */
+/* RSQ_WAP_ACTION_SCROLLUP          | WAP_ERROR_TOPMOST, WAP_ERROR_NOTACTIVED,WAP_ERROR_NOTINPAGE                           */
+/* RSQ_WAP_ACTION_SCROLLDOWN        | WAP_ERROR_BOTTOMMOST, WAP_ERROR_NOTACTIVED,WAP_ERROR_NOTINPAGE                        */
+/* RSQ_WAP_ACTION_SAVEIMAGE         | WAP_ERROR_TYPE, WAP_ERROR_DATA, WAP_ERROR_NOMEMORY,WAP_ERROR_CONVERT, WAP_ERROR_FILE  */
+/* RSQ_WAP_ACTION_COMMITEDITBOX     | WAP_ERROR_TYPE, WAP_ERROR_PARAMETER, WAP_ERROR_UNKNOWN                                */
+/* RSQ_WAP_ACTION_CLICKRADIOBOX     | WAP_ERROR_TYPE, WAP_ERROR_TIMER, WAP_ERROR_NOTACTIVED                                 */
+/* RSQ_WAP_ACTION_CLICKBUTTON       | WAP_ERROR_TYPE, WAP_ERROR_TIMER, WAP_ERROR_UNKNOWN                                    */
+/* RSQ_WAP_ACTION_CLICKSINGLELIST   | WAP_ERROR_TYPE, WAP_ERROR_PARAMETER, WAP_ERROR_UNKNOWN                                */
+/* RSQ_WAP_ACTION_CLICKMULTILIST    | WAP_ERROR_TYPE, WAP_ERROR_PARAMETER, WAP_ERROR_UNKNOWN                                */
+/* RSQ_WAP_ACTION_CLICKURL          | WAP_ERROR_FILE                                                                        */
+/* RSQ_WAP_ACTION_GETTITLE          | WAP_ERROR_NOTACTIVED                                                                  */
+/* RSQ_WAP_ACTION_SAVEPAGE          | WAP_ERROR_NOTACTIVED, WAP_ERROR_NOSPACE, WAP_ERROR_UNKNOWN                            */
+/* RSQ_WAP_ACTION_CREATEDATALINK    | WAP_ERROR_NOMEMORY, WAP_ERROR_SETTING, WAP_ERROR_NETWORK                              */
+/*------------------------------------------------------------------------------------------------------------------------  */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    void        WapStopTimer     ( void );
+    bool        WapStartTimer    ( void );
+    bool        WapCreateTimer   ( void );
+    void        WapReleaseTimer  ( void );
+    void        WapActionCallback(WapEvent_t* pEvent);
+    WapErrCode_e WapCreatSocketDataLink(void);
+    bool        WapReleaseDownloadResource(void);
+    void        WapReleaseUrlMemory(void);
+    void        WapInitAccessUrlPtr(void);
+    void        WapAccessUrl(bool bResetHistory, const s8* pUrl);
+    void        WapResumeUrl(u32 nRangeStart, const s8* pUrl);
+    void        WAPSetStorageType(u32 nType);
+    bool        WapIsLocalPage(const s8* pUrl);
+    u8          WAP_UTF8ToUCS2(u8 *pUTF8, size_t nInUTF8Bytes, u16 *pUCS2Out, size_t *pBytesWritten);
+#ifdef __WLAN_MMI__
+    void        WAPSetConnectSet(u32 nType);
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif //__WAP_MMI_CDWAP__
+#endif //__WAP_CONFIG_HI__

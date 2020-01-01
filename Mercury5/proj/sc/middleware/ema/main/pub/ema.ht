@@ -1,0 +1,444 @@
+/**
+ *
+ * @file    ema.ht
+ *
+ * @brief   This file defines the common enumeration/structure of EMA
+ *
+ * @author  Pauli Leong
+ * @version $Id: ema.ht 14276 2008-09-22 06:27:36Z gary.lu $
+ *
+ */
+#ifndef __EMA_HT__
+#define __EMA_HT__
+
+
+/*--------------------------------------------------------------------------*/
+/* INCLUDE FILE                                                             */
+/*--------------------------------------------------------------------------*/
+#include "ema.hc"
+
+
+
+
+/*--------------------------------------------------------------------------*/
+/* PREPROCESSOR CONSTANT DEFINITION                                         */
+/*--------------------------------------------------------------------------*/
+#ifdef DefExtern
+#undef DefExtern
+#endif
+#ifdef __EMA_PARSE__
+#define DefExtern
+#else
+#define DefExtern extern
+#endif
+
+
+
+
+/*--------------------------------------------------------------------------*/
+/* PREPROCESSOR MACRO DEFINITION                                            */
+/*--------------------------------------------------------------------------*/
+#define ema_Msg_t  vm_msg_t
+
+
+
+
+/*--------------------------------------------------------------------------*/
+/* TYPE DEFINITION                                                          */
+/*--------------------------------------------------------------------------*/
+
+/**
+ *  @brief This enumeration defines the EMA common error return code
+ */
+typedef enum
+{
+  EMA_SUCCESS = 1,
+  EMA_FAIL,
+  EMA_REJECT,
+  EMA_SKIP,
+  EMA_STATE_ERROR,
+  EMA_PARAM_ERROR,
+  EMA_CMD_TIMEOUT,
+  EMA_VOLUME_FULL,
+  EMA_FORMAT_NOT_SUPPORT,
+  EMA_OUT_OF_MEMORY,  /*  MSMERR_OUT_OUT_MEMORY*/
+
+  /*	FS related error code	*/
+  EMA_FS_REJECT,      /*	MEMSER_FS_REJECT							=	0x7017	*/
+  EMA_NOT_DIR,        /*	MSMERR_NOT_DIR								= 0x7014	*/
+  EMA_NOT_FILE,       /*	MSMERR_NOT_FILE 							= 0x7015	*/
+  EMA_FILE_EXIST,     /*	MSMERR_FILE_EXIST 											*/
+  EMA_FILE_NOT_EXIST, /*	MSMERR_FILE_NOT_EXIST 				= 0x0006	*/
+  EMA_NO_FILE_HANDLE,	/*	MSMERR_NO_FILE_HANDLE 				= 0x7004	*/
+  EMA_ERROR_HANDLE, 	/*	MSMERR_ERROR_FILE_HANDLE			= 0x7005	*/
+  EMA_FILE_CORRUPTED, /*	MSMERR_FILE_CORRUPTED 				= 0x7006	*/
+  EMA_PATH_LEN_ERROR,	/*	MSMERR_FILENAME_LENGTH_ERROR	=	0x7007	*/
+  EMA_PATH_ERROR,     /*	MSMERR_FILENAME_ERROR					=	0x7008	*/
+  EMA_FS_BAD_PARAM, 	/*	MSMERR_EINVAL 								= 0x7016	*/
+  EMA_FS_RECOVEERY,   /*	MSMERR_FS_RECOVERY						=	0x7018	*/
+  EMA_FS_TIMEOUT,			/*	MSMERR_FS_TIMEOUT							=	0x7019	*/
+  EMA_FS_ASYNC_FINISH,/*	MSMERR_FS_TIMEOUT							=	0x7019	*/
+  EMA_FS_ASYNC_ABORT, /*	MSMERR_FS_TIMEOUT							=	0x7019	*/
+  EMA_END = 0xFFFF,
+} ema_ErrCode_e;
+
+
+/**
+ *  @brief This enumeration defines the synchronous/asynchronous primtive mechanism
+ */
+typedef enum
+{
+  EMA_SYNC,
+  EMA_ASYNC
+} ema_TransType_t;
+
+
+/**
+ *  @brief This structure defines the EMA device command index
+ */
+typedef enum
+{
+  EMA_CAM_SET_POWER = EMA_CAM_DEVICE,
+  EMA_CAM_READ_STATUS,
+  EMA_CAM_SET_SWITCH,
+  EMA_CAM_SET_AWB,
+  EMA_CAM_SET_EXPOSURE,
+  EMA_CAM_READ_SETTING,
+  EMA_CAM_SET_ZOOM,
+  EMA_CAM_READ_ZOOM,
+  EMA_CAM_SET_ENVIRONMENT,
+  EMA_CAM_READ_ENVIRONMENT,
+  EMA_CAM_SET_EV,
+  EMA_CAM_READ_EV,
+  EMA_CAM_GET_QUOTA,
+
+  EMA_CAM_START_RECORD_IMG,
+  EMA_CAM_START_RECORD_VDO,
+  EMA_CAM_START_RECORD_QRC,
+  EMA_CAM_START_RECORD_CLEAN,
+  EMA_CAM_SET_SIZE,
+  EMA_CAM_SET_LIMIT,
+  EMA_CAM_STOP_IMG_RECORD,
+  EMA_CAM_STOP_VDO_RECORD,
+  EMA_CAM_STOP_QRC_RECORD,
+  EMA_CAM_SET_MEDIUM,
+  EMA_CAM_GET_MEDIUM,
+  EMA_CAM_GET_IMAGE,
+  EMA_CAM_SET_SHUTTER_SOUND,
+  EMA_CAM_GET_QRC,
+  EMA_CAM_SET_VDO_FORMAT,
+  EMA_CAM_SAVE_RECORD_VDO,
+
+  EMA_AUD_SET_POWER = EMA_AUD_DEVICE,
+  EMA_AUD_SET_EQ,
+  EMA_AUD_SET_3D,
+  EMA_AUD_SET_PEQ,
+  EMA_AUD_SEND_VOLUME_DPGA,
+  EMA_AUD_READ_POWER,
+  EMA_AUD_READ_EQ,
+  EMA_AUD_READ_3D,
+  EMA_AUD_PLAY_FILE,
+  EMA_AUD_PLAY_MEMORY,
+  EMA_AUD_PLAY_STREAM,
+  EMA_AUD_PLAY_ADD_BUFFER,
+  EMA_AUD_PLAY_CTL,
+  EMA_AUD_PLAY_ENABLE,
+  EMA_AUD_PLAY_DISBLE,
+  EMA_AUD_GET_FILE_ID3,
+  EMA_AUD_SET_FILE_ID3,
+  EMA_AUD_GET_FILE_LYRICS,
+  EMA_AUD_GET_FILE_INFO,
+  EMA_AUD_GET_FILE_SR,
+  EMA_AUD_GET_FILE_BR,
+  EMA_AUD_GET_FILE_TT,
+  EMA_AUD_GET_MEMORY_SR,
+  EMA_AUD_GET_MEMORY_BR,
+  EMA_AUD_GET_MEMORY_TT,
+#ifdef __BLUETOOTH_A2DP_DRV__
+  EMA_AUD_GET_BT_SBC,
+#endif
+  EMA_AUD_GET_PLAY_POS,
+  EMA_AUD_SET_PLAY_POS,
+  EMA_AUD_REC_START,
+  EMA_AUD_REC_STOP,
+  EMA_AUD_REC_SET_PARAM,
+  EMA_AUD_REC_SET_LIMIT,
+  EMA_AUD_REC_SET_MEDIUM,
+  EMA_AUD_REC_GET_MEDIUM,
+  EMA_AUD_REC_GET_TIME,
+  EMA_AUD_BT_SET_POWER,
+  EMA_AUD_A2DP_SET_CAPABILITY,
+  EMA_AUD_CMD_NONE,
+
+  EMA_DISP_SET_WIN_GEOMETRY = EMA_DISP_DEVICE,
+  EMA_DISP_DRAW_BMP,
+  EMA_DISP_SET_SOURCE_COLOR_KEY,
+  EMA_DISP_SET_TRANSLEV,
+  EMA_DISP_ERASE_LAYER,
+  EMA_DISP_ENABLE_VIDEO_LAYER,
+  EMA_DISP_ENABLE_LAYER,
+  EMA_DISP_DISABLE_LAYER,
+  EMA_DISP_INIT_DISPLAY,
+  EMA_DISP_SET_COLOR_DEPTH,
+  EMA_DISP_SELECT_MAIN_DISPLAY,
+  EMA_DISP_DISABLE_ICP_OUTPUT,
+  EMA_DISP_DISABLE_PRE_VIDEO_OUTPUT,
+  EMA_DISP_CLEAR_ICP_LAYER,
+  EMA_DISP_SELECT_ICP_WIN,
+  EMA_DISP_JPEG_SCALE_SIZE,
+  EMA_DISP_JPEG_DECODE,
+  EMA_DISP_PARTIAL_DECODE,
+  EMA_DISP_JPEG_PNG_DECODE,
+  EMA_DISP_JPEG_DEC_GET_TO_BB,
+  EMA_DISP_JPEG_SET_EXIF,
+  EMA_DISP_SELECT_MAIN_DISP_BYPASS,
+  EMA_DISP_GSS_RENDER,
+  EMA_DISP_GSS_ENCODE,
+  EMA_DISP_GSS_NES,
+  EMA_DISP_GSS_NES_GET_INFO,
+  EMA_DISP_GSS_NES_STOP,
+  EMA_DISP_GSS_SET_LAYER_PROPERTY,
+  EMA_DISP_SCALE,
+
+  EMA_IP_SET_POWER = EMA_IP_DEVICE,
+  EMA_IP_SET_SIE,
+  EMA_IP_SET_DQ,
+  EMA_IP_GET_DQ,
+
+  EMA_REC_START_RECORD = EMA_REC_DEVICE,
+  EMA_REC_START_RECORD_ASYNC,
+  EMA_REC_SET_SIZE,
+  EMA_REC_SET_LIMIT,
+  EMA_REC_STOP_RECORD,
+  EMA_REC_SET_MEDIUM,
+  EMA_REC_GET_MEDIUM,
+  EMA_REC_SET_SWITCH,
+  EMA_REC_SAVE_RECORD,
+
+  EMA_WIFI_REG_CB = EMA_WIFI_DEVICE,
+  EMA_WIFI_SEND_CMD,
+  EMA_WIFI_RECV_EVENT,
+  EMA_WIFI_UNREG_CB,
+  EMA_WIFI_INIT_FIFO,
+  EMA_WIFI_DEL_FIFO,
+  EMA_WIFI_START_ENQUEUE,
+  EMA_WIFI_STOP_ENQUEUE,
+
+  EMA_EFS_FORMAT = EMA_EFS_DEVICE,
+  EMA_EFS_READ_FILE,
+  EMA_EFS_WRITE_FILE,
+  EMA_EFS_LIST,
+  EMA_EFS_OPEN_FILE,
+  EMA_EFS_CLOSE_FILE,
+  EMA_EFS_MAKE_DIR,
+  EMA_EFS_REMOVE_DIR,
+  EMA_EFS_REMOVE_FILE,
+  EMA_EFS_RENAME,
+  EMA_EFS_SEEK,
+  EMA_EFS_TELL,
+  EMA_EFS_GET_VOLUME_SPACE,
+  EMA_EFS_GET_MEDIA_INFO,
+  EMA_EFS_GET_ATTR,
+  EMA_EFS_SET_ATTR,
+
+  EMA_EFS_MOUNT,
+  EMA_EFS_UNMOUNT,
+  EMA_EFS_GET_RENAME_LEN_SIZE,
+  EMA_EFS_GET_DIR_SIZE,
+  EMA_EFS_TRUNCATE_FILE,
+  EMA_EFS_TRUNCATE_OPENED_FILE,
+  EMA_EFS_GET_FILE_INFO,
+  EMA_EFS_GET_DIR_CHKSUM,
+  EMA_EFS_FLUSH,
+  EMA_EFS_BACKUP,
+  EMA_EFS_RESTORE,
+  EMA_EFS_GET_CHKSUM,
+  EMA_EFS_ABORT_GET_CHKSUM,
+  EMA_EFS_QUERY_MOUNT,
+  EMA_EFS_GET_FILE_NUM,
+  EMA_EFS_ABORT_GET_FILE_NUM,
+
+  EMA_EFS_GET_INFO_FROM_ID,
+  EMA_EFS_PARTIAL_LIST,
+  EMA_EFS_DELETE,
+  EMA_EFS_ABORT_DELETE,
+  EMA_EFS_CHKDSK,
+  EMA_EFS_ABORT_CHKDSK,
+  EMA_EFS_GET_SERIAL,
+
+  EMA_VDO_PLAY_FILE = EMA_VDO_DEVICE,
+  EMA_VDO_PLAY_MEM,
+  EMA_VDO_SET_NOTIFY_CONFIG,
+  EMA_VDO_PLAY_CMD,
+  EMA_VDO_GET_POS,
+  EMA_VDO_GET_SR,
+  EMA_VDO_GET_BR,
+  EMA_VDO_READ_TOTAL_TIME,
+  EMA_VDO_GET_VIDEO_INFO,
+  EMA_VDO_GET_PLAY_INFO,
+  EMA_VDO_GET_INFO_FROM_MEM,
+  EMA_VDO_SET_SPEED,
+  EMA_VDO_SET_POSITION,
+  EMA_VDO_PLAY_FIRST_FRAME,
+  EMA_VDO_PLAY_STREAM,
+  EMA_VDO_SET_POWER,
+  EMA_VDO_STREAM_ADD_BUFFER,
+  EMA_VDO_STREAM_READ_PACKAGE,
+  EMA_VDO_PLAY_NOTIFY_ENABLE,
+  EMA_VDO_SEEK_CANCEL,
+  EMA_VDO_PLAY_NONE,
+
+  EMA_USB_OPEN = EMA_USB_DEVICE,
+  EMA_USB_CLOSE,
+  EMA_USB_QUERY_STATUS,
+  EMA_USB_GET_ACT_DEV,
+  EMA_USB_CDC_WRITE_CONTROL,
+  EMA_USB_CDC_WRITE_DATA,
+  EMA_USB_CDC_WRITE_NOTIFICATION,
+  EMA_USB_CDC_READ_DATA,
+  EMA_USB_CDC_ADD_DATA,
+  EMA_USB_CDC_PAUSE,
+  EMA_USB_CDC_RESUME,
+  EMA_USB_STOP_POLLING,
+
+  EMA_TV_OPEN = EMA_TV_DEVICE,
+  EMA_TV_SET_MEDIUM,
+  EMA_TV_SET_SIZE,
+  EMA_TV_SET_LIMIT,
+  EMA_TV_SET_FORMAT,
+  EMA_TV_START_CAPTURE_CLEAN,
+  EMA_TV_START_CAPTURE,
+  EMA_TV_GET_MEDIUM,
+  EMA_TV_GET_EM_INFO,
+  EMA_TV_MULTILANGUAGE,
+  EMA_TV_SET_SHUTTER_SOUND,
+  EMA_TV_RECORD_START,
+  EMA_TV_RECORD_STOP,
+  EMA_TV_SET_POWER,
+  EMA_TV_AUDIO_DECODE,
+  EMA_TV_START_DTV,
+  EMA_TV_COMMAND,
+  EMA_TV_SCAN,
+  EMA_TV_SWITCH_CHN,
+  EMA_TV_SET_FREQ,
+  EMA_TV_SNAP_SHOT,
+  EMA_TV_CMD_CANCEL,
+  EMA_TV_NONE,
+
+  EMA_SYS_M2_RUN2POWEROFF = EMA_SYS_DEVICE,
+  EMA_SYS_INFORM_M3_PSRAMSIZE,
+  EMA_SYS_READ_CUS,
+  EMA_SYS_GET_CAPABILITY,
+
+  EMA_NRAI_GET_INFO = EMA_NRAI_DEVICE,
+  EMA_NRAI_READ,
+  EMA_NRAI_WRITE,
+
+  EMA_FMR_SET_POWER = EMA_FMR_DEVICE,
+  EMA_FMR_SET_FREQUENCY,
+  EMA_FMR_SET_PLAY,
+  EMA_FMR_SET_SEARCH,
+  EMA_FMR_SET_BAND,
+  EMA_FMR_SET_MUTE,
+  EMA_FMR_SET_STEREO,
+  EMA_FMR_GET_CHANINFO,
+  EMA_FMR_GET_CHIPINFO,
+  EMA_FMR_SET_AREA,
+  EMA_FMR_SET_CARRIER_THRESHOLD,
+  EMA_FMR_REC_START,
+  EMA_FMR_REC_STOP,
+  EMA_FMR_REC_SET_PARAM,
+  EMA_FMR_REC_SET_LIMIT,
+  EMA_FMR_REC_SET_MEDIUM,
+  EMA_FMR_REC_GET_MEDIUM,
+
+  EMA_GPS_OPEN = EMA_GPS_DEVICE,
+  EMA_GPS_STREAM_START,
+  EMA_GPS_STREAM_STOP,
+  EMA_GPS_CLOSE,
+  EMA_GPS_IOCTL,
+
+  EMA_RFID_READ_TAG = EMA_RFID_DEVICE,
+  EMA_RFID_READ_BLOCK,
+  EMA_RFID_WRITE_BLOCK,
+  EMA_RFID_GET_READER_INFO,
+  EMA_RFID_CRYPTO_WRITE,
+  EMA_RFID_CRYPTO_READ,
+  EMA_RFID_UPGRADE,
+  EMA_RFID_POWER
+} ema_DeviceCmdRef_e;
+
+
+/**
+ *  @brief This enumeration defines the MMP function Index
+ */
+typedef enum
+{
+  FUNC_CAM           = 0,  /**< Camera/Camcorder */
+  FUNC_CAM_VC        = 1,  /**< Camera / Video Chat*/
+  FUNC_AUD           = 2,  /**< Audio */
+  FUNC_AUD_MP        = 3,  /**< Audio Media Player */
+  FUNC_AUD_STM       = 4,  /**< Audio streaming */
+  FUNC_VDO           = 5,  /**< Video hardware playback include (H.263, H.264, IPTV)*/
+  FUNC_VDO_SP        = 6,  /**< Video commands can excuted in some special cases such as MP3 background playing*/
+  FUNC_USB           = 7,  /**< USB function */
+  FUNC_USB_CDC       = 8,  /**< USB Communication Device Class */
+  FUNC_IP            = 9,  /**< Image Processing */
+  FUNC_DISP          = 10,  /**< Display Service */
+  FUNC_GSS_RENDER    = 11,  /**< GSS Render mode */
+  FUNC_FS            = 12, /**< File System */
+  FUNC_USB_MSC       = 13, /**< USB Mass Storage Class */
+  FUNC_SYS           = 14, /**< System service */
+  FUNC_TV            = 15, /**< TV */
+  FUNC_FMR           = 16, /**< FM radio */
+  FUNC_GPS           = 17, /**< GPS */
+  FUNC_IPTV          = 18, /**< IPTV (Video) */
+  FUNC_PERIPHERAL    = 19, /**< Peripheral need M2 power, but not controlled by M2 */
+  FUNC_NANDSERV      = 20, /**< NAND Serivce (E2P, Backtrace) */
+  FUNC_RFID          = 21, /**< RFID */
+  FUNC_NRAI          = 22,
+  FUNC_WIFI          = 23, /**< WIFI */
+  FUNC_MAX
+} ema_FuncIdx_e;
+
+
+/**
+ *  @brief This structure defines the EMA state mechine type
+ */
+typedef u32 ema_StateMachine_t;
+
+
+/**
+ *  @brief This structure defines return user information
+ */
+typedef struct
+{
+  u16                   EMA_Device;      /**< EMA device ID */
+  ema_DeviceCmdRef_e    EMA_Cmd;         /**< EMA command ID */
+  ema_ErrCode_e         ErrCode;         /**< Command error return code */
+  u32                   retValue;        /**< return value of the return callback function */
+  u32                   BufferMaxLength; /**< Buffer max size (should be 0 if pBuffer == NULL */
+  void                * pBuffer;        /**< Pointer to a transfer buffer */
+  void                * pfn;            /**< Function pointer, It can used in call back function */
+  u32                   priv;            /**< Private data for specific function */
+} ema_UserData_t;
+
+
+
+
+/*--------------------------------------------------------------------------*/
+/* GLOBAL VARIABLE DEFINITION                                               */
+/*--------------------------------------------------------------------------*/
+
+
+
+
+/*--------------------------------------------------------------------------*/
+/* GLOBAL FUNCTION DEFINITION                                               */
+/*--------------------------------------------------------------------------*/
+
+
+
+
+#endif /*__EMA_HT__ */
+

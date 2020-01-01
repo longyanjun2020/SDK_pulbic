@@ -1,0 +1,420 @@
+
+#--------------------------------Warming-----------------------------------
+# If you want use any module with ABSTRACT (no ro-pi) linking, please
+# make ABSTRACT_DLM_SUPPORT, in options_$(product_name).mak, as TRUE
+#--------------------------------Warming-----------------------------------
+
+
+#---------------------------------------------------------------------------
+# general dlm module
+#---------------------------------------------------------------------------
+DLM_ENTRY_LST =\
+   eml_main \
+#   dlm_amrnbenc\
+#  dlm_mp3dec\
+#  dlm_aacdec \
+#	dlm_rvcdec\
+
+
+
+DLM_KERNEL_LST =\
+#  dlm_amrnbenc\
+#  dlm_mp3dec\
+#  dlm_aacdec \
+#	dlm_rvcdec\
+
+ifeq ($(filter ENABLE_AMRNB_DEC, $(PP_OPT_COMMON)), ENABLE_AMRNB_DEC)
+ifeq ($(filter DLM_AMRNB_CODEC ,$(PP_OPT_COMMON)),DLM_AMRNB_CODEC)
+DLM_ENTRY_LST +=\
+   dlm_amrnbenc
+
+DLM_KERNEL_LST +=\
+  dlm_amrnbenc
+endif
+endif
+
+ifeq ($(filter ENABLE_MP3_DEC, $(PP_OPT_COMMON)), ENABLE_MP3_DEC)
+ifeq ($(filter DLM_MP3DEC ,$(PP_OPT_COMMON)),DLM_MP3DEC)
+DLM_ENTRY_LST +=\
+   dlm_mp3dec
+
+DLM_KERNEL_LST +=\
+  dlm_mp3dec
+endif
+endif
+
+ifeq ($(filter ENABLE_AAC_DEC, $(PP_OPT_COMMON)), ENABLE_AAC_DEC)
+ifeq ($(filter DLM_AACDEC ,$(PP_OPT_COMMON)),DLM_AACDEC)
+DLM_ENTRY_LST +=\
+   dlm_aacdec
+
+DLM_KERNEL_LST +=\
+   dlm_aacdec
+endif
+endif
+
+#---------------------------------------------------------------------------
+# unit test case
+#---------------------------------------------------------------------------
+ifeq ($(filter __UNIT_TEST_APP__ ,$(PP_OPT_COMMON)),__UNIT_TEST_APP__)
+DLM_ENTRY_LST +=\
+    ut_mdl_entry
+
+ifeq ($(filter __ENABLE_DLM_SRVUT__ ,$(PP_OPT_COMMON)),__ENABLE_DLM_SRVUT__)
+#---------------------------------------------------------------------------
+# SYS unit test cuse
+#---------------------------------------------------------------------------
+DLM_UT_SYS_LST +=\
+    DlmUtDynTskSemRecover\
+    DlmUtDynTskDynSemRecover\
+    DlmUtDynTskFlagWaiting\
+    DlmUtDynTskMsgWaiting\
+    DlmUTEqualPriority\
+    DlmUtDynTskWaitSend\
+    DlmUtTskPrioChange\
+    DlmUtDtTimedWaitSend\
+    DlmUtDynTskTimer
+
+#------------------------------------------------------------	---------------
+# MDL unit test cuse
+#---------------------------------------------------------------------------
+DLM_UT_MDL_LST +=\
+    ut_template_0\
+    ut_template_1\
+    ut_template_2\
+    ut_mdl_cam_tc0\
+    DlmUtFileSystem\
+    ut_mdl_eml_tc0\
+    ut_mdl_eml_tc1\
+    ut_mdl_eml_tc2\
+    ut_mdl_eml_tc3\
+    ut_mdl_eml_tc4\
+    ut_mdl_eml_tc5\
+    ut_mdl_avp_tc0\
+    ut_mdl_avp_tc1\
+    ut_mdl_mmaudio_tc0\
+    ut_mdl_mmaudio_tc2\
+    ut_mdl_image_codec_tc0\
+    ut_mdl_vdr_tc0\
+    ut_mdl_imgcapture_tc0\
+    ut_mdl_imgcapture_tc1\
+
+#---------------------------------------------------------------------------
+# DRV unit test cuse
+#---------------------------------------------------------------------------
+DLM_UT_DRV_LST +=\
+    ut_drv_timer_tc0\
+    ut_drv_sandbox_tc0\
+    ut_drv_audio_rt0\
+    ut_drv_audio_mt0\
+    ut_drv_clkgen_tc0\
+
+#---------------------------------------------------------------------------
+# MMI unit test cuse
+#---------------------------------------------------------------------------
+DLM_ENTRY_LST +=\
+    DlmUt
+
+DLM_UT_MMI_LST +=\
+    DlmUtAudioplayerReq\
+    DlmUtAccIf\
+    DlmUtAccessoryIf\
+    DlmUtAccessoryReq\
+    DlmUtAlarmIf\
+    DlmUtAlarmReq\
+    DlmUtAtsyncIf\
+    DlmUtAtsyncReq\
+    DlmUtAudioenvReq\
+    DlmUtAudioplayerIf\
+    DlmUtAudiorecorderIf\
+    DlmUtAudiorecorderReq\
+    DlmUtBatteryIf\
+    DlmUtBatteryReq\
+    DlmUtCalllogReq\
+    DlmUtCamcoderIf\
+    DlmUtCamcoderReq\
+    DlmUtCameraIf\
+    DlmUtCameraReq\
+    DlmUtCapabilityReq\
+    DlmUtCbsIf\
+    DlmUtCbsReq\
+    DlmUtCcIf\
+    DlmUtCcReq\
+    DlmUtCfgReq\
+    DlmUtClientReq\
+    DlmUtClipboardReq\
+    DlmUtClockIf\
+    DlmUtClockReq\
+    DlmUtCodecReq\
+    DlmUtConfigIf\
+    DlmUtConfigReq\
+    DlmUtCoreReq\
+    DlmUtCphsReq\
+    DlmUtEventdbIf\
+    DlmUtEventdbReq\
+    DlmUtEvtcenterIf\
+    DlmUtEvtcenterReq\
+    DlmUtFdnIf\
+    DlmUtFdnReq\
+    DlmUtFilemgrReq\
+    DlmUtImagemakerReq\
+    DlmUtMciReq\
+    DlmUtMmIf\
+    DlmUtMmsIf\
+    DlmUtMmsReq\
+    DlmUtMmstxIf\
+    DlmUtMmstxReq\
+    DlmUtMobilitymgrIf\
+    DlmUtMobilitymgrReq\
+    DlmUtMoiIf\
+    DlmUtMoiReq\
+    DlmUtMotiondetectorIf\
+    DlmUtMotiondetectorReq\
+    DlmUtMplayerReq\
+    DlmUtMsgmgrIf\
+    DlmUtMsgmgrReq\
+    DlmUtEmugameReq\
+    DlmUtObjprocessingIf\
+    DlmUtObjprocessingReq\
+    DlmUtPhbIf\
+    DlmUtPhbReq\
+    DlmUtPlaylistIf\
+    DlmUtPlaylistReq\
+    DlmUtPreviewline2Req\
+    DlmUtProfileIf\
+    DlmUtProfileReq\
+    DlmUtSensormgrIf\
+    DlmUtSensormgrReq\
+    DlmUtShortcutReq\
+    DlmUtSimIf\
+    DlmUtSimReq\
+    DlmUtSmsIf\
+    DlmUtSmsReq\
+    DlmUtSmstxIf\
+    DlmUtSmstxReq\
+    DlmUtSsIf\
+    DlmUtSsReq\
+    DlmUtStkIf\
+    DlmUtStkReq\
+    DlmUtTaskdbReq\
+    DlmUtTaskdbmgrIf\
+    DlmUtTaskdbmgrReq\
+    DlmUtTouchReq\
+    DlmUtTouchshortcutIf\
+    DlmUtTouchshortcutReq\
+    DlmUtTvIf\
+    DlmUtTvReq\
+    DlmUtUsbReq\
+    DlmUtVcalparserReq\
+    DlmUtVcalstoreReq\
+    DlmUtVendorIf\
+    DlmUtVendorReq\
+    DlmUtVideoplayerIf\
+    DlmUtVideoplayerReq\
+    DlmUtVoicecallReq \
+    DlmUtSubjectresconflictReq
+
+ifeq ($(filter __BLUETOOTH_MMI__ ,$(PP_OPT_COMMON)),__BLUETOOTH_MMI__)
+DLM_UT_MMI_LST +=\
+    DlmUtBtIf\
+    DlmUtBtReq\
+    DlmUtBtobexIf\
+    DlmUtBtobexReq
+endif  ### end of __BLUETOOTH_MMI__
+
+ifneq ($(filter __SQLLITE__ ,$(PP_OPT_COMMON)),__SQLLITE__)
+DLM_UT_MMI_LST +=\
+    DlmUtDatamgrReq\
+    DlmUtDbutilityReq
+endif  ### end of __SQLLITE__
+
+ifeq ($(filter __APP_MMI_FM_RADIO__ ,$(PP_OPT_COMMON)),__APP_MMI_FM_RADIO__)
+DLM_UT_MMI_LST +=\
+    DlmUtFmradioReq
+endif  ### end of __APP_MMI_FM_RADIO__
+
+ifeq ($(filter __JAVA_MMI__ ,$(PP_OPT_COMMON)),__JAVA_MMI__)
+DLM_UT_MMI_LST +=\
+    DlmUtJavaIf\
+    DlmUtJavaReq
+endif  ### end of __JAVA_MMI__
+
+ifeq ($(filter __WLAN_MMI__ ,$(PP_OPT_COMMON)),__WLAN_MMI__)
+DLM_UT_MMI_LST +=\
+    DlmUtWlanIf\
+    DlmUtWlanReq
+endif  ### end of __WLAN_MMI__
+
+endif  ### end of __ENABLE_DLM_SRVUT__
+
+endif  ### end of __UNIT_TEST_APP__
+
+
+#---------------------------------------------------------------------------
+# for partial dlm build, DO NOT MODIFY IT !
+#---------------------------------------------------------------------------
+DLM_GENERAL_LST:= $(DLM_KERNEL_LST)
+
+DLM_KERNEL_LST:= $(DLM_UT_SYS_LST) \
+                 $(DLM_UT_MDL_LST) \
+                 $(DLM_UT_DRV_LST) \
+                 $(DLM_UT_MMI_LST) \
+                 $(DLM_UT_3RD_LST) \
+                 $(DLM_GENERAL_LST)
+
+
+
+
+#---------------------------------------------------------------------------
+# EML
+#---------------------------------------------------------------------------
+EML_KERNEL_LST =\
+	eml_main\
+
+EML_BIN_LST =\
+    eml_map001\
+    eml_map002\
+    eml_map003\
+    eml_map004\
+    eml_map005\
+    eml_map006\
+    eml_map007\
+    eml_map008\
+    eml_map009\
+    eml_map010\
+    eml_map011\
+    eml_map012\
+    eml_map013\
+    eml_map015\
+    eml_map016\
+    eml_map017\
+    eml_map018\
+    eml_map019\
+    eml_map021\
+    eml_map022\
+    eml_map023\
+    eml_map024\
+    eml_map025\
+    eml_map026\
+    eml_map027\
+    eml_map032\
+    eml_map033\
+    eml_map034\
+    eml_map040\
+    eml_map041\
+    eml_map042\
+    eml_map043\
+    eml_map044\
+    eml_map045\
+    eml_map046\
+    eml_map047\
+    eml_map048\
+    eml_map050\
+    eml_map051\
+    eml_map057\
+    eml_map058\
+    eml_map060\
+    eml_map061\
+    eml_map062\
+    eml_map064\
+    eml_map065\
+    eml_map066\
+    eml_map067\
+    eml_map068\
+    eml_map069\
+    eml_map070\
+    eml_map071\
+    eml_map072\
+    eml_map073\
+    eml_map074\
+    eml_map075\
+    eml_map076\
+    eml_map077\
+    eml_map078\
+    eml_map079\
+    eml_map080\
+    eml_map082\
+    eml_map083\
+    eml_map085\
+    eml_map086\
+    eml_map087\
+    eml_map088\
+    eml_map089\
+    eml_map090\
+    eml_map091\
+    eml_map092\
+    eml_map093\
+    eml_map094\
+    eml_map095\
+    eml_map096\
+    eml_map097\
+    eml_map099\
+    eml_map100\
+    eml_map101\
+    eml_map105\
+    eml_map107\
+    eml_map108\
+    eml_map109\
+    eml_map110\
+    eml_map112\
+    eml_map113\
+    eml_map114\
+    eml_map115\
+    eml_map116\
+    eml_map117\
+    eml_map118\
+    eml_map119\
+    eml_map122\
+    eml_map133\
+    eml_map134\
+    eml_map135\
+    eml_map140\
+    eml_map142\
+    eml_map151\
+    eml_map160\
+    eml_map164\
+    eml_map165\
+    eml_map167\
+    eml_map180\
+    eml_map181\
+    eml_map182\
+    eml_map183\
+    eml_map184\
+    eml_map185\
+    eml_map187\
+    eml_map188\
+    eml_map189\
+    eml_map190\
+    eml_map191\
+    eml_map193\
+    eml_map194\
+    eml_map198\
+    eml_map200\
+    eml_map201\
+    eml_map202\
+    eml_map222\
+    eml_map225\
+    eml_map226\
+    eml_map227\
+    eml_map228\
+    eml_map229\
+    eml_map230\
+    eml_map231\
+    eml_map232\
+    eml_map233\
+    eml_map234\
+    eml_map235\
+    eml_map236\
+    eml_map240\
+    eml_map241\
+    eml_map242\
+    eml_map243\
+    eml_map244\
+    eml_map245\
+    eml_map246\
+    eml_map248\
+    eml_map249\
+    eml_map251\
+    eml_map252\
+    eml_map254\
+    eml_map255

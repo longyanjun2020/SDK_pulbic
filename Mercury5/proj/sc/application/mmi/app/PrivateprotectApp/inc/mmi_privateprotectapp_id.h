@@ -1,0 +1,36 @@
+#ifndef __MMI_PRIVATEPROTECTAPP_ID_H__
+#define __MMI_PRIVATEPROTECTAPP_ID_H__ 
+
+
+typedef enum
+{
+	PRIVATEPROTECT_WND_MAIN = WND_ID_APP_BASE,
+}PrivateprotectId_e;
+/*enum
+{
+	PRIVATEPROTECT_WND_PW = WND_ID_APP_BASE + 2,//only used in PrivateProtectAPPEnterPW 
+};
+
+
+typedef enum
+{
+  	MAIN_VIEW_BEGIN = APP_WDG_START,
+	MAINVIEW_MFLCONTAINER,
+	PHONEBOOK_PICKWIDGET,
+	CALLCENTER_PICKWIDGET,
+	MESSAGE_PICKWIDGET,
+  	MAIN_VIEW_END
+}PrivateprotectMainView_e;
+
+typedef enum
+{
+  	PW_VIEW_BEGIN = APP_WDG_START,
+	PWVIEW_MFLCONTAINER,
+	PW_INPUTWIDGET,
+  	PW_VIEW_END
+}PrivateprotectPWView_e;
+
+*/
+#endif //__MMI_PRIVATEPROTECTAPP_ID_H__
+
+

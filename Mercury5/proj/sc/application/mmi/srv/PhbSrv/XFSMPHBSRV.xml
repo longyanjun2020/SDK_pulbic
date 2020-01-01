@@ -1,0 +1,656 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>phbsrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_PHB</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="PHBSRV" id="4731" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="LoadADR">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="LoadADR" id="22472" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="CheckStatus">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="CheckStatus" id="12227" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_LoadADR" DefaultChild="">
+              <EntryComment>Load sorting table of ADR.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="Rebuild" id="28233" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_LoadADR" DefaultChild="">
+              <EntryComment>Rebuild sorting table.</EntryComment>
+              <ExitComment>Write sorting table.</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+          <node name="Idle" id="10260" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>Wait for request.</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="LoadADN" id="31763" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="CheckFDNStatus">
+          <EntryComment>Load sorting table of ADN.</EntryComment>
+          <ExitComment>Trigger ADN ready event.</ExitComment>
+          <ModeComment></ModeComment>
+              <node name="CheckFDNStatus" id="19050" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_LoadADN" DefaultChild="">
+              <EntryComment>Check FDN status.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="QueryPhbStatus" id="23220" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_LoadADN" DefaultChild="">
+              <EntryComment>Query phonebook status.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ReadChangeData" id="29504" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_LoadADN" DefaultChild="">
+              <EntryComment>If ADN is changed, we need read and sort them.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+          <node name="CopyADN" id="10428" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="CheckFDNStatus">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="CheckFDNStatus" id="4028" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_CopyADN" DefaultChild="">
+              <EntryComment>Check FDN status.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="CopyAllContact" id="17441" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_CopyADN" DefaultChild="">
+              <EntryComment>Stop write sorting table.&#13;&#10;Copy all ADN contacts to phone.</EntryComment>
+              <ExitComment>Start write sorting table.</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+          <node name="Active" id="27550" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="CheckStatus">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+              <node name="CheckStatus" id="19426" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Check request array and transfer to next mode.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="QueryPhbStatus" id="20766" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Query phonebook status.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ReadOneContact" id="22546" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Read one contact.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="WriteOneContact" id="26348" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Write one contact.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="CopyOneContact" id="5894" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Copy one contact.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="CopyAllContact" id="26719" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Copy all contacts.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="DeleteOneContact" id="6615" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Delete one contact.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="DeleteAllContact" id="30766" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Delete all contacts.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="SearchOneContact" id="25083" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Search one contact.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ImportContact" id="10214" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Import Contact.</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ExportContact" id="30191" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>Export Contact.</EntryComment>
+              <ExitComment>release dbmgr</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="12666"	from="_PHBSRV"  to="_PHBSRV"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_SimEntryReadyInd</event>
+				<condition></condition>
+				<action>Store bIsADNChange and trigger evtInit if both SImEntryRead and ChecksumInd received.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="12739"	from="_PHBSRV"  to="_PHBSRV"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ChecksumInd</event>
+				<condition></condition>
+				<action>Store Checksum and trigger evtInit if both SImEntryRead and ChecksumInd received</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3169"	from="_PHBSRV"  to="_PHBSRV"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>FDNSRV_EVT_StatusReady</event>
+				<condition></condition>
+				<action>Degregister wait FDN status ready and trigger evtInit.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16107"	from="_PHBSRV"  to="_PHBSRV"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_FdnAdnSwapReadyInd</event>
+				<condition></condition>
+				<action>Call fnStartPhonebookInitReq().</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31922"	from="_PHBSRV"  to="_PHBSRV"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>FDNSRV_EVT_StatusChange</event>
+				<condition></condition>
+				<action>Call fnStartPhonebookInitReq().</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3733"	from="_PHBSRV"  to="_LoadADR_Rebuild"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_RebuildReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18360"	from="_LoadADR"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Ready</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11910"	from="_LoadADR_CheckStatus"  to="_LoadADR_Rebuild"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_STATUS_NOT_MATCH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2153"	from="_Idle"  to="_LoadADN"  type="Default"	hasCondition="1" hasAction="0">
+				<event>PHBSRV_IEVT_Init</event>
+				<condition>bIsSIMReadyInd == TRUE &amp; bIsGetSIMEntryReadyInd == TRUE</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9326"	from="_Idle"  to="_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Start</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27233"	from="_Idle"  to="_CopyADN"  type="Default"	hasCondition="1" hasAction="0">
+				<event>PHBSRV_IEVT_COPY_ADN_TO_PHONE_REQ</event>
+				<condition>((bIsADNReady_M == TRUE) &amp;&amp; (bIsGetCopyAllADNReq_M == TRUE)) || ((bIsADNReady_S == TRUE) &amp;&amp; (bIsGetCopyAllADNReq_S == TRUE))</condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29866"	from="_LoadADN"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>PHBSRV_IEVT_Ready</event>
+				<condition></condition>
+				<action>Trigger "PhonebookReady" or "ADN_M_READY" or "ADN_S_READY" event.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28533"	from="_LoadADN"  to="_Idle"  type="Default"	hasCondition="1" hasAction="1">
+				<event>PHBSRV_IEVT_Stop_Init</event>
+				<condition>Check BOOK_TYPE and bIsGetInitReq.</condition>
+				<action>Clean ADN data.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3682"	from="_LoadADN_CheckFDNStatus"  to="_LoadADN_QueryPhbStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_ToQueryPhbStatus</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14671"	from="_LoadADN_QueryPhbStatus"  to="_LoadADN_QueryPhbStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_QueryStatusCnf</event>
+				<condition></condition>
+				<action>Store the query result and trigger read_req</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="8088"	from="_LoadADN_QueryPhbStatus"  to="_LoadADN_ReadChangeData"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_ReadContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9705"	from="_LoadADN_QueryPhbStatus"  to="_LoadADN_QueryPhbStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Init</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1300"	from="_LoadADN_ReadChangeData"  to="_LoadADN_ReadChangeData"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ReadContactCnf</event>
+				<condition></condition>
+				<action>Read next one or trigger "Ready" event.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16349"	from="_CopyADN"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>PHBSRV_IEVT_Ready</event>
+				<condition></condition>
+				<action>Trigger "PhonebookReady" or "ADN_M_READY" or "ADN_S_READY" event.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6680"	from="_CopyADN_CheckFDNStatus"  to="_CopyADN_CopyAllContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_TO_COPY_ALL_ADN</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16807"	from="_CopyADN_CopyAllContact"  to="_CopyADN_CopyAllContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ReadContactCnf</event>
+				<condition></condition>
+				<action>Copy to phone then: &#13;&#10;1. Read next contact, or &#13;&#10;2. Trigger "Ready" event.</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4832"	from="_Active"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_End</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10258"	from="_Active"  to="_LoadADN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Init</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24467"	from="_Active_CheckStatus"  to="_Active_QueryPhbStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_QueryStatusReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11397"	from="_Active_CheckStatus"  to="_Active_ReadOneContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_ReadContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="12974"	from="_Active_CheckStatus"  to="_Active_WriteOneContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_WriteContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="685"	from="_Active_CheckStatus"  to="_Active_CopyOneContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_CopyContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17474"	from="_Active_CheckStatus"  to="_Active_CopyAllContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_CopyAllContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29604"	from="_Active_CheckStatus"  to="_Active_DeleteOneContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_DeleteContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29749"	from="_Active_CheckStatus"  to="_Active_DeleteAllContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_DeleteAllContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25901"	from="_Active_CheckStatus"  to="_Active_SearchOneContact"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_SearchContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="21309"	from="_Active_QueryPhbStatus"  to="_Active_QueryPhbStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_QueryStatusCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2216"	from="_Active_QueryPhbStatus"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3558"	from="_Active_ReadOneContact"  to="_Active_ReadOneContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ReadContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24529"	from="_Active_ReadOneContact"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31269"	from="_Active_WriteOneContact"  to="_Active_WriteOneContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_WriteContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7859"	from="_Active_WriteOneContact"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="2306"	from="_Active_CopyOneContact"  to="_Active_CopyOneContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_CopyContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6964"	from="_Active_CopyOneContact"  to="_Active_CopyOneContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ReadContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11358"	from="_Active_CopyOneContact"  to="_Active_CopyOneContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_WriteContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31602"	from="_Active_CopyOneContact"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16851"	from="_Active_CopyAllContact"  to="_Active_CopyAllContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_CopyAllContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29870"	from="_Active_CopyAllContact"  to="_Active_CopyAllContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ReadContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28288"	from="_Active_CopyAllContact"  to="_Active_CopyAllContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_WriteContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="18469"	from="_Active_CopyAllContact"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26726"	from="_Active_DeleteOneContact"  to="_Active_DeleteOneContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_DeleteContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24887"	from="_Active_DeleteOneContact"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20714"	from="_Active_DeleteAllContact"  to="_Active_DeleteAllContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_DeleteAllContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="11056"	from="_Active_DeleteAllContact"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4078"	from="_Active_SearchOneContact"  to="_Active_SearchOneContact"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ReadContactCnf</event>
+				<condition></condition>
+				<action>Fill out DM and trigger "Finish" event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25031"	from="_Active_SearchOneContact"  to="_Active_CheckStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="26290"	from="_Active_ImportContact"  to="_Active_ImportContact"  type="internal"	hasCondition="0" hasAction="1">
+				<event>PHBSRV_IEVT_ImportContactCnf</event>
+				<event>PHBSRV_IEVT_StartImportExportReq</event>
+				<condition></condition>
+				<action>parse next contact</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="775"	from="_Active_ImportContact"  to="_Active_CheckStatus"  type="default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="1637"	from="_Active_ExportContact"  to="_Active_ExportContact"  type="internal"	hasCondition="0" hasAction="1">
+				<event>PHBSRV_IEVT_ExportContactCnf</event>
+				<event>PHBSRV_IEVT_StartImportExportReq</event>
+				<condition></condition>
+				<action>write next contact</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20852"	from="_Active_ExportContact"  to="_Active_CheckStatus"  type="default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_Finish</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27389"	from="_Active_CheckStatus"  to="_Active_ImportContact"  type="default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_ImportContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27451"	from="_Active_CheckStatus"  to="_Active_ExportContact"  type="default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_ExportContactReq</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17134"	from="_Idle"  to="_Active_ImportContact"  type="default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_ImportContactCnf</event>
+				<event>PHBSRV_IEVT_ImportWriteContactCnf</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17219"	from="_Idle"  to="_Active_ExportContact"  type="default"	hasCondition="0" hasAction="0">
+				<event>PHBSRV_IEVT_ExportContactCnf</event>
+				<event>PHBSRV_IEVT_ExportQueryStatusCnf</event>
+				<event>PHBSRV_IEVT_ExportReadContactCnf</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="Ready" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Start" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Init" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Stop_Init" type="internal">
+				<comment></comment>
+			</event>
+			<event name="End" type="internal">
+				<comment></comment>
+			</event>
+			<event name="Finish" type="internal">
+				<comment></comment>
+			</event>
+			<event name="QueryStatusReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ReadContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="WriteContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="CopyContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="CopyAllContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="DeleteContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="DeleteAllContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SearchContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ToQueryPhbStatus" type="internal">
+				<comment></comment>
+			</event>
+			<event name="STATUS_NOT_MATCH" type="internal">
+				<comment></comment>
+			</event>
+			<event name="RebuildReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="COPY_ADN_TO_PHONE_REQ" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_COPY_ALL_ADN" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ImportContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ExportContactReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="StartImportExportReq" type="internal">
+				<comment></comment>
+			</event>
+			<event name="WRITE_ONE_CONTACT_CNF" type="internal">
+				<comment></comment>
+			</event>
+			<event name="READ_ONE_CONTACT_CNF" type="internal">
+				<comment></comment>
+			</event>
+			<event name="QUERY_PHB_STATUS_CNF" type="internal">
+				<comment></comment>
+			</event>
+			<event name="PhonebookReady" type="external">
+				<comment></comment>
+			</event>
+			<event name="ADN_M_Ready" type="external">
+				<comment></comment>
+			</event>
+			<event name="ADN_S_Ready" type="external">
+				<comment></comment>
+			</event>
+			<event name="Phone_Full" type="external">
+				<comment></comment>
+			</event>
+			<event name="EXPORT_IMPORT_SUCCESS" type="external">
+				<comment></comment>
+			</event>
+			<event name="EXPORT_IMPORT_ERROR" type="external">
+				<comment></comment>
+			</event>
+			<event name="ImportWriteContactCnf" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ExportReadContactCnf" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ExportQueryStatusCnf" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ExportContactCnf" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ImportContactCnf" type="internal">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="GetCheckValue" id="14452" RetType="u32"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">This function will give the called AP a check value.  Once called &#13;&#10;AP get phonebook&apos;s confirm, it can check the confirm is its or not.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsPhonebookReady" id="1925" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Check phonebook is ready or not.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="QueryPhbStatusReq" id="2742" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">This function is used to query phonebook status.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReadOneContactBySortingIdxReq" id="30957" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Read one phonebook contact by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReadOneContactByPhysicalIdxReq" id="27852" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Read one phonebook contact by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReadMultiContactBySortingIdxReq" id="23251" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Read multi phonebook contact by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReadMultiContactByPhysicalIdxReq" id="7341" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Read multi phonebook contact by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="WriteOneNewContactReq" id="31921" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Write one new contact.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="WriteOneContactByPhysicalIdxReq" id="5173" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Write one contact by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="WriteMultiNewContactReq" id="11816" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Write multi new contact.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="WriteMultiContactByPhysicalIdxReq" id="10568" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Write multi contact by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopyOneContactByPhysicalIdxReq" id="9314" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Copy one contact between SIM and Phone by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopyMultiContactByPhysicalIdxReq" id="5612" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Copy multi contact between SIM and Phone by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopyOneContactBySortingIdxReq" id="8482" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Copy one contact between SIM and Phone by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopyMultiContactBySortingIdxReq" id="18457" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Copy multi contact between SIM and Phone by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopyAllContactReq" id="16488" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Copy all contact between SIM and Phone.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteOneContactByPhysicalIdxReq" id="14070" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Delete one contact by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteMultiContactByPhysicalIdxReq" id="15672" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Delete multi contact by physical index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteOneContactBySortingIdxReq" id="21699" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Delete one contact by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteMultiContactBySortingIdxReq" id="22162" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Delete multi contact by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteAllContactReq" id="8015" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Delete all contact.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SearchContactByNameReq" id="25439" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Search contact by name.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SearchContactByNumberReq" id="9422" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Search contact by number.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ReadCallRecordBySortingIdxReq" id="32410" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Read call record by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="WriteCallRecordBySortingIdxReq" id="16179" RetType="MMI_PHB_RETURN_E"	Param1="const IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Write call record by sorting index.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Register_Notification" id="6713" RetType="MAE_Ret"	Param1="void *instance" Param2="MMI_PHB_Notify_Mask_e s32Mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Register phonebook notification.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Deregister_Notification" id="7472" RetType="MAE_Ret"	Param1="void *instance" Param2="MMI_PHB_Notify_Mask_e s32Mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Deregister phonebook notification.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="StartPhonebookInit" id="8489" RetType="void"	Param1="MMI_PHB_BOOK_TYPE_E s32PhbBookType" Param2="boolean bIsRefresh"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Ask PHBSRV to start init.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="StopPhonebookInit" id="5759" RetType="void"	Param1="MMI_PHB_BOOK_TYPE_E s32PhbBookType" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Ask PHBSRV to stop init.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="StartAutoWriteSortingTable" id="15028" RetType="MAE_Ret"	Param1="boolean bIsWriteNow" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Set on and start to auto write sorting table.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="StopAutoWriteSortingTable" id="10527" RetType="MAE_Ret"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Set off and stop to auto write sorting table.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsInGroup" id="5153" RetType="boolean"	Param1="MMI_PHB_GROUP_E s32PhbGroup" Param2="u32 u32PhbFilter"	Param3="MmiPhbGroupContent_t *ptGroupContent" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Check is the contact in group or not and get group&apos;s properties.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ChangeModeNotify" id="22778" RetType="void"	Param1="MMI_PHB_BOOK_TYPE_E s32PhbBookType" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Notify PHBSRV the mode was changed. (Dual, Master, Slave or inactive)&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="RebuildReq" id="108" RetType="void"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Request to rebuild sorting table.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="CopyAllSIMContactReq" id="4047" RetType="void"	Param1="MMI_PHB_BOOK_TYPE_E s32PhbBookType" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Copy all SIM contacts to phone.&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ImportContactFromFileReq" id="6817" RetType="MMI_PHB_RESULT_E"	Param1="MmiPhbSrvImportReq_t *pImportReq" Param2="boolean bIsFull"	Param3="boolean bIsSync" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">ImportContactFromFileReq&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ExportContactToFileReq" id="30283" RetType="MMI_PHB_RESULT_E"	Param1="MmiPhbSrvExportReq_t *pExportReq" Param2="boolean bIsFull"	Param3="boolean bIsSync" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">ExportContactToFileReq&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="SuspendExportImportContactReq" id="29930" RetType="MMI_PHB_RESULT_E"	Param1="void *userData" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">suspend the importing , exporting&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="ResumeExportImportContactReq" id="10719" RetType="MMI_PHB_RESULT_E"	Param1="void *userData" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">resume the importing , exporting&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="StopExportImportContactReq" id="16875" RetType="MMI_PHB_RESULT_E"	Param1="void *userData" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">stop the importing , exporting&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

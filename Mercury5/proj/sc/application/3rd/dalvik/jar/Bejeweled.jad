@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+MIDlet-Data-Size: 2048
+MicroEdition-Configuration: CLDC-1.1
+MIDlet-Name: Bejeweled
+Created-By: Projgen
+MIDlet-Icon: icon.png
+MIDlet-Vendor: Electronic Arts, Inc.
+MIDlet-1: Bejeweled, icon.png, Bejeweled
+MIDlet-Version: 4.99.7
+MicroEdition-Profile: MIDP-2.0
+MIDlet-Description: Bejeweled by Electronic Arts, Inc.
+MIDlet-Touch-Support: True
+UseNativeTextButtons: false
+ReverseSoftkeys: true
+UseNativeCommands: false
+LGE-MIDlet-TargetLCD-Height: 320
+LGE-MIDlet-TargetLCD-Width: 240
+LGE-MIDlet-TargetLCD-Height: 300
+LGE-MIDlet-TargetLCD-Width: 240
+MIDlet-Jar-Size: 332922
+MIDlet-Jar-URL: Bejeweled.jar

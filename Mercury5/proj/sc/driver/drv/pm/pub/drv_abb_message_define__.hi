@@ -1,0 +1,13 @@
+#ifndef __DRV_ABB_MSG_DEF_H__
+#define __DRV_ABB_MSG_DEF_H__
+
+VM_MSG_DEF(ABB_IRQ_MSG=ABB_BASE, void DUMMY) ///<  message sent when an ABB IRQ is received
+VM_MSG_DEF(ABB_ADC_TIMEOUT_TIMER, void DUMMY)
+/*MST for __PA_TEMP_COMP__ {*/
+#if defined(__PA_TEMP_COMP__)
+VM_MSG_DEF(ABB_ADC_READ_TIMER, void DUMMY)
+#endif
+/*MST for __PA_TEMP_COMP__ }*/
+VM_MSG_DEF(ABB_VOICE_HWL_CB_MSG, void DUMMY)
+
+#endif

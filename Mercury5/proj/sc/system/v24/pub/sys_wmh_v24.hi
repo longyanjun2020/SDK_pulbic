@@ -1,0 +1,280 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : vm_v24.hi                                                     */
+/*--------------------------------------------------------------------------*/
+/* Scope    : V.24 Interface header                                         */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 25/02/03 |  SGR   | creation						    					                    */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: G:\projet\gsm\pvcsarch\archives\v24\itf_open\wmh_v24.hi-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.7            | Resolution for 27895: Bluetooth SIL
+ *          |        |                |  - V24 integration  .
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.6            | Resolution for 27789: New V24 inter
+ *          |        |                | face to support fatal error report
+ *          |        |                | on very beggining of module life  .
+ *----------+--------+----------------+-------------------------------------
+ * 08.02.05 | vgo    | 1.5            | Resolution for 27549: V24 Local Dat
+ *          |        |                | a Bridge  .
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.4            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.3            | .  Resolution for 19722: New V24
+ *----------+--------+----------------+-------------------------------------
+ * 23.01.04 | nco    | 1.2.1.0        | .  Resolution for 18679: V24 Transp
+ *          |        |                | arent mode implementation
+ *----------+--------+----------------+-------------------------------------
+ * 24.10.03 | mpr    | 1.2            | .  Resolution for 16355: v24 modifi
+ *          |        |                | cations for X50 integration.
+ *----------+--------+----------------+-------------------------------------
+ * 20.05.03 | sgr    | 1.1            | .  Resolution for 10556: move defin
+ *          |        |                | ition of fields between v24.hi "ope
+ *          |        |                | n_part" and V24_hi "no open_part"
+ *----------+--------+----------------+-------------------------------------
+ * 09.05.03 | sgr    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 0165: Update V24 interface for Open
+ *          |        |                |  stack
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_WMH_V24_HI__
+#define __SYS_WMH_V24_HI__
+
+#include "vm_types.ht"
+#include "vm_msgof.hc"
+#include "sys_vm_v24.hi"
+
+#define VM_V24_MAX_ATCMD_LENGTH     800 /* Don't decrease this value */
+
+#ifndef VM_MSG_DEF
+#define VM_MSG_DEF(_ENUM_, _UNION_)		_ENUM_,
+#endif
+enum{
+#include "sys_wmh_v24_message_define__.hi"
+};
+
+enum
+{
+  VM_V24_GET_SA_SB_X_BRK = VM_V24_LAST_OPEN_GET_REQ,
+  VM_V24_IS_ONLINE,            //
+  VM_V24_IS_CONNECTED,         //
+  VM_V24_IS_BUF_EMPTY,         //
+  VM_V24_GET_FLOW_CONTROL,     //
+  VM_V24_GET_DTR_MODE,         // +5
+  VM_V24_GET_DCD_MODE,         //
+  VM_V24_GET_DSR_MODE,         //
+  VM_V24_GET_CTS,              //
+  VM_V24_GET_DSR,              //
+  VM_V24_LAST_CUST_GET_REQ     // +10
+};
+
+enum
+{
+   VM_V24_SET_SA = VM_V24_LAST_OPEN_SET_REQ,
+   VM_V24_SET_SB,              //
+   VM_V24_SET_X,               //
+   VM_V24_SET_BRK,             //
+
+   VM_V24_OPEN_DATA_MODE,      //
+   VM_V24_ONLINE_MODE,         // +5
+   VM_V24_CLOSE_DATA_MODE,     //
+   VM_V24_CLEAR_DATA_BUFFERS,  //
+
+   VM_V24_ENABLE_USER_MODE,    //
+   VM_V24_DISABLE_USER_MODE,   //
+
+   VM_V24_RAISE_RI,            // +10
+   VM_V24_DROP_RI,             //
+   VM_V24_PULSE_RI,            //
+
+   VM_V24_ECHO_ON,             //
+   VM_V24_ECHO_OFF,            //
+
+   VM_V24_AT_BINARY,           // +15
+
+   VM_V24_RESTORE_PROFILE,     //
+
+   VM_V24_SET_DTR_MODE,        //
+   VM_V24_SET_DCD_MODE,        //
+   VM_V24_SET_DSR_MODE,        //
+
+   VM_V24_SET_FLOW_CONTROL,    // +20
+
+   /*
+   ** New request on target
+   */
+   VM_V24_LOOP_BACK_MODE_REQ,  //
+   VM_V24_LOCAL_DATA_BRIDGE,   //
+
+   VM_V24_LAST_CUST_SET_REQ    //
+};
+
+typedef enum
+{
+   VM_V24_DCD_ALWAYS_ON,
+   VM_V24_DCD_FOLLOWS_CARRIER
+} vm_v24_DCD_Mode_t;
+
+typedef enum
+{
+   VM_V24_DROP_IGNORED,
+   VM_V24_DROP_OFFLINE,
+   VM_V24_DROP_HANGUP,
+   VM_V24_DROP_HANGUP_RESET
+} vm_v24_DSR_Mode_t;
+
+typedef vm_v24_DSR_Mode_t vm_v24_DtrAction_t;
+
+typedef enum
+{
+   VM_V24_NONE,
+   VM_V24_HARD,   /* RTS/CTS  */
+   VM_V24_SOFT,   /* XON/XOFF */
+   VM_V24_HARD_SOFT = VM_V24_HARD | VM_V24_SOFT
+} vm_v24_FlowControl_t;
+
+typedef enum
+{
+   VM_V24_USER_MODE,
+   VM_V24_AT_ENCAPSULED,
+   VM_V24_MULTIPLEXAGE
+#if defined(__V24_COMPOSITE_USB___)
+   ,VM_V24_TRACE_MODE
+ #endif
+} vm_v24_UserModeArg_t;
+
+typedef enum
+{
+   VM_V24_GO_TO_SLEEP,
+   VM_V24_READY_TO_SLEEP
+} vm_v24_PwrDwn32K_t;
+
+
+/**
+ * \brief Body of
+ * V24_AT_CMD_IND,
+ * V24_AT_MORECMD_IND.
+ */
+typedef struct
+{
+   u8 Data[ 1 ];
+} vm_v24_AtMsg_t;
+
+/**
+ * \brief Body of
+ * V24_AT_CMD_IND_EXTENDED,
+ * V24_AT_MORECMD_IND_EXTENDED.
+ */
+typedef struct
+{
+   vm_v24_UartUsed_t Uart;
+   u8	               Pad[ 1 ];
+   u16               AtLength;
+   u8                Data[ 1 ];
+} vm_v24_AtMsgExtended_t;
+
+
+/**
+ * \brief Body of
+ * V24_AT_ABORT_IND,
+ * V24_AT_HANGUP_IND,
+ * V24_AT_OFFLINE_IND,
+ * V24_AT_UNKNOWN_SPEED_IND,
+ * V24_AT_USER_MODE_IND.
+ */
+typedef struct
+{
+   u8                Arg;
+   vm_v24_UartUsed_t Uart;
+} vm_v24_AtInd_t;
+
+/**
+ * \brief Body of
+ * V24_AT_DTR_CHANGE_IND
+ */
+typedef struct
+{
+   bool                IsOn;     /* TRUE => DTR condition is now ON */
+   vm_v24_DtrAction_t  Action;
+   vm_v24_UartUsed_t   Uart;
+} vm_v24_AtDtrChange_t;
+
+/*
+** \brief body of
+** V24_AT_DATA_BRIDGE_IND
+**    enum vm_v24_StateLDB_t is used in the body.
+*/
+typedef enum
+{
+  VM_V24_CLOSE_LDB,
+  VM_V24_OPEN_LDB,
+  VM_V24_ERROR_LDB
+} vm_v24_StatusLDB_t;
+
+/**
+ * \brief Body of
+ * V24_AT_DATA_BRIDGE_IND
+ */
+typedef struct
+{
+   vm_v24_StatusLDB_t Status;     /* Open / CLose / Error */
+   u8                 Pad[3];     /* Eplicit padding: enum should be stored on a byte */
+   u32                portID1;    /* port ID 1 */
+   u32                portID2;    /* port ID 2 */
+} vm_V24AtDataBridgeInd_t;
+
+/**
+ * \brief Body of
+ * V24_LOCAL_DATA_BRIDGE
+ */
+typedef struct
+{
+   u32                Port;
+	vm_v24_StatusLDB_t State;
+	u8                 pad[3];
+} vm_v24_LocalDataBridge_t;
+
+typedef struct
+{
+	u32 Port;
+	bool Available;//TRUE when available FALSE otherwise.
+}
+vm_v24ToAtPortInd_t;
+
+extern void       vm_v24_SendPriorityDataExt    ( const u8 *Buffer, u8 Length, u32 Uart );
+extern bool       vm_v24_SndAtRspExt            ( const char *String, u32 Uart );
+extern bool       vm_v24_SndIntermediateAtRspExt( const char *String, u32 Uart );
+extern bool       vm_v24_SndBinAtRspExt         ( const char *String, u16 Length, u32 Uart );
+
+extern bool       vm_v24_SndUnsolicitedAtRsp    ( const char *String, vm_v24_AtRspClass_t Class ) ;
+extern bool       vm_v24_DeleteUnsolicitedAtRsp ( vm_v24_AtRspClass_t Class );
+extern bool       vm_v24_SndUnsolicitedAtRspExt ( const char * String, vm_v24_AtRspClass_t Class, u32 Port );
+extern bool       vm_v24_SndUnsolicitedBinAtRsp ( const char *String, u16 Length, vm_v24_AtRspClass_t Class );
+extern void       vm_v24_SendFatalString        ( const char *String );
+
+#endif /* __SYS_WMH_V24_HI__ */

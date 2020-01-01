@@ -1,0 +1,99 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/*  File    : v24_hub.hp                                                    */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Prototypes used in V24 Hub.                                   */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 10/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 08/10/04 |  APH   | New V24: PortId, Ctxt, FctPtr v8a03_aph              */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_hub.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 07.10.05 | aph    | 1.9            | Resolution for 30133: Swift.h clean
+ *          |        |                |  : V24 part  .                     
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.8            | Resolution for 29537: Sleep mode im
+ *          |        |                | plementation (adaptation for MUX as
+ *          |        |                |  well as multi-Uart)  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.6            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 27.04.05 | aph    | 1.5            | Resolution for 28229: CMUX: CTS sta
+ *          |        |                | tus should be down when connecting 
+ *          |        |                | DCLn  .                            
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.4            | Resolution for 27999: New Contexts 
+ *          |        |                | management in V24 (Update necessary
+ *          |        |                |  for MUX/WBT purposes)  .          
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_HUB_HP__
+#define __SYS_V24_HUB_HP__
+
+#include "sys_v24_hub.ht"
+#include "sys_v24_ctrl.ht"
+
+
+extern u32            v24_HubGetRequestExt     ( v24_Req_t Req, u32 Port );
+
+extern u32            v24_HubRequestExt        ( u32 Req, u32 Arg, u32 Port );
+extern void           v24_HubRequest           ( void );
+
+extern void           v24_HubInformOfHapcMode   (void* Context,  u32 HapcModePort);
+extern void           v24_HubAtInit             ( void );
+extern bool           v24_hub_SetLayer          ( u8 LayPos,void* SrcCtxPtr, void* DestCtxPtr, eLayerId_t DestLayerId);
+extern void           v24_hub_DeleteContext     ( void* HubCtxt2Del );
+extern void*          v24_hub_CreateContext     ( u32   PortId );
+extern u16            v24_HubRxDataPacketBuffer ( u8*, u16, u16, void* );
+extern u32            v24_HubRxIndSig           ( ev24_EventInd_t , u32, void* );
+
+extern TxPal_status_e v24_HubSendTxBlock       ( v24_TxBlock_t* TxBlock );
+extern void           v24_HubSwitch2DataMode   ( bool DataMode, u32 Port );
+extern void           v24_HubRestoreProfileFromE2p ( bool SetRate, u32 Port );
+extern void           v24_HubSaveProfileToE2p  ( u32 Port );
+extern void           v24_HubSchedIdleRxParser ( u32 Port, u8 SchedBitfield );
+extern void           v24_HubSchedIdleTxParser ( u32 Port, u8 SchedBitfield );
+extern void           v24_TxRmDriver               ( u32 Port );
+extern void           v24_HubProduceTransparentTxBlock( u32 Port );
+extern void           v24_NoReleaseDataSent    ( u8 *Buffer, u32 Port );
+extern void           v24_HubManageSleepModePortAutomaton (v24_DriverSleepModeEvent_e Event, u32 Arg, u32 Port);
+#if defined(__V24_COMPOSITE_USB___)
+extern void           v24_TxRmCmdDriver(u32 Port);
+#endif
+
+#endif

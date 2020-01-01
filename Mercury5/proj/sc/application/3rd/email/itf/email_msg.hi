@@ -1,0 +1,69 @@
+/****************************************************************************/
+/*  File    : email_msg.hi                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Email messages definition                                 */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/****************************************************************************/
+/*
+* --------------------------------------------------------------------------
+*  Date     | Author | Revision       | Description
+* ----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __EMAIL_MSG_HI__
+#define __EMAIL_MSG_HI__
+
+#ifdef __EMAIL_MMI__
+
+#include "vm_msgof.hc"
+#include "vm_osdef.hc"
+#include "sys_rtk_vmoshi.h"
+#include "email_prim.hc"
+#include "vm_kbd.h"
+#include "mdl_keypad_pub.h"
+#include "vm_vml_socket.h" /* for vm_xxx_t */
+
+#include "email_app.h"
+
+/* ---------------------------------------------------------------------------- */
+/*                        - Definition of the Body_t union -                    */
+/* ---------------------------------------------------------------------------- */
+
+typedef union
+{
+    vm_osTimerMsgBody_t                                 vm_osTimerMsgBody;
+    MMI_EMAIL_OpenEmailAccount_Req                      EmailOpenEmailAccountReq;
+    MMI_EMAIL_ReadEmailAccountCfg_Req                   EmailReadEmailAccountCfgReq;
+    MMI_EMAIL_WriteEmailAccountCfg_Req                  EmailWriteEmailAccountCfgReq;
+    MMI_EMAIL_WriteEmailAccountInfo_Req                 EmailWriteEmailAccountInfoReq;
+    MMI_EMAIL_WriteEmailSetting_Req                     EmailWriteEmailSettingReq;
+    MMI_EMAIL_DeleteEmailAccount_Req                    EmailDeleteEmailAccountReq;
+    MMI_EMAIL_OpenEmail_Req                             EmailOpenEmailReq;
+    MMI_EMAIL_SaveEmail_Req                             EmailSaveEmailReq;
+    MMI_EMAIL_SortEmailHeaderList_Req                   EmailSortEmailHeaderListReq;
+    MMI_EMAIL_DeleteEmail_Req                           EmailDeleteEmailReq;
+    MMI_EMAIL_MarkEmailAsRead_Req                       EmailMarkEmailAsReadReq;
+    MMI_EMAIL_SendReceive_Req                           EmailSendReceiveReq;
+    MMI_EMAIL_CloseEmailAccount_Req                     EmailCloseEmailAccountReq;
+    MMI_EMAIL_OpenEmailAccount_Cnf                      EmailOpenEmailAccountCnf;
+    MMI_EMAIL_GetEmailAccountList_Cnf                   EmailGetEmailAccountListCnf;
+    MMI_EMAIL_ReadEmailAccountCfg_Cnf                   EmailReadEmailAccountCfgCnf;
+    MMI_EMAIL_WriteEmailAccountCfg_Cnf                  EmailWriteEmailAccountCfgCnf;
+    MMI_EMAIL_WriteEmailAccountInfo_Cnf                 EmailWriteEmailAccountInfoCnf;
+    MMI_EMAIL_ReadEmailSetting_Cnf                      EmailReadEmailSettingCnf;
+    MMI_EMAIL_WriteEmailSetting_Cnf                     EmailWriteEmailSettingCnf;
+    MMI_EMAIL_DeleteEmailAccount_Cnf                    EmailDeleteEmailAccountCnf;
+    MMI_EMAIL_OpenEmail_Cnf                             EmailOpenEmailCnf;
+    MMI_EMAIL_SaveEmail_Cnf                             EmailSaveEmailCnf;
+    MMI_EMAIL_SortEmailHeaderList_Cnf                   EmailSortEmailHeaderListCnf;
+    MMI_EMAIL_DeleteEmail_Cnf                           EmailDeleteEmailCnf;
+    MMI_EMAIL_MarkEmailAsRead_Cnf                       EmailMarkEmailAsReadCnf;
+    MMI_EMAIL_AccountStatusChange_Cnf                   EmailAccountStatusChangeCnf;
+}vm_msgBody_t;
+
+#endif // __EMAIL_MMI__
+
+#endif //__EMAIL_MSG_HI__
+

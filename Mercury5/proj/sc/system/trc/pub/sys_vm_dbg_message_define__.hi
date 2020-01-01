@@ -1,0 +1,14 @@
+#ifndef __SYS_VM_DBG_MSG_DEF_H__
+#define __SYS_VM_DBG_MSG_DEF_H__
+
+
+
+
+VM_MSG_DEF(VM_DEBUG_IND=VM_DBG_BASE, void DUMMY)    ///< Indication of the Stack
+VM_MSG_DEF(VM_DEBUG_REQ, void DUMMY)                        ///< request sent by the Application to start the Debug Screen service
+VM_MSG_DEF(VM_DEBUG_TRACE_BUFFER_FULL, void DUMMY)          ///< Trace Buffer full indication
+VM_MSG_DEF(VM_DEBUG_PROD_REQ, void DUMMY)                    ///< request send to Application to handle dedicated production message
+VM_MSG_DEF(VM_DEBUG_RTK_PROFILE, void DUMMY)
+
+
+#endif

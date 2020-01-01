@@ -1,0 +1,6 @@
+sc/customer/default/src/drv/acc/src/mcp_drv_msw8533d.c
+sc/customer/default/src/drv/acc/src/mcp_drv_msw8535x.c
+sc/customer/default/src/drv/acc/src/mcp_drv_msw853xb.c
+sc/customer/default/src/drv/acc/src/mcp_drv_msw8573.c
+sc/customer/default/src/drv/acc/src/mcp_drv_msw8533x.c
+sc/customer/product/cust/drv/keypad/src/cust_keypad_canisV_nand.c

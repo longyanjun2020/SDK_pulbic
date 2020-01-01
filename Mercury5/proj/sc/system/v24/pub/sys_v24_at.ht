@@ -1,0 +1,240 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_at.ht                                                     */
+/*--------------------------------------------------------------------------*/
+/* Scope    : interface with the multiplexer                                */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 29/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_at.ht-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 13.02.06 | aph    | 1.14           | Resolution for 33006: [V24] Auto RT
+ *          |        |                | S/CTS implementation  .            
+ *----------+--------+----------------+-------------------------------------
+ * 31.08.05 | mpr    | 1.13           | Resolution for 29957: Problem when 
+ *          |        |                | sending SMS with 0x0D character  . 
+ *----------+--------+----------------+-------------------------------------
+ * 23.08.05 | mpr    | 1.12           | Resolution for 28696: CMUX: Echo of
+ *          |        |                |  AT command is returned after the A
+ *          |        |                | cknowledgement of AT command  .    
+ *----------+--------+----------------+-------------------------------------
+ * 22.08.05 | pmr    | 1.11           | Resolution for 29729: [GPS] Backtra
+ *          |        |                | ce reset when deactivating NMEA fra
+ *          |        |                | mes from internal control mode  .  
+ *----------+--------+----------------+-------------------------------------
+ * 12.08.05 | pmr    | 1.10           | Resolution for 29019: Data: CONNECT
+ *          |        |                |  xxxx Message is incomplete when +I
+ *          |        |                | LRR has been enabled  .            
+ *----------+--------+----------------+-------------------------------------
+ * 08.07.05 | pmr    | 1.9            | Resolution for 29220: Memory lack w
+ *          |        |                | hen opening several V24 Port.  .   
+ *----------+--------+----------------+-------------------------------------
+ * 04.07.05 | pmr    | 1.8            | Resolution for 29258: Internal stru
+ *          |        |                | ctures alignment in order to reduce
+ *          |        |                |  consumed memory  .                
+ *----------+--------+----------------+-------------------------------------
+ * 26.05.05 | vgo    | 1.7            | Resolution for 28657: AT responses 
+ *          |        |                | may be troncated for intermediate r
+ *          |        |                | esponses in small baudrate.  Linked
+ *          |        |                |  List Item used instead of hard cod
+ *          |        |                | ed queue size                      
+ *----------+--------+----------------+-------------------------------------
+ * 24.05.05 | vgo    | 1.6            | Resolution for 28657: AT responses 
+ *          |        |                | may be troncated for intermediate r
+ *          |        |                | esponses in small baudrate.  Resolu
+ *          |        |                | tion for 28657 (truncated intermedi
+ *          |        |                | ate AT rsp)                        
+ *----------+--------+----------------+-------------------------------------
+ * 01.04.05 | pmr    | 1.5            | Resolution for 28181: [V24]: v24 fo
+ *          |        |                | r X55 WP3 fixed  .                 
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.4            | Resolution for 27932: V24 autobaudi
+ *          |        |                | ng  sets  reliable  .              
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_AT_HT__
+#define __SYS_V24_AT_HT__
+
+#include "sys_v24.ht"
+
+#define V24_AT_MAX_ECHO_TAB_SIZE    16 //Power of 2
+#define V24_AT_MAX_ECHO_TAB_MOD     (V24_AT_MAX_ECHO_TAB_SIZE - 1)
+#define V24_AT_MAX_ECHO_BLOCK_SIZE  20 //no need to be a power of 2 : to be align on Sizeof Pool 0. 
+
+//Max AT command is 550 bytes len,
+//We should be able not to loose any characters...
+
+#define V24_MAX_SOL_ATRSP         8 // APH tracker 29220: 16    /* Could be decreased though not adviced */
+#define V24_MAX_UNSOL_ATRSP       16    /* Could be decreased though not adviced */
+
+/* Index type for AT receive buffer and AT response to sent */
+typedef u16                v24_AtLen_t;
+
+/* Pointer type to AT command/response */
+typedef const u8 *         v24_AtPtr_t;
+
+/* Index type for AT transmit buffer. 
+** This latter is a circular buffer of pointers to AT responses to be sent. */
+typedef u8                 v24_AtIndex_t;
+
+typedef enum
+{
+   RXAT_IDLE,
+   RXAT_RECEIVE
+} 
+v24_RxAtState_t;
+
+typedef enum
+{
+   TXAT_IDLE,
+   TXAT_USER_SEND,
+   TXAT_SEND
+} 
+v24_TxAtState_t;
+
+typedef enum
+{
+   CUSTOMER,
+   SERIAL_LINK
+} 
+v24_AtStream_t;
+
+typedef struct 
+{
+   v24_TxBlock_t          Block;
+   v24_AtRspClass_t       Class;
+   bool                   IsSolicited;
+} 
+v24_TxAtRsp_t;
+
+typedef struct
+{
+   v24_TxBlock_t*         Block;
+   v24_AtIndex_t          Fill;
+   v24_AtIndex_t          Purge;
+   v24_AtIndex_t          Mod; // note: it's the number of entries minus one.
+} 
+v24_TxAtDesc_t;
+
+
+
+typedef struct 
+{
+  u32                     _v24_AtPort;
+  /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+  /*                        AT command drivers                                */
+  /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+  v24_TxAtDesc_t *        _v24_TxAtDescPtr;
+
+  v24_RxAtState_t         _v24_RxAtState;
+  bool                    _v24_RxAtIsBinary;
+  bool                    _v24_RxAtAbortIfChar;
+  bool                    _v24_IsEchoMode;
+  bool                    _v24_SendingEchos;
+  bool                    _v24_AtbinWaitSyncFromAT;
+  //bool                    _v24_AtRxBarred;//not really necessary before but now it is 
+                                          //(AT is less prioritar than V24)
+  //bool                    _v24_AtTxBarred;
+
+  v24_TxAtDesc_t          _v24_TxAtSolicitedDesc;
+  v24_TxAtDesc_t          _v24_TxAtUnSolicitedDesc;
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                    AT and intermediate buffers                           */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+  
+  char                    _v24_RxAtBuffer[ V24_MAX_ATCMD_LENGTH ];
+  
+  v24_TxBlock_t           _v24_TxAtBuffer  [ V24_MAX_SOL_ATRSP   ];
+  v24_TxBlock_t           _v24_TxAtUnBuffer[ V24_MAX_UNSOL_ATRSP ];
+  v24_AtRspClass_t        _v24_TxAtUnBufferClass[ V24_MAX_UNSOL_ATRSP ];
+  v24_TxBlock_t           _v24_AtEchoBlockTab[ V24_AT_MAX_ECHO_TAB_SIZE ];
+  u8                      _v24_AtEchoBlockPurgeIndex;
+  u8                      _v24_AtEchoBlockFillIndex;
+  u8                      _v24_TxAtUnsolicitedBarred;
+  
+  v24_AtLen_t             _v24_RxAtIndex;
+   /*
+   ** VGO to correct the tracker: 28657
+   ** First level queue to store intermediate AT responses that V24 can not store
+   ** when the TX speed is too slow.
+   */
+   struct sIntRspQueue_t
+   {
+         char*                pcData;
+      int   iNbStoredByte;
+   }sInterAtRspQueue;
+}
+v24_AtCtx_t;
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                          Access macros                                   */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+#define V24_ATCONTEXT                    v24_AtContext
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                        AT command drivers                                */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+#define  v24_RxAtState                   V24_ATCONTEXT->_v24_RxAtState
+#define  v24_RxAtIndex                   V24_ATCONTEXT->_v24_RxAtIndex
+#define  v24_RxAtIsBinary                V24_ATCONTEXT->_v24_RxAtIsBinary
+#define  v24_RxAtAbortIfChar             V24_ATCONTEXT->_v24_RxAtAbortIfChar
+#define  v24_IsEchoMode                  V24_ATCONTEXT->_v24_IsEchoMode
+#define  v24_SendingEchos                V24_ATCONTEXT->_v24_SendingEchos
+#define  v24_AtbinWaitSyncFromAT         V24_ATCONTEXT->_v24_AtbinWaitSyncFromAT
+//#define  v24_AtRxBarred                  V24_ATCONTEXT->_v24_AtRxBarred
+//#define  v24_AtTxBarred                  V24_ATCONTEXT->_v24_AtTxBarred
+#define  v24_TxAtSolicitedDesc           V24_ATCONTEXT->_v24_TxAtSolicitedDesc
+#define  v24_TxAtUnSolicitedDesc         V24_ATCONTEXT->_v24_TxAtUnSolicitedDesc
+#define  v24_TxAtDescPtr                 V24_ATCONTEXT->_v24_TxAtDescPtr
+#define  v24_TxAtUnsolicitedBarred       V24_ATCONTEXT->_v24_TxAtUnsolicitedBarred
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/*                    AT and intermediate buffers                           */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+  
+#define v24_RxAtBuffer                   V24_ATCONTEXT->_v24_RxAtBuffer  
+#define v24_TxAtBuffer                   V24_ATCONTEXT->_v24_TxAtBuffer  
+#define v24_TxAtUnBuffer                 V24_ATCONTEXT->_v24_TxAtUnBuffer
+#define v24_TxAtUnBufferClass            V24_ATCONTEXT->_v24_TxAtUnBufferClass
+#define v24_AtPort                       V24_ATCONTEXT->_v24_AtPort
+#define v24_AtEchoBlockTab               V24_ATCONTEXT->_v24_AtEchoBlockTab       
+#define v24_AtEchoBlockPurgeIndex        V24_ATCONTEXT->_v24_AtEchoBlockPurgeIndex
+#define v24_AtEchoBlockFillIndex         V24_ATCONTEXT->_v24_AtEchoBlockFillIndex 
+
+#endif

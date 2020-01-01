@@ -1,0 +1,305 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>cphssrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_NETWORK</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="cphssrv" id="6369" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+          <node name="Init" id="25872" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>entry</EntryComment>
+          <ExitComment>exit</ExitComment>
+          </node>
+          <node name="Active" id="1706" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="CheckFncQueue">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+              <node name="CheckFncQueue" id="2748" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment>entry</EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="Idle" id="16153" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              </node>
+              <node name="ProcessReq" id="939" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="QueryVMStatus">
+              <EntryComment>entry</EntryComment>
+              <ExitComment>exit</ExitComment>
+                  <node name="QueryVMStatus" id="29962" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_ProcessReq" DefaultChild="">
+                  <EntryComment>entry</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="QueryLine" id="24047" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_ProcessReq" DefaultChild="">
+                  <EntryComment>entry</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="QueryMailBoxReq" id="22207" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_ProcessReq" DefaultChild="">
+                  <EntryComment>entry</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="SetMailBoxNumber" id="9523" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_ProcessReq" DefaultChild="">
+                  <EntryComment>entry</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="SetRequest" id="1689" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_ProcessReq" DefaultChild="">
+                  <EntryComment>entry</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+                  <node name="ReadFunctionalityReq" id="8966" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_ProcessReq" DefaultChild="">
+                  <EntryComment>entry</EntryComment>
+                  <ExitComment></ExitComment>
+                  </node>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="13970"	from="_Init"  to="_Init"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMReadyInd</event>
+				<condition></condition>
+				<action>add init req to CPHSSRV and send CPHSSRV_IEVT_READY</action>
+			</transition>
+			<transition enable="1" id="4528"	from="_cphssrv"  to="_cphssrv"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_READY_IND</event>
+				<condition></condition>
+				<action>add init req to CPHSSRV and send CPHSSRV_IEVT_READY</action>
+			</transition>
+			<transition enable="1" id="6999"	from="_Init"  to="_Active"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_READY</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="18072"	from="_Active"  to="_Init"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_INIT</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="1662"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_WVMI_IND</event>
+				<condition></condition>
+				<action>notify the listeners</action>
+			</transition>
+			<transition enable="1" id="963"	from="_Active"  to="_Active_CheckFncQueue"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_CHECK_QUEUE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="18498"	from="_Active_CheckFncQueue"  to="_Active_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_QUEUE_EMPTY</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="4084"	from="_Active_CheckFncQueue"  to="_Active_ProcessReq_QueryVMStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_QUERY_VM_STATUS</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="17785"	from="_Active_CheckFncQueue"  to="_Active_ProcessReq_QueryLine"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_QUERY_LINE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="17896"	from="_Active_CheckFncQueue"  to="_Active_ProcessReq_QueryMailBoxReq"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_QUERY_MAIL_BOX</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="1369"	from="_Active_CheckFncQueue"  to="_Active_ProcessReq_SetMailBoxNumber"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_SET_MAIL_BOX_NUMBER</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="22040"	from="_Active_CheckFncQueue"  to="_Active_ProcessReq_SetRequest"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_SET_REQUEST</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="5862"	from="_Active_CheckFncQueue"  to="_Active_ProcessReq_ReadFunctionalityReq"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CPHSSRV_IEVT_READ_FUNCTIONALITY</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="4117"	from="_Active_ProcessReq_QueryVMStatus"  to="_Active_ProcessReq_QueryVMStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_VOICE_MAIL_CNF</event>
+				<condition></condition>
+				<action>get cnf and notify the listener</action>
+			</transition>
+			<transition enable="1" id="893"	from="_Active_ProcessReq_QueryLine"  to="_Active_ProcessReq_QueryLine"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_ALTERNATE_LINE_CNF</event>
+				<condition></condition>
+				<action>get cnf and notify the listener</action>
+			</transition>
+			<transition enable="1" id="7960"	from="_Active_ProcessReq_QueryMailBoxReq"  to="_Active_ProcessReq_QueryMailBoxReq"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_QUERY_MAIL_BOX_CNF</event>
+				<condition></condition>
+				<action>get cnf and notify the listener</action>
+			</transition>
+			<transition enable="1" id="22777"	from="_Active_ProcessReq_SetMailBoxNumber"  to="_Active_ProcessReq_SetMailBoxNumber"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_SET_MAIL_BOX_NUMBER_CNF</event>
+				<condition></condition>
+				<action>get cnf and notify the listener</action>
+			</transition>
+			<transition enable="1" id="5474"	from="_Active_ProcessReq_SetRequest"  to="_Active_ProcessReq_SetRequest"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_SET_RESPONSE</event>
+				<condition></condition>
+				<action>get cnf and notify the listener</action>
+			</transition>
+			<transition enable="1" id="12162"	from="_Active_ProcessReq_ReadFunctionalityReq"  to="_Active_ProcessReq_ReadFunctionalityReq"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_CPHS_READ_FUNCTIONALITY_CNF</event>
+				<condition></condition>
+				<action>get cnf and notify the listener</action>
+			</transition>
+			<transition enable="1" id="11075"	from="_cphssrv"  to="_cphssrv"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMStatusChangeInd</event>
+				<condition></condition>
+				<action>Update SIM Status, reset ready mask and data</action>
+			</transition>
+			<transition enable="1" id="18953"	from="_cphssrv"  to="_cphssrv"  type="internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMChangedInd</event>
+				<condition></condition>
+				<action>Reset the voice mail number saved in phone</action>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="READY" type="internal"></event>
+			<event name="QUERY_VM_STATUS" type="internal"></event>
+			<event name="INIT" type="internal"></event>
+			<event name="DONE" type="internal"></event>
+			<event name="CHECK_QUEUE" type="internal"></event>
+			<event name="QUERY_LINE" type="internal"></event>
+			<event name="QUERY_MAIL_BOX" type="internal"></event>
+			<event name="SET_MAIL_BOX_NUMBER" type="internal"></event>
+			<event name="SET_REQUEST" type="internal"></event>
+			<event name="READ_FUNCTIONALITY" type="internal"></event>
+			<event name="QUEUE_EMPTY" type="internal"></event>
+			<event name="VOICE_MAIL_IND" type="external"></event>
+			<event name="QUERY_VM_STATUS_CNF" type="external"></event>
+			<event name="QUERY_LINE_CNF" type="external"></event>
+			<event name="QUERY_MAIL_BOX" type="external"></event>
+			<event name="SET_MAIL_BOX_NUMBER" type="external"></event>
+			<event name="READ_FUNCTIONALITY" type="external"></event>
+			<event name="SET_REQUEST" type="external"></event>
+		</eventlist>
+		<functionlist>
+			<function name="RegisterListener" id="20642" RetType="MAE_Ret"	Param1="void *instance" Param2="u32 mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to listenen CPHSSRV events that he interested.
+
+@param[in]  instance                 Object pointer to the APP
+@param[in]  mask                     Event mask
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="DeregisterListener" id="23606" RetType="MAE_Ret"	Param1="void *instance" Param2="u32 mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to stop listenen events that he interested.
+
+@param[in]  instance                     Object pointer to the APP
+@param[in]  mask                         Event mask
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="QueryVMStatusReq" id="4777" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to send query_voice_mail_status req
+
+@param[in]  pCallerID                        APP's instance
+@param[in]  u8DualMode                   which SIM you want to query
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="QueryLineReq" id="11445" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to send query_Line_req
+
+@param[in]  pCallerID                        APP's instance
+@param[in]  u8DualMode                   which SIM you want to query
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="QueryMailBoxReq" id="20441" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to send query_mail_box req
+
+@param[in]  pCallerID                        APP's instance
+@param[in]  u8DualMode                   which SIM you want to query
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="SetMailBoxNumberReq" id="6495" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3="MMI_CPHSSRV_Line_Service_e Line" Param4="MMI_CPHS_Type_e Type"	Param5="u8 *pStrNumber" Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to send set_mail_box_number req
+
+@param[in]  pCallerID                       APP's instance
+@param[in]  u8DualMode                   which SIM you want to set
+@param[in]  Line                              which Line you want to set
+@param[in]  Type                            Number type (national/international)
+@param[in]  pStrNumber                   Number with null terminator
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="QueryVoiceMailIndicatorReq" id="3084" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to send read_functionality_req to get the voice mail indicator functionality is activate or deactivate
+
+@param[in]  pCallerID                        APP's instance
+@param[in]  u8DualMode                   which SIM you want to query
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="SetVoiceMailIndicatorReq" id="4109" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3="MMI_CPHS_Mode_e Mode" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to send set_request to activate/deactivate the Voice Mail indicator
+
+@param[in]  pCallerID                        APP's instance
+@param[in]  u8DualMode                   which SIM you want to set_request
+@param[in]  Mode                            activate/deactivate
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM    If an error happen.			</function>
+			<function name="GetMailBoxNumber" id="6202" RetType="MAE_Ret"	Param1="u8 u8DualMode" Param2="MMI_CPHSSRV_Line_Service_e Line"	Param3="MMI_CPHS_MailBoxNumber_t *pNumber" Param4="boolean *pbSavedInSIM"	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to retrieve the mailbox number which keep in the cphs service
+
+@param[in]  u8DualMode                   which SIM you want to get
+@param[in]  Line                              which Line you want to get
+@param[in]  pNumber                        The pointer of MMI_CPHS_MailBoxNumber_t structure (can't be NULL)
+@param[out]  pbSavedInSIM              The pointer of the output boolean bSavedInSIM, if bSavedInSIM is FALSE means that the SIM doesn't support the CPHS and the number is saved in phone
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM       If an error happen.
+@return MAE_RET_NOT_READY       Service still waiting the first request confirm			</function>
+			<function name="GetVoiceMailIndicatorSetting" id="19122" RetType="MAE_Ret"	Param1="u8 u8DualMode" Param2="boolean *pbActive"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to retrieve the Voice Mail indicator setting (active/deactive)
+
+@param[in]  u8DualMode                   which SIM you want to set_request
+@param[in]  pbActiveMode                The boolean pointer (can't be NULL)
+
+@return MAE_RET_SUCCESS           If successful.
+@return MAE_RET_FAILED              If an error happen. 
+@return MAE_RET_BAD_PARAM       If an error happen.
+@return MAE_RET_NOT_READY       Service still waiting for the first interrogate confirm			</function>
+			<function name="CancelSetMailBoxNumberReq" id="14641" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3="MMI_CPHSSRV_Line_Service_e Line" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to cancel the mailbox number setting request and the setting confirm event. if the setting request is already set to ril layer, CPHS service will just cancel the confirm event, that means CPHS will release the reference of the request caller
+
+@param[in]  pCallerID                    APP's instance
+@param[in]  u8DualMode                which SIM that caller has ask to set mailbox number
+@param[in]  Line                           which SIM that caller has ask to set mailbox number
+
+@return MAE_RET_SUCCESS           If the request or the confirm event has been cancel successful.
+@return MAE_RET_BAD_PARAM       If an error happen.
+@return MAE_RET_NOT_FOUND       Service can't find the related request			</function>
+			<function name="CancelSetVoiceMailIndicatorReq" id="8953" RetType="MAE_Ret"	Param1="void *pCallerID" Param2="u8 u8DualMode"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">brief:   The interface is provided APPs to cancel the VM indicator setting request and the setting confirm event. if the setting request is already set to ril layer, CPHS service will just cancel the confirm event, that means CPHS will release the reference of the request caller
+
+@param[in]  pCallerID                    APP's instance
+@param[in]  u8DualMode                which SIM that caller has ask to set VM indicator
+
+@return MAE_RET_SUCCESS           If the request or the confirm event has been cancel successful.
+@return MAE_RET_BAD_PARAM       If an error happen.
+@return MAE_RET_NOT_FOUND       Service can't find the related request			</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

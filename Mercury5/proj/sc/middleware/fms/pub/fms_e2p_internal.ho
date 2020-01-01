@@ -1,0 +1,769 @@
+/****************************************************************************/
+/*  $Workfile::   fms_e2p_internal.ho                                     $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services                                        */
+/*             EEPROM simulation service (E2P compatible service)           */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef _c025039746e195df620498245808f499_INCLUDED_FMS_E2P_INTERNAL_HO_
+#define _c025039746e195df620498245808f499_INCLUDED_FMS_E2P_INTERNAL_HO_
+
+#if defined(__FMS_E2P_ON_RAI__)
+#ifndef __SDK_SIMULATION__
+#include "fms_config.h"
+#endif
+#include "fms_e2p_on_rai.h"
+#endif
+
+/****************************************************************************/
+/* CONSTANTS                                                                */
+/****************************************************************************/
+
+/* Return codes */
+
+#if defined(__FMS_E2P_ON_RAI__)
+#define FMS_E2P_READ_RAI_FAIL   0xFFFFFFFD
+#define FMS_E2P_WRITE_RAI_FAIL  0xFFFFFFFE
+#endif
+#define FMS_E2P_NOWHERE 0xFFFFFFFF
+#define FMS_E2P_NOLENGTH 0xFFFF
+
+/* Size parameters */
+
+/*
+#ifdef __USE_5KIB_EEPROM__
+#define FMS_E2P_E2PSIZE (5*1024)
+#else
+#define FMS_E2P_E2PSIZE (4*1024)
+#endif
+*/
+
+// e2p 8k
+#define FMS_E2P_E2PSIZE (8*1024)
+
+
+//#define __USE_FIXED_SIZE_E2P_BANK__ 1
+
+#ifdef __USE_FIXED_SIZE_E2P_BANK__
+#define FMS_E2P_BANKSIZE 0x2000
+#endif // __USE_FIXED_SIZE_E2P_BANK__
+
+/* Record header size */
+
+#define FMS_E2P_HDRSIZE 6
+
+/* Mirror test pattern */
+
+#define FMS_E2P_MIRRORTESTPATTERN 0xABCD
+
+
+/* 14-bit mask for addresses */
+#define FMS_E2P_ADDRMASK 0x3FFF
+
+/* Bank symbols */
+
+#define FMS_E2P_BANK1 0
+#define FMS_E2P_BANK2 1
+
+#define FMS_E2P_WAVECOM_MIRROR 0
+#define FMS_E2P_CUSTOMER_MIRROR 1
+
+/* Checksum computation */
+
+#define FMS_E2P_COMPUTE_CKSUM(WordOffset,Length)  ((WordOffset & 0xFF) ^ (WordOffset >> 8) ^ (Length & 0xFF) ^ (Length >> 8))
+
+/* IMEI crypt pattern */
+#define FMS_E2P_IMEI_CRYPT_PATTERN (0xB2)
+
+
+/* Size of EEPROM slices in garbage collection, mirror updates, ... */
+#define FMS_E2P_BUFFERSIZE 16
+
+
+/* Threshold for cleaning processes */
+
+#define FMS_E2P_FRAGMENT_THRESHOLD1 66
+#ifdef __USE_5KIB_EEPROM__
+   #define FMS_E2P_FRAGMENT_THRESHOLD2 220
+#else
+#define FMS_E2P_FRAGMENT_THRESHOLD2 220
+#endif
+
+/****************************************************************************/
+/* SPECIFIC TYPES                                                           */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/* EEPROM RECORDS HEADER                                                    */
+/****************************************************************************/
+
+
+typedef struct
+{
+   u16 b14_address:14;
+   u16 b_isBeingCreatedBit:1;
+   u16 b_isNotDeletedBit:1;
+   u16 u16_length;
+   u8 u8_checksum_h;
+   u8 u8_checksum_d;
+} fms_E2pSoftRecHeader_t;
+
+typedef struct
+{
+   u16 u16_rawAddress;
+   u16 u16_length;
+   u16 u16_checksums;
+} fms_E2pRawRecHeader_t;
+
+typedef union
+{
+   fms_E2pSoftRecHeader_t s_SoftMap;
+   fms_E2pRawRecHeader_t s_RawMap;
+} fms_E2pRecHeader_t;
+
+
+
+/* Types for address and status bits handling */
+
+typedef struct
+{
+   u16 b14_address:14;
+   u16 b_isBeingCreatedBit:1;
+   u16 b_isNotDeletedBit:1;
+} fms_E2pAddressBitMap_t;
+
+typedef union
+{
+   u16 u16_rawAddress;
+   fms_E2pAddressBitMap_t s_bitmapAddress;
+} fms_E2pAddressField_t;
+
+
+/****************************************************************************/
+/* TYPES FOR BANK STATUS HANDLING                                           */
+/****************************************************************************/
+
+typedef enum
+{
+   FMS_E2P_BANK_ERASED,     /* Bank is erased */
+   FMS_E2P_BANK_USED,       /* Bank is being used */
+   FMS_E2P_BANK_DAMAGED,    /* Bank must be repaired */
+   FMS_E2P_BANK_TOCLEAN,    /* Bank must be cleaned */
+   FMS_E2P_BANK_WMMIR,      /* Bank must be promoted as new WM mirror */
+   FMS_E2P_BANK_WMUPD,      /* Bank must be promoted as updated WM mirror */
+   FMS_E2P_BANK_CUSMIR,     /* Bank must be promoted as new CUSTOMER mirror */
+   FMS_E2P_BANK_CUSUPD,     /* Bank must be promoted as updated CUSTOMER mirror */
+   FMS_E2P_BANK_JUNK,       /* Bank must be erased asap */
+
+   FMS_E2P_BANK_ERROR      /* Unknown */
+} fms_E2pBankStatus_e;
+
+
+
+/****************************************************************************/
+/* TYPES FOR RECORD STATUS HANDLING                                         */
+/****************************************************************************/
+
+typedef enum
+{
+   FMS_E2P_RECORD_ERROR,
+   FMS_E2P_RECORD_BEINGCREATED,
+   FMS_E2P_RECORD_VALID,
+   FMS_E2P_RECORD_DELETED
+} fms_E2pRecordStatus_e;
+
+
+/****************************************************************************/
+/* GENERAL E2P SYSTEM STATUS                                                */
+/****************************************************************************/
+
+typedef struct
+{
+   u32 u32_WmMirAddr;
+   u32 u32_FirstBank;
+   u32 u32_SecondBank;
+} fms_E2pBankMapping_t;
+
+
+typedef struct
+{
+   u32 u32_UsedBankAddress;
+   void *p_CommonBuffer;
+   u16 u16_VrfyAllocSize;
+   u32 b_InitOk:1;
+   u32 b_WmMirOk:1;
+   u32 b_CusMirOk:1;
+   u32 b_GcInProgress:1;
+   u32 b_ParamProtect:1;
+   u32 b_PostponedErasure:1;
+   u32 b_SuspendErasures:1;
+   u32 b_NeedRepair:1;
+} fms_E2pSystemStatus_t;
+
+
+typedef struct
+{
+   u32 u32_E2pStartAddr;
+   u32 u32_E2pSectorSize;
+   u8  u8_E2pSectorCnt;
+   bool b_E2pBankStatusInit;
+} fms_E2pBankStatus_t;
+
+
+/* RO/RW spec for fms_E2pRewind */
+
+typedef enum
+{
+   FMS_E2P_ERRORMODE,
+   FMS_E2P_READMODE,
+   FMS_E2P_WRITEMODE
+} fms_E2pRewindMode_e;
+
+
+/****************************************************************************/
+/*  SPECIFIC TYPES FOR MIRROR HANDLING                                      */
+/****************************************************************************/
+
+typedef struct
+{
+   u32 u32_CallerChecksum;
+   u32 u32_BuildCounter;
+} fms_E2pMirrorFooter_t;
+
+
+typedef struct fms_E2pMirrorTouchUp_s
+{
+   u16 u16_Offset;
+   u16 u16_Size;
+   void *p_Data;
+   struct fms_E2pMirrorTouchUp_s *ps_Next;
+} fms_E2pMirrorTouchUp_t;
+
+
+typedef struct
+{
+   fms_E2pBankStatus_e e_NewStatus;
+   bool  b_DiscardCurrentBank;
+   bool  b_InitMode;
+   u32   u32_ChecksumToWrite;
+} fms_E2pMirrorConfig_t;
+
+/****************************************************************************/
+/* SPECIAL TYPES FOR MIRROR UPDATE OPERATIONS                               */
+/****************************************************************************/
+#define FMS_CONTAINER_SIZE 128
+
+typedef struct
+{
+   u16 u16_Offset;
+   u16 u16_Size;
+} fms_E2pParameterEntry_t;
+
+typedef struct
+{
+   u16 u16_MaxNumber;
+   u16 u16_NumberOfEntries;
+   //fms_E2pParameterEntry_t as_E2pParameters[FMS_ZERO_SIZE_ARRAY];
+   fms_E2pParameterEntry_t as_E2pParameters[FMS_CONTAINER_SIZE];
+} fms_E2pParameterContainer_t;
+
+/****************************************************************************/
+/* COMMON DECLARATIONS AND DEFINITIONS OF THE PRIVATE STRUCTURES            */
+/****************************************************************************/
+
+#ifdef __FMS_E2P_MAIN_C__
+   #define FMS_E2P_EXTERN
+#else
+   #define FMS_E2P_EXTERN extern
+#endif
+
+
+/* Service internal state */
+FMS_E2P_EXTERN fms_E2pSystemStatus_t fms_s_E2pSystemStatus;
+
+/* Bank mapping */
+FMS_E2P_EXTERN fms_E2pBankMapping_t fms_s_E2pBankMapping;
+
+/* Bank status */
+FMS_E2P_EXTERN fms_E2pBankStatus_t fms_s_E2pBankStatus;
+
+/* Fragmentation level */
+FMS_E2P_EXTERN u8 fms_u8_E2pFragmentationLevel; /* Zero-initialised */
+FMS_E2P_EXTERN u32 fms_u32_E2pFragmentationLevel; /* Zero-initialised */
+
+
+
+
+/****************************************************************************/
+/*                                                                          */
+/* INTERNAL SHARED FUNCTIONS                                                */
+/*                                                                          */
+/****************************************************************************/
+
+
+
+
+/****************************************************************************/
+/*  READ/WRITE/CLEAN                                                        */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: fms_E2pRawReadMirror                                          */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Reads a parameter from the Wavecom mirror or from             */
+/*            the customer if it has been previously built up               */
+/*            without using the active banks.                               */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_ParamAddr  | X |   |   |  Logical E2P address of the parameter   */
+/*  i__u32_ParamSize  | X |   |   |  Size of the parameter                  */
+/*  o__p_Buffer       |   | X |   |  Output buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_E2pRawReadMirror(u32 i__u32_ParamAddr, u32 i__u32_ParamSize, void *o__p_Buffer);
+
+/****************************************************************************/
+/*  Function:  fms_E2pRawRead                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Internal function for EEPROM parameters read access.         */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_ParamAddr  | X |   |   |  E2P address of the parameter to read   */
+/*  i__u32_ParamSize  | X |   |   |  Size of the parameter to read          */
+/*  o__p_Buffer       |   | X |   |  Output buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_E2pRawRead(u32 i__u32_ParamAddr, u32 i__u32_ParamSize, void *o__p_Buffer);
+
+/****************************************************************************/
+/*  Function: fms_E2pRawWrite                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Internal EEPROM parameters write function.                    */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_ParamAddr  | X |   |   |  Address in EEPROM of the parameter     */
+/*  i__u32_ParamSize  | X |   |   |  Size of the parameter                  */
+/*  i__p_Buffer       | X |   |   |  Source buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_E2pRawWrite(u32 i__u32_ParamAddr, u32 i__u32_ParamSize, void *i__p_Buffer);
+
+
+/****************************************************************************/
+/*  Function: fms_E2pGarbageCollection                                      */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Does a garbage collection within the banks                    */
+/*            Merges the contents of the supplied parameter if Entry		*/
+/*            and Buffer are not NULL.                                      */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : n/a                                                         */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__ps_Entry       | X |   |   |  Pointer to fms_E2pParameterEntry_t     */
+/*  i__p_Buffer       | X |   |   |  Source buffer                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+void fms_E2pGarbageCollection(fms_E2pParameterEntry_t *i__ps_Entry, void *i__p_Buffer);
+
+
+/****************************************************************************/
+/* MIRROR MANAGEMENT                                                        */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/*  Function:  fms_E2pPromoteBankToMirror                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Copies the contents of a spare bank into a mirror            */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (bool)                                                     */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/* i__u32_SpareBank   | X |   |   | Spare bank where the new mirror resides */
+/* i__u32_MirrorAddr  | X |   |   | FMS_E2P_(WAVECOM or CUSTOMER)_MIRROR    */
+/* i__u32_InitMode    | X |   |   | TRUE if called from fms_E2pInit         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+bool fms_E2pPromoteBankToMirror(u32 i__u32_SpareBank, u32 i__u32_MirrorAddr, u32 i__u32_InitMode);
+
+
+/****************************************************************************/
+/*  Function: fms_E2pUpdateMirror                                           */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Updates the contents of an EEPROM mirror.                     */
+/*            Overwrites the current contents of the supplied parameters    */
+/*            list.                                                         */
+/*            Pass a parameter of E2P_SIZE bytes from offset 0 to update    */
+/*            the whole mirror.                                             */
+/*            The list of parameters passed in the linked list of           */
+/*            fms_E2pMirrorTouchUp_t is used to force the value of          */
+/*            some parameters within the mirror (pass NULL to force         */
+/*            no parameters, i.e. an empty linked list)                     */
+/*                                                                          */
+/*            The fms_E2pMirrorConfig_t parameter tunes the completion      */
+/*            of the mirror completion, by specifying a special recovery    */
+/*            tag for the spare bank, and allowing the current active       */
+/*            eeprom bank to be erased.                                     */
+/*                                                                          */
+/*                                                                          */
+/*  Return    :  (s32) FMS_OK or error code                                 */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_MirrorAddr | X |   |   |  Address of the mirror to update        */
+/*  i__ps_Parameters  | X |   |   |  Parameters to update                   */
+/*  i__ps_TouchUp     | X |   |   |  Values to force within the mirror      */
+/*  i__ps_Config      | X |   |   |  Mirror update configuration            */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+bool fms_E2pUpdateMirror(  u32 i__u32_MirrorAddr,
+                           fms_E2pParameterContainer_t *i__ps_Parameters,
+                           fms_E2pMirrorTouchUp_t *i__ps_TouchUp,
+                           fms_E2pMirrorConfig_t *i__ps_Config);
+
+
+
+
+
+
+/****************************************************************************/
+/* SECTOR MANAGEMENT                                                        */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/*  Function: fms_E2pReadBankStatus                                         */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Returns a fms_E2pBankStatus_t code describing                */
+/*             the status of the specified bank.                            */
+/*                                                                          */
+/*  Return    :  (fms_E2pBankStatus_e) Status of the given bank             */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_BankAddress| X |   |   |  Address of the bank whose status       */
+/*                    |   |   |   |  must be read                           */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+fms_E2pBankStatus_e fms_E2pReadBankStatus(u32 i__u32_BankAddress);
+
+/****************************************************************************/
+/*  Function: fms_E2pUpdateBankStatus                                       */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Updates the status of the specified bank within               */
+/*            memory and in flash.                                          */
+/*                                                                          */
+/*  Return    : n/a                                                         */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/* i__u32_BankAddress | X |   |   |  Address of the bank to update          */
+/* i__e_Status        | X |   |   |  New status for the bank                */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+void fms_E2pUpdateBankStatus(u32 i__u32_BankAddress, fms_E2pBankStatus_e i__e_Status);
+
+
+/****************************************************************************/
+/*  Function: fms_E2pEraseSector                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Secure E2P bank erasing                                      */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : n/a                                                         */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_BankAddress| X |   |   |  Address of the bank to erase           */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_E2pEraseSector(u32 i__u32_BankAddress);
+
+/****************************************************************************/
+/*  Function: fms_E2pGetSpareBank                                           */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Gets a spare bank for mirror related operations               */
+/*                                                                          */
+/*  Return    : (s32) Address of the free and erased bank                   */
+/*                    or FMS_UNDEFINED                                      */
+/*  Interface : n/a                                                         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_E2pGetSpareBank(void);
+
+/****************************************************************************/
+/*  Function: fms_E2pDiscardActiveBank                                      */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Tag the active bank as junk                                   */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                  */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+s32 fms_E2pDiscardActiveBank(void);
+
+/****************************************************************************/
+/*  Function: fms_E2pSetupBanks                                             */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : This function must be called during the first stages of       */
+/*            the initialisation, to select a sector to be used as the      */
+/*            current active bank.                                          */
+/*                                                                          */
+/*            Call after mirror updates and garbage collection recoveries   */
+/*                                                                          */
+/*  Return    : n/a                                                         */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+void fms_E2pSetupBanks(void);
+
+
+/****************************************************************************/
+/*  Function: fms_E2pToggleBanks                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : This function must be called at the garbage collection        */
+/*            completion, to promote the spare bank as the new active bank  */
+/*            and demote the old active bank.                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : void                                                        */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+void fms_E2pToggleBanks(void);
+
+
+/****************************************************************************/
+/* INITIALISATION                                                           */
+/****************************************************************************/
+
+
+/****************************************************************************/
+/*  Function:  fms_E2pEngineInit                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Initialisation of the EEPROM simulation engine               */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : void                                                        */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_WmMirAddr  | X |   |   |  Address of the wavecom mirror          */
+/*  i__u32_Sect1Addr  | X |   |   |  Address of the 1st bank                */
+/*  i__u32_Sect2Addr  | X |   |   |  Address of the 2nd bank                */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+void fms_E2pEngineInit( u32 i__u32_WmMirAddr,
+                        u32 i__u32_Sect1Addr,
+                        u32 i__u32_Sect2Addr);
+
+
+
+
+/****************************************************************************/
+/*                                 SHUTDOWN                                 */
+/****************************************************************************/
+
+/****************************************************************************/
+/*  Function: fms_E2pShutdown                                               */
+/*--------------------------------------------------------------------------*/
+/*  Scope: Disables the E²PROM simulation                                   */
+/*                                                                          */
+/*  Return: n/a                                                             */
+/*                                                                          */
+/*  Interface : n/a                                                         */
+/****************************************************************************/
+void fms_E2pShutdown(void);
+
+/****************************************************************************/
+/*  Function: fms_E2PGetRegionAddr                                       */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Returns the start address of E2P region                       */
+/*            of the main flash device                                      */
+/*                                                                          */
+/*  Return    : (u32)                                                       */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address   | X |   |   |                                              */
+/****************************************************************************/
+u32 fms_E2pGetRegionAddr(u32 i__u32_Address);
+
+
+/****************************************************************************/
+/*  Function: fms_E2pErase                                       */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Erase the E2P Sector                       */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32)                                                       */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address   | X |   |   |                                              */
+/*  i__u32_Mode      | X |   |   |                                              */
+/****************************************************************************/
+s32 fms_E2pErase(u32 i__u32_Address, u32 i__u32_Mode);
+
+
+/****************************************************************************/
+/*  Function: fms_E2pNxtSectorLowerBound                                       */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Returns the Next Sector Lower Bound of E2P region                       */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32)                                                       */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address   | X |   |   |                                              */
+/****************************************************************************/
+s32 fms_E2pNxtSectorLowerBound(u32 i__u32_Address);
+
+
+/****************************************************************************/
+/*  Function: fms_E2pSizeOfSector                                       */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Returns the Sector size of E2P region                       */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32)                                                       */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address   | X |   |   |                                              */
+/****************************************************************************/
+s32 fms_E2pSizeOfSector(u32 i__u32_Address);
+
+/****************************************************************************/
+/*  Function: fms_E2pSetProtect                                                */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Erase E2P block protection modification utility               */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : FMS_OK or error code                                        */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  i__u32_Address    | X |   |   |  Address of the sector to (un)protect   */
+/*  i__u32_Mode       | X |   |   |  Protection mode to set                 */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_E2pSetProtect(u32 i__u32_Address, u32 i__u32_Mode);
+
+
+/****************************************************************************/
+/*                                 CACHE                                 */
+/****************************************************************************/
+s32 fms_E2pCacheInit(void);
+s32 fms_E2pCacheRead(u32 ParamAddr, u32 ParamSize, void* Buffer);
+s32 fms_E2pCacheWrite(u32 ParamAddr, u32 ParamSize, void* Buffer);
+#if defined(__FMS_E2P_ON_RAI__)
+u8 *fms_E2pCacheGetPtr(u32 ParamAddr);
+#endif
+
+
+/****************************************************************************/
+/*  Function: fms_E2pMemcmp                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : memcmp for m18                                      */
+/*                                                                          */
+/*  Return    :  result of memcmp                                       */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  sector_base    | X |   |   |  Target address                         */
+/*  source       | X |   |   |  compared buffer             */
+/*  length       | X |   |   |  compare length                          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+int fms_E2pMemcmp(u8* sector_base, u8* source, u32 length);
+
+#ifdef __NAND__
+/****************************************************************************/
+/*  SPECIFIC TYPES FOR MIRROR HANDLING                                      */
+/****************************************************************************/
+typedef struct
+{
+  u32 u32_ParamAddr;
+  u32 u32_MirrorAddr;
+  u32 u32_Size;
+} E2pMrParameter_t;
+
+
+/****************************************************************************/
+/* MIRROR MANAGEMENT                                                        */
+/****************************************************************************/
+u32 fms_E2pGetMirrorParamNumber(void);
+bool fms_E2pGetMirrorParam(u32 i__u32_Number, E2pMrParameter_t *o__ps_E2pMrParam);
+s32 fms_E2pTranslateMirrorAddress(u32 i__u32_Address, u32 i__u32_Size);
+
+
+/****************************************************************************/
+/*  Function:  fms_E2pRestore                                            */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Restore Nand E2P from CIS               */
+/*                                                                          */
+/*                                                                          */
+/*  Return    : (s32) FMS_OK or error code                                                          */
+/*                                                                          */
+/*  Interface :                                                             */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*  nBlkCnt              | X |    |   |  CIS block count for RO/RW (RW:1 RO:2)        */
+/*  pE2pData           |    | X |   |  Address of restore buffer          */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+s32 fms_E2pRestore(u8 nBlkCnt, u8 *pE2pData);
+
+#endif
+
+#endif /* ! _c025039746e195df620498245808f499_INCLUDED_FMS_E2P_INTERNAL_HO_   */

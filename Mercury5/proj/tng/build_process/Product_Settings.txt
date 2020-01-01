@@ -1,0 +1,60 @@
+[Daily build]
+8536n_1g_256_mb303gmv3              = Target, Simulator, PrepareLib
+8536n_1g_256_mb303gmv3_3D           = Target, Simulator, PrepareLib
+8536n_1g_256_mb303gmv3_rfid         = Target, Simulator, PrepareLib
+8533n_1g_256_mb303av2               = Target, Simulator, PrepareLib
+8533c_128_32_yk701d                 = Target
+8533d_128_32_n10                    = Target, Simulator, PrepareLib
+8532_128_32_mb601_wqvga             = Target, Simulator, PrepareLib
+8532_128_32_mb601                   = Target, Simulator, PrepareLib
+8532_64_32_64mb601                  = Target, Simulator, PrepareLib
+8532_64_32_mb406g                   = Target, Simulator, PrepareLib
+8532_64_32_mb406gos                 = Target, Simulator, PrepareLib
+8532b_128_32_mb501v2_wqvga          = Target, Simulator, PrepareLib
+8532b_128_32_mb501v2_s              = Target, Simulator, PrepareLib
+8532b_64_32_64mb501v2               = Target, Simulator, PrepareLib
+
+[Daily build MCD]
+8532b_128_32_mb501v2_mcd_s          = Target
+8532_128_32_mb601_mcd_s             = Target
+8536n_1g_256_mb303gm_wqvga_3D_mcdQ  = Target
+8532_64_32_mb601_ft                 = Target
+
+[Hourly build]
+8536n_1g_256_mb303gmv3              = Target, Simulator
+8536n_1g_256_mb303gmv3_3D           = Target, Simulator
+8532b_128_32_mb501v2_s              = Target, Simulator
+8532b_128_32_mb501v2_wqvga          = Target, Simulator
+
+[Release package – Full build]
+8532b_128_32_mb501v2_s              = Target
+8532b_128_32_mb501v2_wqvga          = Target
+8536n_1g_256_mb303gmv3_3D           = Target, Simulator
+
+[Release package - Chip build]
+8533c_128_32_yk701d                 = Target
+8533n_1g_256_mb303av2               = Target
+8533d_128_32_n10                    = Target
+8532_128_32_mb601_s                 = Target
+
+[Release package - Keep product]
+
+[Release package - VT build]
+
+[Release package - MCD build]
+
+[Common lib check]
+8532_128_32_mb601_s                 = Target, Simulator
+8532_128_32_mb601_wqvga             = Target, Simulator
+8532b_128_32_mb501v2_wqvga          = Target, Simulator
+8532b2_128_64_mb501v2               = Target, Simulator
+8532b2_128_64_mb501v2_s32           = Target, Simulator
+8536n_1g_256_mb303gmv3_3D           = Target, Simulator
+8533c_128_32_yk701d                 = Target, Simulator
+8533n_1g_256_mb303av2               = Target, Simulator
+8533bn_1g_256_mb502v2_3D            = Target, Simulator
+8533d_128_32_n10                    = Target, Simulator
+8532b_64_32_64mb501v2               = Target, Simulator
+
+[Library compare pair list]
+Please check with PQA

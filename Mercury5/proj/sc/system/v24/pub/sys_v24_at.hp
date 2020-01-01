@@ -1,0 +1,104 @@
+/*                                                                          */
+/*  Important : This software is protected by Copyright and the information */
+/*              contained herein is confidential. Distribution, reproduction*/
+/*              as well as exploitation and transmission of its contents is */
+/*              not allowed except if expressly permitted. Infringments     */
+/*              result in damage claims.                                    */
+/*              Copyright Wavecom S.A. (c) 2004                             */
+/*                                                                          */
+/*                                                                          */
+
+/****************************************************************************/
+/* File     : v24_at.hp                                                     */
+/*--------------------------------------------------------------------------*/
+/* Scope    : Prototypes used out of V24 At Driver                          */
+/*                                                                          */
+/* Content  :                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/* Date     | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 29/12/03 |  MPR   | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 25/10/04 |  APH   | Ident                                                */
+/****************************************************************************/
+/*
+$LogWavecom: U:\projet\gsm\pvcsarch\archives\v24\inc\v24_at.hp-arc $
+ *--------------------------------------------------------------------------
+ * Date     | Author | Revision       | Description
+ *----------+--------+----------------+-------------------------------------
+ * 31.08.05 | mpr    | 1.11           | Resolution for 29957: Problem when 
+ *          |        |                | sending SMS with 0x0D character  . 
+ *----------+--------+----------------+-------------------------------------
+ * 12.08.05 | pmr    | 1.10           | Resolution for 29019: Data: CONNECT
+ *          |        |                |  xxxx Message is incomplete when +I
+ *          |        |                | LRR has been enabled  .            
+ *----------+--------+----------------+-------------------------------------
+ * 22.07.05 | mpr    | 1.9            | Resolution for 29434: Code cleaning
+ *          |        |                |  : remove obsolete __NEW_V24_CTRL__
+ *          |        |                |  flag.  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 01.07.05 | pmr    | 1.8            | Resolution for 28860: Reset with TM
+ *          |        |                | T and WCCS command  .              
+ *----------+--------+----------------+-------------------------------------
+ * 17.06.05 | pmr    | 1.7            | Resolution for 29079: autobaud enha
+ *          |        |                | ncement (compatibility with CTS/RTS
+ *          |        |                |  use case, etc...)  .              
+ *----------+--------+----------------+-------------------------------------
+ * 20.04.05 | pmr    | 1.6            | Resolution for 28231: Saving E2prom
+ *          |        |                |  parmeters fails after AT&W  .     
+ *----------+--------+----------------+-------------------------------------
+ * 18.03.05 | pmr    | 1.5            | .                                  
+ *----------+--------+----------------+-------------------------------------
+ * 04.03.05 | pmr    | 1.4            | Resolution for 27932: V24 autobaudi
+ *          |        |                | ng  sets  reliable  .              
+ *----------+--------+----------------+-------------------------------------
+ * 22.02.05 | aph    | 1.3            | Resolution for 27810: v24 transmiss
+ *          |        |                | ion optimization.  .               
+ *----------+--------+----------------+-------------------------------------
+ * 02.02.05 | mpr    | 1.2            | Resolution for 27548: New V24 archi
+ *          |        |                | tecture (designed for CMUX and Blue
+ *          |        |                | tooth)  .                          
+ *----------+--------+----------------+-------------------------------------
+ * 24.03.04 | mse    | 1.1            | .  Resolution for 19722: New V24   
+ *----------+--------+----------------+-------------------------------------
+ * 10.03.04 | mse    | 1.0            | Initial revision.  Resolution for 1
+ *          |        |                | 9722: New V24                      
+ *----------+--------+----------------+-------------------------------------
+*/
+
+#ifndef __SYS_V24_AT_HP__
+#define __SYS_V24_AT_HP__
+
+#include "sys_v24.ht"
+#include "sys_v24_at.ht"
+
+extern void          v24_SendIndToATI                   ( u32 TypOfMsg, u32 Port );
+
+extern void          v24_AtBarOrAllowUnsolicitedRsp     ( bool Allow, u32 Port );
+extern u32           v24_AtGetRequestExt                ( u16 Type, u32 Arg, u32 Port );
+extern void          v24_SendDsrChangeToATI             ( bool IsOn, v24_DtrAction_t Action, u32 Port );
+extern bool          v24_AtNoSolicitedAtRspWaiting      ( u32 Port );
+extern void          v24_TxAtDriver                     ( u32 );
+extern void          v24_AtReleaseDataSent              ( u8 *Buffer, u32 Port );
+extern void          v24_AtReleaseEchoChar              ( u8 *Buffer, u32 Port );
+
+extern void          v24_AtRequestExt                   ( void );
+
+extern bool          v24_AtRegisterPortExt              ( bool Activate, u32 Port, v24_AtCtx_t **ppAtCtxt);
+extern u16           v24_FastRxAtDriver                 ( u8 *Buf, u16 Purge, u16 Fill, void * , v24_RxItIdx_t Modulo);
+
+extern void          v24_AtMsgParser                    ( u32 Port );
+extern void          v24_AtReleaseBlock                 ( u32 Port );
+extern void          v24_SendDataBridgeInd              ( void* pvParam, u32 Port );
+
+extern bool          v24_IsAtCmdToSendExt               (u32 Port);
+extern void          v24_AtBinaryReq                    (u32 Port);
+
+extern void          v24_SetATMailbox(u16 Mailbox);
+extern u16           v24_GetATMailbox(void);
+
+#endif

@@ -1,0 +1,1 @@
+typedef int _dummy_ahc_hdmi_;

@@ -1,0 +1,68 @@
+# WWW server root
+Sys.Dir.WWW="SF:0:\www"
+#Sys.Dir.WWW="SD:0:\www"
+# Hostname
+Net.Dev.1.Name="NPD_DSC_CarDV"
+# Set WiFi as a station mode
+# Net.Dev.1.Type="STA"
+# Set WiFi as a AP mode
+Net.Dev.1.Type="AP"
+#
+# In STATION mode, Net.Dev.1.BootProto could be DHCP or STATIC.
+# In AP mode, Net.Dev.1.IPV4.Address and Gateway must be set
+Net.Dev.1.BootProto="DHCP"
+Net.Dev.1.IPV4.Address="192.72.1.1"
+Net.Dev.1.IPV4.Gateway="192.72.1.1"
+#
+# Service ports for RTSP, HTTP, HTTPS
+Net.Port.Service="554, 80, 80"
+#
+# for AP mode
+Net.WIFI_AP.SSID="NPD_CarDV_WiFi"
+Net.WIFI_AP.EncType="AES"
+Net.WIFI_AP.CryptoKey="1234567890"
+#
+# Secondary AP for Remote
+#
+Net.WIFI_AP1.SSID="RC_NPD_CarDV-actioncamera"
+Net.WIFI_AP1.EncType="AES"
+Net.WIFI_AP1.CryptoKey="1234567890"
+Net.WIFI_AP1.HideSSID=YES
+#
+# for STATION mode
+# Try to connect to an AP as follow ordering
+# EncType could be AES or TKIP, AES is for WPA2-PSK, TKIP is for WPA-PSK
+Net.WIFI_STA.AP.2.SSID="YourAP1"
+Net.WIFI_STA.AP.2.EncType="AES"
+Net.WIFI_STA.AP.2.CryptoKey="1234567890"
+#
+Net.WIFI_STA.AP.3.SSID="YourAP2"
+Net.WIFI_STA.AP.3.EncType="AES"
+Net.WIFI_STA.AP.3.CryptoKey="1234567890"
+#
+Net.WIFI_STA.AP.4.SSID="YourAP3"
+Net.WIFI_STA.AP.4.EncType="TKIP"
+Net.WIFI_STA.AP.4.CryptoKey="1234567890"
+#
+Net.WIFI_STA.AP.5.SSID="Coke"
+Net.WIFI_STA.AP.5.EncType="AES"
+Net.WIFI_STA.AP.5.CryptoKey="helloworld"
+#
+Net.WIFI_STA.AP.6.SSID="ZyXAIT99"
+Net.WIFI_STA.AP.6.EncType="AES"
+Net.WIFI_STA.AP.6.CryptoKey="1234567890"
+# MJPEG Streaming
+Camera.Preview.MJPEG.bitrate=4000000
+Camera.Preview.MJPEG.w=720
+Camera.Preview.MJPEG.h=480
+Camera.Preview.MJPEG.fps=30
+#
+# 1 Enable liveRTSP/av1 for Audio and Video live streaming
+# 2 Enable liveRTSP/v1
+Camera.Preview.H264.w=1280
+Camera.Preview.H264.h=720
+Camera.Preview.H264.bitrate=4000000
+Camera.Preview.RTSP.rtcp=0
+Camera.Preview.RTSP.av=2
+Camera.Preview.RTSP.keepalive=60
+#

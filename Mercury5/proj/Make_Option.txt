@@ -1,0 +1,67 @@
+[English Notes]
+new commands for MAKE:
+make libs_mmi   build libs for MMI
+make libs_mdl   build libs for MDL
+make libs_drv   build libs for DRV
+make libs_3rd   build libs for 3RD(3rd Party)
+make libs_sys   build libs for SYS
+make libs       build libs for MSF Stack
+make final      build E2P, Link, and build TMT
+make            build all
+
+make clean      clean all files
+make clean_sce  clean SCE files
+make clean_e2p  clean e2p files
+make clean_lib  TARGET=XXX clean lib(XXX) file
+make clean_tpp  clean tpp files
+
+Usage:
+You have to execute "make" to build all at the first time
+after that, you can build the library you want to build
+ex: If you modify the code for MMI, you can execute 
+    "make libs_mmi final" to build the libs for MMI and link all
+    
+Now, 5 groups are in the ./sc/product/mmi_scale5/mak/paths.mak
+as following:
+
+PRODUCT_SC      STACK CODE(arm, ati, atlas, audio, batt, ...) MSF released
+PRODUCT_SC_MMI  MMI GROUP(sce, app, mae, srv, core, wfcusto)
+PRODUCT_SC_MDL  MDL GROUP(ril, mml)
+PRODUCT_SC_3RD  3RD GROUP(ime, bws_mms, mserv, java)
+PRODUCT_SC_DRV  DRV GROUP(acc, ema, image_codec, gpd, fmr, voc, dsr, esl, isl)
+PRODUCT_SC_SYS  SYS GROUP(fat)
+
+===================================================================================
+
+[Chinese Notes]
+新增加MAKE指令如下：
+make libs_mmi 只產生MMI相關的LIB
+make libs_mdl 只產生MDL相關的LIB
+make libs_drv 只產生DRV相關的LIB
+make libs_3rd 只產生3RD相關的LIB
+make libs_sys 只產生SYS相關的LIB
+make libs     只產生MSF STACK相關的LIB
+make final    產生E2P、LINK、及TMT相關檔案
+make          將以上的動作全部都做 
+
+make clean      清除所有檔案
+make clean_sce  清除SCE相關檔案
+make clean_e2p  清除e2p相關檔案
+make clean_lib  TARGET=XXX 清除lib相關檔案
+make clean_tpp  清除tpp相關檔案
+
+使用方法：
+第一次BUILD CODE時須鍵入make將所有的CODE產生出來，
+爾後只要針對個別的GROUP BUILD CODE即可，例如有改
+到MMI的CODE，只要鍵入make libs_mmi final即可產生
+MMI相關的LIB以及LINK CODE。
+以後要加新的MODULE需要按照自己的GROUP來加入，目前
+有五大GROUP存在於./sc/product/mmi_scale5/mak/paths.mak
+解釋如下：
+
+PRODUCT_SC      MSF所RELEASE的STACK CODE(arm, ati, atlas, audio, batt, ...)
+PRODUCT_SC_MMI  MMI相關GROUP(sce, app, mae, srv, core, wfcusto)
+PRODUCT_SC_MDL  MDL相關GROUP(ril, mml)
+PRODUCT_SC_3RD  3RD相關GROUP(ime, bws_mms, mserv, java)
+PRODUCT_SC_DRV  DRV相關GROUP(acc, ema, image_codec, gpd, fmr, voc, dsr, esl, isl)
+PRODUCT_SC_SYS  SYS相關GROUP(fat) 

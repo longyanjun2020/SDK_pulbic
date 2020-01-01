@@ -1,0 +1,406 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>objprocessingsrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_FILEMGR</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="OBJPROCESSINGSRV" id="16571" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Idle">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="Idle" id="29972" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>set bIsProcessing = FALSE</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="Active" id="10117" hasEntry="0" hasExit="1" hasMethod="1" FullPath="" DefaultChild="GetThumbnail">
+          <EntryComment></EntryComment>
+          <ExitComment>release the pClient, OPSrvOPInfo_u and OPSrvReqInfo_u</ExitComment>
+          <ModeComment></ModeComment>
+              <node name="GetThumbnail" id="22152" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="Rendering">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="Rendering" id="32681" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_GetThumbnail" DefaultChild="">
+                  <EntryComment>1. check the preview_data is ready or not.&#13;&#10;    A. If yes. Prepare the return data structure (with IImage or IBitmap), and trigger OPSRV_IEVT_OPDONE and post event OPSRV_EVT_GETPREVIEWDATADONE. &#13;&#10;    B. else, get object&#13;&#10;      i. if get obj SUCCESS,  trigger GETOBJSUCCESS&#13;&#10;      ii. else, trigger GETOBJFAILED</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ResultCaching" id="18403" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_GetThumbnail" DefaultChild="">
+                  <EntryComment>1. do&#13;&#10;  A. catch the return image data in FS&#13;&#10;  B.set the file path in the attribute CNTATTR_PREVIEWPATH in contentDB&#13;&#10;2. prepare result data&#13;&#10;3. POST evt EVT_GETPREVIEWDATADONE&#13;&#10;4. trigger IEVT_OPDONE</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+              <node name="DeleteObject" id="9719" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active" DefaultChild="PrepareList">
+              <EntryComment>Entry</EntryComment>
+              <ExitComment>Exit</ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="PrepareList" id="15342" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_DeleteObject" DefaultChild="">
+                  <EntryComment>1. traverse the selected object, and insert into a pCandProcessModel&#13;&#10;2. check every objects are allowed to deleted or not&#13;&#10;  a. if none,&#13;&#10;    trigger evtOPSRV_IEVT_SELECTEDLISTFAILED&#13;&#10;  b. else,&#13;&#10;    trigger evtOPSRV_IEVT_SELECTEDLISTDONE</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="Deleting" id="13836" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_DeleteObject" DefaultChild="">
+                  <EntryComment>1. pick next object from pCandProcessModel according to nOnProcessNum&#13;&#10;2. use ContentDB_delObj and register a callback</EntryComment>
+                  <ExitComment>cancel the keep_next timer</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ResultList" id="23308" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_DeleteObject" DefaultChild="">
+                  <EntryComment>1. prepare the result for&#13;&#10;a. # of deleted object&#13;&#10;b. # of failed in deleting&#13;&#10;2. trigger evtOPSRV_IEVT_RESULTLISTDONE</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+              <node name="CopyMoveFile" id="22903" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="PrepareList">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="PrepareList" id="7459" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_CopyMoveFile" DefaultChild="">
+                  <EntryComment>1. check the file privilege of selected objects&#13;&#10;2. insert into pCandProcessMdl&#13;&#10;3. check if none of items can be cpmv&#13;&#10;  a. yes, trigger evtOPSRV_EVT_SELECTEDLISTFAILED&#13;&#10;  b. else, trigger evtOPSRV_EVT_SELECTEDLISTDONE</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="SavingFile" id="32309" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_CopyMoveFile" DefaultChild="">
+                  <EntryComment>1. according to nOnProcessNum, pick next file from pCandProcessModel and create a destination file&#13;&#10;  a. check the memory status first, if failed, &#13;&#10;2. copy the source file into the destination</EntryComment>
+                  <ExitComment>Cancel the CpMvTimer in PC_Simulator</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="InstallContent" id="7917" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_Active_CopyMoveFile" DefaultChild="">
+                  <EntryComment>1. according to nLaunchFor, if move&#13;&#10;  a. update the content record&#13;&#10;  b. delete the source file&#13;&#10;2. copy&#13;&#10;  a. prepare a new record and insert into ContentDB</EntryComment>
+                  <ExitComment>// clear the pProcessingInf.tCpMV</ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="ResultList" id="6160" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_CopyMoveFile" DefaultChild="">
+                  <EntryComment>1. prepare the result&#13;&#10;a. # of success&#13;&#10;b. # of failed items&#13;&#10;2. trigger evtOPSRV_IEVT_RESULTLISTDONE</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+              <node name="SaveContent" id="9605" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_Active" DefaultChild="SavingFile">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+                  <node name="SavingFile" id="31285" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_SaveContent" DefaultChild="">
+                  <EntryComment>prepare a new record for installing</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+                  <node name="InstallContent" id="19242" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_Active_SaveContent" DefaultChild="">
+                  <EntryComment>full the attribute and install the content</EntryComment>
+                  <ExitComment></ExitComment>
+                  <ModeComment></ModeComment>
+                  </node>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="28872"	from="_Idle"  to="_Active_GetThumbnail"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_STARTGETTHUMBNAIL</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27347"	from="_Idle"  to="_Active_DeleteObject"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_STARTDELETEOBJ</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="16462"	from="_Idle"  to="_Active_CopyMoveFile"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_STARTCPMVFILE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7712"	from="_Idle"  to="_Active_SaveContent"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_STARTSAVECNT</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29555"	from="_Active"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_OPDONE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="10432"	from="_Active"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_STOPPROCESSING</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="12826"	from="_Active_GetThumbnail_Rendering"  to="_Active_GetThumbnail_Rendering"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_GETOBJ_FAILED</event>
+				<condition></condition>
+				<action>prepare the return data with value FAILED, and post event GETPREVIEWDONE to client; then, trigger RsltListDone</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6508"	from="_Active_GetThumbnail_Rendering"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_IEVT_RESULTLISTDONE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4702"	from="_Active_GetThumbnail_Rendering"  to="_Active_GetThumbnail_ResultCaching"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_GETOBJ_SUCCESS</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="19191"	from="_Active_GetThumbnail_ResultCaching"  to="_Active_GetThumbnail_ResultCaching"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_FS_FAILED</event>
+				<event>OBJPROCESSINGSRV_EVT_DB_FAILED</event>
+				<condition></condition>
+				<action>set the attribute if nCacheType == DB, then post an event</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="6835"	from="_Active_DeleteObject"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_IEVT_SELECTEDLISTFAILED</event>
+				<condition></condition>
+				<action>prepare the return data with value FAILED, and post event DELDONE</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28367"	from="_Active_DeleteObject_PrepareList"  to="_Active_DeleteObject_Deleting"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_IEVT_SELECTEDLISTDONE</event>
+				<condition></condition>
+				<action>post the evt: ACCESSDELREQ TO the caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="29016"	from="_Active_DeleteObject_Deleting"  to="_Active_DeleteObject_ResultList"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_DELETEFAILED</event>
+				<condition></condition>
+				<action>set nResult = OP_FAILED with nArg = OPERATIONID_DEL</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4868"	from="_Active_DeleteObject_Deleting"  to="_Active_DeleteObject_Deleting"  type="Internal"	hasCondition="1" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_DELETEOK</event>
+				<condition>nOnProcessNum &lt; (nCandProcessCount - 1)</condition>
+				<action>1. remain files, delete next. nOnPrecessNum++&#13;&#10;2. post event evtOPSRV_EVT_NEXTOBJ to FileMgrApp</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="17656"	from="_Active_DeleteObject_Deleting"  to="_Active_DeleteObject_Deleting"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_OP_KEEP_NEXT_ON</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="15292"	from="_Active_DeleteObject_Deleting"  to="_Active_DeleteObject_ResultList"  type="Default"	hasCondition="1" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_DELETEOK</event>
+				<condition>nOnProcessNum == (nCandProcessCount - 1)</condition>
+				<action>set nResult = OP_OK with nArg = OPERATIONID_DEL</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="628"	from="_Active_DeleteObject_ResultList"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_IEVT_RESULTLISTDONE</event>
+				<condition></condition>
+				<action>prepare the return data with value SUCCESS and post event DELDONE</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="13175"	from="_Active_CopyMoveFile_PrepareList"  to="_Active_CopyMoveFile_ResultList"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_IEVT_SELECTEDLISTFAILED</event>
+				<condition></condition>
+				<action>prepare the return data with value FAILED</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="14740"	from="_Active_CopyMoveFile_PrepareList"  to="_Active_CopyMoveFile_SavingFile"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_IEVT_SELECTEDLISTDONE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="25129"	from="_Active_CopyMoveFile_SavingFile"  to="_Active_CopyMoveFile_SavingFile"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_FS_PROGRESSUPDATE</event>
+				<condition></condition>
+				<action>post event EVT_PROGRESSUPDATE to update the status to AP</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="7922"	from="_Active_CopyMoveFile_SavingFile"  to="_Active_CopyMoveFile_ResultList"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_FS_FAILED</event>
+				<condition></condition>
+				<action>set nResult = OP_FAILED, and according to nLaunchFor set nArg = OPERATION_COPY or OPERATION_MOVE, nReason = INSUFFICIENTMEM or NAMECOLLISION or FSFAILED</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="3375"	from="_Active_CopyMoveFile_SavingFile"  to="_Active_CopyMoveFile_InstallContent"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_FS_SUCCESS</event>
+				<condition></condition>
+				<action>close the file</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="9423"	from="_Active_CopyMoveFile_SavingFile"  to="_Active_CopyMoveFile_SavingFile"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_FS_ABORT</event>
+				<condition></condition>
+				<action>close the file then delete the incomplete dest. File</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="32394"	from="_Active_CopyMoveFile_InstallContent"  to="_Active_CopyMoveFile_ResultList"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_FS_FAILED</event>
+				<event>OBJPROCESSINGSRV_EVT_DB_FAILED</event>
+				<condition></condition>
+				<action>1. remove the destination file&#13;&#10;2. set nResult = OP_FAILED with nArg = OPERATIONID_COPY/OPERATIONID_MOVE,</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="31909"	from="_Active_CopyMoveFile_InstallContent"  to="_Active_CopyMoveFile_SavingFile"  type="Default"	hasCondition="1" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_DB_SUCCESS</event>
+				<condition>nOnProcessNum &lt; (nCandProcessCount - 1)</condition>
+				<action>1. remains file, copy/move next. nOnProcessNum++&#13;&#10;2. post event evtOPSRV_EVT_NEXTOBJ to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="28850"	from="_Active_CopyMoveFile_InstallContent"  to="_Active_CopyMoveFile_ResultList"  type="Default"	hasCondition="1" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_DB_SUCCESS</event>
+				<condition>nOnProcessNum == (nCandProcessCount - 1)</condition>
+				<action>set nResult = OP_OK with nArg = OPERATIONID_COPY/OPERATIONID_MOVE</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="4606"	from="_Active_CopyMoveFile_ResultList"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_IEVT_RESULTLISTDONE</event>
+				<condition></condition>
+				<action>post event EVT_CPMVDONE to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="24483"	from="_Active_SaveContent_SavingFile"  to="_Active_SaveContent_InstallContent"  type="Default"	hasCondition="0" hasAction="0">
+				<event>OBJPROCESSINGSRV_EVT_CNTFILESAVED</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="27466"	from="_Active_SaveContent_SavingFile"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_CNTFILESAVEFAILED</event>
+				<condition></condition>
+				<action>post event OPSRV_EVT_SAVEDONE with value fail to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20545"	from="_Active_SaveContent_InstallContent"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_DB_SUCCESS</event>
+				<condition></condition>
+				<action>post event OPSRV_EVT_SAVEDONE with value SUCCESS to caller</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" id="20933"	from="_Active_SaveContent_InstallContent"  to="_Idle"  type="Default"	hasCondition="0" hasAction="1">
+				<event>OBJPROCESSINGSRV_EVT_DB_FAILED</event>
+				<condition></condition>
+				<action>post event OPSRV_EVT_SAVEDONE with value fail to caller</action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="SELECTEDLISTFAILED" type="internal">
+				<comment></comment>
+			</event>
+			<event name="SELECTEDLISTDONE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="RESULTLISTDONE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="GETPREVIEWDATADONE" type="external">
+				<comment></comment>
+			</event>
+			<event name="STARTGETTHUMBNAIL" type="external">
+				<comment></comment>
+			</event>
+			<event name="STARTDELETEOBJ" type="external">
+				<comment></comment>
+			</event>
+			<event name="STARTCPMVFILE" type="external">
+				<comment></comment>
+			</event>
+			<event name="STARTSAVECNT" type="external">
+				<comment></comment>
+			</event>
+			<event name="DELDONE" type="external">
+				<comment></comment>
+			</event>
+			<event name="DELETEFAILED" type="external">
+				<comment></comment>
+			</event>
+			<event name="DELETEOK" type="external">
+				<comment></comment>
+			</event>
+			<event name="NEXTOBJ" type="external">
+				<comment></comment>
+			</event>
+			<event name="OP_CFM_FOR_ONE" type="external">
+				<comment></comment>
+			</event>
+			<event name="CPMVDONE" type="external">
+				<comment></comment>
+			</event>
+			<event name="FS_PROGRESSUPDATE" type="external">
+				<comment></comment>
+			</event>
+			<event name="PROGRESSUPDATE" type="external">
+				<comment></comment>
+			</event>
+			<event name="FS_FAILED" type="external">
+				<comment></comment>
+			</event>
+			<event name="FS_SUCCESS" type="external">
+				<comment></comment>
+			</event>
+			<event name="DB_SUCCESS" type="external">
+				<comment></comment>
+			</event>
+			<event name="DB_FAILED" type="external">
+				<comment></comment>
+			</event>
+			<event name="SAVECNTDONE" type="external">
+				<comment></comment>
+			</event>
+			<event name="SRVBUSY" type="external">
+				<comment></comment>
+			</event>
+			<event name="ACCEPTDELREQ" type="external">
+				<comment></comment>
+			</event>
+			<event name="STOPPROCESSING" type="external">
+				<comment></comment>
+			</event>
+			<event name="CNTFILESAVED" type="external">
+				<comment></comment>
+			</event>
+			<event name="CNTFILESAVEFAILED" type="external">
+				<comment></comment>
+			</event>
+			<event name="OP_KEEP_NEXT_ON" type="external">
+				<comment></comment>
+			</event>
+			<event name="GETOBJ_FAILED" type="external">
+				<comment></comment>
+			</event>
+			<event name="GETOBJ_SUCCESS" type="external">
+				<comment></comment>
+			</event>
+			<event name="OPDONE" type="external">
+				<comment></comment>
+			</event>
+			<event name="SRVSTOPPED" type="external">
+				<comment></comment>
+			</event>
+			<event name="FS_ABORT" type="external">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="StartProcessing" id="7241" RetType="MAE_Ret"	Param1="OPSrv_LaunchFor_e nLaunchFor" Param2="IHandler *pClient"	Param3="OPSrvReqInfo_u *pReqInfo" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">it is used for AP to start the obj processing. (MMI_OPSRV_RET_BUSY if the service is serving for other request, every item is defined as MMI_Common_FMList_ItemElement_t)</function>
+			<function name="StopProcessing" id="1846" RetType="MAE_Ret"	Param1="IHandler *pClient" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+			<function name="GetStatus" id="15032" RetType="MAE_Ret"	Param1="OPSrvStatus_t *pStatus" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "></function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

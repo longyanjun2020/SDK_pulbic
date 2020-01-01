@@ -1,0 +1,326 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>FDNSrv</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_PHB</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="FDNSrv" id="2283" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="idle">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+      <ModeComment></ModeComment>
+          <node name="idle" id="30621" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>deregister from phb message</EntryComment>
+          <ExitComment></ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="QueryFDNStatus" id="18254" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>send req to ril</EntryComment>
+          <ExitComment>Exit</ExitComment>
+          <ModeComment></ModeComment>
+          </node>
+          <node name="active" id="31195" hasEntry="1" hasExit="1" hasMethod="1" FullPath="" DefaultChild="CheckFID">
+          <EntryComment>register to phb message</EntryComment>
+          <ExitComment>Exit</ExitComment>
+          <ModeComment></ModeComment>
+              <node name="CheckFID" id="7059" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>Check FID</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="GetFDNStorageStatus" id="24993" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>send req to ril</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="SetFDNStatus" id="11927" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>send req to ril</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ReadOneFDN" id="23521" hasEntry="0" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment></EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="ReadAllFDNToPhone" id="10226" hasEntry="1" hasExit="1" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>send req to ril</EntryComment>
+              <ExitComment>Exit</ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="WriteOneFDN" id="4024" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>send req to ril</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+              <node name="DeleteOneFDN" id="7765" hasEntry="1" hasExit="0" hasMethod="1" FullPath="_active" DefaultChild="">
+              <EntryComment>send req to ril</EntryComment>
+              <ExitComment></ExitComment>
+              <ModeComment></ModeComment>
+              </node>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" prefix=""	id="13555"  from="_FDNSrv"  to="_FDNSrv"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMStatusChangeInd</event>
+				<condition></condition>
+				<action>init the flag and go to queryFDNStatus</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="23363"  from="_FDNSrv"  to="_FDNSrv"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_SimEntryReadyInd</event>
+				<condition></condition>
+				<action>check the cnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="23166"  from="_idle"  to="_idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_IDLE_AGAIN</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="3325"  from="_FDNSrv"  to="_QueryFDNStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_GET_FILE_STATUS</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="10510"  from="_QueryFDNStatus"  to="_QueryFDNStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_StatusSIMFileCnf</event>
+				<condition></condition>
+				<action>check the file status cnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="5822"  from="_QueryFDNStatus"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="29586"  from="_idle"  to="_idle"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>PHBSRV_EVT_PhonebookReady</event>
+				<condition></condition>
+				<action>send a req to start read all FDN</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="18752"  from="_idle"  to="_QueryFDNStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_GET_FILE_STATUS</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="28780"  from="_idle"  to="_active_CheckFID"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_CHECK_FID</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="28726"  from="_active_CheckFID"  to="_active_GetFDNStorageStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_GET_FDN_STORAGE_STATUS</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="1444"  from="_active_CheckFID"  to="_active_SetFDNStatus"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_SET_STATUS</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="19588"  from="_active_CheckFID"  to="_active_ReadOneFDN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_READ_ONE_FDN</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="28123"  from="_active_CheckFID"  to="_active_ReadAllFDNToPhone"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_READ_ALL_FDN_TO_PHONE</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="3493"  from="_active_CheckFID"  to="_active_WriteOneFDN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_WRITE_ONE_FDN</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="27500"  from="_active_CheckFID"  to="_active_DeleteOneFDN"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_TO_DELETE_ONE_FDN</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="24724"  from="_active_GetFDNStorageStatus"  to="_active_GetFDNStorageStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_QueryStatusCnf</event>
+				<condition></condition>
+				<action>check the Cnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="13327"  from="_active_GetFDNStorageStatus"  to="_active_GetFDNStorageStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SIMSRV_EVT_SIMStatusChangeInd</event>
+				<condition></condition>
+				<action>give up the waiting</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="9479"  from="_active_GetFDNStorageStatus"  to="_active_GetFDNStorageStatus"  type="Default"	hasCondition="1" hasAction="1">
+				<event>MAE_EVT_PHB_FdnAdnSwapReadyInd</event>
+				<condition>waitFdnAdnSwap = TRUE</condition>
+				<action>clear the flag</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="852"  from="_active_GetFDNStorageStatus"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="17336"  from="_active_SetFDNStatus"  to="_active_SetFDNStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_SetFDNStatusCnf</event>
+				<condition></condition>
+				<action>check the Cnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="153"  from="_active_SetFDNStatus"  to="_active_SetFDNStatus"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_FdnAdnSwapReadyInd</event>
+				<condition></condition>
+				<action>finish the set status</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="27629"  from="_active_SetFDNStatus"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="31400"  from="_active_ReadOneFDN"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="13539"  from="_active_ReadAllFDNToPhone"  to="_active_ReadAllFDNToPhone"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_ReadContactCnf</event>
+				<condition></condition>
+				<action>check the Cnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="7145"  from="_active_ReadAllFDNToPhone"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="4142"  from="_active_WriteOneFDN"  to="_active_WriteOneFDN"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_WriteContactCnf</event>
+				<condition></condition>
+				<action>check the Cnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="32746"  from="_active_WriteOneFDN"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="29017"  from="_active_DeleteOneFDN"  to="_active_DeleteOneFDN"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_PHB_DeleteContactCnf</event>
+				<condition></condition>
+				<action>check the Cnf</action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="24662"  from="_active_DeleteOneFDN"  to="_idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_FINISH</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="6968"  from="_idle"  to="_idle"  type="default"	hasCondition="0" hasAction="0">
+				<event>FDNSRV_IEVT_GET_PHB_READY</event>
+				<condition></condition>
+				<action></action>
+				<comment></comment>
+			</transition>
+			<transition enable="1" prefix=""	id="26136"  from="_QueryFDNStatus"  to="_QueryFDNStatus"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MAE_EVT_SEC_FAC_STATUS_CNF</event>
+				<condition></condition>
+				<action>check the fac lock cnf</action>
+				<comment></comment>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="TO_CHECK_FID" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_SET_STATUS" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_READ_ONE_FDN" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_READ_ALL_FDN_TO_PHONE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_WRITE_ONE_FDN" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_DELETE_ONE_FDN" type="internal">
+				<comment></comment>
+			</event>
+			<event name="FINISH" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_GET_FDN_STORAGE_STATUS" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_GET_FILE_STATUS" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_IDLE" type="internal">
+				<comment></comment>
+			</event>
+			<event name="ContactReady" type="external">
+				<comment></comment>
+			</event>
+			<event name="StatusReady" type="external">
+				<comment></comment>
+			</event>
+			<event name="StatusChange" type="external">
+				<comment></comment>
+			</event>
+			<event name="GET_PHB_READY" type="internal">
+				<comment></comment>
+			</event>
+			<event name="TO_IDLE_AGAIN" type="internal">
+				<comment></comment>
+			</event>
+		</eventlist>
+		<functionlist>
+			<function name="SetFDNStatusReq" id="18571" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to set FDN status (asynchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Cannot be null. &#13;&#10;&lt;ptCnf&gt;: Cannot be null. &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetFDNNameByNumber" id="21913" RetType="MAE_Ret"	Param1="Mmi_FDNSrvGetFDNNameByNumberReq_t *ptReq" Param2="Mmi_FDNSrvGetFDNNameByNumberCnf_t *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get the name of FDN contact (synchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Cannot be null. Mallocate/Free by function caller.&#13;&#10;&lt;ptCnf&gt;: Cannot be null. Mallocate/Free by function caller.&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetFDNStatusFullInfo" id="7031" RetType="MAE_Ret"	Param1="Mmi_FDNSrvFDNStatus_t *ptFDNStatus" Param2="u8 u8SimId"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get the FDN status full info of specific SIM  (synchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;ptFDNStatus&gt;: Cannot be null. Mallocate/Free by function caller.&#13;&#10;&lt;u8SimId&gt;: Which SIM status you want to get&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetFDNContact" id="27450" RetType="MAE_Ret"	Param1="MmiPhbDhFDNBackupData_t  *ptContact" Param2="u8 u8SimId"	Param3="u8 u8Idx" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get the FDN contact of specific SIM  (synchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;ptContact&gt;: Cannot be null. Mallocate/Free by function caller.&#13;&#10;&lt;u8SimId&gt;: Which SIM you want to get&#13;&#10;&lt;u8Idx&gt;: Which contact in the SIM you want to get&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="WriteOneContactReq" id="24582" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to write a FDN contact (asynchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Cannot be null. &#13;&#10;&lt;ptCnf&gt;: Cannot be null. &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="DeleteOneContactReq" id="31562" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to delete one contact (asynchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Cannot be null. &#13;&#10;&lt;ptCnf&gt;: Cannot be null. &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="IsFDNReady" id="17538" RetType="boolean"	Param1=" " Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: Check the FDN contacts is ready or not.&#13;&#10;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Register_Notification" id="32735" RetType="MAE_Ret"	Param1="void *instance" Param2="MMI_PHB_NOTIFY_MASK_E s32Mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Deregister_Notification" id="20811" RetType="MAE_Ret"	Param1="void *instance" Param2="MMI_PHB_NOTIFY_MASK_E s32Mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="WriteOneNewContactReq" id="31128" RetType="MAE_Ret"	Param1="IDataModel *ptReq" Param2="IDataModel *ptCnf"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to write a FDN contact (asynchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;ptReq&gt;: Cannot be null. &#13;&#10;&lt;ptCnf&gt;: Cannot be null. &#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="GetFDNStatus" id="13250" RetType="MMI_FDNSRV_FDN_STATUS_E"	Param1="u8 u8SimId" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" ">Purpose: This external interface is provided to get the FDN status of specific SIM  (synchronous function)&#13;&#10;Parameter: &#13;&#10;&lt;u8SimId&gt;: Which SIM status you want to get&#9;&#9;&#9;&#9;&#9;&#9;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

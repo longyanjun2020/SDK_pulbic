@@ -1,0 +1,15 @@
+#ifndef MMI_MMSSETTINGAPP_ID_H
+#define MMI_MMSSETTINGAPP_ID_H
+enum
+{
+    MMSA_WND_MAIN_MENU_VIEW,
+    MMSA_WND_DUALSIMSELECT_MENU_VIEW,
+    MMSA_WND_SENDOPTION_MENU_VIEW,
+    MMSA_WND_SENDOPTION_RADIOLIST_VIEW, // for every item setting selection
+    MMSA_WND_PAGESETTING_MENU_VIEW,
+    MMSA_WND_PAGESETTING_RADIOLIST_VIEW, // for every item setting selection
+    MMSA_WND_PAGESETTING_EDITOR_VIEW, // for every item setting edition
+};
+
+#endif
+

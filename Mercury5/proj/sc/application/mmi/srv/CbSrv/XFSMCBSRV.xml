@@ -1,0 +1,111 @@
+<XFSM>
+    <header>
+        <Category>Application</Category>
+        <XFSMVer>001</XFSMVer>
+    </header>
+    <data>
+    <application>
+      <info>
+         <name>cbs</name>
+         <version>1200</version>
+         <FileType>MMI</FileType>
+         <ApplicationType>Service</ApplicationType>
+         <LogLevelName>MMI_LEVEL_MESSAGE</LogLevelName>
+         <HasFSM>1</HasFSM>
+         <Ifdef></Ifdef>
+      </info>
+      <modetree>
+      <noderoot name="cbs" id="12127" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="Init">
+      <EntryComment></EntryComment>
+      <ExitComment></ExitComment>
+          <node name="Init" id="19816" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>1. Check kernel services to see if they are ready.&#13;&#10;2. Initialize all varables,&#13;&#10;    RecJobQue[BUFFER_SIZE], BUFFER_SIZE = 4.&#13;&#10;    ShowBuf[1]: store the current shown cb message&#13;&#10;3. CBEnable = MMI current CB reception setting, while settins update, CBEnable change and clear all buffer</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="Idle" id="23870" hasEntry="1" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment>set bready, and notify I&apos;m ready</EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+          <node name="Active" id="16621" hasEntry="0" hasExit="0" hasMethod="1" FullPath="" DefaultChild="">
+          <EntryComment></EntryComment>
+          <ExitComment></ExitComment>
+          </node>
+      </noderoot>
+      </modetree>
+		<transitionlist>
+			<transition enable="1" id="14933"	from="_Init"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CBS_IEVT_IDLE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="16219"	from="_Idle"  to="_Active"  type="default"	hasCondition="0" hasAction="1">
+				<event>MOI_EVT_CbInd</event>
+				<condition></condition>
+				<action>1. Receive new CB msg indication.&#13;&#10;2. Add CB msg  into RecJobQue.&#13;&#10;</action>
+			</transition>
+			<transition enable="1" id="4136"	from="_Active"  to="_Active"  type="internal"	hasCondition="0" hasAction="1">
+				<event>MOI_EVT_CbInd</event>
+				<condition></condition>
+				<action>// MAY NOT get the chance to receive CB indication which is external event.  ONLY when in Save mode before receiving external confirm event.&#13;&#10;1. Receive new CB msg indication.&#13;&#10;2. Add CB msg into RecJobQue.</action>
+			</transition>
+			<transition enable="1" id="544"	from="_Active"  to="_Idle"  type="Default"	hasCondition="0" hasAction="0">
+				<event>CBS_IEVT_IDLE</event>
+				<condition></condition>
+				<action></action>
+			</transition>
+			<transition enable="1" id="18329"	from="_Idle"  to="_Idle"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>SMS_EVT_SmsSrv_Ready</event>
+				<condition></condition>
+				<action>get cbcfg and set it to RIL</action>
+			</transition>
+			<transition enable="1" id="18383"	from="_Idle"  to="_Idle"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_SetCbmiCnf</event>
+				<condition></condition>
+				<action>get confirmation result</action>
+			</transition>
+			<transition enable="1" id="18818"	from="_Idle"  to="_Idle"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>TXI_EVT_ActiveRngCbmiCnf</event>
+				<condition></condition>
+				<action>get confirmation result</action>
+			</transition>
+			<transition enable="1" id="20177"	from="_Active"  to="_Active"  type="Internal"	hasCondition="0" hasAction="1">
+				<event>CBS_IEVT_CHECKQUEUE</event>
+				<condition></condition>
+				<action>if there is no cb go to Idle</action>
+			</transition>
+		</transitionlist>
+		<eventlist>
+			<event name="IDLE" type="internal"></event>
+			<event name="ACTIVE" type="internal"></event>
+			<event name="SAVE" type="internal"></event>
+			<event name="SHOW" type="internal"></event>
+			<event name="NO_MORE_CB" type="internal"></event>
+			<event name="CB_DISABLE" type="internal"></event>
+			<event name="CHECKQUEUE" type="internal"></event>
+			<event name="CHECK_CBSMS_SIZE" type="internal"></event>
+			<event name="READY" type="external"></event>
+			<event name="NEW_CBMSG" type="external"></event>
+			<event name="UPDATE_CBNUM" type="external"></event>
+			<event name="DEL_CBMSG" type="external"></event>
+		</eventlist>
+		<functionlist>
+			<function name="isReady" id="11745" RetType="MAE_Ret"	Param1="boolean *bReady" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_isReady&#13;&#10; *  @ brief   Get current cbs srv status &#13;&#10; *  @ param  *bReady       Pointer to an boolean returning cbs status&#13;&#10; *                          if *byteRead = 1, it means cbs is ready&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM  Failed, bad cbs instance&#13;&#10;&#9;&#9;&#9;&#9;</function>
+			<function name="Register_Notification" id="7755" RetType="MAE_Ret"	Param1="void *instance" Param2="CBS_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_Register_Notification&#13;&#10; *  @ brief   register the notification &#13;&#10; *  @ param  *instance    Pointer to an object&#13;&#10; *  @ param  mask    event mask defined as CBS_Notify_Mask_e&#13;&#10; *&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM  Failed, NULL cbs instance or NULL resigter instance&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Failed, no memory to register</function>
+			<function name="Deregister_Notification" id="284" RetType="MAE_Ret"	Param1="void *instance" Param2="CBS_Notify_Mask_e mask"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_DeRegister_Notification&#13;&#10; *  @ brief   deregister the notification &#13;&#10; *  @ param  *instance    Pointer to an object&#13;&#10; *  @ param  mask    event mask defined as CBS_Notify_Mask_e&#13;&#10; *&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM  Failed, NULL cbs instance or NULL resigter instance&#9;&#9;&#9;&#9;&#9;&#13;&#10; *  @retval MAE_RET_NOT_FOUND Failed, No such register instance or mask</function>
+			<function name="Get_CBModel" id="1399" RetType="MAE_Ret"	Param1="IModel **pCBModel" Param2="IBase* pOwner"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_get_cbmodel&#13;&#10; *  @ brief  get the cb message data model&#13;&#10; *  @ param  **pCBModel,  return pointer of new cb message data model&#13;&#10; *  @ param  *pOwner,  pointer to request instance&#13;&#10; *&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retval MAE_RET_FAILED Failed, NULL cbs instance or NULL cb data model or NULL request instance&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Get_NextUnSlidedCBMsg" id="6830" RetType="MAE_Ret"	Param1="CBS_MsgInfo_t **pCBMsg" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_get_NextUnslidedCBMsg&#13;&#10; *  @brief  get next unslidedCBInfo&#13;&#10; *  @ param  **pCBMsgl,  return pointer of new cb message info&#13;&#10; *&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retvalMAE_RET_NOT_FOUND Failed,no unslided CB msg</function>
+			<function name="Get_CBMsgByIdx" id="31586" RetType="MAE_Ret"	Param1="CBS_MsgInfo_t **pCBMsg" Param2="u32 nIdx"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_Get_CBMsgByIdx&#13;&#10; *  @ brief  get cb Msg info by index&#13;&#10; *  @ param  **pCBMsgl,  return pointer of new cb message info&#13;&#10; *  @ param nIdx,  idx of CBS&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retvalMAE_RET_NOT_FOUND Failed,no CB msg&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Set_CBStatusByID" id="24039" RetType="MAE_Ret"	Param1="CBS_SLIDE_STATUS_e eStatus" Param2="u32 nID"	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_Set_CBStatusByID&#13;&#10; *  @brief set cb slide status &#13;&#10; *  @ param eStatus, the unslide, sliding, slide done&#13;&#10; *  @ param nID,CB msg ID   &#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retvalMAE_RET_NOT_FOUND Failed,no CB msg&#9;&#9;&#9;&#9;</function>
+			<function name="Get_TotalCBMsgCount" id="28219" RetType="MAE_Ret"	Param1="u32 *nCount" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_Get_TotalCBMsgCount&#13;&#10; *  @ brief get current CB msg total number&#13;&#10; *  @ param nCount, return count of cb msg&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS     Success&#13;&#10; *  @retval MAE_RET_FAILED/MAE_RET_BAD_PARAM Failed</function>
+			<function name="Add_CBListModelListener" id="15936" RetType="MAE_Ret"	Param1="ModelListener_t* pMdlLsn" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_Add_CBListModelListener&#13;&#10; *  @ brief add cb list modellistener to listen the cb queue change&#13;&#10; *  @ param pMdLsn, the pointer of listener&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, Null pMdlLsn or NULL cbs &#9;&#9;&#9;&#9;</function>
+			<function name="Cancel_CBListModelListener" id="21389" RetType="MAE_Ret"	Param1="ModelListener_t* pMdlLsn" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_Cancel_CBListModelListener&#13;&#10; *  @ brief Cancel cb list modellistener to listen the cb queue change&#13;&#10; *  @ param pMdLsn, the pointer of listener&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_BAD_PARAM Failed, Null pMdlLsn or NULL cbs &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;</function>
+			<function name="Del_CBMsgByID" id="27762" RetType="MAE_Ret"	Param1="u32 nID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  cbs_Del_CBMsgByID&#13;&#10; *  @ brief delete CB msg by MsgID&#13;&#10; *  @ param nID, CB msgID&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_NOT_FOUND Failed, no CBMsg&#9;&#9;&#9;&#9;</function>
+			<function name="CBS_RegisterPort" id="5330" RetType="MAE_Ret"	Param1="u32 nPort" Param2="u8 nSIMModule"	Param3="pfn_cbs_receive_CB pReceiveCB" Param4="u32 userData"	Param5="u32 CallerID" Param6=" "	Param7=" " Param8=" "> *  CBS_RegisterPort&#13;&#10; *  @ brief register certain CB channel to receive CB&#13;&#10; *  @ param nPort, CB channel to register&#13;&#10; *  @ param nSIMModule, register which SIM, DUAL_MASTER or DUAL_SLAVE&#13;&#10; *  @ param pReceiveCB, receive callback function to notify new MT registed CB &#13;&#10; *  @ param userData/CallerID, for register, It will be brought at pReceiveCB() &#13;&#10;                                                    and distinguish by different userdata and caller ID &#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_FAILED Failed, there is existed the same one&#13;&#10; *  @retval MAE_RET_OUT_OF_MEMORY Failed&#9;</function>
+			<function name="CBS_DeRegisterPort" id="5451" RetType="MAE_Ret"	Param1="u32 nPort" Param2="u8 nSIMModule"	Param3="u32 CallerID" Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  CBS_DeRegisterPort&#13;&#10; *  @ brief deregister certain CB channel to receive CB&#13;&#10; *  @ param nPort, CB channel to deregister&#13;&#10; *  @ param nSIMModule,de register which SIM, DUAL_MASTER or DUAL_SLAVE&#13;&#10; *  @ param CallerID, the register one.&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#13;&#10; *  @retval MAE_RET_NOT_FOUND Failed, there is no such register&#9;&#9;</function>
+			<function name="CBS_DeRegisterAllPort" id="5510" RetType="MAE_Ret"	Param1="u32 CallerID" Param2=" "	Param3=" " Param4=" "	Param5=" " Param6=" "	Param7=" " Param8=" "> *  CBS_DeRegisterAllPort&#13;&#10; *  @ brief deregister all  CB channel to receive CB for center caller&#13;&#10; *  @ param CallerID, the register&#13;&#10;&#13;&#10;&#13;&#10; *  @retval MAE_RET_SUCCESS Success&#9;&#9;&#9;&#9;&#9;</function>
+		</functionlist>
+
+    </application>
+    </data>
+
+</XFSM>

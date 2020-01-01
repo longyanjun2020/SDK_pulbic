@@ -1,0 +1,253 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="SNOTE_WND_LIST" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SNoteListMenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="ddebd" />
+			</Widget>
+			<InternProp Id="GUID" Value="db555" />
+		</Widget>
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_SKETCH_NOTE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="72543" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="267" />
+		<InternProp Id="LAYOUT_POS_Y" Value="344" />
+	</Layout>
+	<Layout Id="SNOTE_WND_PICKCOLOR" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SNotePickColorMenuWdg" ClsID="CLSID_MENUWIDGET" SizeHeight="1" SizeWidth="1">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="SNOTEAPP_PICKCOLOR_MENUWDG_ROW_GAP+1" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="64" />
+				<Model ClsID="CLSID_MENUWIDGET" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="b8492" />
+			</Widget>
+			<InternProp Id="GUID" Value="fe31e" />
+		</Widget>
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LIL_N_SELECT_NOTE_COLOR&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="1dc83" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="13" />
+		<InternProp Id="LAYOUT_POS_Y" Value="343" />
+	</Layout>
+	<Layout Id="SNOTE_WND_EDITNOTE" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="EditNoteImage" ClsID="CLSID_IMAGEWIDGET" SizeHeight="SNTOEAPP_TOOLBAR_HEIGHT" SizeWidth="SNOTEAPP_TOOLBAR_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_TOOLBAR_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_TOOLBAR_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="SKETCHNOTE_IMG_BG" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="e450e" />
+			</Widget>
+			<Widget Id="EditNoteText" ClsID="CLSID_TEXTWIDGET" SizeHeight="SNOTEAPP_SKETCHCANVAS_HEIGHT" SizeWidth="SNOTEAPP_SKETCHCANVAS_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_SKETCHCANVAS_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_SKETCHCANVAS_POS_Y+MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="b92b4" />
+			</Widget>
+			<Widget Id="EditNotePenSwitchIcon" ClsID="CLSID_SWITCHICONWIDGET" SizeHeight="SNOTEAPP_EDITNOTE_PEN_SWITCHICON_HEIGHT" SizeWidth="SNOTEAPP_EDITNOTE_PEN_SWITCHICON_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_PEN_SWITCHICON_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_PEN_SWITCHICON_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_SWITCH_WDG_ICON_STYLE" Value="SWITCH_ICON_STYLE_CHECK" />
+				<Model ClsID="CLSID_SWITCHICONWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="d24fc" />
+			</Widget>
+			<Widget Id="EditNoteStrokeSwitchIcon" ClsID="CLSID_SWITCHICONWIDGET" SizeHeight="SNOTEAPP_EDITNOTE_STROKE_SWITCHICON_HEIGHT" SizeWidth="SNOTEAPP_EDITNOTE_STROKE_SWITCHICON_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_STROKE_SWITCHICON_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_STROKE_SWITCHICON_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_SWITCH_WDG_ICON_STYLE" Value="SWITCH_ICON_STYLE_CHECK" />
+				<Model ClsID="CLSID_SWITCHICONWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="98fe3" />
+			</Widget>
+			<Widget Id="EditNoteColorSwitchIcon" ClsID="CLSID_SWITCHICONWIDGET" SizeHeight="SNOTEAPP_EDITNOTE_COLOR_SWITCHICON_HEIGHT" SizeWidth="SNOTEAPP_EDITNOTE_COLOR_SWITCHICON_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_COLOR_SWITCHICON_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_COLOR_SWITCHICON_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_SWITCH_WDG_ICON_STYLE" Value="SWITCH_ICON_STYLE_CHECK" />
+				<Model ClsID="CLSID_SWITCHICONWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="639ee" />
+			</Widget>
+			<Widget Id="EditNoteEraserSwitchIcon" ClsID="CLSID_SWITCHICONWIDGET" SizeHeight="SNOTEAPP_EDITNOTE_ERASER_SWITCHICON_HEIGHT" SizeWidth="SNOTEAPP_EDITNOTE_ERASER_SWITCHICON_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_ERASER_SWITCHICON_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_ERASER_SWITCHICON_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_SWITCH_WDG_ICON_STYLE" Value="SWITCH_ICON_STYLE_CHECK" />
+				<Model ClsID="CLSID_SWITCHICONWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="dbe30" />
+			</Widget>
+			<Widget Id="EditNoteTextButton" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SNOTEAPP_EDITNOTE_TEXT_BTNWDG_HEIGHT" SizeWidth="SNOTEAPP_EDITNOTE_TEXT_BTNWDG_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_TEXT_BTNWDG_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_TEXT_BTNWDG_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="SKETCHNOTE_IMG_TEXT_UNPRESS" />
+						<Image Id="SKETCHNOTE_IMG_TEXT_PRESS" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="1b265" />
+			</Widget>
+			<Widget Id="EditNoteStrokeGrid" ClsID="CLSID_MENUWIDGET" SizeHeight="SNOTEAPP_EDITNOTE_STROKE_LIST_HEIGHT" SizeWidth="SNOTEAPP_EDITNOTE_STROKE_LIST_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_STROKE_LIST_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_STROKE_LIST_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_ITEM_WIDTH" Value="SNOTEAPP_TOOLBAR_STROKE_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="SNOTEAPP_TOOLBAR_STROKE_HEIGHT" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="0" />
+				<Property Id="PROP_WDG_COL_GAP" Value="0" />
+				<Property Id="PROP_FIXED_NUM" Value="1" />
+				<Model ClsID="CLSID_MENUWIDGET" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="bb35c" />
+			</Widget>
+			<Widget Id="EditNoteColorGrid" ClsID="CLSID_MENUWIDGET" SizeHeight="SNOTEAPP_EDITNOTE_COLOR_LIST_HEIGHT" SizeWidth="SNOTEAPP_EDITNOTE_COLOR_LIST_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_EDITNOTE_COLOR_LIST_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_EDITNOTE_COLOR_LIST_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_HORIZONTAL_DIM_NUM" Value="5" />
+				<Property Id="PROP_VERTICAL_DIM_NUM" Value="2" />
+				<Property Id="PROP_GRID_LAYOUT" Value="WDG_MENU_GRID_STYLE_FIX_SINGLE_PAGE" />
+				<Property Id="PROP_ITEM_WIDTH" Value="SNOTEAPP_EDITNOTE_COLOR_LIST_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="SNOTEAPP_EDITNOTE_COLOR_LIST_ITEM_HEIGHT" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="SNOTEAPP_EDITNOTE_COLOR_LIST_ITEM_ROW_GAP" />
+				<Property Id="PROP_WDG_COL_GAP" Value="SNOTEAPP_EDITNOTE_COLOR_LIST_ITEM_COL_GAP" />
+				<Property Id="PROP_FIXED_NUM" Value="SNOTEAPP_EDITNOTE_COLOR_LIST_ITEM_PROP_FIXED_NUM" />
+				<Model ClsID="CLSID_MENUWIDGET" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_TEXT" />
+				<InternProp Id="GUID" Value="422ee" />
+			</Widget>
+			<InternProp Id="GUID" Value="6f182" />
+		</Widget>
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_SKETCH_NOTE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="9e1ab" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="520" />
+		<InternProp Id="LAYOUT_POS_Y" Value="12" />
+	</Layout>
+	<Layout Id="SNOTE_WND_VIEWER" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SNoteViewerTimeStampTxt" ClsID="CLSID_TEXTWIDGET" SizeHeight="SNOTEAPP_VIEWER_TIMESTAMP_TEXTWDG_HEIGHT" SizeWidth="SNOTEAPP_VIEWER_TIMESTAMP_TEXTWDG_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_VIEWER_TIMESTAMP_TEXTWDG_POS_X" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<InternProp Id="GUID" Value="91f7c" />
+			</Widget>
+			<Widget Id="SNoteViewerPreBtn" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SNOTEAPP_VIEWER_PREVIOUS_BTNWDG_HEIGHT" SizeWidth="SNOTEAPP_VIEWER_PREVIOUS_BTNWDG_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_VIEWER_PREVIOUS_BTNWDG_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_VIEWER_PREVIOUS_BTNWDG_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="SKETCHNOTE_IMG_PHOTO_PREVIOUS_UNPRESSED" />
+						<Image Id="SKETCHNOTE_IMG_PHOTO_PREVIOUS_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="5e350" />
+			</Widget>
+			<Widget Id="SNoteViewerNextBtn" ClsID="CLSID_BUTTONWIDGET" SizeHeight="SNOTEAPP_VIEWER_NEXT_BTNWDG_HEIGHT" SizeWidth="SNOTEAPP_VIEWER_NEXT_BTNWDG_WIDTH">
+				<Position Type="X_POSITION" Value="SNOTEAPP_VIEWER_NEXT_BTNWDG_POS_X" />
+				<Position Type="Y_POSITION" Value="SNOTEAPP_VIEWER_NEXT_BTNWDG_POS_Y+MAIN_TITLE_HEIGHT" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="SKETCHNOTE_IMG_PHOTO_NEXT_UNPRESSED" />
+						<Image Id="SKETCHNOTE_IMG_PHOTO_NEXT_PRESSED" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="a0206" />
+			</Widget>
+			<InternProp Id="GUID" Value="0b47f" />
+		</Widget>
+		<Property Id="PROP_LEFT_SK" Value="SK_OPTION" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_OK" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_BACK" />
+		<InternProp Id="ModelData" Value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-16&quot;?&gt;&lt;BaseModel xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns=&quot;http://www.mstarsemi.com/XMMI/ui/&quot;&gt;&lt;ModelItem&gt;&lt;Image Id=&quot;IMG_NULL_ID&quot; /&gt;&lt;String Id=&quot;TXT_LTL_N_SKETCH_NOTE&quot; /&gt;&lt;/ModelItem&gt;&lt;/BaseModel&gt;" />
+		<InternProp Id="GUID" Value="0265c" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="259" />
+		<InternProp Id="LAYOUT_POS_Y" Value="9" />
+	</Layout>
+	<Layout Id="SNOTE_WND_SELECT" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="ImgWidget" ClsID="CLSID_IMAGEWIDGET" SizeHeight="MAIN_TITLE_HEIGHT+MAIN_LCD_ONELINE_HEIGHT" SizeWidth="MAIN_DEFVIEW_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+				<InternProp Id="GUID" Value="27980" />
+			</Widget>
+			<Widget Id="MenuGridWidget" ClsID="CLSID_IMGGRID_MENUWIDGET" SizeHeight="MAIN_DEFVIEW_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="MAIN_TITLE_HEIGHT" />
+				<Property Id="PROP_PADDING_LEFT" Value="5" />
+				<Property Id="PROP_PADDING_RIGHT" Value="5" />
+				<Property Id="PROP_PADDING_TOP" Value="8" />
+				<Property Id="PROP_PADDING_BOTTOM" Value="8" />
+				<Property Id="PROP_WDG_ALIGNMENT" Value="ALIGN_H_CENTER|ALIGN_V_MIDDLE" />
+				<Property Id="PROP_WDG_BG_COLOR" Value="RGBCOLOR_WHITE" />
+				<Property Id="PROP_ITEM_WIDTH" Value="MAIN_THUMBNAIL_ITEM_WIDTH" />
+				<Property Id="PROP_ITEM_HEIGHT" Value="MAIN_THUMBNAIL_ITEM_HEIGHT" />
+				<Property Id="PROP_WDG_ROW_GAP" Value="MAIN_THUMBNAIL_ITEM_ROW_GAP" />
+				<Property Id="PROP_WDG_COL_GAP" Value="MAIN_THUMBNAIL_ITEM_COL_GAP" />
+				<Model ClsID="CLSID_IMGGRID_MENUWIDGET">
+					<MenuItem>
+						<Flag Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="LEFT_SK" Value="SK_OPTION" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_OK" />
+						<SoftKey Type="RIGHT_SK" Value="SK_BACK" />
+						<Binary Value="0" />
+						<Struct>
+							<Image Id="COMMON_IMG_L_PHONE" />
+						</Struct>
+					</MenuItem>
+					<MenuItem>
+						<Flag Value="TXT_LIL_N_PHONE_MEMORY" />
+						<SoftKey Type="LEFT_SK" Value="MENUMODEL_ITEM_VISABLE" />
+						<SoftKey Type="MIDDLE_SK" Value="SK_OPTION" />
+						<SoftKey Type="RIGHT_SK" Value="SK_OK" />
+						<Binary Value="SK_BACK" />
+						<Struct>
+							<Image Id="1" />
+						</Struct>
+					</MenuItem>
+				</Model>
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+				<InternProp Id="GUID" Value="36eec" />
+			</Widget>
+			<InternProp Id="GUID" Value="57f84" />
+		</Widget>
+		<InternProp Id="GUID" Value="fed62" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="10" />
+		<InternProp Id="LAYOUT_POS_Y" Value="9" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_SNOTEAPP" />
+</UiRoot>

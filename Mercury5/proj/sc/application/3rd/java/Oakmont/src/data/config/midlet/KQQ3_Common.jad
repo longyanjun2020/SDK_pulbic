@@ -1,0 +1,8 @@
+MIDlet-1: 手机QQ,/icon.png,com.tencent.kqq2_3.KQQMIDlet
+MIDlet-Jar-Size: 129451
+MIDlet-Jar-URL: KQQ3_Common.jar
+MIDlet-Name: 手机QQ
+MIDlet-Vendor: Tencent
+MIDlet-Version: 3.0.1
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-2.0

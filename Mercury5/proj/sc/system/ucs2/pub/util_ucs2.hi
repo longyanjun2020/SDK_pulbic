@@ -1,0 +1,242 @@
+/****************************************************************************/
+/*  File    : util_ucs2.hi                                                  */
+/*--------------------------------------------------------------------------*/
+/* Description: Standard Unicode related utility functions.                 */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __SYS_UTIL_UCS2_HI__
+#define __SYS_UTIL_UCS2_HI__
+
+#include "vm_types.ht"
+
+#ifndef _U	
+// Fix redefination of "_U", side effect is unknown
+#define _U(_S)          (L##_S)
+#endif
+#define U16STR_WIDTH    (2)
+
+/******************************************************************/
+/*  Function:    sysUtil_AsciiStringToUCS2String                  */
+/*-------------------------------------------------------------   */
+/*  Scope       : Convert UCS2 string to ascii string             */
+/*                                                                */
+/*  Return      : none                                            */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+void sysUtil_AsciiStringToUCS2String(u16Char *pstrDest, const u8Char *pszSrc);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringLength                         */
+/*-------------------------------------------------------------   */
+/*  Scope       : Get string length                               */
+/*                                                                */
+/*  Return      : none                                            */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+u16 sysUtil_UCS2StringLength(const u16Char *pstrStr);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringCopy                           */
+/*-------------------------------------------------------------   */
+/*  Scope       : String copy utility function                    */
+/*                                                                */
+/*  Return      : none                                            */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+void sysUtil_UCS2StringCopy(u16Char *pstrDest, const u16Char *pstrSrc);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringNCopy                          */
+/*-------------------------------------------------------------   */
+/*  Scope       : String copy utility function                    */
+/*                                                                */
+/*  Return      : none                                            */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+void sysUtil_UCS2StringNCopy(u16Char *pstrDest, const u16Char *pstrSrc, u16 nCpyLen);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringCat                            */
+/*-------------------------------------------------------------   */
+/*  Scope       : Add pstrSrc to pstrDst                          */
+/*                                                                */
+/*  Return      : String length                                   */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+u16 sysUtil_UCS2StringCat(u16Char *pstrDest, const u16Char *pstrSrc);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringCat                            */
+/*-------------------------------------------------------------   */
+/*  Scope       : Add pstrSrc to pstrDst                          */
+/*                                                                */
+/*  Return      : String length                                   */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+u16 sysUtil_UCS2StringAsciiCat(u16Char *pstrDest, const u8Char *pszSrc);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringCmp                            */
+/*-------------------------------------------------------------   */
+/*  Scope       : Compare two UCS2 string                         */
+/*                                                                */
+/*  Return      : Result of the compare                           */
+/*                 0 : pstrDest = pstrSrc                         */
+/*                 1 : pstrDest > pstrSrc                         */
+/*                -1 : pstrDest < pstrSrc                         */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+s16 sysUtil_UCS2StringCmp(u16Char *pstrDest, const u16Char *pstrSrc);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringCmp                            */
+/*-------------------------------------------------------------   */
+/*  Scope       : Compare two UCS2 string                         */
+/*                                                                */
+/*  Return      : Result of the compare                           */
+/*                 0 : pstrDest = pstrSrc                         */
+/*                 1 : pstrDest > pstrSrc                         */
+/*                -1 : pstrDest < pstrSrc                         */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+s16 sysUtil_UCS2StringNCmp(u16Char *pstrDest, const u16Char *pstrSrc, u16 nCmpLen);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringICmp                            */
+/*-------------------------------------------------------------   */
+/*  Scope       : Compare two UCS2 string                         */
+/*                   Note that this function is only meaningful to essentially "Ascii" Ucs2 strings and    */
+/*                   is only used in immpse_MPGetPackage().                                             */
+/*                                                                */
+/*  Return      : Result of the compare                           */
+/*                 0 : pstrDest = pstrSrc                         */
+/*                 1 : pstrDest > pstrSrc                         */
+/*                -1 : pstrDest < pstrSrc                         */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+s16 sysUtil_UCS2StringICmp(u16Char *pstrDest, const u16Char *pstrSrc);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringINCmp                            */
+/*-------------------------------------------------------------   */
+/*  Scope       : Compare two UCS2 string                         */
+/*                   Note that this function is only meaningful to essentially "Ascii" Ucs2 strings and    */
+/*                   is only used in immpse_MPGetPackage().                                             */
+/*                                                                */
+/*  Return      : Result of the compare                           */
+/*                 0 : pstrDest = pstrSrc                         */
+/*                 1 : pstrDest > pstrSrc                         */
+/*                -1 : pstrDest < pstrSrc                         */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+s16 sysUtil_UCS2StringINCmp(u16Char *pstrDest, const u16Char *pstrSrc, u16 nCmpLen);
+
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StrStr                               */
+/*-------------------------------------------------------------   */
+/*  Scope       : Implement strstr() for UCS2 string              */
+/*                                                                */
+/*  Return      :                                                 */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+u16Char *sysUtil_UCS2StrStr(const u16Char *pstrDest, const u16Char *pstrSrc);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2Sprintf                              */
+/*-------------------------------------------------------------   */
+/*  Scope       : sprintf for USC2 string                         */
+/*                                                                */
+/*  Return      :                                                 */
+/*                                                                */
+/*  Usage       :                                                 */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+u16 sysUtil_UCS2Sprintf(u16Char *pstrDest, const u16Char *pstrFmt, ...);
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2Sprintf                              */
+/*-------------------------------------------------------------   */
+/*  Scope       : sprintf for USC2 string                         */
+/*                                                                */
+/*  Return      :                                                 */
+/*                                                                */
+/*  Usage       :                                                 */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+u16 sysUtil_UCS2AsciiSprintf(u16Char *pstrDest, const u8Char *pstrFmt, ...);
+
+const u16* sysUtil_UCS2FindExtDot(const u16* ucs2_str);
+
+
+/******************************************************************/
+/*  Function:    sysUtil_UTF8StrLen                               */
+/*-------------------------------------------------------------   */
+/*  Scope       : calculate length for UTF8                       */
+/*                                                                */
+/*  Return      :                                                 */
+/*                                                                */
+/*  Usage       :                                                 */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+s32 sysUtil_UTF8StrLen(u8 *pUTF8, s32 nTotalBytes);
+
+/******************************************************************/
+/*  Function:    sysUtil_UTF8ToUCS2                               */
+/*-------------------------------------------------------------   */
+/*  Scope       : convert UTF8 string to UCS2 string              */
+/*                                                                */
+/*  Return      :                                                 */
+/*                                                                */
+/*  Usage       :                                                 */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+void sysUtil_UTF8ToUCS2(u8 *pUTF8, u32 nInUTF8Bytes, u16 *pUCS2Out, u32 *pBytesWritten);
+
+/******************************************************************/
+/*  Function:    sysUtil_UTF8ToUCS2Ex                             */
+/*-------------------------------------------------------------   */
+/*  Scope       : convert UTF8 string to UCS2 string              */
+/*                                                                */
+/*  Return      :                                                 */
+/*                                                                */
+/*  Usage       :                                                 */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+void sysUtil_UTF8ToUCS2Ex(u8 *pUTF8, u32 nInUTF8Bytes, u16 *pUCS2Out, u32 nUSC2ByteLen, u32 *pBytesWritten);
+
+#endif // #ifndef __SYS_UTIL_UCS2_HI__

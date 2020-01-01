@@ -1,0 +1,147 @@
+/******************************************************************************/
+/* SCCS: %Z% Name: %M% Date US: %G% %U% Ver.: %I% */
+/******************************************************************************/
+/****************************************************************************/
+/*  File    : msgtyp.ht                                                     */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : GSM project message structure definition                      */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 29.04.98 |   HAZ  |      |  HeaderL3_t modified when REVERSE flag	    */
+/* 21.08.95 |   YFE  |      |  1.0.2 Tiddy up padding                       */
+/* 16.02.95 |   YFE  |      |  1.0.1 Add InterLayer type                    */
+/* 10.01.95 |   YFE  |      |  1.0.0 Creation                               */
+/*----------+--------+------+-----------------------------------------------*/
+/****************************************************************************/
+
+#ifndef __MSGTYP_HT__
+#define __MSGTYP_HT__
+
+
+#include "stdcomp.h"
+
+
+/*
+** =========================================================================
+**     MESSAGE STRUCTURE DEFINITION
+**
+**
+#ifdef WW_PLM
+**                               ----------- 
+**          length              | Length    |
+**                              |-----------|
+**          Sender              | MbxSrc    |
+**                              |-----------|
+**          Receiver            | MbxDst    |
+**                              |-----------|
+**          type                | MsgTyp    |
+**                              |-----------|
+#else
+**                               ----------- 
+**          Receiver            | MbxSrc    |
+**                              |-----------|
+**          Sender              | MbxDst    |
+**                              |-----------|
+**          length              | Length    |
+**                              |-----------|
+**          type                | MsgTyp    |
+**                              |-----------|
+#endif
+**          Specific area       | Specif    |
+**                              |     .     |
+**                              |     .     |
+**                              |-----------|
+**          Layer3 message      | MsgL3     |
+**                              |     .     |
+**                              |     .     |
+**                              |     .     |
+**                              |     .     |
+**                               ----------- 
+**                             
+** =========================================================================
+*/
+
+
+
+#define MAX_SPECIF          16          /* Specific params max len          */
+#define MAX_MSG_L3         249          /* Layer3 message max len           */
+#define MAX_HEADL3           2          /* Layer3 message header len        */
+                         
+
+typedef u8 Specif_t [ MAX_SPECIF ];
+typedef u8 MsgL3_t  [ MAX_MSG_L3 ];
+typedef u8 HeadL3_t [ MAX_HEADL3 ];
+
+
+/*
+** ------------------------------
+**   Primitives structure 
+** ------------------------------
+*/
+#ifdef WW_PLM
+typedef struct
+{
+    u16     Length;
+    u8      MbxSrc;
+    u8      MbxDst;
+    u16     TypMsg;
+} Header_t;
+#else
+typedef struct
+{
+    u16     MbxSrc;
+    u16     MbxDst;
+    s16     Length;
+    s16     TypMsg;
+} Header_t;
+#endif
+
+/*
+** ------------------------------
+**   Layer3 GSM messages header 
+** ------------------------------
+*/
+
+typedef struct
+{
+#ifndef __REVERSE_BIT_FIELD__
+
+    u32      PD:4;                /* PD    Protocol Discriminator         */
+    u32      TI:4;                /* TI    Transaction Identifier         */
+    u32      MT:6;                /* MT    Message Type                   */
+    u32      SN:1;                /* N(SD) Send sequence number           */
+    u32      spare:1;             /*       Spare bit set to 0             */
+
+#else
+
+    u32      TI:4;                /* TI    Transaction Identifier         */
+    u32      PD:4;                /* PD    Protocol Discriminator         */
+    u32      spare:1;             /*       Spare bit set to 0             */
+    u32      SN:1;                /* N(SD) Send sequence number           */
+    u32      MT:6;                /* MT    Message Type                   */
+
+#endif  /* __REVERSE_BIT_FIELD__ */
+
+} HeaderL3_t;
+
+
+
+typedef struct
+{
+   Specif_t   Specif;            /* Specific area for data exchange      */
+   HeaderL3_t MsgL3;             /* L3 message standard header (04.08)   */
+
+} InterLayer_t;
+
+
+#endif  /* __MSGTYP_HT__ */
+
+

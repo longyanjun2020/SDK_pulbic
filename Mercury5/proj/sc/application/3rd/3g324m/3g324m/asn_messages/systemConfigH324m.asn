@@ -1,0 +1,120 @@
+3G-324M-SYSTEM-CONFIGURATION ::=
+
+BEGIN
+
+-- This ASN.1 file contains the settings of the main 3G-324m stack's configuration (system tree)
+
+
+
+
+-- ***********************************************************************************************
+--
+--                                  3G-324m Main stack configuration
+--                                        The SYSTEM tree
+--
+-- ***********************************************************************************************
+
+3G324mConfiguration ::= SEQUENCE
+{
+    maxCalls                    INTEGER(1..2147483647),
+                -- The maximum number of concurrent calls allowed.
+
+    maxTransmittingChannels                 INTEGER(0..30),
+                -- Number of transmitting media channels available per call.
+
+    maxReceivingChannels                 INTEGER(0..30),
+                -- Number of receiving media channels available per call.
+
+    allocations                 SEQUENCE
+    {
+        totalPvtNodes                   INTEGER(0..2147483647) OPTIONAL,
+                -- The maximum number of PVT nodes allowed in all the trees in the system. Default Value: maxCalls * (150 + (maxTransmittingChannels + maxReceivingChannels) * 50) + 200
+
+        maxAsn1BufferSize               INTEGER(0..65536) OPTIONAL,
+                -- The maximum buffer size required for H.245 ASN.1 messages. Default Value: 256 bytes.
+
+        controlBufferSize               INTEGER(1..65536) OPTIONAL,
+                -- The size of buffers that are used for the control channel. Default Value: 80 bytes.
+
+        controlNumOfBuffers             INTEGER(0..2147483647) OPTIONAL,
+                -- amount of buffers allocated for the control channel. Default Value: maxCalls * 18.
+
+        logicalChannelBufferSize        INTEGER(1..2147483647) OPTIONAL,
+                -- The size of buffers that are used for a regular logical channel. i.e - media.  Default Value: 261 bytes.
+
+        logicalChannelNumOfBuffers      INTEGER(0..2147483647) OPTIONAL,
+                -- amount of buffers allocated for a regular channel. i.e - media. Default Value: maxCalls * 30.
+
+        alxmBufferSize                  INTEGER(0..2147483647) OPTIONAL,
+                -- The size of buffers that are used for ALxM channels. Default Value: 0
+                -- ALxM channels are supported only in mux-level 3 (H.223 Annex C, D).
+                -- 0 value will not allocate any such buffers.
+                -- Channel messages can be fragmented between several such buffers.
+
+        alxmNumOfBuffers                INTEGER(0..2147483647) OPTIONAL,
+                -- The number of buffers that are used for ALxM channels. Default Value: 0
+                -- ALxM channels are supported only in mux-level 3 (H.223 Annex C, D).
+                -- 0 value will not allocate any such buffers.
+                -- Channel messages can be fragmented between several such buffers.
+
+        alxmInterleavingBufferSize      INTEGER(0..2147483647) OPTIONAL,
+                -- The maximum size of an ALxM channel frame after convolution that is done using
+                -- RCPC or SRS. Default Value: 0
+                -- These buffers are used for channels requiring interleaving.
+                -- 0 value will not allcate any such buffers.
+
+        alxmInterleavingNumOfBuffers    INTEGER(0..2147483647) OPTIONAL,
+                -- The number of buffers that an ALxM channel frame after convolution that
+                -- is done using RCPC or SRS. Default Value: 0
+                -- These buffers are used for channels requiring interleaving.
+                -- The number of buffers required by an application is correlated to the number
+                -- of threads that send media in the application.
+                -- 0 value will not allcate any such buffers.
+	acpNumOfBuffers    INTEGER(0..2147483647) OPTIONAL,
+                -- The number of buffers that are allocated during call initialization
+		-- for buffering video frames when using ACP standalone or with MONA in the call setup. 
+                -- Default Value: 0.
+                -- These buffers are used for video frames that are received before the
+		-- video channel gets to the connected state.
+                -- 0 value will not allcate any such buffers.
+    } OPTIONAL,
+
+    watchdog                    SEQUENCE
+    {
+        interval                        INTEGER(0..2147483647) OPTIONAL
+                -- Interval of watchdog in milliseconds
+                -- Setting this to 0 doesn't print watchdog information to the log at all
+    } OPTIONAL,
+
+    h223Params                  SEQUENCE
+    {
+        sendQueueSizePerChannel         INTEGER(1..65536) OPTIONAL,
+                -- The number of MUX-SDU per outgoing media channel allowed. Default Value: 100.
+
+        srpTimer                        INTEGER(1..2147483647) OPTIONAL,
+                -- The timeout used in SRP procedure in milliseconds. Default Value: 2000 milliseconds.
+
+        nsrpTimer                       INTEGER(1..2147483647) OPTIONAL,
+                -- The timeout used in NSRP procedure in milliseconds. Default Value: 2000 milliseconds.
+
+        al3RetransmissionTimer          INTEGER(1..65535) OPTIONAL,
+                -- The timeout used in AL3, AL1M & AL3M retransmission procedure in milliseconds.
+                -- Default: 1000 milliseconds.
+
+        numOfAlSduSaved                 INTEGER(1..65536) OPTIONAL
+                -- The number of out of sequence AL-SDU queue depth when Al3 retransmissions are used. Default Value: 10.
+
+        n400Counter                     INTEGER(1..255) OPTIONAL,
+                -- The maximum value of the N400 counter used in SRP/NSRP procedure. Default Value: 10.
+
+        n402Counter                     INTEGER(1..255) OPTIONAL,
+                -- The maximum value of the N402 counter used in WNSRP procedure. Default Value: 5.
+
+    } OPTIONAL
+}
+
+
+
+
+
+END

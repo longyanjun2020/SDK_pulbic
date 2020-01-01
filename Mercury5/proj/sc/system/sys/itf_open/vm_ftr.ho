@@ -1,0 +1,6 @@
+#ifndef __VM_FTR_HO__
+#define __VM_FTR_HO__
+
+#include "sys_sys_vm_ftr.h"
+
+#endif  //__VM_FTR_HO__

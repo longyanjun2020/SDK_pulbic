@@ -1,0 +1,86 @@
+ApBegin(RS,CLSID_VENDORAPP)
+    WndBegin(VENDOR_WND_BASE)
+        WndSetStatusBarVisibleRC(VIEWSB_VISIABLE)
+        WndSetSoftkeyVisibleRC(VIEWSK_INVISIABLE)
+        /* dummy , softkey CreateForWnd ??? */
+    WndEnd(VENDOR_WND_BASE)
+
+    WndBegin(VENDOR_WND_SUSPEND)
+        WndSetSoftkeyVisibleRC(VIEWSK_INVISIABLE)
+        /*  Bitmap -> Image */
+    WndEnd(VENDOR_WND_SUSPEND)
+
+    WndBegin(VENDOR_WND_TEXTVIEWER)
+        WdgBegin(CLSID_TEXTWIDGET,TextViewerText)
+            WdgTextCreateForWndRC( { {0, MAIN_TITLE_HEIGHT}, {MAIN_DEFVIEW_WIDTH, MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT}, TEXT_STYLE_COMMON } )
+            WdgCommonSetFontCategoryRC(FONT_CAT_NORMAL)
+            WdgTextSetLayoutFlagRC(LAYOUT_MULTILINE)
+        WdgEnd(CLSID_TEXTWIDGET,TextViewerText)
+
+        WdgBegin(CLSID_VIEWPORTWIDGET,TextViewerViewPort)
+            WdgViewportCreateForWndRC({ {0, MAIN_TITLE_HEIGHT}, {MAIN_DEFVIEW_WIDTH, MAIN_DEFVIEW_HEIGHT-MAIN_TITLE_HEIGHT},10, ALIGN_H_START|ALIGN_V_MIDDLE} )
+            WdgCommonEnableScrollBarRC(SCROLL_STYLE_V_RIGHT)
+            WdgViewportSetPanStepRC(MAIN_LCD_ONELINE_HEIGHT * 4)
+        WdgEnd(CLSID_VIEWPORTWIDGET,TextViewerViewPort)
+    WndEnd(VENDOR_WND_TEXTVIEWER)
+
+    WndBegin(VENDOR_WND_MENU)
+        WdgBegin(CLSID_VTMMENU, vtmWndMenu)
+            VtmCreateMenuRC({ IMG_NULL_ID,IMG_NULL_ID,WDG_MENU_TYPE_NORMAL,WDG_MENU_ITEM_TYPE_TEXT,WDG_MENU_CHECK_STYLE_NONE,0,0,0})
+        WdgEnd(CLSID_VTMMENU,vtmWndMenu)
+    WndEnd(VENDOR_WND_MENU)
+
+    WndBegin(VENDOR_WND_NUMERIC_MENU)
+        WdgBegin(CLSID_VTMMENU, vtmWndNumericMenu)
+            VtmCreateMenuRC({ IMG_NULL_ID,IMG_NULL_ID,WDG_MENU_TYPE_NUMERIC,WDG_MENU_ITEM_TYPE_IMAGE_TEXT,WDG_MENU_CHECK_STYLE_NONE,0,0,0})
+        WdgEnd(CLSID_VTMMENU,vtmWndNumericMenu)
+    WndEnd(VENDOR_WND_NUMERIC_MENU)
+
+    WndBegin(VENDOR_WND_EDITOR)
+        WdgBegin(CLSID_VTMINPUT, vtmEditorInput)
+            VtmCreateInputRC({ IMG_NULL_ID,TXT_LIL_N_TITLE,0,FALSE})
+        WdgEnd(CLSID_VTMINPUT,vtmEditorInput)
+    WndEnd(VENDOR_WND_EDITOR)
+
+    WndBegin(VENDOR_WND_DATE_EDITOR)
+        WndSetAllSoftkeyRC({SK_OK_TEXT, SK_OK, SK_CANCEL})
+        WndSetTitleRC({IMG_NULL_ID, TXT_LIL_N_DATE})
+        WdgBegin(CLSID_VTMMENU,DateVtm)
+            VtmCreateDateInputRC({IMG_NULL_ID,TXT_LIL_N_DATE,0,0,0})
+        WdgEnd(CLSID_VTMMENU,DateVtm)
+
+        WdgBegin(CLSID_TEXT_DATE_WIDGET,TextDateWidget)
+            WdgDoubleItemCreateForWndRC({{0,0},{0,0},DOUBLEITEM_STYLE_TEXT_DATE})
+            WdgDoubleItemTextDateSetDataByIDRC({TXT_LIL_N_DATE, {0,0,0,0,0,0,0,0}})
+        WdgEnd(CLSID_TEXT_DATE_WIDGET,TextDateWidget)
+    WndEnd(VENDOR_WND_DATE_EDITOR)
+
+    WndBegin(VENDOR_WND_TIME_EDITOR)
+        WndSetAllSoftkeyRC({SK_OK_TEXT, SK_OK, SK_CANCEL})
+        WndSetTitleRC({IMG_NULL_ID, TXT_LIL_N_TIME})
+        WdgBegin(CLSID_VTMMENU,TimeVtm)
+            VtmCreateTimeInputRC({IMG_NULL_ID,TXT_LIL_N_TIME,0,0,0})
+        WdgEnd(CLSID_VTMMENU,TimeVtm)
+
+        WdgBegin(CLSID_TEXT_TIME_WIDGET,TextTimeWidget)
+            WdgDoubleItemCreateForWndRC({{0,0},{0,0},DOUBLEITEM_STYLE_TEXT_TIME})
+            WdgDoubleItemTextDateSetDataByIDRC({TXT_LIL_N_TIME, {0,0,0,0,0,0,0,0}})
+        WdgEnd(CLSID_TEXT_TIME_WIDGET,TextTimeWidget)
+    WndEnd(VENDOR_WND_TIME_EDITOR)
+
+    WndBegin(VENDOR_WND_EDITOR_OPTION)
+        WdgBegin(CLSID_VTMOPTIONMENU, vtmEditorOption)
+            VtmCreateOptionMenuRC({ WDG_MENU_ITEM_TYPE_TEXT, 1 })
+            VtmCreateOptionMenuDataRC(1, { {{MENUMODEL_ITEM_VISABLE|MENUMODEL_ITEM_HAS_CHILD, {DEFAULT_SK, DEFAULT_SK, DEFAULT_SK}, MNU_VENDOR_OPT_INPUT_MENU}, TXT_OIL1_N_INPUT_MENU } } )
+        WdgEnd(CLSID_VTMOPTIONMENU,vtmEditorOption)
+    WndEnd(VENDOR_WND_EDITOR_OPTION)
+
+    WndBegin(VENDOR_WND_BGEXIT_SELECT)
+        WdgBegin(CLSID_VTMPOPUPSELECT,vtmBGExitSelectRadio)
+            VtmCreatePopUpSelectRC({ NULL, WDG_MENU_ITEM_TYPE_TEXT, WDG_MENU_CHECK_STYLE_RADIO, 2, 0, 0 })
+            VtmCreatePopUpSelectDataRC(2, { {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, 0},   TXT_RSK_N_EXIT },
+                                       {{MENUMODEL_ITEM_VISABLE, {DEFAULT_SK,DEFAULT_SK,DEFAULT_SK}, 1},   TXT_OIL1_N_MINIMIZE } } )
+        WdgEnd(CLSID_VTMPOPUPSELECT,vtmBGExitSelectRadio)
+    WndEnd(VENDOR_WND_BGEXIT_SELECT)
+ApEnd(RS,CLSID_VENDORAPP)
+

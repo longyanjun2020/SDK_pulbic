@@ -1,0 +1,58 @@
+;
+; Scatter description file for position-indep. EMI RAM code
+;
+;
+
+EMI 0x10000000 0x00400000
+{
+    ; Code Area, from the starting of download memory section
+    EMI_INIT 0x10000000
+    {
+        emi_init.o (+ENTRY)
+    }
+
+    EMI_EXEC +0
+    {
+        * (+RO)
+        * (section_didr)
+    }
+		
+		CUST_BACKLIGHT_FUNCTABLE +0
+		{
+			*(cust_backlight_functable)
+		}
+			
+    ; Initialized Data Area
+    EMI_DATA 0x10050000
+    {
+        * (+RW)
+        * (SWVERSION)
+    }
+		
+		CUST_LCD_FUNCTABLE +0
+		{
+			*(cust_lcd_functable)
+		}
+		    
+    ; ZI data go right after RW data
+    EMI_BSS +0
+    {
+        * (+ZI)
+    }
+
+    ; Unintialized Data Area
+    EMI_UNINIT +0 UNINIT
+    {
+        * (emi_uninit)
+    }
+
+    ; The heap...
+    HEAP +0 EMPTY 0x200000
+    {
+    }
+
+		; Stack Area, from the starting of IMI1
+    STACK 0x08000000 EMPTY 0x2000
+    {
+    }
+}

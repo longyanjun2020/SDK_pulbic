@@ -1,0 +1,956 @@
+<UiRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mstarsemi.com/XMMI/ui/">
+	<Layout Id="ID_VIEW_PIC_CAPTURE" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer6" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="PicCaptureOsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="459e3" />
+			</Widget>
+			<Widget Id="PicCaptureTimerImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_TIMER_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_TIMER_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="72b52" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_TIMER_ON" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicCaptureTimerTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_CAPTURE_TIMER_TXT_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_TIMER_TXT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_TIMER_TXT_Y" />
+				<InternProp Id="GUID" Value="fd187" />
+			</Widget>
+			<Widget Id="PicCaptureFuncBarImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_FUNC_BAR_HEIGHT" SizeWidth="CAMERA_FUNC_BAR_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FUNC_BAR_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_BAR_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="6b39c" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicCaptureStopButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_CAPTURE_HEIGHT" SizeWidth="CAMERA_ICON_CAPTURE_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_Y" />
+				<InternProp Id="GUID" Value="5c1e9" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_STOP_UNPRESSED" />
+						<Image Id="CAMERA_IMG_STOP_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="0e463" />
+		</Widget>
+		<InternProp Id="GUID" Value="c29df" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="669" />
+	</Layout>
+	<Layout Id="ID_VIEW_VDO_RECORD" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer5" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="VdoRecordOsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="5cdb7" />
+			</Widget>
+			<Widget Id="VdoRecordRecImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_RECORD_TIMER_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_RECORD_TIMER_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="501c0" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_VIDEO_REC" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoRecordZoomImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_ZOOM_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="bfde4" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_ZOOM_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoRecordZoomStatusImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_ZOOM_STATUS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_STATUS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_STATUS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_STATUS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="a0254" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_ZOOM_STATUS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoRecordZoomInButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_PRESS_UNPRESS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_IN_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_IN_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="baba5" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_ZOOM_IN_UNPRESSED" />
+						<Image Id="CAMERA_IMG_ZOOM_IN_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoRecordZoomOutButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_PRESS_UNPRESS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_OUT_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_OUT_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="08673" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_ZOOM_OUT_UNPRESSED" />
+						<Image Id="CAMERA_IMG_ZOOM_OUT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoRecordTimerTxtWdg" ClsID="CLSID_TEXTWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_RECORD_TIMER_TXT_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_RECORD_TIMER_TXT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_RECORD_TIMER_TXT_Y" />
+				<InternProp Id="GUID" Value="1262c" />
+			</Widget>
+			<Widget Id="VdoRecordFuncBarImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_FUNC_BAR_HEIGHT" SizeWidth="CAMERA_FUNC_BAR_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FUNC_BAR_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_BAR_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="a9967" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoRecordStopButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_CAPTURE_HEIGHT" SizeWidth="CAMERA_ICON_CAPTURE_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_Y" />
+				<InternProp Id="GUID" Value="48901" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_STOP_UNPRESSED" />
+						<Image Id="CAMERA_IMG_STOP_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="bb651" />
+		</Widget>
+		<InternProp Id="GUID" Value="f560a" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ID_VIEW_PIC_PREVIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer4" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="PicPreviewOsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="9660a" />
+			</Widget>
+			<Widget Id="PicPreviewZoomImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_ZOOM_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="60d05" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_ZOOM_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewZoomStatusImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_ZOOM_STATUS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_STATUS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_STATUS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_STATUS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="4d3a3" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_ZOOM_STATUS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewZoomInButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_PRESS_UNPRESS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_IN_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_IN_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="2dda5" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_ZOOM_IN_UNPRESSED" />
+						<Image Id="CAMERA_IMG_ZOOM_IN_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewZoomOutButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_PRESS_UNPRESS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_OUT_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_OUT_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="9df23" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_ZOOM_OUT_UNPRESSED" />
+						<Image Id="CAMERA_IMG_ZOOM_OUT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewTimerButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_TIMER_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="626ca" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_TIMER_OFF" />
+						<Image Id="CAMERA_IMG_TIMER_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewSoundButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_SOUND_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="c0759" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_SOUND_ON" />
+						<Image Id="CAMERA_IMG_SOUND_ON" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewNightModeButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_NIGHTMODE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="d9b64" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_NIGHT_MODE_OFF" />
+						<Image Id="CAMERA_IMG_NIGHT_MODE_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewAwbButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_WHITE_BALANCE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="58430" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewMultiShotButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_MULTISHOT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="0a2e8" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_CONTINUE_OFF" />
+						<Image Id="CAMERA_IMG_CONTINUE_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewQualityButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_IMAGE_QUALITY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="c7b39" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewResolutionButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_IMAGE_SIZE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="95dda" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_IMG320" />
+						<Image Id="CAMERA_IMG_IMG320" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewBatteryImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_BATTERY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BATTERY_ICON_START_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="ddf1a" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewFuncBarImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_FUNC_BAR_HEIGHT" SizeWidth="CAMERA_FUNC_BAR_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FUNC_BAR_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_BAR_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="9e929" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewSettingButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_SETTINGS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="cb629" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_SETTINGS_UNPRESSED" />
+						<Image Id="CAMERA_IMG_SETTINGS_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewFileMgrButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FILE_MANAGER_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="9b405" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_FILE_MANAGER_UNPRESSED" />
+						<Image Id="CAMERA_IMG_FILE_MANAGER_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewCaptureButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_CAPTURE_HEIGHT" SizeWidth="CAMERA_ICON_CAPTURE_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_Y" />
+				<InternProp Id="GUID" Value="5e0ec" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_CAPTURE_UNPRESSED" />
+						<Image Id="CAMERA_IMG_CAPTURE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewSwitchModeButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_SWITCH_MODE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="8a9fb" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_VIDEO_MODE_UNPRESSED" />
+						<Image Id="CAMERA_IMG_VIDEO_MODE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="PicPreviewExitButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_BACK_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="3cb8f" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_BACK_UNPRESSED" />
+						<Image Id="CAMERA_IMG_BACK_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="53b35" />
+		</Widget>
+		<InternProp Id="GUID" Value="80bf4" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ID_VIEW_VDO_PREVIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer3" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="VdoPreviewOsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="29443" />
+			</Widget>
+			<Widget Id="VdoPreviewZoomImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_ZOOM_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="1afd8" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_ZOOM_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewZoomStatusImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_ZOOM_STATUS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_STATUS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_STATUS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_STATUS_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="5aa0a" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_ZOOM_STATUS" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewZoomInButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_PRESS_UNPRESS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_IN_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_IN_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="333dd" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_ZOOM_IN_UNPRESSED" />
+						<Image Id="CAMERA_IMG_ZOOM_IN_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewZoomOutButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_ZOOM_PRESS_UNPRESS_HEIGHT" SizeWidth="CAMERA_ICON_ZOOM_PRESS_UNPRESS_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_ZOOM_OUT_PRESS_UNPRESS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_ZOOM_OUT_PRESS_UNPRESS_Y" />
+				<InternProp Id="GUID" Value="9793b" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_ZOOM_OUT_UNPRESSED" />
+						<Image Id="CAMERA_IMG_ZOOM_OUT_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewTimeLimitButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_TIME_LIMIT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="679fb" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_TIMELIMIT_OFF" />
+						<Image Id="CAMERA_IMG_TIMELIMIT_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewSoundButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_SOUND_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="89c29" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_VOICE_ON" />
+						<Image Id="CAMERA_IMG_VOICE_ON" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewNightModeButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_NIGHTMODE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="b770f" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="0" />
+						<Image Id="0" />
+						<Image Id="0" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewAwbButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_WHITE_BALANCE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="4f57b" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewQualityButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_QUALITY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="e3964" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewResolutionButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_SIZE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="eccd0" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_CAMCORDER_IMG176" />
+						<Image Id="CAMERA_IMG_CAMCORDER_IMG176" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewBatteryImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_BATTERY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BATTERY_ICON_START_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="70c7d" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewFuncBarImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_FUNC_BAR_HEIGHT" SizeWidth="CAMERA_FUNC_BAR_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FUNC_BAR_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_BAR_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="21f54" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewSettingButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_SETTINGS_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="39d4e" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_SETTINGS_UNPRESSED" />
+						<Image Id="CAMERA_IMG_SETTINGS_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewFileMgrButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FILE_MANAGER_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="e7ded" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_FILE_MANAGER_UNPRESSED" />
+						<Image Id="CAMERA_IMG_FILE_MANAGER_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewCaptureButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_CAPTURE_HEIGHT" SizeWidth="CAMERA_ICON_CAPTURE_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_Y" />
+				<InternProp Id="GUID" Value="974e9" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_VIDEO_REC_UNPRESSED" />
+						<Image Id="CAMERA_IMG_VIDEO_REC_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewSwitchModeButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_SWITCH_MODE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="97444" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_CAMERA_MODE_UNPRESSED" />
+						<Image Id="CAMERA_IMG_CAMERA_MODE_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="VdoPreviewExitButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_BACK_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="5ae9a" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_BACK_UNPRESSED" />
+						<Image Id="CAMERA_IMG_BACK_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="38f10" />
+		</Widget>
+		<InternProp Id="GUID" Value="1f9ef" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="337" />
+	</Layout>
+	<Layout Id="ID_VIEW_EM_PREVIEW" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer2" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="EmPreviewOsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="eb2c8" />
+			</Widget>
+			<InternProp Id="GUID" Value="ff1da" />
+		</Widget>
+		<Property Id="PROP_LEFT_SK" Value="SK_NONE" />
+		<Property Id="PROP_MIDDLE_SK" Value="SK_NONE" />
+		<Property Id="PROP_RIGHT_SK" Value="SK_QUIT" />
+		<InternProp Id="GUID" Value="175a7" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="509" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="ID_VIEW_SETTINGS" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer1" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SettingOsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="4ddab" />
+			</Widget>
+			<Widget Id="SettingMenuWdg" ClsID="CLSID_HORZ_MENUWIDGET" SizeHeight="CAMERA_SETTING_MENU_HEIGHT" SizeWidth="CAMERA_SETTING_MENU_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_SETTING_MENU_X_POS" />
+				<Position Type="Y_POSITION" Value="CAMERA_SETTING_MENU_Y_POS" />
+				<Property Id="PROP_MENU_WDG_BG_IMAGE_ID" Value="CAMERA_IMG_SETTING_BG" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+				<InternProp Id="GUID" Value="6ce63" />
+			</Widget>
+			<Widget Id="SettingTimerButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_TIMER_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="e20d7" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_TIMER_OFF" />
+						<Image Id="CAMERA_IMG_TIMER_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingSoundButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_SOUND_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="18811" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_SOUND_ON" />
+						<Image Id="CAMERA_IMG_SOUND_ON" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingNightModeButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_NIGHTMODE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="cf088" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_NIGHT_MODE_OFF" />
+						<Image Id="CAMERA_IMG_NIGHT_MODE_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingAwbButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_WHITE_BALANCE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="b03d5" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingMultiShotButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_MULTISHOT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="37277" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_CONTINUE_OFF" />
+						<Image Id="CAMERA_IMG_CONTINUE_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingQualityButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_IMAGE_QUALITY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="d2ba0" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingResolutionButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_IMAGE_SIZE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="f9032" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_IMG320" />
+						<Image Id="CAMERA_IMG_IMG320" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingTimeLimitButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_TIME_LIMIT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="1fd98" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_TIMELIMIT_OFF" />
+						<Image Id="CAMERA_IMG_TIMELIMIT_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingBatteryImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_BATTERY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BATTERY_ICON_START_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="1c5d2" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingFuncBarImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_FUNC_BAR_HEIGHT" SizeWidth="CAMERA_FUNC_BAR_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FUNC_BAR_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_BAR_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="9d800" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingSelectButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_CAPTURE_HEIGHT" SizeWidth="CAMERA_ICON_CAPTURE_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_Y" />
+				<InternProp Id="GUID" Value="32226" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_SET_UNPRESSED" />
+						<Image Id="CAMERA_IMG_SET_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SettingBackButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_BACK_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="0648f" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_BACK_UNPRESSED" />
+						<Image Id="CAMERA_IMG_BACK_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="98e73" />
+		</Widget>
+		<InternProp Id="GUID" Value="03f82" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="257" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<Layout Id="ID_VIEW_SUB_SETTINGS" ClsID="CLSID_VIEW" LayoutType="VT_NORMAL">
+		<Widget Id="AbsContainer" ClsID="CLSID_ABSCONTAINER" SizeHeight="320" SizeWidth="240">
+			<Widget Id="SubSettingOsdWdg" ClsID="CLSID_OSDWIDGET" SizeHeight="MAIN_LCD_HEIGHT" SizeWidth="MAIN_LCD_WIDTH">
+				<Position Type="X_POSITION" Value="0" />
+				<Position Type="Y_POSITION" Value="0" />
+				<InternProp Id="GUID" Value="a0410" />
+			</Widget>
+			<Widget Id="SubSettingMenuWdg" ClsID="CLSID_HORZ_MENUWIDGET" SizeHeight="CAMERA_SETTING_MENU_HEIGHT" SizeWidth="CAMERA_SETTING_MENU_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_SETTING_MENU_X_POS" />
+				<Position Type="Y_POSITION" Value="CAMERA_SETTING_MENU_Y_POS" />
+				<Property Id="PROP_MENU_WDG_BG_IMAGE_ID" Value="CAMERA_IMG_SETTING_BG" />
+				<Property Id="PROP_MENU_ITEM" Value="WDG_MENU_ITEM_TYPE_IMAGE" />
+				<InternProp Id="GUID" Value="7014f" />
+			</Widget>
+			<Widget Id="SubSettingTimerButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_TIMER_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="cf933" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_TIMER_OFF" />
+						<Image Id="CAMERA_IMG_TIMER_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingSoundButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_SOUND_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="8275c" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_SOUND_ON" />
+						<Image Id="CAMERA_IMG_SOUND_ON" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingNightModeButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_NIGHTMODE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="ea497" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_NIGHT_MODE_OFF" />
+						<Image Id="CAMERA_IMG_NIGHT_MODE_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingAwbButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_WHITE_BALANCE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="be869" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+						<Image Id="CAMERA_IMG_WHITE_BALANCE_AUTO" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingMultiShotButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_MULTISHOT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="668db" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_CONTINUE_OFF" />
+						<Image Id="CAMERA_IMG_CONTINUE_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingQualityButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_IMAGE_QUALITY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="96850" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+						<Image Id="CAMERA_IMG_QUALITY_N" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingResolutionButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_IMAGE_SIZE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="9fa43" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_IMG320" />
+						<Image Id="CAMERA_IMG_IMG320" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingTimeLimitButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_VDO_TIME_LIMIT_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BASE_Y" />
+				<InternProp Id="GUID" Value="52427" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_TIMELIMIT_OFF" />
+						<Image Id="CAMERA_IMG_TIMELIMIT_OFF" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingBatteryImg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_ICON_NORMAL_HEIGHT" SizeWidth="CAMERA_ICON_NORMAL_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_PIC_BATTERY_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_BATTERY_ICON_START_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="e5d8f" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="IMG_NULL_ID" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingFuncBarImgWdg" ClsID="CLSID_IMAGEWIDGET" SizeHeight="CAMERA_FUNC_BAR_HEIGHT" SizeWidth="CAMERA_FUNC_BAR_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_FUNC_BAR_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_BAR_Y" />
+				<Property Id="PROP_IMG_WDG_AUTO_FIT" Value="FALSE" />
+				<Property Id="PROP_IMG_WDG_STYLE" Value="IMAGE_STYLE_COMMON" />
+				<InternProp Id="GUID" Value="6138b" />
+				<Model ClsID="CLSID_IMAGEWIDGET">
+					<ModelItem>
+						<Image Id="CAMERA_IMG_SOFTKEY_BG" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingSelectButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_ICON_CAPTURE_HEIGHT" SizeWidth="CAMERA_ICON_CAPTURE_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_CAPTURE_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_CAPTURE_Y" />
+				<InternProp Id="GUID" Value="05163" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_SET_UNPRESSED" />
+						<Image Id="CAMERA_IMG_SET_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<Widget Id="SubSettingBackButtonWdg" ClsID="CLSID_BUTTONWIDGET" SizeHeight="CAMERA_FUNC_ICON_HEIGHT" SizeWidth="CAMERA_FUNC_ICON_WIDTH">
+				<Position Type="X_POSITION" Value="CAMERA_POS_BACK_X" />
+				<Position Type="Y_POSITION" Value="CAMERA_POS_FUNC_ICON_Y" />
+				<InternProp Id="GUID" Value="a28a8" />
+				<Model ClsID="CLSID_BUTTONWIDGET">
+					<ModelItem>
+						<String Id="TXT_NULL_ID" />
+						<Image Id="CAMERA_IMG_BACK_UNPRESSED" />
+						<Image Id="CAMERA_IMG_BACK_PRESSED" />
+					</ModelItem>
+				</Model>
+			</Widget>
+			<InternProp Id="GUID" Value="ce6e9" />
+		</Widget>
+		<InternProp Id="GUID" Value="5489d" />
+		<InternProp Id="ENABLE_LANDSCAPE" Value="FALSE" />
+		<InternProp Id="LAYOUT_POS_X" Value="5" />
+		<InternProp Id="LAYOUT_POS_Y" Value="5" />
+	</Layout>
+	<InternProp Id="AppId" Value="CLSID_CAMAPP" />
+</UiRoot>

@@ -1,0 +1,1235 @@
+----------------------------------------------
+
+  AIT IPCAM Web CGI commands Specification
+
+    Author by Bernard Shyu.  2013 Mar 12
+
+----------------------------------------------
+
+
+
+
+===========================================================================================================================================
+CONTENT
+---------------
+
+CHAP 1  Introduction
+	1.1  HTTP Access Method
+	1.2  User authority class
+	1.3  Concept of Configuration Space
+	1.4  Concept of ACL
+	1.5  Implementation Possibilities
+
+CHAP 2  Web CGIs
+	2.1  URL format:
+	2.2  /cgi-bin/Config.cgi
+	2.3  /cgi-bin/User.cgi
+	2.4  /cgi-bin/Sys.cgi
+
+CHAP 3  Sample Configuration
+	3.1  Introduction
+	3.2  Sample
+
+
+
+CHAP 1  Introduction
+===========================================================================================================================================
+1.1  HTTP Access Method:
+--------------------------
+The HTTP access method for most of the CGI APIs will be primarily by HTTP-GET, unless specified particularly for some cases with HTTP-POST.
+
+For each CGI URL, we can define some access methods, which we call them 'action'.
+Some actions are specific to a particular CGI, for example, this will add a user "MyUser1" with password "MyPass1"
+	/cgi-bin/User.cgi?action=add&user=MyUser1&pass=MyPass1
+
+But we also define two common access methods for every CGI:
+	get: to read  the value of a property or properties (by wildcards) from the Configuration Space
+	set: to write the value of a property into the Configuration Space
+
+We also define a generic Configuration Space CGI: Config.cgi, which can access the entire Configuration Space.
+
+Therefore, for example, the below URLs have exactly the same effect:
+	/cgi-bin/Config.cgi?action=get&property=User.Account.Totals
+	/cgi-bin/User.cgi?action=get&property=Account.Totals
+
+
+1.2  User authority class
+--------------------------
+Defined in this system with the below 3 classes:
+1. ADMIN
+	a. default with every properties permissible, except some special properties, such as 
+	   read-only properties like: Sys.Manual.GPIO.Input.Xxx, Product.Xxx
+	b. Factory Default:
+		username: admin
+		password: admin
+
+2. USER
+	a. Default with every properties forbidden if not defined in the ACL.
+	b. The system will ship with a Factory default, for permissible properties.
+	c. The user ADMIN is allowed to add or delete some permissions
+	d. Factory Default: 0 users with class USER
+
+3. GUEST
+	a. Default with every properties forbidden if not defined in the ACL.
+	b. The Factory default will contain minimal permissible properties.
+	c. The user ADMIN is allowed to add or delete some permissions
+	d. There will always be a GUEST account, neither add nor delete allowable, but it can be disabled, and password protected.
+
+
+1.3  Concept of Configuration Space:
+--------------------------------------
+Similar to MS-Windows' Registry, we define in our system the Configuration Space, which consists of:
+1. Property: the name of the configuration item
+2. Value: its value
+3. Hidden property: we associate the ACL with the Configuration Space, to control which properties are permissible or forbidden from a particular user
+
+Most of the properties are accessed by the actions:
+	'get' or 'set'
+
+For some Enumeration properties, which has this generic format:
+	Xxx.Yyy.Totals=3
+	Xxx.Yyy.1.Attr1=...
+	Xxx.Yyy.1.Attr2=...
+	Xxx.Yyy.2.Attr1=...
+	Xxx.Yyy.2.Attr2=...
+	Xxx.Yyy.3.Attr1=...
+	Xxx.Yyy.3.Attr2=...
+
+We define two special actions to add or delete the entries:
+	'add' or 'del'
+
+
+1.4  Concept of ACL
+--------------------
+The ACL (Access Control List) for Configuration Space, has its own structure similar to the Configuration Space, thus can be implemented by the similar C subroutines to handle them both.
+
+For example, 'Sys.Manual.GPIO.Input' is read-only for ADMIN user. This is specified in the ACL as:
+	acl.Sys.Manual.GPIO.Input=ADMIN:get
+Note, we don't need the access controls for class USER and GUEST, since they can't exceed ADMIN's authority.
+
+Another example, for user account administrations:
+	acl.User.Account=ADMIN:get/set/add/del USER: GUEST:
+	acl.User.Account.%d=ADMIN:get/set USER:get/set GUEST:
+
+
+1.5  Implementation Possibilities
+--------------------------------
+Here list some implementation possibilities:
+
+Under Windows: leverage Registry
+
+Under Linux:
+1. Use a single file to keep all configurations. Ex.
+	$ cat /etc/ipcam842x/system.conf
+	Product.Video.Streams=3
+	Product.Video.Format=H264,MJPEG
+	Product.Video.TimeStamp=YES
+	...
+
+2. Use distinct configuration files by parsing '.' into '/' and. Ex.
+	$ cat /etc/ipcam842x/Product/Video.conf
+	Streams=3
+	Format=H264,MJPEG
+	TimeStamp=YES
+	...
+
+3. Use a single file but in Win INI format. Ex.
+	$ cat /etc/ipcam842x/system.conf
+	[Product.Video]
+	Streams=3
+	Format=H264,MJPEG
+	TimeStamp=YES
+	...
+
+4. Another example of using a single INI file. Ex.
+	$ cat /etc/ipcam842x/system.conf
+	[Product]
+	Video.Streams=3
+	Video.Format=H264,MJPEG
+	Video.TimeStamp=YES
+	...
+
+
+
+
+
+
+CHAP 2  Web CGIs
+===========================================================================================================================================
+2.1  URL format:
+-----------------
+There are two formats for the URLs of the CGI commands:
+	/cgi-bin/<command.cgi>  : the returned HTTP response will have "Content-Type: text/plain"
+	/html-bin/<command.cgi> : the returned HTTP response will have "Content-Type: html/plain"
+
+Every CGI support 'get' and 'set', thus their definitions will only be specified in the section of Config.cgi
+
+
+In response to the CGI commands, the HTTP Response Body text will consists of:
+LINE 1 : Return Code in numerical text
+         0 : successful
+		 other values : reason code for failure
+LINE 2 : Return Code in text string
+         0 -> OK
+         701 -> illegal parameter format
+         702 -> unknown action
+         703 -> unknown property
+		 ...
+LINE 3 ~ : Optional additional reply text
+         For get, it will consists of what are gotten !!!
+         For set / add / del, it's empty
+
+2.2  /cgi-bin/Config.cgi
+-------------------------
+
+Description: This is a generic CGI for accessing the entire Configuration Space, where the access actions get / set / add / del are further confined by ACL definitions. 
+
+Command parameters: Read the value/values from the specified property(s): <ConfigProperty>
+	action=get
+	property=<ConfigProperty>
+
+	Note 1: it is allowed to specify the wildcard pattern: Xxx.Yyy.* in the <ConfigProperty>
+	Note 2: no matter it is single get or wildcard get, the returned text will be NEWLINE "\n" separated lines:
+		<ConfigProperty1>=<Value1>
+		<ConfigProperty2>=<Value2>
+		...
+
+Command parameters: Write the value into the specified property: <ConfigProperty>
+	action=set
+	property=<ConfigProperty>
+	value=<Value>
+
+	Note 1: No wildcard for this command action.
+
+Command parameters: Add an entry into the specified Enumeration Property
+	action=add
+	property=<ConfigProperty>
+	attrs=<AttrList>
+
+	Note 1. The Enumeration properties has special format as described in the Section "Concept of Configuration Space"
+	        The DOT-Path of the <ConfigProperty> must be specified excluding the enumeration digit.
+		For example, to add a new user, it will be given as: "User.Account"
+	Note 2. The <AttrList> is COMMA separated list of the pattern: "attr1=value1,attr2=value2,..."
+	        For example, to add a new user (MyName / MyPass) by this generic CGI, the HTTP request URL will be:
+		/cgi-bin/Config.cgi?action=add&property=User.Account&attrs="Username%3DMyName,Password%3DMyPass"
+
+Command parameters: Remove an entry from the specified Enumeration Property
+	action=del
+	property=<ConfigProperty>
+
+	Note 1. The Enumeration properties has special format as described in the Section "Concept of Configuration Space"
+	        The DOT-Path of the <ConfigProperty> must be specified including the enumeration digit.
+		For example, to remove the 3rd user, it will be given as: "User.Account.3".
+	Note 2. After this operation, the subsequent entries will be moved forward. In the previous examples, the original 4th user, will become "User.Account.3"
+
+
+2.3  /cgi-bin/User.cgi
+-------------------------
+
+Description: Allow the Client devices to perform user related activities on the AIT-IPCAM device, such as login, adds a user, change password
+
+Configuration Space Root:  User.<ConfigProperty>
+
+command parameters: Login into the system.
+	action=login
+	user=<username>
+	pass=<password>
+
+	Note 1.  The HTTP access method should choose HTTP-POST, so that the <username> <password> will be at least excluded from be manifested in the URL in the HTTP-Request line.
+
+	Note 2.  Possibly also by HTTP-AUTH ???
+
+
+command parameters: Adds a new user into the system
+	action=add
+	user=<username>
+	pass=<password>
+	class=<class>
+
+	Note 1. The <class>: [ ADMIN | USER ], default: USER
+
+command parameters: Deletes the specified user from the system
+	action=del
+	user=<username>
+
+command parameters: Change the password by the user himself
+	action=mod
+	user=<username>
+	opass=<OriginalPassword>
+	npass=<NewPassword>
+
+command parameters: Change the user info by the administrator
+	action=mod
+	user=<username>
+	pass=<password>
+	class=<class>
+
+
+2.4  /cgi-bin/Sys.cgi
+-----------------------
+
+Description:
+	Allow the Client devices to perform system-wise activities on the AIT-IPCAM device, such as time, firmware, log, Machine, or GPIOs.
+
+	For the GPIO like entities in the system, we define a special action 'switch', which is essentially similar to 'set', but are specifically addressed to this configs properties: Sys.Manual.<ConfigProperty>. 
+	They can manually turn ON/OFF a OUTPUT function, such as recording, LED, Buzzer, GPIO Outputs, with additional parameter for Active Duration.
+	Or they can be manually queried for certain function's state, such as GPIO Sensor Input's state.
+
+command parameters: switch ON or OFF of the specified properties: Sys.Manual.<ConfigProperty>
+	action=switch
+	property=<ConfigProperty>
+	value=<value>
+	duration=<ActiveDur>
+
+	Note 1.  the <value> can be: [ ON | OFF ]
+	Note 2.  if <ActiveDur> is missing, then 'Sys.Manual.ActiveDur' will be adopted.
+
+command parameters: query the function's state of the specified properties: Sys.Manual.<ConfigProperty>
+	action=sense
+	property=<ConfigProperty>
+	debounce=<DebounceAlgorithm>
+
+	Note 1.  For <DebounceAlgorithm>, currently only defines this one: SIMPLE
+	Note 2.  if <DebounceAlgorithm> is missing, then 'Sys.Manual.Debounce' will be adopted.
+
+command parameters: ???
+	action=fwupdate
+	action=log
+
+
+
+
+2.5  /cgi-bin/???.cgi
+-----------------------
+
+Description:
+
+
+
+CHAP 3  Sample Configuration
+===========================================================================================================================================
+
+3.1  Introduction
+------------------
+
+To proper handle the string based configurations on an embedded system, an external PERL script will parsing the below configurations to generate the proper sources of C and H files.
+
+For integer values type, each occupies 4 bytes.
+For string values type, the maximum char array size will be determined by PERL by examing the aprostrphe delimiter: "..."
+
+For example, for this one:
+        Sys.Manual.GPIO.Input.1.Name="External Sensor at Kitchen Window                         "
+Its trailing spaces will be trimmed, and the read back value will be:
+	"External Sensor at Kitchen Window"
+But maximum allowable string size for this item will be: 60  (aligned to 4 bytes boundary)
+
+Special boolean values:
+	ON, YES -> 1
+	OFF, NO -> 0
+
+For Enumeration type, the maximum dimension must be declared explicitly !!
+
+For example, the below config means: there are currently 2 user accounts defined, but maximum allowed accounts for the system are 4.
+	User.Account.Totals=2
+	User.Account.1.Username="admin            "
+	User.Account.1.Password="admin            "
+	User.Account.1.Class="ADMIN "
+	User.Account.2.Username="handsomeboy            "
+	User.Account.2.Password="1234    "
+	User.Account.2.Class="USER  "
+	User.Account.3.Username="                       "
+	User.Account.3.Password="        "
+	User.Account.3.Class="USER  "
+	User.Account.4.Username="                       "
+	User.Account.4.Password="        "
+	User.Account.4.Class="USER  "
+
+
+
+3.2  Sample System Configuration
+---------------------------------
+
+
+# Definitions of ACL (Access Control List)
+#---------------------------------------------------------------------------
+acl="ADMIN:get/set USER:get"
+acl.Product="ADMIN:get"
+acl.Sys.Manual.GPIO.Input="ADMIN:get"
+acl.User.Account="ADMIN:get/set/add/del USER: GUEST:"
+acl.User.Account.%d="ADMIN:get/set USER:get/set GUEST:"
+
+
+# Definitions of the product spec / capabilities of this device, READ-ONLY
+#---------------------------------------------------------------------------
+# ... Event.Triggers          IN%d means triggering from %d's GPIO-Input, for some external sensors
+#                             TIMER means this event will be triggered periodically
+#                             ??? MOTION_PIR
+# ... Event.Notifications     OUT%d means turn-ON %d's GPIO-Output, for some external relay
+#                             Not NOW: EMAIL,SMS,FTP
+#---------------------------------------------------------------------------
+Product.Video.Streams=3
+Product.Video.Format="H264,MJPEG"
+Product.Video.TimeStamp=YES
+Product.Video.H264.Resolution="1080P,720P,VGA,QVGA"
+Product.Video.H264.Framerate="30,15,10,5"
+Product.Video.MJPEG.Resolution="1080P,720P,VGA,QVGA"
+Product.Video.MJPEG.Framerate="30,15,10,5"
+Product.Audio.Format="PCM,AAC,MP3"
+Product.Log.Max=300
+Product.Log.Levels="DEBUG,VERBOSE,INFO,WARN,CRITICAL"
+Product.Languages="EN,CH-TW,CH-CN,JP"
+Product.Event.Triggers="NONE,MOTION,TIMER,PIR,IN1,IN2,IN3"
+Product.Event.Notifications="NONE,BUZZER,RECORD,OUT1,OUT2,EMAIL,SMS,FTP"
+Product.User.Account.Max=10
+Product.GPIO.LED.Totals=3
+Product.GPIO.Buzzer.Totals=3
+Product.GPIO.Input.Totals=10
+Product.GPIO.Output.Totals=10
+
+
+# User Account management, usually accessed by User.cgi
+#-------------------------------------------------------
+User.Guest.Enable=YES
+User.Account.Totals=2
+User.Account.1.Username="admin       "
+User.Account.1.Password="admin   "
+User.Account.1.Class="ADMIN "
+User.Account.2.Username="guest       "
+User.Account.2.Password="1234    "
+User.Account.2.Class="GUEST "
+User.Account.3.Username="            "
+User.Account.3.Password="        "
+User.Account.3.Class="      "
+User.Account.4.Username="            "
+User.Account.4.Password="        "
+User.Account.4.Class="      "
+User.Account.5.Username="            "
+User.Account.5.Password="        "
+User.Account.5.Class="      "
+User.Account.6.Username="            "
+User.Account.6.Password="        "
+User.Account.6.Class="      "
+User.Account.7.Username="            "
+User.Account.7.Password="        "
+User.Account.7.Class="      "
+User.Account.8.Username="            "
+User.Account.8.Password="        "
+User.Account.8.Class="      "
+
+# System-wise properties
+#-------------------------------------------------------
+# ... Log.Levels                Format: [ ERR | WARN | INFO | VERBOSE | DEBUG ]
+# ... Log.MailSendLevel         Level critical than which will send out by mail this log, Not NOW
+# ... Dir.Recording             The relative path to Sys.Dir.WWW, for the recorded media files
+#-------------------------------------------------------
+Sys.General.Language="EN    "
+Sys.General.DefaultLanguage="EN    "
+Sys.Log.Max=300
+Sys.Log.Levels="VERBOSE"
+Sys.Log.MailSendLevel=0
+Sys.Firmware.Version.AHC=2005
+Sys.Firmware.Version.VCS=1234
+Sys.Firmware.Version.WIFI="1.0.3            "
+Sys.Firmware.BuildDate="2007.01.04            "
+Sys.Firmware.UpdateURL="http://www.a-i-t.com.tw/fwupgrade.php?model=IPCAM8427-Xyz            "
+Sys.Device.Brand="ABC Company            "
+Sys.Device.VendorModel="IPCAM8427-Xyz            "
+Sys.Device.ProdName="Surveillance            "
+Sys.Device.ProdModel="IPCAM-1000            "
+Sys.Device.ProdType="IPCAM            "
+Sys.Device.WebURL="http://www.abc.com            "
+Sys.Time.OSD.Enable=OFF
+Sys.DaylightSaving.Enable=OFF
+Sys.DaylightSaving.DaylightStart="07-01-0 6:00 "
+Sys.DaylightSaving.DaylightEnd="09-01-4 10:00 "
+Sys.DaylightSaving.AdjustTime="1:00  "
+Sys.Dir.SEP="/"
+Sys.Dir.WWW="/usr/local/www"
+Sys.Dir.Recording="Videos"
+Sys.Session.RTSP.Age=600
+Sys.Session.HTTP.Age=900
+
+# System-wise properties, manually handle INPUT / OUTPUT of GPIOs
+#------------------------------------------------------------------
+# ... ActiveDur			when manually turned ON something, it will last for this duration
+# ... GPIO.Input.%d.Name	friendly name defined by end-user
+#------------------------------------------------------------------
+Sys.Manual.ActiveDur=10
+Sys.Manual.Debounce="SIMPLE  "
+Sys.Manual.Record.State=ON
+Sys.Manual.GPIO.LED.1.State=ON
+Sys.Manual.GPIO.LED.2.State=OFF
+Sys.Manual.GPIO.Buzzer.1.State=OFF
+Sys.Manual.GPIO.Buzzer.2.State=OFF
+Sys.Manual.GPIO.Input.1.State=OFF
+Sys.Manual.GPIO.Input.1.Name="External Sensor at Kitchen Window            "
+Sys.Manual.GPIO.Input.2.State=ON
+Sys.Manual.GPIO.Input.2.Name="External Sensor at Porch                     "
+Sys.Manual.GPIO.Output.1.State=OFF
+Sys.Manual.GPIO.Output.1.Name="External Buzzer at back door                "
+Sys.Manual.GPIO.Output.2.State=ON
+Sys.Manual.GPIO.Output.2.Name="External Buzzer at yard                     "
+
+
+# Event monitoring / surveillance properties
+#------------------------------------------------------------------
+# ... Profile.Trigger			Trigger sources: get("Product.Event.Triggers")
+# ... Profile.Notify			Notification methods: get("Product.Event.Notifications")
+# ... Profile.LED			LED Control methods: get("Product.GPIO.LED.Totals")
+# ... Monitor.%d.Profile		Format: <Profile.Trigger> <Profile.Notify> <Profile.LED>
+# ... Monitor.%d.Timer			Format: Weekday, Starting Time, Duration in seconds
+# ... Monitor.Default			The default Profile to use when not specified by Event.Monitor.%d, '0' means NONE
+# ... Monitor.Record.Prior		Recording by Event Trigger will start by <Prior> seconds
+# ... Record.Device			Values: [ SD | INTERNAL | FTP | NONE ], where INTERNAL is NAND or NOR flash.  ??? FTP
+#------------------------------------------------------------------
+Event.Profile.Trigger.Totals=2
+Event.Profile.Trigger.1="MOTION,PIR            "
+Event.Profile.Trigger.2="MOTION,ALARM          "
+Event.Profile.Trigger.3="                      "
+Event.Profile.Trigger.4="                      "
+Event.Profile.Trigger.5="                      "
+Event.Profile.Trigger.6="                      "
+Event.Profile.Trigger.7="                      "
+Event.Profile.Trigger.8="                      "
+Event.Profile.Trigger.9="                      "
+Event.Profile.Trigger.10="                      "
+Event.Profile.Trigger.11="                      "
+Event.Profile.Trigger.12="                      "
+Event.Profile.Trigger.13="                      "
+Event.Profile.Trigger.14="                      "
+Event.Profile.Trigger.15="                      "
+Event.Profile.Trigger.16="                      "
+Event.Profile.Trigger.17="                      "
+Event.Profile.Trigger.18="                      "
+Event.Profile.Trigger.19="                      "
+Event.Profile.Trigger.20="                      "
+Event.Profile.Notify.Totals=3
+Event.Profile.Notify.1="BUZZER,RECORD         "
+Event.Profile.Notify.2="BUZZER                "
+Event.Profile.Notify.3="RECORD                "
+Event.Profile.Notify.4="                      "
+Event.Profile.Notify.5="                      "
+Event.Profile.Notify.6="                      "
+Event.Profile.Notify.7="                      "
+Event.Profile.Notify.8="                      "
+Event.Profile.Notify.9="                      "
+Event.Profile.Notify.10="                      "
+Event.Profile.Notify.11="                      "
+Event.Profile.Notify.12="                      "
+Event.Profile.Notify.13="                      "
+Event.Profile.Notify.14="                      "
+Event.Profile.Notify.15="                      "
+Event.Profile.Notify.16="                      "
+Event.Profile.Notify.17="                      "
+Event.Profile.Notify.18="                      "
+Event.Profile.Notify.19="                      "
+Event.Profile.Notify.20="                      "
+Event.Profile.LED.Totals=3
+Event.Profile.LED.1=1
+Event.Profile.LED.2=2
+Event.Profile.LED.3=3
+Event.Profile.LED.4=0
+Event.Profile.LED.5=0
+Event.Profile.LED.6=0
+Event.Profile.LED.7=0
+Event.Profile.LED.8=0
+Event.Profile.LED.9=0
+Event.Profile.LED.10=0
+Event.Profile.LED.11=0
+Event.Profile.LED.12=0
+Event.Profile.LED.13=0
+Event.Profile.LED.14=0
+Event.Profile.LED.15=0
+Event.Profile.LED.16=0
+Event.Profile.LED.17=0
+Event.Profile.LED.18=0
+Event.Profile.LED.19=0
+Event.Profile.LED.20=0
+Event.Monitor.Totals=2
+Event.Monitor.1.Profile="1 2 0     "
+Event.Monitor.1.Timer="1-5 08:00:00 28800  "
+Event.Monitor.2.Profile="2 1 1     "
+Event.Monitor.2.Timer="0,6 08:00:00 28800  "
+Event.Monitor.3.Profile="          "
+Event.Monitor.3.Timer="                    "
+Event.Monitor.4.Profile="          "
+Event.Monitor.4.Timer="                    "
+Event.Monitor.5.Profile="          "
+Event.Monitor.5.Timer="                    "
+Event.Monitor.6.Profile="          "
+Event.Monitor.6.Timer="                    "
+Event.Monitor.7.Profile="          "
+Event.Monitor.7.Timer="                    "
+Event.Monitor.8.Profile="          "
+Event.Monitor.8.Timer="                    "
+Event.Monitor.9.Profile="          "
+Event.Monitor.9.Timer="                    "
+Event.Monitor.10.Profile="          "
+Event.Monitor.10.Timer="                    "
+Event.Monitor.11.Profile="          "
+Event.Monitor.11.Timer="                    "
+Event.Monitor.12.Profile="          "
+Event.Monitor.12.Timer="                    "
+Event.Monitor.13.Profile="          "
+Event.Monitor.13.Timer="                    "
+Event.Monitor.14.Profile="          "
+Event.Monitor.14.Timer="                    "
+Event.Monitor.15.Profile="          "
+Event.Monitor.15.Timer="                    "
+Event.Monitor.16.Profile="          "
+Event.Monitor.16.Timer="                    "
+Event.Monitor.17.Profile="          "
+Event.Monitor.17.Timer="                    "
+Event.Monitor.18.Profile="          "
+Event.Monitor.18.Timer="                    "
+Event.Monitor.19.Profile="          "
+Event.Monitor.19.Timer="                    "
+Event.Monitor.20.Profile="          "
+Event.Monitor.20.Timer="                    "
+Event.Monitor.Default="0 0 0               "
+Event.Monitor.DetectDur=5
+Event.Monitor.Record.Prior=10
+Event.Monitor.Record.Duration=300
+Event.Record.WithAudio=NO
+Event.Record.Format="H264            "
+Event.Record.Resolution="720P   "
+Event.Record.Overwrite=YES
+Event.Record.Device="SD            "
+Event.Motion.Region="0xFF,0xFF,0xFF,0xFF,0xFF,0xFF            "
+
+
+# AIT Streaming Server properties
+#------------------------------------------------------------------
+# ... Attr.FramePool            Format: <total_frames>  <max_frame_size>
+# ... Attr.Format               Format: [ mjpeg | h264 ]. It can be 'raw' for YUV or 'mpeg4', but not supported !!!
+# ... Attr.Auth                 Authentication: Username Password. Default empty ="=> No authentication            "
+# ... SrcNode.%d.Attr.Output    The grabing frames from source nodes will be executed under ASS's Pipeline Engine Task context
+# ... SrcNode.%d.Attr.Shortcut  The grabing frames from source nodes will be executed under media encoder's Task context
+# ... SnkNode.%d.Attr.Inputs    Default only 1 video stream. When need audio, then use "VStream1, AStream1"
+# ... Attr.Refresh              HTTP streaming refresh rate for JPEG images
+#------------------------------------------------------------------
+Ass.Start=YES
+Ass.SrcNode.Totals=6
+Ass.SrcNode.1.Type="SimFile"
+Ass.SrcNode.1.Name="Videos/FVDO_Freeway_720p.264            "
+Ass.SrcNode.1.Attr.FramePool="8 0x100000            "
+Ass.SrcNode.1.Attr.FrameRate=30
+Ass.SrcNode.1.Attr.Format="h264  "
+Ass.SrcNode.1.Attr.Bitrate=3730
+Ass.SrcNode.1.Attr.Resolution="720P   "
+Ass.SrcNode.1.Attr.Output="VStream1  "
+#Ass.SrcNode.1.Attr.Shortcut="VStream1  "
+Ass.SrcNode.2.Type="SimFile"
+Ass.SrcNode.2.Name="Videos/FVDO_Girl_720p.264            "
+Ass.SrcNode.2.Attr.FramePool="8 0x100000            "
+Ass.SrcNode.2.Attr.FrameRate=30
+Ass.SrcNode.2.Attr.Format="h264  "
+Ass.SrcNode.2.Attr.Bitrate=3730
+Ass.SrcNode.2.Attr.Resolution="720P   "
+Ass.SrcNode.2.Attr.Output="VStream2  "
+#Ass.SrcNode.2.Attr.Shortcut="VStream2  "
+Ass.SrcNode.3.Type="SimFile"
+Ass.SrcNode.3.Name="Videos/FVDO_Golf_720p.264            "
+Ass.SrcNode.3.Attr.FramePool="8 0x100000            "
+Ass.SrcNode.3.Attr.FrameRate=30
+Ass.SrcNode.3.Attr.Format="h264  "
+Ass.SrcNode.3.Attr.Bitrate=3730
+Ass.SrcNode.3.Attr.Resolution="720P   "
+Ass.SrcNode.3.Attr.Output="VStream3  "
+#Ass.SrcNode.3.Attr.Shortcut="VStream3  "
+Ass.SrcNode.4.Type="SimFile"
+Ass.SrcNode.4.Name="Videos/FVDO_Shore_cif.264            "
+Ass.SrcNode.4.Attr.FramePool="8 0x100000            "
+Ass.SrcNode.4.Attr.FrameRate=30
+Ass.SrcNode.4.Attr.Format="h264  "
+Ass.SrcNode.4.Attr.Bitrate=3730
+Ass.SrcNode.4.Attr.Resolution="720P   "
+Ass.SrcNode.4.Attr.Output="VStream4  "
+#Ass.SrcNode.4.Attr.Shortcut="VStream4  "
+Ass.SrcNode.5.Type="SimFile"
+Ass.SrcNode.5.Name="Videos/FVDO_Plane_cif.264            "
+Ass.SrcNode.5.Attr.FramePool="8 0x100000            "
+Ass.SrcNode.5.Attr.FrameRate=30
+Ass.SrcNode.5.Attr.Format="h264  "
+Ass.SrcNode.5.Attr.Bitrate=3730
+Ass.SrcNode.5.Attr.Resolution="720P   "
+Ass.SrcNode.5.Attr.Output="VStream5  "
+#Ass.SrcNode.5.Attr.Shortcut="VStream5  "
+Ass.SrcNode.6.Type="SimV4L2"
+Ass.SrcNode.6.Name="/dev/video0            "
+Ass.SrcNode.6.Attr.InputPort=0
+Ass.SrcNode.6.Attr.FramePool="8 0x100000            "
+Ass.SrcNode.6.Attr.FrameRate=15
+Ass.SrcNode.6.Attr.Format="mjpeg "
+Ass.SrcNode.6.Attr.Output="VStream9  "
+#Ass.SrcNode.6.Attr.Shortcut="VStream9  "
+Ass.FltNode.Totals=0
+Ass.SnkNode.Totals=7
+Ass.SnkNode.1.Type="LivecastRTSP"
+Ass.SnkNode.1.Name="/liveRTSP/v1            "
+Ass.SnkNode.1.Attr.Auth="                            "
+Ass.SnkNode.1.Attr.Inputs="VStream1            "
+Ass.SnkNode.2.Type="LivecastRTSP"
+Ass.SnkNode.2.Name="/liveRTSP/v2            "
+Ass.SnkNode.2.Attr.Inputs="VStream2            "
+Ass.SnkNode.3.Type="LivecastRTSP"
+Ass.SnkNode.3.Name="/liveRTSP/v3            "
+Ass.SnkNode.3.Attr.Inputs="VStream3            "
+Ass.SnkNode.4.Type="LivecastRTSP"
+Ass.SnkNode.4.Name="/liveRTSP/v4            "
+Ass.SnkNode.4.Attr.Inputs="VStream4            "
+Ass.SnkNode.5.Type="LivecastRTSP"
+Ass.SnkNode.5.Name="/liveRTSP/v5            "
+Ass.SnkNode.5.Attr.Inputs="VStream5            "
+Ass.SnkNode.6.Type="LivecastHTTP"
+Ass.SnkNode.6.Name="/liveHTTP            "
+Ass.SnkNode.6.Attr.Refresh=5
+Ass.SnkNode.6.Attr.Mode="stream    "
+Ass.SnkNode.6.Attr.Inputs="VStream9            "
+Ass.SnkNode.7.Type="LivecastHTTP"
+Ass.SnkNode.7.Name="/staticHTTP            "
+Ass.SnkNode.7.Attr.Mode="snapshot  "
+Ass.SnkNode.7.Attr.Refresh=5
+Ass.SnkNode.7.Attr.Inputs="VStream9            "
+
+
+# Network devices / protocols definitions
+#------------------------------------------------------------------
+# ... Port.Service             Port for RTSP / HTTP-WEB / HTTP-Streaming.  Ex. "8554, 8080, 8080"
+# ... Dev.%d.Type              Format: [ AP | STA | ETH ]. Currently "ETH" is supported
+# ... WIFI_STA.AP.%d.EncType   Format: [ AES | WEP | NONE ].
+# ... WIFI_STA.WPS.Mode        Format: [ PIN | PBC ].
+# ... WIFI_STA.WPS.ScanBufSize Integer, in units of K-Bytes
+# ... WIFI_STA.WPS.AssocAPTime Integer, in units of m-seconds
+# ... WIFI_AP.EncType          Format: [ AES | WEP | NONE ].
+# ... Net.WIFI_AP.Channel      Integer. If <=0, then auto select
+#------------------------------------------------------------------
+Net.Dev.Totals=1
+Net.Dev.1.Name="wifi0 "
+Net.Dev.1.Type="AP "
+Net.Dev.1.Start=YES
+Net.Dev.1.MAC="00:0E:53:E8:7C:DA"
+Net.Dev.1.BootProto="DHCP   "
+Net.Dev.1.IPV4.Address="192.168.1.99   "
+Net.Dev.1.IPV4.Broadcast="192.168.1.255  "
+Net.Dev.1.IPV4.Gateway="192.168.1.99   "
+Net.Dev.1.IPV4.Mask="255.255.255.0  "
+Net.Dev.1.IPV4.DNS1="168.95.1.1     "
+Net.Dev.1.IPV4.DNS2="139.175.55.244 "
+Net.Dev.2.Name="eth0  "
+Net.Dev.2.Type="ETH "
+Net.Dev.2.Start=NO
+Net.Dev.2.MAC="00:0E:53:E8:7C:DA"
+Net.Dev.2.BootProto="DHCP   "
+Net.Dev.2.IPV4.Address="192.168.0.158  "
+Net.Dev.2.IPV4.Broadcast="192.168.1.255  "
+Net.Dev.2.IPV4.Gateway="192.168.0.254  "
+Net.Dev.2.IPV4.Mask="255.255.255.0  "
+Net.Dev.2.IPV4.DNS1="168.95.1.1     "
+Net.Dev.2.IPV4.DNS2="139.175.55.244 "
+Net.WIFI_STA.AP.Totals=2
+Net.WIFI_STA.AP.1.NetworkType="Infra"
+Net.WIFI_STA.AP.1.SSID="AIT_Network            "
+Net.WIFI_STA.AP.1.EncType="NONE"
+Net.WIFI_STA.AP.1.CryptoKey="                  "
+Net.WIFI_STA.AP.2.NetworkType="Infra"
+Net.WIFI_STA.AP.2.SSID="ZyXAIT99               "
+Net.WIFI_STA.AP.2.EncType="AES "
+Net.WIFI_STA.AP.2.CryptoKey="1234567890        "
+Net.WIFI_STA.AP.3.NetworkType="Infra"
+Net.WIFI_STA.AP.3.SSID="                       "
+Net.WIFI_STA.AP.3.EncType="WEP "
+Net.WIFI_STA.AP.3.CryptoKey="                  "
+Net.WIFI_STA.AP.4.NetworkType="Infra"
+Net.WIFI_STA.AP.4.SSID="                       "
+Net.WIFI_STA.AP.4.EncType="WEP "
+Net.WIFI_STA.AP.4.CryptoKey="                  "
+Net.WIFI_STA.AP.5.NetworkType="Infra"
+Net.WIFI_STA.AP.5.SSID="                       "
+Net.WIFI_STA.AP.5.EncType="WEP "
+Net.WIFI_STA.AP.5.CryptoKey="                  "
+Net.WIFI_STA.AP.6.NetworkType="Infra"
+Net.WIFI_STA.AP.6.SSID="                       "
+Net.WIFI_STA.AP.6.EncType="WEP "
+Net.WIFI_STA.AP.6.CryptoKey="                  "
+Net.WIFI_STA.AP.7.NetworkType="Infra"
+Net.WIFI_STA.AP.7.SSID="                       "
+Net.WIFI_STA.AP.7.EncType="WEP "
+Net.WIFI_STA.AP.7.CryptoKey="                  "
+Net.WIFI_STA.AP.8.NetworkType="Infra"
+Net.WIFI_STA.AP.8.SSID="                       "
+Net.WIFI_STA.AP.8.EncType="WEP "
+Net.WIFI_STA.AP.8.CryptoKey="                  "
+Net.WIFI_STA.AP.9.NetworkType="Infra"
+Net.WIFI_STA.AP.9.SSID="                       "
+Net.WIFI_STA.AP.9.EncType="WEP "
+Net.WIFI_STA.AP.9.CryptoKey="                  "
+Net.WIFI_STA.AP.10.NetworkType="Infra"
+Net.WIFI_STA.AP.10.SSID="                       "
+Net.WIFI_STA.AP.10.EncType="WEP "
+Net.WIFI_STA.AP.10.CryptoKey="                  "
+Net.WIFI_STA.AP.11.NetworkType="Infra"
+Net.WIFI_STA.AP.11.SSID="                       "
+Net.WIFI_STA.AP.11.EncType="WEP "
+Net.WIFI_STA.AP.11.CryptoKey="                  "
+Net.WIFI_STA.AP.12.NetworkType="Infra"
+Net.WIFI_STA.AP.12.SSID="                       "
+Net.WIFI_STA.AP.12.EncType="WEP "
+Net.WIFI_STA.AP.12.CryptoKey="                  "
+Net.WIFI_STA.AP.13.NetworkType="Infra"
+Net.WIFI_STA.AP.13.SSID="                       "
+Net.WIFI_STA.AP.13.EncType="WEP "
+Net.WIFI_STA.AP.13.CryptoKey="                  "
+Net.WIFI_STA.AP.14.NetworkType="Infra"
+Net.WIFI_STA.AP.14.SSID="                       "
+Net.WIFI_STA.AP.14.EncType="WEP "
+Net.WIFI_STA.AP.14.CryptoKey="                  "
+Net.WIFI_STA.AP.15.NetworkType="Infra"
+Net.WIFI_STA.AP.15.SSID="                       "
+Net.WIFI_STA.AP.15.EncType="WEP "
+Net.WIFI_STA.AP.15.CryptoKey="                  "
+Net.WIFI_STA.AP.16.NetworkType="Infra"
+Net.WIFI_STA.AP.16.SSID="                       "
+Net.WIFI_STA.AP.16.EncType="WEP "
+Net.WIFI_STA.AP.16.CryptoKey="                  "
+Net.WIFI_STA.AP.17.NetworkType="Infra"
+Net.WIFI_STA.AP.17.SSID="                       "
+Net.WIFI_STA.AP.17.EncType="WEP "
+Net.WIFI_STA.AP.17.CryptoKey="                  "
+Net.WIFI_STA.AP.18.NetworkType="Infra"
+Net.WIFI_STA.AP.18.SSID="                       "
+Net.WIFI_STA.AP.18.EncType="WEP "
+Net.WIFI_STA.AP.18.CryptoKey="                  "
+Net.WIFI_STA.AP.19.NetworkType="Infra"
+Net.WIFI_STA.AP.19.SSID="                       "
+Net.WIFI_STA.AP.19.EncType="WEP "
+Net.WIFI_STA.AP.19.CryptoKey="                  "
+Net.WIFI_STA.AP.20.NetworkType="Infra"
+Net.WIFI_STA.AP.20.SSID="                       "
+Net.WIFI_STA.AP.20.EncType="WEP "
+Net.WIFI_STA.AP.20.CryptoKey="                  "
+Net.WIFI_STA.WPS.Mode="PBC"
+Net.WIFI_STA.WPS.PIN=1234
+Net.WIFI_STA.WPS.ScanBufSize=32
+Net.WIFI_STA.WPS.AssocAPTime=20000
+Net.WIFI_AP.SSID="AIT-Streaming-Demo-AP  "
+Net.WIFI_AP.HideSSID=NO
+Net.WIFI_AP.EncType="WEP "
+Net.WIFI_AP.CryptoKey="1234567890        "
+Net.WIFI_AP.Channel=11
+Net.WIFI_AP.MaxClients=99999
+Net.WIFI_AP.BlackList.Enabled=NO
+Net.WIFI_AP.BlackList.Totals=3
+Net.WIFI_AP.BlackList.1="00:0E:53:E8:7C:11"
+Net.WIFI_AP.BlackList.2="00:0E:53:E8:7C:22"
+Net.WIFI_AP.BlackList.3="00:0E:53:E8:7C:33"
+Net.WIFI_AP.BlackList.4="                 "
+Net.WIFI_AP.BlackList.5="                 "
+Net.WIFI_AP.BlackList.6="                 "
+Net.WIFI_AP.BlackList.7="                 "
+Net.WIFI_AP.BlackList.8="                 "
+Net.WIFI_AP.BlackList.9="                 "
+Net.WIFI_AP.BlackList.10="                 "
+Net.WIFI_AP.BlackList.11="                 "
+Net.WIFI_AP.BlackList.12="                 "
+Net.WIFI_AP.BlackList.13="                 "
+Net.WIFI_AP.BlackList.14="                 "
+Net.WIFI_AP.BlackList.15="                 "
+Net.WIFI_AP.BlackList.16="                 "
+Net.WIFI_AP.BlackList.17="                 "
+Net.WIFI_AP.BlackList.18="                 "
+Net.WIFI_AP.BlackList.19="                 "
+Net.WIFI_AP.BlackList.20="                 "
+Net.WIFI_AP.WhiteList.Enabled=NO
+Net.WIFI_AP.WhiteList.Totals=3
+Net.WIFI_AP.WhiteList.1="00:0E:53:E8:7C:11"
+Net.WIFI_AP.WhiteList.2="00:0E:53:E8:7C:22"
+Net.WIFI_AP.WhiteList.3="00:0E:53:E8:7C:33"
+Net.WIFI_AP.WhiteList.4="                 "
+Net.WIFI_AP.WhiteList.5="                 "
+Net.WIFI_AP.WhiteList.6="                 "
+Net.WIFI_AP.WhiteList.7="                 "
+Net.WIFI_AP.WhiteList.8="                 "
+Net.WIFI_AP.WhiteList.9="                 "
+Net.WIFI_AP.WhiteList.10="                 "
+Net.WIFI_AP.WhiteList.11="                 "
+Net.WIFI_AP.WhiteList.12="                 "
+Net.WIFI_AP.WhiteList.13="                 "
+Net.WIFI_AP.WhiteList.14="                 "
+Net.WIFI_AP.WhiteList.15="                 "
+Net.WIFI_AP.WhiteList.16="                 "
+Net.WIFI_AP.WhiteList.17="                 "
+Net.WIFI_AP.WhiteList.18="                 "
+Net.WIFI_AP.WhiteList.19="                 "
+Net.WIFI_AP.WhiteList.20="                 "
+Net.Port.Service="8554, 8080, 8080   "
+Net.Port.RTP="50000,60000      "
+Net.HTML.Timeout=15
+Net.HTML.Config=YES
+Net.DHCPD.Start=YES
+Net.DHCPD.Addr.DNS1="168.95.1.1     "
+Net.DHCPD.Addr.DNS2="168.95.192.1   "
+Net.DHCPD.Lease.Life=86400
+Net.DHCPD.Lease.Renew=43200
+Net.DHCPD.Lease.IPPool.Start=100
+Net.DHCPD.Lease.IPPool.End=219
+Net.DHCPD.Lease.IPPool.Max=253
+Net.DHCPD.Port.Server=67
+Net.DHCPD.Port.Client=68
+
+# Not NOW !!!
+Net.SMTP.Port=25
+Net.SMTP.SSL=NO
+Net.SMTP.Authentication=NO
+Net.FTP.Username="ftp            "
+Net.FTP.Password=1234
+Net.FTP.Port=21
+Net.FTP.Server="192.168.0.161            "
+Net.FTP.Directory="/home/ftp            "
+Net.SNTP.Enabled=NO
+Net.SNTP.Period=0
+Net.SNTP.PeriodSecond=0
+Net.SNTP.GMT=57
+Net.SNTP.GMTOffset=480
+Net.SNTP.ServerName="tock.stdtime.gov.tw            "
+Net.SNTP.TimeZoneName="PST8PDT,M3.2.0/2,M11.1.0/2            "
+Net.UPNP.Enabled=YES
+Net.UPNP.FriendlyName="IP CAMERA (Fixed) AVM301-000E53E87CDA            "
+Net.UPNP.Manufacturer="AVTECH Corporation.            "
+Net.UPNP.ManufacturerURL="http://www.avtech.com.tw/            "
+Net.UPNP.NATTraversal.Enabled=YES
+Net.UPNP.NATTraversal.HTTPPort=88
+Net.UPNP.NATTraversal.HTTPSPort=0
+Net.UPNP.NATTraversal.MinPort=32768
+Net.UPNP.NATTraversal.MaxPort=65535
+Net.ZeroConf.Enabled=NO
+Net.ZeroConf.SubnetMask="255.255.0.0            "
+Net.Bonjour.Enabled=YES
+Net.Bonjour.DeviceName="IP CAMERA (Fixed) AVM301-000E53E87CDA            "
+Net.DDNS.Enabled=NO
+Net.DDNS.SyncDDNS=YES
+Net.DDNS.Hostname="MAC000E53E87CDA            "
+Net.DDNS.FirstUse=NO
+
+
+# ????? 
+Net.RTP.Multicast.Video.H264.ResolutionList="SXGA;HD720P;VGA;QVGA;QQVGA            "
+Net.RTP.Multicast.Video.H264.Address="239.101.101.101            "
+Net.RTP.Multicast.Video.H264.Port=9000
+Net.RTP.Multicast.Video.H264.HD720P.Address="239.101.101.102            "
+Net.RTP.Multicast.Video.H264.HD720P.Port=9000
+Net.RTP.Multicast.Video.H264.VGA.Address="239.101.101.103            "
+Net.RTP.Multicast.Video.H264.VGA.Port=9000
+Net.RTP.Multicast.Video.H264.QVGA.Address="239.101.101.104            "
+Net.RTP.Multicast.Video.H264.QVGA.Port=9000
+Net.RTP.Multicast.Video.H264.QQVGA.Address="239.101.101.105            "
+Net.RTP.Multicast.Video.H264.QQVGA.Port=9000
+Net.RTP.Multicast.Video.Jpeg.ResolutionList="SXGA;HD720P;VGA;QVGA;QQVGA            "
+Net.RTP.Multicast.Video.Jpeg.Address="239.101.103.101            "
+Net.RTP.Multicast.Video.Jpeg.Port=9000
+Net.RTP.Multicast.Video.Jpeg.HD720P.Address="239.101.103.102            "
+Net.RTP.Multicast.Video.Jpeg.HD720P.Port=9000
+Net.RTP.Multicast.Video.Jpeg.VGA.Address="239.101.103.103            "
+Net.RTP.Multicast.Video.Jpeg.VGA.Port=9000
+Net.RTP.Multicast.Video.Jpeg.QVGA.Address="239.101.103.104            "
+Net.RTP.Multicast.Video.Jpeg.QVGA.Port=9000
+Net.RTP.Multicast.Video.Jpeg.QQVGA.Address="239.101.103.105            "
+Net.RTP.Multicast.Video.Jpeg.QQVGA.Port=9000
+Net.RTP.Multicast.Audio.Address="239.101.104.101            "
+Net.RTP.Multicast.Audio.Port=9000
+Net.RTP.Multicast.TTL=15
+
+Camera.System.ID=1
+Camera.System.Display="ALL            "
+Camera.System.DisplayZoomRatio=ON
+Camera.System.Title="IPCAM            "
+Camera.System.Position="D-R            "
+Camera.System.Timeout=0
+Camera.System.IsTiltUpLimit=YES
+Camera.System.TurboStep=5
+Camera.System.Baudrate=2400
+Camera.System.IsAuto=NO
+Camera.System.IsAutoTracking=NO
+Camera.System.LocalControl="ENABLE            "
+Camera.System.Speed.Pan=30
+Camera.System.Speed.Tilt=30
+Camera.System.Speed.Zoom=128
+Camera.System.Speed.Focus=128
+Camera.General.ItemList="WhiteBalance;Sharpness;Shutter;Mirror;Flip;Denoise;            "
+Camera.General.WhiteBalance.Value=0
+Camera.General.WhiteBalance.Default=0
+Camera.General.WhiteBalance.Max=5
+Camera.General.WhiteBalance.Min=0
+Camera.General.Shutter.Value=0
+Camera.General.Shutter.Default=2
+Camera.General.Shutter.Max=5
+Camera.General.Shutter.Min=0
+Camera.General.Sharpness.Value=20
+Camera.General.Sharpness.Default=20
+Camera.General.Sharpness.Max=100
+Camera.General.Sharpness.Min=0
+Camera.General.Mirror.Value=0
+Camera.General.Mirror.Default=0
+Camera.General.Mirror.Max=1
+Camera.General.Mirror.Min=0
+Camera.General.Gamma.Value=4
+Camera.General.Gamma.Default=4
+Camera.General.Gamma.Max=4
+Camera.General.Gamma.Min=0
+Camera.General.Flip.Value=0
+Camera.General.Flip.Default=0
+Camera.General.Flip.Max=1
+Camera.General.Flip.Min=0
+Camera.General.Denoise.Value=1
+Camera.General.Denoise.Default=1
+Camera.General.Denoise.Max=10
+Camera.General.Denoise.Min=0
+Camera.Preset.Count=1
+Camera.Preset.P1.No=1
+Camera.Preset.P1.Name="HOME            "
+Camera.Cruise.Mode="AutoPan            "
+Camera.Cruise.SmartSorting="DISABLE            "
+Camera.Cruise.ActiveSeq=1
+Camera.Cruise.AutoPan.LeftLimit.Pan=0
+Camera.Cruise.AutoPan.RightLimit.Pan=0
+Camera.Cruise.AutoPan.Speed.Pan=30
+Camera.Cruise.Seq1.Count=0
+Camera.Cruise.Seq2.Count=0
+Camera.Cruise.Seq3.Count=0
+Camera.Cruise.Seq4.Count=0
+Camera.Cruise.Seq4.AnchorNo=
+Camera.Tracking.LimitP1=1280
+Camera.Tracking.LimitP2=0
+Camera.Tracking.Time=10
+Camera.Detection.Sensitivity=1
+Camera.Detection.MaskArea="ff,ff,ff,ff,7,ff,7e,0,e0,0,0,7,0,7e,7,e0,7e,0,e0,0,0,7,0,7e,7,e0,7e,0,e0,0,0,7,ff,fe,ff,ff,ff,ff            "
+Camera.HDD.HddNearFullSize=5
+Camera.Device.CH1.DeviceType="CAMERA            "
+Camera.Device.CH1.ID=0
+Camera.Device.CH1.Protocol="NORMAL            "
+Camera.Device.CH1.Rate=9600
+
+Video.Number=1
+Video.Brightness=50
+Video.BrightnessDefault=50
+Video.BrightnessMax=100
+Video.BrightnessMin=0
+Video.Contrast=55
+Video.ContrastDefault=55
+Video.ContrastMax=100
+Video.ContrastMin=0
+Video.Saturation=65
+Video.SaturationDefault=65
+Video.SaturationMax=100
+Video.SaturationMin=0
+Video.Hue=50
+Video.HueDefault=50
+Video.HueMax=100
+Video.HueMin=0
+Video.System="NTSC            "
+Video.PowerLineFrequency=60
+Video.Framerate=0
+Video.FramerateMax=30
+Video.Jpeg.ResolutionList="SXGA;HD720P;VGA;QVGA;QQVGA            "
+Video.Jpeg.Resolution="SXGA            "
+Video.Jpeg.Quality="HIGH            "
+Video.Jpeg.SXGA.Quality="BEST            "
+Video.Jpeg.SXGA.Framerate=8
+Video.Jpeg.HD720P.Quality="BEST            "
+Video.Jpeg.HD720P.Framerate=8
+Video.Jpeg.VGA.Quality="HIGH            "
+Video.Jpeg.VGA.Framerate=30
+Video.Jpeg.QVGA.Quality="HIGH            "
+Video.Jpeg.QVGA.Framerate=30
+Video.Jpeg.QQVGA.Quality="HIGH            "
+Video.Jpeg.QQVGA.Framerate=30
+Video.H264.ResolutionList="SXGA;HD720P;VGA;QVGA;QQVGA            "
+Video.H264.Resolution="SXGA            "
+Video.H264.Quality="BEST            "
+Video.H264.RateCtrlMode="EVBR            "
+Video.H264.MaxBitrate=5000
+Video.H264.SXGA.Quality="BEST            "
+Video.H264.SXGA.RateCtrlMode="EVBR            "
+Video.H264.SXGA.MaxBitrate=5000
+Video.H264.SXGA.Framerate=30
+Video.H264.HD720P.Quality="BEST            "
+Video.H264.HD720P.RateCtrlMode="EVBR            "
+Video.H264.HD720P.MaxBitrate=5000
+Video.H264.HD720P.Framerate=30
+Video.H264.VGA.Quality="HIGH            "
+Video.H264.VGA.RateCtrlMode="EVBR            "
+Video.H264.VGA.MaxBitrate=3000
+Video.H264.VGA.Framerate=30
+Video.H264.QVGA.Quality="HIGH            "
+Video.H264.QVGA.RateCtrlMode="EVBR            "
+Video.H264.QVGA.MaxBitrate=3000
+Video.H264.QVGA.Framerate=30
+Video.H264.QQVGA.Quality="HIGH            "
+Video.H264.QQVGA.RateCtrlMode="EVBR            "
+Video.H264.QQVGA.MaxBitrate=3000
+Video.H264.QQVGA.Framerate=30
+
+Media.Profiles.Count=3
+Media.Profiles.Profile1.token="PROFILE-1            "
+Media.Profiles.Profile1.Name="PROFILE-1            "
+Media.Profiles.Profile1.VideoSourceConfiguration.token="VS1token            "
+Media.Profiles.Profile1.VideoSourceConfiguration.Name="VS1            "
+Media.Profiles.Profile1.VideoSourceConfiguration.UseCount=1
+Media.Profiles.Profile1.VideoSourceConfiguration.SourceToken="VS1srctoken            "
+Media.Profiles.Profile1.VideoSourceConfiguration.Bounds.x=0
+Media.Profiles.Profile1.VideoSourceConfiguration.Bounds.y=0
+Media.Profiles.Profile1.VideoSourceConfiguration.Bounds.width=352
+Media.Profiles.Profile1.VideoSourceConfiguration.Bounds.height=240
+Media.Profiles.Profile1.VideoEncoderConfiguration.token="VE1token            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.Name="VE1            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.UseCount=2
+Media.Profiles.Profile1.VideoEncoderConfiguration.Encoding="JPEG            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.Resolution.Width=1280
+Media.Profiles.Profile1.VideoEncoderConfiguration.Resolution.Height=1024
+Media.Profiles.Profile1.VideoEncoderConfiguration.Quality="1.000000            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.RateControl.FrameRateLimit=8
+Media.Profiles.Profile1.VideoEncoderConfiguration.RateControl.EncodingInterval=1
+Media.Profiles.Profile1.VideoEncoderConfiguration.RateControl.BitrateLimit=1400
+Media.Profiles.Profile1.VideoEncoderConfiguration.MPEG4.GovLength=30
+Media.Profiles.Profile1.VideoEncoderConfiguration.MPEG4.Mpeg4Profile="SP            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.H264.GovLength=30
+Media.Profiles.Profile1.VideoEncoderConfiguration.H264.H264Profile="Baseline            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.Multicast.Address.Type="IPv4            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.Multicast.Port=0
+Media.Profiles.Profile1.VideoEncoderConfiguration.Multicast.TTL=0
+Media.Profiles.Profile1.VideoEncoderConfiguration.Multicast.AutoStart="false            "
+Media.Profiles.Profile1.VideoEncoderConfiguration.SessionTimeout="P1Y            "
+Media.Profiles.Profile1.AudioSourceConfiguration.token="AS1token            "
+Media.Profiles.Profile1.AudioSourceConfiguration.Name="AS1            "
+Media.Profiles.Profile1.AudioSourceConfiguration.UseCount=1
+Media.Profiles.Profile1.AudioSourceConfiguration.SourceToken="AS1srctoken            "
+Media.Profiles.Profile1.AudioEncoderConfiguration.token="AE1token            "
+Media.Profiles.Profile1.AudioEncoderConfiguration.Name="AE1            "
+Media.Profiles.Profile1.AudioEncoderConfiguration.UseCount=1
+Media.Profiles.Profile1.AudioEncoderConfiguration.Encoding="G711            "
+Media.Profiles.Profile1.AudioEncoderConfiguration.Bitrate=8192
+Media.Profiles.Profile1.AudioEncoderConfiguration.SampleRate=8000
+Media.Profiles.Profile1.AudioEncoderConfiguration.Multicast.Address.Type="IPv4            "
+Media.Profiles.Profile1.AudioEncoderConfiguration.Multicast.Port=0
+Media.Profiles.Profile1.AudioEncoderConfiguration.Multicast.TTL=0
+Media.Profiles.Profile1.AudioEncoderConfiguration.Multicast.AutoStart="false            "
+Media.Profiles.Profile1.AudioEncoderConfiguration.SessionTimeout="P1Y            "
+Media.Profiles.Profile1.PTZConfiguration.token="ptz001_token            "
+Media.Profiles.Profile1.PTZConfiguration.Name="ptz001            "
+Media.Profiles.Profile1.PTZConfiguration.NodeToken="node001_token            "
+Media.Profiles.Profile1.PTZConfiguration.DefaultAbsolutePantTiltPositionSpace="http://www.onvif.org/ver10/tptz/PanTiltSpaces/DigitalPositionSpace            "
+Media.Profiles.Profile1.PTZConfiguration.DefaultAbsoluteZoomPositionSpace="http://www.onvif.org/ver10/tptz/ZoomSpaces/NormalizedDigitalPositionSpace            "
+Media.Profiles.Profile1.PTZConfiguration.DefaultPTZSpeed.PanTilt.x="0.0            "
+Media.Profiles.Profile1.PTZConfiguration.DefaultPTZSpeed.PanTilt.y="1.0            "
+Media.Profiles.Profile1.PTZConfiguration.PanTiltLimits.Range.XRange.Max=1
+Media.Profiles.Profile1.PTZConfiguration.PanTiltLimits.Range.XRange.Min="-1            "
+Media.Profiles.Profile1.PTZConfiguration.PanTiltLimits.Range.YRange.Max=1
+Media.Profiles.Profile1.PTZConfiguration.PanTiltLimits.Range.YRange.Min="-1            "
+Media.Profiles.Profile1.PTZConfiguration.ZoomLimits.Range.XRange.Max=1
+Media.Profiles.Profile1.PTZConfiguration.ZoomLimits.Range.XRange.Min=0
+Media.Profiles.Profile2.token="PROFILE-2            "
+Media.Profiles.Profile2.Name="PROFILE-2            "
+Media.Profiles.Profile2.VideoSourceConfiguration.token="VS1token            "
+Media.Profiles.Profile2.VideoSourceConfiguration.Name="VS1            "
+Media.Profiles.Profile2.VideoSourceConfiguration.UseCount=1
+Media.Profiles.Profile2.VideoSourceConfiguration.SourceToken="VS1srctoken            "
+Media.Profiles.Profile2.VideoSourceConfiguration.Bounds.x=0
+Media.Profiles.Profile2.VideoSourceConfiguration.Bounds.y=0
+Media.Profiles.Profile2.VideoSourceConfiguration.Bounds.width=352
+Media.Profiles.Profile2.VideoSourceConfiguration.Bounds.height=240
+Media.Profiles.Profile2.VideoEncoderConfiguration.token="VE2token            "
+Media.Profiles.Profile2.VideoEncoderConfiguration.Name="VE2            "
+Media.Profiles.Profile2.VideoEncoderConfiguration.UseCount=1
+Media.Profiles.Profile2.VideoEncoderConfiguration.Encoding="MPEG4            "
+Media.Profiles.Profile2.VideoEncoderConfiguration.Resolution.Width=352
+Media.Profiles.Profile2.VideoEncoderConfiguration.Resolution.Height=240
+Media.Profiles.Profile2.VideoEncoderConfiguration.Quality=5
+Media.Profiles.Profile2.VideoEncoderConfiguration.RateControl.FrameRateLimit=30
+Media.Profiles.Profile2.VideoEncoderConfiguration.RateControl.EncodingInterval=1
+Media.Profiles.Profile2.VideoEncoderConfiguration.RateControl.BitrateLimit=1400
+Media.Profiles.Profile2.VideoEncoderConfiguration.MPEG4.GovLength=30
+Media.Profiles.Profile2.VideoEncoderConfiguration.MPEG4.Mpeg4Profile="SP            "
+Media.Profiles.Profile2.VideoEncoderConfiguration.H264.GovLength=30
+Media.Profiles.Profile2.VideoEncoderConfiguration.H264.H264Profile="Baseline            "
+Media.Profiles.Profile2.VideoEncoderConfiguration.Multicast.Address.Type="IPv4            "
+Media.Profiles.Profile2.VideoEncoderConfiguration.Multicast.Port=0
+Media.Profiles.Profile2.VideoEncoderConfiguration.Multicast.TTL=0
+Media.Profiles.Profile2.VideoEncoderConfiguration.Multicast.AutoStart="false            "
+Media.Profiles.Profile2.VideoEncoderConfiguration.SessionTimeout="P1Y            "
+Media.Profiles.Profile2.AudioSourceConfiguration.token="AS1token            "
+Media.Profiles.Profile2.AudioSourceConfiguration.Name="AS1            "
+Media.Profiles.Profile2.AudioSourceConfiguration.UseCount=1
+Media.Profiles.Profile2.AudioSourceConfiguration.SourceToken="AS1srctoken            "
+Media.Profiles.Profile2.AudioEncoderConfiguration.token="AE2token            "
+Media.Profiles.Profile2.AudioEncoderConfiguration.Name="AE2            "
+Media.Profiles.Profile2.AudioEncoderConfiguration.UseCount=1
+Media.Profiles.Profile2.AudioEncoderConfiguration.Encoding="G711            "
+Media.Profiles.Profile2.AudioEncoderConfiguration.Bitrate=8192
+Media.Profiles.Profile2.AudioEncoderConfiguration.SampleRate=8000
+Media.Profiles.Profile2.AudioEncoderConfiguration.Multicast.Address.Type="IPv4            "
+Media.Profiles.Profile2.AudioEncoderConfiguration.Multicast.Port=0
+Media.Profiles.Profile2.AudioEncoderConfiguration.Multicast.TTL=0
+Media.Profiles.Profile2.AudioEncoderConfiguration.Multicast.AutoStart="false            "
+Media.Profiles.Profile2.AudioEncoderConfiguration.SessionTimeout="P1Y            "
+Media.Profiles.Profile3.token="PROFILE-3            "
+Media.Profiles.Profile3.Name="PROFILE-3            "
+Media.Profiles.Profile3.VideoSourceConfiguration.token="VS1token            "
+Media.Profiles.Profile3.VideoSourceConfiguration.Name="VS1            "
+Media.Profiles.Profile3.VideoSourceConfiguration.UseCount=1
+Media.Profiles.Profile3.VideoSourceConfiguration.SourceToken="VS1srctoken            "
+Media.Profiles.Profile3.VideoSourceConfiguration.Bounds.x=0
+Media.Profiles.Profile3.VideoSourceConfiguration.Bounds.y=0
+Media.Profiles.Profile3.VideoSourceConfiguration.Bounds.width=352
+Media.Profiles.Profile3.VideoSourceConfiguration.Bounds.height=240
+Media.Profiles.Profile3.VideoEncoderConfiguration.token="VE3token            "
+Media.Profiles.Profile3.VideoEncoderConfiguration.Name="VE3            "
+Media.Profiles.Profile3.VideoEncoderConfiguration.UseCount=1
+Media.Profiles.Profile3.VideoEncoderConfiguration.Encoding="H264            "
+Media.Profiles.Profile3.VideoEncoderConfiguration.Resolution.Width=352
+Media.Profiles.Profile3.VideoEncoderConfiguration.Resolution.Height=240
+Media.Profiles.Profile3.VideoEncoderConfiguration.Quality=5
+Media.Profiles.Profile3.VideoEncoderConfiguration.RateControl.FrameRateLimit=30
+Media.Profiles.Profile3.VideoEncoderConfiguration.RateControl.EncodingInterval=1
+Media.Profiles.Profile3.VideoEncoderConfiguration.RateControl.BitrateLimit=1400
+Media.Profiles.Profile3.VideoEncoderConfiguration.MPEG4.GovLength=30
+Media.Profiles.Profile3.VideoEncoderConfiguration.MPEG4.Mpeg4Profile="SP            "
+Media.Profiles.Profile3.VideoEncoderConfiguration.H264.GovLength=30
+Media.Profiles.Profile3.VideoEncoderConfiguration.H264.H264Profile="Baseline            "
+Media.Profiles.Profile3.VideoEncoderConfiguration.Multicast.Address.Type="IPv4            "
+Media.Profiles.Profile3.VideoEncoderConfiguration.Multicast.Port=0
+Media.Profiles.Profile3.VideoEncoderConfiguration.Multicast.TTL=0
+Media.Profiles.Profile3.VideoEncoderConfiguration.Multicast.AutoStart="false            "
+Media.Profiles.Profile3.VideoEncoderConfiguration.SessionTimeout="P1Y            "
+Media.Profiles.Profile3.AudioSourceConfiguration.token="AS1token            "
+Media.Profiles.Profile3.AudioSourceConfiguration.Name="AS1            "
+Media.Profiles.Profile3.AudioSourceConfiguration.UseCount=1
+Media.Profiles.Profile3.AudioSourceConfiguration.SourceToken="AS1srctoken            "
+Media.Profiles.Profile3.AudioEncoderConfiguration.token="AE3token            "
+Media.Profiles.Profile3.AudioEncoderConfiguration.Name="AE3            "
+Media.Profiles.Profile3.AudioEncoderConfiguration.UseCount=1
+Media.Profiles.Profile3.AudioEncoderConfiguration.Encoding="G711            "
+Media.Profiles.Profile3.AudioEncoderConfiguration.Bitrate=8192
+Media.Profiles.Profile3.AudioEncoderConfiguration.SampleRate=8000
+Media.Profiles.Profile3.AudioEncoderConfiguration.Multicast.Address.Type="IPv4            "
+Media.Profiles.Profile3.AudioEncoderConfiguration.Multicast.Port=0
+Media.Profiles.Profile3.AudioEncoderConfiguration.Multicast.TTL=0
+Media.Profiles.Profile3.AudioEncoderConfiguration.Multicast.AutoStart="false            "
+Media.Profiles.Profile3.AudioEncoderConfiguration.SessionTimeout="P1Y            "
+
+Audio.Input.Volume.Max=10
+Audio.Input.Volume.Min=1
+Audio.Input.Volume.Value=5
+Audio.Input.Volume.Default=5
+Audio.Input.Mute=0
+Audio.Output.Volume.Max=10
+Audio.Output.Volume.Min=1
+Audio.Output.Volume.Value=5
+Audio.Output.Volume.Default=5
+Audio.Output.Mute=0
+
+GPS.Location="25.040076746689472,121.51211500167846            "
+GPS.Zoom=1
+GPS.GMapKey="ABQIAAAAm_S5faxhNvbQCPHzsJNBVxRfWanLLCphprUHhM3Ro32oaDF9qBTNLjWf0DY1IXIjA3zgEPBqfBgNhQ            "
+
+
+

@@ -1,0 +1,246 @@
+#define SET_IDENT(X)     ((u32) ((X) & 0xFF))
+
+/*--------------------------- trace levels--------------------------------*/
+
+#define LEVEL_0  ((u32) (0x00 << 8)) ///< Diagnose level 0 
+#define LEVEL_1  ((u32) (0x01 << 8)) ///< Diagnose level 1 
+#define LEVEL_2  ((u32) (0x02 << 8)) ///< Diagnose level 2 
+#define LEVEL_3  ((u32) (0x03 << 8)) ///< Diagnose level 3 
+#define LEVEL_4  ((u32) (0x04 << 8)) ///< Diagnose level 4 
+#define LEVEL_5  ((u32) (0x05 << 8)) ///< Diagnose level 5 
+#define LEVEL_6  ((u32) (0x06 << 8)) ///< Diagnose level 6 
+#define LEVEL_7  ((u32) (0x07 << 8)) ///< Diagnose level 7 
+#define LEVEL_8  ((u32) (0x08 << 8)) ///< Diagnose level 8 
+#define LEVEL_9  ((u32) (0x09 << 8)) ///< Diagnose level 9 
+#define LEVEL_10 ((u32) (0x0A << 8)) ///< Diagnose level 10
+#define LEVEL_11 ((u32) (0x0B << 8)) ///< Diagnose level 11
+#define LEVEL_12 ((u32) (0x0C << 8)) ///< Diagnose level 12
+#define LEVEL_13 ((u32) (0x0D << 8)) ///< Diagnose level 13
+#define LEVEL_14 ((u32) (0x0E << 8)) ///< Diagnose level 14
+#define LEVEL_15 ((u32) (0x0F << 8)) ///< Diagnose level 15
+#define LEVEL_16 ((u32) (0x10 << 8)) ///< Diagnose level 16
+#define LEVEL_17 ((u32) (0x11 << 8)) ///< Diagnose level 17
+#define LEVEL_18 ((u32) (0x12 << 8)) ///< Diagnose level 18
+#define LEVEL_19 ((u32) (0x13 << 8)) ///< Diagnose level 19
+#define LEVEL_20 ((u32) (0x14 << 8)) ///< Diagnose level 20
+#define LEVEL_21 ((u32) (0x15 << 8)) ///< Diagnose level 21
+#define LEVEL_22 ((u32) (0x16 << 8)) ///< Diagnose level 22
+#define LEVEL_23 ((u32) (0x17 << 8)) ///< Diagnose level 23
+#define LEVEL_24 ((u32) (0x18 << 8)) ///< Diagnose level 24
+#define LEVEL_25 ((u32) (0x19 << 8)) ///< Diagnose level 25
+#define LEVEL_26 ((u32) (0x1A << 8)) ///< Diagnose level 26
+#define LEVEL_27 ((u32) (0x1B << 8)) ///< Diagnose level 27
+#define LEVEL_28 ((u32) (0x1C << 8)) ///< Diagnose level 28
+#define LEVEL_29 ((u32) (0x1D << 8)) ///< Diagnose level 29
+#define LEVEL_30 ((u32) (0x1E << 8)) ///< Diagnose level 30
+#define LEVEL_31 ((u32) (0x1F << 8)) ///< Diagnose level 31
+
+#ifdef __G1__
+    // G1 variable base on 0x80000000. It will conflict with original RM string flag.
+    #define RM_STRING_FLAG        ((u32)0x40000000) /* this flag is set over ID issue from RM_STRING              */
+#else
+    #define RM_STRING_FLAG        ((u32)0x80000000) /* this flag is set over ID issue from RM_STRING              */
+#endif
+
+/*--------------------- source of trace and errors ---------------------*/
+
+/* diagstate of e2p stack */
+#define _L3RR1  SET_IDENT(0x00)
+#define _L3MM1  SET_IDENT(0x01)
+#define _L3CC1  SET_IDENT(0x02)
+#define _L3SS1  SET_IDENT(0x03)
+#define _L3SM1  SET_IDENT(0x04)
+#define _L3UT SET_IDENT(0x05)
+#define _LAPD1  SET_IDENT(0x06)
+#define _WTCH SET_IDENT(0x07)
+#define _SCEN SET_IDENT(0x07)   /* SCEN tese task          */
+#define _FMS  SET_IDENT(0x08)
+#define _E2P  _FMS
+#define _SIM  SET_IDENT(0x09)
+#define _HAP  SET_IDENT(0x0A)   /* HAPC                    */
+#define _DMP  SET_IDENT(0x0A)   /* same as HAPC            */
+
+#define _MMI  SET_IDENT(0x0D)   /* MMI                     */
+
+#define _SPV1   SET_IDENT(0x0F)   /* supervisor              */
+#define _MSR1   SET_IDENT(0x10)   /* measure task            */
+#define _DATA SET_IDENT(0x11)   /* DATA task               */
+#define _HAC  SET_IDENT(0x12)   /* entry /exit functions   */
+#define _UTC  SET_IDENT(0x13)   /* utilities               */
+#define _SEQ  SET_IDENT(0x14)   /* sequencer               */
+#define _L1C1   SET_IDENT(0x15)   /* l1c global              */
+#define _HWL  SET_IDENT(0x16)   /* hardware layer          */
+#define _RTK  SET_IDENT(0x17)   /* RTK                     */
+#define LAST_SUBPROCESS   0x17           /* Size of the array DiagState (in stack e2p), minus one !!!*/
+                                         /* Do not change */
+
+#define _SYS  SET_IDENT(0x1E)   /* system element */
+#define _IP1    SET_IDENT(0x1F)   /* IP */
+
+#define _MMK  SET_IDENT(0x0B)   /* MMK layer (KID/KAC/KIT) */
+#define _MMT1   SET_IDENT(0x0C)   /* MMT common APIs         */
+#define _ATI1   SET_IDENT(0x0E)   /* ATI & R&S Traces        */
+#define _L3GMM1 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x00))
+#define _L3SMG1 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x01))
+#define _SNDCP1 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x02))
+#define _LLC1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x03))
+#define _RLD1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x04))
+#define _RLU1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x05))
+#define _GRR1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x06))
+#define _PPS1   SET_IDENT ((GSM_LAST_SUBPROCESS + 0x07))
+#define _SPARE1 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x08))
+#define _SPARE2 SET_IDENT ((GSM_LAST_SUBPROCESS + 0x09))
+
+#define GPRS_LAST_SUBPROCESS 0x0a /* number of trace items, change if required */
+
+/* extended diagstate of e2p stack */
+#define _CUS1 SET_IDENT(0x18)   ///< Diagnose group customer 1
+#define _CUS2 SET_IDENT(0x19)   ///< Diagnose group customer 2
+#define _CUS3 SET_IDENT(0x1A)   ///< Diagnose group customer 3
+#define _CUS4 SET_IDENT(0x1B)   ///< Diagnose group customer 4
+#define _CUS5 SET_IDENT(0x1C)   ///< Diagnose group customer 5
+#define _CUS6 SET_IDENT(0x1D)   ///< Diagnose group customer 6
+
+
+#define EXTENDED_LAST_SUBPROCESS   0x8  /* Size of the array Extended_DiagState (in stack e2p) */
+                                         /* Do not change */
+#define GSM_LAST_SUBPROCESS  (LAST_SUBPROCESS + 1 + EXTENDED_LAST_SUBPROCESS)
+                                /* number of el of trace not dedicated for specific gprs purpose */
+
+#define _CUS7 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x00)   ///< Diagnose group customer 7
+#define _CUS8 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x01)   ///< Diagnose group customer 8
+#define _CUS9 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x02)   ///< Diagnose group customer 9
+#define _CUS11  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x09)   /* SPARE */
+#define _OBX  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x03)   /* OBEX */
+#define _DEV  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x04)   /* DEVICE : V24, USB, IRDA */
+#define _FCM  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x05)   /* FCM */
+#define _IOB  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x06)   /* IO, BUS, DAC, BAT, RTC */
+#define _MDL1    SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x07)   /* Middleware ATI, VML (old MMT) */
+#define _CUS10  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x08)   ///< Diagnose group customer 10
+#define _SPARE5  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x09)   /* SPARE */
+#define _SPARE6  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0A)   /* SPARE */
+
+
+
+#if 1 
+     /* No matter __MSTAR_DUAL_SIM__ is defined or not, we always define the
+       * following diagnose ID. The main reason is that dual-SIM L1C refer to
+       * these ID's too many times. As long as we are using dual-SIM L1C (in
+       * both dual-SIM and mono-SIM case), it does not make sense to wrap all of
+       * them in L1C.
+       */
+#define _SPV2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0B) /* 53 */
+#define _L1C2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0C)
+#define _MSR2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0D)
+#define _L3CC2 	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0E)   /* measure task  2          */
+#define _L3SS2 	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x0F)
+#define _L3SM2 	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x10)
+#define _MMT2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x11)
+#define _ATI2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x12)   /* MMT common APIs         */
+#define _MDL2  	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x13)   /* ATI & R&S Traces        */
+#define _L3GMM2 SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x14)
+#define _GRR2   SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x15)
+#define _CE     SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x16)
+#define _L3MM2  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x17)   
+#define _L3RR2  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x18)   
+#define _LAPD2  SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x19)
+
+/* Excluding GPRS part below*/
+/* temporary not used due to EEPROM not enough */
+#define _L3SMG2	SET_IDENT(GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1A)
+#define _SNDCP2 SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1B)
+#define _LLC2   SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1C)
+#define _RLD2   SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1D)
+#define _RLU2   SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1E)
+#define _PPS2  	SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x1F)
+#define _IP2    SET_IDENT (GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x20)
+
+#define DUAL_SIM_EXTENDED_LAST_SUBPROCESS 22 /* change this value if needed*/
+#endif
+
+
+#ifdef __UMTS__
+#define _URRC1  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x10))
+#define _URRC2  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x11))
+#define _URL    SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x12))
+#define _UMA    SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x13))
+#define _PDCP   SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x14))
+#define _BMC    SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x15))
+#define _UL1C   SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x16))
+#define UMTS_LAST_SUBPROCESS  0x07
+#else
+#define UMTS_LAST_SUBPROCESS 0
+#endif //#ifdef __UMTS__
+
+// For SDK trace level diagnose.
+#define SDK_LAST_SUBPROCESS 0x5 /* number of trace items, change if required */
+#define _SDK1  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x21))
+#define _SDK2  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x22))
+#define _SDK3  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x23))
+#define _SDK4  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x24))
+#define _SDK5  SET_IDENT ((GSM_LAST_SUBPROCESS + GPRS_LAST_SUBPROCESS + 0x25))
+
+#ifdef __DUPLICATE_TASK__
+#define _L3MM 	_L3MM2 
+#define _L3RR 	_L3RR2 
+#define _LAPD 	_LAPD2 
+#define _SPV  	_SPV2  
+#define _L1C  	_L1C2    
+#define _MSR  	_MSR2  
+#define _L3CC 	_L3CC2 
+#define _L3SS 	_L3SS2 
+#define _L3SM 	_L3SM2 
+#define _MMT  	_MMT2  
+#define _ATI    _ATI2  
+#define _MDL  	_MDL2  
+#define _L3GMM	_L3GMM2
+#define _GRR  	_GRR2  
+#define _L3SMG	_L3SMG2
+#define _SNDCP	_SNDCP2
+#define _LLC    _LLC2  
+#define _RLD  	_RLD2  
+#define _RLU  	_RLU2  
+#define _PPS  	_PPS2  
+#define _IP     _IP2   
+#else
+#define _L3MM 	_L3MM1 
+#define _L3RR 	_L3RR1 
+#define _LAPD 	_LAPD1 
+#define _SPV  	_SPV1  
+#define _L1C  	_L1C1    
+#define _MSR  	_MSR1  
+#define _L3CC 	_L3CC1 
+#define _L3SS 	_L3SS1 
+#define _L3SM 	_L3SM1 
+#define _MMT  	_MMT1  
+#define _ATI    _ATI1  
+#define _MDL  	_MDL1  
+#define _L3GMM	_L3GMM1
+#define _GRR  	_GRR1  
+#define _L3SMG	_L3SMG1
+#define _SNDCP	_SNDCP1
+#define _LLC    _LLC1  
+#define _RLD  	_RLD1  
+#define _RLU  	_RLU1  
+#define _PPS  	_PPS1  
+#define _IP     _IP1
+#endif
+
+
+
+#define FATAL		(u32) 0x00010000  ///< fatal error, stored in eeprom and causes reset
+#define STORE		(u32) 0x00020000  ///< to store in eeprom
+#define NO_STACK	(u32) 0x00040000  ///< to be copied
+#define WATCHDOG	(u32) 0x00080000  ///< watchdog to be extracted
+#define EXCEPTION	(u32) 0x00100000  ///< Exception Occured
+#define SEVERE		(u32) 0x00200000  ///< does ASSERT() in SDK simulation (note: uses 'spare' bits) 
+#define CLEAR		(u32) 0x00400000  ///< to clear all backtrace in eeprom 
+#define WARNING		(u32) 0x00800000  ///< warning message
+
+
+/* This function is aimed at trace managing, the result string will be visualised */
+/* by TMT : Target Monitoring Tool application                                    */
+s8 vm_dbgTrace(u32 level, char *strFormat, ...);
+
+/* If an fatal error is occurred, the function stores the error code              */
+s8 vm_dbgError(u32 level, char *strFormat, ...);                            

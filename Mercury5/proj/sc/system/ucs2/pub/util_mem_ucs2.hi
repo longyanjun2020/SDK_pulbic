@@ -1,0 +1,29 @@
+/****************************************************************************/
+/*  File    : util_mem_ucs2.hi                                                  */
+/*--------------------------------------------------------------------------*/
+/* Description: Standard Unicode related utility functions.                 */
+/*                                                                          */
+/*                                                                          */
+/****************************************************************************/
+
+#ifndef __SYS_UTIL_MEM_UCS2_HI__
+#define __SYS_UTIL_MEM_UCS2_HI__
+
+#include "vm_types.ht"
+
+#define _U(_S)          (L##_S)
+#define U16STR_WIDTH    (2)
+
+/******************************************************************/
+/*  Function:    sysUtil_UCS2StringDuplicate                      */
+/*-------------------------------------------------------------   */
+/*  Scope       : String copy utility function                    */
+/*                                                                */
+/*  Return      :  NULL or address                                */
+/*                                                                */
+/*  Interface   :                                                 */
+/*-------------------------------------------------------------   */
+/******************************************************************/
+u16 *sysUtil_UCS2StringDuplicate(const u16 *pstrSrc);
+
+#endif // #ifndef __SYS_UTIL_MEM_UCS2_HI__

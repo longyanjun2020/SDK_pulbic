@@ -1,0 +1,7 @@
+#ifndef __SYS_HO__
+#define __SYS_HO__
+
+#include "sys_sys.h"
+
+#endif // __SYS_HO__
+

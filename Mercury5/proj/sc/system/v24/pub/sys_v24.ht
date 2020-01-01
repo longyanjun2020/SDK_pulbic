@@ -1,0 +1,376 @@
+/**
+ * \file v24.ht
+ * \brief Types of the V.24 serial link handler
+*/
+#ifndef __SYS_V24_HT__
+#define __SYS_V24_HT__
+
+#include "drv_vm_io_types.h"
+#include "sys_v24.hm"
+
+//bitfields used within v24_SchedIdle array
+#define V24_RX_FIFO_SCHED_ASKED     (1 << 0)
+#define V24_RX_MSR_SCHED_ASKED      (1 << 1) // need to handle MSR change from IT UART
+#define V24_RX_AUTOBAUD_ASKED       (1 << 3) // need to restart autobaud 
+
+
+// Auto RTS/CTS implementation: 
+#define V24_RX_UART_FIFO_SCHED_ASKED       (1 << 4) // need to reread UART fifo
+
+//#define V24_RX_RTK_SCHED_ASKED     (V24_RX_MSR_SCHED_ASKED | V24_RX_FIFO_SCHED_ASKED)
+#define V24_RX_RTK_SCHED_ASKED     (V24_RX_MSR_SCHED_ASKED | V24_RX_FIFO_SCHED_ASKED | V24_RX_UART_FIFO_SCHED_ASKED)
+
+
+//bitfields used within v24_WakeUpDrivers array
+#define V24_TX_AT_SENDING_ASKED     (1 << 0) // need to call AT drivers 
+#define V24_TX_DATA_SENDING_ASKED   (1 << 1) // need to call DATA drivers 
+#define V24_TX_HAPC_SENDING_ASKED   (1 << 2) // need to call RM/HAPC drivers 
+#define V24_TX_TRANSPARENT_SENDING_ASKED  (1 << 3) // need to call TRANSPARENT mode 
+
+// release must also be available for virtual ports
+#define V24_TX_BLOCK_RELEASE_ASKED  (1 << 4) // need to call TX drivers block Release routines
+
+#define V24_TX_DRIVERS_SCHED_ASKED  ( V24_TX_AT_SENDING_ASKED | V24_TX_DATA_SENDING_ASKED | V24_TX_HAPC_SENDING_ASKED | V24_TX_TRANSPARENT_SENDING_ASKED | V24_TX_BLOCK_RELEASE_ASKED )
+
+
+
+
+#define V24_MSG_PENDING_NONE              0
+#define V24_MSG_PENDING_RX_RTK_SCHED     (1 << 0)
+#define V24_MSG_PENDING_TX_TRACES_SCHED  (1 << 1)
+#define V24_MSG_PENDING_TX_DRIVERS_SCHED (1 << 2)
+#define V24_MSG_PENDING_FC_SCHED         (1 << 3)
+#define V24_MSG_PENDING_TX_CMD_SCHED     (1 << 4)
+
+
+
+
+//
+// Size of interrupt receive buffer (buffer shared between idle-task V.24
+// and uart interrupts).
+// WARNING: when setting the receive interrupt buffer size higher 
+// than 256 (e.g. 512) make sure to either enlarge the receive data 
+// buffer or lower the flow control threshold of this buffer.
+// Indeed the maximum threshold works out at the length of the data 
+// buffer minus that of the interrupt buffer.
+// For instance, given a 512-byte interrupt buffer and a 1024-byte 
+// receive data buffer, the absolute maximum threshold is 512. 
+// A 384-byte threshold works fine.
+//
+#if defined(__V24_COMPOSITE_USB___)
+#define V24_RX_IT_BUF_LEN     2048   /* must be a power of 2 */
+#else
+#define V24_RX_IT_BUF_LEN     512   /* must be a power of 2 */
+#endif
+//#define V24_RX_IT_BUF_LEN     256   /* must be a power of 2 */
+//
+// If the amount of free room in the interrupt receive buffer drops
+// below the hereafter threshold (after reading out uart fifo under
+// interrupt) then flow control is invoked.
+// In theory the lowest safe value is 32 bytes (assuming PC's uart fifo
+// size is 16 bytes), however in practice overflows are experienced.
+// A 64-byte threshold allow us a sensible safety margin.
+//
+// APH: Auto RTS/CTS implementation : resize Fifo
+// when with Rx fifo depth of 56 trig, the threshold of 64 is
+// not enough and causes overruns on intermediate buffer
+#define V24_RX_IT_FC_THRES      256    /* no need to be a power of 2 */
+#define V24_RX_IT_FC_THRES_LOW (V24_RX_IT_FC_THRES + 128)
+
+//
+// Size of interrupt transmit buffer.
+// Note: this buffer is not a circular buffer, therefore the length can 
+// be of any value (no need to be a power of 2).
+//
+// 384 is the lowest length to use 128-byte frames in IRDA mode (remember
+// the transparency scheme can double the frame length plus the hundred of
+// 0xFFs to deal with the turn-around time of the PC led).
+// Should the IRDA frame length be cut back to 64 bytes, a buffer length
+// of 256 bytes is suitable.
+// 
+// >>> WARNING: WHEN SETTING THE TRANSMIT BUFFER SIZE HIGHER THAN 256, THE <<<
+// >>> LOGICAL DEFINE 'ByteIdx' IN V24_ARM.ASM MUST BE SET TO FALSE.       <<<
+#define MAX_TX_RM_BLOCK       256
+
+#define V24_TX_CHAR_BIT       (1 << 8)
+
+#ifdef __V24_SOFT_FC__
+#define V24_UART_SOFTFIFO_SIZE    V24_RX_IT_BUF_LEN
+#endif
+
+/*
+**----------------------------------------------------------------------------
+** Some type definitions according to hereabove defines.
+**----------------------------------------------------------------------------
+*/
+
+//
+// Despite indexes won't go beyond 65535 (!), it's much safer to use u32
+// (for instance writing an u16 is not an atomic operation since it is 
+// actually performed by two STRB's).
+//
+typedef u32 v24_RxItIdx_t;
+
+typedef enum
+{
+   V24_OFF,
+   V24_ON
+} 
+v24_Condition_t;
+
+typedef void (*v24_ReleaseDataBlockFunction_t) (u8* buffer, u32 Port);
+
+typedef enum 
+{
+  V24_AT_GENERIC_SEND,         // 0
+  V24_AT_ECHO_SEND,            //
+  V24_DATA_GENERIC_SEND,       //
+  V24_RM_GENERIC_SEND,         //
+  V24_MUX_GENERIC_SEND,        // should be used for header and tail in HAPC/MUX/RELAY/protocole
+  V24_RELAY_GENERIC_SEND,      // 5 should be used for header and tail in HAPC/MUX/RELAY/protocole
+  V24_NO_GENERIC_SEND,
+#if defined(__V24_COMPOSITE_USB___)
+  V24_RM_CMD_GENERIC_SEND,          
+#endif
+#ifdef __AUTOBAUD__
+  V24_DEFAULT_GENERIC_SEND,     //
+#endif
+  V24_NB_MAX_RELEASE_FUNCTION  //
+}
+v24_TxBlockReleaseFuncIndex_e;
+
+typedef enum 
+{
+  V24_BLOCK_AT,                // block created by at drivers
+  V24_BLOCK_AT_FINAL,          // new block type used for final AT response management
+  V24_BLOCK_DATA,              // block created by data drivers
+  V24_BLOCK_BT,
+  V24_BLOCK_RM                 // block created by RM drivers (already HAPC formatted)
+#if defined(__V24_COMPOSITE_USB___)
+  ,V24_BLOCK_RM_CMD            // block created by RM CMD drivers (already HAPC formatted)
+#endif  
+}
+v24_TxBlockType_e;
+
+typedef enum 
+{
+  V24_TX_BLOCK_FREE,
+  V24_TX_BLOCK_READY_TO_BE_FILLED,
+  V24_TX_BLOCK_READY_TO_BE_SENT,
+  V24_TX_BLOCK_BEING_SENT,
+  V24_TX_BLOCK_TO_BE_RELEASED
+}
+v24_TxBlockReleaseStatus_e;
+
+typedef enum
+{
+  V24_DIFFERED_SCHEDULING_FREE,         // Differed scheduling is not currently used
+  V24_DIFFERED_SCHEDULING_ASKING,       // Differed scheduling is required by UART Its
+  V24_DIFFERED_SCHEDULING_ASKED         // Differed scheduling has been Asked to RTK.
+}
+v24_DifferedSchedulingState_e;
+
+typedef struct 
+{
+  u32                        Port;     // APH: For release mechanism
+
+  u8                         *Data;
+  v24_TxBlockReleaseStatus_e *Status;
+
+  u16                        Len;
+  v24_TxBlockType_e          Type;
+}
+v24_TxPalUartBlock_t;
+
+typedef struct
+{
+  u32                             Port;        // A block belongs to a port
+  u8                              *DataTab[3]; // Pointer to the allocated buffer
+  u16                             LenTab[3];   // Len of the data to get
+  u16                             OffsetTab[3];// indicates the offset to apply on Data buffer to consume data.
+  v24_TxBlockReleaseStatus_e      Status[3];   // The data block status (is the data segment ready to be released or not)
+  v24_TxBlockReleaseFuncIndex_e   FuncIndex[3];
+  v24_TxBlockType_e               Type;        // Type is used in HAPC mode to decide the type of protocol to use (0xdd/0xaa)
+}
+v24_TxBlock_t;
+
+typedef enum
+{
+  TX_BLOCK_SEND_NOK,
+  TX_BLOCK_SEND_OK_NO_ROOM,
+  TX_BLOCK_SEND_OK,
+  TX_BLOCK_NOTHING_TO_SEND //is it useful ?
+}
+TxPal_status_e;
+
+typedef enum
+{
+  TX_NEXT_KIND_OF_AT_RSP  = 0,
+  TX_AT_BLOCK_SEND_NOK    = 1,
+  TX_AT_BLOCK_SEND_OK     = 2
+}
+TxAt_SendingStatus_e;
+
+//V24 upper layer give some data to send over ...
+typedef TxPal_status_e (* v24_TxThroughLayer_Ptr_t )(v24_TxBlock_t *BlockList); 
+
+//Physical Layer give received data from Physcial Layer to relay
+typedef v24_RxItIdx_t (* v24_RxThroughLayer_Ptr_t )( u8 *Buf, v24_RxItIdx_t PurgeIndex, v24_RxItIdx_t Length, u32  Port); 
+
+typedef struct
+{
+  u32 Port; 
+  u32 Arg;
+}
+v24_Request_t;
+
+
+typedef struct
+{
+  u32       Arg;
+  u32       Port;  
+
+  v24_Req_t Req;
+}
+v24_RequestQueueElem_t;
+
+
+typedef struct
+{
+  u8  Index;
+  u8  TimerId;                                          
+} 
+v24_TimerReq_t;
+
+
+typedef struct
+{
+  u32    Port;
+  const char* String;
+  u16    Len;
+
+  v24_AtRspClass_t Class;
+} 
+v24_AT_Request_t;
+
+
+// Metrology
+
+#define V24_ERR_FIFO_MAX        16
+#define V24_COUNT_REQ_MAX       16
+// OK
+#define V24_ERR_NONE            0
+
+// MEM errors
+#define V24_ERR_NULL_PTR        1
+#define V24_ERR_MEM_ALLOC       2
+#define V24_ERR_MEM_FREE        3
+
+// SYS errors
+#define V24_ERR_IO              4
+#define V24_ERR_IRQ             5
+
+// RANGE errors
+#define V24_ERR_INPUT_OVERF     6
+#define V24_ERR_CASE_DEFAULT    7
+
+// MECHANISM errors
+#define V24_ERR_INIT            8
+#define V24_ERR_REG_ALREADY     9
+#define V24_ERR_REG_NO_FREE     10
+#define V24_ERR_CTXT_NULL       11
+
+// TX BLOCK errors
+#define V24_ERR_TX_BCK_CREATE   12
+#define V24_ERR_TX_BCK_BUILD    13
+#define V24_ERR_TX_BCK_RELEASE  14
+#define V24_ERR_TX_BCK_UNKNOWN  15
+
+// QUEUE errors
+#define V24_ERR_QUEUE_PAL_FULL  16
+ 
+// REQ errors
+#define V24_REQ_UNKNOWN         17
+
+// HAPC
+#define V24_ERR_HAPC_LENGTH     18
+
+// UART errors
+#define V24_ERR_UART_OVERRUNS   19
+#define V24_ERR_UART_BUF_OVERF  20
+
+#define V24_ERR_ID_MAX          21
+
+
+#define V24_ERR_FILE_ID_UART    1
+#define V24_ERR_FILE_ID_PAL     2
+#define V24_ERR_FILE_ID_REL     3
+#define V24_ERR_FILE_ID_MUX     4
+#define V24_ERR_FILE_ID_HAPC    5
+#define V24_ERR_FILE_ID_HUB     6
+#define V24_ERR_FILE_ID_AT      7
+#define V24_ERR_FILE_ID_DATA    8
+#define V24_ERR_FILE_ID_UTIL    9
+#define V24_ERR_FILE_ID_REQ     10
+#define V24_ERR_FILE_ID_TASK    11
+
+
+#define V24_COUNT_NONE               0
+#define V24_COUNT_TASK_MBX           1
+#define V24_COUNT_TASK_POLLRXTX      2
+#define V24_COUNT_TASK_TIMER         3
+#define V24_COUNT_MSG_RECEIVED       4
+#define V24_COUNT_TASK_EVENT         5
+#define V24_COUNT_REQ                6
+#define V24_COUNT_NO_REQ             7
+#define V24_COUNT_CREATE_BCK         8
+#define V24_COUNT_RELEASE_BCK        9
+#define V24_COUNT_ISR1               10
+#define V24_COUNT_ISR2               11
+#define V24_COUNT_TX_TRSP1           12
+#define V24_COUNT_TX_TRSP2           13
+#define V24_COUNT_RX_TRSP1           14
+
+#define V24_COUNT_SENT_MSG           15
+#define V24_COUNT_QUEUE_MSG          16
+#define V24_COUNT_QUEUE              17
+#define V24_COUNT_DEQUEUE            18
+#define V24_COUNT_QUEUE_DIRECT       19
+#define V24_COUNT_QUEUE_DIFFERED     20
+
+#define V24_COUNT_ID_MAX             21
+
+#ifdef __V24_DEBUG__
+
+typedef struct
+{
+  u8  CurrentErrorId;
+  u32 NbTotalErrorCount;
+  u32 LastErrorCode[V24_ERR_FIFO_MAX];
+  u32 LastFileId[V24_ERR_FIFO_MAX];
+  u32 NbErrorCount[V24_ERR_ID_MAX];
+
+  u32 NbMiscCounters[V24_COUNT_ID_MAX];
+
+  u8  CurrentReqId;
+  u32 LastRequestCode[V24_COUNT_REQ_MAX];
+  u32 LastArg[V24_COUNT_REQ_MAX];
+  u32 LastPort[V24_COUNT_REQ_MAX];
+
+  u32 NbTotalReqCount;
+
+} v24_Metrology_t;
+
+
+#endif //  __V24_DEBUG__
+
+/* signals*/
+
+typedef void  (* v24_CtrlSigTxSet_t)    ( void*, bool );
+typedef void  (* v24_CtrlOtherTxSet_t)  ( void*, u32, u32 );
+typedef u32   (* v24_CtrlSigGet_t)      ( void*, u32 ,u32 );
+typedef bool  (* v24_CtrlSigRxGet_t)    ( void* );
+typedef void  (* v24_CtrlSigTxHandle_t) ( void* );
+
+#endif /* __SYS_V24_HT__ */
+

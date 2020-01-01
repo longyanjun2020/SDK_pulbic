@@ -1,0 +1,12 @@
+(E-1) : StartGenE2p : The name of the E2prom structure file to analyze is unknow
+(E-2) : gen_e2p : StartGensql failed
+gene2p : Fin   06/12/117 15:11:06
+gene2p error: <1> StartGenE2p : The name of the E2prom structure file to analyze is unknow
+gene2p error: <2> gene2p : StartGensql failed
+gene2p : Fin   06/12/117 15:11:52
+gene2p error: <1> StartGenE2p : The name of the E2prom structure file to analyze is unknow
+gene2p error: <2> gene2p : StartGensql failed
+gene2p : Fin   06/12/117 15:29:25
+gene2p error: <1> StartGenE2p : The name of the E2prom structure file to analyze is unknow
+gene2p error: <2> gene2p : StartGensql failed
+gene2p : Fin   06/12/117 15:30:23

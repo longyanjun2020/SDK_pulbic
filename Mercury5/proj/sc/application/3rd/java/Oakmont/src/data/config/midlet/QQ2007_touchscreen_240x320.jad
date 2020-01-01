@@ -1,0 +1,16 @@
+MIDlet-Jar-Size: 521921
+MIDlet-Jar-URL: QQ2007_touchscreen_240x320.jar
+Manifest-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MIDlet-Name: 手机QQ2007
+MIDlet-Info-URL: http://3g.qq.com
+MIDlet-Icon: /icon.png
+MIDlet-Permissions-Opt: javax.wireless.messaging.sms.send,javax.microedition.io.Connector.sms,javax.microedition.media.control.RecordControl,javax.microedition.media.control.VideoControl.getSnapshot
+MIDlet-Permissions: javax.microedition.io.Connector.socket,javax.microedition.io.Connector.http
+MIDlet-Vendor: Tencent
+MIDlet-1: 手机QQ2007,/icon.png,com.tencent.kqq2006.ui.MainMIDlet
+MIDlet-Version: 20.01.5
+MicroEdition-Profile: MIDP-2.0
+
+
+

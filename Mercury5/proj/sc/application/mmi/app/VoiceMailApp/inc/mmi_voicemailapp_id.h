@@ -1,0 +1,5 @@
+typedef enum
+{
+	VOICEMAIL_WND_SETNUMBER = WND_ID_APP_BASE,
+    VOICEMAIL_WND_SELECTSIM
+} VoiceMailWndId_e;

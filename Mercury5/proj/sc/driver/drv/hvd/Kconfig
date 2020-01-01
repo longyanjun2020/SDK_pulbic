@@ -1,0 +1,8 @@
+config DRV_HVD
+
+tristate "HVD"
+default n
+
+---help---
+Enable compilation option for driver HVD
+

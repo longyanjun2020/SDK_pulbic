@@ -1,0 +1,30 @@
+/****************************************************************************/
+/*  $Workfile::   e2p_defs.hi                                             $ */
+/*--------------------------------------------------------------------------*/
+/*  Scope   :  Flash Memory Services                                        */
+/*                         Backwards compatibility with E2P                 */
+/*  Contents:                                                               */
+/****************************************************************************/
+
+
+#ifndef _e13c1a7dbc13ac3882bfc0f0ad014cf3_included_e2p_defs_hi
+#define _e13c1a7dbc13ac3882bfc0f0ad014cf3_included_e2p_defs_hi
+
+#include "e2p_stck.ho"
+#ifdef __MCP_WITHOUT_NOR__
+#include "e2p_fs.h"
+#endif // __MCP_WITHOUT_NOR__
+
+#ifndef __MCP_WITHOUT_NOR__
+#define e2p_Read               fms_E2pRead
+#define e2p_Write              fms_E2pWrite
+#else // __MCP_WITHOUT_NOR__
+#define e2p_Read               e2p_fs_Read
+#define e2p_Write              e2p_fs_Write
+#endif // __MCP_WITHOUT_NOR__
+
+#include "fms.hi"
+
+
+#endif /* ! _e13c1a7dbc13ac3882bfc0f0ad014cf3_included_e2p_defs_hi */
+

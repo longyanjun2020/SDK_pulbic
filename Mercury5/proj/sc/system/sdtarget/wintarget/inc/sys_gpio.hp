@@ -1,0 +1,103 @@
+/*
+**  Important : This software is protected by Copyright and the information
+**              contained herein is confidential. Distribution, reproduction
+**              as well as exploitation and transmission of its contents is
+**              not allowed except if expressly permitted. Infringments
+**              result in damage claims.
+**              Copyright Wavecom S.A. (c) 1996, 1997, 1998, 1999
+*/
+
+/****************************************************************************/
+/*  File    : SYS_GPIO.HP                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Macro and function for GPIO management                        */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Modification                                         */
+/*----------+--------+------------------------------------------------------*/
+/* 12.12.98 |   PGU  | Creation                                             */
+/*----------+--------+------------------------------------------------------*/
+/* 14.04.99 |   ADA  | One C adaptation.                                    */
+/*----------+--------+------------------------------------------------------*/
+/* 5.10.99  |   ADA  | Invert USEL0_GPO_0 and USEL0_RAM_UP_CSN value.       */
+/*----------+--------+------------------------------------------------------*/
+/* 05.04.02 |   MTH  | WHAT2 adaptation                                     */
+/****************************************************************************/
+
+#ifndef __SYS_GPIO_HP__
+#define __SYS_GPIO_HP__
+
+
+#define NO_GPIO         31 /* 31 GPIO/GPO on What2 (0..30) so NO_GPIO=32 (in 1<<NO_GPIO) is out of GPIO registers */
+#define MAX_FREE_IO     17 
+
+
+void sys_UpGpio       ( u8 NoGpio );    /* set output           */
+void sys_DwnGpio      ( u8 NoGpio );    /* reset output         */
+u8   sys_AcqGpio      ( u8 NoGpio );    /* acquire value        */
+u8   sys_FreeioToGpio ( u8 IoNumber );  /* translate IO number to GPIO  */
+
+/* Defines for Gpio Multiplex register. */
+#define SET_GPIO_MUX1(Value) OGpio -> Mux1 = Value;
+#define SET_GPIO_MUX2(Value) OGpio -> Mux2 = Value;
+#define SET_GPIO_MUX3(Value) OGpio -> Mux3 = Value;
+
+/* Macro to initialize Gpio Direction register. */
+#define SET_GPIO_DIR(Value) OGpio -> Direction = Value;
+
+/* Macro to initialize Gpio and Gpo Data register. */
+#define SET_GPIO_DATA(Value) OGpio -> Data = Value;
+
+/* Number of define only for gpio purpose. */
+
+#define PULSE(NoBit)                                          \
+{                                                             \
+ OGpio->Direction  &= (~(1 << NoBit));                         \
+ OGpio->Data |= (1 << NoBit);                                  \
+ OGpio->Data &= (~(1 << NoBit));                               \
+}
+
+/* Set an output GPIO to 1. */
+
+#define FUP_GPIO(NoBit)                                       \
+{                                                            \
+ OGpio->Data |= (1 << NoBit);                                 \
+}
+
+#define UP_GPIO(NoBit)                                       \
+{                                                            \
+ OGpio->Direction  &= (~(1 << NoBit));                        \
+ OGpio->Data |= (1 << NoBit);                                 \
+}
+
+/* Set an output GPIO to 0. */
+
+#define FDWN_GPIO(NoBit)                                      \
+{                                                            \
+ OGpio->Data &= (~(1 << NoBit));                              \
+}
+
+#define DWN_GPIO(NoBit)                                      \
+{                                                            \
+ OGpio->Direction  &= (~(1 << NoBit));                        \
+ OGpio->Data &= (~(1 << NoBit));                              \
+}
+
+/* Read the state of an input GPIO. */
+#define FACQ_GPIO(NoBit) ((OGpio->Data >> NoBit) & 0x01)
+
+
+/* Read the state of a GPIO. */
+#define ACQ_GPIO(NoBit, State)                           \
+{                                                        \
+ OGpio->Direction  |= ((1 << NoBit));                     \
+ State = ((OGpio->Data >> NoBit) & 0x01);                  \
+}
+
+
+
+#endif /* __SYS_GPIO_HP__ */

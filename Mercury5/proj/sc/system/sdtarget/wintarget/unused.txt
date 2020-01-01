@@ -1,0 +1,338 @@
+;#<FEEDBACK># ARM Linker, RVCT2.2 [Build 616]: Last Updated: Tue Jul 17 15:49:47 2012
+;VERSION 0.2
+;FILE adler32.o
+;FILE arm_misc.o
+init_gpr_reset <= USED 0
+linux_config <= USED 0
+gotoIram <= USED 0
+emi_test_code <= USED 0
+;FILE crc32.o
+get_crc_table <= USED 0
+;FILE dev_nor.o
+dev_nor_read_sectors <= USED 0
+dev_nor_format <= USED 0
+;FILE drvNAND_ftl.o
+nand_dump_FMap <= USED 0
+nand_SaveEraseCounter <= USED 0
+nand_Wear_Leveling <= USED 0
+nand_Wear_Leveling1 <= USED 0
+nand_LUT_Test <= USED 0
+;FILE drvNAND_hal.o
+NC_GetECCBits <= USED 0
+NC_WaitComplete_RM <= USED 0
+NC_ReadSector_RIUMode <= USED 0
+NC_WritePage_RIUMode <= USED 0
+NC_Read_RandomIn <= USED 0
+NC_Write_RandomOut <= USED 0
+;FILE drvNAND_platform.o
+nand_set_WatchDog <= USED 0
+drvNAND_init_sem <= USED 0
+drvNAND_SetAssertPBA <= USED 0
+;FILE drvNAND_prg.o
+drvNAND_WriteMiuParam <= USED 0
+drvNAND_LoadMiuParam <= USED 0
+drvNAND_EraseMiuParam <= USED 0
+drvNAND_GetMiuParamCapacity <= USED 0
+drvNAND_LoadOS_Cb <= USED 0
+drvNAND_GetE2P0Capacity <= USED 0
+drvNAND_GetE2P1Capacity <= USED 0
+drvNAND_IfHiddenFATExist <= USED 0
+drvNAND_WriteNVRAM0 <= USED 0
+drvNAND_ReadNVRAM0 <= USED 0
+drvNAND_GetNVRAM0Capacity <= USED 0
+drvNAND_WriteNVRAM1 <= USED 0
+drvNAND_ReadNVRAM1 <= USED 0
+drvNAND_GetNVRAM1Capacity <= USED 0
+drvNAND_FormatFTL <= USED 0
+drvNAND_FlushAll <= USED 0
+drvNAND_WearLeveling <= USED 0
+drvNAND_WearLeveling1 <= USED 0
+drvNAND_WL_SaveECnt <= USED 0
+drvNAND_GetPhyCapacity <= USED 0
+drvNAND_EraseAllPhyBlk <= USED 0
+drvNAND_EraseAllGoodPhyBlk <= USED 0
+drvNAND_ResetNandFlash <= USED 0
+;FILE drvNAND_utl.o
+dump_general_blk_info <= USED 0
+dump_miu_records <= USED 0
+dump_miu_part <= USED 0
+dump_nand_driver <= USED 0
+drvNAND_IsFreeBlk <= USED 0
+drvNAND_FindFreePage <= USED 0
+drvNAND_MoveBlkData <= USED 0
+drvNAND_ReadPhyPage <= USED 0
+drvNAND_WritePhyPage <= USED 0
+;FILE drvUSBDwld_dummy.o
+usbIsr <= USED 0
+MDrv_USB_Init <= USED 0
+MDrv_USB_Stop <= USED 0
+MDrv_USB_Write <= USED 0
+MDrv_USB_Read <= USED 0
+MDrv_USB_Config <= USED 0
+MDrv_USB_Flush <= USED 0
+MDrv_USB_Clean <= USED 0
+MDrv_USB_CmdLoop <= USED 0
+MDrv_USB_ResetDwldState <= USED 0
+MDrv_USB_IsDwldEnd <= USED 0
+MDrv_USB_IsUpldEnd <= USED 0
+MDrv_USB_UpdateVendCmdBuf <= USED 0
+MDrv_USB_UpdateScsiCmdBuf <= USED 0
+MDrv_USB_TouchLoopLocked <= USED 0
+MDrv_USB_Polling <= USED 0
+;FILE drv_backlight.o
+;FILE drv_io_chip.o
+DrvIoChipSetDirOutputGpio <= USED 0
+DrvIoChipUpGpio <= USED 0
+DrvIoChipDwnGpio <= USED 0
+DrvIoChipPwmCtrl <= USED 0
+;FILE drv_lcd.o
+DrvLcdWriteCmdSeq <= USED 0
+DrvDispStartWriteLCD <= USED 0
+DrvDispEndWriteLCD <= USED 0
+DrvDispPowerOn <= USED 0
+;FILE drv_lcd_table.o
+;FILE drv_serial_flash.o
+DrvSerialFlashClose <= USED 0
+DrvSerialFlashRead <= USED 0
+DrvSerialFlashSectorErase <= USED 0
+DrvSerialFlashGetMXICSecStatus <= USED 0
+;FILE dwl_ad.o
+;FILE dwl_binary.o
+dwl_GetAllBinaries <= USED 0
+dwl_pre_erase <= USED 0
+;FILE dwl_binary_fms.o
+;FILE dwl_cis.o
+CheckifPartitionInfoChange <= USED 0
+;FILE dwl_config.o
+dwl_GetBinaryDescriptors_phase2 <= USED 0
+dwl_SendStatusToPc <= USED 0
+;FILE dwl_cusfiles.o
+;FILE dwl_cusfiles_actions.o
+;FILE dwl_dump_log.o
+test_USB <= USED 0
+;FILE dwl_eeprom.o
+;FILE dwl_erase.o
+;FILE dwl_fileconfig.o
+;FILE dwl_fms.o
+fms_getFileName <= USED 0
+fms_getCurrStat <= USED 0
+fms_setCurrStat <= USED 0
+;FILE dwl_frame.o
+;FILE dwl_fsdrv.o
+;FILE dwl_gpframe.o
+;FILE dwl_medium.o
+;FILE dwl_nand.o
+;FILE dwl_nand_boot.o
+;FILE dwl_nand_upload.o
+;FILE dwl_param.o
+;FILE dwl_patch.o
+;FILE dwl_port.o
+dwl_recvPacket_nonBlock <= USED 0
+;FILE dwl_prg.o
+dwl_listen_mode <= USED 0
+wintarget1_main <= USED 0
+;FILE dwl_resync.o
+;FILE dwl_rtc.o
+;FILE dwl_synchro.o
+dwl_WaitComplete <= USED 0
+dwl_ResyncWaitComplete <= USED 0
+;FILE dwl_upload.o
+;FILE dwl_version.o
+;FILE fatfs.o
+;FILE fms_ad.o
+fms_AdShutdownVolume <= USED 0
+fms_AdNeedsCompaction <= USED 0
+fms_AdVolumeState <= USED 0
+fms_AdResume <= USED 0
+fms_AdRetrieve <= USED 0
+fms_AdStats <= USED 0
+fms_AdDelete <= USED 0
+fms_AdFormat <= USED 0
+fms_AdVolumeIoControl <= USED 0
+fms_AdFormat2 <= USED 0
+;FILE fms_bin.o
+fms_BinDestroy <= USED 0
+fms_BinCreate <= USED 0
+fms_BinFinalize <= USED 0
+;FILE fms_buf.o
+;FILE fms_core.o
+fms_RegionLowerBound <= USED 0
+fms_EraseEx <= USED 0
+fms_SetProtectEx <= USED 0
+fms_CoreDenyErasure <= USED 0
+fms_CoreAllowErasure <= USED 0
+;FILE fms_core_detect.o
+;FILE fms_core_util.o
+fms_GetHardwareId <= USED 0
+fms_ConfigureBurstMode <= USED 0
+;FILE fms_e2p_cache.o
+fms_E2pCacheGetPtr <= USED 0
+;FILE fms_e2p_init.o
+;FILE fms_e2p_itf.o
+fms_E2pResetBanks <= USED 0
+fms_E2pReadMirror <= USED 0
+;FILE fms_e2p_m18.o
+;FILE fms_e2p_main.o
+fms_E2pControlModeTest <= USED 0
+;FILE fms_e2p_mirror.o
+;FILE fms_e2p_sector.o
+;FILE fms_flat.o
+fms_FlatUpdate <= USED 0
+fms_FlatResume <= USED 0
+fms_FlatDelete <= USED 0
+fms_FlatStats <= USED 0
+fms_FlatCreateJournal <= USED 0
+fms_FlatQueryForMoveRecord <= USED 0
+fms_FlatMoveRecord <= USED 0
+fms_FlatFormatVolumeEx <= USED 0
+;FILE fms_flat_ctx.o
+fms_FlatJournalGetState <= USED 0
+fms_FlatJournalStoreContext <= USED 0
+;FILE fms_flat_repack.o
+fms_FlatRecompactInit <= USED 0
+fms_FlatRecompactProgress <= USED 0
+;FILE fms_lowl.o
+fms_Macronix_Program <= USED 0
+fms_Macronix_Buffer_Program <= USED 0
+fms_Samsung_2833_Program <= USED 0
+wlld_StatusRegReadCmd <= USED 0
+lld_WriteBufferAbortResetCmd <= USED 0
+fms_Amd_ExtendedCmd <= USED 0
+fms_St_SetProtect <= USED 0
+fms_St_AmdExtendedCmd <= USED 0
+fms_Micron_SetProtect <= USED 0
+fms_STM38WR_Extended <= USED 0
+NumonyxM18Test <= USED 0
+;FILE fms_lowl_dsc.o
+;FILE fms_m18.o
+;FILE fms_map.o
+fms_MapLocateCode1 <= USED 0
+fms_MapPurgeArea <= USED 0
+fms_MapTailorCustomization <= USED 0
+;FILE fms_map_common.o
+fms_DeallocateArea <= USED 0
+;FILE fms_panic.o
+fms_Panic <= USED 0
+;FILE fms_rai_hash.o
+frai_hash_remove <= USED 0
+fms_rai_find_init <= USED 0
+fms_rai_find_next <= USED 0
+fms_rai_find_close <= USED 0
+;FILE fms_rai_items.o
+frai_gc_duplicate <= USED 0
+fms_rai_info <= USED 0
+fms_rai_read <= USED 0
+fms_rai_delete <= USED 0
+fms_rai_stats <= USED 0
+;FILE fms_rai_store.o
+frai_recycle <= USED 0
+fms_rai_gc_init <= USED 0
+fms_rai_gc <= USED 0
+;FILE fms_trace.o
+fms_TrcAddEntry <= USED 0
+fms_TrcWriteEntry <= USED 0
+fms_TrcFinalizeEntry <= USED 0
+fms_TrcFindInit <= USED 0
+fms_TrcFindNextEntry <= USED 0
+fms_TrcQueryEntry <= USED 0
+fms_TrcStats <= USED 0
+fms_TrcEraseAll <= USED 0
+;FILE hal_aux_led.o
+HalAuxWLedOutputEnable <= USED 0
+HalAuxWLedCurrentControl <= USED 0
+HalAuxWLedGpoEnable <= USED 0
+HalAuxWLedGpoOutputControl <= USED 0
+HalAuxWLedFastSync <= USED 0
+HalAuxWLedExtPwm <= USED 0
+;FILE hal_bus_qspi.o
+;FILE hal_disp.o
+;FILE hal_gpd.o
+HalGpdWLedGpoToggle <= USED 0
+HalGpdSetWLedCurrent <= USED 0
+;FILE hal_io_chip.o
+Hal_IoChipGetPwmNumber <= USED 0
+HalIoChipPWMSetting <= USED 0
+;FILE infblock.o
+inflate_set_dictionary <= USED 0
+inflate_blocks_sync_point <= USED 0
+;FILE infcodes.o
+;FILE inffast.o
+;FILE inflate.o
+inflateSetDictionary <= USED 0
+inflateSync <= USED 0
+inflateSyncPoint <= USED 0
+;FILE inftrees.o
+;FILE infutil.o
+;FILE mcp_drv.o
+;FILE miscdata.o
+sys_touch_miscdata <= USED 0
+;FILE sys_arm.o
+hal_enable_interrupts <= USED 0
+hal_icache_enable <= USED 0
+hal_itcm_enable <= USED 0
+hal_itcm_disable <= USED 0
+hal_ttb_config <= USED 0
+hal_domainaccess_config <= USED 0
+hal_is_irq_disabled <= USED 0
+;FILE sys_asura.o
+sys_AsuraClose <= USED 0
+;FILE sys_cfg.o
+sys_MIU2PHYAddr <= USED 0
+;FILE sys_didr.o
+HalEmiGpioPatch <= USED 0
+;FILE sys_mem.o
+;FILE sys_misc.o
+hal_IRQ_handler <= USED 0
+hal_spurious_IRQ <= USED 0
+hal_interrupt_detach <= USED 0
+hal_interrupt_configure <= USED 0
+hal_interrupt_ack <= USED 0
+sys_get_bootMode <= USED 0
+sys_get_tmpBuf <= USED 0
+sys_get_ArmSpeedTestOpt <= USED 0
+sys_trap_ArmSpeedTest <= USED 0
+sys_checkMem0Image <= USED 0
+sys_isDwldKeyPressed <= USED 0
+sys_vddioPwrCtrl2V8 <= USED 0
+sys_asicSimStep <= USED 0
+_8533_emiDMC_memInit <= USED 0
+sys_emiDMC_memInit <= USED 0
+sys_emiDMC_getFreq <= USED 0
+sys_emiDMC_phaseMargin <= USED 0
+sys_emiSMC_memInit <= USED 0
+;FILE sys_mmuapi.o
+hal_mmu_pageTbl_init <= USED 0
+hal_mmu_pageTbl_attach <= USED 0
+hal_mmu_init <= USED 0
+;FILE sys_periph.o
+sys_pmuLDOCtrl <= USED 0
+;FILE timer.o
+MDrv_SysTimer_Init <= USED 0
+MDrv_isWatchDogRst <= USED 0
+MDrv_OSTick2_Init <= USED 0
+;FILE uart.o
+MDrv_ConsoleUart_Close <= USED 0
+MDrv_ConsoleUart_BreakConfig <= USED 0
+MDrv_ConsoleUart_Write <= USED 0
+MDrv_ConsoleUart_Read <= USED 0
+MDrv_ConsoleUart_Flush <= USED 0
+MDrv_ConsoleUart_Clean <= USED 0
+ConsoleUart_Handler <= USED 0
+MDrv_DebugUart_Close <= USED 0
+;FILE usbisr_ram_dummy.o
+MDrv_USB_Init_win <= USED 0
+USB_Parse_DRC_INTRUSB_win <= USED 0
+USB_Parse_DRC_Int_win <= USED 0
+USB_DRC_Interrupt_win <= USED 0
+FnVendor_XROM_Command_win <= USED 0
+FnVendor_Cmds_win <= USED 0
+Clear_TestUnitReady_Flag <= USED 0
+Get_TestUnitReady_Flag <= USED 0
+Get_BusResetInMSDFNCMDloop_Flag <= USED 0
+MSDFNCMDloop_win <= USED 0
+MDrv_USB_CmdLoop_win <= USED 0
+;FILE utility.o
+sys_cal_period <= USED 0
+;FILE zutil.o
+zlibVersion <= USED 0
+zError <= USED 0

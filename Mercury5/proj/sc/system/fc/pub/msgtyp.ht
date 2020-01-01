@@ -1,0 +1,114 @@
+/**
+ * \file msgtyp.ht
+ * \brief GSM project message structure definition
+ */
+
+#ifndef __MSGTYP_HT__
+#define __MSGTYP_HT__
+
+
+#include "stdcomp.h"
+
+
+/**
+ * \brief =========================================================================
+ * MESSAGE STRUCTURE DEFINITION
+ * #ifdef WW_PLM
+ * length              | Length    |
+ * Sender              | MbxSrc    |
+ * Receiver            | MbxDst    |
+ * type                | MsgTyp    |
+ * #else
+ * Receiver            | MbxSrc    |
+ * Sender              | MbxDst    |
+ * length              | Length    |
+ * type                | MsgTyp    |
+ * #endif
+ * Specific area       | Specif    |
+ * |     .     |
+ * |     .     |
+ * Layer3 message      | MsgL3     |
+ * |     .     |
+ * |     .     |
+ * |     .     |
+ * |     .     |
+ * =========================================================================
+*/
+
+
+
+#define MAX_SPECIF          16          /* Specific params max len          */
+#define MAX_MSG_L3         249          /* Layer3 message max len           */
+#define MAX_HEADL3           2          /* Layer3 message header len        */
+                         
+
+typedef u8 Specif_t [ MAX_SPECIF ];
+typedef u8 MsgL3_t  [ MAX_MSG_L3 ];
+typedef u8 HeadL3_t [ MAX_HEADL3 ];
+
+
+/**
+ * \brief Primitives structure
+*/
+#ifdef WW_PLM
+typedef struct
+{
+    u16     Length;
+    u8      MbxSrc;
+    u8      MbxDst;
+    u16     TypMsg;
+} Header_t;
+#else
+typedef struct
+{
+    u8      MbxSrc;
+    u8      ModuleID;
+    u16     MbxDst;
+    s16     Length;
+    u16     TypMsg;
+} Header_t;
+#endif
+
+/**
+ * \brief Layer3 GSM messages header
+*/
+
+/**
+ * \brief not compiled in remote tasks in order to avoid some warnings
+ */
+typedef struct
+{
+#ifndef __REVERSE_BIT_FIELD__
+
+    u8      PD:4;                /* PD    Protocol Discriminator         */
+    u8      TI:4;                /* TI    Transaction Identifier         */
+    u8      MT:6;                /* MT    Message Type                   */
+    u8      SN:1;                /* N(SD) Send sequence number           */
+    u8      spare:1;             /*       Spare bit set to 0             */
+
+#else
+
+    u8      TI:4;                /* TI    Transaction Identifier         */
+    u8      PD:4;                /* PD    Protocol Discriminator         */
+    u8      spare:1;             /*       Spare bit set to 0             */
+    u8      SN:1;                /* N(SD) Send sequence number           */
+    u8      MT:6;                /* MT    Message Type                   */
+
+#endif  /* __REVERSE_BIT_FIELD__ */
+
+} HeaderL3_t;
+
+
+
+typedef struct
+{
+   Specif_t   Specif;            /* Specific area for data exchange      */
+   HeaderL3_t MsgL3;             /* L3 message standard header (04.08)   */
+
+} InterLayer_t;
+
+
+
+#endif  /* __MSGTYP_HT__ */
+
+

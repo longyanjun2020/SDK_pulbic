@@ -1,0 +1,83 @@
+/****************************************************************************/
+/*  File    : mmt_sign.hi                                                   */
+/*--------------------------------------------------------------------------*/
+/*  Scope   : Prototypes of lock parameters encryption functions.           */
+/*                                                                          */
+/*  Contents:                                                               */
+/*                                                                          */
+/*  Historical :                                                            */
+/*--------------------------------------------------------------------------*/
+/*   Date   | Author | Err  |  Modification                                 */
+/*----------+--------+------+-----------------------------------------------*/
+/* 07.09.00 |SBA/YSI |      |  1.0.0 Creation                               */
+/*----------+--------+------+-----------------------------------------------*/
+
+
+#ifndef __MMT_SIGN_HI__
+#define __MMT_SIGN_HI__
+
+/****************************************************************************/
+/*  Function  : mmt_GetParamSignature( )                                    */
+/*--------------------------------------------------------------------------*/
+/*  Scope     : Return the signature of LOCK parameters                     */
+/*                                                                          */
+/*  Return    : Pointer to the computed signature.                          */
+/*                                                                          */
+/*  Interface : - u8 *Param:                                                */
+/*                Pointer to a buffer containing the LOCK parameters.       */
+/*                                                                          */
+/*              - u8 ParamLen:                                              */
+/*                Size of the LOCK parameters buffer.                       */
+/*                                                                          */
+/*              - u8 *KeySignature:                                         */
+/*                Pointer to a buffer containing all the signatures of the  */
+/*                unlock control keys.                                      */
+/*                                                                          */
+/*              - u8 NbKeySignature:                                        */
+/*                Number of signatures in the buffer.                       */
+/*                                                                          */
+/*              - u16 KeySignatureLen:                                      */
+/*                Size of each unlock control key signature.                */
+/*                                                                          */
+/*              - u8 *Signature:                                            */
+/*                Pointer to 32 bytes buffer which receive the computed     */
+/*                signature.                                                */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*                    |   |   |   |                                         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+u8 *mmt_GetParamSignature( u8 *Param, u8 ParamLen, u32 HwId, u8 *KeySignature, u8 NbKeySignature, u8 KeySignatureLen, u32 CustomerKey, u8 *Signature );
+
+
+/****************************************************************************/
+/*  Function  : mmt_GetKeySignature( )                                      */
+/*--------------------------------------------------------------------------*/
+/*  Scope     : Return the signature of a lock control key                  */
+/*                                                                          */
+/*  Return    : Pointer to the computed signature.                          */
+/*                                                                          */
+/*  Interface : - u8 *Key:                                                  */
+/*                Pointer to the buffer containing the unlock control key.  */
+/*                                                                          */
+/*              - u8 KeyLen:                                                */
+/*                Size of the unlock control key.                           */
+/*                                                                          */
+/*              - u32 HwId:                                                 */
+/*                Hardware ID.                                              */
+/*                                                                          */
+/*              - u8 *Signature:                                            */
+/*                Pointer to 32 bytes buffer which receive the computed     */
+/*                signature.                                                */
+/*                                                                          */
+/*--------------------------------------------------------------------------*/
+/*  Variable Name     |IN |OUT|GLB|  Use                                    */
+/*--------------------+---+---+---+-----------------------------------------*/
+/*                    |   |   |   |                                         */
+/*--------------------+---+---+---+-----------------------------------------*/
+/****************************************************************************/
+u8 *mmt_GetKeySignature( u8 *Key, u8 KeyLen, u32 HwId, u8 *Signature );
+
+#endif

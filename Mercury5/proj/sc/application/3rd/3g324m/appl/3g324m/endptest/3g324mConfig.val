@@ -1,0 +1,184 @@
+# RADVISION H.323 Stack Configuration File
+#
+# Value encodings:
+#    ''   -  String (and asciiz is not appended)
+#    ""   -  BMP string of ASCII charactes
+#    []   -  Hex octet string
+#    <>   -  IP
+#    {}   -  Object ID
+#   Other -  Integer
+
+
+
+1 3g324mSystem = 0
++  maxCalls = 2
+   maxTransmittingChannels = 4
+   maxReceivingChannels = 4
+#   controlBufferSize = 10000
+#   controlNumOfBuffers = 20
+#   logicalChannelBufferSize = 2000
+#   logicalChannelNumOfBuffers = 50
+#   h223 = 0
+#+   sendQueueSizePerChannel = 50
+#    sendBufferSize = 200
+
+1 h245 = 0
++  masterSlave = 0
++   terminalType = 50
+    timeout = 1000
+-  capabilities = 0
++   terminalCapabilitySet = 0
++    sequenceNumber = 0
+     protocolIdentifier = [00]
+     multiplexCapability = 0
++     h223Capability = 0
++      transportWithI-frames = 0
+       videoWithAL1 = 0
+       videoWithAL2 = 1
+       videoWithAL3 = 1
+       audioWithAL1 = 0
+       audioWithAL2 = 1
+       audioWithAL3 = 0
+       dataWithAL1 = 0
+       dataWithAL2 = 0
+       dataWithAL3 = 0
+       maximumAl2SDUSize = 1024
+       maximumAl3SDUSize = 1024
+       maximumDelayJitter = 10
+       h223MultiplexTableCapability = 0
++       basic = 0
+-      maxMUXPDUSizeCapability = 1
+       nsrpSupport = 1
+       mobileOperationTransmitCapability = 0
++       modeChangeCapability = 0
+        h223AnnexA = 0
+        h223AnnexADoubleFlag = 1
+        h223AnnexB = 1
+        h223AnnexBwithHeader = 1
+
+4    capabilityTable = 0
++     * = 0
++      capabilityTableEntryNumber = 7111
+       capability = 0
++       receiveAudioCapability = 0
++        g711Ulaw64k = 60
+
+5     * = 0
++      capabilityTableEntryNumber = 7110
+       capability = 0
++       receiveAudioCapability = 0
++        g711Alaw64k = 60
+
+5     * = 0
++      capabilityTableEntryNumber = 728
+       capability = 0
++       receiveAudioCapability = 0
++        g728 = 60
+
+5     * = 0
++      capabilityTableEntryNumber = 261
+       capability = 0
++       receiveVideoCapability = 0
++        h261VideoCapability = 0
++         qcifMPI = 1
+          cifMPI = 1
+          temporalSpatialTradeOffCapability = 0
+          maxBitRate = 600
+          stillImageTransmission = 0
+
+5     * = 0
++      capabilityTableEntryNumber = 263
+       capability = 0
++       receiveVideoCapability = 0
++        h263VideoCapability = 0
++         sqcifMPI = 1
+          qcifMPI = 1
+          cifMPI = 1
+          maxBitRate = 1000
+          unrestrictedVector = 0
+          arithmeticCoding = 0
+          advancedPrediction = 0
+          pbFrames = 0
+          temporalSpatialTradeOffCapability = 0
+          errorCompensation = 0
+
+5     * = 0
++      capabilityTableEntryNumber = 7231
+       capability = 0
++       receiveAudioCapability = 0
++        g7231 = 0
++         maxAl-sduAudioFrames = 8
+          silenceSuppression = 0
+
+5     * = 0
++      capabilityTableEntryNumber = 120
+       capability = 0
++       receiveAndTransmitDataApplicationCapability = 0
++        application = 0
++         t120 = 0
++          separateLANStack = 0
+8        maxBitRate = 1000
+
+4    capabilityDescriptors = 0
++     * = 0
++      capabilityDescriptorNumber = 0
+       simultaneousCapabilities = 0
++       * = 0
++        * = 7111
+         * = 7110
+         * = 7231
+         * = 728
+-       * = 0
++        * = 261
+         * = 263
+-       * = 0
++        * = 120
+
+3   timeout = 1000
+-  channels = 0
++   * = 0
++    name = 'g711Alaw64k'
+     dataType = 0
++     audioData = 0
++      g711Alaw64k = 60
+
+3   * = 0
++    name = 'amr'
+     dataType = 0
++     audioData = 0
++      genericAudioCapability = 0
++       capabilityIdentifier = 0
++        standard = { itu-t(0) recommendation(0) h(8) 245 generic-capabilities(1) audio(1) amr(1) }
+-       maxBitRate = 122
+        collapsing = 0
++        * = 0
++         parameterIdentifier = 0
++          standard = 0
+-         parameterValue = 0
++          unsignedMin = 1
+
+3   * = 0
++    name = 'mpeg4'
+     dataType = 0
++     videoData = 0
++      genericVideoCapability = 0
++       capabilityIdentifier = 0
++        standard = { itu-t(0) recommendation(0) h(8) 245 generic-capabilities(1) video(0) iso-iec14496-2(0) }
+-       maxBitRate = 640
+        nonCollapsing
+8        * = 0
++         parameterIdentifier = 0
++          standard = 0
+-         parameterValue = 0
++          unsignedMax = 8
+8        * = 0
++         parameterIdentifier = 0
++          standard = 1
+-         parameterValue = 0
++          unsignedMax = 1
+
+
+
+
+
+
